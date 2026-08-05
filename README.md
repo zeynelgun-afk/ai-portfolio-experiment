@@ -24,7 +24,7 @@ Stop ihlalinde otomasyon pozisyonu kural gereği kapatır ve işlemi günlüğe 
 
 ### Gerekli secrets (Settings → Secrets → Actions)
 
-- `ANTHROPIC_API_KEY` — Claude karar turu için (yoksa adım atlanır, deney mekanik modda sürer)
+- `OPENROUTER_API_KEY` — Claude karar turu için (OpenRouter üzerinden) (yoksa adım atlanır, deney mekanik modda sürer)
 - `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — haftalık Telegram raporu (yoksa adım atlanır)
 
 ## Dosyalar

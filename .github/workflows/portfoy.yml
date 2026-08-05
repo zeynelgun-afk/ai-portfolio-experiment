@@ -18,7 +18,7 @@ jobs:
   tur:
     runs-on: ubuntu-latest
     env:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
@@ -34,13 +34,16 @@ jobs:
       - name: 1) Mekanik güncelleme (değerleme + stop kuralı)
         run: python guncelle.py
 
-      - name: 2) Claude karar turu
-        if: env.ANTHROPIC_API_KEY != ''
+      - name: 2) Claude karar turu (OpenRouter üzerinden)
+        if: env.OPENROUTER_API_KEY != ''
         uses: anthropics/claude-code-action@v1
+        env:
+          ANTHROPIC_BASE_URL: https://openrouter.ai/api
+          ANTHROPIC_SMALL_FAST_MODEL: anthropic/claude-haiku-4.5
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           prompt: "HAFTALIK_TALIMAT.md dosyasını oku ve talimatları eksiksiz uygula."
-          claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60'
+          claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-sonnet-4.5'
 
       - name: 3) Raporu tazele
         run: python guncelle.py
