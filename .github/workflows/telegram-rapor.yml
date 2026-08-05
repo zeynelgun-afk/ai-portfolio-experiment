@@ -1,0 +1,45 @@
+name: Telegram Raporu (manuel)
+
+# Haftalık turu tekrarlamadan mevcut TELEGRAM.txt raporunu yeniden gönderir.
+# Kullanım: Actions → Telegram Raporu (manuel) → Run workflow
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gonder:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Telegram raporu
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text@TELEGRAM.txt" \
+            -o /dev/null -w "Telegram HTTP durum: %{http_code}\n"
+
+      - name: Denetim hatırlatması
+        run: |
+          HAFTA=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
+          if [ "$HAFTA" -le 4 ]; then
+            EK="İlk 3-4 haftadaki bu denetim, tam otonom sistemin en önemli işi — atlama."
+          else
+            EK="Sistem oturdu; yine de günlüğü düzenli okumak karar kalitesini korur."
+          fi
+          MESAJ=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s' \
+            "🔍 Denetim hatırlatması (Hafta ${HAFTA})" \
+            "Karar günlüğünü gözden geçir: otonom Claude bu hafta ne yaptı, gerekçeleri sağlam mı?" \
+            "Kalibrasyon gerekirse bir Claude oturumunda 'karar günlüğünü birlikte inceleyelim' de — HAFTALIK_TALIMAT.md birlikte güncellenir." \
+            "${EK}" \
+            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/KARAR_GUNLUGU.md")
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MESAJ}" \
+            -o /dev/null -w "Hatırlatma HTTP durum: %{http_code}\n"
