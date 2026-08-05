@@ -56,3 +56,56 @@ Bu portföyün tek büyük riski temanın kendisi: AI harcama döngüsü kırıl
 Agresif hedefin bedeli bu.
 
 **Sonraki gözden geçirme:** ~12 Ağustos 2026 (haftalık) veya kullanıcı istediğinde.
+
+---
+
+## #2 — 5 Ağustos 2026 · HAFTALIK TUR (İLK GÜN KONTROLÜ)
+
+**Piyasa bağlamı:** Portföy dün (5 Ağustos) kuruldu. Veriler 4 Ağustos kapanış bazlı;
+piyasa henüz açık değil (UTC 06:29). AMD ve ANET bilançoları dün gerçekleşti, SNDK bilançosu bugün.
+
+**Teknik durum — Mevcut pozisyonlar:**
+- **MU (892.67 $):** Fiyat < SMA50 (969) ancak >> SMA200 (525), RSI 49. 1ay -9,4%, 3ay +72,6%. 
+  Stop 730 $ (%+22,3 mesafe). Bilanço 23 Eylül. Güvenli bölge.
+- **AMD (518.58 $):** Fiyat > SMA50 (514) >> SMA200 (315), RSI 48. 1ay -6,1%, 3ay +46,3%. 
+  Stop 440 $ (%+17,9 mesafe). Bilanço dün (4 Ağu). Güvenli bölge.
+- **SNDK (1427.62 $):** Fiyat < SMA50 (1705) >> SMA200 (855), RSI 44. 1ay -18,2%, 3ay +30,2%. 
+  Stop 1100 $ (%+29,8 mesafe). Bilanço BUGÜN (5 Ağu) — sonuç henüz belli değil. Güvenli bölge.
+- **ANET (190.51 $):** Fiyat >> SMA50 (168) >> SMA200 (146), RSI 65. 1ay +9,9%, 3ay +10,3%. 
+  Stop 160 $ (%+19,1 mesafe). Bilanço dün (4 Ağu). En güçlü görünüm.
+- **AVGO (418.16 $):** Fiyat > SMA50 (395) > SMA200 (365), RSI 59. 1ay +11,8%, 3ay +0,3%. 
+  Stop 350 $ (%+19,5 mesafe). Bilanço 2 Eylül. Sağlıklı momentum.
+
+**İzleme listesi notları:**
+- **NVDA (211.94 $):** Fiyat > 50g > 200g, RSI 50, 1ay +8,4%. Sağlıklı trend — daha yüksek 
+  beta için sonraki turlarda değerlendirilebilir.
+- **MSFT (492.81 $):** RSI 81 (AŞIRI ALIM), 1ay +27,4%. Tehlikeli bölge — girilmez.
+- **PLTR (162.66 $):** RSI 69 (aşırı alım yakın), 1ay +22,7%. Agresif momentum ama çok sıcak.
+- **TSM/MRVL:** SMA50'nin altında, dönüş teyidi bekleniyor (ilk planda belirtildiği gibi).
+- **VRT (269.93 $):** RSI 39, 3ay -17,8%. Zayıf — izleme listesinden çıkartılabilir.
+
+**Stop kontrolü:** Hiçbir pozisyon stop seviyesinin yakınında değil. En dar mesafe AMD'de 
+%+17,9 (stop 440 $, fiyat 518,58 $). Tüm pozisyonlar güvenli bölgede.
+
+### KARAR: İŞLEM YOK
+
+**Gerekçe:** 
+1. Portföy daha yeni kuruldu (< 24 saat). Haftalık kontrol döngüsü için çok erken; 
+   pozisyonların en az 1 hafta gelişimini görmek disiplinli yaklaşım gerektirir.
+2. SNDK bilançosu bugün ama sonuçlar henüz açıklanmadı. Piyasa tepkisini görmeden işlem yapmak 
+   varsayım üzerine hareket etmek demektir (tüzüğe aykırı).
+3. AMD ve ANET bilançolarının dün olduğu biliniyor ama piyasa henüz açık değil; fiyat etkisi 
+   bugünün seansında izlenecek.
+4. Stop ihlali yok, hiçbir pozisyon acil müdahale gerektirmiyor.
+5. Nakit %10 (10.000 $) — fırsat için yeterli barut var, acele etmeye gerek yok.
+
+**Risk notu:** SNDK bilançosu bugün — volatilite beklenmeli. Pozisyon %15 ağırlıkta ve stop 
+%+29,8 mesafede; bilanço olumsuz çıksa bile stop mesafesi rahatsız edici bir düşüşü absorbe eder. 
+Ancak bir sonraki kontrolde (haftalık bazda) bilanço etkisi değerlendirilmeli.
+
+**İzleme listesi aksiyonu:**
+- **VRT:** 3 ay getirisi negatif, RSI zayıf. Sonraki turda çıkartılmasına karar verilebilir.
+- **NVDA:** Sonraki kontrolde daha yüksek beta için portföye ekleme adayı (nakit varsa).
+
+**Sonraki gözden geçirme:** 12 Ağustos 2026 (haftalık tam tur) + SNDK/AMD/ANET bilanço etkilerinin 
+değerlendirilmesi.
