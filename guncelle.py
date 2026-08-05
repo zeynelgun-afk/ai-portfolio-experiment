@@ -23,6 +23,7 @@ RAPOR_YOLU = os.path.join(BASE, "RAPOR.md")
 GECMIS_YOLU = os.path.join(BASE, "gecmis.csv")
 GUNLUK_YOLU = os.path.join(BASE, "KARAR_GUNLUGU.md")
 IHLAL_YOLU = os.path.join(BASE, "STOP_IHLALI.md")
+TG_YOLU = os.path.join(BASE, "TELEGRAM.txt")
 
 
 def kapanislari_cek(semboller):
@@ -83,15 +84,26 @@ def main():
     spy_val = baslangic * fiyatlar["SPY"] / pf["benchmark"]["SPY_referans"]
     smh_val = baslangic * fiyatlar["SMH"] / pf["benchmark"]["SMH_referans"]
 
-    # --- Geçmiş (equity curve) ---
-    yeni_dosya = not os.path.exists(GECMIS_YOLU)
-    with open(GECMIS_YOLU, "a", newline="", encoding="utf-8") as f:
+    # --- Geçmiş (equity curve; aynı günün kaydı varsa üzerine yazılır) ---
+    eski_satirlar = []
+    if os.path.exists(GECMIS_YOLU):
+        with open(GECMIS_YOLU, newline="", encoding="utf-8") as f:
+            eski_satirlar = [r for r in csv.reader(f)
+                             if r and r[0] not in ("tarih", bugun)]
+    with open(GECMIS_YOLU, "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        if yeni_dosya:
-            w.writerow(["tarih", "portfoy_usd", "spy_usd", "smh_usd"])
+        w.writerow(["tarih", "portfoy_usd", "spy_usd", "smh_usd"])
+        w.writerows(eski_satirlar)
         w.writerow([bugun, f"{toplam:.2f}", f"{spy_val:.2f}", f"{smh_val:.2f}"])
 
     # --- Rapor ---
+    if ihlaller:
+        stop_notu = chr(10).join(ihlaller)
+    elif os.path.exists(IHLAL_YOLU):
+        stop_notu = ("Bu koşumda stop uygulandı — detay: KARAR_GUNLUGU.md "
+                     "ve açılan Issue.")
+    else:
+        stop_notu = "İhlal yok — tüm pozisyonlar stop seviyelerinin üzerinde."
     satirlar = []
     for p in pf["pozisyonlar"]:
         fiyat = fiyatlar[p["sembol"]]
@@ -128,7 +140,7 @@ Fark vs SPY: **%{(toplam - spy_val) / baslangic * 100:+.2f}** · vs SMH: **%{(to
 
 ## Stop kontrolü
 
-{chr(10).join(ihlaller) if ihlaller else "İhlal yok — tüm pozisyonlar stop seviyelerinin üzerinde."}
+{stop_notu}
 
 *Otomatik rapor (guncelle.py). Kararlar ve tezler: KARAR_GUNLUGU.md*
 """
@@ -139,6 +151,32 @@ Fark vs SPY: **%{(toplam - spy_val) / baslangic * 100:+.2f}** · vs SMH: **%{(to
     with open(PF_YOLU, "w", encoding="utf-8") as f:
         json.dump(pf, f, ensure_ascii=False, indent=2)
         f.write("\n")
+
+    # --- Telegram özeti (workflow bu dosyayı gönderir) ---
+    poz_ozet = "\n".join(
+        f"• {p['sembol']}: {fiyatlar[p['sembol']]:.2f} $ "
+        f"(%{(fiyatlar[p['sembol']] / p['giris_fiyati'] - 1) * 100:+.1f})"
+        for p in pf["pozisyonlar"]
+    )
+    if ihlaller:
+        stop_tg = "🛑 STOP uygulandı:\n" + "\n".join(
+            i.replace("**", "") for i in ihlaller)
+    elif os.path.exists(IHLAL_YOLU):
+        stop_tg = "🛑 Bu hafta stop uygulandı — detay repo'da."
+    else:
+        stop_tg = "✅ Stop ihlali yok."
+    with open(TG_YOLU, "w", encoding="utf-8") as f:
+        f.write(
+            f"📊 AI Portföy Deneyi — {bugun}\n\n"
+            f"Toplam: {toplam:,.0f} $ (%{(toplam / baslangic - 1) * 100:+.2f})\n"
+            f"SPY: %{(spy_val / baslangic - 1) * 100:+.2f} · "
+            f"SMH: %{(smh_val / baslangic - 1) * 100:+.2f}\n"
+            f"Fark vs SPY: %{(toplam - spy_val) / baslangic * 100:+.2f}\n\n"
+            f"Pozisyonlar:\n{poz_ozet}\n"
+            f"Nakit: {pf['nakit_usd']:,.0f} $\n\n"
+            f"{stop_tg}\n\n"
+            f"Detay: https://github.com/zeynelgun-afk/ai-portfoy-deneyi"
+        )
 
     # --- GitHub Actions çıktısı ---
     gh_out = os.environ.get("GITHUB_OUTPUT")

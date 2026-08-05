@@ -1,4 +1,4 @@
-name: Haftalık Portföy Güncellemesi
+name: Haftalık Portföy Turu
 
 on:
   schedule:
@@ -10,9 +10,17 @@ permissions:
   contents: write
   issues: write
 
+concurrency:
+  group: portfoy-turu
+  cancel-in-progress: false
+
 jobs:
-  guncelle:
+  tur:
     runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
 
@@ -23,23 +31,41 @@ jobs:
       - name: Bağımlılıklar
         run: pip install yfinance
 
-      - name: Portföyü güncelle
-        id: guncelle
+      - name: 1) Mekanik güncelleme (değerleme + stop kuralı)
         run: python guncelle.py
 
-      - name: Değişiklikleri commit'le
+      - name: 2) Claude karar turu
+        if: env.ANTHROPIC_API_KEY != ''
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: "HAFTALIK_TALIMAT.md dosyasını oku ve talimatları eksiksiz uygula."
+          claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60'
+
+      - name: 3) Raporu tazele
+        run: python guncelle.py
+
+      - name: 4) Commit + push
         run: |
           git config user.name "portfoy-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --cached --quiet || git commit -m "Otomatik portföy güncellemesi ($(date +%F))"
+          git diff --cached --quiet || git commit -m "Haftalık tur ($(date +%F))"
           git push
 
-      - name: Stop ihlali bildirimi
-        if: steps.guncelle.outputs.stop_ihlali == 'true'
+      - name: 5) Stop ihlali bildirimi (Issue)
+        if: hashFiles('STOP_IHLALI.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create \
-            --title "🛑 Stop ihlali — pozisyon(lar) kapatıldı: ${{ steps.guncelle.outputs.ihlal_listesi }}" \
+            --title "🛑 Stop ihlali — pozisyon(lar) otomatik kapatıldı ($(date +%F))" \
             --body-file STOP_IHLALI.md
+
+      - name: 6) Telegram raporu
+        if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text@TELEGRAM.txt" \
+            -o /dev/null -w "Telegram HTTP durum: %{http_code}\n"

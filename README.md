@@ -11,14 +11,21 @@ yönetebilir mi?
 
 ## Nasıl çalışıyor?
 
-| Katman | Kim | Ne yapar |
-|---|---|---|
-| **Karar** | Claude (oturumda) | Veri analizi, yazılı tez, al/sat kararları → [KARAR_GUNLUGU.md](KARAR_GUNLUGU.md) |
-| **Mekanik** | GitHub Actions (haftalık, Cmt 06:00 UTC) | Fiyat çekme, değerleme, SPY/SMH kıyası, stop kuralı uygulama → [RAPOR.md](RAPOR.md) |
-| **Kurallar** | [DENEY_KURALLARI.md](DENEY_KURALLARI.md) | Kimsenin (AI dahil) çiğneyemediği tüzük |
+Her Cumartesi 06:00 UTC'de (Cuma kapanışı sonrası) GitHub Actions şu turu koşar:
 
-Stop ihlalinde otomasyon pozisyonu kural gereği kapatır, işlemi günlüğe yazar ve
-GitHub Issue açarak haber verir. Takdir gerektiren hiçbir karar otomasyonda değildir.
+| Adım | Kim | Ne yapar |
+|---|---|---|
+| 1. Mekanik | `guncelle.py` | Fiyat çekme, değerleme, SPY/SMH kıyası, stop kuralı uygulama → [RAPOR.md](RAPOR.md) |
+| 2. Karar | Claude (claude-code-action) | [HAFTALIK_TALIMAT.md](HAFTALIK_TALIMAT.md) uyarınca veri analizi, yazılı tez, al/sat → [KARAR_GUNLUGU.md](KARAR_GUNLUGU.md) |
+| 3. Bildirim | Telegram + Issue | Haftalık özet Telegram'a; stop ihlali olduysa 🛑 Issue |
+| Tüzük | [DENEY_KURALLARI.md](DENEY_KURALLARI.md) | Kimsenin (AI dahil) çiğneyemediği kurallar |
+
+Stop ihlalinde otomasyon pozisyonu kural gereği kapatır ve işlemi günlüğe yazar.
+
+### Gerekli secrets (Settings → Secrets → Actions)
+
+- `ANTHROPIC_API_KEY` — Claude karar turu için (yoksa adım atlanır, deney mekanik modda sürer)
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — haftalık Telegram raporu (yoksa adım atlanır)
 
 ## Dosyalar
 
