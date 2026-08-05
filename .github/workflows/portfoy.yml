@@ -1,0 +1,45 @@
+name: Haftalık Portföy Güncellemesi
+
+on:
+  schedule:
+    # Cumartesi 06:00 UTC — Cuma kapanışı sonrası (kural #3: haftalık kapanış bazlı stop)
+    - cron: '0 6 * * 6'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  guncelle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Bağımlılıklar
+        run: pip install yfinance
+
+      - name: Portföyü güncelle
+        id: guncelle
+        run: python guncelle.py
+
+      - name: Değişiklikleri commit'le
+        run: |
+          git config user.name "portfoy-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Otomatik portföy güncellemesi ($(date +%F))"
+          git push
+
+      - name: Stop ihlali bildirimi
+        if: steps.guncelle.outputs.stop_ihlali == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "🛑 Stop ihlali — pozisyon(lar) kapatıldı: ${{ steps.guncelle.outputs.ihlal_listesi }}" \
+            --body-file STOP_IHLALI.md
