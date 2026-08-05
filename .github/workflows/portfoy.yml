@@ -9,6 +9,8 @@ on:
 permissions:
   contents: write
   issues: write
+  id-token: write
+  actions: read
 
 concurrency:
   group: portfoy-turu
@@ -42,6 +44,7 @@ jobs:
           ANTHROPIC_SMALL_FAST_MODEL: anthropic/claude-haiku-4.5
         with:
           anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
+          github_token: ${{ github.token }}
           prompt: "HAFTALIK_TALIMAT.md dosyasını oku ve talimatları eksiksiz uygula."
           claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-sonnet-4.5'
 
