@@ -2,7 +2,7 @@ name: Haftalık Portföy Turu
 
 on:
   schedule:
-    # Cumartesi 06:00 UTC — Cuma kapanışı sonrası (kural #3: haftalık kapanış bazlı stop)
+    # Cumartesi 06:00 UTC — Cuma kapanışı sonrası (haftalık kapanış verisiyle karar turu)
     - cron: '0 6 * * 6'
   workflow_dispatch:
 
@@ -33,7 +33,7 @@ jobs:
       - name: Bağımlılıklar
         run: pip install yfinance
 
-      - name: 1) Mekanik güncelleme (değerleme + stop kuralı)
+      - name: 1) Değerleme + çıkış seviyesi uyarısı (karar vermez)
         run: python guncelle.py
 
       - name: 2) Claude karar turu (OpenRouter üzerinden)
@@ -59,13 +59,13 @@ jobs:
           git diff --cached --quiet || git commit -m "Haftalık tur ($(date +%F))"
           git push
 
-      - name: 5) Stop ihlali bildirimi (Issue)
+      - name: 5) Çıkış seviyesi bildirimi (Issue)
         if: hashFiles('STOP_IHLALI.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create \
-            --title "🛑 Stop ihlali — pozisyon(lar) otomatik kapatıldı ($(date +%F))" \
+            --title "⚠️ Çıkış seviyesi altında — AI'ın kararı günlükte ($(date +%F))" \
             --body-file STOP_IHLALI.md
 
       - name: 6) Telegram raporu

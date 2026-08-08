@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """AI Portföy Deneyi — otomatik güncelleme.
 
-Yaptıkları (tamamı DENEY_KURALLARI.md'deki mekanik kurallar; takdir gerektiren
-karar İÇERMEZ — al/sat tezleri oturumda AI tarafından verilir):
+Yaptıkları (yalnızca ölçüm ve raporlama; HİÇBİR karar vermez — tüzük sürüm 2'den
+itibaren al/sat kararlarının tamamı AI'a aittir):
   1. Güncel kapanış fiyatlarını çeker (yfinance, anahtar gerekmez).
   2. Portföyü değerler, SPY/SMH kıyasını hesaplar.
-  3. Stop kuralını uygular: son haftalık kapanış stop altındaysa pozisyonu
-     kapatır (kural #3 — mekanik), işlemi ve günlük kaydını yazar.
-  4. RAPOR.md ve gecmis.csv üretir; GitHub Actions için ihlal çıktısı verir.
+  3. Çıkış seviyesinin altına düşen pozisyonları İŞARETLER — kapatmaz. Kapatma
+     kararı haftalık turda AI'a aittir.
+  4. RAPOR.md ve gecmis.csv üretir; GitHub Actions için uyarı çıktısı verir.
 """
 
 import csv
@@ -21,7 +21,6 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 PF_YOLU = os.path.join(BASE, "portfoy.json")
 RAPOR_YOLU = os.path.join(BASE, "RAPOR.md")
 GECMIS_YOLU = os.path.join(BASE, "gecmis.csv")
-GUNLUK_YOLU = os.path.join(BASE, "KARAR_GUNLUGU.md")
 IHLAL_YOLU = os.path.join(BASE, "STOP_IHLALI.md")
 TG_YOLU = os.path.join(BASE, "TELEGRAM.txt")
 
@@ -45,37 +44,29 @@ def main():
     fiyatlar, veri_tarihi = kapanislari_cek(semboller)
     bugun = date.today().isoformat()
 
-    # --- Kural #3: mekanik stop kontrolü (haftalık kapanış bazlı) ---
+    # --- Çıkış seviyesi kontrolü: yalnızca UYARI, infaz yok ---
+    # Tüzük sürüm 2: kapatma kararı AI'ındır. Burada pozisyona dokunulmaz.
     ihlaller = []
-    kalanlar = []
     for p in pf["pozisyonlar"]:
         kapanis = fiyatlar[p["sembol"]]
         if kapanis < p["stop_haftalik_kapanis"]:
-            tutar = round(p["adet"] * kapanis, 2)
-            pf["nakit_usd"] = round(pf["nakit_usd"] + tutar, 2)
-            pf["islem_gecmisi"].append({
-                "tarih": bugun, "islem": "SAT (STOP)", "sembol": p["sembol"],
-                "adet": p["adet"], "fiyat": kapanis, "tutar_usd": tutar,
-            })
             getiri = (kapanis / p["giris_fiyati"] - 1) * 100
             ihlaller.append(
-                f"- **{p['sembol']}**: kapanış {kapanis:.2f} $ < stop "
-                f"{p['stop_haftalik_kapanis']} $ → pozisyon kapatıldı "
-                f"({tutar:,.0f} $ nakde geçti, getiri %{getiri:+.1f})"
+                f"- **{p['sembol']}**: kapanış {kapanis:.2f} $ < çıkış seviyesi "
+                f"{p['stop_haftalik_kapanis']} $ (getiri %{getiri:+.1f}) "
+                f"→ KARAR AI'A AİT: kapat, seviyeyi güncelle ya da gerekçeyle taşı"
             )
-        else:
-            kalanlar.append(p)
-    pf["pozisyonlar"] = kalanlar
 
     if ihlaller:
-        with open(GUNLUK_YOLU, "a", encoding="utf-8") as f:
-            f.write(f"\n---\n\n## OTOMATİK — {bugun} · STOP UYGULAMASI (kural #3)\n\n"
-                    + "\n".join(ihlaller)
-                    + "\n\nMekanik uygulama; yeniden giriş kararı bir sonraki "
-                      "oturumda tezle birlikte değerlendirilir.\n")
         with open(IHLAL_YOLU, "w", encoding="utf-8") as f:
-            f.write(f"# Stop ihlali — {bugun}\n\nVeri tarihi: {veri_tarihi}\n\n"
-                    + "\n".join(ihlaller) + "\n")
+            f.write(f"# Çıkış seviyesi uyarısı — {bugun}\n\n"
+                    f"Veri tarihi: {veri_tarihi}\n\n"
+                    + "\n".join(ihlaller)
+                    + "\n\nOtomatik kapatma YAPILMADI. Bu turda AI'ın kararı ve "
+                      "gerekçesi KARAR_GUNLUGU.md'ye yazılır.\n")
+    elif os.path.exists(IHLAL_YOLU):
+        # Uyarı geçmişse bayrağı temizle; yoksa dosya kalıcı olarak asılı kalıyordu.
+        os.remove(IHLAL_YOLU)
 
     # --- Değerleme ---
     poz_deger = sum(p["adet"] * fiyatlar[p["sembol"]] for p in pf["pozisyonlar"])
@@ -98,12 +89,10 @@ def main():
 
     # --- Rapor ---
     if ihlaller:
-        stop_notu = chr(10).join(ihlaller)
-    elif os.path.exists(IHLAL_YOLU):
-        stop_notu = ("Bu koşumda stop uygulandı — detay: KARAR_GUNLUGU.md "
-                     "ve açılan Issue.")
+        stop_notu = (chr(10).join(ihlaller)
+                     + "\n\n*Otomatik kapatma yapılmadı — karar AI'a aittir.*")
     else:
-        stop_notu = "İhlal yok — tüm pozisyonlar stop seviyelerinin üzerinde."
+        stop_notu = "Uyarı yok — tüm pozisyonlar çıkış seviyelerinin üzerinde."
     satirlar = []
     for p in pf["pozisyonlar"]:
         fiyat = fiyatlar[p["sembol"]]
@@ -159,12 +148,10 @@ Fark vs SPY: **%{(toplam - spy_val) / baslangic * 100:+.2f}** · vs SMH: **%{(to
         for p in pf["pozisyonlar"]
     )
     if ihlaller:
-        stop_tg = "🛑 STOP uygulandı:\n" + "\n".join(
+        stop_tg = "⚠️ Çıkış seviyesi altında (karar AI'da):\n" + "\n".join(
             i.replace("**", "") for i in ihlaller)
-    elif os.path.exists(IHLAL_YOLU):
-        stop_tg = "🛑 Bu hafta stop uygulandı — detay repo'da."
     else:
-        stop_tg = "✅ Stop ihlali yok."
+        stop_tg = "✅ Çıkış seviyesi uyarısı yok."
     with open(TG_YOLU, "w", encoding="utf-8") as f:
         f.write(
             f"📊 AI Portföy Deneyi — {bugun}\n\n"

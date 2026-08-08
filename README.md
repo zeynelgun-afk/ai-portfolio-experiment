@@ -1,8 +1,8 @@
 # AI Portföy Deneyi 🤖📈
 
-**Hipotez:** Duygusuz, kurallara sadık bir AI karar vericisi; yazılı tezler ve katı risk
-kurallarıyla agresif bir portföyü, insan davranışsal hatalarından arındırılmış şekilde
-yönetebilir mi?
+**Hipotez:** Kararın tamamı yapay zekâya bırakılmış — ama her hamlesini yazmak ve
+sonucuna sahip çıkmak zorunda olan — bir portföy, 12 ayda piyasayı yenebilir mi?
+Ölçülen şey kurallara uyum değil, serbest kararın hesap verebilirlikle birleşimi.
 
 - **Başlangıç:** 5 Ağustos 2026 · 100.000 $ (sanal — kağıt üzerinde, gerçek para yok)
 - **Evren:** ABD büyük teknoloji + yarı iletken/AI altyapısı
@@ -15,12 +15,13 @@ Her Cumartesi 06:00 UTC'de (Cuma kapanışı sonrası) GitHub Actions şu turu k
 
 | Adım | Kim | Ne yapar |
 |---|---|---|
-| 1. Mekanik | `guncelle.py` | Fiyat çekme, değerleme, SPY/SMH kıyası, stop kuralı uygulama → [RAPOR.md](RAPOR.md) |
+| 1. Ölçüm | `guncelle.py` | Fiyat çekme, değerleme, SPY/SMH kıyası, çıkış seviyesi uyarısı → [RAPOR.md](RAPOR.md) · **karar vermez** |
 | 2. Karar | Claude (claude-code-action) | [HAFTALIK_TALIMAT.md](HAFTALIK_TALIMAT.md) uyarınca veri analizi, yazılı tez, al/sat → [KARAR_GUNLUGU.md](KARAR_GUNLUGU.md) |
-| 3. Bildirim | Telegram + Issue | Haftalık özet Telegram'a; stop ihlali olduysa 🛑 Issue |
-| Tüzük | [DENEY_KURALLARI.md](DENEY_KURALLARI.md) | Kimsenin (AI dahil) çiğneyemediği kurallar |
+| 3. Bildirim | Telegram + Issue | Haftalık özet Telegram'a; çıkış seviyesi altına düşen pozisyon varsa ⚠️ Issue |
+| Tüzük | [DENEY_KURALLARI.md](DENEY_KURALLARI.md) | Karar kısıtı değil; kayıt dürüstlüğü ve ölçüm ilkeleri |
 
-Stop ihlalinde otomasyon pozisyonu kural gereği kapatır ve işlemi günlüğe yazar.
+Otomasyon pozisyon kapatmaz. Çıkış seviyesinin altına düşen pozisyonu **işaretler**;
+kapatma, seviyeyi güncelleme ya da gerekçeyle taşıma kararı AI'a aittir.
 
 ### Gerekli secrets (Settings → Secrets → Actions)
 
