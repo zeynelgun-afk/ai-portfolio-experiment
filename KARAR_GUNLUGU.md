@@ -109,3 +109,135 @@ Ancak bir sonraki kontrolde (haftalık bazda) bilanço etkisi değerlendirilmeli
 
 **Sonraki gözden geçirme:** 12 Ağustos 2026 (haftalık tam tur) + SNDK/AMD/ANET bilanço etkilerinin 
 değerlendirilmesi.
+
+---
+
+## #3 — 8 Ağustos 2026 · HAFTALIK TUR
+
+**Piyasa bağlamı:** AI altyapı temasında 3 günlük konsolidasyon. Portföy %-4.04 kaybetti 
+(SPY'dan %-4.3, SMH'den %-5.3 geride). Yarı iletkenler zayıf seyrediyor, bellek süper döngüsü 
+temasında düzeltme derinleşiyor. Makro: belirsizlik yüksek, sektör volatilitesi devam ediyor.
+
+**Teknik durum — Mevcut pozisyonlar (7 Ağustos kapanış):**
+
+- **MU (892.67 → 877.57, %-1.7):** Fiyat < 50g (971) >> 200g yok, RSI 50.9 (nötr). 1ay -10.4%, 
+  3ay +17.5%. Stop 730 (%+20.2 mesafe). Bilanço 23 Eylül. Trend zayıflıyor ancak stop güvenli. 
+  Haftalık 50g desteği kırıldı — momentum gücünü kaybediyor.
+
+- **AMD (518.58 → 483.36, %-6.8):** Fiyat < 50g (514), RSI 46.9. 1ay -13.4%, 3ay +6.2%. 
+  Stop 440 (%+9.9 mesafe) — **EN DAR STOP MESAFESĐ**. Bilanço 3 Kasım. 50g desteği hafifçe kırıldı; 
+  bir sonraki haftalık kapanış kritik (Cuma 11 Ağu). Stop ihlali riski yükseliyor.
+
+- **SNDK (1427.62 → 1212.21, %-15.1):** Fiyat << 50g (1688, %-28 altında), RSI 44.3 (zayıf). 
+  1ay **%-36.7**, 3ay %-22.4 — **PORTFÖYÜN EN KÖTÜ PERFORMANSI**. Stop 1100 (%+10.2 mesafe). 
+  Bilanço 6 Kasım. Momentum tamamen kırık; 50g direncini tamamen kaybetti. NAND döngüsü HBM'den 
+  çok daha volatil, düzeltme derinleşmeye devam edebilir. Stop mesafesi dar; bir hafta daha 
+  beklemek kayıpları stop seviyesine taşıyabilir.
+
+- **ANET (190.51 → 188.67, %-1.0):** Fiyat > 50g (171) >> 200g yok, RSI 63.1 (güçlü). 1ay +0.9%, 
+  3ay +33.1%. Stop 160 (%+17.9 mesafe). Bilanço 3 Kasım. **PORTFÖYÜN EN GÜÇLÜ TEKĐK GÖRÜNÜMÜ** — 
+  50g desteğini koruyor, momentum sağlam.
+
+- **AVGO (418.16 → 427.76, %+2.3):** Fiyat > 50g (395) > 200g yok, RSI **73.6 (AŞIRI ALIM)**. 
+  1ay +6.9%, 3ay -0.4%. Stop 350 (%+22.2 mesafe). Bilanço 2 Eylül (25 gün sonra). **TEK KAZANAN 
+  POZĐSYON** ancak RSI aşırı alım bölgesinde; kısa vadede düzeltme riski var.
+
+**Stop kontrolü:** Hiçbir pozisyon henüz stop ihlali yapmadı. En riskli: AMD (%+9.9) ve 
+SNDK (%+10.2). AMD'nin bu Cuma kapanışı (11 Ağustos) kritik seviye — 440$ altına düşerse 
+pozisyon tüzük gereği KAPATILIR.
+
+**İzleme listesi öne çıkanlar:**
+- **NVDA (223.96):** 50g > fiyat (206), RSI 65.6. 1ay +6.2%, güçlü momentum. Bilanço 26 Ağustos 
+  (18 gün sonra — bilanço kuralı sınırında). Değerlendirilebilir ama acele yok.
+- **PLTR (172.01):** Fiyat >> 50g (133), RSI 70, 1ay +35.7%. ÇOK SICAK — kovalamama kuralı geçerli.
+- **MSFT (499.99):** RSI **81.4 (ÇOK AŞIRI ALIM)**, 1ay +29.8%. Tehlikeli, girilmez.
+- **TSM (420.04):** 50g civarında (426), RSI 57.2. Dönüş teyidi bekleniyor (önceki planda belirtildi).
+- **VRT (272.40):** 50g altında (301), RSI 44, 1-3ay negatif. Zayıf trend — izleme listesinden 
+  çıkartılabilir.
+
+### KARAR 1: SAT — SNDK (Proaktif Zarar Kesimi)
+
+**İşlem:** 10.507 adet SNDK @ 1.212,21 $ → **+12.737 $ nakit**
+
+**Tez (kapanış):** SNDK'nın giriş tezi kırıldı. "AI depolama/NAND cephesi" teması sürse de 
+NAND döngüsünün HBM'den çok daha volatil olduğu ve düzeltmenin derinleşebileceği açıkça ortaya 
+çıktı. 3 günde %-15 kayıp; son 1 ayda %-36.7 — portföyün en kötü performansı. Fiyat 50g'nin 
+%-28 altında; momentum tamamen bozuk, dönüş sinyali yok (RSI 44, zayıf). Stop 1100$ henüz 
+ihlal edilmedi ama mesafe sadece %+10.2 — bir hafta daha düşüş devam ederse stop tetiklenecek 
+ve kayıp daha da büyüyecek (-%-23 olacak).
+
+**Risk yönetimi prensibi:** Stop disiplini "haftalık kapanışta ihlal varsa kapat" der ama bu 
+tezin bozulması halinde **proaktif çıkışı** engellemez. SNDK tezi açıkça kırık; stop ihlalini 
+beklemek kayıpları mekanik olarak büyütür. Daha güçlü fırsatlar için nakit yaratmak disiplinli 
+hamle. Agresif hedefin (3-5x) sağlıklı risk yönetimi gerektirdiği ilk portföy kurulumunda 
+belirtilmişti — bu o disiplinin ilk uygulaması.
+
+**Zarar:** -2.263 $ (%-15.1). **Yeni portföy ağırlıkları:** MU %30.7, AMD %19.4, ANET %15.5, 
+AVGO %10.7, NAKİT %22.7 (22.737 $).
+
+**Riskler:** Eğer SNDK buradan dönerse (örn. NAND talebi patlarsa) erken satmış oluruz. Ancak 
+mevcut teknik ve momentum hiçbir dönüş sinyali göstermiyor; en ihtimalli senaryo düşüşün 
+devamı. Zararı sınırlamak, daha iyi asimetri yakalamaktan öncelikli.
+
+### KARAR 2: TUT — MU, AMD, ANET, AVGO
+
+**MU:** Trend zayıfladı (50g altında) ama stop mesafesi (%+20.2) rahat. 23 Eylül bilançosuna 
+kadar fiyat aksiyonunu izle; stop ihlali yoksa tut. Tez hala geçerli (bellek süper döngüsü), 
+sadece zamanlama erken olmuş olabilir.
+
+**AMD:** **KRİTİK SEVĐYE** — stop 440 $, mesafe %+9.9. Bu Cuma kapanışı (11 Ağustos) 440 altındaysa 
+**KAPATILACAK** (tüzük gereği). Eğer 440 üzerinde kalırsa tut; AI hızlandırıcı tezi sağlam, 
+sadece sektör konsolidasyonu. Bir sonraki kontrolde (12 Ağustos veya hafta başı) stop ihlali 
+olup olmadığı değerlendirilecek.
+
+**ANET:** Portföyün en sağlıklı pozisyonu. 50g desteğini koruyor, momentum güçlü (RSI 63). 
+Minimal kayıpla (%-1) güç gösterisi yapıyor. Tut.
+
+**AVGO:** RSI 73.6 aşırı alım bölgesinde ve bilanço 25 gün sonra. Düzeltme riski var ancak 
+henüz stop tehlikesi yok (%+22.2 mesafe) ve tez bozulmadı (özel AI çipleri + ağ). Tüzük 
+"ikiye katlanan pozisyonda maliyetin bir kısmı çıkarılabilir" diyor — AVGO henüz %+2.3, iki 
+katına gelmedi. Kârı realize etmek ihtiyari; şimdilik **tut**, bilanço öncesinde (Ağustos sonu) 
+tekrar değerlendir.
+
+### KARAR 3: YENİ POZĐSYON YOK
+
+**Nakit:** 22.737 $ (%22.7 portföy). Tüzük %0-30 nakit serbest bırakıyor — mevcut seviye sınırda 
+ama yasal.
+
+**Neden yeni pozisyon yok?**
+1. **NVDA:** Güçlü (fiyat > 50g, RSI 65.6, 1ay +6.2%) ama bilanço 26 Ağustos (18 gün sonra). 
+   Tüzük: "Bilançoya 1 haftadan az kala yeni tam pozisyon açılmaz" — yani 19 Ağustos'tan 
+   sonra girilmez. Şimdi girilebilir ama acele yok; önce mevcut pozisyonların stop durumunu 
+   (AMD) netleştirmek daha disiplinli.
+
+2. **PLTR:** ÇOK SICAK (RSI 70, 1ay +35.7%). Kovalamama kuralı hala geçerli.
+
+3. **MSFT:** Aşırı alım (RSI 81.4). Düzeltme beklenmeli.
+
+4. **TSM/MRVL:** 50g civarında/altında, dönüş teyidi bekleniyor. Henüz net sinyal yok.
+
+5. **VRT:** Zayıf momentum (1-3ay negatif). İzleme listesinden çıkarılabilir.
+
+**Strateji:** Nakit barut olarak korunacak. AMD'nin Cuma stop kontrolü sonrası (11 Ağustos) 
+daha net resim olacak. Eğer AMD kapanırsa nakit ~%42'ye çıkar; eğer tutarsa mevcut %22.7 nakit 
+ile daha sağlam giriş fırsatı beklenecek (örn. TSM'de dönüş, NVDA'da pull-back, ya da yeni 
+tarama). Acele etmek yerine disiplinli bekleme.
+
+### PORTFÖY KARAKTERĐ (SNDK Sonrası)
+
+**Pozisyonlar:** 4 hisse (MU, AMD, ANET, AVGO) — hepsi AI altyapı teması.  
+**Nakit:** %22.7 (22.737 $)  
+**Risk profili:** SNDK kesimi ile en volatil ayak çıkarıldı; portföy biraz daha dengeli ama 
+hala agresif (tema konsantrasyonu devam ediyor). AMD'nin stop riski en büyük belirsizlik.
+
+**Performans (başlangıçtan beri):** %-4.04 (SNDK zararıyla birlikte). SPY %-4.3, SMH %-5.3 
+geride. Kötü başlangıç ama henüz 3 gün geçti — uzun vadeli disiplinin test edildiği dönem.
+
+**En büyük dersler şimdiye kadar:**
+1. NAND HBM'den çok daha volatil — SNDK'nın stop mesafesinin (+%-30) bile yetmediği ortaya çıktı.
+2. Düzeltme sonrası "tepki günü" girişleri (5 Ağustos) henüz erken olmuş olabilir — konsolidasyon 
+   devam etti.
+3. Stop disiplinini beklemek yerine **tez bozukluğunda proaktif çıkış** da disiplinin parçası.
+
+**Sonraki gözden geçirme:** 11 Ağustos Cuma (AMD stop kontrolü — kritik!) ve 12 Ağustos 
+(haftalık tam tur). Eğer AMD kapanırsa nakit artışıyla yeni pozisyon stratejisi belirlenecek.

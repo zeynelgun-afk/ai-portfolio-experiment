@@ -2,8 +2,8 @@
   "deney": "AI Portföy Deneyi",
   "baslangic_tarihi": "2026-08-05",
   "baslangic_sermayesi_usd": 100000,
-  "son_guncelleme": "2026-08-05",
-  "nakit_usd": 10000.0,
+  "son_guncelleme": "2026-08-08",
+  "nakit_usd": 22737.0,
   "pozisyonlar": [
     {
       "sembol": "MU",
@@ -23,17 +23,7 @@
       "maliyet_usd": 20000.0,
       "agirlik_hedef_pct": 20,
       "stop_haftalik_kapanis": 440,
-      "sonraki_bilanco": null
-    },
-    {
-      "sembol": "SNDK",
-      "adet": 10.507,
-      "giris_fiyati": 1427.62,
-      "giris_tarihi": "2026-08-05",
-      "maliyet_usd": 15000.0,
-      "agirlik_hedef_pct": 15,
-      "stop_haftalik_kapanis": 1100,
-      "sonraki_bilanco": null
+      "sonraki_bilanco": "2026-11-03"
     },
     {
       "sembol": "ANET",
@@ -43,7 +33,7 @@
       "maliyet_usd": 15000.0,
       "agirlik_hedef_pct": 15,
       "stop_haftalik_kapanis": 160,
-      "sonraki_bilanco": null
+      "sonraki_bilanco": "2026-11-03"
     },
     {
       "sembol": "AVGO",
@@ -53,7 +43,7 @@
       "maliyet_usd": 10000.0,
       "agirlik_hedef_pct": 10,
       "stop_haftalik_kapanis": 350,
-      "sonraki_bilanco": null
+      "sonraki_bilanco": "2026-09-02"
     }
   ],
   "benchmark": {
@@ -101,6 +91,15 @@
       "adet": 23.9143,
       "fiyat": 418.16,
       "tutar_usd": 10000.0
+    },
+    {
+      "tarih": "2026-08-08",
+      "islem": "SAT",
+      "sembol": "SNDK",
+      "adet": 10.507,
+      "fiyat": 1212.21,
+      "tutar_usd": 12737.0,
+      "not": "Zarar kes - tez bozuk, momentum kırık (1ay %-36.7), stop mesafesi %+10.2"
     }
   ]
 }
