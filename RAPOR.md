@@ -1,15 +1,15 @@
-# Portföy Raporu — 2026-08-08
+# Portföy Raporu — 2026-08-15
 
-Veri: 2026-08-07 kapanışları · Başlangıç: 100,000 $ (2026-08-05)
+Veri: 2026-08-14 kapanışları · Başlangıç: 100,000 $ (2026-08-05)
 
 ## Durum
 
 | Hisse | Giriş | Son | Getiri | Değer $ | Ağırlık | Stop (mesafe) |
 |---|---|---|---|---|---|---|
-| MU | 892.67 | 877.57 | %-1.7 | 29,493 | %30.7 | 730 (%+20.2) |
-| AMD | 518.58 | 483.36 | %-6.8 | 18,642 | %19.4 | 440 (%+9.9) |
-| ANET | 190.51 | 188.67 | %-1.0 | 14,855 | %15.5 | 160 (%+17.9) |
-| AVGO | 418.16 | 427.76 | %+2.3 | 10,230 | %10.7 | 350 (%+22.2) |
+| MU | 892.67 | 971.66 | %+8.8 | 32,655 | %32.6 | 730 (%+33.1) |
+| AMD | 518.58 | 514.39 | %-0.8 | 19,838 | %19.8 | 440 (%+16.9) |
+| ANET | 190.51 | 198.82 | %+4.4 | 15,654 | %15.6 | 160 (%+24.3) |
+| AVGO | 418.16 | 392.99 | %-6.0 | 9,398 | %9.4 | 350 (%+12.3) |
 
 **Nakit:** 22,737.00 $
 
@@ -17,14 +17,14 @@ Veri: 2026-08-07 kapanışları · Başlangıç: 100,000 $ (2026-08-05)
 
 | | Değer | Getiri |
 |---|---|---|
-| **AI Portföyü** | 95,956 $ | **%-4.04** |
-| SPY (aynı gün 100k) | 100,250 $ | %+0.25 |
-| SMH (aynı gün 100k) | 101,214 $ | %+1.21 |
+| **AI Portföyü** | 100,283 $ | **%+0.28** |
+| SPY (aynı gün 100k) | 100,650 $ | %+0.65 |
+| SMH (aynı gün 100k) | 102,103 $ | %+2.10 |
 
-Fark vs SPY: **%-4.29** · vs SMH: **%-5.26**
+Fark vs SPY: **%-0.37** · vs SMH: **%-1.82**
 
 ## Stop kontrolü
 
-İhlal yok — tüm pozisyonlar stop seviyelerinin üzerinde.
+Uyarı yok — tüm pozisyonlar çıkış seviyelerinin üzerinde.
 
 *Otomatik rapor (guncelle.py). Kararlar ve tezler: KARAR_GUNLUGU.md*
