@@ -143,8 +143,8 @@ Fark vs SPY: **%{(toplam - spy_val) / baslangic * 100:+.2f}** · vs SMH: **%{(to
 
     # --- Telegram özeti (workflow bu dosyayı gönderir) ---
     poz_ozet = "\n".join(
-        f"• {p['sembol']}: {fiyatlar[p['sembol']]:.2f} $ "
-        f"(%{(fiyatlar[p['sembol']] / p['giris_fiyati'] - 1) * 100:+.1f})"
+        f"• {p['sembol']}: {p['adet'] * fiyatlar[p['sembol']]:,.0f} $ "
+        f"(fiyat {fiyatlar[p['sembol']]:.2f} $, %{(fiyatlar[p['sembol']] / p['giris_fiyati'] - 1) * 100:+.1f})"
         for p in pf["pozisyonlar"]
     )
     if ihlaller:
