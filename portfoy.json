@@ -2,8 +2,8 @@
   "deney": "AI Portföy Deneyi",
   "baslangic_tarihi": "2026-08-05",
   "baslangic_sermayesi_usd": 100000,
-  "son_guncelleme": "2026-08-15",
-  "nakit_usd": 22737.0,
+  "son_guncelleme": "2026-08-22",
+  "nakit_usd": 27142.0,
   "pozisyonlar": [
     {
       "sembol": "MU",
@@ -37,11 +37,11 @@
     },
     {
       "sembol": "AVGO",
-      "adet": 23.9143,
+      "adet": 11.9571,
       "giris_fiyati": 418.16,
       "giris_tarihi": "2026-08-05",
-      "maliyet_usd": 10000.0,
-      "agirlik_hedef_pct": 10,
+      "maliyet_usd": 5000.0,
+      "agirlik_hedef_pct": 5,
       "stop_haftalik_kapanis": 350,
       "sonraki_bilanco": "2026-09-02"
     }
@@ -100,6 +100,15 @@
       "fiyat": 1212.21,
       "tutar_usd": 12737.0,
       "not": "Zarar kes - tez bozuk, momentum kırık (1ay %-36.7), stop mesafesi %+10.2"
+    },
+    {
+      "tarih": "2026-08-22",
+      "islem": "SAT",
+      "sembol": "AVGO",
+      "adet": 11.9572,
+      "fiyat": 368.45,
+      "tutar_usd": 4405.0,
+      "not": "Pozisyon kırpma - 50g kaybı, stop dar (%+5.3), bilanço öncesi risk azaltma"
     }
   ]
 }
