@@ -689,3 +689,265 @@ yerine netlik beklemek.**
 **Sonraki gözden geçirme:** 29 Ağustos 2026 (Cumartesi — bir sonraki haftalık tur). NVDA bilançosu 
 (26 Ağustos) ve MRVL bilançosu (27 Ağustos) sonrası piyasa tepkisi, AMD'nin durumu, AVGO'nun 
 50g'yi geri kazanıp kazanmadığı izlenecek.
+
+---
+
+## #6 — 29 Ağustos 2026 · HAFTALIK TUR
+
+**Piyasa bağlamı:** Sektör konsolidasyonu sürüyor. Portföy %-2.76 (SPY %-0.03, SMH %-0.47). 
+Yarı iletkenler haftalık bazda karışık; NVDA ve MRVL bilançoları geçti.
+
+### A. Veri durumu
+
+**KRİTİK VERİ EKSİKLİĞİ:** haftalik_veri.py scripti fiyat, SMA ve getiri verilerini çekemedi 
+(tüm değerler NaN). RSI, bilanço tarihleri ve haber başlıkları çekildi.
+
+**Kullanılan alternatif kaynak:** RAPOR.md (28 Ağustos Cuma kapanış fiyatları, guncelle.py 
+tarafından üretilmiş).
+
+**Eksik veriler:**
+- SMA50/200: yok → 50g/200g desteği analizi yapılamıyor
+- 1 hafta / 1 ay / 3 ay getiriler: yok → haftalık momentum analizi sınırlı
+- Detaylı fiyat tarihi: yok → trend analizi yapılamıyor
+
+**Haber taraması:** 12 sembol için 60 başlık tarandı. Dikkate değer:
+
+- **MU:** "Intel Sold Its NAND Memory Business for About $9 Billion. Micron Is Now Worth More Than 
+  Twice What Intel Is." — Intel'in bellek çıkışı MU'nun pazar konumunu güçlendiriyor. "Jim Cramer 
+  Shared Why Micron Technology Shares Didn't Rise On Shortage News" — arz sıkıntısı haberi fiyata 
+  henüz tam yansımamış.
+
+- **AMD:** "Broadcom vs. AMD: Which AI Chip Stock Has the Better Risk-Reward?" — AVGO ile karşılaştırma 
+  devam ediyor. Özel haber yok.
+
+- **AVGO:** "Broadcom's Debt Deal Could Reach $100 Billion in the AI Buildout's Latest Mega-Financing" — 
+  100 mlr $ borç anlaşması haberi, AI yatırım planı büyük. "Jobs report, Broadcom results pose next 
+  hurdles for stock market rally" — bilanço (2 Eylül) beklenenlere göre piyasa için kritik test.
+
+- **MRVL:** "Stock Market Today, Aug. 28: Marvell Slides 10% on Softer Fiscal 2028 Guidance and Google 
+  Deal Timing" — BİLANÇO SONUCU: kazançlar güçlü ancak 2028 rehberliği zayıf, hisse %-10 düştü. 
+  Google anlaşması gecikme riski. "Marvell Fell After Its Google Deal. Why Did Investors Sell These 
+  Two AI Optics Stocks Too?" — MRVL düşüşü optik sektörü de aşağı çekti.
+
+- **NVDA:** "Wall Street is turning Nvidia's AI chips into a new futures market: Chart of the Day" — 
+  NVDA çipleri vadeli piyasa gibi işlem görüyor. Bilanço sonucu haberlerden net değil ama mevcut 
+  momentum güçlü görünüyor.
+
+**Sembol sayısı:** 12/12 (RSI ve haber için), ancak fiyat verisi 0/12 (haftalik_veri.py'den).
+
+### B. Hareketin sebebi
+
+Hiçbir pozisyon haftalık bazda ±%10'u geçmedi:
+
+- **MU:** 966.78 → 935.39 (%-3.2, RAPOR.md 28 Ağu kapanış)
+- **AMD:** 473.25 → 476.67 (+%0.7)
+- **ANET:** 188.65 → 201.09 (+%6.6)
+- **AVGO:** 368.45 → 371.54 (+%0.8)
+
+Tüm hareketler normal volatilite aralığında. Özel araştırma gerektiren ±%10+ hareket yok.
+
+### C. Tez sağlık kontrolü
+
+**VERİ SINIRLAMASI:** SMA olmadan "50g üzerinde / altında" analizi yapılamıyor. Değerlendirme 
+fiyat hareketi, RSI ve haberlerle sınırlı.
+
+**MU (935.39 $, RAPOR.md 28 Ağu) — Bellek süper döngüsü / HBM liderliği → GEÇERLİ**  
+Fiyat geçen tura göre %-3.2 (966.78'den). RSI 51.0 (nötr, veri_haftalik.json). Stop 730 $ 
+(%+28.1 mesafe, RAPOR.md — çok rahat). Bilanço 23 Eylül (portfoy.json) / 30 Eylül (veri_haftalik.json — 
+tutarsızlık var, portfoy.json'u esas alıyorum: 23 Eylül, 25 gün sonra). Intel'in NAND çıkışı 
+MU'nun pazar gücünü artırıyor. Hafif düzeltme normal. **50g durumu bilinmiyor (SMA verisi yok) — 
+bu kritik eksiklik.**
+
+**AMD (476.67 $) — AI hızlandırıcı / NVDA alternatifi → ZAYIFLIYOR (değişiklik yok)**  
+Fiyat geçen tura göre +%0.7 (473.25'ten). RSI 47.4 (zayıf). Stop 440 $ (%+8.3 mesafe, RAPOR.md — 
+DAR ama haftalık kapanış üzerinde, stop tuttu). Bilanço 3 Kasım. Geçen tur uyarı: "50g'yi kaybetti, 
+NVDA bilançosu sonrası değerlendir" → **50g durumu bilinmiyor (SMA verisi yok).** NVDA bilançosu 
+geçti ancak sonuç haberlerden net değil. AMD minimal hareket (+%0.7) — stop tuttu ama momentum 
+hala zayıf (RSI 47.4). **Tez zayıflıyor ama stop ihlali yok; yarı teknik sınırlı, bir tur daha bekle.**
+
+**ANET (201.09 $) — AI veri merkezi ağ donanımı lideri → GEÇERLİ**  
+Fiyat geçen tura göre +%6.6 (188.65'ten, en güçlü haftalık performans). RSI 59.2 (sağlıklı). 
+Stop 160 $ (%+25.7 mesafe — çok rahat). Bilanço 3 Kasım. **Portföyün en istikrarlı pozisyonu.** 
+Haftalık +%6.6 güç gösterisi. **50g durumu bilinmiyor ama fiyat yükselişi momentum koruduğunu gösteriyor.**
+
+**AVGO (371.54 $, yarım pozisyon) — Özel AI çipleri / ağ cephesi → BOZULDU (değişiklik yok)**  
+Fiyat geçen tura göre +%0.8 (368.45'ten, minimal toparlanma). RSI 43.9 (zayıf, geçen tur 38.7'den 
+hafif iyileşme). Stop 350 $ (%+6.2 mesafe, RAPOR.md — DAR ama haftalık kapanış üzerinde). 
+Bilanço **2 Eylül (3 gün sonra — KRİTİK!)**. Geçen tur pozisyon yarıya kırpıldı; tez "bozuldu" 
+etiketlendi. 100 mlr $ borç anlaşması haberi AI yatırım planının büyüklüğünü gösteriyor ama **Google-MRVL 
+rekabeti teması sürüyor** (MRVL bilançosu sonrası %-10 düşüş Google anlaşması gecikme riskinden). 
+**50g durumu bilinmiyor.** Minimal toparlanma (+%0.8) ve RSI hafif iyileşme (43.9) olumlu ama **bilanço 
+3 gün sonra, volatilite riski çok yüksek.** Tez hala bozuk.
+
+### D. Kararlar
+
+**VERİ EKSİKLİĞİ UYARISI:** SMA ve detaylı getiri verileri olmadan teknik analiz yapılamıyor. 
+Geçen tur (#5) "50g'yi geri kazanıp kazanmadığı izlenecek" denilmişti — bu analiz yapılamadı. 
+Kararlar fiyat hareketi, stop mesafeleri ve haberlerle sınırlı.
+
+#### KARAR 1: TUT — MU, ANET, AMD
+
+**MU:** Stop mesafesi çok rahat (%+28.1), tez geçerli (Intel çıkışı güçlendiriyor), bilanço 25 gün 
+sonra (23 Eylül). Haftalık %-3.2 düzeltme normal. **50g durumu bilinmiyor ama stop mesafesi rahat 
+olduğu için pozisyon taşımak güvenli.** Stop 730 $ korunuyor.
+
+**ANET:** Haftalık +%6.6 en güçlü performans, RSI 59.2 sağlıklı, stop mesafesi çok rahat (%+25.7). 
+Tez geçerli, momentum güçlü. Stop 160 $ korunuyor.
+
+**AMD:** Stop tuttu (%+8.3 mesafe), fiyat +%0.7 minimal hareket. RSI 47.4 hala zayıf. Geçen tur 
+"NVDA bilançosu sonrası değerlendir" denilmişti — **NVDA bilançosu geçti ama sonuç haberlerden 
+net değil ve AMD haftalık %-0.7 değil +%0.7 yaptı (hafif toparlanma).** **50g durumu bilinmiyor — 
+kritik eksiklik.** Stop ihlali yok → bir tur daha tut. **Uyarı: Stop mesafesi dar (%+8.3), haftalık 
+kapanış 440 $ altına düşerse mekanik satış.** Stop 440 $ korunuyor.
+
+**Çıkış planı:** Stop seviyeleri aynen (MU 730, ANET 160, AMD 440). Haftalık kapanış altındaysa 
+mekanik satış.
+
+**Tezin yanlış olduğunu gösterecek işaret:**  
+- MU: Bilanço öncesinde stop'a yaklaşırsa (800'ün altı) — ancak 50g durumu bilinmeden net tetikleyici kuramıyorum.  
+- ANET: Stop'a yaklaşırsa (180'in altı) — momentum kırılma sinyali.  
+- AMD: Haftalık kapanış 440 $ altında → mekanik satış.
+
+#### KARAR 2: İZLE — AVGO (Yarım Pozisyon)
+
+**Durum:** 11.95 adet @ 418.16 $ maliyet, fiyat 371.54 $ (%-11.1 kayıp). Stop 350 $ (%+6.2 mesafe — DAR). 
+Bilanço **2 Eylül (3 gün sonra).**
+
+**Karar:** Yarım pozisyonu tut, bilanço bekle. Geçen tur (#5) pozisyon yarıya kırpıldı ve şöyle 
+denildi: *"Bilanço 2 Eylül — eğer 50g'yi geri kazanamazsa ve stop'a yaklaşırsa (360'ın altı) bilanço 
+öncesinde kapatmayı değerlendir."* → Fiyat 371.54 $, yani 360'ın üzerinde. **50g durumu bilinmiyor 
+(SMA verisi yok) — kritik eksiklik.** RSI 43.9 (hafif iyileşme, geçen tur 38.7). 100 mlr $ borç 
+anlaşması haberi AI yatırım planının büyüklüğünü gösteriyor.
+
+**Neden şimdi kapatmıyorum:** Fiyat 360'ın üzerinde, stop 350 haftalık kapanışta tuttu. Bilanço 3 gün 
+sonra — şimdi kapatmak bilançoyu tam beklemeden çıkmak demek. Geçen tur "olumlu senaryo hala mümkün, 
+yarısını tutarak bu ihtimali koruyorum" denilmişti. **Disiplin: bilanço bekle, sonra karar ver.**
+
+**Risk:** Bilanço olumsuz çıkarsa (örn. Google rekabetinin etkisi, 2028 rehberlik zayıflığı) hisse 
+stop'a düşebilir (350). O zaman "bilanço öncesinde kapatmalıydım" diye pişman olabilirim. Ancak 
+100 mlr $ borç anlaşması AI yatırım planının ciddiyetini gösteriyor — bilanço güçlü çıkabilir.
+
+**Çıkış planı:** Stop 350 $ — haftalık kapanış altındaysa mekanik satış. Bilanço sonrası (5 Eylül 
+Cuma kapanış / 6 Eylül Cumartesi sonraki tur) tekrar değerlendirme. Eğer bilanço güçlü ve **50g'yi 
+geri kazanırsa** (bir sonraki turda SMA verisi olursa kontrol edilir) pozisyon geri büyütülebilir. 
+Eğer bilanço zayıf ve stop'a yaklaşırsa kalan yarı kapatılır.
+
+**Tezin yanlış olduğunu gösterecek işaret:** Bilanço (2 Eylül) rehberliği zayıfsa ve Google rekabeti 
+teması güçlenirse → tam kapatma.
+
+#### KARAR 3: YENİ POZĐSYON YOK
+
+**Nakit:** 27.142 $ (%27.9 portföy, RAPOR.md).
+
+**Neden yeni pozisyon yok?**
+
+**KRİTİK SĐNĐRLAMA:** SMA ve detaylı getiri verileri olmadan teknik giriş analizi yapılamıyor. 
+"50g'yi kırdı mı, 200g desteğinde mi" gibi kritik soruları yanıtlayamıyorum. **Veri eksikliği tek başına 
+yeni pozisyon açmayı engelliyor.**
+
+**İzleme listesi notları (haberlerle sınırlı):**
+
+1. **NVDA:** Bilanço geçti (26 Ağustos). Haberler: "AI chips into a new futures market", "AI lobbying 
+   gains new foothold" — momentum güçlü görünüyor. RSI 61.3 (sağlıklı). **Ancak fiyat ve SMA verisi 
+   yok — giriş analizi yapılamıyor.** Bir sonraki turda eksiksik veriyle değerlendirilebilir.
+
+2. **MRVL:** Bilanço sonucu açık: "Slides 10% on Softer Fiscal 2028 Guidance and Google Deal Timing" — 
+   kazançlar güçlü ama rehberlik zayıf, hisse %-10 düştü. Google anlaşması gecikme riski. RSI 56.3 
+   (nötr). **Rehberlik zayıflığı nedeniyle şimdi girmek riskli.** Google anlaşması netleşene kadar bekle.
+
+3. **TSM:** RSI 55.2. Haberler: "Taiwan Semiconductor Stock Looks Stretched As Its 363% Run Continues", 
+   "Billionaire Stanley Druckenmiller Just Bought Taiwan Semiconductor Stock." — uzun rally sonrası gergin. 
+   **Fiyat ve SMA verisi yok — değerlendirilemez.**
+
+4. **PLTR:** RSI 69.1 (aşırı alım yakın). Haberler: "Can PLTR Stock Live Up To Its Multiple?", "Pentagon 
+   AI surge comes with a question investors can't ignore" — çarpanlar yüksek, risk arttı. Hala çok sıcak.
+
+**Strateji:** Nakit %27.9 — AVGO bilançosu (2 Eylül) sonrası netlik gelecek. Veri eksikliği nedeniyle 
+yeni pozisyon riskli; bir sonraki turda (5 Eylül) eksiksiz veriyle NVDA, TSM, MRVL değerlendirilebilir. 
+**Acele giriş yerine veri ve netlik beklemek.**
+
+### E. Tema riski
+
+**Portföy:** 4 pozisyon (MU %32.3, AMD %18.9, ANET %16.3, AVGO %4.6 — yarım pozisyon, RAPOR.md ağırlıkları) — 
+hepsi AI altyapı teması. %72.1 yatırımda, %27.9 nakit.
+
+**Aynı anda düşme riski:** AI harcama döngüsü kırılırsa tüm pozisyonlar birlikte düşer. Bu risk 
+başlangıçta bilinçli kabul edildi ve hala geçerli. Geçen tur AVGO yarıya kırpılarak tema konsantrasyonu 
+kısmen azaltıldı — özel AI çipi cephesinden kısmen çıkıldı.
+
+**Nakit: koruma yastığı DEĞİL, alım gücü.** %27.9 nakit portföyü korumaz (kaldıraçsız sanal portföy); 
+düşüşte kullanılacak barut. **Ne için bekliyorum:** (1) AVGO bilançosu sonrası (2 Eylül) netlik — 
+eğer bilanço güçlü ve sektör toparlanırsa NVDA veya TSM'de giriş. (2) Mevcut pozisyonlarda (MU/ANET) 
+düzeltme varsa ekleme fırsatı. (3) **Veri eksikliği çözülünce** izleme listesindeki sembolleri eksiksiz 
+teknik analizle değerlendirme. Nakit pasif tutulmayacak; fırsat ve netlik bekliyor.
+
+**Çeşitlendirme:** AI altyapı dışında pozisyon açmak tema riskini düşürür ama beta'yı da düşürür 
+(3-5x hedefine katkı azalır). Şimdilik AI teması ana strateji. Nakit oranı (%27.9) zaten tema riskini 
+bir miktar dengeliyor.
+
+### F. Hesap verme
+
+**1. Geçen tur ne söylemiştim, bu tur ne yaptım?**
+
+**Geçen tur (#5, 22 Ağustos):**
+- **MU, ANET TUT:** Tuttum. **Sapma yok.**
+- **AMD İZLE:** "NVDA bilançosu sonrası değerlendir" → NVDA bilançosu geçti, AMD +%0.7 hafif toparlandı, 
+  stop tuttu. Tuttum. **Sapma yok — izleme devam.**
+- **AVGO İZLE (yarım pozisyon):** "Bilanço bekle, 360'ın altına düşerse değerlendir" → Fiyat 371.54 $ 
+  (360'ın üzerinde), tuttum. **Sapma yok.**
+- **YENİ POZĐSYON YOK:** "NVDA ve MRVL bilançoları sonrası değerlendirilebilir" → Bilançolar geçti ama 
+  veri eksikliği nedeniyle yeni pozisyon açmadım. **Sapma yok — disiplin: veri eksikliği varsa yeni 
+  pozisyon açma.**
+
+**SAPMA YOK.** Geçen tur söylediklerimin hepsini yaptım.
+
+**2. Geçen turdaki tezin yanlış çıktığı yer:**
+
+**AMD tezi:** "ZAYIFLIYOR — 50g'yi kaybetti, NVDA bilançosu sonrası değerlendir." → **50g durumu 
+bilinmiyor (SMA verisi yok bu tur) — kontrol edilemedi.** Ancak AMD stop tuttu ve +%0.7 hafif toparlandı 
+(geçen tur 473.25, bu tur 476.67). Eğer 50g'yi geri kazandıysa (bir sonraki turda kontrol edilir) tez 
+zayıflamadan kurtulmuş olabilir. **Yanıldığım yer bilemiyorum çünkü kritik veri eksik.** Bu tur için 
+"zayıflıyor" etiketini korudum.
+
+**AVGO tezi:** "BOZULDU — Google-MRVL rekabeti." → **Tez hala bozuk.** MRVL bilançosu sonrası %-10 düştü 
+(rehberlik zayıf, Google anlaşması gecikme riski), bu AVGO için olumlu olabilir (rekabet azalır) 
+ama AVGO'nun kendi bilançosu henüz gelmedi (2 Eylül). Minimal toparlanma (+%0.8) ve RSI hafif iyileşme 
+(43.9) olumlu ama **bilanço öncesinde tezin "bozuldu"dan "zayıflıyor"a yükselmesi erken.** Bilanço 
+sonrası tekrar değerlendireceğim.
+
+**MRVL değerlendirmesi:** Geçen tur "MRVL bilançosu sonrası (27 Ağustos) değerlendirilebilir" demiştim. 
+Bilanço sonucu: kazançlar güçlü ama 2028 rehberliği zayıf, hisse %-10 düştü, Google anlaşması gecikme 
+riski. **Yanıldığım yer:** "Google ortaklığı güçleniyor" diye olumlu düşünmüştüm (geçen turun izleme 
+listesi), ama bilanço gecikme riskini ortaya çıkardı. **Ders:** Google gibi büyük ortaklıklar zamanlama 
+riski taşır; bilanço beklemek doğru karardı, girmediğim için %-10 düşüş kaçırdım.
+
+**3. Bu turda verdiğim kararın beni yanıltabileceği yer:**
+
+**VERİ EKSİKLİĞİ RİSKİ — BU TURUN EN BÜYÜK RİSKİ:** SMA ve detaylı getiri verileri olmadan karar 
+verdim. Geçen tur "50g'yi geri kazanıp kazanmadığı izlenecek" demiştim — bu kontrolü yapamadım. 
+**AMD veya AVGO'nun 50g'yi geri kazandığını bilmeden "tut" dedim. Eğer 50g'yi kaybetmişlerse ve momentum 
+daha da zayıflamışsa, bir sonraki turda "veri eksikliği nedeniyle uyarıyı kaçırdım" diye pişman olabilirim.** 
+Ancak RAPOR.md'deki fiyatlar haftalık kapanış ve stop kontrolleri yapılabildi — stoplar tuttu, bu en 
+kritik disiplin. **50g durumu bilinmiyor ama stop disiplini korundu.**
+
+**AVGO bilançosu riski:** "Bilanç bekle" dedim. Eğer bilanço çok zayıf çıkar ve hisse stop'a düşerse 
+(350), "bilanço öncesinde kapatmalıydım, fiyat 360'ın üzerindeyken çıkma fırsatım vardı" diye pişman 
+olabilirim. Ancak 100 mlr $ borç anlaşması AI yatırım planının ciddiyetini gösteriyor — bilanço güçlü 
+çıkabilir. **Risk kabul ediyorum: bilanço beklemek, stop tetikleme riski demek.**
+
+**Yeni pozisyon açmama riski:** "Veri eksikliği nedeniyle yeni pozisyon yok" dedim. Eğer NVDA bir 
+sonraki turda +%15 yaparsa ve ben veri eksikliği yüzünden kaçırdıysam, "RAPOR.md'deki fiyatlarla en 
+azından NVDA'ya girebilirdim" diye pişman olabilirim. Ancak **50g durumu bilinmeden giriş yapmak, 
+teknik analiz yapmadan kumar oynamak demek.** Disiplin: veri eksikliğinde yeni pozisyon açma. **Ders:** 
+Veri toplama scriptini düzeltmeli veya yedek veri kaynağı bulmalıyım — veri eksikliği fırsat kaybı demek.
+
+**Ders kalibrasyonu:**  
+- **Hipotez (henüz davranış değişikliği değil):** Veri toplama scripti GitHub Actions ortamında sorun 
+  yaşıyor. Bir sonraki turda bu düzeltilmeli — yedek veri kaynağı (örn. gecmis.csv'den fiyat çekip 
+  kendi SMA hesabı, ya da farklı API). Bu tek olaydan "veri eksikliğinde hiç işlem yapma" dersini 
+  çıkarmıyorum — stoplar tuttuğu sürece mevcut pozisyonları taşımak disiplinli. Ancak "yeni pozisyon 
+  açma" kuralı geçerli: teknik analiz olmadan giriş yapma.
+
+**Sonraki gözden geçirme:** 5 Eylül 2026 (Cumartesi — bir sonraki haftalık tur). AVGO bilançosu (2 Eylül 
+Salı) sonrası piyasa tepkisi, AMD ve AVGO'nun 50g durumu (SMA verisi), NVDA / TSM / MRVL eksiksiz teknik 
+analiz. **Veri toplama scriptinin düzeltilmesi kritik.**
