@@ -1,12 +1,13 @@
 {
   "MU": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 935.39,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 957.17,
+    "sma200": 584.88,
     "rsi": 51.0,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": -4.0,
+    "return_1m_pct": 6.9,
+    "return_3m_pct": -3.7,
     "earnings_date": "2026-09-30",
     "news_titles": [
       "Intel Sold Its NAND Memory Business for About $9 Billion. Micron Is Now Worth More Than Twice What Intel Is.",
@@ -17,13 +18,14 @@
     ]
   },
   "AMD": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 476.67,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 507.01,
+    "sma200": 334.44,
     "rsi": 47.4,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 1.5,
+    "return_1m_pct": -1.8,
+    "return_3m_pct": -7.6,
     "earnings_date": "2026-11-03",
     "news_titles": [
       "This AI Fund Is Crushing QQQ, and Nvidia Is Barely 2% of It",
@@ -34,13 +36,14 @@
     ]
   },
   "SNDK": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 1484.95,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 1614.12,
+    "sma200": 964.71,
     "rsi": 49.3,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": -7.2,
+    "return_1m_pct": 16.0,
+    "return_3m_pct": -12.4,
     "earnings_date": "2026-11-06",
     "news_titles": [
       "Down 35% From Its High, Is Sandisk Stock a Screaming Bargain in September?",
@@ -51,13 +54,14 @@
     ]
   },
   "ANET": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 201.09,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 179.87,
+    "sma200": 150.16,
     "rsi": 59.2,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 9.4,
+    "return_1m_pct": 17.6,
+    "return_3m_pct": 26.1,
     "earnings_date": "2026-11-03",
     "news_titles": [
       "These 7 Stocks Are Analyst Favorites For Magnificent Earnings Growth; Amazon Holds Key Level",
@@ -68,13 +72,14 @@
     ]
   },
   "AVGO": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 371.54,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 386.56,
+    "sma200": 368.47,
     "rsi": 43.9,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 2.1,
+    "return_1m_pct": -4.2,
+    "return_3m_pct": -16.7,
     "earnings_date": "2026-09-02",
     "news_titles": [
       "6 things investors need to watch in the week ahead",
@@ -85,30 +90,32 @@
     ]
   },
   "NVDA": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 227.98,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 208.16,
+    "sma200": 195.57,
     "rsi": 61.3,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 5.1,
+    "return_1m_pct": 16.9,
+    "return_3m_pct": 8.1,
     "earnings_date": "2026-11-17",
     "news_titles": [
       "Wall Street is turning Nvidia's AI chips into a new futures market: Chart of the Day",
       "AI lobbying gains new foothold with Nvidia PAC ahead of midterm elections",
-      "Will EA’s €250 Million Bundesliga Rights Deal Reshape Its Live-Services Football Narrative (EA)?",
-      "Most Investors Want to Dump Tesla. I'm Not One of Them.",
-      "Dow Jones Futures: Microsoft, Titans Mask Market Weakness. Here's What To Do."
+      "Nobody's Talking About This Energy Company, but It's Quietly Signing the Power Deals Feeding the AI Build-Out",
+      "Tom Lee's Bitmine Continues to Buy Ethereum Hand Over Fist. Should Crypto Investors Be Doing the Same?",
+      "The 1 Thing Every Investor Needs to Know About Surviving a Bear Market"
     ]
   },
   "TSM": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 427.3,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 423.73,
+    "sma200": 367.85,
     "rsi": 55.2,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 2.7,
+    "return_1m_pct": 5.9,
+    "return_3m_pct": 2.4,
     "earnings_date": "2026-10-15",
     "news_titles": [
       "Taiwan Semiconductor Manufacturing (TSM) Stock Looks Stretched As Its 363% Run Continues",
@@ -119,13 +126,14 @@
     ]
   },
   "MRVL": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 241.45,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 229.99,
+    "sma200": 147.97,
     "rsi": 56.3,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": -3.8,
+    "return_1m_pct": 31.7,
+    "return_3m_pct": 17.8,
     "earnings_date": "2026-08-27",
     "news_titles": [
       "Trending: Take-Two Interactive price ascends as 'Grand Theft Auto VI' is teased",
@@ -136,13 +144,14 @@
     ]
   },
   "VRT": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 269.28,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 290.52,
+    "sma200": 254.66,
     "rsi": 47.2,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 1.8,
+    "return_1m_pct": 18.4,
+    "return_3m_pct": -14.7,
     "earnings_date": "2026-10-21",
     "news_titles": [
       "Vertiv (VRT) Is Down From Its Peak. Is the Selloff Overdone",
@@ -153,13 +162,14 @@
     ]
   },
   "PLTR": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 185.93,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 142.63,
+    "sma200": 151.41,
     "rsi": 69.1,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 6.9,
+    "return_1m_pct": 52.1,
+    "return_3m_pct": 18.8,
     "earnings_date": "2026-11-02",
     "news_titles": [
       "Dow Jones Futures: Microsoft, Titans Mask Market Weakness. Here's What To Do.",
@@ -170,13 +180,14 @@
     ]
   },
   "MSFT": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 505.06,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 427.27,
+    "sma200": 429.34,
     "rsi": 70.9,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": 5.0,
+    "return_1m_pct": 12.2,
+    "return_3m_pct": 12.4,
     "earnings_date": "2026-10-28",
     "news_titles": [
       "Will EA’s €250 Million Bundesliga Rights Deal Reshape Its Live-Services Football Narrative (EA)?",
@@ -187,20 +198,21 @@
     ]
   },
   "GOOGL": {
-    "last_price": NaN,
-    "sma50": NaN,
-    "sma200": NaN,
+    "last_price": 340.65,
+    "fiyat_tarihi": "2026-08-27",
+    "sma50": 350.12,
+    "sma200": 334.04,
     "rsi": 44.2,
-    "return_1w_pct": NaN,
-    "return_1m_pct": NaN,
-    "return_3m_pct": NaN,
+    "return_1w_pct": -0.0,
+    "return_1m_pct": 2.1,
+    "return_3m_pct": -10.4,
     "earnings_date": "2026-10-28",
     "news_titles": [
       "Trending: Take-Two Interactive price ascends as 'Grand Theft Auto VI' is teased",
       "Is AI's 'capex tsunami' the catalyst for the next big credit boom?",
+      "Nobody's Talking About This Energy Company, but It's Quietly Signing the Power Deals Feeding the AI Build-Out",
       "These 7 Stocks Are Analyst Favorites For Magnificent Earnings Growth; Amazon Holds Key Level",
-      "SpaceX vs. Alphabet: Which Is the Best Artificial Intelligence (AI) Stock to Buy Now?",
-      "How networking became the critical layer of AI"
+      "SpaceX vs. Alphabet: Which Is the Best Artificial Intelligence (AI) Stock to Buy Now?"
     ]
   },
   "_meta": {

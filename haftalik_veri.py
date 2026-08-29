@@ -2,6 +2,7 @@
 """Haftalık karar turu için piyasa verilerini topla."""
 import yfinance as yf
 import json
+import math
 from datetime import datetime, timedelta
 
 # Portföy + izleme listesi
@@ -29,14 +30,24 @@ for sym in symbols:
             eksik_veri.append(f"{sym}: fiyat verisi yok")
             continue
 
+        # yfinance son satırı (kapanmamış/boş gün) tümüyle NaN döndürebiliyor. Bu satır
+        # .iloc[-1] üzerinden fiyat, SMA ve getirilerin HEPSİNİ NaN yapıyordu; RSI ise
+        # ewm NaN'ı atladığı için sağlam görünüyordu — yani hata sessizdi. (bkz. tur #6)
+        hist = hist[hist['Close'].notna()]
+        if hist.empty:
+            print(f"UYARI: {sym} için geçerli kapanış yok")
+            eksik_veri.append(f"{sym}: fiyat verisi yok (tüm kapanışlar NaN)")
+            continue
+
+        # Fiyatın ait olduğu gerçek gün — rapordaki tarih etiketi buna dayanmalı.
+        fiyat_tarihi = hist.index[-1].date().isoformat()
+
         # Son fiyat
         last_price = hist['Close'].iloc[-1]
 
         # SMA hesapları
         sma50 = hist['Close'].rolling(window=50).mean().iloc[-1] if len(hist) >= 50 else None
         sma200 = hist['Close'].rolling(window=200).mean().iloc[-1] if len(hist) >= 200 else None
-        if sma200 is None:
-            eksik_veri.append(f"{sym}: SMA200 hesaplanamadı ({len(hist)} gün veri)")
 
         # RSI hesabı (Wilder)
         delta = hist['Close'].diff()
@@ -68,19 +79,30 @@ for sym in symbols:
         if not news_titles:
             eksik_veri.append(f"{sym}: haber başlığı alınamadı")
 
+        def sayi(deger, alan, basamak=2):
+            """NaN/Inf asla JSON'a yazılmaz: None döner ve eksik_veri'ye kaydedilir."""
+            if deger is None or not math.isfinite(float(deger)):
+                eksik_veri.append(f"{sym}: {alan} hesaplanamadı")
+                return None
+            return round(float(deger), basamak)
+
         results[sym] = {
-            'last_price': round(last_price, 2),
-            'sma50': round(sma50, 2) if sma50 is not None else None,
-            'sma200': round(sma200, 2) if sma200 is not None else None,
-            'rsi': round(rsi, 1),
-            'return_1w_pct': round(ret_1w, 1) if ret_1w is not None else None,
-            'return_1m_pct': round(ret_1m, 1) if ret_1m is not None else None,
-            'return_3m_pct': round(ret_3m, 1) if ret_3m is not None else None,
+            'last_price': sayi(last_price, 'fiyat'),
+            'fiyat_tarihi': fiyat_tarihi,
+            'sma50': sayi(sma50, 'SMA50'),
+            'sma200': sayi(sma200, 'SMA200'),
+            'rsi': sayi(rsi, 'RSI', 1),
+            'return_1w_pct': sayi(ret_1w, '1h getiri', 1),
+            'return_1m_pct': sayi(ret_1m, '1a getiri', 1),
+            'return_3m_pct': sayi(ret_3m, '3a getiri', 1),
             'earnings_date': str(earnings_date) if earnings_date else None,
             'news_titles': news_titles
         }
 
-        print(f"✓ {sym}: ${last_price:.2f}")
+        if results[sym]['last_price'] is None:
+            print(f"UYARI {sym}: fiyat hesaplanamadı")
+        else:
+            print(f"✓ {sym}: ${last_price:.2f} ({fiyat_tarihi})")
 
     except Exception as e:
         print(f"HATA {sym}: {e}")
@@ -102,7 +124,7 @@ results['_meta'] = {
 
 # Sonuçları kaydet
 with open('veri_haftalik.json', 'w', encoding='utf-8') as f:
-    json.dump(results, f, indent=2, ensure_ascii=False)
+    json.dump(results, f, indent=2, ensure_ascii=False, allow_nan=False)
 
 print(f"\n{len(results) - 1}/{len(symbols)} sembol için veri toplandı")
 if eksik_veri:

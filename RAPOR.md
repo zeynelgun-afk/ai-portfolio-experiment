@@ -1,6 +1,6 @@
 # Portföy Raporu — 2026-08-29
 
-Veri: 2026-08-28 kapanışları · Başlangıç: 100,000 $ (2026-08-05)
+Veri: 2026-08-27 kapanışları · Başlangıç: 100,000 $ (2026-08-05)
 
 ## Durum
 

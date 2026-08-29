@@ -28,12 +28,18 @@ TG_YOLU = os.path.join(BASE, "TELEGRAM.txt")
 def kapanislari_cek(semboller):
     veri = yf.download(" ".join(semboller), period="10d", interval="1d",
                        auto_adjust=False, progress=False)["Close"]
+    # yfinance sonda tümüyle boş bir gün döndürebiliyor. ffill fiyatı kurtarıyordu ama
+    # tarih etiketi o boş günü gösteriyordu — rapor "28 Ağu kapanışı" derken fiyat aslında
+    # 27 Ağu'ya aitti. Tarih, gerçekten veri olan son günden alınmalı.
+    dolu = veri.dropna(how="all")
+    if dolu.empty:
+        raise RuntimeError("Kapanış verisi alınamadı: tüm günler boş")
+    tarih = dolu.index[-1].date()
     if hasattr(veri, "columns"):
         son = veri.ffill().iloc[-1]
-        tarih = veri.index[-1].date()
         return {s: float(son[s]) for s in semboller}, tarih
     # tek sembol durumu
-    return {semboller[0]: float(veri.ffill().iloc[-1])}, veri.index[-1].date()
+    return {semboller[0]: float(veri.ffill().iloc[-1])}, tarih
 
 
 def main():
