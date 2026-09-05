@@ -8,6 +8,8 @@ itibaren al/sat kararlarının tamamı AI'a aittir):
   3. Çıkış seviyesinin altına düşen pozisyonları İŞARETLER — kapatmaz. Kapatma
      kararı haftalık turda AI'a aittir.
   4. RAPOR.md ve gecmis.csv üretir; GitHub Actions için uyarı çıktısı verir.
+  5. Erteleme sayaçlarını günlükten hesaplayıp rapora basar (sayaclar.py) — sayaç
+     AI'ın beyanı değil, önüne konan veri olsun diye.
 """
 
 import csv
@@ -16,6 +18,8 @@ import os
 from datetime import date
 
 import yfinance as yf
+
+import sayaclar
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 PF_YOLU = os.path.join(BASE, "portfoy.json")
@@ -136,7 +140,7 @@ Fark vs SPY: **%{(toplam - spy_val) / baslangic * 100:+.2f}** · vs SMH: **%{(to
 ## Stop kontrolü
 
 {stop_notu}
-
+{sayaclar.rapor_blogu()}
 *Otomatik rapor (guncelle.py). Kararlar ve tezler: KARAR_GUNLUGU.md*
 """
     with open(RAPOR_YOLU, "w", encoding="utf-8") as f:

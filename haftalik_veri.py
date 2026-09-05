@@ -6,12 +6,23 @@ import math
 from datetime import datetime, timedelta
 
 # Portföy + izleme listesi
-symbols = ['MU', 'AMD', 'SNDK', 'ANET', 'AVGO', 'NVDA', 'TSM', 'MRVL', 'VRT', 'PLTR', 'MSFT', 'GOOGL']
+# PLTR ve VRT tur #7'de listeden çıkarıldı; çekim listesi izleme listesiyle aynı kalmalı
+symbols = ['MU', 'AMD', 'SNDK', 'ANET', 'AVGO', 'NVDA', 'TSM', 'MRVL', 'MSFT', 'GOOGL']
 
 GUNLER = ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar']
 
 results = {}
 eksik_veri = []
+
+
+def gun_adi_of(tarih):
+    """Tarihin gün adı. Gün adı hiçbir yerde elde hesaplanmasın diye burada üretiliyor."""
+    if tarih is None:
+        return None
+    try:
+        return GUNLER[tarih.weekday()]
+    except AttributeError:
+        return None
 
 
 def haber_basligi(item):
@@ -40,7 +51,11 @@ for sym in symbols:
             continue
 
         # Fiyatın ait olduğu gerçek gün — rapordaki tarih etiketi buna dayanmalı.
-        fiyat_tarihi = hist.index[-1].date().isoformat()
+        # Gün adı da buradan veriliyor: tur #7'de "4 Eylül Çarşamba" (Cuma) ve
+        # "2 Eylül Pazartesi" (Çarşamba) yazıldı — gün adı elde hesaplanınca yanılıyor.
+        fiyat_gunu = hist.index[-1].date()
+        fiyat_tarihi = fiyat_gunu.isoformat()
+        fiyat_gun_adi = GUNLER[fiyat_gunu.weekday()]
 
         # Son fiyat
         last_price = hist['Close'].iloc[-1]
@@ -89,6 +104,7 @@ for sym in symbols:
         results[sym] = {
             'last_price': sayi(last_price, 'fiyat'),
             'fiyat_tarihi': fiyat_tarihi,
+            'fiyat_gun_adi': fiyat_gun_adi,
             'sma50': sayi(sma50, 'SMA50'),
             'sma200': sayi(sma200, 'SMA200'),
             'rsi': sayi(rsi, 'RSI', 1),
@@ -96,6 +112,7 @@ for sym in symbols:
             'return_1m_pct': sayi(ret_1m, '1a getiri', 1),
             'return_3m_pct': sayi(ret_3m, '3a getiri', 1),
             'earnings_date': str(earnings_date) if earnings_date else None,
+            'earnings_gun_adi': gun_adi_of(earnings_date),
             'news_titles': news_titles
         }
 
