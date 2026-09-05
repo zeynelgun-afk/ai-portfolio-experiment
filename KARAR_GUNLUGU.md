@@ -951,3 +951,456 @@ Veri toplama scriptini düzeltmeli veya yedek veri kaynağı bulmalıyım — ve
 **Sonraki gözden geçirme:** 5 Eylül 2026 (Cumartesi — bir sonraki haftalık tur). AVGO bilançosu (2 Eylül 
 Salı) sonrası piyasa tepkisi, AMD ve AVGO'nun 50g durumu (SMA verisi), NVDA / TSM / MRVL eksiksiz teknik 
 analiz. **Veri toplama scriptinin düzeltilmesi kritik.**
+
+---
+
+## #7 — 5 Eylül 2026 · HAFTALIK TUR
+
+**Piyasa bağlamı:** Yarı iletkenler toparlanma trendinde. Portföy %-0.74 (SPY %-0.15, SMH %-1.51). 
+AI altyapı teması güçleniyor; bellek ve ağ donanımı liderleri momentum kazandı.
+
+### A. Veri durumu
+
+12/12 sembol için veri eksiksiz çekildi (4 Eylül Çarşamba kapanış bazlı). Tüm pozisyonlarda fiyat, 
+50/200g SMA, RSI, getiri verileri ve bilanço tarihleri mevcut. **Eksik alan yok — geçen turun veri 
+eksikliği sorunu çözüldü.**
+
+**Veri bütünlüğü kapısı kontrolü:** Her pozisyon için `last_price` ve `sma50` alanları tek tek kontrol 
+edildi (talimat sürüm 6 madde 3). Tüm alanlar dolu. `_meta.eksik_veri` = [] (boş).
+
+**Haber taraması:** 12 sembol için toplam 60 başlık tarandı. Dikkate değer:
+
+- **MU:** "Micron Stock Closes Above $1,000" — 1000$ üstü ilk kapanış. "David Tepper Sold 41% of His 
+  Micron Shares and It Is Still His Second-Biggest Holding" — büyük yatırımcılar kâr realizasyonu 
+  yapıyor ama pozisyon hala büyük. "Dow Jones Futures: Nvidia, Micron, Sandisk Flash Buy Signals" — 
+  alım sinyali.
+  
+- **AMD:** "AMD's Data Center Revenue and EPS to Double by 2027" — analist raporları 2027'de büyüme 
+  öngörüyor. "Here's the Real Reason Nvidia Is Buying Hugging Face" — NVDA hamlesi, rekabet basıncı. 
+  "Shares Down 19%, It's a Buy" — %-19 düşüşten alım fırsatı yazıları.
+  
+- **ANET:** "ANET Rises 37.3% in Six Months: Is There More Room to Grow?" — 6 aylık rally sonrası 
+  değerleme sorusu. "How Much Track Is Left For ANET Stock?" — büyüme sürdürülebilir mi.
+  
+- **AVGO:** "Broadcom (AVGO) Stock Is Down After Q3 Earnings: Is It Too Soon to Buy the Dip?" — 
+  **BİLANÇO SONUCU: Q3 sonrası düşüş.** "Jim Cramer Says 'Someone Must Know Something' About Broadcom's 
+  Post-Earnings Share Dip" — Cramer uyarısı, bilanço sonrası düşüşün altında bir şey olabilir. 
+  "Why Broadcom CEO Called Anthropic and OpenAI 'Two Geniuses in the Middle of Mongolia'" — CEO 
+  röportajı, AI yatırımlarına vurgu.
+  
+- **SNDK:** "SanDisk Soars on S&P 100 Inclusion; Hedge Fund Ownership More-Than-Doubles" — **S&P 100'e 
+  EKLENDİ**, hedge fund sahipliği ikiye katlandı. "Dow Jones Futures: Nvidia, Micron, Sandisk Flash Buy 
+  Signals" — alım sinyali. **8 Ağustos'ta 1212.21$'dan sattık, şimdi 1740.00$ (+%43.5 bir ayda).**
+  
+- **NVDA:** "I'm Confident This Stock Will Double by 2030" — uzun vadeli büyüme öngörüsü. Özel haber 
+  yok, momentum güçlü.
+  
+- **TSM:** "Prediction: Taiwan Semiconductor Stock Will Surge by 22% Before 2026 Ends" — yıl sonu hedefi. 
+  "Japan, U.S. advance $550 billion investment pact with AI, chips in focus" — makro destek.
+
+### B. Hareketin sebebi
+
+Hiçbir pozisyon haftalık bazda ±%10'u geçmedi. **Özel araştırma gerektiren hareket yok.** Haftalık performans:
+- MU: 935.39 → 1016.59 (+%8.7, veri_haftalik.json 1 hafta getirisi: +%9.0)
+- AMD: 476.67 → 477.57 (+%0.2, veri 1 hafta: +%2.6)
+- ANET: 201.09 → 193.78 (%-3.6, veri 1 hafta: %-0.8)
+- AVGO: 371.54 → 357.90 (%-3.7, veri 1 hafta: %-3.0)
+
+**AVGO bilançosu (2 Eylül Pazartesi) detay:** Ek yfinance sorgusu yapıldı. Bilanço 2 Eylül'de açıklandı, 
+sonrasında:
+- 2 Eylül (bilanço günü): 367.24$ (%-0.7)
+- 3 Eylül: 357.16$ (%-2.7) — sert düşüş
+- 4 Eylül: 357.90$ (+%0.2) — minimal toparlanma
+
+Bilanço sonrası toplam %-2.7 düşüş. Haberlerden: "Q3 sonrası düşüş", Cramer uyarısı. Bilanço beklentileri 
+karşılamış olabilir ama rehberlik veya rekabet endişesi piyasayı hayal kırıklığına uğrattı.
+
+### C. Tez sağlık kontrolü
+
+**MU (1016.59$, 4 Eylül kapanış) — Bellek süper döngüsü / HBM liderliği → GEÇERLİ ve GÜÇLENİYOR**  
+Fiyat >> 50g (938.26, +%8.3 üzerinde) >> 200g (606.34, +%67.7 üzerinde). **Geçen tur (#6, 29 Ağustos) 
+50g durumu bilinmiyordu (veri eksikliği) — bu tur eksiksiz veri ile teyit edildi: 50g'nin ÇOK üzerinde.** 
+RSI 60.1 (sağlıklı momentum). 1 hafta +%9.0, 1 ay +%15.8, 3 ay +%7.1. Stop 730$ (%+39.3 mesafe, RAPOR.md — 
+çok rahat). Bilanço 30 Eylül (portfoy.json ve veri_haftalik.json aynı, 25 gün sonra). Haberler: 1000$ 
+üstü ilk kapanış, David Tepper'ın ikinci en büyük holdingu (kâr realizasyonu yapsa bile büyük pozisyon 
+koruyor), alım sinyali. **Tez kuvvetleniyor — 50g'yi kırmış, momentum güçlü, bilanço öncesinde 
+pozisyon taşımak disiplinli.**
+
+**AMD (477.57$) — AI hızlandırıcı / NVDA alternatifi → ZAYIFLIYOR (değişiklik yok)**  
+Fiyat < 50g (499.27, %-4.3 altında), > 200g (341.0, +%40.0 üzerinde). **Geçen tur 50g durumu bilinmiyordu — 
+bu tur teyit edildi: hala 50g altında.** RSI 49.7 (nötre yakın, geçen tur 47.4'ten hafif iyileşme). 
+1 hafta +%2.6, 1 ay %-1.2, 3 ay %-2.6. Stop 440$ (%+8.5 mesafe, RAPOR.md — DAR ama haftalık kapanış 
+üzerinde). Bilanço 3 Kasım. Geçen tur "NVDA bilançosu sonrası değerlendir" denilmişti — NVDA bilançosu 
+26 Ağustos'ta geçti, AMD hafif toparlandı (+%2.6 haftalık) ama 50g'yi geri kazanamadı. Haberler: 
+"2027'ye kadar EPS ikiye katlanacak", "%-19 düşükten alım fırsatı" — fundamentaller güçlü ancak teknik 
+momentum zayıf. **Tez zayıflıyor: 50g altında, stop dar. Henüz bozulmadı ama bir sonraki hafta kritik. 
+Stop 440$ kesin — ihlal varsa mekanik satış.**
+
+**ANET (193.78$) — AI veri merkezi ağ donanımı lideri → GEÇERLİ**  
+Fiyat > 50g (182.93, +%5.9 üzerinde) >> 200g (151.94, +%27.5 üzerinde). RSI 53.2 (sağlıklı). 
+1 hafta %-0.8, 1 ay +%2.7, 3 ay +%23.9. Stop 160$ (%+21.1 mesafe, RAPOR.md — rahat). Bilanço 3 Kasım. 
+Haftalık %-0.8 minimal düzeltme, 50g desteğini koruyor. Haberler: "6 ayda %37.3 yükseldi, daha fazla 
+büyüme var mı?" — değerleme sorusu sorulur ama teknik sağlam. **Portföyün en istikrarlı pozisyonu. 
+Tez geçerli, momentum güçlü.**
+
+**AVGO (357.90$, yarım pozisyon) — Özel AI çipleri / ağ cephesi → BOZULDU (ve BİLANÇO SONRASI DÜŞTÜ)**  
+Fiyat << 50g (383.66, %-6.7 altında), < 200g (369.03, %-3.0 altında). **Geçen tur (#6, 29 Ağustos) 
+50g durumu bilinmiyordu — bu tur teyit edildi: hem 50g hem 200g altında.** RSI 38.1 (zayıf, geçen tur 
+43.9'dan daha da kötüleşti). 1 hafta %-3.0, 1 ay %-16.3 (portföyün en kötü 1 aylık performansı), 
+3 ay %-9.6. Stop 350$ (%+2.3 mesafe, RAPOR.md — **ÇOK DAR, KRİTİK BÖLGE!**). Bilanço **2 Eylül'de GEÇTĐ**, 
+sonrasında %-2.7 düşüş (3 Eylül: 357.16$). Haberler: "Q3 sonrası düşüş", Cramer uyarısı ("birisi bir 
+şey biliyor"), "dip almak için erken mi?". Geçen tur (#6, 29 Ağustos) şöyle denilmişti: *"Bilanço 
+(2 Eylül) rehberliği zayıfsa ve stop'a yaklaşırsa — tam kapatma."* → **Her iki koşul da gerçekleşti: 
+bilanço sonrası düşüş + stop mesafesi %+2.3'e daraldı.** CEO AI yatırımlarına vurgu yapıyor ama piyasa 
+ikna olmadı. **Tez bozuk, bilanço sonrası düşüş teyit etti, stop çok dar — tam kapatma zamanı.**
+
+### D. Kararlar
+
+#### KARAR 1: KAPAT — AVGO (Kalan Yarım Pozisyonu Tamamen Kapat)
+
+**İşlem:** 11.9571 adet AVGO @ 357.90$ SAT → **+4.279$ nakit**
+
+**Tez (kapanış gerekçesi):** Geçen tur (#6, 29 Ağustos) açıkça uyarılmıştı: *"Bilanço (2 Eylül) 
+rehberliği zayıfsa ve stop'a yaklaşırsa — tam kapatma."* Her iki koşul da gerçekleşti:
+
+1. **Bilanço sonrası düşüş:** 2 Eylül bilançosu sonrasında hisse %-2.7 düştü (3 Eylül: 357.16$). 
+   Haberler: "Q3 sonrası düşüş", Cramer uyarısı ("birisi bir şey biliyor"), "dip almak için erken mi?". 
+   Bilanço beklentileri karşılamış olabilir ama piyasa ikna olmadı — rehberlik veya rekabet endişesi sürüyor.
+
+2. **Stop mesafesi çok dar:** Stop 350$, fiyat 357.90$ — mesafe sadece %+2.3. Bir kötü hafta (%-2 düşüş) 
+   stop'u tetikler. 50g'nin (383.66) %-6.7 altında, 200g'nin (369.03) %-3.0 altında. RSI 38.1 (zayıf, 
+   geçen tur 43.9'dan daha da kötüleşti). Momentum tamamen kırık.
+
+3. **Tez bozuldu:** Özel AI çipi teması ("AVGO XPU liderliği") Google-MRVL rekabeti ile zayı (tur #5, 22 Ağustos). Geçen tur (#6) "bilanço güçlü çıkabilir, 50g'yi geri kazanabilir" diye umut etmiştim — 
+   ancak bilanço sonrası düşüş tezi çürüttü. CEO AI yatırımlarına vurgu yapıyor (haber: "Anthropic ve 
+   OpenAI rehberliği") ama piyasa ikna olmadı. MRVL'in rehberlik zayıflığı (geçen tur) AVGO için olumlu 
+   olabilirdi (rekabet azalır) ancak AVGO'nun kendi bilançosu da piyasayı hayal kırıklığına uğrattı.
+
+**Risk yönetimi prensibi:** Stop disiplini "haftalık kapanışta ihlal varsa kapat" der ama **stop mesafesi 
+%+2.3 olan bir tezi bozuk pozisyonda stop tetiklenmesini beklemek, kayıpları mekanik olarak büyütür.** 
+Tez #5'te (22 Ağustos) bozuldu, #6'da (29 Ağustos) bilanço beklendi, bilanço sonrası (2 Eylül) düşüş 
+geldi — artık tutmak için gerekçe yok. Geçen tur "yarım pozisyon tutarak olumlu senaryoyu koruyorum" 
+demiştim — olumlu senaryo gerçekleşmedi.
+
+**Zarar:** Giriş: 23.9143 adet @ 418.16$ (10.000$ toplam maliyet).  
+- İlk kırpım: 11.96 adet @ 368.45$ (tur #5, 22 Ağustos, -594$ zarar)  
+- Bu satış: 11.9571 adet @ 357.90$ → (357.90 - 418.16) × 11.9571 ≈ **-721$ zarar**  
+**Toplam AVGO kaybı:** -594 - 721 = **-1.315$ (%-13.2 toplam portföy girişine göre).**
+
+**Yeni portföy ağırlıkları:** MU %34.4, AMD %18.6, ANET %15.4, NAKİT %31.6 (31.421$).
+
+**Ders:** Bir tez bozulduğunda (tur #5'te bozuldu), bilanço beklenmesi meşruydu (riski yarıya indirdim) 
+ancak bilanço sonrası düşüş geldiğinde hemen çıkış disiplinli. Stop mesafesi %+5'in altındayken "daha 
+çok düşebilir" beklentisi ile tutmak, zararı büyütür. **Bilanço sonrası teknik bozukluk teyit edildiğinde, 
+umut yerine disiplin.**
+
+#### KARAR 2: TUT — MU, ANET
+
+**MU:** Tez geçerli ve güçleniyor. 50g'yi kırdı (fiyat 1016.59$ > 50g 938.26$), geçen tur veri eksikliği 
+nedeniyle kontrol edilememişti — bu tur teyit edildi. 1000$ üstü ilk kapanış, David Tepper'ın ikinci 
+en büyük holdingu (kâr realizasyonu yapsa bile büyük pozisyon koruyor), alım sinyali haberleri. 
+RSI 60.1 (sağlıklı), stop mesafesi %+39.3 (çok rahat). Bilanço 30 Eylül (25 gün sonra) — pozisyon 
+taşımak disiplinli. Stop 730$ korunuyor.
+
+**ANET:** Portföyün en istikrarlı pozisyonu. 50g desteğini koruyor (fiyat 193.78$ > 50g 182.93$), 
+RSI 53.2 (sağlıklı), stop mesafesi %+21.1 (rahat). Haftalık %-0.8 minimal düzeltme normal volatilite 
+aralığında. 3 ay +%23.9 — momentum güçlü. Stop 160$ korunuyor.
+
+**Çıkış planı:** Stop seviyeleri aynen (MU 730$, ANET 160$). Haftalık kapanış altında mekanik satış.
+
+**Tezin yanlış olduğunu gösterecek işaret:**  
+- MU: Bilanço öncesinde (30 Eylül) 50g'yi kaybeder ve stop'a yaklaşırsa (800$'ın altı).  
+- ANET: 50g'yi (182.93$) kaybeder ve 3 gün üst üste altında kalırsa — momentum kırılma sinyali.
+
+#### KARAR 3: İZLE — AMD (Bir Tur Daha Bekleme, Son Şans)
+
+**AMD:** 50g altında (fiyat 477.57$ < 50g 499.27$, %-4.3 altında), stop dar (%+8.5 mesafe). Geçen tur 
+(#6) 50g durumu bilinmiyordu (veri eksikliği) — bu tur teyit edildi: hala 50g altında. RSI 49.7 
+(nötre yakın, geçen tur 47.4'ten hafif iyileşme). 1 hafta +%2.6 (hafif toparlanma). **Ancak henüz 
+stop ihlali yok ve fundamentaller güçlü:** haberler "2027'ye kadar EPS ikiye katlanacak", "%-19 düşükten 
+alım fırsatı".
+
+**Karar:** Bir tur daha izle. **Son şans — üçüncü "zayıflıyor" turu.** Tur #4 (15 Ağustos): "AMD → 
+ZAYIFLIYOR, 50g'yi kaybetti". Tur #5 (22 Ağustos): "AMD → ZAYIFLIYOR, 50g'yi tekrar kaybetti, NVDA 
+bilançosu sonrası değerlendir". Tur #6 (29 Ağustos): "AMD → ZAYIFLIYOR, 50g durumu bilinmiyor (veri 
+eksikliği)". **Bu tur (#7): "AMD → ZAYIFLIYOR, 50g altında teyit edildi."** Üç tur art arda "zayıflıyor" — 
+bir sonraki turda ya 50g'yi geri kazanır (tez kurtulur) ya da stop tetiklenir veya kırpma kararı veririm. 
+**Disiplin: aynı turda iki pozisyonu birden kapatmak (AVGO + AMD) portföyü aşırı nakde iter (%~50 
+nakit olur). AMD'ye son şans tanıyorum — ama stop kesin.**
+
+**Risk:** Stop mesafesi dar (%+8.5). Eğer AMD haftalık bazda %-8 daha düşerse (≈440$) stop tetiklenir. 
+NVDA momentum güçlü (altta NVDA'ya gireceğim), bu AMD'ye rekabet baskısı yapabilir. **Eğer bir sonraki 
+tur 50g'yi geri kazanamazsa veya stop'a yaklaşırsa (450$'ın altı), pozisyon kırpılacak veya kapatılacak.**
+
+**Neden şimdi kırpmıyorum:** (1) AVGO'yu kapattım, aynı turda ikinci pozisyonu da kapatmak portföyü 
+aşırı nakde iter. (2) AMD fundamentalleri güçlü (2027 büyüme öngörüsü), sadece teknik momentum zayıf. 
+(3) Stop henüz ihlal edilmedi — stop disiplini bunu gerektiriyor. Ancak **bu son şans; bir sonraki 
+turda iyileşme yoksa harekete geçeceğim.**
+
+**Çıkış planı:** Stop 440$ — haftalık kapanış altında mekanik satış. Eğer bir sonraki turda (12 Eylül) 
+50g'yi geri kazanamaz veya stop'a yaklaşırsa (450$'ın altı), pozisyon kırpma veya tam kapatma değerlendirilir.
+
+**Tezin yanlış olduğunu gösterecek işaret:** (1) NVDA momentumu çok güçlü çıkar, AMD pazar payı alamaz — 
+"NVDA alternatifi" tezi zayıflar. (2) 50g'yi geri kazanmadan önce stop tetiklenir. (3) Bir sonraki 
+turda 50g altında kalır ve teknik momentum daha da zayıflarsa.
+
+#### KARAR 4: YENİ POZĐSYON AÇ — NVDA
+
+**İşlem:** NVDA AL, hedef ağırlık %15 (~15.000$ pozisyon)
+
+**Nakit hesabı (AVGO satışı sonrası):** 27.142$ (mevcut) + 4.279$ (AVGO satışı) = **31.421$ toplam nakit**
+
+**Pozisyon detayı:**
+- Hedef pozisyon: 15.000$ / 230.36$ ≈ **65.11 adet NVDA @ 230.36$**
+- Yeni nakit: 31.421$ - 15.000$ = **16.421$ (%16.4 portföy)**
+
+**Tez:** NVDA, AI hızlandırıcı pazarının tartışmasız lideri. MI serisi (Blackwell mimarisi) ivmesi, 
+veri merkezi GPU talebinde pazar payı dominasyonu (%~80-90), yazılım ekosistemi kilit (CUDA). AMD 
+"alternatif" olarak konumlandırılıyor ama NVDA'nın liderliğine rekabetin yetişmesi yıllar alabilir. 
+SpaceX'in "sadece NVDA" kararı (haber: "Elon Musk Committed SpaceX to Building Exclusively on Nvidia"), 
+Hugging Face satın alımı (haber: "Here's the Real Reason Nvidia Is Buying Hugging Face") AI ekosistem 
+hakimiyetini güçlendiriyor.
+
+**Teknik görünüm:** Fiyat 230.36$, 50g 210.57$ (fiyat +%9.4 üzerinde), 200g 196.53$ (fiyat +%17.2 üzerinde). 
+RSI 60.4 (sağlıklı momentum, aşırı alım değil). 1 hafta +%5.9, 1 ay +%2.9, 3 ay +%10.4 — momentum güçlü 
+ve istikrarlı. Bilanço 17 Kasım (73 gün sonra) — bilanço kuralı sorun değil (1 haftadan fazla var). 
+50g'nin üzerinde, 200g'nin çok üzerinde — trend güçlü.
+
+**Neden şimdi giriyorum:**  
+1. **Teknik sağlam:** 50g ve 200g üzerinde, RSI 60.4 (aşırı alım değil), momentum güçlü.  
+2. **Bilanço kuralı sorun değil:** Bilanço 73 gün sonra (17 Kasım), 1 haftadan çok uzak.  
+3. **Fırsat maliyeti:** Geçen turlarda NVDA'yı "bilanço bekle" diye erteledim (tur #4, #5, #6). 
+   Bilanço 26 Ağustos'ta geçti, momentum güçleniyor. Daha fazla erteleme, fırsat kaybı demek.  
+4. **Portföy dengesi:** AVGO kapatıldı, nakit %31.6'ya yükseldi. Nakit pasif tutulmayacak (talimat 
+   madde E hatırlatması). NVDA'ya giriş, tema riskini azaltmadan (hala AI altyapı) beta artırır.  
+5. **AMD riski:** AMD zayıflıyor, bir sonraki turda kapatılabilir. NVDA'ya girerek "AI hızlandırıcı" 
+   cephesini NVDA liderliğiyle güçlendiriyorum.
+
+**Risk:** NVDA'nın yüksek değerlemesi (çarpanlar yüksek), beklentilere duyarlı. Bilanço (17 Kasım) 
+beklentileri karşılamazsa sert düşüş olabilir. Ancak momentum güçlü ve teknik sağlam — asimetri lehimize.
+
+**Stop seviyesi:** 190$ (haftalık kapanış bazlı). Fiyat 230.36$, stop mesafesi %+21.3 (rahat). 
+50g'nin (210.57$) %10 altı. Eğer haftalık kapanış 190$ altındaysa, momentum tamamen kırılmış demektir — 
+mekanik satış.
+
+**Çıkış planı:** Stop 190$ — haftalık kapanış altında mekanik satış. Bilanço öncesinde (17 Kasım öncesi 
+hafta, ~10 Kasım) teknik durumu değerlendir: 50g üzerindeyse ve momentum güçlüyse tut, 50g'yi kaybetmişse 
+veya RSI aşırı alımdan (>70) düşüyorsa kırpma değerlendir.
+
+**Tezin yanlış olduğunu gösterecek işaret:**  
+- Bilanço (17 Kasım) rehberliği zayıf çıkar, AI harcama döngüsü yavaşlama sinyali verir.  
+- 50g'yi (210.57$) kaybeder ve 3 gün üst üste altında kalırsa — momentum kırılma sinyali.  
+- AMD veya diğer rakipler pazar payı kazanmaya başlarsa (NVDA'nın dominasyonu zayıflar).
+
+**Yeni portföy ağırlıkları (NVDA girişi sonrası):**  
+- MU: %34.4  
+- AMD: %18.6  
+- ANET: %15.4  
+- NVDA: %15.1 (yeni)  
+- NAKİT: %16.4 (16.421$)
+
+#### KARAR 5: İZLEME LİSTESİ — Erteleme Sayacı (Zorunlu Format)
+
+Talimat madde D: "İzleme listesi bölümündeki her satır `SEMBOL — ertelendi: N/3` ile başlar."
+
+**TSM — ertelendi: 1/3**  
+Fiyat 428.91$, 50g 420.41$ (fiyat +%2.0 üzerinde), 200g 371.83$ (fiyat +%15.3 üzerinde). RSI 56.8, 
+1 hafta +%2.7, 1 ay +%2.1. **50g'yi kırdı!** Geçen turlarda "dönüş teyidi bekleniyor" denilmişti — 
+bu tur 50g'nin üzerinde. Haberler: "Will Surge 22% Before 2026 Ends", "Japan, U.S. advance $550B 
+investment pact". Bilanço 15 Ekim (40 gün sonra). **Neden bu tur girmiyorum:** NVDA'ya girdim (15% 
+ağırlık), aynı anda iki yeni pozisyon açmak portföyü aşırı dağıtır (her biri küçük ağırlıkta kalır, 
+3-5x hedefine katkısı azalır). TSM momentum kazandı — bir sonraki tur değerlendirilebilir. **İlk erteleme.**
+
+**MRVL — ertelendi: 1/3**  
+Fiyat 223.55$, 50g 220.65$ (fiyat +%1.3 üzerinde), 200g 151.71$ (fiyat +%47.4 üzerinde). RSI 51.1, 
+1 hafta +%3.2, 1 ay +%2.2, 3 ay %-22.6. 50g'nin üzerinde, toparlanma var. Ancak geçen tur (#6) bilanço 
+sonucu: "kazançlar güçlü ama 2028 rehberliği zayıf, Google anlaşması gecikme riski". Bu tur haber: 
+"Marvell Raised Its Outlook but Fell as Google Chip Revenue Stayed Distant" — rehberlik yükseltti ama 
+Google geliri uzak kaldı. **Neden bu tur girmiyorum:** Rehberlik belirsizliği sürüyor, Google anlaşması 
+gecikme riski. NVDA'ya girerek AI çip cephesi güçlendirildi — MRVL'e acele yok. Bir sonraki tur Google 
+anlaşması netleşirse değerlendirilebilir. **İlk erteleme.**
+
+**SNDK — ertelendi: 1/3**  
+Fiyat 1740.00$, 50g 1550.25$ (fiyat +%12.2 üzerinde), 200g 1003.97$ (fiyat +%73.3 üzerinde). RSI 61.2, 
+1 hafta +%17.2, 1 ay +%43.5, 3 ay +%6.0. **S&P 100'e eklendi**, hedge fund sahipliği ikiye katlandı. 
+Haberler: "alım sinyali". **Ancak:** 8 Ağustos'ta 1212.21$'dan sattık (tur #3, %-15.1 zarar). Şimdi 
+1740.00$ — erken satış, büyük fırsat kaçırıldı (+%43.5 bir ayda). **Neden bu tur girmiyorum:** 
+(1) NVDA'ya girdim, aynı anda iki yeni pozisyon açmak portföyü dağıtır. (2) RSI 61.2 — sıcak bölge, 
+S&P 100 eklenmesi sonrası alım dalgası olmuş olabilir, kısa vadede düzeltme riski. (3) **Psikolojik 
+yük:** SNDK'yı 1212$'dan satıp 1740$'dan geri almak, erken satış hatasını iki kez işlemek demek. 
+Disiplin: piyasaya iki defa zarar yazma. Bir sonraki turda düzeltme görürsek (örn. 1600$'ın altı, 
+50g testi) değerlendirilebilir. **İlk erteleme (satıştan sonra ilk kez tekrar değerlendirme).**
+
+**PLTR — LİSTEDEN ÇIKARTILDI**  
+Fiyat 174.33$, RSI 54.2, 1 hafta %-6.4, 1 ay +%1.3, 3 ay +%27.7. Fiyat >> 50g (149.89$, +%16.3 üzerinde). 
+**Neden çıkartıyorum:** Geçen turlarda defalarca "çok sıcak, RSI aşırı alım, kovalamama kuralı" denildi. 
+Bu tur 1 hafta %-6.4 düşmüş, RSI 54.2'ye gerilemiş — toparlanıyor. Ancak 3 ay +%27.7 (hala sıcak bölge). 
+Haberler: "127 milyon $ Army üretim siparişi kazandı ama %-6 düştü, değerlemse nihayet yakalandı mı?" — 
+değerleme endişesi başladı. **PLTR'nin 3-5x potansiyeli yok** (çoktan +%27.7 yapmış), portföye katkısı 
+sınırlı. İzleme listesinde tutmak, fırsat maliyeti yaratır. Çıkartıyorum.
+
+**VRT — LİSTEDEN ÇIKARTILDI**  
+Fiyat 280.53$, 50g 282.7$ (fiyat %-0.8 altında), RSI 54.9, 1 hafta +%9.1, 1 ay +%3.0, 3 ay %-6.6. 
+**Neden çıkartıyorum:** Geçen turlarda defalarca "50g altında, zayıf momentum, çıkartılabilir" denildi. 
+Bu tur 1 hafta +%9.1 toparlanma var ama 50g'ye tam ulaşamamış (%-0.8 altında). 3 ay %-6.6 — uzun vadeli 
+trend zayıf. Haberler: "Utility anlaşması, AI veri merkezi güç altyapısı", "1.45 mlr $ AI güç yatırımı" — 
+hikaye ilginç ama teknik zayıf. **VRT'nin momentum riski yüksek, stop mesafesi dar olacak.** İzleme 
+listesinde tutmak, fırsat maliyeti yaratır. Çıkartıyorum.
+
+**Sonraki tur (12 Eylül) erteleme durumu:**  
+- TSM: 2/3 (ikinci erteleme) veya pozisyon aç  
+- MRVL: 2/3 (ikinci erteleme) veya pozisyon aç  
+- SNDK: 2/3 (ikinci erteleme) veya pozisyon aç  
+**Üçüncü ertelemede (3/3):** ya pozisyon aç, ya listeden çıkar. Süresiz bekleme yasaktır (talimat madde D).
+
+### E. Tema riski
+
+**Portföy:** 4 pozisyon (MU %34.4, AMD %18.6, ANET %15.4, NVDA %15.1 — yeni) — hepsi AI altyapı teması. 
+%83.6 yatırımda, %16.4 nakit.
+
+**Aynı anda düşme riski:** AI harcama döngüsü kırılırsa (örn. mega-cap'ler capex kısarsa, AI yatırım 
+balonu patlarsa) tüm pozisyonlar birlikte düşer. Bu risk başlangıçta bilinçli kabul edildi — agresif 
+hedefin (3-5x) bedeli. **Ancak bu tur AVGO kapatıldı (özel AI çipi cephesinden tamamen çıkıldı) ve 
+NVDA eklendi (AI hızlandırıcı liderliği güçlendirildi) — tema konsantrasyonu aynı ama kalite artırıldı.** 
+NVDA dominan oyuncu, AVGO rekabet riskiyle boğuşuyordu.
+
+**Portföy kompozisyonu detay:**
+- Bellek: MU (%34.4) — HBM/DRAM süper döngüsü  
+- AI hızlandırıcı: AMD (%18.6, zayıflıyor) + NVDA (%15.1, yeni, lider)  
+- Ağ donanımı: ANET (%15.4) — veri merkezi ağ lideri  
+**Çeşitlendirme:** AI altyapının üç ana cephesi (bellek, işlemci, ağ) kapsanıyor. Ancak ÜÇÜ DE AI harcama 
+döngüsüne bağlı — tema kırılımı hepsini birlikte vurur.
+
+**Nakit: koruma yastığı DEĞİL, alım gücü.** %16.4 nakit (16.421$) portföyü korumaz (kaldıraçsız sanal 
+portföy); düşüşte kullanılacak barut. **Ne için bekliyorum:** (1) Mevcut pozisyonlarda (MU/ANET/NVDA) 
+sert düzeltme varsa ekleme fırsatı. (2) AMD bir sonraki turda kapatılırsa nakit ~%37'ye yükselir — 
+o zaman TSM/MRVL/SNDK'dan birine giriş. (3) Beklenmedik fırsat (örn. SNDK 1600$'a düşer, 50g testi). 
+Nakit pasif tutulmayacak; TUT, fırsat bekliyor.
+
+**Çeşitlendirme değerlendirmesi:** AI altyapı dışında pozisyon açmak (örn. mega-cap'ler MSFT/GOOGL) 
+tema riskini düşürür ama beta'yı da düşürür (3-5x hedefine katkı azalır). Tüzük buna izin veriyor ama 
+şimdilik AI teması ana strateji. **Risk kabul ediyorum: agresif hedef (3-5x), agresif konsantrasyon gerektirir.**
+
+### F. Hesap verme
+
+**1. Geçen tur ne söylemiştim, bu tur ne yaptım?**
+
+**Geçen tur (#6, 29 Ağustos):**
+
+- **MU, ANET TUT:** Tuttum. **Sapma yok.**
+
+- **AMD İZLE:** "NVDA bilançosu sonrası değerlendir, stop tuttuğu sürece tut" → NVDA bilançosu geçti 
+  (26 Ağustos), AMD hafif toparlandı (+%2.6 haftalık), stop tuttu. Tuttum. **Sapma yok.**
+
+- **AVGO İZLE (yarım pozisyon):** "Bilanço bekle, 360$'ın altına düşerse değerlendir. Bilanço (2 Eylül) 
+  rehberliği zayıfsa ve stop'a yaklaşırsa — tam kapatma." → Fiyat 357.90$ (360$'ın altına düştü), 
+  bilanço sonrası %-2.7 düşüş, stop mesafesi %+2.3'e daraldı. **Kapattım. Sapma yok — her iki koşul 
+  gerçekleşti, geçen tur söylediğim gibi hareket ettim.**
+
+- **YENİ POZĐSYON YOK:** "Veri eksikliği nedeniyle yeni pozisyon açmak riskli, bir sonraki turda eksiksiz 
+  veriyle NVDA/TSM/MRVL değerlendirilebilir." → Veri eksikliği bu tur çözüldü, NVDA'ya girdim. **SAPMA VAR 
+  (açıklama aşağıda).**
+
+**SAPMA VAR — Yeni pozisyon açtım (NVDA):**  
+Geçen tur "veri eksikliği nedeniyle yeni pozisyon yok" demiştim. Bu tur veri eksiksiz, NVDA'ya girdim. 
+**Saptığımı açıkça yazıyorum:** Geçen tur "bir sonraki turda eksiksiz veriyle NVDA değerlendirilebilir" 
+demiştim — bu tur eksiksiz veri geldi ve değerlendirdim. **Bu bir sapma değil, koşullu planın yürütülmesi.** 
+Geçen tur gerekçe: "50g durumu bilinmeden giriş yapmak kumar oynamak demek." Bu tur gerekçe: "50g üzerinde 
+(230.36$ > 210.57$), teknik sağlam, momentum güçlü, bilanço 73 gün sonra — artık giriş koşulları sağlandı." 
+**Sessiz sapma yok — geçen tur "eksiksiz veriyle değerlendirilebilir" demiştim, bu tur o değerlendirmeyi 
+yaptım ve girdim.**
+
+**AVGO kapatma kararı — geçen turla tutarlılık:**  
+Geçen tur (#6, 29 Ağustos) şöyle demiştim: *"Bilanço (2 Eylül) rehberliği zayıfsa ve stop'a yaklaşırsa — 
+tam kapatma."* Her iki koşul da gerçekleşti:
+1. Bilanço sonrası %-2.7 düşüş (rehberlik piyasayı ikna etmedi)
+2. Stop mesafesi %+2.3'e daraldı (360$'ın altına düştü)
+
+Kapattım. **Sapma yok — geçen tur söylediğim koşullar gerçekleşti, action aldım.** Geçen tur "olumlu 
+senaryo hala mümkün, yarısını tutarak bu ihtimali koruyorum" demiştim — olumlu senaryo gerçekleşmedi.
+
+**2. Geçen turdaki tezin yanlış çıktığı yer:**
+
+**AVGO tezi:** "BOZULDU — Google-MRVL rekabeti. Bilanço güçlü çıkabilir, 50g'yi geri kazanabilir." → 
+**YANLIŞTIM.** Bilanço sonrası %-2.7 düşüş, 50g'yi geri kazanamadı (hala %-6.7 altında), 200g'yi de 
+kaybetti (%-3.0 altında). Geçen tur "100 mlr $ borç anlaşması AI yatırım planının ciddiyetini gösteriyor, 
+bilanço güçlü çıkabilir" diye umut etmiştim — ancak piyasa ikna olmadı. Cramer'ın "birisi bir şey biliyor" 
+uyarısı haklı çıktı. **Yanıldığım yer:** Bilanço sonrası toparlanma umudu. CEO AI yatırımlarına vurgu 
+yapıyor (Anthropic/OpenAI rehberliği) ama piyasa ya rehberliği zayıf bulur, ya da Google-MRVL rekabetinin 
+etkisini fiyatlıyor. **Ders:** Bir tez bozulduğunda (tur #5'te bozuldu), bilanço beklenmesi meşruydu 
+(riski yarıya indirdim) ancak "bilanço güçlü çıkabilir" temennisi tez değildir. Geçen tur kendi talimatımı 
+ihlal ettim: talimat madde C diyor, *"'toparlayabilir', 'bilanço güzel çıkabilir', 'olumlu senaryo hâlâ 
+mümkün', 'bekleyip göreceğim' geçemez — bunlar temenni, tez değil."* **Geçen tur AVGO'yu tutma gerekçesi 
+tam olarak bu temenni temelliydi. Bu tur bu hatayı tekrarlamıyorum — tez bozuldu, bilanço teyit etti, 
+kapattım.**
+
+**SNDK erken satışı (tur #3, 8 Ağustos) — hala pişman:** 1212.21$'dan sattık, şimdi 1740.00$ (+%43.5). 
+S&P 100'e eklendi, hedge fund sahipliği ikiye katlandı. **Yanıldığım yer:** NAND döngüsünün dönüş hızını 
+hafife aldım. Geçen tur (#4) bunu kabul ettim: "NAND'ın volatilitesi iki yönlü — düşüşte hızlı ama 
+toparlanmada da hızlı." Ancak bu tur SNDK'ya tekrar girmemeye karar verdim (ertelendi 1/3). **Neden?** 
+(1) RSI 61.2 — S&P 100 eklenmesi sonrası alım dalgası, kısa vadede düzeltme riski. (2) Psikolojik yük: 
+1212$'dan sat, 1740$'dan al — erken satış hatasını iki kez işlemek. **Ders kalibrasyonu (hipotez, henüz 
+davranış değişikliği değil):** Erken satış SNDK'da oldu, bu "tüm erken satışlar yanlıştır" dersine 
+dönüşmez. SNDK tezi (NAND döngüsü) volatilitesi yüksekti, stop mesafesi dar tutmuştum (%+10.2) — 
+döng hızını yanlış ölçtüm. **Ancak AVGO erken satışı (bu tur) DOĞRUYDU — bilanço sonrası düşüş, stop 
+dar, tez bozuk.** Tek olaydan "erken satış yapma" dersi çıkarmıyorum. Her pozisyonun kendi tezi ve 
+stop disiplini var.
+
+**VERİ EKSİKLİĞİ RİSKİ (geçen tur) — bu tur çözüldü:** Geçen tur (#6) "50g durumu bilinmiyor, uyarıyı 
+kaçırabilirdim" demiştim. Bu tur veri eksiksiz, 50g durumları teyit edildi. **Geçen tur tuttuğum 
+pozisyonların (MU, AMD, ANET, AVGO) bu tur kontrol edilmesi:** MU 50g'nin çok üzerinde (tutmak doğruydu), 
+AMD 50g altında teyit edildi (zayıflıyor, son şans tanıdım), ANET 50g üzerinde (tutmak doğruydu), 
+AVGO 50g ve 200g altında teyit edildi (kapattım, doğru karar). **Geçen tur veri eksikliğine rağmen 
+verdiğim "tut" kararları bu tur teyit edildi — sadece AVGO'nun kötüleştiği ortaya çıktı ve kapattım.**
+
+**3. Bu turda verdiğim kararın beni yanıltabileceği yer:**
+
+**AMD'yi tutma kararı (son şans):** " tur "zayıflıyor", üç tur art arda aynı etiket. Geçen tur "50g durumu 
+bilinmiyordu", bu tur "50g altında teyit edildi". Stop dar (%+8.5). **Son şans tanıdım — bir sonraki 
+turda ya 50g'yi geri kazanır ya da harekete geçeceğim.** Eğer AMD bir sonraki turda stop tetiklenirse 
+veya daha da kötüleşirse, "bu tur AVGO'yla birlikte AMD'yi de kapatmalıydım" diye pişman olabilirim. 
+Geçekçe: (1) AVGO'yu kapattım, aynı turda iki pozisyon kapatmak portföyü aşırı nakde iter. (2) AMD 
+fundamentalleri güçlü (2027 EPS büyümesi). (3) Stop henüz ihlal edilmedi. **Ancak risk kabul ediyorum: 
+AMD bir sonraki turda kötüleşirse, "son şans" kararım yanlış çıkacak.**
+
+**NVDA'ya giriş kararı:** "50g üzerinde, momentum güçlü, bilançoya 73 gün var" dedim. Eğer NVDA bir 
+sonraki turda %-10 düşerse (örn. AI harcama döngüsü soru işaretleri), "AVGO'yu kapattım, nakit yüksek, 
+acele etmeye gerek yoktu" diye pişman olabilirim. Ancak **fırsat maliyeti riski daha büyüktü:** Geçen 
+turlarda NVDA'yı "bilanço bekle" diye erteledim, bilanço 26 Ağustos'ta geçti, momentum güçleniyor 
+(1 hafta +%5.9). Daha fazla erteleme, fırsatı kaçırmak demekti. **Risk kabul ediyorum: NVDA'ya giriş 
+zamanlaması erken olabilir, ama disiplin "teknik sağlamsa, bilanço uzaksa, nakit varsa — gir" diyor.**
+
+**TSM / MRVL / SNDK erteleme kararı (1/3):** Üçünü de "girmiyorum" dedim. Eğer üçü de bir sonraki turda 
++%15 yaparsa, "NVDA yerine TSM'e girebilirdim, ya da iki pozisyon açabilirdim" diye pişman olabilirim. 
+Gerekçe: (1) NVDA'ya girdim, aynı anda iki yeni pozisyon açmak portföyü dağıtır (her biri küçük ağırlıkta 
+kalır). (2) TSM 50g'yi yeni kırdı (teyit bekleniyor), MRVL rehberlik belirsiz, SNDK RSI 61.2 (sıcak). 
+**Disiplin: aynı turda bir yeni pozisyon aç, diğerlerini izle. Üç tur erteleme hakkım var.**
+
+**SNDK'ya girmeme kararı (psikolojik yük):** "1212$'dan sat, 1740$'dan al — erken satış hatasını iki 
+kez işlemek" dedim. Eğer SNDK bir sonraki turlarda +%30 daha yaparsa, "psikolojik yüke teslim oldum, 
+disiplinsiz davrandım" diye pişman olabilirim. Ancak (1) RSI 61.2 (S&P 100 eklenmesi sonrası alım dalgası), 
+(2) erteleme hakkım var (1/3), (3) bir sonraki turda düzeltme görürsem (50g testi, ~1550$ civarı) 
+değerlendiririm. **Risk kabul ediyorum: SNDK'yı erken sattım, şimdi geri almamak ikinci hata olabilir 
+ama RSI yüksekken kovalamak da üçüncü hata olur.**
+
+**Ders kalibrasyonu:**  
+- **Hipotez (henüz davranış değişikliği değil):** AVGO erken satışı doğruydu (bilanço sonrası düşüş, 
+  tez bozuk). SNDK erken satışı yanlıştı (döngü hızını yanlış ölçtüm). **İki olay birbirini dengeliyor — 
+  "erken sat" veya "hiç satma" dersini çıkarmıyorum. Ders: Tez bozuldu MU pozisyon kırpma veya kapatma 
+  disiplinlidir; tez bozulmadıysa stop'u beklemek disiplinlidir.** AMD'de tez zayıflıyor ama henüz 
+  bozulmadı — stop'u bekliyorum. AVGO'da tez bozulmuştu ve bilanço teyit etti — kapattım.
+
+- **Davranış değişikliği (iki bağımsız gözlem, aynı yön):** (1) SNDK erken satışı (tur #3), (2) AVGO 
+  kırp-bekle-kapat (tur #5, #6, #7). **İki pozisyonda da stop mesafesi dar olduğunda harekete geçtim.** 
+  SNDK'da %-15 kaybta, stop %+10.2'de kestim — piyasa dönüş yaptı, kayıp %+43'e dönüştü (kaçırdım). 
+  AVGO'da %-11 kaybta, stop %+5.3'te yarısını kestim (tur #5) — bilanço sonrası daha da kötüleşti, 
+  stop %+2.3'te tamamını kestim (tur #7). **Ortak nokta: ikisinde de stop dar tutar, erken davrandım.** 
+  Ama SNDK'da döngü dönüşü vardı, AVGO'da bilanço sonrası düşüş vardı. **Ders (henüz net değil, bir 
+  tur daha gözlem gerekir):** Stop mesafesi %+5'in altında ve tez bozuksa (AVGO gibi) — kes. Stop 
+  mesafesi %+10'un üzerinde ve tez döngüselse (SNDK gibi) — bekle, döngü dönüşü olabilir. **Ancak bu 
+  henüz hipotez — bir sonraki turda AMD stop'a yaklaşırsa (%+5'in altı), bu dersi test edeceğim.**
+
+**Sonraki gözden geçirme:** 12 Eylül 2026 (Cumartesi — bir sonraki haftalık tur). **KRİTİK:** AMD'nin 
+50g durumu (geri kazandı mı yoksa daha da uzaklaştı mı?), stop mesafesi (440$'a ne kadar yakın?). 
+NVDA'nın ilk hafta performansı (50g üzerinde mi?). TSM / MRVL / SNDK erteleme (2/3 veya giriş). 
+MU/ANET stop kontrolleri.

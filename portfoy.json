@@ -2,8 +2,8 @@
   "deney": "AI Portföy Deneyi",
   "baslangic_tarihi": "2026-08-05",
   "baslangic_sermayesi_usd": 100000,
-  "son_guncelleme": "2026-08-29",
-  "nakit_usd": 27142.0,
+  "son_guncelleme": "2026-09-05",
+  "nakit_usd": 16421.0,
   "pozisyonlar": [
     {
       "sembol": "MU",
@@ -36,14 +36,14 @@
       "sonraki_bilanco": "2026-11-03"
     },
     {
-      "sembol": "AVGO",
-      "adet": 11.9571,
-      "giris_fiyati": 418.16,
-      "giris_tarihi": "2026-08-05",
-      "maliyet_usd": 5000.0,
-      "agirlik_hedef_pct": 5,
-      "stop_haftalik_kapanis": 350,
-      "sonraki_bilanco": "2026-09-02"
+      "sembol": "NVDA",
+      "adet": 65.11,
+      "giris_fiyati": 230.36,
+      "giris_tarihi": "2026-09-05",
+      "maliyet_usd": 15000.0,
+      "agirlik_hedef_pct": 15,
+      "stop_haftalik_kapanis": 190,
+      "sonraki_bilanco": "2026-11-17"
     }
   ],
   "benchmark": {
@@ -109,6 +109,24 @@
       "fiyat": 368.45,
       "tutar_usd": 4405.0,
       "not": "Pozisyon kırpma - 50g kaybı, stop dar (%+5.3), bilanço öncesi risk azaltma"
+    },
+    {
+      "tarih": "2026-09-05",
+      "islem": "SAT",
+      "sembol": "AVGO",
+      "adet": 11.9571,
+      "fiyat": 357.9,
+      "tutar_usd": 4279.0,
+      "not": "Tam kapatma - bilanço sonrası düşüş (%-2.7), stop çok dar (%+2.3), tez bozuk, 50g ve 200g altında"
+    },
+    {
+      "tarih": "2026-09-05",
+      "islem": "AL",
+      "sembol": "NVDA",
+      "adet": 65.11,
+      "fiyat": 230.36,
+      "tutar_usd": 15000.0,
+      "not": "AI hızlandırıcı liderliği - 50g üzerinde, momentum güçlü, bilanço 73 gün sonra"
     }
   ]
 }
