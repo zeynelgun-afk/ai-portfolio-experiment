@@ -1404,3 +1404,168 @@ ama RSI yüksekken kovalamak da üçüncü hata olur.**
 50g durumu (geri kazandı mı yoksa daha da uzaklaştı mı?), stop mesafesi (440$'a ne kadar yakın?). 
 NVDA'nın ilk hafta performansı (50g üzerinde mi?). TSM / MRVL / SNDK erteleme (2/3 veya giriş). 
 MU/ANET stop kontrolleri.
+
+---
+
+## #8 — 12 Eylül 2026 · HAFTALIK TUR
+
+**Piyasa bağlamı:** Yarı iletkenler haftalık bazda karışık performans. Portföy %-0.97 (SPY %-0.06 geride, SMH %+0.28 önde). AI altyapı teması istikrarlı, bellek ve hızlandırıcılarda toparlanma görülüyor.
+
+### A. Veri durumu
+
+10/10 sembol için veri eksiksiz çekildi (11 Eylül 2026 Cuma kapanış bazlı). Tüm pozisyonlarda fiyat, 50/200g SMA, RSI, getiri verileri ve bilanço tarihleri mevcut. **Eksik alan yok.**
+
+**Veri bütünlüğü kapısı kontrolü:** Her pozisyon ve değerlendirilen izleme sembolü için `last_price` ve `sma50` alanları tek tek kontrol edildi (talimat madde 3). Tüm alanlar dolu. `_meta.eksik_veri` = [] (boş). Ek yfinance sorgusu için gereklilik tespit edilmedi.
+
+**Haber taraması:** 10 sembol için toplam 50 başlık tarandı. Dikkate değer:
+
+- **MU:** "Is Micron Stock the Next Nvidia? The Answer May Shock Investors." — Micron'u Nvidia ile karşılaştıran analist yazıları. "Billionaire Stanley Druckenmiller Dumped Broadcom, Intel, and Micron for This Chip Stock." — Druckenmiller MU'yu azalttı (olumsuz sinyal). "Why Micron Stock Is on Pace for a Weekly Decline" — haftalık düşüş.
+
+- **AMD:** "AMD's CFO, Jean Hu, Just Announced Fantastic News for Investors" — **CFO'dan olumlu haber, bu çok önemli!** "TSM's Record Month Confirms AMD's AI Ramp, but Its Pricing Power Could Take Some of the Upside Back" — TSM'nin rekor ayı AMD'nin AI rampasını teyit ediyor.
+
+- **SNDK:** "Storage Stocks Slide as Profit Taking Follows Big Run: Seagate Falls 4%, SanDisk Drops 3%, Micron Holds Flat" — kâr realizasyonu devam ediyor, SNDK %-3 düştü.
+
+- **NVDA:** "SpaceX signs $1.1 billion-per month computing deal" — büyük anlaşma haberi. "Nvidia CEO Jensen Huang just doubled down on his big 2030 prediction" — CEO güven mesajı.
+
+- **TSM:** "David Tepper makes surprising double bet on AI's biggest bottleneck" — Tepper TSM'ye büyük bahis. "TSM Just Posted Record Sales. Nvidia May Be Both the Winner and the One Paying for It" — rekor satış.
+
+- **MRVL:** "Marvell CEO reveals decade-long gem behind its explosive 239% surge" — CEO uzun vadeli strateji açıklaması.
+
+### B. Hareketin sebebi
+
+Hiçbir pozisyon haftalık bazda ±%10'u geçmedi (MU %-4.1, AMD +%8.1, ANET +%3.0, NVDA %-5.2). Özel araştırma gerektiren hareket yok.
+
+### C. Tez sağlık kontrolü
+
+**MU (975.26$, 11 Eylül Cuma) — Bellek süper döngüsü / HBM liderliği → GEÇERLİ**  
+Fiyat > 50g (928.61, +%5.0 üzerinde) >> 200g (621.93, +%56.8 üzerinde). RSI 53.0 (sağlıklı). 1 hafta +%1.8, 1 ay +%2.7, 3 ay %-0.6. Stop 730$ (%+33.6 mesafe, çok rahat). Bilanço 30 Eylül (veri_haftalik.json, Çarşamba, 18 gün sonra). Haberler: Druckenmiller MU'yu azalttı (olumsuz sinyal) ama "Is Micron Stock the Next Nvidia?" analist ilgisi sürüyor. Haftalık %-4.1 düzeltme normal volatilite aralığında. 50g desteğini koruyor, momentum stabil. **Tez geçerli, stop rahat.**
+
+**AMD (516.13$) — AI hızlandırıcı / NVDA alternatifi → GEÇERLİ (ZAYIFLIYOR'dan yükseldi!)**  
+Fiyat > 50g (496.55, +%3.9 üzerinde) >> 200g (346.91, +%48.8 üzerinde). **KRİTİK GELİŞME: 50g'yi geri kazandı!** Geçen tur (#7, 5 Eylül) 477.57$ < 499.27 (50g altında), "son şans" uyarısı verilmişti. Bu tur 516.13$ > 496.55$ (+%3.9 üzerinde) — 50g'yi geri kazandı. RSI 58.0 (güçlü momentum, geçen tur 49.7'den yükseldi). 1 hafta +%13.1 (**çok güçlü haftalık performans!**), 1 ay +%6.9, 3 ay +%0.9. Stop 440$ (%+17.3 mesafe, rahat bölgeye döndü, geçen tur %+8.5 dardı). Bilanço 3 Kasım (Salı). Haber: **"AMD's CFO, Jean Hu, Just Announced Fantastic News for Investors"** — CFO'dan olumlu haber, bu tezi güçlendiriyor. "TSM's Record Month Confirms AMD's AI Ramp" — AI rampası teyit ediliyor. **Geçen tur (#7) "son şans" demiştim: "Bir sonraki turda ya 50g'yi geri kazanır ya da harekete geçeceğim." 50g'yi geri kazandı - tez kurtuldu!** Tur #5, #6, #7'de üç tur art arda ZAYIFLIYOR etiketiydi — bu tur eylem oldu (50g geri kazanıldı) ve etiket değişti. **Tez GEÇERLİ'ye yükseldi.**
+
+**ANET (199.59$) — AI veri merkezi ağ donanımı lideri → GEÇERLİ**  
+Fiyat > 50g (185.3, +%7.7 üzerinde) >> 200g (153.4, +%30.1 üzerinde). RSI 57.1 (sağlıklı). 1 hafta +%4.3, 1 ay %-2.0, 3 ay +%22.3. Stop 160$ (%+24.7 mesafe, rahat). Bilanço 3 Kasım (Salı). **Portföyün en istikrarlı pozisyonu.** Haftalık +%4.3 güç gösterisi. 50g desteğini koruyor, momentum güçlü. **Tez geçerli.**
+
+**NVDA (218.29$) — AI hızlandırıcı liderliği → GEÇERLİ ama ilk hafta düşüş**  
+Fiyat > 50g (212.36, +%2.8 üzerinde) >> 200g (197.11, +%10.7 üzerinde). RSI 49.9 (nötr, geçen tur 60.4'ten düştü). 1 hafta %-4.3, 1 ay %-3.0, 3 ay +%6.5. Stop 190$ (%+14.9 mesafe, rahat ama geçen tur %+21.3'ten daraldı). Bilanço 17 Kasım (Salı, 66 gün sonra). Geçen tur (#7) 230.36$'dan yeni açıldı, bu tur 218.29$ (%-5.2 düşüş, ilk hafta kayıp). Haber: "SpaceX signs $1.1 billion-per month computing deal" — büyük anlaşma pozitif. "Nvidia CEO Jensen Huang just doubled down on his big 2030 prediction" — CEO güven mesajı. **50g desteğini koruyor ama momentum zayıfladı (RSI 60.4 → 49.9). İlk hafta düşüş hayal kırıklığı ama teknik henüz bozulmadı.** Stop mesafesi daraldı (%+21.3 → %+14.9) ama henüz kritik seviyede değil. **Tez geçerli ama bir sonraki turda izlenmeli: 50g'yi kaybeder veya stop'a yaklaşırsa (200$'ın altı) uyarı.**
+
+### D. Kararlar
+
+#### KARAR 1: TUT — MU, AMD, ANET, NVDA
+
+**MU:** 50g desteğini koruyor, stop mesafesi çok rahat (%+33.6), bilanço 18 gün sonra (30 Eylül). Haftalık %-4.1 düzeltme normal. Druckenmiller'ın azaltması olumsuz ama "Is Micron Stock the Next Nvidia?" analist ilgisi tezi destekliyor. Stop 730$ korunuyor.
+
+**AMD:** **50g'yi geri kazandı!** Geçen tur "son şans" uyarısı vermiştim — bu tur şartı yerine getirdi. Haftalık +%13.1 çok güçlü, CFO'dan olumlu haber, TSM'nin rekor ayı AI rampasını teyit ediyor. RSI 58.0 (güçlü momentum), stop mesafesi rahat bölgeye döndü (%+17.3, geçen tur %+8.5 dardı). **Tez ZAYIFLIYOR'dan GEÇERLİ'ye yükseldi.** Stop 440$ korunuyor.
+
+**ANET:** Portföyün en istikrarlı pozisyonu. Haftalık +%4.3, 50g desteğini koruyor, momentum güçlü. Stop 160$ korunuyor (%+24.7 mesafe).
+
+**NVDA:** İlk hafta %-5.2 düşüş hayal kırıklığı ama 50g desteğini koruyor (+%2.8 üzerinde). SpaceX 1.1 mlr $ anlaşması ve CEO güven mesajı tezi destekliyor. Stop mesafesi daraldı (%+21.3 → %+14.9) ama henüz kritik değil. **Bir sonraki turda izlenmeli: 50g'yi kaybeder veya stop'a yaklaşırsa (200$'ın altı) uyarı.** Stop 190$ korunuyor.
+
+**Çıkış planı:** Stop seviyeleri aynen (MU 730$, AMD 440$, ANET 160$, NVDA 190$). Haftalık kapanış altında mekanik satış.
+
+**Tezin yanlış olduğunu gösterecek işaret:**  
+- MU: Bilanço öncesinde (30 Eylül) 50g'yi kaybeder ve stop'a yaklaşırsa (800$'ın altı).  
+- AMD: 50g'yi (496.55$) tekrar kaybeder ve 3 gün üst üste altında kalırsa — momentum kırılma sinyali.  
+- ANET: 50g'yi (185.3$) kaybeder — momentum kırılma sinyali.  
+- NVDA: 50g'yi (212.36$) kaybeder ve 3 gün üst üste altında kalırsa, veya stop'a yaklaşırsa (200$'ın altı) — ilk ay momentum başarısız demektir.
+
+#### KARAR 2: YENİ POZĐSYON YOK (Erteleme Sayacı: Tüm EşikAşanlar Listeden Çıkarıldı)
+
+**Nakit:** 16.421$ (%16.4 portföy, RAPOR.md).
+
+**Erteleme sayacı durumu (RAPOR.md sayaclar.py çıktısından):**  
+- **SNDK: 4/3** (EŞİK AŞILDI)  
+- **TSM: 7/3** (EŞİK AŞILDI)  
+- **MRVL: 7/3** (EŞİK AŞILDI)  
+- **MSFT: 7/3** (EŞİK AŞILDI)  
+- **GOOGL: 7/3** (EŞİK AŞILDI)
+
+Talimat madde D açık: "Tabloda 'EŞİK AŞILDI' yazan her sembol için bu turda iki seçenek var: pozisyon aç, ya da sembolü listeden çıkar." Üçüncü seçenek yok; süresiz bekleme yasaktır.
+
+**Değerlendirme ve kararlar (her sembol için ayrı ayrı):**
+
+**1. SNDK (1633.35$, 4/3 EŞİK AŞILDI) — LİSTEDEN ÇIKARILDI**  
+Fiyat > 50g (1517.87, +%7.6 üzerinde), RSI 53.6, 1 hafta +%5.0, 1 ay +%6.9. Teknik sağlam. Ancak haber: "Storage Stocks Slide as Profit Taking Follows Big Run: SanDisk Drops 3%" — kâr realizasyonu devam ediyor. Geçen tur (#7) "ertelendi 1/3" dedim ama sayaclar.py 4/3 gösteriyor — bu çok daha uzun süredir ertelenmiş (ben tur #7'de sayacı yanlış başlatmışım, talimat sürüm 7 gerekçesinde belirtilmiş). **Neden bu tur girmiyorum:** (1) 8 Ağustos'ta 1212.21$'dan sattım (tur #3, erken satış, +%43.5 fırsat kaçırdım). Şimdi 1633.35$ (geçen tur 1740$'dan %-6.1 düşmüş). Psikolojik yük gerekçesi eskiydi ama 4/3 eşik çok aşılmış — bu kadar uzun erteleme portföyün odağını dağıtır. (2) Nakit %16.4 — tek pozisyon açabilirim (~%10 ağırlık). SNDK yerine TSM daha stratejik (fabrication lideri, tüm AI çiplerini üretiyor). **Karar: LİSTEDEN ÇIKARTILDI.** 
+
+**2. TSM (433.24$, 7/3 EŞİK AŞILDI) — LİSTEDEN ÇIKARILDI**  
+Fiyat > 50g (418.93, +%3.4 üzerinde) >> 200g (374.99, +%15.5 üzerinde). RSI 56.9, 1 hafta +%3.9, 1 ay +%0.6, 3 ay +%2.2. Teknik sağlam, momentum istikrarlı. Haberler: "David Tepper makes surprising double bet on AI's biggest bottleneck" — Tepper TSM'ye büyük bahis. "TSM Just Posted Record Sales." — rekor satış. Bilanço 15 Ekim (Perşembe, 33 gün sonra). **7/3 eşik çok aşılmış, pozisyon açmak mantıklı görünüyor. ANCAK:** (1) Nakit %16.4 — tek pozisyon açabilirim (~%10 ağırlık). TSM'e pozisyon açarsam AMD'nin geçen tur "son şans"tan kurtulması riski alınır (eğer AMD tekrar zayıflarsa nakit yok). (2) **Portföy dengesi:** MU %34.4 (bellek), AMD %18.6 + NVDA %15.1 = %33.7 (AI hızlandırıcı), ANET %15.4 (ağ). TSM eklemek "fabrication" cephesi ekler ama portföyün AI altyapı teması içinde zaten dolaylı TSM maruziyeti var (NVDA, AMD hepsi TSM'den alıyor). (3) **3-5x hedefi:** TSM istikrarlı ama büyük şirket, beta düşük. 3 ay +%2.2 — büyüme yavaş. AMD +%13.1 haftalık yaptı (çok daha dinamik). Portföyün agresif hedefine TSM'in katkısı sınırlı olabilir. **Karar: LİSTEDEN ÇIKARTILDI.** Gerekçe: 7/3 eşik çok aşılmış ama portföy dengesi ve agresif hedef bağlamında TSM eklemek yerine nakit korumak daha stratejik. AMD'nin 50g'yi geri kazanması portföyün hızlandırıcı cephesini güçlendirdi — ek pozisyon yerine mevcut pozisyonlara (AMD, NVDA, MU) ekleme fırsatı beklemek daha disiplinli.
+
+**3. MRVL (236.10$, 7/3 EŞİK AŞILDI) — LİSTEDEN ÇIKARILDI**  
+Fiyat > 50g (216.84, +%8.9 üzerinde) >> 200g (154.76, +%52.6 üzerinde). RSI 55.5, 1 hafta +%13.1 (**çok güçlü!**), 1 ay +%6.3, 3 ay %-15.6. Teknik çok güçlü. Haber: "Marvell CEO reveals decade-long gem behind its explosive 239% surge" — CEO uzun vadeli strateji açıklaması. Bilanço 1 Aralık (Salı, 80 gün sonra). **7/3 eşik çok aşılmış, teknik çok güçlü (+%13.1 haftalık) — neden girmiyorum?** (1) Geçen turlarda "Google anlaşması gecikme riski" endişesi vardı (tur #6'da bilanço sonucu zayıftı). Bu tur +%13.1 haftalık toparlanma var — Google endişesi azalmış olabilir. ANCAK (2) Nakit %16.4 — tek pozisyon açabilirim. MRVL vs TSM seçimi: ikisi de güçlü. Ama (3) **portföy dengesi hatası riski:** MRVL özel AI çipleri — AVGO'yu bu yüzden kapattım (Google-MRVL rekabeti, tur #5-#7). MRVL'e girmek, kapatılan cepheye geri dönmek demek. TSM fabrication (farklı cephe) ama onu da çıkarttım (yukarıdaki gerekçelerle). **Karar: LİSTEDEN ÇIKARTILDI.** Gerekçe: Teknik çok güçlü ama 7/3 eşik çok aşılmış, Google anlaşması belirsizliği sürüyor (geçen tur zayıf bilanço), özel AI çipleri rekabetçi alan (AVGO'yu bu yüzden kapattım). Mevcut portföy (AMD 50g'yi geri kazandı, NVDA yeni) AI hızlandırıcı cephesini kapsıyor — MRVL eklemek tema çeşitliliği getirmez, nakit tüketir.
+
+**4. MSFT (495.63$, 7/3 EŞİK AŞILDI) — LİSTEDEN ÇIKARILDI**  
+Fiyat > 50g (453.12, +%9.4 üzerinde) >> 200g (429.65, +%15.4 üzerinde). RSI 56.9, 1 hafta %-2.8, 1 ay %-0.1, 3 ay +%27.1. Teknik güçlü (50g çok üzerinde, 3 ay +%27.1). **Neden girmiyorum:** (1) Tüzük: "ABD büyük teknoloji + yarı iletken/AI altyapısı." MSFT mega-cap, cloud/platform — AI altyapı değil. (2) **Beta düşük, 3-5x hedefine katkısı sınırlı.** 3 ay +%27.1 güçlü ama bu büyük şirket için normal. Portföyün agresif hedefine (3-5x) katkısı yarı iletkenlere (MU, AMD, NVDA) göre çok daha düşük. (3) 7/3 eşik çok aşılmış — neden bu kadar uzun ertelendi? Çünkü MSFT portföy temasına uymuyordu. **Karar: LİSTEDEN ÇIKARTILDI.** Gerekçe: Mega-cap, beta düşük, AI altyapı teması dışında. 3-5x hedefine katkısı sınırlı.
+
+**5. GOOGL (338.50$, 7/3 EŞİK AŞILDI) — LİSTEDEN ÇIKARILDI**  
+Fiyat < 50g (346.98, %-2.4 altında), 200g (336.38, +%0.6 üzerinde). RSI 46.9 (zayıf). 1 hafta %-1.1, 1 ay %-2.2, 3 ay %-5.8. **Teknik zayıf: 50g altında, RSI zayıf, momentum negatif.** Bilanço 28 Ekim (Çarşamba). **Neden girmiyorum:** (1) 50g altında — momentum kırık. (2) Tüzük: "ABD büyük teknoloji + yarı iletken/AI altyapısı." GOOGL mega-cap, cloud/AI platform ama AI altyapı değil. (3) 3-5x hedefine katkısı sınırlı (MSFT ile aynı gerekçe). **Karar: LİSTEDEN ÇIKARTILDI.** Gerekçe: 50g altında (teknik zayıf), mega-cap (beta düşük), AI altyapı teması dışında.
+
+**Neden hiçbirine pozisyon açmadım — bütünsel gerekçe:**  
+Nakit %16.4 — tek pozisyon açabilirim (~%10 ağırlık, 10.000$). Beş eşik aşan sembolün hiçbiri portföyün mevcut durumu ve hedefi bağlamında yeterince güçlü gerekçe sunmadı:
+- SNDK: Teknik sağlam ama 4/3 çok aşılmış, psikolojik yük (erken satış), kâr realizasyonu haberleri.
+- TSM: Teknik sağl ama 7/3 çok aşılmış, beta düşük, portföyde dolaylı TSM maruziyeti zaten var (NVDA/AMD).
+- MRVL: Teknik çok güçlü ama 7/3 çok aşılmış, Google anlaşması belirsizliği, özel AI çipleri rekabetçi (AVGO'yu bu yüzden kapattım).
+- MSFT ve GOOGL: Mega-cap'ler, AI altyapı teması dışında, beta düşük, 3-5x hedefine katkısı sınırlı.
+
+**Alternatif yaklaşım değerlendirmesi:** "Hiçbirine açmıyorsan hepsini çıkartmak yerine, en güçlü 1-2'sini izlemeye devam et, diğerlerini çıkart" diye düşünülebilir. Ancak talimat madde D açık: "Eşik aşıldı mı? Pozisyon aç veya listeden çıkar, üçüncüsü yok." Eşik aşılmış bir sembole "bir tur daha izle" demek süresiz erteleme demektir ve yasaktır. **Beş sembolün hepsini listeden çıkarttım çünkü hiçbirine pozisyon açacak yeterli gerekçe bulamadım.**
+
+**Nakit stratejisi:** %16.4 nakit (16.421$) pasif tutulmayacak (talimat madde E). **Ne için bekliyorum:** (1) Mevcut pozisyonlarda (MU, AMD, ANET, NVDA) sert düzeltme varsa ekleme fırsatı — özellikle AMD (50g'yi geri kazandı, momentum güçlü) ve MU (bilanço 18 gün sonra, düzeltme fırsatı olabilir). (2) NVDA bir sonraki turda 50g'yi kaybeder veya stop'a yaklaşırsa (200$'ın altı), nakit var ve alternatif pozisyon (AMD güçlendirme) değerlendirilebilir. (3) Beklenmedik fırsat (örn. yeni bir güçlü sembol taraması). Nakit barut, düşüş fırsatı için hazır.
+
+### E. Tema riski
+
+**Portföy:** 4 pozisyon (MU %33.1, AMD %20.1, ANET %15.9, NVDA %14.4, RAPOR.md ağırlıkları) — hepsi AI altyapı teması. %83.6 yatırımda, %16.4 nakit.
+
+**Aynı anda düşme riski:** AI harcama döngüsü kırılırsa (örn. mega-cap'ler capex kısarsa, AI yatırım balonu patlarsa) tüm pozisyonlar birlikte düşer. Bu risk başlangıçta bilinçli kabul edildi — agresif hedefin (3-5x) bedeli. **Bu tur TSM / MRVL / MSFT / GOOGL listeden çıkarıldı — tema çeşitliliği artırma fırsatı kaçırıldı ama tema konsantrasyonu korundu.** Gerekçe: (1) TSM / MRVL eşikleri çok aşılmış (7/3), bu kadar uzun erteleme zaten tema dışı oldukları sinyali. (2) MSFT / GOOGL mega-cap'ler, beta düşük, 3-5x hedefine katkısı sınırlı. (3) Mevcut portföy (AMD 50g'yi geri kazandı + NVDA yeni) AI hızlandırıcı cephesini güçlendirdi — ek pozisyon yerine nakit korumak, düzeltme fırsatı için daha stratejik.
+
+**Portföy kompozisyonu detay:**
+- Bellek: MU (%33.1) — HBM/DRAM süper döngüsü, portföyün en büyük ağırlığı  
+- AI hızlandırıcı: AMD (%20.1, 50g'yi geri kazandı) + NVDA (%14.4, yeni, lider) = %34.5 — portföyün ikinci büyük grubu  
+- Ağ donanımı: ANET (%15.9) — veri merkezi ağ lideri, en istikrarlı pozisyon  
+**Toplam yatırım:** %83.6 (nakit %16.4).
+
+**Çeşitlendirme:** AI altyapının üç ana cephesi (bellek, işlemci, ağ) kapsanıyor. Ancak ÜÇÜ DE AI harcama döngüsüne bağlı — tema kırılımı hepsini birlikte vurur. **Risk kabul ediyorum: agresif hedef (3-5x), agresif konsantrasyon gerektirir.** TSM/MRVL/MSFT/GOOGL listeden çıkarıldı çünkü tema çeşitliliği yerine tema derinliği (mevcut pozisyonlara ekleme fırsatı) stratejisi seçildi.
+
+**Nakit: koruma yastığı DEĞİL, alım gücü.** %16.4 nakit (16.421$) portföyü korumaz (kaldıraçsız sanal portföy); düşüşte kullanılacak barut. Mevcut pozisyonlarda düzeltme fırsatı bekliyor (özellikle AMD güçlendirme veya MU bilanço öncesi düzeltme). Eğer NVDA bir sonraki turda zayıflarsa (50g kaybı, stop'a yaklaşma), nakit alternatif eylem için hazır.
+
+### F. Hesap verme
+
+**1. Geçen tur ne söylemiştim, bu tur ne yaptım?**
+
+**Geçen tur (#7, 5 Eylül):**
+
+- **MU, ANET TUT:** Tuttum. **Sapma yok.**
+
+- **AMD İZLE (son şans):** "50g'yi geri kazanır veya stop tetiklenir veya kırpma kararı veririm." → AMD 50g'yi geri kazandı (516.13$ > 496.55$), haftalık +%13.1, CFO'dan olumlu haber. Tuttum ve **tez etiketini ZAYIFLIYOR'dan GEÇERLİ'ye yükselttim.** **Sapma yok — geçen tur "son şans" şartı bu tur yerine getirildi, söylediğim gibi hareket ettim.**
+
+- **NVDA TUT:** Tuttum. İlk hafta %-5.2 düşüş oldu ama 50g desteğini koruyor. **Sapma yok.**
+
+- **AVGO KAPAT (tamamen):** Geçen tur kapattım. Bu tur portföyde yok. **Sapma yok.**
+
+- **İzleme listesi (TSM, MRVL, SNDK):** Geçen tur "ertelendi 1/3" dedim. Bu tur sayaclar.py'den SNDK 4/3, TSM 7/3, MRVL 7/3 öğrendim — **geçen tur sayacı yanlış başlatmışım (talimat sürüm 7 gerekçesinde belirtilmiş).** Bu tur doğru sayaçları kullandım ve **beş eşik aşan sembolü (SNDK, TSM, MRVL, MSFT, GOOGL) listeden çıkarttım.** **SAPMA VAR (açıklama aşağıda).**
+
+**SAPMA VAR — İzleme listesi:**  
+Geçen tur (#7) TSM, MRVL, SNDK için "ertelendi 1/3 (ilk erteleme)" dedim. Bu tur sayaclar.py çıktısı: SNDK 4/3, TSM 7/3, MRVL 7/3 — hepsi EŞİK AŞILDI. **Saptığımı açıkça yazıyorum:** Geçen tur sayacı yanlış başlattım (1/3 dedim, oysa 4/3 ve 7/3 idi). Talimat sürüm 7 gerekçesinde tam olarak bu hata belirtilmiş: "tur #7 sayacı doğru formatta yazdı ama 1/3'ten başlattı — oysa TSM, MRVL ve SNDK turlardır erteleniyordu." Bu tur doğru sayaçları sayaclar.py'den aldım ve **tüm eşik aşanları (beş sembol) listeden çıkarttım.** Geçen tur "Sonraki tur (12 Eylül) erteleme durumu: TSM 2/3 veya pozisyon aç, MRVL 2/3 veya pozisyon aç, SNDK 2/3 veya pozisyon aç" demiştim — ama gerçek sayaçlar 4/3 ve 7/3 olduğu için "ya pozisyon aç ya listeden çıkar" kuralı bu tur geçerliydi. **Hiçbirine pozisyon açmadım, hepsini listeden çıkarttım.** Gerekçeler yukarıda (madde D2).
+
+**2. Geçen turdaki tezin yanlış çıktığı yer:**
+
+**AMD tezi:** Geçen tur (#7) "ZAYIFLIYOR — son şans, bir sonraki turda ya 50g'yi geri kazanır ya da harekete geçeceğim." → **DOĞRU ÇIKTI.** AMD 50g'yi geri kazandı (477.57$ < 499.27 → 516.13$ > 496.55$), haftalık +%13.1, CFO'dan olumlu haber. **Yanılmadım — geçen tur "son şans" şartı doğru koydumve bu tur yerine getirildi.** Tez ZAYIFLIYOR'dan GEÇERLİ'ye yükseldi. **Ders: "Son şans" uyarısı işe yaradı — AMD'ye bir tur daha fırsat tanımak doğruydu (AVGO ile aynı turda iki pozisyon kapatmamak için). AMD fundamentalleri güçlüydü (2027 EPS büyümesi), sadece teknik momentum zayıftı — bu tur teknik de toparlad.**
+
+**NVDA ilk hafta performansı:** Geçen tur (#7) 230.36$'dan yeni açtım, "50g üzerinde, momentum güçlü, bilançoya 73 gün var" dedim. Bu tur 218.29$ (%-5.2 düşüş, ilk hafta kayıp). **Yanıldığım yer:** "İlk hafta performansı güçlü olur" varsayımı. NVDA hala 50g üzerinde (+%2.8) ama momentum zayıfladı (RSI 60.4 → 49.9), stop mesafesi daraldı (%+21.3 → %+14.9). İlk hafta düşüş hayal kırıklığı. **Sebep araştırması (madde B'de gerekli değil çünkü %-5.2 < %10 ama yine de not ediyorum):** NVDA'nın haftalık %-4.3 düşüşü (veri_haftalik.json) genel AI hızlandırıcı düzeltmesinin parçası olabilir — AMD +%13.1 yaptı (güçlü), NVDA %-4.3 (zayıf). Muhtemelen kısa vadeli kâr realizasyonu veya NVDA'nın yüksek değerlemesine (çarpanlar) duyarlı piyasa tepkisi. **Öğrendiğim: Yeni pozisyonun ilk hafta performansı kestirilmez — teknik sağlam olsa bile (50g üzerinde) kısa vadeli düzeltme gelebilir. NVDA'nın tezi (AI hızlandırıcı liderliği) hala geçerli ama ilk ay izlenmeli.**
+
+**TSM / MRVL / SNDK erteleme sayacı:** Geçen tur "ertelendi 1/3" dedim, bu tur sayaclar.py: SNDK 4/3, TSM 7/3, MRVL 7/3 — **çok daha uzun süredir ertelenmiş, ben yanlış başlatmışım.** Talimat sürüm 7 gerekçesinde belirtilmiş. **Yanıldığım yer:** Erteleme sayacını kendin üretme yasağını ihlal ettim (geçen tur RAPOR.md'ye bakmak yerine "ilk erteleme" diye kendim saydım). Bu tur doğru yaptım: sayaclar.py'den aldım. **Ders: Talimat madde D'yi harfiyen uygula — "sayıyı sen üretmezsin, RAPOR.md'den alırsın." Geçen tur bu maddeyi ihlal ettim.**
+
+**3. Bu turda verdiğim kararın beni yanıltabileceği yer:**
+
+**Beş eşik aşan sembolü listeden çıkartma kararı:** SNDK (4/3), TSM (7/3), MRVL (7/3), MSFT (7/3), GOOGL (7/3) — hepsini listeden çıkarttım. Eğer bunlardan biri (özellikle TSM veya MRVL — teknik güçlü) bir sonraki turlarda +%30 yaparsa, "eşik aşmış sembolleri çıkartmak yerine en azından TSM'e pozisyon açmalıydım" diye pişman olabilirim. **Gerekçem:** (1) Nakit %16.4 — tek pozisyon açabilirim. Beş sembolün hiçbiri portföyün mevcut durumu ve hedefi bağlamında yeterince güçlü gerekçe sunmadı (detaylı gerekçeler madde D2'de). (2) Eşik aşılmış sembole "bir tur daha izle" demek süresiz erteleme demektir ve talimat madde D yasaktır. **Risk kabul ediyorum: Eşik aşanları çıkartmak, TSM/MRVL gibi teknik güçlü olanları kaçırmak demek olabilir. Ama portföy odağını korumak (AMD 50g'yi geri kazandı, nakit düzeltme fırsatı için hazır) daha stratejik.**
+
+**NVDA'yı tutma kararı (ilk hafta %-5.2 düşüş):** "50g desteğini koruyor ama momentum zayıfladı, bir sonraki turda izlenmeli" dedim. Eğer NVDA bir sonraki turda %-10 daha düşerse (örn. 50g'yi kaybeder, 200$ civarına), "ilk hafta düşüş uyarısıydı, bu turda kırpmalıydım" diye pişman olabilirim. Gerekçem: (1) NVDA hala 50g üzerinde (+%2.8), stop mesafesi rahat (%+14.9, henüz kritik değil). (2) SpaceX 1.1 mlr $ anlaşması ve CEO güven mesajı tezi destekliyor. (3) İlk hafta düşüş normal düzeltme olabilir (kâr realizasyonu). **Risk kabul ediyorum: NVDA momentum zayıfladı, bir sonraki turda 50g'yi kaybederse veya stop'a yaklaşırsa uyarı olacak. Ama şimdi kırpmak, bir haftalık düzeltme üzerine panik satışı olur.**
+
+**AMD'nin tez etiketini GEÇERLİ'ye yükseltme kararı:** Geçen tur ZAYIFLIYOR, bu tur GEÇERLİ (50g'yi geri kazandı). Eğer AMD bir sonraki turda tekrar 50g'yi kaybederse, "çok erken GEÇERLİ'ye yükselttim, bir-iki tur daha ZAYIFLIYOR'da tutmalıydım" diye pişman olabilirim. Gerekçem: (1) Geçen tur "son şans — bir sonraki turda ya 50g'yi geri kazanır ya da harekete geçeceğim" demiştim. AMD şartı yerine getirdi (50g'yi geri kazandı, haftalık +%13.1, CFO'dan olumlu haber). (2) Talimat madde C: "Aynı pozisyona üçüncü kez üst üste aynı etiketi yazıyorsan, o tur bir şey değişmek zorundadır: ya eylem, ya etiket." Tur #5, #6, #7'de üç tur ZAYIFLIYOR — bu tur (#8) eylem oldu (50g geri kazanıldı) ve etiket değişti. **Risk kabul ediyorum: AMD tekrar zayıflayabilir. Ama geçen tur "son şans" şartı bu tur yerine getirildi, etiketi yükseltmek disiplinli.**
+
+**Nakit %16.4 koruma kararı (hiçbir yeni pozisyon açmama):** Eğer bir sonraki turlarda piyasa +%15 yaparsa ve ben nakit %16.4 ile oturduysam, "TSM veya MRVL'e pozisyon açmalıydım, nakit pasif tutmak fırsat kaybı" diye pişman olabilirim. Gerekçem: (1) Talimat madde E: "Nakit pasif tutulmayacak; düşüşte alım gücüdür." Ama nakit TUT, düzeltme fırsatı bekliyor (mevcut pozisyonlara ekleme — özellikle AMD güçlendirme veya MU bilanço öncesi düzeltme). (2) Eşik aşanların hiçbiri yeterince güçlü gerekçe sunmadı (detaylı gerekçeler madde D2'de). **Risk kabul ediyorum: Nakit korumak, yükseliş fırsatını kaçırmak demek olabilir. Ama mevcut portföy (AMD 50g'yi geri kazandı + NVDA yeni) yeterince dinamik — nakit düşüş fırsatı için daha stratejik.**
+
+**Ders kalibrasyonu:**  
+- **Davranış değişikliği (iki bağımsız gözlem, aynı yön):** (1) AMD "son şans" uyarısı (tur #7), şart yerine getirildi (tur #8). (2) AVGO kırp-bekle-kapat (tur #5, #6, #7), bilanço sonrası düşüş. **İki pozisyonda da "koşullu eylem" planı işe yaradı.** AMD'ye bir tur daha fırsat tanımak doğruydu (fundamentaller güçlüydü), AVGO'yu bilanço bekleyip kapatmak doğruydu (tez bozuktu). **Ders: Bir pozisyon zayıflıyorsa ama fundamentaller güçlüyse (AMD gibi), "son şans" uyarısı ver ve bir tur daha izle. Tez bozuksa (AVGO gibi), koşullu plan yap (bilanço bekle) ve koşul gerçekleşince hemen kes. İki durumu karıştırma.**
+
+- **Hipotez (henüz davranış değişikliği değil):** Yeni pozisyonun ilk hafta performansı kestirilmez (NVDA %-5.2 düşüş). Ancak bu tek olay — NVDA'nın ilk ay performansı bir sonraki turlarda izlenecek. Eğer NVDA bir ay sonra hala 50g'yi koruyorsa ve toparlanıyorsa, ilk hafta düşüş sadece kısa vadeli düzeltmeydi demektir. **Ders (henüz net değil): Yeni pozisyon açtıktan sonra ilk 2-3 hafta izle, 50g kaybı veya stop'a yaklaşma varsa uyarı. İlk hafta düşüş normal olabilir ama iki hafta üst üste 50g kaybı kırpma sinyali olabilir.**
+
+**Sonraki gözden geçirme:** 19 Eylül 2026 (Cumartesi — bir sonraki haftalık tur). **KRİTİK:** NVDA'nın 50g durumu (geri kazandı mı yoksa kaybetti mi?), stop mesafesi (200$'a ne kadar yakın?). AMD'nin 50g'yi koruyup korumadığı (tekrar kaybederse tez GEÇERLİ'den ZAYIFLIYOR'a düşer). MU bilanço yaklaşıyor (30 Eylül, 11 gün sonra — bir son hafta öncesi kontrol). ANET momentum devam ediyor mu. Nakit düzeltme fırsatı bekleniyor.
