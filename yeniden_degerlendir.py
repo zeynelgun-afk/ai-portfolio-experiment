@@ -273,6 +273,20 @@ def tez_promptu(sym, poz, tetikler, veri, pf_poz, nakit, an):
     return "\n".join(satirlar)
 
 
+def tetik_birlestir(liste):
+    """Bir iddia aynı turda birkaç koşuldan tetiklenebilir (fiyat + hacim + sektör).
+
+    Tetikleyicileri sözlükte iddia_id ile saklamak, en bilgilendirici olanı (fiyat 50g
+    altında) en zayıfının (sektör ETF'i %-4.9) üzerine yazıyordu. Hepsi prompt'a gider.
+    """
+    return {
+        "kosul_tipi": ", ".join(t.get("kosul_tipi", "?") for t in liste),
+        "olcum": "; ".join(f"{t.get('kosul_tipi')}={t.get('olcum')}" for t in liste),
+        "esik": "; ".join(f"{t.get('kosul_tipi')}={t.get('esik')}" for t in liste),
+        "tetikleyici": "; ".join(t.get("tetikleyici", "") for t in liste),
+    }
+
+
 # --------------------------------------------------------------------- yazma
 
 
@@ -299,25 +313,34 @@ def not_ekle(yol, baslik, govde):
 # ---------------------------------------------------------------------- akışlar
 
 
-def kod10_akisi(tezler, ihlaller, pf, an, model, anahtar, sayac, sinir, dry, tam):
-    """Etkilenen iddiaları (ya da tam yenilemede hepsini) küçük modelle tazele."""
+def kod10_akisi(tezler, ihlaller, pf, an, model, anahtar, sayac, sinir, dry, tam,
+                atla=None):
+    """Etkilenen iddiaları (ya da tam yenilemede hepsini) küçük modelle tazele.
+
+    `atla`: tez seviyesinde ele alınmış iddia id'leri. Onlar derin modelin tam
+    bağlamıyla değerlendirildi; aynı iddiayı ardından küçük modelle tekrar yazmak
+    bağlamı daraltmak olurdu.
+    """
     veri = ihlaller.get("veri", {})
     pf_poz = {p["sembol"]: p for p in pf.get("pozisyonlar", [])}
-    tetik_index = {}
+    atla = set(atla or ())
+    gruplar = {}
     for t in ihlaller.get("tetiklenen", []):
         if t.get("siddet") == "iddia":
-            tetik_index[t["iddia_id"]] = t
+            gruplar.setdefault(t["iddia_id"], []).append(t)
+    tetik_index = {iid: tetik_birlestir(liste) for iid, liste in gruplar.items()}
 
     if tam:
         hedefler = [(sym, poz, idd, tetik_index.get(idd["id"], {
             "kosul_tipi": "tam_yenileme", "olcum": None, "esik": None,
             "tetikleyici": "günlük toplu gözden geçirme (eşik aşılmadı)"}))
             for sym, poz in tezler.items() if not sym.startswith("_")
-            for idd in poz.get("iddialar", [])]
+            for idd in poz.get("iddialar", []) if idd["id"] not in atla]
     else:
         hedefler = [(sym, poz, idd, tetik_index[idd["id"]])
                     for sym, poz in tezler.items() if not sym.startswith("_")
-                    for idd in poz.get("iddialar", []) if idd["id"] in tetik_index]
+                    for idd in poz.get("iddialar", [])
+                    if idd["id"] in tetik_index and idd["id"] not in atla]
 
     if not hedefler:
         print("kod 10: yeniden yazılacak iddia yok")
@@ -356,10 +379,14 @@ def kod20_akisi(tezler, ihlaller, pf, an, model, anahtar, sayac, dry, notlar_yol
     pf_poz = {p["sembol"]: p for p in pf.get("pozisyonlar", [])}
     nakit = pf.get("nakit_usd", 0)
 
-    gruplar = {}
+    # Tez seviyesi tetikleyicisi olan semboller işlenir; ama prompt'a o sembolün
+    # BÜTÜN tetikleyicileri gider — iddia seviyesindekiler de bağlamın parçası.
+    tumu, tez_semboller = {}, set()
     for t in ihlaller.get("tetiklenen", []):
+        tumu.setdefault(t["sembol"], []).append(t)
         if t.get("siddet") == "tez":
-            gruplar.setdefault(t["sembol"], []).append(t)
+            tez_semboller.add(t["sembol"])
+    gruplar = {s: tumu[s] for s in tez_semboller}
     if not gruplar:
         print("kod 20: tez seviyesi tetikleyici yok")
         return [], sayac
@@ -376,7 +403,8 @@ def kod20_akisi(tezler, ihlaller, pf, an, model, anahtar, sayac, dry, notlar_yol
         # Tez seviyesi bütçeye takılmaz (bkz. modül başlığı); çağrı yine sayılır.
         sayac["cagri"] += 1
         cikti = json_ayikla(llm_cagir(model, SISTEM_TEZ, prompt, anahtar))
-        tetik_metni = "; ".join(t.get("tetikleyici", "") for t in tetikler)
+        tetik_metni = "; ".join(dict.fromkeys(
+            t.get("tetikleyici", "") for t in tetikler))
 
         if not cikti or not str(cikti.get("tez_degerlendirmesi", "")).strip():
             print(f"UYARI {sym}: tez değerlendirmesi parse edilemedi — iddialar "
@@ -478,13 +506,17 @@ def main():
     derin = env("OPENROUTER_MODEL_DERIN", VARSAYILAN_DERIN)
     guncellenen, kararlar = [], []
 
+    # Tez seviyesinde ele alınan iddialar, ardından küçük modelle tekrar yazılmaz.
+    tez_iddialari = {t["iddia_id"] for t in ihlaller.get("tetiklenen", [])
+                     if t.get("siddet") == "tez"}
     if args.kod >= 20:
         kararlar, sayac = kod20_akisi(tezler, ihlaller, pf, an, derin, anahtar, sayac,
                                       args.dry_run, notlar_yolu, karar_yolu)
     # Aynı koşumda hem tez hem iddia tetiklenmiş olabilir; ikisi de işlenir.
     if (args.kod >= 10 or args.tam_yenileme) and not butce_doldu:
         guncellenen, sayac = kod10_akisi(tezler, ihlaller, pf, an, hizli, anahtar,
-                                         sayac, sinir, args.dry_run, args.tam_yenileme)
+                                         sayac, sinir, args.dry_run, args.tam_yenileme,
+                                         atla=tez_iddialari)
 
     if args.dry_run:
         return 0

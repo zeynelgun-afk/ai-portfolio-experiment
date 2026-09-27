@@ -235,6 +235,85 @@ class Kod20Testi(unittest.TestCase):
         self.assertEqual(t["MU"]["iddialar"][0]["metin"], ESKI_METIN)
 
 
+class TetikBirlestirmeTesti(unittest.TestCase):
+    """Bir iddia birkaç koşuldan tetiklenirse hepsi prompt'a gitmeli."""
+
+    def setUp(self):
+        self._gercek = yd.llm_cagir
+        self.promptlar = []
+
+    def tearDown(self):
+        yd.llm_cagir = self._gercek
+
+    def kaydet(self, yanit):
+        def sahte(model, sistem, kullanici, anahtar):
+            self.promptlar.append(kullanici)
+            return yanit
+        yd.llm_cagir = sahte
+
+    def cok_tetikli(self):
+        return {
+            "seans_ici": True,
+            "veri": ihlaller()["veri"],
+            "tetiklenen": [
+                {"sembol": "MU", "iddia_id": "MU-1", "siddet": "iddia",
+                 "kosul_tipi": "fiyat_alti", "olcum": 905.4, "esik": 941.62,
+                 "tetikleyici": "fiyat 905.40"},
+                {"sembol": "MU", "iddia_id": "MU-1", "siddet": "iddia",
+                 "kosul_tipi": "hacim_oran_20g", "olcum": 3.65, "esik": 3.0,
+                 "tetikleyici": "hacim 3.6x"},
+                {"sembol": "MU", "iddia_id": "MU-1", "siddet": "iddia",
+                 "kosul_tipi": "sektor_etf_degisim_pct", "olcum": -4.93, "esik": -4.0,
+                 "tetikleyici": "SMH %-4.9"},
+            ],
+        }
+
+    def test_birlestirilmis_tetikleyici_hepsini_icerir(self):
+        b = yd.tetik_birlestir(self.cok_tetikli()["tetiklenen"])
+        for beklenen in ("fiyat 905.40", "hacim 3.6x", "SMH %-4.9"):
+            self.assertIn(beklenen, b["tetikleyici"])
+        self.assertIn("fiyat_alti", b["kosul_tipi"])
+        self.assertIn("hacim_oran_20g", b["kosul_tipi"])
+
+    def test_en_bilgilendirici_tetikleyici_ezilmiyor(self):
+        """Regresyon: tetikleyiciler sözlükte iddia_id ile saklanıyordu ve son
+        tetikleyici (SMH — en zayıfı) fiyat tetikleyicisinin üzerine yazıyordu."""
+        self.kaydet('{"metin": "yeni", "durum": "zayifladi"}')
+        yd.kod10_akisi(tezler(), self.cok_tetikli(), PF, AN, "m", "a",
+                       {"hafta": "x", "cagri": 0}, 60, False, False)
+        self.assertEqual(len(self.promptlar), 1, "iddia başına tek çağrı olmalı")
+        prompt = self.promptlar[0]
+        for beklenen in ("fiyat 905.40", "hacim 3.6x", "SMH %-4.9"):
+            self.assertIn(beklenen, prompt)
+
+
+class CiftYazmaTesti(unittest.TestCase):
+    """Tez seviyesinde ele alınan iddia, ardından küçük modelle tekrar yazılmamalı."""
+
+    def setUp(self):
+        self._gercek = yd.llm_cagir
+
+    def tearDown(self):
+        yd.llm_cagir = self._gercek
+
+    def test_atla_listesi_iddiayi_kod10_disinda_tutar(self):
+        yd.llm_cagir = lambda *a, **k: '{"metin": "küçük model yazdı", "durum": "gecerli"}'
+        t = tezler()
+        guncellenen, _ = yd.kod10_akisi(t, ihlaller(), PF, AN, "m", "a",
+                                        {"hafta": "x", "cagri": 0}, 60, False, False,
+                                        atla={"MU-1"})
+        self.assertEqual(guncellenen, [])
+        self.assertEqual(t["MU"]["iddialar"][0]["metin"], ESKI_METIN)
+
+    def test_tam_yenilemede_de_atlanir(self):
+        yd.llm_cagir = lambda *a, **k: '{"metin": "küçük model yazdı", "durum": "gecerli"}'
+        t = tezler()
+        guncellenen, _ = yd.kod10_akisi(t, ihlaller(), PF, AN, "m", "a",
+                                        {"hafta": "x", "cagri": 0}, 60, False, True,
+                                        atla={"MU-1"})
+        self.assertEqual(guncellenen, [])
+
+
 class PromptTesti(unittest.TestCase):
     def test_iddia_promptu_veriyi_ve_tetikleyiciyi_icerir(self):
         t = tezler()
