@@ -31,19 +31,29 @@ import argparse
 import json
 import os
 import sys
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
+
+import sayi_denetimi
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 TEZLER_YOLU = os.path.join(BASE, "tezler.json")
 PF_YOLU = os.path.join(BASE, "portfoy.json")
 
-API_URL = "https://openrouter.ai/api/v1/chat/completions"
+# Madde 5 (inceleme): adres sabit değil. OpenRouter kesintisinde LLM_BASE_URL'i
+# başka bir OpenAI-uyumlu uca çevirmek kod değişikliği gerektirmesin.
+VARSAYILAN_BASE_URL = "https://openrouter.ai/api/v1"
+API_YOLU = "/chat/completions"
 VARSAYILAN_HIZLI = "anthropic/claude-haiku-4.5"
 VARSAYILAN_DERIN = "anthropic/claude-sonnet-4.5"
 VARSAYILAN_BUTCE = 60
 ZAMAN_ASIMI = 120
+# Madde 1 (inceleme): geçici hata ve bozuk çıktı tek denemede pes etmeyi hak etmiyor.
+DENEME_SAYISI = 3
+GERI_CEKILME_TABAN = 2.0  # saniye; her denemede ikiye katlanır
+BEKLE = time.sleep  # testler gerçek beklemeyi devre dışı bırakmak için değiştirir
 
 GECERLI_DURUMLAR = {"gecerli", "zayifladi", "gecersiz"}
 GECERLI_ISLEMLER = {"TUT", "AL", "SAT", "KIRP"}
@@ -105,16 +115,20 @@ def butce_durumu(sayac_yolu, an):
 # --------------------------------------------------------------------------- LLM
 
 
-def llm_cagir(model, sistem, kullanici, anahtar):
-    """OpenRouter chat completions. Dönen metin (str) ya da hata durumunda None."""
+def api_url():
+    taban = env("LLM_BASE_URL", VARSAYILAN_BASE_URL).rstrip("/")
+    return taban + API_YOLU
+
+
+def _tek_cagri(model, mesajlar, anahtar):
+    """Tek HTTP çağrısı. (metin, yeniden_denenebilir) döndürür."""
     govde = json.dumps({
         "model": model,
-        "messages": [{"role": "system", "content": sistem},
-                     {"role": "user", "content": kullanici}],
+        "messages": mesajlar,
         "temperature": 0.2,
         "response_format": {"type": "json_object"},
     }).encode("utf-8")
-    istek = urllib.request.Request(API_URL, data=govde, headers={
+    istek = urllib.request.Request(api_url(), data=govde, headers={
         "Authorization": f"Bearer {anahtar}",
         "Content-Type": "application/json",
         "HTTP-Referer": "https://github.com/zeynelgun-afk/ai-portfoy-deneyi",
@@ -123,10 +137,98 @@ def llm_cagir(model, sistem, kullanici, anahtar):
     try:
         with urllib.request.urlopen(istek, timeout=ZAMAN_ASIMI) as yanit:
             veri = json.loads(yanit.read().decode("utf-8"))
-        return veri["choices"][0]["message"]["content"]
-    except (urllib.error.URLError, KeyError, IndexError, ValueError, TimeoutError) as hata:
-        print(f"HATA: LLM çağrısı başarısız ({model}): {hata}")
-        return None
+        return veri["choices"][0]["message"]["content"], False
+    except urllib.error.HTTPError as hata:
+        # 4xx caller hatası — tekrar denemek aynı sonucu verir. 429 ve 5xx geçici.
+        gecici = hata.code == 429 or hata.code >= 500
+        print(f"HATA: LLM HTTP {hata.code} ({model})"
+              + (" — yeniden denenecek" if gecici else " — kalıcı hata"))
+        return None, gecici
+    except (urllib.error.URLError, TimeoutError) as hata:
+        print(f"HATA: LLM ağ hatası ({model}): {hata} — yeniden denenecek")
+        return None, True
+    except (KeyError, IndexError, ValueError) as hata:
+        print(f"HATA: LLM yanıtı okunamadı ({model}): {hata} — yeniden denenecek")
+        return None, True
+
+
+def llm_cagir(model, sistem, kullanici, anahtar, denetim_kaynaklari=None,
+              denetim_hazirla=None, bekle=None):
+    """JSON döndüren LLM çağrısı — geçici hatada ve bozuk çıktıda yeniden dener.
+
+    Üç sorun aynı döngüde ele alınıyor, çünkü üçünün de çaresi aynı: bir kez daha sor.
+      1. Ağ / 429 / 5xx → katlanarak artan beklemeyle tekrar
+      2. JSON ayıklanamadı → modele ne beklendiği hatırlatılarak tekrar
+      3. Kaynaksız rakam → `sayi_denetimi` işaretledi; hangi rakam olduğu söylenerek
+         tekrar. Prompt bir güvenlik duvarı değildir, bu kapı onu koda çevirir.
+
+    `denetim_kaynaklari`: rakamların karşılaştırılacağı metinler (prompt + eski iddia).
+    Boş verilirse rakam denetimi yapılmaz.
+    `denetim_hazirla(cikti)`: çıktının HANGİ kısmının denetlendiğini belirler; döner
+    `(denetlenecek_metin, ek_kaynaklar)`. Ayrım önemli: piyasa hakkındaki cümleler
+    kaynak ister, ama modelin ürettiği KARAR parametreleri (satılacak adet, yeni stop
+    seviyesi) piyasa iddiası değil — onların denetimi `islem_uygula.py`'nin
+    aritmetiğidir. İkisi karıştırılırsa model hiçbir karar veremez.
+
+    Döner: (sozluk, durum) · durum "tamam" | "parse_edilemedi" | "kaynaksiz_rakam".
+    Sözlük None ise iddia DEĞİŞTİRİLMEMELİ.
+    """
+    bekle = bekle or BEKLE
+    mesajlar = [{"role": "system", "content": sistem},
+                {"role": "user", "content": kullanici}]
+    son_durum = "parse_edilemedi"
+
+    for deneme in range(1, DENEME_SAYISI + 1):
+        metin, gecici = _tek_cagri(model, mesajlar, anahtar)
+        if metin is None:
+            if not gecici or deneme == DENEME_SAYISI:
+                return None, "parse_edilemedi"
+            gecikme = GERI_CEKILME_TABAN * (2 ** (deneme - 1))
+            print(f"  {gecikme:.0f} sn beklenip yeniden denenecek "
+                  f"({deneme}/{DENEME_SAYISI})")
+            bekle(gecikme)
+            continue
+
+        cikti = json_ayikla(metin)
+        if cikti is None:
+            son_durum = "parse_edilemedi"
+            if deneme == DENEME_SAYISI:
+                break
+            print(f"  JSON ayıklanamadı — hatırlatmayla yeniden sorulacak "
+                  f"({deneme}/{DENEME_SAYISI})")
+            mesajlar += [
+                {"role": "assistant", "content": metin[:2000]},
+                {"role": "user", "content":
+                 "Yanıtın geçerli JSON değildi. Sadece istenen şemadaki JSON nesnesini "
+                 "döndür: açıklama yok, markdown yok, kod bloğu yok."},
+            ]
+            continue
+
+        if denetim_kaynaklari:
+            if denetim_hazirla:
+                denetlenecek, ek_kaynak = denetim_hazirla(cikti)
+            else:
+                denetlenecek, ek_kaynak = json.dumps(cikti, ensure_ascii=False), ()
+            kaynaksiz = sayi_denetimi.kaynaksiz_rakamlar(
+                denetlenecek, *denetim_kaynaklari, *ek_kaynak)
+            if kaynaksiz:
+                etiket = ", ".join(h for h, _ in kaynaksiz)
+                son_durum = "kaynaksiz_rakam"
+                if deneme == DENEME_SAYISI:
+                    print(f"  KAYNAKSIZ RAKAM (son deneme): {etiket} — çıktı reddedildi")
+                    break
+                print(f"  KAYNAKSIZ RAKAM: {etiket} — düzeltme istenecek "
+                      f"({deneme}/{DENEME_SAYISI})")
+                mesajlar += [
+                    {"role": "assistant", "content": metin[:2000]},
+                    {"role": "user",
+                     "content": sayi_denetimi.geri_besleme_metni(kaynaksiz)},
+                ]
+                continue
+
+        return cikti, "tamam"
+
+    return None, son_durum
 
 
 def json_ayikla(metin):
@@ -197,6 +299,29 @@ adet sınırları içinde olmalı.
 
 KIRP = pozisyonun bir kısmını sat (adet ver). SAT = tamamını sat (adet = elindeki tüm adet).
 AL = mevcut pozisyona ekleme (tutar_usd, nakitten küçük ya da eşit)."""
+
+
+def iddia_denetimi(cikti):
+    """kod 10: yalnızca iddia metni denetlenir; `durum` alanı rakam içermez."""
+    return str(cikti.get("metin", "")), ()
+
+
+def tez_denetimi(cikti):
+    """kod 20: prose denetlenir, karar parametreleri denetlenmez ama KAYNAK olur.
+
+    Karar parametreleri (adet, tutar_usd, yeni_stop) modelin kararıdır, piyasa
+    hakkında bir iddia değil. Gerekçe cümlesinde geçebilmeleri gerekir ("stop'u
+    820'ye taşıyorum"), o yüzden izinli kümeye eklenirler; doğru oldukları
+    islem_uygula.py'de aritmetikle sınanır.
+    """
+    karar = cikti.get("karar") or {}
+    prose = " ".join(str(cikti.get(a, "")) for a in
+                     ("tez_degerlendirmesi", "yeni_tez_ozeti", "cumartesi_notu"))
+    prose += " " + " ".join(str(karar.get(a, "")) for a in
+                            ("gerekce", "carpitma_isareti"))
+    parametreler = " ".join(str(karar.get(a, "")) for a in
+                            ("adet", "tutar_usd", "yeni_stop"))
+    return prose, (parametreler,)
 
 
 def iddia_promptu(sym, poz, iddia, tetik, veri, pf_poz, an):
@@ -357,11 +482,18 @@ def kod10_akisi(tezler, ihlaller, pf, an, model, anahtar, sayac, sinir, dry, tam
             print(f"--- {iddia['id']} promptu ({model}) ---\n{prompt}\n")
             continue
         sayac["cagri"] += 1
-        cikti = json_ayikla(llm_cagir(model, SISTEM_IDDIA, prompt, anahtar))
+        # Rakam denetiminin kaynakları: prompt (verilen tüm veri) + iddianın eski
+        # metni (o rakamlar geçen tur zaten denetlendi).
+        cikti, durum = llm_cagir(model, SISTEM_IDDIA, prompt, anahtar,
+                                 denetim_kaynaklari=(prompt, iddia.get("metin", "")),
+                                 denetim_hazirla=iddia_denetimi)
         if not cikti or cikti.get("durum") not in GECERLI_DURUMLAR \
                 or not str(cikti.get("metin", "")).strip():
-            print(f"UYARI {iddia['id']}: LLM çıktısı kullanılamadı — iddia metni "
-                  "değiştirilmedi, 'degerlendirilemedi' işaretlendi")
+            neden = {"kaynaksiz_rakam": "kaynaksız rakam ısrarla yazıldı",
+                     "parse_edilemedi": "çıktı JSON olarak okunamadı"}.get(
+                         durum, "çıktı şemaya uymadı")
+            print(f"UYARI {iddia['id']}: {neden} — iddia metni DEĞİŞTİRİLMEDİ, "
+                  "'degerlendirilemedi' işaretlendi")
             iddia_isaretle(iddia, "degerlendirilemedi", tetik.get("tetikleyici"), an)
             guncellenen.append(iddia["id"])
             continue
@@ -402,20 +534,26 @@ def kod20_akisi(tezler, ihlaller, pf, an, model, anahtar, sayac, dry, notlar_yol
             continue
         # Tez seviyesi bütçeye takılmaz (bkz. modül başlığı); çağrı yine sayılır.
         sayac["cagri"] += 1
-        cikti = json_ayikla(llm_cagir(model, SISTEM_TEZ, prompt, anahtar))
+        eski_metinler = tuple(i.get("metin", "") for i in poz.get("iddialar", []))
+        cikti, durum = llm_cagir(model, SISTEM_TEZ, prompt, anahtar,
+                                 denetim_kaynaklari=(prompt, poz.get("tez_ozeti", ""))
+                                 + eski_metinler,
+                                 denetim_hazirla=tez_denetimi)
         tetik_metni = "; ".join(dict.fromkeys(
             t.get("tetikleyici", "") for t in tetikler))
 
         if not cikti or not str(cikti.get("tez_degerlendirmesi", "")).strip():
-            print(f"UYARI {sym}: tez değerlendirmesi parse edilemedi — iddialar "
-                  "değiştirilmedi")
+            neden = {"kaynaksiz_rakam": "kaynaksız rakam ısrarla yazıldı",
+                     "parse_edilemedi": "çıktı JSON olarak okunamadı"}.get(
+                         durum, "çıktı şemaya uymadı")
+            print(f"UYARI {sym}: {neden} — iddialar DEĞİŞTİRİLMEDİ, işlem üretilmedi")
             for idd in poz.get("iddialar", []):
                 if any(t["iddia_id"] == idd["id"] for t in tetikler):
                     iddia_isaretle(idd, "degerlendirilemedi", tetik_metni, an)
             not_ekle(notlar_yolu, f"{iso(an)} · {sym} · DEĞERLENDİRİLEMEDİ",
-                     f"Tez seviyesi eşik aşıldı ({tetik_metni}) ama derin model çıktısı "
-                     "JSON olarak okunamadı. İddialar değiştirilmedi; karar Cumartesi "
-                     "turuna kaldı.")
+                     f"Tez seviyesi eşik aşıldı ({tetik_metni}) ama derin modelin "
+                     f"çıktısı kullanılamadı: {neden}. İddialar değiştirilmedi, işlem "
+                     "yapılmadı; karar Cumartesi turuna kaldı.")
             continue
 
         durumlar = cikti.get("iddia_durumlari") or {}
