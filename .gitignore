@@ -2,4 +2,6 @@ __pycache__/
 .env
 *.pyc
 STOP_BREACH.md
+TELEGRAM.txt
 telegram.txt
+weekly_data.json

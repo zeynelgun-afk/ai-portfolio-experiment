@@ -1,13 +1,13 @@
-<title>Tez Nöbeti</title>
+<title>Thesis Watch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;1,400&display=swap">
 
 <style>
-  /* Üç tipografik rol, üç anlam:
-     mono  = ölçüm (deterministik, script'ten gelen sayı)
-     serif = yorum (tezin kendisi — bir insanın/modelin yazdığı cümle)
-     sans  = arayüz (etiket, buton, durum)                              */
+  /* Three typographic roles, three meanings:
+     mono  = measurement (deterministic, a number produced by a script)
+     serif = commentary (the thesis itself — a sentence a person or a model wrote)
+     sans  = interface (labels, buttons, status)                        */
   :root {
     --ground: #F4F6F5;
     --surface: #FFFFFF;
@@ -79,7 +79,7 @@
   }
   .wrap { max-width: 980px; margin: 0 auto; padding: 0 20px 72px; }
 
-  /* ---------- Üst şerit ---------- */
+  /* ---------- Top bar ---------- */
   header.top {
     position: sticky; top: 0; z-index: 20;
     background: var(--ground);
@@ -119,7 +119,7 @@
   .btn:disabled { opacity: .45; cursor: default; }
   .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-  /* ---------- Giriş ---------- */
+  /* ---------- Intro ---------- */
   .lede { padding: 38px 0 10px; }
   h1 {
     margin: 0 0 14px; font-size: clamp(26px, 4.4vw, 38px); font-weight: 600;
@@ -145,7 +145,7 @@
   .split .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; }
   .split .srf { font-family: "IBM Plex Serif", Georgia, serif; font-size: 14px; }
 
-  /* ---------- Kart ---------- */
+  /* ---------- Card ---------- */
   .card {
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--r); box-shadow: var(--shadow);
@@ -174,7 +174,7 @@
   .verdict.bad { color: var(--bad); background: var(--bad-soft); }
   .verdict.none { color: var(--ink-faint); background: var(--surface-sunk); }
 
-  /* ölçüm şeridi — mono, sekmeli hizalı */
+  /* the measurement strip — mono, tabular figures */
   .strip {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
     border-bottom: 1px solid var(--line);
@@ -197,7 +197,7 @@
   .up { color: var(--ok); }
   .down { color: var(--bad); }
 
-  /* iddia satırı */
+  /* claim row */
   .claim { padding: 15px 18px; border-top: 1px solid var(--line); }
   .claim-top { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 9px; }
   .cid {
@@ -209,9 +209,9 @@
     font: 600 10px/1 "IBM Plex Sans", sans-serif; text-transform: uppercase;
     letter-spacing: .08em; padding: 4px 7px; border-radius: 2px;
   }
-  .state.gecerli { color: var(--ok); background: var(--ok-soft); }
-  .state.zayifladi { color: var(--warn); background: var(--warn-soft); }
-  .state.gecersiz, .state.degerlendirilemedi { color: var(--bad); background: var(--bad-soft); }
+  .state.valid { color: var(--ok); background: var(--ok-soft); }
+  .state.weakened { color: var(--warn); background: var(--warn-soft); }
+  .state.invalid, .state.unassessed { color: var(--bad); background: var(--bad-soft); }
   .claim-text {
     font: 400 14.5px/1.6 "IBM Plex Serif", Georgia, serif;
     color: var(--ink); margin: 0 0 11px; max-width: 68ch;
@@ -251,7 +251,7 @@
     border-left: 2px solid var(--warn); border-radius: 0 2px 2px 0;
   }
 
-  /* sor kutusu */
+  /* ask box */
   .ask { margin-top: 13px; }
   .ask-out {
     margin-top: 10px; padding: 12px 14px;
@@ -271,7 +271,7 @@
     letter-spacing: .1em; color: var(--accent);
   }
 
-  /* konsol */
+  /* console */
   .console { margin-top: 30px; }
   .console h2 {
     margin: 0 0 7px; font-size: 19px; font-weight: 600; letter-spacing: -.015em;
@@ -337,579 +337,618 @@
 
 <header class="top">
   <div class="top-in">
-    <div class="brand">Tez Nöbeti <span>· AI Portföy Deneyi</span></div>
+    <div class="brand">Thesis Watch <span>· AI Portfolio Experiment</span></div>
     <div class="pulse">
       <span class="dot" id="dot"></span>
-      <span class="pulse-txt" id="pulse">canlı veri bekleniyor…</span>
-      <button class="btn" id="refresh" disabled>Yenile</button>
+      <span class="pulse-txt" id="pulse">waiting for live data…</span>
+      <button class="btn" id="refresh" disabled>Refresh</button>
     </div>
   </div>
 </header>
 
 <div class="wrap">
   <section class="lede">
-    <h1>Bir tez, kendisini çürütecek sayıyla birlikte yazılır</h1>
-    <p>Bu deneyde kararı yapay zekâ veriyor ve her hamlesini yazıyor. Sorun kararın kendisi
-      değildi — <b>yorumun bayatlamasıydı.</b> Cumartesi yazılan "50 günlük ortalamanın
-      %+14.9 üzerinde" cümlesi, Pazartesi fiyat ortalamanın altına sarktığında dosyada
-      aynen duruyordu. Haftada bir düşünen bir sistem haftada bir yanılmaz; altı gün
-      boyunca yanılır.</p>
-    <p>Çözüm, her teze <b>ölçülebilir bir geçerlilik koşulu</b> bağlamak. Aşağıdaki
-      koşullar canlı fiyatla karşılaştırılıyor; yorumu ise sayfa kendisi üretmiyor —
-      sorduğunda ajana soruyor.</p>
+    <h1>A thesis is written together with the number that would refute it</h1>
+    <p>In this experiment the AI makes the decisions and writes down every move. The problem
+      was never the decisions — it was <b>the commentary going stale.</b> The sentence
+      written on Saturday, "+14.9% above the 50-day average", was still sitting in the file
+      on Monday after the price had slipped below that average. A system that thinks once a
+      week is not wrong once a week; it is wrong for six days.</p>
+    <p>The fix is to tie every thesis to a <b>measurable validity condition</b>. The
+      conditions below are compared against the live price; the commentary is not produced by
+      this page — when you ask, it asks the agent.</p>
   </section>
 
   <div class="split">
     <div>
-      <h3>Ölçüm · deterministik</h3>
-      <p class="mono">Fiyat, günlük değişim, 50g ortalama ve sektör ETF'i canlı
-        konnektörden gelir. Eşik karşılaştırması bu sayfada, tarayıcıda yapılır —
-        model yorumu buna karışmaz.</p>
+      <h3>Measurement · deterministic</h3>
+      <p class="mono">Price, daily change, the 50-day average and the sector ETF arrive live
+        from the connector. The threshold comparison happens here, in your browser — no model
+        commentary touches it.</p>
     </div>
     <div>
-      <h3>Yorum · üretken</h3>
-      <p class="srf">Tez cümleleri deponun <em>tezler.json</em> dosyasından, son karar
-        turunun damgasıyla gelir. "Şu an ne durumda?" sorusunun yanıtı sayfaya gömülü
-        değildir; her seferinde yeniden üretilir.</p>
+      <h3>Commentary · generative</h3>
+      <p class="srf">The thesis sentences come from the repository's <em>theses.json</em>,
+        stamped with the round that wrote them. The answer to "what is the status right now?"
+        is not baked into this page; it is produced fresh every time.</p>
     </div>
     <div>
-      <h3>Sınır · dürüstlük</h3>
-      <p class="mono">Ölçülemeyen koşul <b>ölçülemedi</b> yazar, tahmin edilmez.
-        Histerezis ve cooldown bu sayfada yok — o hafıza depodaki
-        <em>durum/ihlaller.json</em>'da yaşar.</p>
+      <h3>Limits · honesty</h3>
+      <p class="mono">An unmeasurable condition says <b>unmeasurable</b>; it is never
+        guessed. Hysteresis and cooldown are not on this page — that memory lives in the
+        repository's <em>state/violations.json</em>.</p>
     </div>
   </div>
 
   <div id="banner"></div>
-  <main id="kartlar"></main>
+  <main id="cards"></main>
 
   <section class="console">
-    <h2>Ajana sor</h2>
-    <p>Sayfadaki canlı ölçümler soruyla birlikte gönderilir. Yanıt her seferinde
-      yeniden üretilir — sayfaya gömülü hazır cevap yoktur.</p>
+    <h2>Ask the agent</h2>
+    <p>The live measurements on this page are sent along with your question. The answer is
+      produced fresh each time — there is no canned reply embedded in the page.</p>
     <div class="console-box">
       <div class="chips" id="chips"></div>
       <div class="row">
-        <label class="sr" for="q">Sorun</label>
-        <textarea id="q" placeholder="Örn: Hangi pozisyonun tezi bu ölçümlerle en kırılgan, neden?"></textarea>
-        <button class="btn send" id="send">Sor</button>
+        <label class="sr" for="q">Your question</label>
+        <textarea id="q" placeholder="e.g. Which position's thesis is most fragile on these measurements, and why?"></textarea>
+        <button class="btn send" id="send">Ask</button>
       </div>
       <div id="qout"></div>
     </div>
   </section>
 
   <div class="note">
-    <h3>Bu sayfa neyi göstermez</h3>
+    <h3>What this page does not show</h3>
     <ul>
-      <li><b>Histerezis ve cooldown yok.</b> Depodaki <code>dedektor.py</code> bir koşulu
-        ihlalde saymak için 2 ardışık kontrol ister ve aynı iddiayı 4 saat içinde iki kez
-        yeniden yazmaz. Burada gördüğün tek bir anlık ölçümdür — "ihlal" pili, dedektörün
-        <em>teyit edilmiş</em> ihlali değildir.</li>
-      <li><b>Hacim oranı ölçülemiyor.</b> Canlı konnektör günün hacmini veriyor ama 20
-        günlük ortalama hacmi vermiyor; o koşul <code>ölçülemedi</code> olarak işaretlenir.</li>
-      <li><b>Bu sayfa işlem yapmaz.</b> Seans içi işlem kararı depodaki zincirin işi
-        (<code>dedektor.py</code> → <code>yeniden_degerlendir.py</code> →
-        <code>islem_uygula.py</code>) ve her biri <code>KARAR_GUNLUGU.md</code>'ye yazılır.</li>
-      <li><b>Yatırım tavsiyesi değildir.</b> Sanal portföy, kâğıt üzerinde deney.</li>
+      <li><b>No hysteresis and no cooldown.</b> In the repository, <code>detector.py</code>
+        requires 2 consecutive checks before a condition counts as breached, and it will not
+        rewrite the same claim twice within 4 hours. What you see here is a single
+        instantaneous measurement — a "breach" pill is not the detector's
+        <em>confirmed</em> breach.</li>
+      <li><b>The volume ratio cannot be measured.</b> The live connector gives today's volume
+        but not the 20-day average, so that condition is marked
+        <code>unmeasurable</code>.</li>
+      <li><b>This page does not trade.</b> The intraday trading decision belongs to the chain
+        in the repository (<code>detector.py</code> → <code>reassess.py</code> →
+        <code>execute_trade.py</code>), and every step of it is written to
+        <code>DECISION_LOG.md</code>.</li>
+      <li><b>This is not investment advice.</b> A virtual portfolio, an experiment on
+        paper.</li>
     </ul>
   </div>
 
   <footer>
-    Tez metinleri: <span id="damga"></span> · Canlı fiyat: FMP konnektörü, izleyenin
-    kendi kimliğiyle · Depo: zeynelgun-afk/ai-portfoy-deneyi
+    Thesis text: <span id="stamp"></span> · Live price: the FMP connector, under the viewer's
+    own credentials · Repository: zeynelgun-afk/ai-portfoy-deneyi
   </footer>
 </div>
 
 <script>
-const VERI = {"damga":"2026-09-27","kaynak_tur":"KARAR_GUNLUGU.md #10 — 26 Eylül 2026","nakit_usd":16421.0,"pozisyonlar":{"MU":{"adet":33.6072,"giris_fiyati":892.67,"stop":730,"bilanco":"2026-09-30","maliyet_usd":30000.0},"AMD":{"adet":38.5668,"giris_fiyati":518.58,"stop":440,"bilanco":"2026-11-03","maliyet_usd":20000.0},"ANET":{"adet":78.736,"giris_fiyati":190.51,"stop":160,"bilanco":"2026-11-03","maliyet_usd":15000.0},"NVDA":{"adet":65.11,"giris_fiyati":230.36,"stop":190,"bilanco":"2026-11-17","maliyet_usd":15000.0}},"tezler":{"MU":{"tez_ozeti":"Bellek süper döngüsü / HBM liderliği. Fiyat 50 günlük ortalamanın (941.62 $, 25 Eyl 2026) belirgin üzerinde ve mesafe genişliyor; 30 Eylül Q4 bilançosu tezin ana testi.","kaynak":"KARAR_GUNLUGU.md #10","iddialar":[{"id":"MU-1","metin":"HBM/DRAM talebi fiyatı 50 günlük ortalamanın (941.62 $) üzerinde tutuyor; 25 Eyl kapanışı 1082.28 $ ile ortalamanın %+14.9 üzerinde ve mesafe iki turdur genişliyor.","kosullar":[{"tip":"fiyat_alti","deger":941.62,"siddet":"iddia"},{"tip":"stop_yakinlik_pct","deger":5,"siddet":"uyari"},{"tip":"hacim_oran_20g","deger":3.0,"siddet":"iddia"},{"tip":"gunluk_degisim_pct","deger":-7,"siddet":"tez"},{"tip":"sektor_etf_degisim_pct","sembol":"SMH","deger":-4,"siddet":"iddia"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null},{"id":"MU-2","metin":"Bilanço (30 Eylül 2026) tezin iki yönlü testi: pozisyon bilanço öncesi taşınıyor, çünkü stop mesafesi (%+48.3) portföydeki en geniş mesafe. Bilanço sonrası 800 $ altı tezi çürütür.","kosullar":[{"tip":"bilanco_tarihi_yaklasti","gun":3,"siddet":"uyari"},{"tip":"fiyat_alti","deger":800,"siddet":"tez"},{"tip":"gunluk_degisim_pct","deger":-10,"siddet":"tez"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null}]},"AMD":{"tez_ozeti":"AI hızlandırıcıda NVDA alternatifi. 50 günlük ortalamanın (504.71 $, 25 Eyl 2026) %+24.9 üzerinde; RSI 73.0 ile aşırı alım bölgesinde — tez güçlü ama kısa vadeli düzeltme riski yüksek.","kaynak":"KARAR_GUNLUGU.md #10","iddialar":[{"id":"AMD-1","metin":"NVDA alternatifi tezi 50 günlük ortalamanın (504.71 $) üzerinde geçerli; ortalamanın altına sarkma momentum patlaması sonrası kırılma sinyalidir.","kosullar":[{"tip":"fiyat_alti","deger":504.71,"siddet":"tez"},{"tip":"stop_yakinlik_pct","deger":5,"siddet":"uyari"},{"tip":"gunluk_degisim_pct","deger":-7,"siddet":"iddia"},{"tip":"sektor_etf_degisim_pct","sembol":"SMH","deger":-4,"siddet":"iddia"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null},{"id":"AMD-2","metin":"RSI 73.0 aşırı alım bölgesinde olduğu için ekleme yapılmıyor; %-10-15 düzeltme (550 $ civarı, 50g testi) ekleme fırsatı sayılacak.","kosullar":[{"tip":"fiyat_alti","deger":550,"siddet":"iddia"},{"tip":"hacim_oran_20g","deger":3.0,"siddet":"iddia"},{"tip":"gunluk_degisim_pct","deger":-7,"siddet":"iddia"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null}]},"ANET":{"tez_ozeti":"AI veri merkezi ağ donanımı lideri; portföyün en istikrarlı pozisyonu. 50 günlük ortalamanın (190.23 $, 25 Eyl 2026) %+8.6 üzerinde.","kaynak":"KARAR_GUNLUGU.md #10","iddialar":[{"id":"ANET-1","metin":"Ağ donanımı liderliği 50 günlük ortalamanın (190.23 $) üzerinde geçerli; rehberlik yükseltmesi sonrası momentum sürüyor. Ortalamanın kaybı tezi sorgulatır.","kosullar":[{"tip":"fiyat_alti","deger":190.23,"siddet":"tez"},{"tip":"stop_yakinlik_pct","deger":5,"siddet":"uyari"},{"tip":"gunluk_degisim_pct","deger":-7,"siddet":"iddia"},{"tip":"sektor_etf_degisim_pct","sembol":"SMH","deger":-4,"siddet":"uyari"},{"tip":"bilanco_tarihi_yaklasti","gun":3,"siddet":"uyari"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null}]},"NVDA":{"tez_ozeti":"AI hızlandırıcı liderliği. İki haftalık toparlanma trendi sürüyor, 50 günlük ortalamanın (215.79 $, 25 Eyl 2026) %+4.3 üzerinde; fiyat hâlâ giriş fiyatının (230.36 $) %-2.3 altında.","kaynak":"KARAR_GUNLUGU.md #10","iddialar":[{"id":"NVDA-1","metin":"İki haftalık toparlanma trendi 50 günlük ortalamanın (215.79 $) üzerinde devam ediyor; ortalamayı kaybedip altında kalmak toparlanmanın başarısız olduğu anlamına gelir.","kosullar":[{"tip":"fiyat_alti","deger":215.79,"siddet":"iddia"},{"tip":"stop_yakinlik_pct","deger":5,"siddet":"uyari"},{"tip":"gunluk_degisim_pct","deger":-7,"siddet":"iddia"},{"tip":"sektor_etf_degisim_pct","sembol":"SMH","deger":-4,"siddet":"iddia"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null},{"id":"NVDA-2","metin":"Pozisyon giriş fiyatının (230.36 $) altında tutuluyor çünkü toparlanma trendi iki turdur teyit edildi; 200 $ altı bu gerekçeyi çürütür ve alternatif eylem (kırpma) gündeme gelir.","kosullar":[{"tip":"fiyat_alti","deger":200,"siddet":"tez"},{"tip":"hacim_oran_20g","deger":3.0,"siddet":"iddia"},{"tip":"bilanco_tarihi_yaklasti","gun":3,"siddet":"uyari"}],"durum":"gecerli","son_guncelleme":"2026-09-26T00:00Z","tetikleyici":null}]}}};
-const SEMBOLLER = Object.keys(VERI.tezler);
-const IZLENEN = [...SEMBOLLER, "SMH"];
+const DATA = {"stamp":"2026-09-28","source_round":"DECISION_LOG.md #10 — 2026-09-26","cash_usd":16421.0,"positions":{"MU":{"shares":33.6072,"entry_price":892.67,"stop":730,"earnings":"2026-09-30","cost_usd":30000.0},"AMD":{"shares":38.5668,"entry_price":518.58,"stop":440,"earnings":"2026-11-03","cost_usd":20000.0},"ANET":{"shares":78.736,"entry_price":190.51,"stop":160,"earnings":"2026-11-03","cost_usd":15000.0},"NVDA":{"shares":65.11,"entry_price":230.36,"stop":190,"earnings":"2026-11-17","cost_usd":15000.0}},"theses":{"MU":{"thesis_summary":"Memory super-cycle / HBM leadership. The price sits well above the 50-day average (941.62 $, 25 Sep 2026) and the gap is widening; the Q4 earnings report on 30 September is the thesis's main test.","source":"DECISION_LOG.md #10","claims":[{"id":"MU-1","text":"HBM/DRAM demand is holding the price above the 50-day average (941.62 $); the 25 Sep close of 1082.28 $ is +14.9% above that average and the gap has widened for two rounds running.","conditions":[{"type":"price_below","value":941.62,"severity":"claim"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"daily_change_pct","value":-7,"severity":"thesis"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"MU-2","text":"Earnings (30 September 2026) are the thesis's two-sided test: the position is carried into the report because its stop distance (+48.3%) is the widest in the portfolio. A post-earnings price below 800 $ refutes the thesis.","conditions":[{"type":"earnings_approaching","days":3,"severity":"warning"},{"type":"price_below","value":800,"severity":"thesis"},{"type":"daily_change_pct","value":-10,"severity":"thesis"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"AMD":{"thesis_summary":"The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory — the thesis is strong but short-term pullback risk is high.","source":"DECISION_LOG.md #10","claims":[{"id":"AMD-1","text":"The NVDA-alternative thesis holds while the price stays above the 50-day average (504.71 $); slipping below that average would be a break signal after the momentum surge.","conditions":[{"type":"price_below","value":504.71,"severity":"thesis"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"AMD-2","text":"No adding to the position while RSI sits at 73.0 in overbought territory; a 10-15% pullback (around 550 $, a test of the 50-day average) would count as an entry opportunity.","conditions":[{"type":"price_below","value":550,"severity":"claim"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"daily_change_pct","value":-7,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"ANET":{"thesis_summary":"Leader in AI data-center network hardware; the steadiest position in the portfolio. +8.6% above the 50-day average (190.23 $, 25 Sep 2026).","source":"DECISION_LOG.md #10","claims":[{"id":"ANET-1","text":"Network-hardware leadership holds while the price stays above the 50-day average (190.23 $); momentum has continued since the guidance raise. Losing that average puts the thesis in question.","conditions":[{"type":"price_below","value":190.23,"severity":"thesis"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"warning"},{"type":"earnings_approaching","days":3,"severity":"warning"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"NVDA":{"thesis_summary":"AI accelerator leadership. A two-week recovery trend is intact, +4.3% above the 50-day average (215.79 $, 25 Sep 2026); the price is still 2.3% below the entry price (230.36 $).","source":"DECISION_LOG.md #10","claims":[{"id":"NVDA-1","text":"The two-week recovery trend continues above the 50-day average (215.79 $); losing that average and staying below it would mean the recovery has failed.","conditions":[{"type":"price_below","value":215.79,"severity":"claim"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"NVDA-2","text":"The position is held below its entry price (230.36 $) because the recovery trend has been confirmed for two rounds; a price below 200 $ refutes that reasoning and puts a trim on the table.","conditions":[{"type":"price_below","value":200,"severity":"thesis"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"earnings_approaching","days":3,"severity":"warning"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]}}};
+const SYMBOLS = Object.keys(DATA.theses);
+const WATCHED = [...SYMBOLS, "SMH"];
 const FMP = "claude_ai_FMP";
-const KOTA_INPUT = { endpoint: "batch-quote", symbols: IZLENEN };
+const QUOTE_INPUT = { endpoint: "batch-quote", symbols: WATCHED };
 
-const SEV_ETIKET = { uyari: "uyarı", iddia: "iddia", tez: "tez" };
-const DURUM_ETIKET = {
-  gecerli: "geçerli", zayifladi: "zayıfladı", gecersiz: "geçersiz",
-  degerlendirilemedi: "değerlendirilemedi",
+const SEVERITY_LABEL = { warning: "warning", claim: "claim", thesis: "thesis" };
+const STATUS_LABEL = {
+  valid: "valid", weakened: "weakened", invalid: "invalid",
+  unassessed: "unassessed",
 };
 
-let canli = null;      // sembol -> FMP kotasyonu
-let canliDamga = null; // ölçümün üretildiği an (epoch ms)
-let mcpNs = null;
+let live = null;       // symbol -> the FMP quote
+let liveStamp = null;  // when the measurement was produced (epoch ms)
+let mcpNamespace = null;
 
-/* Sayfa viewer dışında (kaydedilmiş dosya, başka host) açılırsa `claude` hiç
-   tanımlı olmaz. Doğrudan claude.use çağırmak tüm script'i düşürür. */
-const yetenek = (ad) =>
+/* The page can be opened outside the viewer (a saved file, another host), where `claude`
+   is not defined at all. Calling claude.use directly would take down the whole script. */
+const capability = (name) =>
   (typeof claude !== "undefined" && claude && typeof claude.use === "function")
-    ? claude.use(ad).catch(() => null)
+    ? claude.use(name).catch(() => null)
     : Promise.resolve(null);
 
 const el = (id) => document.getElementById(id);
-const fmt = (n, b = 2) =>
-  n === null || n === undefined || !isFinite(n) ? "—" : Number(n).toFixed(b);
-const yuzde = (n) => (n === null || !isFinite(n) ? "—" : (n >= 0 ? "+" : "") + n.toFixed(2) + "%");
+const fmt = (value, places = 2) =>
+  value === null || value === undefined || !isFinite(value)
+    ? "—" : Number(value).toFixed(places);
+const pct = (value) => (value === null || !isFinite(value)
+  ? "—" : (value >= 0 ? "+" : "") + value.toFixed(2) + "%");
 
-/* ---------- koşul ölçümü: dedektor.py ile aynı mantık, histerezis hariç ---------- */
-function kosulOlc(kosul, sym) {
-  const poz = VERI.pozisyonlar[sym] || {};
-  const q = canli && canli[sym];
-  const esik = kosul.deger !== undefined ? kosul.deger : kosul.gun;
+/* ---------- condition measurement: detector.py's logic, minus the hysteresis ---------- */
+function measure(condition, symbol) {
+  const holding = DATA.positions[symbol] || {};
+  const quote = live && live[symbol];
+  const threshold = condition.value !== undefined ? condition.value : condition.days;
 
-  switch (kosul.tip) {
-    case "fiyat_alti":
-      if (!q) return { ad: "fiyat", esik: fmt(esik), durum: "na", olcum: "—" };
+  switch (condition.type) {
+    case "price_below":
+      if (!quote) return { label: "price", threshold: fmt(threshold), state: "na", value: "—" };
       return {
-        ad: "fiyat", esik: fmt(esik), olcum: fmt(q.price),
-        durum: q.price < esik ? "hit" : (q.price < esik * 1.03 ? "near" : "ok"),
+        label: "price", threshold: fmt(threshold), value: fmt(quote.price),
+        state: quote.price < threshold ? "hit"
+          : (quote.price < threshold * 1.03 ? "near" : "ok"),
       };
-    case "stop_yakinlik_pct": {
-      if (!q || !poz.stop) return { ad: "stop mesafesi", esik: esik + "%", durum: "na", olcum: "—" };
-      const mesafe = (q.price / poz.stop - 1) * 100;
+    case "stop_proximity_pct": {
+      if (!quote || !holding.stop) {
+        return { label: "stop distance", threshold: threshold + "%", state: "na", value: "—" };
+      }
+      const distance = (quote.price / holding.stop - 1) * 100;
       return {
-        ad: "stop mesafesi", esik: "<" + esik + "%", olcum: yuzde(mesafe),
-        durum: mesafe < esik ? "hit" : (mesafe < esik * 2 ? "near" : "ok"),
+        label: "stop distance", threshold: "<" + threshold + "%", value: pct(distance),
+        state: distance < threshold ? "hit" : (distance < threshold * 2 ? "near" : "ok"),
       };
     }
-    case "hacim_oran_20g":
-      // Canlı konnektör 20g ortalama hacim vermiyor — uydurmak yerine ölçülemedi.
+    case "volume_ratio_20d":
+      // The live connector does not provide a 20-day average volume. Say so; never guess.
       return {
-        ad: "hacim / 20g", esik: ">" + fmt(esik, 1) + "x", olcum: "ölçülemedi",
-        durum: "na", not: "canlı 20g ortalama hacim yok",
+        label: "volume / 20d", threshold: ">" + fmt(threshold, 1) + "x",
+        value: "unmeasurable", state: "na",
+        note: "no live 20-day average volume",
       };
-    case "gunluk_degisim_pct":
-      if (!q) return { ad: "günlük", esik: esik + "%", durum: "na", olcum: "—" };
+    case "daily_change_pct":
+      if (!quote) return { label: "daily", threshold: threshold + "%", state: "na", value: "—" };
       return {
-        ad: "günlük", esik: "<" + esik + "%", olcum: yuzde(q.changePercentage),
-        durum: q.changePercentage < esik ? "hit"
-          : (q.changePercentage < esik / 2 ? "near" : "ok"),
+        label: "daily", threshold: "<" + threshold + "%", value: pct(quote.changePercentage),
+        state: quote.changePercentage < threshold ? "hit"
+          : (quote.changePercentage < threshold / 2 ? "near" : "ok"),
       };
-    case "sektor_etf_degisim_pct": {
-      const etf = kosul.sembol || "SMH";
-      const e = canli && canli[etf];
-      if (!e) return { ad: etf, esik: esik + "%", durum: "na", olcum: "—" };
+    case "sector_etf_change_pct": {
+      const etf = condition.symbol || "SMH";
+      const etfQuote = live && live[etf];
+      if (!etfQuote) return { label: etf, threshold: threshold + "%", state: "na", value: "—" };
       return {
-        ad: etf, esik: "<" + esik + "%", olcum: yuzde(e.changePercentage),
-        durum: e.changePercentage < esik ? "hit"
-          : (e.changePercentage < esik / 2 ? "near" : "ok"),
+        label: etf, threshold: "<" + threshold + "%", value: pct(etfQuote.changePercentage),
+        state: etfQuote.changePercentage < threshold ? "hit"
+          : (etfQuote.changePercentage < threshold / 2 ? "near" : "ok"),
       };
     }
-    case "bilanco_tarihi_yaklasti": {
-      if (!poz.bilanco) return { ad: "bilanço", esik: "≤" + esik + "g", durum: "na", olcum: "—" };
-      const kalan = Math.ceil(
-        (new Date(poz.bilanco + "T00:00:00Z") - Date.now()) / 86400000);
-      if (kalan < 0) {
-        return { ad: "bilanço", esik: "≤" + esik + "g", olcum: "geçti", durum: "na" };
+    case "earnings_approaching": {
+      if (!holding.earnings) {
+        return { label: "earnings", threshold: "≤" + threshold + "d", state: "na", value: "—" };
+      }
+      const remaining = Math.ceil(
+        (new Date(holding.earnings + "T00:00:00Z") - Date.now()) / 86400000);
+      if (remaining < 0) {
+        return { label: "earnings", threshold: "≤" + threshold + "d", value: "passed", state: "na" };
       }
       return {
-        ad: "bilanço", esik: "≤" + esik + "g", olcum: kalan + " gün",
-        durum: kalan <= esik ? "hit" : (kalan <= esik * 3 ? "near" : "ok"),
+        label: "earnings", threshold: "≤" + threshold + "d", value: remaining + " days",
+        state: remaining <= threshold ? "hit" : (remaining <= threshold * 3 ? "near" : "ok"),
       };
     }
     default:
-      return { ad: kosul.tip, esik: String(esik), olcum: "bilinmeyen tip", durum: "na" };
+      return { label: condition.type, threshold: String(threshold),
+               value: "unknown type", state: "na" };
   }
 }
 
-function pozisyonHukmu(sym) {
-  const poz = VERI.tezler[sym];
-  let enAgir = null;
-  for (const idd of poz.iddialar) {
-    for (const k of idd.kosullar) {
-      if (kosulOlc(k, sym).durum !== "hit") continue;
-      const s = k.siddet;
-      if (s === "tez") enAgir = "tez";
-      else if (s === "iddia" && enAgir !== "tez") enAgir = "iddia";
-      else if (s === "uyari" && !enAgir) enAgir = "uyari";
+function positionVerdict(symbol) {
+  const position = DATA.theses[symbol];
+  let worst = null;
+  for (const claim of position.claims) {
+    for (const condition of claim.conditions) {
+      if (measure(condition, symbol).state !== "hit") continue;
+      const severity = condition.severity;
+      if (severity === "thesis") worst = "thesis";
+      else if (severity === "claim" && worst !== "thesis") worst = "claim";
+      else if (severity === "warning" && !worst) worst = "warning";
     }
   }
-  if (!canli) return { sinif: "none", metin: "canlı ölçüm yok" };
-  if (enAgir === "tez") return { sinif: "bad", metin: "tez eşiği aşıldı" };
-  if (enAgir === "iddia") return { sinif: "warn", metin: "iddia eşiği aşıldı" };
-  if (enAgir === "uyari") return { sinif: "warn", metin: "uyarı işareti" };
-  return { sinif: "ok", metin: "eşik aşılmadı" };
+  if (!live) return { className: "none", text: "no live measurement" };
+  if (worst === "thesis") return { className: "bad", text: "thesis threshold crossed" };
+  if (worst === "claim") return { className: "warn", text: "claim threshold crossed" };
+  if (worst === "warning") return { className: "warn", text: "warning flag" };
+  return { className: "ok", text: "no threshold crossed" };
 }
 
-/* ---------- çizim ---------- */
-function kartlariCiz() {
-  const kok = el("kartlar");
-  kok.textContent = "";
-  const toplamDeger = SEMBOLLER.reduce((t, s) => {
-    const q = canli && canli[s];
-    const poz = VERI.pozisyonlar[s];
-    return t + (q && poz ? q.price * poz.adet : 0);
-  }, 0) + VERI.nakit_usd;
+/* ---------- rendering ---------- */
+function renderCards() {
+  const root = el("cards");
+  root.textContent = "";
+  const totalValue = SYMBOLS.reduce((total, symbol) => {
+    const quote = live && live[symbol];
+    const holding = DATA.positions[symbol];
+    return total + (quote && holding ? quote.price * holding.shares : 0);
+  }, 0) + DATA.cash_usd;
 
-  for (const sym of SEMBOLLER) {
-    const tez = VERI.tezler[sym];
-    const poz = VERI.pozisyonlar[sym] || {};
-    const q = canli && canli[sym];
-    const hukum = pozisyonHukmu(sym);
+  for (const symbol of SYMBOLS) {
+    const position = DATA.theses[symbol];
+    const holding = DATA.positions[symbol] || {};
+    const quote = live && live[symbol];
+    const verdict = positionVerdict(symbol);
 
-    const kart = document.createElement("section");
-    kart.className = "card";
+    const card = document.createElement("section");
+    card.className = "card";
 
-    const bas = document.createElement("div");
-    bas.className = "card-head";
-    const s1 = document.createElement("span");
-    s1.className = "sym"; s1.textContent = sym;
-    bas.append(s1);
-    if (q && poz.adet) {
-      const w = document.createElement("span");
-      w.className = "weight";
-      w.textContent = "ağırlık %" + (q.price * poz.adet / toplamDeger * 100).toFixed(1)
-        + " · " + (q.price * poz.adet).toLocaleString("tr-TR",
+    const head = document.createElement("div");
+    head.className = "card-head";
+    const ticker = document.createElement("span");
+    ticker.className = "sym"; ticker.textContent = symbol;
+    head.append(ticker);
+    if (quote && holding.shares) {
+      const weight = document.createElement("span");
+      weight.className = "weight";
+      weight.textContent = "weight "
+        + (quote.price * holding.shares / totalValue * 100).toFixed(1) + "% · "
+        + (quote.price * holding.shares).toLocaleString("en-US",
           { maximumFractionDigits: 0 }) + " $";
-      bas.append(w);
+      head.append(weight);
     }
-    const v = document.createElement("span");
-    v.className = "verdict " + hukum.sinif; v.textContent = hukum.metin;
-    bas.append(v);
-    kart.append(bas);
+    const badge = document.createElement("span");
+    badge.className = "verdict " + verdict.className;
+    badge.textContent = verdict.text;
+    head.append(badge);
+    card.append(head);
 
-    /* ölçüm şeridi */
+    /* the measurement strip */
     const strip = document.createElement("dl");
     strip.className = "strip";
-    const hucre = (etiket, deger, alt, sinif) => {
-      const d = document.createElement("div"); d.className = "cell";
-      const dt = document.createElement("dt"); dt.textContent = etiket;
-      const dd = document.createElement("dd");
-      dd.textContent = deger;
-      if (sinif) dd.classList.add(sinif);
-      if (alt) { const s = document.createElement("small"); s.textContent = alt; dd.append(s); }
-      d.append(dt, dd); strip.append(d);
+    const cell = (label, value, sub, className) => {
+      const wrapper = document.createElement("div"); wrapper.className = "cell";
+      const term = document.createElement("dt"); term.textContent = label;
+      const detail = document.createElement("dd");
+      detail.textContent = value;
+      if (className) detail.classList.add(className);
+      if (sub) {
+        const small = document.createElement("small"); small.textContent = sub;
+        detail.append(small);
+      }
+      wrapper.append(term, detail); strip.append(wrapper);
     };
-    hucre("fiyat", q ? fmt(q.price) + " $" : "—", q ? q.name : "canlı veri yok");
-    hucre("günlük", q ? yuzde(q.changePercentage) : "—",
-      q ? fmt(q.change) + " $" : null,
-      q ? (q.changePercentage >= 0 ? "up" : "down") : null);
-    if (poz.giris_fiyati) {
-      const g = q ? (q.price / poz.giris_fiyati - 1) * 100 : null;
-      hucre("girişe göre", q ? yuzde(g) : "—", "giriş " + fmt(poz.giris_fiyati) + " $",
-        q ? (g >= 0 ? "up" : "down") : null);
+    cell("price", quote ? fmt(quote.price) + " $" : "—",
+      quote ? quote.name : "no live data");
+    cell("daily", quote ? pct(quote.changePercentage) : "—",
+      quote ? fmt(quote.change) + " $" : null,
+      quote ? (quote.changePercentage >= 0 ? "up" : "down") : null);
+    if (holding.entry_price) {
+      const gain = quote ? (quote.price / holding.entry_price - 1) * 100 : null;
+      cell("vs entry", quote ? pct(gain) : "—",
+        "entry " + fmt(holding.entry_price) + " $",
+        quote ? (gain >= 0 ? "up" : "down") : null);
     }
-    hucre("50g ortalama", q ? fmt(q.priceAvg50) : "—",
-      q ? "fiyat %" + ((q.price / q.priceAvg50 - 1) * 100).toFixed(1) + " uzakta" : null);
-    if (poz.stop) {
-      const m = q ? (q.price / poz.stop - 1) * 100 : null;
-      hucre("stop", fmt(poz.stop) + " $", q ? "mesafe " + yuzde(m) : null);
+    cell("50d average", quote ? fmt(quote.priceAvg50) : "—",
+      quote ? "price " + ((quote.price / quote.priceAvg50 - 1) * 100).toFixed(1)
+        + "% away" : null);
+    if (holding.stop) {
+      const distance = quote ? (quote.price / holding.stop - 1) * 100 : null;
+      cell("stop", fmt(holding.stop) + " $", quote ? "distance " + pct(distance) : null);
     }
-    if (poz.bilanco) hucre("bilanço", poz.bilanco, null);
-    kart.append(strip);
+    if (holding.earnings) cell("earnings", holding.earnings, null);
+    card.append(strip);
 
-    /* eşik kayması: tezdeki 50g eşiği ile canlı 50g arasındaki fark */
-    const ellilik = tez.iddialar.flatMap((i) => i.kosullar)
-      .find((k) => k.tip === "fiyat_alti" && q &&
-        Math.abs(k.deger - q.priceAvg50) / q.priceAvg50 < 0.06);
-    if (ellilik && q && Math.abs(ellilik.deger - q.priceAvg50) > 0.01) {
-      const d = document.createElement("div");
-      d.className = "drift";
-      d.textContent = "Eşik kayması: tezdeki eşik " + fmt(ellilik.deger)
-        + " $, canlı 50g ortalama " + fmt(q.priceAvg50)
-        + " $. Eşik son karar turunda dondu; ortalama o gün bu yana hareket etti.";
-      kart.append(d);
+    /* threshold drift: the thesis's 50d threshold vs the live 50d average */
+    const fiftyDay = position.claims.flatMap((claim) => claim.conditions)
+      .find((condition) => condition.type === "price_below" && quote &&
+        Math.abs(condition.value - quote.priceAvg50) / quote.priceAvg50 < 0.06);
+    if (fiftyDay && quote && Math.abs(fiftyDay.value - quote.priceAvg50) > 0.01) {
+      const drift = document.createElement("div");
+      drift.className = "drift";
+      drift.textContent = "Threshold drift: the thesis threshold is "
+        + fmt(fiftyDay.value) + " $, the live 50-day average is "
+        + fmt(quote.priceAvg50) + " $. The threshold froze at the last decision round; the "
+        + "average has moved since.";
+      card.append(drift);
     }
 
-    /* iddialar */
-    for (const idd of tez.iddialar) {
-      const c = document.createElement("div"); c.className = "claim";
+    /* claims */
+    for (const claim of position.claims) {
+      const block = document.createElement("div"); block.className = "claim";
       const top = document.createElement("div"); top.className = "claim-top";
-      const cid = document.createElement("span");
-      cid.className = "cid"; cid.textContent = idd.id;
-      const st = document.createElement("span");
-      st.className = "state " + idd.durum;
-      st.textContent = DURUM_ETIKET[idd.durum] || idd.durum;
-      top.append(cid, st);
-      c.append(top);
+      const id = document.createElement("span");
+      id.className = "cid"; id.textContent = claim.id;
+      const status = document.createElement("span");
+      status.className = "state " + claim.status;
+      status.textContent = STATUS_LABEL[claim.status] || claim.status;
+      top.append(id, status);
+      block.append(top);
 
-      const p = document.createElement("p");
-      p.className = "claim-text"; p.textContent = idd.metin;
-      c.append(p);
+      const text = document.createElement("p");
+      text.className = "claim-text"; text.textContent = claim.text;
+      block.append(text);
 
       const stamp = document.createElement("div");
       stamp.className = "stamp";
-      stamp.textContent = "son güncelleme " + (idd.son_guncelleme || "—")
-        + (idd.tetikleyici ? " · " + idd.tetikleyici : "");
-      c.append(stamp);
+      stamp.textContent = "last updated " + (claim.last_updated || "—")
+        + (claim.trigger ? " · " + claim.trigger : "");
+      block.append(stamp);
 
-      const conds = document.createElement("div"); conds.className = "conds";
-      for (const k of idd.kosullar) {
-        const o = kosulOlc(k, sym);
+      const pills = document.createElement("div"); pills.className = "conds";
+      for (const condition of claim.conditions) {
+        const result = measure(condition, symbol);
         const pill = document.createElement("span");
-        pill.className = "cond " + (o.durum === "ok" ? "" : o.durum);
-        const sev = document.createElement("span");
-        sev.className = "sev"; sev.textContent = SEV_ETIKET[k.siddet] || k.siddet;
-        pill.append(sev);
-        const txt = document.createElement("span");
-        const b = document.createElement("b"); b.textContent = o.olcum;
-        txt.append(o.ad + " ", b, " / eşik " + o.esik);
-        pill.append(txt);
-        if (o.not) pill.title = o.not;
-        conds.append(pill);
+        pill.className = "cond " + (result.state === "ok" ? "" : result.state);
+        const severity = document.createElement("span");
+        severity.className = "sev";
+        severity.textContent = SEVERITY_LABEL[condition.severity] || condition.severity;
+        pill.append(severity);
+        const body = document.createElement("span");
+        const strong = document.createElement("b"); strong.textContent = result.value;
+        body.append(result.label + " ", strong, " / threshold " + result.threshold);
+        pill.append(body);
+        if (result.note) pill.title = result.note;
+        pills.append(pill);
       }
-      c.append(conds);
+      block.append(pills);
 
-      /* iddia başına canlı soru */
+      /* a live question per claim */
       const ask = document.createElement("div"); ask.className = "ask";
-      const btn = document.createElement("button");
-      btn.className = "btn"; btn.textContent = "Bu iddia şu an ne durumda?";
-      const out = document.createElement("div");
-      btn.addEventListener("click", () => iddiaSor(sym, idd, btn, out));
-      ask.append(btn, out);
-      c.append(ask);
-      kart.append(c);
+      const button = document.createElement("button");
+      button.className = "btn";
+      button.textContent = "What is this claim's status right now?";
+      const output = document.createElement("div");
+      button.addEventListener("click", () => askAboutClaim(symbol, claim, button, output));
+      ask.append(button, output);
+      block.append(ask);
+      card.append(block);
     }
-    kok.append(kart);
+    root.append(card);
   }
 }
 
-/* ---------- canlı veri: FMP konnektörü ---------- */
-function nabiz(sinif, metin, atsin) {
-  const d = el("dot");
-  d.className = "dot " + sinif + (atsin ? " beat" : "");
-  el("pulse").textContent = metin;
+/* ---------- live data: the FMP connector ---------- */
+function setPulse(className, text, beating) {
+  el("dot").className = "dot " + className + (beating ? " beat" : "");
+  el("pulse").textContent = text;
 }
 
-function bannerYaz(sinif, html) {
-  const b = el("banner");
-  if (!html) { b.textContent = ""; return; }
-  b.innerHTML = '<div class="banner ' + sinif + '">' + html + "</div>";
+function setBanner(className, html) {
+  const banner = el("banner");
+  if (!html) { banner.textContent = ""; return; }
+  banner.innerHTML = '<div class="banner ' + className + '">' + html + "</div>";
 }
 
-const MCP_MESAJ = {
-  needs_reauth: ['warn', "<b>FMP bağlantısının izni tazelenmeli.</b> claude.ai → Ayarlar → Konnektörler'den FMP'yi yeniden bağla. Sayfa o zamana kadar son karar turundaki tez metinlerini gösterir."],
-  server_not_connected: ['warn', "<b>FMP konnektörü ekli değil.</b> Canlı fiyat için claude.ai → Ayarlar → Konnektörler'den FMP'yi ekle. Tez metinleri ve eşikler yine görünür, yalnızca ölçüm sütunu boş kalır."],
-  selection_required: ['warn', "<b>Birden fazla FMP bağlantın var.</b> Hangisinin kullanılacağını seçmen gerekiyor; seçim istemi kapatıldıysa sayfayı yenile."],
-  not_in_manifest: ['warn', "<b>Bu sayfaya FMP erişimi verilmedi.</b> Canlı ölçüm kapalı; eşikler ve tez metinleri son karar turundaki hâliyle görünüyor."],
-  blocked_by_policy: ['warn', "<b>Kurum politikası bu konnektörü engelliyor.</b> Canlı ölçüm yok; sayfa depodaki son duruma göre okunur."],
-  approval_required: ['warn', "<b>Bu çağrı tek tek onay gerektiriyor</b> ve artifact içinde henüz desteklenmiyor. Canlı ölçüm kapalı."],
-  server_not_found: ['warn', "<b>FMP konnektörü artık bulunamıyor.</b> Canlı ölçüm kapalı."],
-  capability_disabled: ['warn', "<b>Canlı veri bağlantısı bu görünümde kapalı.</b> Tez metinleri son karar turundan."],
+const MCP_MESSAGE = {
+  needs_reauth: ['warn', "<b>The FMP connection needs to be re-authorised.</b> Reconnect FMP under claude.ai → Settings → Connectors. Until then the page shows the thesis text from the last decision round."],
+  server_not_connected: ['warn', "<b>The FMP connector is not added.</b> Add FMP under claude.ai → Settings → Connectors for live prices. The thesis text and the thresholds are still shown; only the measurement column stays empty."],
+  selection_required: ['warn', "<b>You have more than one FMP connection.</b> You need to choose which one to use; if the prompt was dismissed, reload the page."],
+  not_in_manifest: ['warn', "<b>This page was not granted FMP access.</b> Live measurement is off; the thresholds and thesis text appear as they stood at the last decision round."],
+  blocked_by_policy: ['warn', "<b>Organisation policy blocks this connector.</b> No live measurement; read the page as the repository's last recorded state."],
+  approval_required: ['warn', "<b>This call requires per-call approval</b>, which artifacts do not support yet. Live measurement is off."],
+  server_not_found: ['warn', "<b>The FMP connector no longer exists.</b> Live measurement is off."],
+  capability_disabled: ['warn', "<b>The live data connection is off in this view.</b> The thesis text is from the last decision round."],
 };
 
-let yeniden = false;
-function mcpHata(err) {
-  const kod = err && err.code;
-  const bilinen = MCP_MESAJ[kod];
-  if (bilinen) {
-    bannerYaz(bilinen[0], bilinen[1]);
-    nabiz("warn", "canlı veri yok");
+let retried = false;
+function handleMcpError(error) {
+  const code = error && error.code;
+  const known = MCP_MESSAGE[code];
+  if (known) {
+    setBanner(known[0], known[1]);
+    setPulse("warn", "no live data");
     return;
   }
-  if (kod === "server_unavailable" || kod === "rate_limited") {
-    nabiz("warn", canli ? "veri bayat — yeniden deneniyor" : "veri kaynağı yanıt vermiyor");
-    bannerYaz("warn", "<b>Fiyat kaynağı şu an yanıt vermiyor.</b> "
-      + (canli ? "Ekranda en son gelen ölçüm duruyor." : "Eşikler ve tez metinleri görünür, ölçüm sütunu boş.")
-      + " Bir kez daha denenecek.");
-    if (!yeniden && mcpNs) {
-      yeniden = true;
-      const bekle = 1500 + Math.random() * 2500;
-      setTimeout(() => { try { mcpNs.invalidate(FMP, "quote", KOTA_INPUT); } catch (e) {} }, bekle);
+  if (code === "server_unavailable" || code === "rate_limited") {
+    setPulse("warn", live ? "data is stale — retrying" : "the data source is not responding");
+    setBanner("warn", "<b>The price source is not responding right now.</b> "
+      + (live ? "The last measurement received is still on screen."
+             : "The thresholds and thesis text are shown; the measurement column is empty.")
+      + " One more attempt will be made.");
+    if (!retried && mcpNamespace) {
+      retried = true;
+      const delay = 1500 + Math.random() * 2500;
+      setTimeout(() => {
+        try { mcpNamespace.invalidate(FMP, "quote", QUOTE_INPUT); } catch (e) {}
+      }, delay);
     }
     return;
   }
-  if (kod === "tool_error") {
-    bannerYaz("bad", "<b>Fiyat kaynağı hata bildirdi:</b> "
-      + (err.message || "ayrıntı yok") + " — canlı ölçüm kapalı.");
-    nabiz("bad", "kaynak hatası");
+  if (code === "tool_error") {
+    setBanner("bad", "<b>The price source reported an error:</b> "
+      + (error.message || "no detail") + " — live measurement is off.");
+    setPulse("bad", "source error");
     return;
   }
-  bannerYaz("warn", "<b>Canlı ölçüm alınamadı</b>"
-    + (err && err.message ? " (" + err.message + ")" : "")
-    + ". Tez metinleri ve eşikler son karar turundaki hâliyle görünüyor.");
-  nabiz("warn", "canlı veri yok");
+  setBanner("warn", "<b>Live measurement could not be fetched</b>"
+    + (error && error.message ? " (" + error.message + ")" : "")
+    + ". The thesis text and thresholds appear as they stood at the last decision round.");
+  setPulse("warn", "no live data");
 }
 
-function kotaIsle(sonuc) {
-  const p = sonuc && sonuc.payload;
-  const dizi = Array.isArray(p) ? p : (p && Array.isArray(p.data) ? p.data : null);
-  if (!dizi || !dizi.length) { nabiz("warn", "ölçüm okunamadı"); return; }
-  const yeni = {};
-  for (const q of dizi) if (q && q.symbol) yeni[q.symbol] = q;
-  canli = yeni;
-  yeniden = false;
-  bannerYaz(null, null);
+function handleQuotes(result) {
+  const payload = result && result.payload;
+  const rows = Array.isArray(payload) ? payload
+    : (payload && Array.isArray(payload.data) ? payload.data : null);
+  if (!rows || !rows.length) { setPulse("warn", "the measurement could not be read"); return; }
+  const next = {};
+  for (const quote of rows) if (quote && quote.symbol) next[quote.symbol] = quote;
+  live = next;
+  retried = false;
+  setBanner(null, null);
 
-  // Tazelik göstergesi: önbellekten geldiyse storedAt, taze koştuysa kotanın timestamp'i.
-  const cache = sonuc.cache;
-  const ts = dizi.map((q) => q.timestamp).filter(Boolean)
+  // Freshness: if it came from the cache use storedAt, if it ran fresh use the quote's own
+  // timestamp.
+  const cache = result.cache;
+  const timestamp = rows.map((quote) => quote.timestamp).filter(Boolean)
     .reduce((a, b) => (b > a ? b : a), 0);
-  canliDamga = cache ? cache.storedAt : (ts ? ts * 1000 : null);
-  const saat = canliDamga
-    ? new Date(canliDamga).toLocaleString("tr-TR",
+  liveStamp = cache ? cache.storedAt : (timestamp ? timestamp * 1000 : null);
+  const clock = liveStamp
+    ? new Date(liveStamp).toLocaleString("en-GB",
       { dateStyle: "short", timeStyle: "short" })
-    : "zaman bilinmiyor";
-  nabiz("live", (cache && cache.revalidating ? "tazeleniyor · " : "") + saat, true);
+    : "time unknown";
+  setPulse("live", (cache && cache.revalidating ? "refreshing · " : "") + clock, true);
   el("refresh").disabled = false;
-  kartlariCiz();
+  renderCards();
 }
 
-/* ---------- ajana sorma ---------- */
-function olcumOzeti() {
-  if (!canli) return "Canlı ölçüm alınamadı — bu soruda sayı kullanma.";
-  const s = ["Canlı ölçümler (" + (canliDamga
-    ? new Date(canliDamga).toISOString() : "zaman bilinmiyor") + "):"];
-  for (const sym of IZLENEN) {
-    const q = canli[sym];
-    if (!q) { s.push("  " + sym + ": veri yok"); continue; }
-    const poz = VERI.pozisyonlar[sym];
-    let satir = "  " + sym + ": fiyat " + fmt(q.price) + " $, günlük "
-      + yuzde(q.changePercentage) + ", 50g ortalama " + fmt(q.priceAvg50)
-      + ", 200g ortalama " + fmt(q.priceAvg200);
-    if (poz) {
-      satir += ", giriş " + fmt(poz.giris_fiyati) + " $, stop " + poz.stop
-        + " $ (mesafe " + yuzde((q.price / poz.stop - 1) * 100) + ")"
-        + (poz.bilanco ? ", bilanço " + poz.bilanco : "");
+/* ---------- asking the agent ---------- */
+function measurementSummary() {
+  if (!live) return "Live measurement is unavailable — do not use numbers in this answer.";
+  const lines = ["Live measurements (" + (liveStamp
+    ? new Date(liveStamp).toISOString() : "time unknown") + "):"];
+  for (const symbol of WATCHED) {
+    const quote = live[symbol];
+    if (!quote) { lines.push("  " + symbol + ": no data"); continue; }
+    const holding = DATA.positions[symbol];
+    let line = "  " + symbol + ": price " + fmt(quote.price) + " $, daily "
+      + pct(quote.changePercentage) + ", 50d average " + fmt(quote.priceAvg50)
+      + ", 200d average " + fmt(quote.priceAvg200);
+    if (holding) {
+      line += ", entry " + fmt(holding.entry_price) + " $, stop " + holding.stop
+        + " $ (distance " + pct((quote.price / holding.stop - 1) * 100) + ")"
+        + (holding.earnings ? ", earnings " + holding.earnings : "");
     }
-    s.push(satir);
+    lines.push(line);
   }
-  s.push("  Nakit: " + VERI.nakit_usd + " $");
-  return s.join("\n");
+  lines.push("  Cash: " + DATA.cash_usd + " $");
+  return lines.join("\n");
 }
 
-const DISIPLIN = [
-  "Sen bir portföy deneyinin seans içi yorum katmanısın. Kayıt dürüstlüğü kuralları:",
-  "- SADECE sana verilen ölçüm bloğundaki sayıları kullan. Hafızandan fiyat, pazar payı,",
-  "  ürün adı, analist hedefi, F/K yazma. Verilmeyen bir sayıyı cümlene koyma.",
-  "- Yüzde yazarken tabanını belirt (girişe göre / önceki kapanışa göre).",
-  "- Temenni tez değildir: 'toparlayabilir', 'bilanço güzel gelebilir', 'bekleyip göreceğim' yasak.",
-  "- İşlem tavsiyesi verme; bu sayfa işlem yapmaz. Tezin durumunu değerlendir.",
-  "- Türkçe yaz, kısa ve düz cümlelerle. Markdown başlık kullanma.",
+const DISCIPLINE = [
+  "You are the intraday commentary layer of a portfolio experiment. The rules of record",
+  "honesty:",
+  "- Use ONLY the numbers in the measurement block given to you. Do not write a price,",
+  "  market share, product name, analyst target or P/E from memory. If a number was not",
+  "  given, it does not belong in your sentence.",
+  "- When you write a percentage, name its base (against entry / against the previous close).",
+  "- A wish is not a thesis: 'could recover', 'earnings may come in strong', 'I will wait",
+  "  and see' are forbidden.",
+  "- Do not give trading advice; this page does not trade. Assess the state of the thesis.",
+  "- Write in plain, short sentences. Do not use markdown headings.",
 ].join("\n");
 
-async function akitAnswer(prompt, kutu, etiket, uzunluk) {
-  const sample = await yetenek("sample");
+async function streamAnswer(prompt, target, label, length) {
+  const sample = await capability("sample");
   if (!sample) {
-    kutu.className = "ask-out err";
-    kutu.textContent = "Ajana soru gönderilemiyor: bu görünümde canlı yanıt kapalı.";
+    target.className = "ask-out err";
+    target.textContent = "Cannot send a question to the agent: live answers are off in "
+      + "this view.";
     return;
   }
-  kutu.className = "ask-out";
-  kutu.textContent = "";
+  target.className = "ask-out";
+  target.textContent = "";
   const who = document.createElement("span");
-  who.className = "who"; who.textContent = etiket;
-  const gov = document.createElement("span");
-  gov.className = "thinking"; gov.textContent = "Düşünüyor…";
-  kutu.append(who, gov);
+  who.className = "who"; who.textContent = label;
+  const body = document.createElement("span");
+  body.className = "thinking"; body.textContent = "Thinking…";
+  target.append(who, body);
   try {
-    const r = await sample(prompt, {
-      modelTier: uzunluk === "uzun" ? "default" : "quick",
-      onText: ({ text }) => { gov.className = ""; gov.textContent = text; },
+    const result = await sample(prompt, {
+      modelTier: length === "long" ? "default" : "quick",
+      onText: ({ text }) => { body.className = ""; body.textContent = text; },
     });
-    gov.className = ""; gov.textContent = r.text;
-    if (r.truncated) {
-      const t = document.createElement("small");
-      t.textContent = "\n\n(Yanıt kısa kesildi — daha dar bir soru sor.)";
-      kutu.append(t);
+    body.className = ""; body.textContent = result.text;
+    if (result.truncated) {
+      const note = document.createElement("small");
+      note.textContent = "\n\n(The answer was cut short — ask something narrower.)";
+      target.append(note);
     }
-  } catch (e) {
-    const kod = e && e.code;
-    kutu.className = "ask-out err";
-    if (kod === "not_granted") {
-      kutu.textContent = "Canlı yanıt için izin verilmedi. Sayfadaki ölçümler ve eşikler yine geçerli.";
-    } else if (kod === "rate_limited") {
-      kutu.textContent = "Çok sık soruldu. Bir süre bekleyip tekrar dene.";
-    } else if (kod === "cancelled") {
-      kutu.textContent = "Soru iptal edildi.";
+  } catch (error) {
+    const code = error && error.code;
+    target.className = "ask-out err";
+    if (code === "not_granted") {
+      target.textContent = "Permission for live answers was not granted. The measurements "
+        + "and thresholds on this page still hold.";
+    } else if (code === "rate_limited") {
+      target.textContent = "Too many questions too quickly. Wait a moment and try again.";
+    } else if (code === "cancelled") {
+      target.textContent = "The question was cancelled.";
     } else {
-      kutu.textContent = "Yanıt alınamadı" + (e && e.message ? ": " + e.message : ".")
-        + (e && e.text ? "\n\nGelen kısım:\n" + e.text : "");
+      target.textContent = "No answer came back"
+        + (error && error.message ? ": " + error.message : ".")
+        + (error && error.text ? "\n\nThe partial answer:\n" + error.text : "");
     }
   }
 }
 
-function iddiaSor(sym, idd, btn, kutu) {
-  const kosullar = idd.kosullar.map((k) => {
-    const o = kosulOlc(k, sym);
-    return "  - [" + (SEV_ETIKET[k.siddet] || k.siddet) + "] " + o.ad
-      + ": ölçüm " + o.olcum + ", eşik " + o.esik
-      + (o.durum === "hit" ? " → EŞİK AŞILDI" : o.durum === "na" ? " → ölçülemedi" : "");
+function askAboutClaim(symbol, claim, button, target) {
+  const conditions = claim.conditions.map((condition) => {
+    const result = measure(condition, symbol);
+    return "  - [" + (SEVERITY_LABEL[condition.severity] || condition.severity) + "] "
+      + result.label + ": measured " + result.value + ", threshold " + result.threshold
+      + (result.state === "hit" ? " → THRESHOLD CROSSED"
+        : result.state === "na" ? " → unmeasurable" : "");
   }).join("\n");
   const prompt = [
-    DISIPLIN, "",
-    "POZİSYON: " + sym,
-    "Pozisyonun tez özeti: " + VERI.tezler[sym].tez_ozeti, "",
-    "DEĞERLENDİRİLECEK İDDİA (" + idd.id + ", dosyadaki durum: "
-      + (DURUM_ETIKET[idd.durum] || idd.durum) + ", son güncelleme "
-      + (idd.son_guncelleme || "bilinmiyor") + "):",
-    idd.metin, "",
-    "Bu iddianın geçerlilik koşulları ve şu anki ölçümleri:", kosullar, "",
-    olcumOzeti(), "",
-    "Soru: Bu iddia şu anki ölçümlerle hâlâ ayakta mı? Yanıtını üç kısa paragrafta ver:",
-    "(1) iddianın dayanağı bugün ne durumda — hangi ölçüm onu tutuyor, hangisi zorluyor;",
-    "(2) dosyadaki durum etiketi (" + (DURUM_ETIKET[idd.durum] || idd.durum)
-      + ") bu ölçümlere göre doğru mu, değilse hangisi olmalı ve neden;",
-    "(3) bu iddiayı çürütecek TEK gözlem ne — ölçülebilir ve bir sonraki kontrolde",
-    "kontrol edilebilir olsun.",
+    DISCIPLINE, "",
+    "POSITION: " + symbol,
+    "The position's thesis summary: " + DATA.theses[symbol].thesis_summary, "",
+    "THE CLAIM TO ASSESS (" + claim.id + ", status on file: "
+      + (STATUS_LABEL[claim.status] || claim.status) + ", last updated "
+      + (claim.last_updated || "unknown") + "):",
+    claim.text, "",
+    "This claim's validity conditions and their current measurements:", conditions, "",
+    measurementSummary(), "",
+    "Question: is this claim still standing on the current measurements? Answer in three",
+    "short paragraphs:",
+    "(1) where the claim's evidence stands today — which measurement holds it up, which one",
+    "strains it;",
+    "(2) is the status on file (" + (STATUS_LABEL[claim.status] || claim.status)
+      + ") correct against these measurements, and if not what should it be and why;",
+    "(3) what is the SINGLE observation that would refute this claim — it must be",
+    "measurable and checkable on the next run.",
   ].join("\n");
-  btn.disabled = true;
-  akitAnswer(prompt, kutu, "canlı değerlendirme · " + idd.id, "kisa")
-    .finally(() => { btn.disabled = false; btn.textContent = "Yeniden sor"; });
+  button.disabled = true;
+  streamAnswer(prompt, target, "live assessment · " + claim.id, "short")
+    .finally(() => { button.disabled = false; button.textContent = "Ask again"; });
 }
 
-const ONERILER = [
-  "Hangi pozisyonun tezi bu ölçümlerle en kırılgan? Sırala ve her biri için tek gerekçe yaz.",
-  "Eşiklerin hangisi bugünün ölçümlerine göre yanlış konmuş görünüyor?",
-  "Portföyün tamamı aynı temada — bu ölçümler o riski bugün artırıyor mu, azaltıyor mu?",
-  "Bir sonraki kontrolde hangi tek sayıya bakmalıyım, neden o?",
+const SUGGESTIONS = [
+  "Which position's thesis is most fragile on these measurements? Rank them with one reason each.",
+  "Which of the thresholds looks wrongly set against today's measurements?",
+  "The whole portfolio sits in one theme — do these measurements raise or lower that risk today?",
+  "Which single number should I watch on the next run, and why that one?",
 ];
 
-function konsolKur() {
+function setUpConsole() {
   const chips = el("chips");
-  for (const s of ONERILER) {
-    const b = document.createElement("button");
-    b.className = "chip"; b.type = "button"; b.textContent = s;
-    b.addEventListener("click", () => { el("q").value = s; el("q").focus(); });
-    chips.append(b);
+  for (const suggestion of SUGGESTIONS) {
+    const chip = document.createElement("button");
+    chip.className = "chip"; chip.type = "button"; chip.textContent = suggestion;
+    chip.addEventListener("click", () => { el("q").value = suggestion; el("q").focus(); });
+    chips.append(chip);
   }
-  const gonder = () => {
-    const soru = el("q").value.trim();
-    if (!soru) { el("q").focus(); return; }
-    const tezOzeti = SEMBOLLER.map((s) => {
-      const t = VERI.tezler[s];
-      return "  " + s + " — " + t.tez_ozeti + "\n" + t.iddialar.map((i) =>
-        "     [" + i.id + "] (" + (DURUM_ETIKET[i.durum] || i.durum) + ") " + i.metin
-      ).join("\n");
+  const submit = () => {
+    const question = el("q").value.trim();
+    if (!question) { el("q").focus(); return; }
+    const summary = SYMBOLS.map((symbol) => {
+      const position = DATA.theses[symbol];
+      return "  " + symbol + " — " + position.thesis_summary + "\n"
+        + position.claims.map((claim) =>
+          "     [" + claim.id + "] (" + (STATUS_LABEL[claim.status] || claim.status)
+          + ") " + claim.text).join("\n");
     }).join("\n");
     const prompt = [
-      DISIPLIN, "",
-      "PORTFÖYÜN TEZLERİ (son karar turu: " + VERI.kaynak_tur + "):", tezOzeti, "",
-      olcumOzeti(), "",
-      "İzleyenin sorusu: " + soru,
+      DISCIPLINE, "",
+      "THE PORTFOLIO'S THESES (last decision round: " + DATA.source_round + "):", summary,
+      "", measurementSummary(), "",
+      "The viewer's question: " + question,
     ].join("\n");
     el("send").disabled = true;
-    akitAnswer(prompt, el("qout"), "canlı yanıt", "uzun")
+    streamAnswer(prompt, el("qout"), "live answer", "long")
       .finally(() => { el("send").disabled = false; });
   };
-  el("send").addEventListener("click", gonder);
-  el("q").addEventListener("keydown", (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") gonder();
+  el("send").addEventListener("click", submit);
+  el("q").addEventListener("keydown", (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") submit();
   });
 }
 
-/* ---------- başlat ---------- */
-el("damga").textContent = VERI.kaynak_tur;
-kartlariCiz();
-konsolKur();
+/* ---------- start ---------- */
+el("stamp").textContent = DATA.source_round;
+renderCards();
+setUpConsole();
 
-yetenek("mcp").then((mcp) => {
+capability("mcp").then((mcp) => {
   if (!mcp) {
-    nabiz("warn", "canlı veri yok");
-    bannerYaz("warn", "<b>Canlı fiyat bu görünümde kapalı.</b> Aşağıdaki eşikler ve tez "
-      + "metinleri son karar turundaki hâliyle görünüyor; ölçüm sütunu boş kalır.");
+    setPulse("warn", "no live data");
+    setBanner("warn", "<b>Live prices are off in this view.</b> The thresholds and thesis "
+      + "text below appear as they stood at the last decision round; the measurement column "
+      + "stays empty.");
     return;
   }
-  mcpNs = mcp;
-  const bitir = mcp.watchTool(FMP, "quote", KOTA_INPUT, (ev) => {
-    if (ev.type === "data") kotaIsle(ev.result);
-    else mcpHata(ev.error);
+  mcpNamespace = mcp;
+  const unsubscribe = mcp.watchTool(FMP, "quote", QUOTE_INPUT, (event) => {
+    if (event.type === "data") handleQuotes(event.result);
+    else handleMcpError(event.error);
   }, { refetchInterval: 60000 });
-  window.addEventListener("pagehide", bitir, { once: true });
+  window.addEventListener("pagehide", unsubscribe, { once: true });
   el("refresh").addEventListener("click", () => {
-    nabiz("warn", "tazeleniyor…");
-    try { mcp.invalidate(FMP, "quote", KOTA_INPUT); }
-    catch (e) { nabiz("warn", "tazelenemedi"); }
+    setPulse("warn", "refreshing…");
+    try { mcp.invalidate(FMP, "quote", QUOTE_INPUT); }
+    catch (error) { setPulse("warn", "could not refresh"); }
   });
 }).catch(() => {
-  nabiz("warn", "canlı veri yok");
+  setPulse("warn", "no live data");
 });
 </script>

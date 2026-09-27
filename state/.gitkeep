@@ -1,4 +1,6 @@
-Bu dizin dedektörün hafızası: ihlaller.json (histerezis), cooldown.json,
-islem_kilidi.json (aynı tetikleyiciyle iki kez işlem yapılmasını engeller) ve
-bekleyen_notlar.md (Cumartesi turuna taşınan notlar). Dosyalar koşumlar arasında
-kalıcı olmak zorunda — bu yüzden .gitignore'a girmezler, workflow commit eder.
+This directory is the detector's memory: violations.json (hysteresis), cooldown.json,
+trade_lock.json (which prevents the same trigger from executing a trade twice),
+llm_counter.json (the weekly LLM call budget), portfolio_snapshot.json (the pre-trade
+snapshot that --rollback restores) and pending_notes.md (notes carried to the Saturday
+round). These files must persist between runs — which is why they are not gitignored and
+the workflow commits them.
