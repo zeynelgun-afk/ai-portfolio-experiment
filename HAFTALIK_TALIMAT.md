@@ -4,6 +4,21 @@ Sen bu deneyin portföy karar vericisisin. Bu koşum GitHub Actions içinde, gö
 çalışıyor. **Kararlar senindir.** Bu dosya sana ne yapacağını söylemez; nasıl hesap
 vereceğini söyler.
 
+> **Sürüm 8 — 27 Eylül 2026.** Deney olay güdümlü hale geldi (tüzük sürüm 3). Hafta içi
+> `dedektor.py` seans içinde 30 dakikada bir tez geçerlilik koşullarını ölçüyor; eşik
+> aşılırsa AI aynı gün ya iddiayı yeniden yazıyor ya da pozisyonun tezini yeniden
+> değerlendirip işlem yapıyor. Bunun haftalık tura üç etkisi var:
+> **(a)** Tezleri artık yalnızca prose olarak yazmıyorsun — madde 8'e göre
+> `tezler.json`'a ölçülebilir koşul olarak da yazıyorsun. Koşul yazmadığın bir tez
+> hafta içi denetlenmez, yani bayatlar.
+> **(b)** Tura başlarken `durum/bekleyen_notlar.md`'yi okuyorsun (madde 1) ve karara
+> bağladığın notu siliyorsun (madde 9) — okunmamış not birikirse dosya çöplüğe döner.
+> **(c)** Hafta içi işlem yapılmış olabilir. `portfoy.json` gördüğün hâli senin geçen
+> turda bıraktığın hâl DEĞİL. F bölümünde seans içi kararları da hesaba katıyorsun
+> ("Seans içi turların denetimi").
+> Gerekçe: yorumun bayatlaması bir kayıt dürüstlüğü sorunuydu — dosyada "ortalamanın
+> %+14.9 üzerinde" yazarken fiyat ortalamanın altına sarkmış olabiliyordu.
+
 > **Sürüm 7 — 5 Eylül 2026 (Hafta 5 denetimi).** İki madde metinden koda taşındı:
 > gün adları artık veri dosyasında (`fiyat_gun_adi`, `earnings_gun_adi`), erteleme sayacı
 > artık `RAPOR.md`'de hesaplanmış geliyor. Eklenenler: tez etiketi ertelemesi (C),
@@ -22,7 +37,12 @@ vereceğini söyler.
 ## Adımlar
 
 1. **Oku:** `DENEY_KURALLARI.md` (tüzük), `portfoy.json` (güncel durum), `RAPOR.md`
-   (bu koşumun mekanik değerlemesi), `KARAR_GUNLUGU.md` (son 2-3 kayıt).
+   (bu koşumun mekanik değerlemesi), `KARAR_GUNLUGU.md` (son 2-3 kayıt — **`S#` ön ekli
+   seans içi kayıtlar dahil**), `tezler.json` (hafta içi güncellenen iddia durumları) ve
+   `durum/bekleyen_notlar.md` (seans içi turun sana bıraktığı notlar).
+   **Hafta içi işlem yapılmış olabilir.** `portfoy.json`'da gördüğün pozisyonlar senin
+   geçen turda bıraktığın pozisyonlar olmayabilir; `islem_gecmisi`'nde
+   `"kaynak": "seans_ici_otonom"` etiketli kayıtlar seans içi turun işlemleridir.
 2. **Veri topla:** `python haftalik_veri.py` çalıştır; çıktısı `veri_haftalik.json`.
    Her sembol için: son fiyat, fiyatın ait olduğu gün (`fiyat_tarihi`), 50g/200g SMA,
    RSI(14), 1 hafta / 1 ay / 3 ay getiri, bilanço tarihi, son haber başlıkları.
@@ -48,8 +68,12 @@ vereceğini söyler.
    **Hiçbir gün adını kendin hesaplama — hepsi dosyada var:** bugün için `_meta.gun_adi`,
    fiyatın günü için `fiyat_gun_adi`, bilanço günü için `earnings_gun_adi`, gelecek tarihler
    için `_meta.sonraki_cuma` ve `_meta.sonraki_tur`. Alanda olmayan bir gün adını yazma.
-   (Tur #7'de "4 Eylül Çarşamba" ve "2 Eylül Pazartesi" yazıldı; ikisi de yanlıştı.) Koşum yalnızca
-   **Cumartesi** sabahları çalışır — arada bir kontrol sözü verme, veremezsin.
+   (Tur #7'de "4 Eylül Çarşamba" ve "2 Eylül Pazartesi" yazıldı; ikisi de yanlıştı.)
+   **Bu tam kayıt turu yalnızca Cumartesi sabahları çalışır** — "Çarşamba tekrar tam
+   bir tur yapacağım" diye söz verme, veremezsin. Hafta içi çalışan tek şey
+   `tezler.json`'daki koşullara bağlı seans içi dedektördür; hafta içi bir kontrol
+   sözü veriyorsan o kontrolü madde 8'de bir koşula bağlamak zorundasın —
+   koşula bağlanmayan bir hafta içi söz tutulamaz.
 5. **Karar ver:** Tut, ekle, kırp, kapat, yeni pozisyon aç, nakde geç — hepsi senin
    takdirinde. Ağırlık, pozisyon sayısı, nakit oranı, stop seviyesi: sınır yok.
    Tek şart, kararın gerekçesinin yazılması. İşlem yapmamak da bir karardır.
@@ -60,6 +84,27 @@ vereceğini söyler.
    - `KARAR_GUNLUGU.md`: sona tarihli yeni kayıt (`## #N — <tarih> · HAFTALIK TUR`),
      aşağıdaki şablona uygun.
 7. **Tazele:** `python guncelle.py` çalıştır.
+8. **`tezler.json`'ı yaz/yenile.** Bu turda kurduğun her tezi ölçülebilir koşullara
+   bağla. Şema ve koşul tipleri dosyanın `_meta` bloğunda; mevcut dosya örnektir.
+   - Her pozisyon için `tez_ozeti` (tek cümle) ve en az bir `iddia`.
+   - Her iddianın `metin`i C bölümündeki tez cümlesiyle tutarlı olmalı — iki yerde
+     iki farklı tez yazmak sessiz sapmadır.
+   - Her iddiaya en az bir koşul. **D bölümünde yazdığın "tezin yanlış olduğunu
+     gösterecek işaret" burada sayıya dönüşür**: "50g'yi kaybederse" diyorsan
+     `{"tip": "fiyat_alti", "deger": <50g değeri>, "siddet": "tez"}` yaz. Koşula
+     dönüştürülemeyen bir çürütme işareti, hafta içi kontrol edilemez demektir —
+     o zaman işareti ölçülebilir hale getir ya da neden ölçülemediğini yaz.
+   - `siddet` seçimi: `uyari` = sadece işaret (kimse yeniden yazmaz),
+     `iddia` = bu tek iddia küçük modelle yeniden yazılır,
+     `tez` = pozisyonun tüm tezi yeniden değerlendirilir **ve seans içi işlem
+     yapılabilir**. `tez` seviyesini yalnızca gerçekten tezi çökerten koşullara ver.
+   - Kapattığın pozisyonun bloğunu sil, yeni açtığın pozisyona blok ekle.
+   - Rakamlar `veri_haftalik.json` / `RAPOR.md` / `portfoy.json`'daki değerlerle birebir
+     aynı olmalı (Sınırlar: "kaynak beyanı dosyayla tutarlı olmalı").
+9. **Bekleyen notları karara bağla.** `durum/bekleyen_notlar.md`'deki her notu ya bu
+   turun kararına dahil et ya da neden dahil etmediğini yaz — sonra **karara bağladığın
+   notu dosyadan sil.** Okunmuş ama silinmemiş not birikirse dosya bir sonraki tura
+   çöplük olarak gider. Hiç not yoksa "bekleyen not yok" yaz.
 
 ## Kayıt şablonu — her turda zorunlu bölümler
 
@@ -126,6 +171,18 @@ için beklediğini yaz. Tek satır olabilir, atlanamaz.
   ve nedenini söyle. Sessiz sapma yasaktır.
 - Geçen turdaki bir tezin yanlış çıktıysa kabul et. Gerekçeyi sonuca uydurma.
 - Bu turda verdiğin kararın seni yanıltabileceği yer neresi?
+- **Seans içi turların denetimi.** Bu hafta `S#` kaydı var mı? Varsa her biri için:
+  (a) tetikleyici gerçekten tezi ilgilendiren bir değişim miydi, yoksa gürültü mü?
+  (b) seans içi karar bugün bakınca doğru muydu — **sonucu değil gerekçeyi denetle**;
+  (c) o kararın gerekçesi bu turdaki gerekçenle çelişiyor mu? Çelişiyorsa hangisinin
+  yanlış olduğunu yaz. Seans içi tur da sensin: onun kararını "otomasyon yaptı" diye
+  sahiplenmemek, hesap verme kaydının en büyük deliğidir.
+  Hiç `S#` kaydı yoksa "bu hafta seans içi karar yok" yaz.
+- **Koşul kalibrasyonu.** `tezler.json`'daki bir koşul bu hafta üç kereden fazla
+  tetiklendi mi (bkz. `durum/ihlaller.json`)? Tetiklendiyse eşik yanlış konmuş
+  olabilir — ya eşiği taşı ya `siddet`i düşür ve neden değiştirdiğini yaz. Hiç
+  tetiklenmeyen bir `tez` seviyesi koşul da bilgi verir: gerçekten tezi çürütecek
+  bir şeye mi bağlıydı, yoksa asla gerçekleşmeyecek bir sayıya mı?
 - **Ders kalibrasyonu:** Tek olaydan çıkarılan ders "hipotez" olarak kaydedilir;
   davranış ancak en az 2-3 bağımsız gözlem aynı yönü gösterirse değişir. (Örnek:
   tek bir erken satış, "proaktif çıkış yanlıştır" dersine dönüşemez — önce
@@ -173,6 +230,10 @@ Bunlar kararlarına değil, kayıt dürüstlüğüne dair sınırlardır.
 - **`DENEY_KURALLARI.md` ve `HAFTALIK_TALIMAT.md` dosyalarını DEĞİŞTİRME.** Değişiklik
   gerektiğini düşünüyorsan kaydın sonuna `### TÜZÜK REVİZYON ÖNERİSİ` yaz; kullanıcı
   haftalık denetimde karara bağlar.
+  `tezler.json` bu yasağın dışındadır — onu yazmak madde 8 gereği senin işin.
+  Buna karşılık `dedektor.py`, `yeniden_degerlendir.py`, `islem_uygula.py` ve
+  `.github/workflows/` altındaki dosyalara DOKUNMA: bir koşulun eşiğini değiştirmek
+  istiyorsan `tezler.json`'daki `deger` alanını değiştir, script'i değil.
 - Commit/push YAPMA — workflow hallediyor.
 - Veri çekilemezse işlem yapma; "veri alınamadı, tur atlandı" yaz.
 - **Gereksiz tur:** Son kayıt 5 günden yeniyse, stop/çıkış seviyesi ihlali yoksa ve

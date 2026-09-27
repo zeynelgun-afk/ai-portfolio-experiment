@@ -2,6 +2,21 @@
 
 Her giriş: tarih, karar, tez, riskler, stop, gözden geçirme tetikleyicisi.
 
+**İki kayıt tipi var:**
+
+- `## #N — <tarih> · HAFTALIK TUR` — Cumartesi 06:00 UTC karar turu. Tam kayıt
+  (A–F bölümleri, `HAFTALIK_TALIMAT.md` şablonu). Tezleri kuran tur budur.
+- `## S#N — <tarih> <saat> UTC · SEANS İÇİ KARAR` — hafta içi olay güdümlü tur.
+  `dedektor.py` bir tez geçerlilik koşulunun eşiğini aşıldığını ölçtüğünde
+  (2 ardışık kontrolde teyitli) derin model pozisyonun tezini yeniden değerlendirir;
+  karar `islem_uygula.py` tarafından deterministik uygulanır. Kısa kayıt: tetikleyici,
+  dolgu, tez değerlendirmesi, gerekçe, çarpıtma işareti. Uygulanmayan kararlar da
+  nedeniyle birlikte buraya yazılır — sessiz düşüş yok.
+
+Seans içi kararlar `S#` numarasıyla ayrı sayılır; haftalık tur numaralandırması
+(`#N`) bozulmaz. Her seans içi işlem `portfoy.json` → `islem_gecmisi`'nde
+`"kaynak": "seans_ici_otonom"` etiketiyle görünür.
+
 ---
 
 ## #1 — 5 Ağustos 2026 · İLK PORTFÖY KURULUMU
