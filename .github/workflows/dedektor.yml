@@ -1,0 +1,175 @@
+name: Seans İçi Dedektör
+
+# Olay güdümlü yeniden değerlendirme. Cumartesi turu haftada bir karar verir;
+# bu workflow hafta içi "anlam değişti mi?" sorusunu 30 dakikada bir sorar.
+# Veri sürekli akar, yorum yalnızca anlam değişince güncellenir.
+
+on:
+  schedule:
+    # ABD seansı, Pzt–Cum, her 30 dakika (13:30–20:00 UTC)
+    - cron: '30 13 * * 1-5'
+    - cron: '0,30 14-19 * * 1-5'
+    - cron: '0 20 * * 1-5'
+    # Kapanış sonrası tam yenileme: eşik tetiklenmese de tüm iddialar gözden geçirilir
+    # (bilinmeyen bilinmeyenler için — eşiğe bağlamadığımız bir şey bozulmuş olabilir)
+    - cron: '15 21 * * 1-5'
+  workflow_dispatch:
+    inputs:
+      tam_yenileme:
+        description: 'Tüm iddiaları toplu gözden geçir (eşik aşılmasa da)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Haftalık tur ile AYNI grup: ikisi aynı anda portfoy.json'a yazmasın.
+# Cumartesi turu 06:00 UTC Cumartesi, bu workflow Pzt–Cum — takvimsel çakışma yok,
+# ama manuel koşumlar için grup yine de paylaşılıyor.
+concurrency:
+  group: portfoy-turu
+  cancel-in-progress: false
+
+jobs:
+  dedekte:
+    runs-on: ubuntu-latest
+    env:
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENROUTER_MODEL_HIZLI: ${{ vars.OPENROUTER_MODEL_HIZLI }}
+      OPENROUTER_MODEL_DERIN: ${{ vars.OPENROUTER_MODEL_DERIN }}
+      MAX_LLM_CAGRI_HAFTA: ${{ vars.MAX_LLM_CAGRI_HAFTA }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Bağımlılıklar
+        run: pip install yfinance
+
+      - name: Modu belirle
+        id: mod
+        run: |
+          if [ "${{ github.event.schedule }}" = "15 21 * * 1-5" ] \
+             || [ "${{ inputs.tam_yenileme }}" = "true" ]; then
+            echo "tam=true" >> "$GITHUB_OUTPUT"
+            echo "Mod: tam yenileme (tüm iddialar gözden geçirilecek)"
+          else
+            echo "tam=false" >> "$GITHUB_OUTPUT"
+            echo "Mod: olay güdümlü (yalnızca eşik aşan iddialar)"
+          fi
+
+      - name: 1) Dedektör — koşulları ölç (deterministik, LLM yok)
+        id: dedektor
+        run: |
+          set +e
+          if [ "${{ steps.mod.outputs.tam }}" = "true" ]; then
+            python dedektor.py --tam-yenileme
+          else
+            python dedektor.py
+          fi
+          echo "kod=$?" >> "$GITHUB_OUTPUT"
+          set -e
+
+      - name: 2) Yeniden değerlendirme (yalnızca eşik aşılınca)
+        if: steps.dedektor.outputs.kod != '0' && env.OPENROUTER_API_KEY != ''
+        id: yeniden
+        run: |
+          if [ "${{ steps.mod.outputs.tam }}" = "true" ]; then
+            python yeniden_degerlendir.py --kod "${{ steps.dedektor.outputs.kod }}" \
+              --tam-yenileme
+          else
+            python yeniden_degerlendir.py --kod "${{ steps.dedektor.outputs.kod }}"
+          fi
+
+      - name: 3) Kararı uygula (seans içi otonom işlem)
+        if: steps.dedektor.outputs.kod == '20'
+        id: islem
+        run: python islem_uygula.py
+
+      - name: 4) Raporu tazele (işlem yapıldıysa)
+        if: steps.islem.outputs.islem_sayisi != '' && steps.islem.outputs.islem_sayisi != '0'
+        run: python guncelle.py
+
+      - name: 5) Commit + push
+        id: commit
+        run: |
+          if [ "${{ steps.dedektor.outputs.kod }}" = "0" ] \
+             && [ "${{ steps.dedektor.outputs.durum_degisti }}" != "true" ]; then
+            # Anlamlı hiçbir şey değişmedi: histerezis sayaçları da aynı kaldığı için
+            # durum dosyasını atmak bir şey kaybettirmez. 30 dakikada bir boş commit
+            # atmak denetim kaydını boğar.
+            git checkout -- . || true
+            echo "degisiklik=false" >> "$GITHUB_OUTPUT"
+            echo "Anlamlı değişiklik yok — commit atlandı"
+            exit 0
+          fi
+          git config user.name "Finzora AI"
+          git config user.email "finzora-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "degisiklik=false" >> "$GITHUB_OUTPUT"
+            echo "Dosyalarda fark yok — commit atlandı"
+            exit 0
+          fi
+          OZET="${{ steps.dedektor.outputs.tetiklenen_ozet }}"
+          ISLEM="${{ steps.islem.outputs.islem_ozet }}"
+          MESAJ="[bot/dedektor] seans içi kontrol (kod ${{ steps.dedektor.outputs.kod }})"
+          if [ -n "$ISLEM" ] && [ "$ISLEM" != "yok" ]; then
+            MESAJ="$MESAJ — işlem: $ISLEM"
+          fi
+          git commit -m "$MESAJ" -m "Tetikleyici: ${OZET:-yok}"
+          git pull --rebase
+          git push
+          echo "degisiklik=true" >> "$GITHUB_OUTPUT"
+
+      - name: 6) Telegram — tez seviyesi / işlem bildirimi (DM)
+        # Tez seviyesi bir tezin tümüyle sorgulanması demek; grup kanalını değil
+        # Zeynel'in DM'ini uyandırır. İddia seviyesi 21:15 özetinde toplu gider.
+        if: steps.dedektor.outputs.kod == '20' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID_DM != ''
+        run: |
+          ISLEM="${{ steps.islem.outputs.islem_ozet }}"
+          RED="${{ steps.islem.outputs.red_sayisi }}"
+          MESAJ=$(printf '%s\n\n%s\n\n%s\n%s\n\n%s\n\n%s' \
+            "🔴 TEZ SEVİYESİ — seans içi yeniden değerlendirme" \
+            "Tetikleyici: ${{ steps.dedektor.outputs.tetiklenen_ozet }}" \
+            "Pozisyon(lar): ${{ steps.dedektor.outputs.tez_semboller }}" \
+            "Uygulanan işlem: ${ISLEM:-yok} · uygulanmayan karar: ${RED:-0}" \
+            "Gerekçe ve çarpıtma işareti KARAR_GUNLUGU.md'deki S# kaydında." \
+            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/KARAR_GUNLUGU.md")
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID_DM}" \
+            --data-urlencode "text=${MESAJ}" \
+            -o /dev/null -w "DM HTTP durum: %{http_code}\n"
+
+      - name: 7) Telegram — günlük 21:15 özeti (iddia seviyesi toplu)
+        if: steps.mod.outputs.tam == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
+        run: |
+          python - <<'PY' > /tmp/ozet.txt
+          import json
+          durum = json.load(open("durum/ihlaller.json", encoding="utf-8"))
+          tezler = json.load(open("tezler.json", encoding="utf-8"))
+          satir = ["🕘 Günlük tez özeti — " + durum.get("zaman", "")]
+          for sym, poz in tezler.items():
+              if sym.startswith("_"):
+                  continue
+              for idd in poz.get("iddialar", []):
+                  isaret = {"gecerli": "✅", "zayifladi": "🟡", "gecersiz": "🔴"}.get(
+                      idd.get("durum"), "❔")
+                  satir.append(f"{isaret} {idd['id']}: {idd.get('durum')}"
+                               + (f" — {idd['tetikleyici']}" if idd.get("tetikleyici") else ""))
+          bekleyen = [k for k, v in durum.get("kosullar", {}).items()
+                      if v.get("ihlal") and not v.get("onayli")]
+          if bekleyen:
+              satir.append("\nTeyit bekleyen koşul: " + ", ".join(sorted(bekleyen)))
+          satir.append("\nhttps://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/tezler.json")
+          print("\n".join(satir))
+          PY
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text@/tmp/ozet.txt" \
+            -o /dev/null -w "Özet HTTP durum: %{http_code}\n"
