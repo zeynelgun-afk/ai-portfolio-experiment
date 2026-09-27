@@ -1,0 +1,132 @@
+{
+  "experiment": "AI Portfolio Experiment",
+  "start_date": "2026-08-05",
+  "starting_capital_usd": 100000,
+  "last_updated": "2026-09-26",
+  "cash_usd": 16421.0,
+  "positions": [
+    {
+      "symbol": "MU",
+      "shares": 33.6072,
+      "entry_price": 892.67,
+      "entry_date": "2026-08-05",
+      "cost_usd": 30000.0,
+      "target_weight_pct": 30,
+      "stop_weekly_close": 730,
+      "next_earnings": "2026-09-30"
+    },
+    {
+      "symbol": "AMD",
+      "shares": 38.5668,
+      "entry_price": 518.58,
+      "entry_date": "2026-08-05",
+      "cost_usd": 20000.0,
+      "target_weight_pct": 20,
+      "stop_weekly_close": 440,
+      "next_earnings": "2026-11-03"
+    },
+    {
+      "symbol": "ANET",
+      "shares": 78.736,
+      "entry_price": 190.51,
+      "entry_date": "2026-08-05",
+      "cost_usd": 15000.0,
+      "target_weight_pct": 15,
+      "stop_weekly_close": 160,
+      "next_earnings": "2026-11-03"
+    },
+    {
+      "symbol": "NVDA",
+      "shares": 65.11,
+      "entry_price": 230.36,
+      "entry_date": "2026-09-05",
+      "cost_usd": 15000.0,
+      "target_weight_pct": 15,
+      "stop_weekly_close": 190,
+      "next_earnings": "2026-11-17"
+    }
+  ],
+  "benchmark": {
+    "note": "References recorded on 2026-08-05; performance is compared against these prices.",
+    "SPY_reference": 771.33,
+    "SMH_reference": 575.71
+  },
+  "trade_history": [
+    {
+      "date": "2026-08-05",
+      "action": "BUY",
+      "symbol": "MU",
+      "shares": 33.6072,
+      "price": 892.67,
+      "amount_usd": 30000.0
+    },
+    {
+      "date": "2026-08-05",
+      "action": "BUY",
+      "symbol": "AMD",
+      "shares": 38.5668,
+      "price": 518.58,
+      "amount_usd": 20000.0
+    },
+    {
+      "date": "2026-08-05",
+      "action": "BUY",
+      "symbol": "SNDK",
+      "shares": 10.507,
+      "price": 1427.62,
+      "amount_usd": 15000.0
+    },
+    {
+      "date": "2026-08-05",
+      "action": "BUY",
+      "symbol": "ANET",
+      "shares": 78.736,
+      "price": 190.51,
+      "amount_usd": 15000.0
+    },
+    {
+      "date": "2026-08-05",
+      "action": "BUY",
+      "symbol": "AVGO",
+      "shares": 23.9143,
+      "price": 418.16,
+      "amount_usd": 10000.0
+    },
+    {
+      "date": "2026-08-08",
+      "action": "SELL",
+      "symbol": "SNDK",
+      "shares": 10.507,
+      "price": 1212.21,
+      "amount_usd": 12737.0,
+      "note": "Cut loss - thesis broken, momentum snapped (1mo -36.7%), stop distance +10.2%"
+    },
+    {
+      "date": "2026-08-22",
+      "action": "SELL",
+      "symbol": "AVGO",
+      "shares": 11.9572,
+      "price": 368.45,
+      "amount_usd": 4405.0,
+      "note": "Trim position - lost the 50d average, stop is tight (+5.3%), reducing risk ahead of earnings"
+    },
+    {
+      "date": "2026-09-05",
+      "action": "SELL",
+      "symbol": "AVGO",
+      "shares": 11.9571,
+      "price": 357.9,
+      "amount_usd": 4279.0,
+      "note": "Full exit - post-earnings decline (-2.7%), stop very tight (+2.3%), thesis broken, below both the 50d and 200d averages"
+    },
+    {
+      "date": "2026-09-05",
+      "action": "BUY",
+      "symbol": "NVDA",
+      "shares": 65.11,
+      "price": 230.36,
+      "amount_usd": 15000.0,
+      "note": "AI accelerator leadership - above the 50d average, momentum strong, earnings 73 days out"
+    }
+  ]
+}

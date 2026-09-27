@@ -1,0 +1,131 @@
+{
+  "_meta": {
+    "version": 1,
+    "created": "2026-09-27T00:00Z",
+    "source": "DECISION_LOG.md #10 (26 September 2026) — the initial theses were derived from that round's sections C and D",
+    "note": "The Saturday round writes and refreshes this file (WEEKLY_INSTRUCTIONS.md step 8). During the week only reassess.py updates individual claims; it never changes the schema.",
+    "severity_levels": "warning (flag only) < claim (rewrite the single claim) < thesis (re-evaluate the whole position)",
+    "condition_types": {
+      "price_below": "value: breached when the price falls below this level",
+      "stop_proximity_pct": "value: breached when the price is within this percentage of stop_weekly_close in portfolio.json",
+      "volume_ratio_20d": "value: breached when today's volume exceeds this multiple of the 20-day average volume",
+      "daily_change_pct": "value: breached when the daily change falls below this percentage (written negative)",
+      "sector_etf_change_pct": "symbol + value: breached when the sector ETF's daily change falls below this percentage",
+      "earnings_approaching": "days: breached when earnings are this many days away or fewer"
+    }
+  },
+  "MU": {
+    "thesis_summary": "Memory super-cycle / HBM leadership. The price sits well above the 50-day average (941.62 $, 25 Sep 2026) and the gap is widening; the Q4 earnings report on 30 September is the thesis's main test.",
+    "source": "DECISION_LOG.md #10",
+    "claims": [
+      {
+        "id": "MU-1",
+        "text": "HBM/DRAM demand is holding the price above the 50-day average (941.62 $); the 25 Sep close of 1082.28 $ is +14.9% above that average and the gap has widened for two rounds running.",
+        "conditions": [
+          {"type": "price_below", "value": 941.62, "severity": "claim"},
+          {"type": "stop_proximity_pct", "value": 5, "severity": "warning"},
+          {"type": "volume_ratio_20d", "value": 3.0, "severity": "claim"},
+          {"type": "daily_change_pct", "value": -7, "severity": "thesis"},
+          {"type": "sector_etf_change_pct", "symbol": "SMH", "value": -4, "severity": "claim"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      },
+      {
+        "id": "MU-2",
+        "text": "Earnings (30 September 2026) are the thesis's two-sided test: the position is carried into the report because its stop distance (+48.3%) is the widest in the portfolio. A post-earnings price below 800 $ refutes the thesis.",
+        "conditions": [
+          {"type": "earnings_approaching", "days": 3, "severity": "warning"},
+          {"type": "price_below", "value": 800, "severity": "thesis"},
+          {"type": "daily_change_pct", "value": -10, "severity": "thesis"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      }
+    ]
+  },
+  "AMD": {
+    "thesis_summary": "The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory — the thesis is strong but short-term pullback risk is high.",
+    "source": "DECISION_LOG.md #10",
+    "claims": [
+      {
+        "id": "AMD-1",
+        "text": "The NVDA-alternative thesis holds while the price stays above the 50-day average (504.71 $); slipping below that average would be a break signal after the momentum surge.",
+        "conditions": [
+          {"type": "price_below", "value": 504.71, "severity": "thesis"},
+          {"type": "stop_proximity_pct", "value": 5, "severity": "warning"},
+          {"type": "daily_change_pct", "value": -7, "severity": "claim"},
+          {"type": "sector_etf_change_pct", "symbol": "SMH", "value": -4, "severity": "claim"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      },
+      {
+        "id": "AMD-2",
+        "text": "No adding to the position while RSI sits at 73.0 in overbought territory; a 10-15% pullback (around 550 $, a test of the 50-day average) would count as an entry opportunity.",
+        "conditions": [
+          {"type": "price_below", "value": 550, "severity": "claim"},
+          {"type": "volume_ratio_20d", "value": 3.0, "severity": "claim"},
+          {"type": "daily_change_pct", "value": -7, "severity": "claim"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      }
+    ]
+  },
+  "ANET": {
+    "thesis_summary": "Leader in AI data-center network hardware; the steadiest position in the portfolio. +8.6% above the 50-day average (190.23 $, 25 Sep 2026).",
+    "source": "DECISION_LOG.md #10",
+    "claims": [
+      {
+        "id": "ANET-1",
+        "text": "Network-hardware leadership holds while the price stays above the 50-day average (190.23 $); momentum has continued since the guidance raise. Losing that average puts the thesis in question.",
+        "conditions": [
+          {"type": "price_below", "value": 190.23, "severity": "thesis"},
+          {"type": "stop_proximity_pct", "value": 5, "severity": "warning"},
+          {"type": "daily_change_pct", "value": -7, "severity": "claim"},
+          {"type": "sector_etf_change_pct", "symbol": "SMH", "value": -4, "severity": "warning"},
+          {"type": "earnings_approaching", "days": 3, "severity": "warning"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      }
+    ]
+  },
+  "NVDA": {
+    "thesis_summary": "AI accelerator leadership. A two-week recovery trend is intact, +4.3% above the 50-day average (215.79 $, 25 Sep 2026); the price is still 2.3% below the entry price (230.36 $).",
+    "source": "DECISION_LOG.md #10",
+    "claims": [
+      {
+        "id": "NVDA-1",
+        "text": "The two-week recovery trend continues above the 50-day average (215.79 $); losing that average and staying below it would mean the recovery has failed.",
+        "conditions": [
+          {"type": "price_below", "value": 215.79, "severity": "claim"},
+          {"type": "stop_proximity_pct", "value": 5, "severity": "warning"},
+          {"type": "daily_change_pct", "value": -7, "severity": "claim"},
+          {"type": "sector_etf_change_pct", "symbol": "SMH", "value": -4, "severity": "claim"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      },
+      {
+        "id": "NVDA-2",
+        "text": "The position is held below its entry price (230.36 $) because the recovery trend has been confirmed for two rounds; a price below 200 $ refutes that reasoning and puts a trim on the table.",
+        "conditions": [
+          {"type": "price_below", "value": 200, "severity": "thesis"},
+          {"type": "volume_ratio_20d", "value": 3.0, "severity": "claim"},
+          {"type": "earnings_approaching", "days": 3, "severity": "warning"}
+        ],
+        "status": "valid",
+        "last_updated": "2026-09-26T00:00Z",
+        "trigger": null
+      }
+    ]
+  }
+}

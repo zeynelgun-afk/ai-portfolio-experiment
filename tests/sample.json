@@ -1,0 +1,45 @@
+{
+  "_note": "Fixture for detector.py --fixed-data: a day where MU has slipped below its 50-day average, SMH has dropped hard and volume has spiked. No network access.",
+  "time": "2026-09-28T15:00:00Z",
+  "symbols": {
+    "MU": {
+      "price": 905.40,
+      "previous_close": 1082.28,
+      "volume": 62000000,
+      "volume_avg_20d": 17000000,
+      "earnings_date": "2026-09-30",
+      "data_source": "fixture"
+    },
+    "AMD": {
+      "price": 612.10,
+      "previous_close": 630.63,
+      "volume": 41000000,
+      "volume_avg_20d": 38000000,
+      "earnings_date": "2026-11-03",
+      "data_source": "fixture"
+    },
+    "ANET": {
+      "price": 203.80,
+      "previous_close": 206.55,
+      "volume": 6100000,
+      "volume_avg_20d": 5900000,
+      "earnings_date": "2026-11-03",
+      "data_source": "fixture"
+    },
+    "NVDA": {
+      "price": 221.40,
+      "previous_close": 225.07,
+      "volume": 180000000,
+      "volume_avg_20d": 175000000,
+      "earnings_date": "2026-11-17",
+      "data_source": "fixture"
+    },
+    "SMH": {
+      "price": 596.20,
+      "previous_close": 627.10,
+      "volume": 9000000,
+      "volume_avg_20d": 8500000,
+      "data_source": "fixture"
+    }
+  }
+}
