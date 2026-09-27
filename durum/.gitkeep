@@ -1,0 +1,4 @@
+Bu dizin dedektörün hafızası: ihlaller.json (histerezis), cooldown.json,
+islem_kilidi.json (aynı tetikleyiciyle iki kez işlem yapılmasını engeller) ve
+bekleyen_notlar.md (Cumartesi turuna taşınan notlar). Dosyalar koşumlar arasında
+kalıcı olmak zorunda — bu yüzden .gitignore'a girmezler, workflow commit eder.
