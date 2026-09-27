@@ -130,7 +130,12 @@ jobs:
       - name: 6) Telegram — tez seviyesi / işlem bildirimi (DM)
         # Tez seviyesi bir tezin tümüyle sorgulanması demek; grup kanalını değil
         # Zeynel'in DM'ini uyandırır. İddia seviyesi 21:15 özetinde toplu gider.
-        if: steps.dedektor.outputs.kod == '20' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID_DM != ''
+        #
+        # DM sessizce düşemez. Telegram bir botun kullanıcıya İLK mesajı atmasını
+        # yasaklar: deney botuyla özel sohbet açılmamışsa çağrı 403 döner. O durumda
+        # bildirim grup kanalına düşürülür ve düşürüldüğü hem logda hem iş özetinde
+        # yazılır — tez seviyesi bir uyarının kaybolması, uyarıyı hiç kurmamaktan kötüdür.
+        if: steps.dedektor.outputs.kod == '20' && env.TELEGRAM_BOT_TOKEN != ''
         run: |
           ISLEM="${{ steps.islem.outputs.islem_ozet }}"
           RED="${{ steps.islem.outputs.red_sayisi }}"
@@ -141,10 +146,53 @@ jobs:
             "Uygulanan işlem: ${ISLEM:-yok} · uygulanmayan karar: ${RED:-0}" \
             "Gerekçe ve çarpıtma işareti KARAR_GUNLUGU.md'deki S# kaydında." \
             "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/KARAR_GUNLUGU.md")
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            --data-urlencode "chat_id=${TELEGRAM_CHAT_ID_DM}" \
-            --data-urlencode "text=${MESAJ}" \
-            -o /dev/null -w "DM HTTP durum: %{http_code}\n"
+
+          gonder() {  # $1 = chat_id, $2 = etiket → HTTP kodunu basar, gövdeyi döndürür
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              --data-urlencode "chat_id=$1" --data-urlencode "text=$2" \
+              -w '\n%{http_code}'
+          }
+
+          GITTI=0
+          if [ -n "${TELEGRAM_CHAT_ID_DM}" ]; then
+            YANIT=$(gonder "${TELEGRAM_CHAT_ID_DM}" "${MESAJ}")
+            KOD=$(printf '%s' "$YANIT" | tail -n1)
+            GOVDE=$(printf '%s' "$YANIT" | sed '$d')
+            echo "DM HTTP durum: ${KOD}"
+            if [ "$KOD" = "200" ]; then
+              GITTI=1
+            else
+              echo "::warning title=Tez seviyesi DM gönderilemedi::HTTP ${KOD} — ${GOVDE}"
+              echo "⚠️ Tez seviyesi DM gönderilemedi (HTTP ${KOD}): ${GOVDE}" >> "$GITHUB_STEP_SUMMARY"
+              echo "Telegram bir botun kullanıcıya ilk mesajı atmasına izin vermez — deney botuna bir kez /start gönderilmeli." >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            echo "::warning title=TELEGRAM_CHAT_ID_DM tanımsız::Tez seviyesi bildirimi grup kanalına düşürülüyor"
+          fi
+
+          if [ "$GITTI" = "0" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
+            YEDEK=$(printf '%s\n\n%s' "⚠️ (DM'e ulaşılamadı, grup kanalına düşürüldü)" "${MESAJ}")
+            YANIT=$(gonder "${TELEGRAM_CHAT_ID}" "${YEDEK}")
+            KOD=$(printf '%s' "$YANIT" | tail -n1)
+            GOVDE=$(printf '%s' "$YANIT" | sed '$d')
+            echo "Yedek kanal HTTP durum: ${KOD}"
+            if [ "$KOD" = "200" ]; then
+              GITTI=1
+              echo "ℹ️ Bildirim yedek kanala (grup) gitti." >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "::warning title=Yedek kanal da başarısız::HTTP ${KOD} — ${GOVDE}"
+              echo "⚠️ Yedek kanal da başarısız (HTTP ${KOD}): ${GOVDE}" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
+
+          # Hiçbir kanal tutmadıysa adım KIRMIZI olur. İşlem zaten uygulandı ve
+          # KARAR_GUNLUGU.md'ye yazıldı; kaybolan şey haberdar olmak — bunun
+          # yeşil bir koşumda gizlenmesi kabul edilemez.
+          if [ "$GITTI" = "0" ]; then
+            echo "::error title=Tez seviyesi bildirimi hiçbir kanala gitmedi::Karar KARAR_GUNLUGU.md'ye yazıldı ama bildirim düştü — secret'ları ve bot sohbetini kontrol et"
+            exit 1
+          fi
+          echo "Tez seviyesi bildirimi iletildi."
 
       - name: 7) Telegram — günlük 21:15 özeti (iddia seviyesi toplu)
         if: steps.mod.outputs.tam == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
