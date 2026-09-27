@@ -1,8 +1,9 @@
-name: Haftalık Portföy Turu
+name: Weekly Portfolio Round
 
 on:
   schedule:
-    # Cumartesi 06:00 UTC — Cuma kapanışı sonrası (haftalık kapanış verisiyle karar turu)
+    # Saturday 06:00 UTC — after the Friday close (the decision round runs on the
+    # weekly closing data)
     - cron: '0 6 * * 6'
   workflow_dispatch:
 
@@ -13,11 +14,11 @@ permissions:
   actions: read
 
 concurrency:
-  group: portfoy-turu
+  group: portfolio-round
   cancel-in-progress: false
 
 jobs:
-  tur:
+  round:
     runs-on: ubuntu-latest
     env:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
@@ -30,13 +31,13 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Bağımlılıklar
+      - name: Dependencies
         run: pip install yfinance
 
-      - name: 1) Değerleme + çıkış seviyesi uyarısı (karar vermez)
-        run: python guncelle.py
+      - name: 1) Valuation + exit-level warning (makes no decisions)
+        run: python update.py
 
-      - name: 2) Claude karar turu (OpenRouter üzerinden)
+      - name: 2) Claude decision round (via OpenRouter)
         if: env.OPENROUTER_API_KEY != ''
         uses: anthropics/claude-code-action@v1
         env:
@@ -45,53 +46,66 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           github_token: ${{ github.token }}
-          prompt: "HAFTALIK_TALIMAT.md dosyasını oku ve talimatları eksiksiz uygula."
+          prompt: "Read WEEKLY_INSTRUCTIONS.md and carry out every instruction in it."
           claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-sonnet-4.5'
 
-      - name: 3) Raporu tazele
-        run: python guncelle.py
+      - name: 3) Refresh the report
+        run: python update.py
 
       - name: 4) Commit + push
         run: |
-          git config user.name "portfoy-bot"
+          git config user.name "portfolio-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --cached --quiet || git commit -m "Haftalık tur ($(date +%F))"
+          git diff --cached --quiet || git commit -m "Weekly round ($(date +%F))"
+          git pull --rebase
           git push
 
-      - name: 5) Çıkış seviyesi bildirimi (Issue)
-        if: hashFiles('STOP_IHLALI.md') != ''
+      - name: 5) Exit-level notification (Issue)
+        if: hashFiles('STOP_BREACH.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh issue create \
-            --title "⚠️ Çıkış seviyesi altında — AI'ın kararı günlükte ($(date +%F))" \
-            --body-file STOP_IHLALI.md
+            --title "⚠️ Below the exit level — the AI's decision is in the log ($(date +%F))" \
+            --body-file STOP_BREACH.md
 
-      - name: 6) Telegram raporu
+      - name: 6) Telegram report
+        # The send must not fail silently: a weekly report that never arrives inside a
+        # green run looks identical to one that did. A non-200 makes the step red.
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text@TELEGRAM.txt" \
-            -o /dev/null -w "Telegram HTTP durum: %{http_code}\n"
-
-      - name: 7) Denetim hatırlatması
-        if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
-        run: |
-          HAFTA=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
-          if [ "$HAFTA" -le 4 ]; then
-            EK="İlk 3-4 haftadaki bu denetim, tam otonom sistemin en önemli işi — atlama."
-          else
-            EK="Sistem oturdu; yine de günlüğü düzenli okumak karar kalitesini korur."
+            --data-urlencode "text@telegram.txt" \
+            -o /tmp/telegram_body.txt -w '%{http_code}')
+          echo "Telegram HTTP status: ${CODE}"
+          if [ "$CODE" != "200" ]; then
+            echo "::error title=The weekly Telegram report was not delivered::HTTP ${CODE} — $(cat /tmp/telegram_body.txt)"
+            echo "⚠️ The weekly Telegram report was not delivered (HTTP ${CODE})." >> "$GITHUB_STEP_SUMMARY"
+            exit 1
           fi
-          MESAJ=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s' \
-            "🔍 Denetim hatırlatması (Hafta ${HAFTA})" \
-            "Karar günlüğünü gözden geçir: otonom Claude bu hafta ne yaptı, gerekçeleri sağlam mı?" \
-            "Kalibrasyon gerekirse bir Claude oturumunda 'karar günlüğünü birlikte inceleyelim' de — HAFTALIK_TALIMAT.md birlikte güncellenir." \
-            "${EK}" \
-            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/KARAR_GUNLUGU.md")
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+
+      - name: 7) Audit reminder
+        if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
+        run: |
+          WEEK=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
+          if [ "$WEEK" -le 4 ]; then
+            EXTRA="In the first 3-4 weeks this audit is the most important work in a fully autonomous system — do not skip it."
+          else
+            EXTRA="The system has settled; reading the log regularly still protects decision quality."
+          fi
+          MESSAGE=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s' \
+            "🔍 Audit reminder (Week ${WEEK})" \
+            "Review the decision log: what did the autonomous Claude do this week, and does its reasoning hold up?" \
+            "If it needs recalibrating, open a Claude session and say 'let us go through the decision log together' — WEEKLY_INSTRUCTIONS.md is updated jointly." \
+            "${EXTRA}" \
+            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/DECISION_LOG.md")
+          CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MESAJ}" \
-            -o /dev/null -w "Hatırlatma HTTP durum: %{http_code}\n"
+            --data-urlencode "text=${MESSAGE}" \
+            -o /dev/null -w '%{http_code}')
+          echo "Reminder HTTP status: ${CODE}"
+          if [ "$CODE" != "200" ]; then
+            echo "::warning title=The audit reminder was not delivered::HTTP ${CODE}"
+          fi

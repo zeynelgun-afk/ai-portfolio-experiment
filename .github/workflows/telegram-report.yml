@@ -1,7 +1,7 @@
-name: Telegram Raporu (manuel)
+name: Telegram Report (manual)
 
-# Haftalık turu tekrarlamadan mevcut TELEGRAM.txt raporunu yeniden gönderir.
-# Kullanım: Actions → Telegram Raporu (manuel) → Run workflow
+# Re-sends the current report to Telegram without re-running the weekly round.
+# Usage: Actions -> Telegram Report (manual) -> Run workflow
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  gonder:
+  send:
     runs-on: ubuntu-latest
     env:
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -22,34 +22,41 @@ jobs:
         with:
           python-version: '3.12'
 
-      # TELEGRAM.txt gitignore'da — raporu runner içinde üret (push yok, yan etki yok)
-      - name: Raporu üret
+      # telegram.txt is gitignored — build the report inside the runner (no push,
+      # no side effects)
+      - name: Build the report
         run: |
           pip install yfinance
-          python guncelle.py
+          python update.py
 
-      - name: Telegram raporu
+      - name: Telegram report
         run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text@TELEGRAM.txt" \
-            -o /dev/null -w "Telegram HTTP durum: %{http_code}\n"
-
-      - name: Denetim hatırlatması
-        run: |
-          HAFTA=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
-          if [ "$HAFTA" -le 4 ]; then
-            EK="İlk 3-4 haftadaki bu denetim, tam otonom sistemin en önemli işi — atlama."
-          else
-            EK="Sistem oturdu; yine de günlüğü düzenli okumak karar kalitesini korur."
+            --data-urlencode "text@telegram.txt" \
+            -o /tmp/telegram_body.txt -w '%{http_code}')
+          echo "Telegram HTTP status: ${CODE}"
+          if [ "$CODE" != "200" ]; then
+            echo "::error title=The report was not delivered::HTTP ${CODE} — $(cat /tmp/telegram_body.txt)"
+            exit 1
           fi
-          MESAJ=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s' \
-            "🔍 Denetim hatırlatması (Hafta ${HAFTA})" \
-            "Karar günlüğünü gözden geçir: otonom Claude bu hafta ne yaptı, gerekçeleri sağlam mı?" \
-            "Kalibrasyon gerekirse bir Claude oturumunda 'karar günlüğünü birlikte inceleyelim' de — HAFTALIK_TALIMAT.md birlikte güncellenir." \
-            "${EK}" \
-            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/KARAR_GUNLUGU.md")
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+
+      - name: Audit reminder
+        run: |
+          WEEK=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
+          if [ "$WEEK" -le 4 ]; then
+            EXTRA="In the first 3-4 weeks this audit is the most important work in a fully autonomous system — do not skip it."
+          else
+            EXTRA="The system has settled; reading the log regularly still protects decision quality."
+          fi
+          MESSAGE=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s' \
+            "🔍 Audit reminder (Week ${WEEK})" \
+            "Review the decision log: what did the autonomous Claude do this week, and does its reasoning hold up?" \
+            "If it needs recalibrating, open a Claude session and say 'let us go through the decision log together' — WEEKLY_INSTRUCTIONS.md is updated jointly." \
+            "${EXTRA}" \
+            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/DECISION_LOG.md")
+          CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MESAJ}" \
-            -o /dev/null -w "Hatırlatma HTTP durum: %{http_code}\n"
+            --data-urlencode "text=${MESSAGE}" \
+            -o /dev/null -w '%{http_code}')
+          echo "Reminder HTTP status: ${CODE}"

@@ -1,103 +1,133 @@
-# AI Portföy Deneyi — Tüzük
+# AI Portfolio Experiment — Charter
 
-**Başlangıç:** 5 Ağustos 2026 · **Sanal sermaye:** 100.000 $ · **Süre:** 12 ay (hedef bitiş: 5 Ağustos 2027)
+**Start:** 5 August 2026 · **Virtual capital:** $100,000 · **Duration:** 12 months (target end: 5 August 2027)
 
-> **Sürüm 3 — 27 Eylül 2026.** Karar sıklığı haftalıktan olay güdümlüye geçti.
-> Eskiden tek karar anı Cumartesi turuydu; hafta içi yazılmış yorumlar bayatlıyordu
-> (Pazartesi 50 günlük ortalamanın altına sarkan bir fiyat için dosyada hâlâ
-> "ortalamanın %+14.9 üzerinde" yazıyordu). Artık `dedektor.py` seans içinde 30
-> dakikada bir tez geçerlilik koşullarını ölçüyor ve eşik aşılırsa AI aynı gün
-> karar veriyor — işlem dahil. Kullanıcı kararı: tam otonom, onay kapısı yok.
-> Gerekçe ve şema için README "Olay Güdümlü Yeniden Değerlendirme" bölümü.
+> **Version 4 — 28 September 2026.** The whole system moved to English when the repository
+> went public. Nothing about the rules changed; only the language and the file names did.
+> `DENEY_KURALLARI.md` is now `RULES.md`, `HAFTALIK_TALIMAT.md` is
+> `WEEKLY_INSTRUCTIONS.md`, `KARAR_GUNLUGU.md` is `DECISION_LOG.md`, and the schema keys
+> in `portfolio.json` / `theses.json` are English. The historical entries in the decision
+> log were translated at the owner's explicit instruction; the original Turkish text
+> remains in the git history.
 >
-> **Sürüm 2 — 8 Ağustos 2026.** Tüzük sadeleştirildi: ayrıntılı karar kuralları kaldırıldı,
-> kararın tamamı yapay zekâya bırakıldı. Gerekçe ve önceki sürüm için KARAR_GUNLUGU.md
-> denetim kaydına bakınız.
+> **Version 3 — 27 September 2026.** The decision cadence moved from weekly to
+> event-driven. The only decision moment used to be the Saturday round, and the commentary
+> written there went stale during the week: for a price that had slipped below the 50-day
+> average on a Monday, the file still read "+14.9% above the average". Now `detector.py`
+> measures the thesis validity conditions every 30 minutes during the session, and if a
+> threshold is crossed the AI decides the same day — including executing a trade. The
+> owner's decision: fully autonomous, no approval gate. The reasoning and the schema are
+> in the README's "Event-Driven Reassessment" section.
+>
+> **Version 2 — 8 August 2026.** The charter was simplified: the detailed decision rules
+> were removed and the decision was handed entirely to the AI. For the reasoning and the
+> previous version, see the audit record in DECISION_LOG.md.
 
-## Hipotez
+## Hypothesis
 
-Kararı yapay zekâ verir. Sınır, kuralların sayısı değil; her kararın **yazılı gerekçesi** ve
-ölçülebilir sonucudur.
+The AI makes the decisions. The constraint is not the number of rules; it is that every
+decision carries a **written rationale** and a measurable outcome.
 
-Ölçülen soru: *Serbest bırakılmış ama her hamlesini yazmak ve sonucuna sahip çıkmak zorunda
-olan bir AI, 12 ayda piyasayı yenebilir mi?*
+The question being measured: *can an AI that has been set free but must write down every
+move and own its consequences beat the market over 12 months?*
 
-**Kullanıcının hedefi:** 1 yılda 3-5 kat. **AI'ın kaydı:** Bu hedef istatistiksel olarak aşırı
-iddialıdır; buna oynamak yüksek konsantrasyon ve %30-50'lik ara düşüşleri kabul etmek demektir.
-Deney bu gerilimi de ölçer. Gerçekçi başarı çıtası: 12 ayda S&P 500'ü belirgin farkla yenmek.
+**The owner's goal:** 3-5x in one year. **The AI's note on the record:** that goal is
+statistically extreme; playing for it means accepting high concentration and 30-50%
+drawdowns along the way. The experiment measures that tension too. A realistic bar for
+success: beating the S&P 500 by a clear margin over 12 months.
 
-## Evren
+## Universe
 
-ABD büyük teknoloji + yarı iletken/AI altyapısı. Spot hisse senedi; kaldıraç ve opsiyon YOK.
-(Bu sınır bir strateji kısıtı değil — kıyaslamanın anlamlı kalması için var.)
+US large-cap technology plus semiconductor and AI infrastructure. Spot equities only; no
+leverage and no options. (This is not a strategy constraint — it exists so the benchmark
+comparison stays meaningful.)
 
-## Karar yetkisi — tamamen AI'da
+## Decision authority — entirely the AI's
 
-Aşağıdakilerin hepsi AI'ın takdirindedir. Üst sınır, alt sınır, zorunlu eşik yoktur:
+All of the following are at the AI's discretion. There is no upper bound, no lower bound
+and no mandatory threshold:
 
-- Pozisyon sayısı, tek hissedeki ağırlık, nakit oranı
-- Giriş ve çıkış zamanlaması; ekleme, kırpma, kâr realizasyonu
-- Stop/çıkış seviyeleri ve bunların ne zaman değiştirileceği
-- Bilanço öncesi veya sonrası pozisyon taşıma
-- Ne kadar yoğunlaşacağı, ne kadar bekleyeceği
-- **Kararın ne zaman verileceği.** Karar anı Cumartesi turuyla sınırlı değildir;
-  hafta içi seans içinde de karar verilebilir ve uygulanabilir (bkz. aşağıdaki
-  "Karar anları").
+- The number of positions, the weight in any single name, the cash ratio
+- Entry and exit timing; adding, trimming, taking profit
+- Stop and exit levels, and when to move them
+- Carrying a position into or out of an earnings report
+- How concentrated to be, how long to wait
+- **When a decision is made.** The decision moment is not limited to the Saturday round;
+  a decision can be made and executed intraday during the week (see "Decision moments"
+  below).
 
-Kuralın yerini tek bir şart alır: **kararın gerekçesi yazılır.**
-İşlem yapmamak da bir karardır ve o da yazılır.
+One condition takes the place of the rules: **the rationale is written down.**
+Doing nothing is also a decision, and it is written down too.
 
-## Karar anları
+## Decision moments
 
-İki tür karar turu vardır; ikisi de aynı hesap verme yükümlülüğüne tabidir.
+There are two kinds of decision round, and both carry the same obligation to account for
+themselves.
 
-1. **Haftalık tur** — Cumartesi 06:00 UTC. Tam kayıt (`HAFTALIK_TALIMAT.md` şablonu).
-   Tezleri kuran ve `tezler.json`'ı yenileyen tur budur.
-2. **Seans içi tur** — Pzt–Cum 13:30–20:00 UTC, 30 dakikada bir. Otomatik bir dedektör
-   (`dedektor.py`) `tezler.json`'daki geçerlilik koşullarını deterministik ölçer.
-   Eşik aşılırsa AI ya yalnızca ilgili iddiayı yeniden yazar (`iddia` seviyesi) ya da
-   pozisyonun tüm tezini yeniden değerlendirip **işlem yapar** (`tez` seviyesi).
+1. **The weekly round** — Saturday 06:00 UTC. A full record (the
+   `WEEKLY_INSTRUCTIONS.md` template). This is the round that builds the theses and
+   refreshes `theses.json`.
+2. **The intraday round** — Mon-Fri 13:30-20:00 UTC, every 30 minutes. An automated
+   detector (`detector.py`) measures the validity conditions in `theses.json`
+   deterministically. If a threshold is crossed, the AI either rewrites only the affected
+   claim (`claim` level) or re-evaluates the position's whole thesis and **executes a
+   trade** (`thesis` level).
 
-**Seans içi turun sınırları — strateji kısıtı değil, ölçüm ve veri bütünlüğü kısıtı:**
+**The limits on the intraday round — not strategy constraints, but measurement and data
+integrity constraints:**
 
-- **Fiyat AI'dan alınmaz.** Dolgu fiyatı dedektörün ölçtüğü seans içi bardır. AI'ın
-  cümlesindeki bir sayı işleme dönüşmez.
-- **Bir eşik iki ardışık kontrolde teyit edilmeden karar üretmez** (fiyat önceki
-  kapanıştan %25'ten fazla saptıysa üç kontrol). Bozuk bir veri barı bir turluk
-  gecikmeyle ayıklanır; gerçek bir çöküş 60 dakika içinde yine yakalanır.
-- **Aritmetik doğrulanır:** nakit eksiye düşemez, elindekinden fazla adet satılamaz,
-  aynı gün aynı yönde iki kez işlem yapılamaz. Bunlar kararı yargılamaz, yalnızca
-  "bu sayılarla bu işlem yapılamaz" der.
-- **Seans kapalıysa işlem yapılmaz**; karar gerekçesiyle kayda geçer ve Cumartesi
-  turuna kalır.
-- **Her seans içi karar günlüğe yazılır** (`S#N` kaydı), uygulanmayanlar dahil.
+- **The price is not taken from the AI.** The fill price is the intraday bar measured by
+  the detector. A number in the AI's sentence never becomes a trade.
+- **No threshold produces a decision until it is confirmed on two consecutive checks**
+  (three if the price deviates more than 25% from the previous close). A corrupt data bar
+  is filtered out at the cost of one cycle; a genuine crash is still caught within 60
+  minutes.
+- **The arithmetic is validated:** cash cannot go negative, more shares than are held
+  cannot be sold, and the same direction cannot be traded twice in one day. These do not
+  judge the decision; they only say "this trade cannot be done with these numbers".
+- **Numbers are audited.** Every figure in the AI's commentary must appear in the data it
+  was given or be derivable from it (`number_audit.py`). A figure written from memory is
+  not a style problem, it is a break in the record.
+- **No trade when the market is closed**; the decision is recorded with its reasoning and
+  carries to the Saturday round.
+- **Every intraday decision is written to the log** (an `S#N` entry), including the ones
+  that were not executed.
 
-## Değişmez ilkeler
+## Invariant principles
 
-Bunlar strateji kısıtı değildir; deneyin ölçülebilir ve dürüst kalmasını sağlar.
+These are not strategy constraints; they are what keeps the experiment measurable and
+honest.
 
-1. **Her karar günlüğe yazılır:** tez, giriş, çıkış planı ve *tezin yanlış olduğunu gösterecek
-   işaret* (neyi görürsem fikrimi değiştiririm). Sürüm 3'ten itibaren bu işaret ayrıca
-   `tezler.json`'da **ölçülebilir bir koşul** olarak yazılır — bir tezin nasıl çürütüleceği
-   yalnızca prose'da kalırsa hafta içi kimse kontrol edemez.
-2. **Fikir değiştirmek serbest, sessizce değiştirmek değil.** Önceki turda söylediğinden
-   sapıyorsan saptığını açıkça yaz. Denetlenen şey isabet değil, hesap verebilirliktir.
-3. **Rakam uydurulmaz.** Fiyat, oran, temel veri yalnızca araçtan ve tarihiyle birlikte yazılır.
-   Çekilemiyorsa yazılmaz — tez rakamsız kurulur.
-4. **AI bu dosyayı ve `HAFTALIK_TALIMAT.md`'yi değiştiremez.** Değişiklik önerir, kullanıcı
-   denetimde karara bağlar.
-5. **Geçmişe dönük düzeltme yok.** Dolgular son kapanıştan varsayılır; slipaj ve komisyon
-   ihmal edilir (kâğıt deney). Yazılmış bir tez sonradan güzelleştirilmez.
-6. Bu deney yatırım tavsiyesi değildir; gerçek parayla birebir kopyalanmamalıdır.
+1. **Every decision goes into the log:** the thesis, the entry, the exit plan, and *the
+   signal that would show the thesis is wrong* (what would make me change my mind). Since
+   version 3 that signal is also written into `theses.json` as a **measurable condition** —
+   if the way a thesis can be refuted lives only in prose, nobody can check it during the
+   week.
+2. **Changing your mind is allowed; changing it silently is not.** If you are departing
+   from what you said in the previous round, say so explicitly. What is being audited is
+   not accuracy but accountability.
+3. **Numbers are never invented.** Prices, ratios and fundamentals are written only from a
+   tool, with their date. If it cannot be fetched, it is not written — the thesis is
+   stated without numbers.
+4. **The AI may not change this file or `WEEKLY_INSTRUCTIONS.md`.** It proposes changes;
+   the owner rules on them during the audit.
+5. **No retroactive correction.** Fills are assumed at the last close; slippage and
+   commission are ignored (this is a paper experiment). A thesis, once written, is not
+   prettied up afterwards.
+6. This experiment is not investment advice and must not be copied one-for-one with real
+   money.
 
-## Ölçüm
+## Measurement
 
-- **Kıyas:** SPY (S&P 500) ve SMH (yarı iletken endeksi), aynı tarihte 100.000 $ alınmış varsayılır.
-  Referans fiyatlar `portfoy.json` içinde kayıtlı.
-- **Nicel:** toplam getiri, maksimum düşüş (haftalık bazda), isabet oranı, işlem sayısı.
-  Sürüm 3'ten itibaren işlem sayısı haftalık ve seans içi olarak ayrı ayrı okunabilir:
-  seans içi işlemler `islem_gecmisi`'nde `"kaynak": "seans_ici_otonom"` etiketlidir.
-  Ölçülecek yeni soru: *seans içi karar, haftalık karardan daha mı isabetli?*
-- **Nitel:** gerekçe kalitesi — sonradan bakıldığında tez tuttu mu, tutmadıysa AI bunu
-  kabul etti mi yoksa gerekçeyi sonuca uydurdu mu.
-- Tüm kararlar `KARAR_GUNLUGU.md`'de; portföy durumu `portfoy.json`'da.
+- **Benchmarks:** SPY (S&P 500) and SMH (the semiconductor index), each assumed to have
+  been bought with $100,000 on the same date. The reference prices are recorded in
+  `portfolio.json`.
+- **Quantitative:** total return, maximum drawdown (weekly basis), hit rate, number of
+  trades. Since version 3 the trade count can be read separately for the weekly and the
+  intraday rounds: intraday trades are tagged `"source": "intraday_autonomous"` in
+  `trade_history`. A new question to measure: *is the intraday decision more accurate than
+  the weekly one?*
+- **Qualitative:** the quality of the reasoning — looking back, did the thesis hold, and if
+  it did not, did the AI admit it or bend the rationale to fit the outcome?
+- Every decision lives in `DECISION_LOG.md`; the portfolio state lives in
+  `portfolio.json`.

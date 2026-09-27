@@ -1,177 +1,216 @@
-# AI Portföy Deneyi 🤖📈
+# AI Portfolio Experiment 🤖📈
 
-**Hipotez:** Kararın tamamı yapay zekâya bırakılmış — ama her hamlesini yazmak ve
-sonucuna sahip çıkmak zorunda olan — bir portföy, 12 ayda piyasayı yenebilir mi?
-Ölçülen şey kurallara uyum değil, serbest kararın hesap verebilirlikle birleşimi.
+**The hypothesis:** can a portfolio whose decisions are handed entirely to an AI — one that
+must write down every move and own its consequences — beat the market over 12 months? What
+is being measured is not compliance with rules, but what happens when free judgment is
+combined with accountability.
 
-- **Başlangıç:** 5 Ağustos 2026 · 100.000 $ (sanal — kağıt üzerinde, gerçek para yok)
-- **Evren:** ABD büyük teknoloji + yarı iletken/AI altyapısı
-- **Kıyas:** SPY ve SMH (aynı gün alınmış 100.000 $ varsayımı)
-- **Süre:** 12 ay
+- **Start:** 5 August 2026 · $100,000 (virtual — on paper, no real money)
+- **Universe:** US large-cap technology plus semiconductor and AI infrastructure
+- **Benchmarks:** SPY and SMH (each assumed bought with $100,000 on the same day)
+- **Duration:** 12 months
 
-## Nasıl çalışıyor?
+## How it works
 
-İki tür karar turu var. **Haftalık tur** tezleri kurar, **seans içi tur** onları
-hafta içi canlı tutar.
+There are two kinds of decision round. **The weekly round builds the theses; the intraday
+round keeps them alive during the week.**
 
-**Haftalık tur** — her Cumartesi 06:00 UTC (Cuma kapanışı sonrası):
+**The weekly round** — every Saturday at 06:00 UTC, after the Friday close:
 
-| Adım | Kim | Ne yapar |
+| Step | Who | What it does |
 |---|---|---|
-| 1. Ölçüm | `guncelle.py` | Fiyat çekme, değerleme, SPY/SMH kıyası, çıkış seviyesi uyarısı → [RAPOR.md](RAPOR.md) · **karar vermez** |
-| 2. Karar | Claude (claude-code-action) | [HAFTALIK_TALIMAT.md](HAFTALIK_TALIMAT.md) uyarınca veri analizi, yazılı tez, al/sat → [KARAR_GUNLUGU.md](KARAR_GUNLUGU.md) |
-| 3. Tez şeması | Claude | Her tezi ölçülebilir geçerlilik koşullarına bağlar → [tezler.json](tezler.json) |
-| 4. Bildirim | Telegram + Issue | Haftalık özet Telegram'a; çıkış seviyesi altına düşen pozisyon varsa ⚠️ Issue |
-| Tüzük | [DENEY_KURALLARI.md](DENEY_KURALLARI.md) | Karar kısıtı değil; kayıt dürüstlüğü ve ölçüm ilkeleri |
+| 1. Measurement | `update.py` | Fetches prices, values the portfolio, computes the SPY/SMH comparison, flags exit levels → [REPORT.md](REPORT.md) · **makes no decisions** |
+| 2. Decision | Claude (claude-code-action) | Analyses the data, writes a thesis, buys and sells, per [WEEKLY_INSTRUCTIONS.md](WEEKLY_INSTRUCTIONS.md) → [DECISION_LOG.md](DECISION_LOG.md) |
+| 3. Thesis schema | Claude | Ties each thesis to measurable validity conditions → [theses.json](theses.json) |
+| 4. Notification | Telegram + Issue | The weekly summary to Telegram; a ⚠️ Issue if a position closed below its exit level |
+| Charter | [RULES.md](RULES.md) | Not a decision constraint; the principles of record honesty and measurement |
 
-**Seans içi tur** — Pzt–Cum 13:30–20:00 UTC, 30 dakikada bir. Aşağıdaki
-"Olay Güdümlü Yeniden Değerlendirme" bölümü.
+**The intraday round** — Mon-Fri 13:30-20:00 UTC, every 30 minutes. See
+"Event-Driven Reassessment" below.
 
-Haftalık turdaki `guncelle.py` pozisyon kapatmaz. Çıkış seviyesinin altına düşen
-pozisyonu **işaretler**; kapatma, seviyeyi güncelleme ya da gerekçeyle taşıma kararı
-AI'a aittir.
+`update.py` in the weekly round never closes a position. It **flags** a position that
+closed below its exit level; closing it, moving the level, or carrying it with a stated
+reason is the AI's decision.
 
-### Gerekli secrets (Settings → Secrets → Actions)
+### Required secrets (Settings → Secrets → Actions)
 
-- `OPENROUTER_API_KEY` — Claude karar turu için (OpenRouter üzerinden) (yoksa adım atlanır, deney mekanik modda sürer)
-- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — haftalık Telegram raporu (yoksa adım atlanır)
-- `TELEGRAM_CHAT_ID_DM` — seans içi **tez seviyesi** bildirimi (grup değil, kişisel DM).
-  Yoksa yalnızca o adım atlanır; dedektör ölçmeye devam eder.
+- `OPENROUTER_API_KEY` — for the Claude decision round, via OpenRouter (without it the step
+  is skipped and the experiment continues in mechanical mode)
+- `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — the weekly Telegram report (without them the
+  step is skipped)
+- `TELEGRAM_CHAT_ID_DM` — the intraday **thesis-level** notification (a personal DM, not
+  the group). Without it only that step is skipped; the detector keeps measuring. Note that
+  Telegram does not let a bot send the first message to a user, so the experiment's bot
+  needs an open private chat with the recipient.
 
-### Ayarlanabilir değişkenler (Settings → Variables → Actions)
+### Configurable variables (Settings → Variables → Actions)
 
-| Değişken | Varsayılan | Ne yapar |
+| Variable | Default | What it does |
 |---|---|---|
-| `OPENROUTER_MODEL_HIZLI` | `anthropic/claude-haiku-4.5` | Tek iddiayı yeniden yazan küçük model |
-| `OPENROUTER_MODEL_DERIN` | `anthropic/claude-sonnet-4.5` | Tüm tezi yeniden değerlendiren derin model |
-| `MAX_LLM_CAGRI_HAFTA` | `60` | Haftalık LLM çağrı bütçesi; aşılırsa yalnızca `tez` seviyesi çağrılar yapılır |
+| `OPENROUTER_MODEL_FAST` | `anthropic/claude-haiku-4.5` | The fast model that rewrites a single claim |
+| `OPENROUTER_MODEL_DEEP` | `anthropic/claude-sonnet-4.5` | The deep model that re-evaluates a whole thesis |
+| `MAX_LLM_CALLS_PER_WEEK` | `60` | The weekly LLM call budget; once exceeded only `thesis`-level calls are made |
+| `LLM_BASE_URL` | `https://openrouter.ai/api/v1` | Point this at any OpenAI-compatible endpoint during an outage |
 
-## Dosyalar
+## Files
 
-- `portfoy.json` — güncel pozisyonlar, nakit, işlem geçmişi (tek doğruluk kaynağı)
-- `KARAR_GUNLUGU.md` — her kararın tarihli, gerekçeli kaydı (`#N` haftalık, `S#N` seans içi)
-- `tezler.json` — her pozisyonun tezi, iddiaları ve **ölçülebilir geçerlilik koşulları**
-- `RAPOR.md` — son otomatik durum raporu
-- `gecmis.csv` — haftalık değer serisi (portföy vs SPY vs SMH)
-- `guncelle.py` — haftalık ölçüm scripti (yfinance, API anahtarı gerekmez)
-- `dedektor.py` — seans içi değişim dedektörü (deterministik, LLM yok)
-- `yeniden_degerlendir.py` — tetiklenen iddiayı/tezi yeniden yazan LLM katmanı
-- `islem_uygula.py` — seans içi kararı deterministik uygulayan katman
-- `durum/` — dedektörün hafızası (histerezis, cooldown, işlem kilidi, bekleyen notlar)
-- `tests/` — dedektör ve işlem katmanı testleri (`python -m unittest discover -s tests -t .`)
-- `panel/` — Tez Nöbeti canlı izleme paneli (şablon + `uret.py`)
+- `portfolio.json` — current positions, cash, trade history (the single source of truth)
+- `DECISION_LOG.md` — every decision, dated and reasoned (`#N` weekly, `S#N` intraday)
+- `theses.json` — each position's thesis, its claims and their **measurable validity conditions**
+- `REPORT.md` — the latest automated status report
+- `history.csv` — the weekly value series (portfolio vs SPY vs SMH)
+- `update.py` — the weekly measurement script (yfinance, no API key needed)
+- `detector.py` — the intraday change detector (deterministic, no LLM)
+- `reassess.py` — the LLM layer that rewrites a triggered claim or thesis
+- `number_audit.py` — the gate that checks the AI's figures against the data it was given
+- `execute_trade.py` — the layer that executes an intraday decision deterministically
+- `state/` — the detector's memory (hysteresis, cooldown, trade lock, pending notes)
+- `tests/` — tests for the detector, the number gate and the execution layer
+  (`python -m unittest discover -s tests -t .`)
+- `dashboard/` — the Thesis Watch live monitoring page (template + `build.py`)
 
-## Olay Güdümlü Yeniden Değerlendirme
+## Event-Driven Reassessment
 
-**Çözdüğü sorun:** Cumartesi turunda yazılan yorumlar hafta içi bayatlıyordu. Pazartesi
-fiyat 50 günlük ortalamanın altına sarktığında dosyada hâlâ *"ortalamanın %+14.9
-üzerinde"* yazıyordu. Haftada bir düşünen bir sistem, haftada bir yanılmıyor — altı gün
-boyunca yanılıyor.
+**The problem it solves:** the commentary written in the Saturday round went stale during
+the week. When the price slipped below the 50-day average on a Monday, the file still read
+*"+14.9% above the average"*. A system that thinks once a week is not wrong once a week —
+it is wrong for six days.
 
-**İlke:** *Veri sürekli akar, yorum yalnızca anlam değişince güncellenir.* Her 30
-dakikada bir LLM'e "durum ne?" diye sormak hem pahalı hem gürültülü olurdu; onun yerine
-"anlam değişti mi?" sorusunu deterministik Python yanıtlıyor, LLM yalnızca eşik aşılınca
-devreye giriyor.
+**The principle:** *data flows continuously, commentary is updated only when the meaning
+changes.* Asking an LLM "what is the situation?" every 30 minutes would be both expensive
+and noisy; instead, deterministic Python answers "did the meaning change?", and the LLM is
+only called once a threshold is crossed.
 
-### Zincir
+### The chain
 
 ```
-dedektor.py           tezler.json'daki koşulları ölç (LLM YOK)
-   │                  çıkış kodu: 0 = değişiklik yok
-   ├── kod 10 ──────▶ yeniden_degerlendir.py — yalnızca o iddia, küçük model
-   └── kod 20 ──────▶ yeniden_degerlendir.py — tüm tez, derin model + karar
-                          └──▶ islem_uygula.py — kararı deterministik uygula
-                                   └──▶ portfoy.json + KARAR_GUNLUGU.md (S#N)
+detector.py          measure the conditions in theses.json (NO LLM)
+   │                 exit code: 0 = nothing changed
+   ├── code 10 ────▶ reassess.py — that claim only, fast model
+   └── code 20 ────▶ reassess.py — the whole thesis, deep model + a decision
+                          └──▶ execute_trade.py — execute it deterministically
+                                   └──▶ portfolio.json + DECISION_LOG.md (S#N)
 ```
 
-### Şiddet seviyeleri
+### Severity levels
 
-`tezler.json`'daki her koşul bir şiddet taşır — bir tezi ne kadar sarstığı:
+Every condition in `theses.json` carries a severity — how badly it shakes a thesis:
 
-| Şiddet | Anlamı | Çıkış kodu | Ne olur |
+| Severity | Meaning | Exit code | What happens |
 |---|---|---|---|
-| `uyari` | Sadece işaret | 0 | Kaydedilir, 21:15 özetinde görünür. Yorum değişmez. |
-| `iddia` | Tek iddia sarsıldı | 10 | Yalnızca o iddia küçük modelle yeniden yazılır. İşlem yok. |
-| `tez` | Tez sorgulanır | 20 | Derin model pozisyonun tümünü değerlendirir, **işlem yapabilir**. |
+| `warning` | A flag only | 0 | Recorded; appears in the 21:15 summary. The commentary does not change. |
+| `claim` | One claim was shaken | 10 | Only that claim is rewritten by the fast model. No trade. |
+| `thesis` | The thesis is in question | 20 | The deep model re-evaluates the whole position and **may trade**. |
 
-### Flapping önleme
+### Anti-flapping
 
-Eşiğin iki yanında salınan bir fiyat sürekli sinyal üretmesin diye üç katman:
+So that a price oscillating around a threshold does not produce a constant signal, three
+layers:
 
-1. **Histerezis** — bir koşul ihlalde sayılmak için **2 ardışık kontrolde** ihlalde
-   kalmalı. Fiyat önceki kapanıştan %25'ten fazla saptıysa (bozuk veri barı olabilir)
-   3 kontrol gerekir.
-2. **Geri dönüş bandı** — eşiğin %1'i. 850 altı tetikler; temizlenmesi için 858.5 üstü
-   gerekir.
-3. **Cooldown** — aynı iddia 4 saat içinde ikinci kez yeniden yazılmaz.
+1. **Hysteresis** — a condition counts as breached only after **2 consecutive checks**. If
+   the price deviates more than 25% from the previous close (possibly a corrupt data bar),
+   3 checks are required.
+2. **Recovery band** — 1% of the threshold. A drop below 850 triggers; clearing it takes a
+   move back above 858.5.
+3. **Cooldown** — the same claim is not rewritten twice within 4 hours.
 
-### Tam yenileme (bilinmeyen bilinmeyenler)
+### The number gate
 
-Eşiğe bağlanmamış bir şey bozulmuş olabilir. Günde bir kez, ABD kapanışından sonra
-(**21:15 UTC**) tüm iddialar eşik tetiklenmese de küçük modelle toplu gözden geçirilir.
-Haftalık bütçe (`MAX_LLM_CAGRI_HAFTA`, varsayılan 60) aşılırsa yalnızca `tez` seviyesi
-çağrılar yapılır — tez seviyesi bir tezin tümüyle çökmesi demektir, bütçeye kurban
-edilmez.
+`WEEKLY_INSTRUCTIONS.md` has always said "never write a number without a source", and
+round #7 broke exactly that rule — an "~80-90% market share" figure was written into the
+NVDA thesis from memory. The instructions themselves prescribe the remedy: **"If writing a
+rule down is not enough, the rule gets turned into data."** A prompt is not a firewall.
 
-### Seans içi işlem — neden LLM portfoy.json'a yazmıyor
+`number_audit.py` requires every figure in the AI's commentary to appear in the data block
+or be derivable from it. If the model insists on an unsourced figure after being told which
+one it is, the claim is **left unchanged**. Two distinctions keep the gate honest:
 
-Karar AI'ın (tüzük sürüm 2), ama **uygulaması aritmetik.** `islem_uygula.py` kararı
-aynen uygular; önce şunları doğrular:
+- **Decision parameters are not audited.** A new stop level or a share count is the
+  decision itself, not a claim about the market; those are validated by
+  `execute_trade.py`'s arithmetic. Conflating the two left the model unable to decide
+  anything.
+- **Indicator parameters are free.** "50d average", "RSI(14)", "20-day volume" are terms,
+  not assertions.
 
-- **Fiyat LLM'den alınmaz.** Dolgu fiyatı dedektörün ölçtüğü seans içi bardır.
-- Fiyat kaynağı canlı değilse (günlük kapanışa düşülmüşse) işlem yapılmaz.
-- Seans kapalıysa işlem yapılmaz; karar gerekçesiyle Cumartesi turuna kalır.
-- Nakit eksiye düşemez, elindekinden fazla adet satılamaz.
-- Aynı gün aynı yönde ikinci işlem yapılmaz (`durum/islem_kilidi.json`).
+### The full review (unknown unknowns)
 
-Bunların hiçbiri *"bu karar yanlış"* demez — yalnızca *"bu sayılarla bu işlem
-yapılamaz"* der. **Uygulanmayan karar da nedeniyle birlikte günlüğe yazılır**; sessiz
-düşüş yok.
+Something we never tied to a threshold may have broken. Once a day, after the US close
+(**21:15 UTC**), every claim is revisited in bulk by the fast model even when no threshold
+was crossed. Once the weekly budget (`MAX_LLM_CALLS_PER_WEEK`, default 60) is exceeded only
+`thesis`-level calls are made — a thesis-level trigger means an entire thesis is collapsing
+and is not sacrificed to a budget.
 
-### Bildirim
+### Intraday trading — why the LLM does not write to portfolio.json
 
-- **`tez` seviyesi / işlem** → Zeynel'in DM'ine anında (`TELEGRAM_CHAT_ID_DM`).
-- **`iddia` seviyesi** → anında bildirim yok; 21:15 tam yenileme özetinde toplu.
+The decision belongs to the AI (charter version 2), but **executing it is arithmetic.**
+`execute_trade.py` carries out the decision as given, after validating that:
 
-### Tez Nöbeti — canlı izleme paneli
+- **The price is not taken from the LLM.** The fill price is the intraday bar measured by
+  the detector.
+- No trade happens if the price source is not live (if it fell back to the daily close).
+- No trade happens when the market is closed; the decision carries to the Saturday round
+  with its reasoning.
+- Cash cannot go negative and more shares than are held cannot be sold.
+- The same direction is not traded twice in one day (`state/trade_lock.json`).
 
-`panel/` altındaki panel, aynı ayrımı ekranda gösterir: **ölçüm deterministik, yorum
-üretken.**
+None of these says *"this decision is wrong"* — only *"this trade cannot be done with
+these numbers"*. **A decision that was not executed is written to the log with its reason
+too**; nothing fails silently.
 
-- **Ölçüm** izleyenin kendi FMP konnektöründen canlı gelir (fiyat, günlük değişim,
-  50g/200g ortalama, sektör ETF'i). Eşik karşılaştırması tarayıcıda, `dedektor.py` ile
-  aynı mantıkla yapılır.
-- **Yorum** sayfaya gömülü değildir. "Bu iddia şu an ne durumda?" düğmesi soruyu canlı
-  ölçümlerle birlikte ajana gönderir; yanıt her seferinde yeniden üretilir. Altta serbest
-  bir soru konsolu var.
-- **Ölçülemeyen koşul `ölçülemedi` yazar.** Canlı konnektör 20 günlük ortalama hacim
-  vermediği için `hacim_oran_20g` koşulu panelde ölçülmez — tahmin edilmez.
-- **Panelde histerezis ve cooldown yok**; o hafıza `durum/ihlaller.json`'da yaşar. Panel
-  tek bir anlık ölçüm gösterir, panel işlem yapmaz.
+Before any mutation, `portfolio.json` is snapshotted and written atomically, so
+`python execute_trade.py --rollback` restores the pre-trade state. The `DECISION_LOG.md`
+entry is never removed — the record of a decision is not erased.
 
-Tezler her Cumartesi turunda değiştiği için panel yeniden üretilip yayınlanır:
+### Notification
+
+- **`thesis` level / a trade** → Zeynel's DM immediately (`TELEGRAM_CHAT_ID_DM`), falling
+  back to the group channel if the DM cannot be reached, and the step goes red if neither
+  holds.
+- **`claim` level** → no immediate notification; it goes out in bulk in the 21:15 full
+  review summary.
+
+### Thesis Watch — the live monitoring page
+
+The dashboard under `dashboard/` shows the same split on screen: **measurement is
+deterministic, commentary is generative.**
+
+- **The measurement** arrives live from the viewer's own FMP connector (price, daily change,
+  50d/200d averages, the sector ETF). The threshold comparison happens in the browser,
+  using the same logic as `detector.py`.
+- **The commentary is not baked into the page.** A "what is this claim's status right now?"
+  button sends the question to the agent together with the live measurements; the answer is
+  generated fresh each time. There is a free-form question console at the bottom.
+- **An unmeasurable condition says `unmeasurable`.** The live connector does not provide a
+  20-day average volume, so the `volume_ratio_20d` condition is not measured on the page —
+  it is not guessed.
+- **There is no hysteresis or cooldown on the page**; that memory lives in
+  `state/violations.json`. The page shows a single instantaneous measurement, and the page
+  never trades.
+
+Because the theses change every Saturday, the page is rebuilt and republished:
 
 ```bash
-python panel/uret.py     # tezler.json + portfoy.json → panel/tez-nobeti.html
+python dashboard/build.py   # theses.json + portfolio.json → dashboard/thesis-watch.html
 ```
 
-Sonra bir Claude oturumunda aynı artifact URL'ine yeniden yayınla. Şablon
-(`panel/tez-nobeti.sablon.html`) elle düzenlenir, üretilen HTML düzenlenmez — elle
-düzenlenmiş tek seferlik bir panel, ikinci turda bayatlayan bir yorum olurdu; yani
-panelin çözdüğü sorunun aynısı.
+Then republish to the same artifact URL from a Claude session. The template
+(`dashboard/thesis-watch.template.html`) is what you edit; the generated HTML is not — a
+hand-edited one-off page would be stale commentary by the second round, which is the very
+problem the page exists to solve.
 
-### Elle koşma
+### Running it by hand
 
 ```bash
-python dedektor.py --dry-run                      # ölçer, hiçbir dosyaya yazmaz
-python dedektor.py --sabit-veri tests/ornek.json  # ağ yok, sahte veriyle
-python yeniden_degerlendir.py --kod 10 --dry-run  # LLM çağrısı yok, promptu basar
-python islem_uygula.py --dry-run                  # ne yapacağını söyler, yapmaz
-python -m unittest discover -s tests -t .         # 77 test
-python panel/uret.py                              # canlı paneli yeniden üret
+python detector.py --dry-run                      # measures, writes nothing
+python detector.py --fixed-data tests/sample.json # no network, fixture data
+python reassess.py --code 10 --dry-run            # no LLM call; prints the prompt
+python execute_trade.py --dry-run                 # says what it would do, does nothing
+python execute_trade.py --rollback                # restore the pre-trade snapshot
+python -m unittest discover -s tests -t .         # 121 tests
+python dashboard/build.py                         # rebuild the live dashboard
 ```
 
-Actions → **Seans İçi Dedektör** → Run workflow ile de elle koşulabilir
-(`tam_yenileme` kutusu tüm iddiaları gözden geçirir).
+Actions → **Intraday Detector** → Run workflow also runs it manually (the `full_review`
+checkbox revisits every claim).
 
-> ⚠️ Bu bir deneydir, yatırım tavsiyesi değildir.
+> ⚠️ This is an experiment, not investment advice.

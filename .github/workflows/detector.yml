@@ -1,43 +1,45 @@
-name: Seans İçi Dedektör
+name: Intraday Detector
 
-# Olay güdümlü yeniden değerlendirme. Cumartesi turu haftada bir karar verir;
-# bu workflow hafta içi "anlam değişti mi?" sorusunu 30 dakikada bir sorar.
-# Veri sürekli akar, yorum yalnızca anlam değişince güncellenir.
+# Event-driven reassessment. The Saturday round decides once a week; this workflow asks
+# "did the meaning change?" every 30 minutes during the week.
+# Data flows continuously, commentary is updated only when the meaning changes.
 
 on:
   schedule:
-    # ABD seansı, Pzt–Cum, her 30 dakika (13:30–20:00 UTC)
+    # US session, Mon-Fri, every 30 minutes (13:30-20:00 UTC)
     - cron: '30 13 * * 1-5'
     - cron: '0,30 14-19 * * 1-5'
     - cron: '0 20 * * 1-5'
-    # Kapanış sonrası tam yenileme: eşik tetiklenmese de tüm iddialar gözden geçirilir
-    # (bilinmeyen bilinmeyenler için — eşiğe bağlamadığımız bir şey bozulmuş olabilir)
+    # Post-close full review: every claim is revisited even if no threshold was crossed
+    # (for the unknown unknowns — something we never tied to a threshold may have broken)
     - cron: '15 21 * * 1-5'
   workflow_dispatch:
     inputs:
-      tam_yenileme:
-        description: 'Tüm iddiaları toplu gözden geçir (eşik aşılmasa da)'
+      full_review:
+        description: 'Review every claim in bulk (even if no threshold was crossed)'
         type: boolean
         default: false
 
 permissions:
   contents: write
 
-# Haftalık tur ile AYNI grup: ikisi aynı anda portfoy.json'a yazmasın.
-# Cumartesi turu 06:00 UTC Cumartesi, bu workflow Pzt–Cum — takvimsel çakışma yok,
-# ama manuel koşumlar için grup yine de paylaşılıyor.
+# The SAME concurrency group as the weekly round: the two must never write to
+# portfolio.json at the same time. The weekly round runs 06:00 UTC on Saturday and this
+# one Mon-Fri, so they do not collide on the calendar, but the group is shared anyway for
+# manual runs.
 concurrency:
-  group: portfoy-turu
+  group: portfolio-round
   cancel-in-progress: false
 
 jobs:
-  dedekte:
+  detect:
     runs-on: ubuntu-latest
     env:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-      OPENROUTER_MODEL_HIZLI: ${{ vars.OPENROUTER_MODEL_HIZLI }}
-      OPENROUTER_MODEL_DERIN: ${{ vars.OPENROUTER_MODEL_DERIN }}
-      MAX_LLM_CAGRI_HAFTA: ${{ vars.MAX_LLM_CAGRI_HAFTA }}
+      OPENROUTER_MODEL_FAST: ${{ vars.OPENROUTER_MODEL_FAST }}
+      OPENROUTER_MODEL_DEEP: ${{ vars.OPENROUTER_MODEL_DEEP }}
+      MAX_LLM_CALLS_PER_WEEK: ${{ vars.MAX_LLM_CALLS_PER_WEEK }}
+      LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
@@ -48,176 +50,177 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Bağımlılıklar
+      - name: Dependencies
         run: pip install yfinance
 
-      - name: Modu belirle
-        id: mod
+      - name: Determine the mode
+        id: mode
         run: |
           if [ "${{ github.event.schedule }}" = "15 21 * * 1-5" ] \
-             || [ "${{ inputs.tam_yenileme }}" = "true" ]; then
-            echo "tam=true" >> "$GITHUB_OUTPUT"
-            echo "Mod: tam yenileme (tüm iddialar gözden geçirilecek)"
+             || [ "${{ inputs.full_review }}" = "true" ]; then
+            echo "full=true" >> "$GITHUB_OUTPUT"
+            echo "Mode: full review (every claim will be revisited)"
           else
-            echo "tam=false" >> "$GITHUB_OUTPUT"
-            echo "Mod: olay güdümlü (yalnızca eşik aşan iddialar)"
+            echo "full=false" >> "$GITHUB_OUTPUT"
+            echo "Mode: event-driven (only claims whose threshold was crossed)"
           fi
 
-      - name: 1) Dedektör — koşulları ölç (deterministik, LLM yok)
-        id: dedektor
+      - name: 1) Detector — measure the conditions (deterministic, no LLM)
+        id: detector
         run: |
           set +e
-          if [ "${{ steps.mod.outputs.tam }}" = "true" ]; then
-            python dedektor.py --tam-yenileme
+          if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
+            python detector.py --full-review
           else
-            python dedektor.py
+            python detector.py
           fi
-          echo "kod=$?" >> "$GITHUB_OUTPUT"
+          echo "code=$?" >> "$GITHUB_OUTPUT"
           set -e
 
-      - name: 2) Yeniden değerlendirme (yalnızca eşik aşılınca)
-        if: steps.dedektor.outputs.kod != '0' && env.OPENROUTER_API_KEY != ''
-        id: yeniden
+      - name: 2) Reassessment (only when a threshold was crossed)
+        if: steps.detector.outputs.code != '0' && env.OPENROUTER_API_KEY != ''
+        id: reassess
         run: |
-          if [ "${{ steps.mod.outputs.tam }}" = "true" ]; then
-            python yeniden_degerlendir.py --kod "${{ steps.dedektor.outputs.kod }}" \
-              --tam-yenileme
+          if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
+            python reassess.py --code "${{ steps.detector.outputs.code }}" --full-review
           else
-            python yeniden_degerlendir.py --kod "${{ steps.dedektor.outputs.kod }}"
+            python reassess.py --code "${{ steps.detector.outputs.code }}"
           fi
 
-      - name: 3) Kararı uygula (seans içi otonom işlem)
-        if: steps.dedektor.outputs.kod == '20'
-        id: islem
-        run: python islem_uygula.py
+      - name: 3) Execute the decision (autonomous intraday trade)
+        if: steps.detector.outputs.code == '20'
+        id: trade
+        run: python execute_trade.py
 
-      - name: 4) Raporu tazele (işlem yapıldıysa)
-        if: steps.islem.outputs.islem_sayisi != '' && steps.islem.outputs.islem_sayisi != '0'
-        run: python guncelle.py
+      - name: 4) Refresh the report (only if a trade happened)
+        if: steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0'
+        run: python update.py
 
       - name: 5) Commit + push
         id: commit
         run: |
-          if [ "${{ steps.dedektor.outputs.kod }}" = "0" ] \
-             && [ "${{ steps.dedektor.outputs.durum_degisti }}" != "true" ]; then
-            # Anlamlı hiçbir şey değişmedi: histerezis sayaçları da aynı kaldığı için
-            # durum dosyasını atmak bir şey kaybettirmez. 30 dakikada bir boş commit
-            # atmak denetim kaydını boğar.
+          if [ "${{ steps.detector.outputs.code }}" = "0" ] \
+             && [ "${{ steps.detector.outputs.state_changed }}" != "true" ]; then
+            # Nothing meaningful changed: the hysteresis counters are identical too, so
+            # discarding the state file loses nothing. Committing an empty change every
+            # 30 minutes would drown the audit trail.
             git checkout -- . || true
-            echo "degisiklik=false" >> "$GITHUB_OUTPUT"
-            echo "Anlamlı değişiklik yok — commit atlandı"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No meaningful change — commit skipped"
             exit 0
           fi
           git config user.name "Finzora AI"
           git config user.email "finzora-bot@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
-            echo "degisiklik=false" >> "$GITHUB_OUTPUT"
-            echo "Dosyalarda fark yok — commit atlandı"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No file differences — commit skipped"
             exit 0
           fi
-          OZET="${{ steps.dedektor.outputs.tetiklenen_ozet }}"
-          ISLEM="${{ steps.islem.outputs.islem_ozet }}"
-          MESAJ="[bot/dedektor] seans içi kontrol (kod ${{ steps.dedektor.outputs.kod }})"
-          if [ -n "$ISLEM" ] && [ "$ISLEM" != "yok" ]; then
-            MESAJ="$MESAJ — işlem: $ISLEM"
+          SUMMARY="${{ steps.detector.outputs.trigger_summary }}"
+          TRADE="${{ steps.trade.outputs.trade_summary }}"
+          MESSAGE="[bot/detector] intraday check (code ${{ steps.detector.outputs.code }})"
+          if [ -n "$TRADE" ] && [ "$TRADE" != "none" ]; then
+            MESSAGE="$MESSAGE — trade: $TRADE"
           fi
-          git commit -m "$MESAJ" -m "Tetikleyici: ${OZET:-yok}"
+          git commit -m "$MESSAGE" -m "Trigger: ${SUMMARY:-none}"
           git pull --rebase
           git push
-          echo "degisiklik=true" >> "$GITHUB_OUTPUT"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: 6) Telegram — tez seviyesi / işlem bildirimi (DM)
-        # Tez seviyesi bir tezin tümüyle sorgulanması demek; grup kanalını değil
-        # Zeynel'in DM'ini uyandırır. İddia seviyesi 21:15 özetinde toplu gider.
+      - name: 6) Telegram — thesis-level / trade notification (DM)
+        # A thesis-level trigger means an entire thesis is in question; it wakes Zeynel's
+        # DM rather than the group channel. Claim-level triggers go out in bulk in the
+        # 21:15 summary.
         #
-        # DM sessizce düşemez. Telegram bir botun kullanıcıya İLK mesajı atmasını
-        # yasaklar: deney botuyla özel sohbet açılmamışsa çağrı 403 döner. O durumda
-        # bildirim grup kanalına düşürülür ve düşürüldüğü hem logda hem iş özetinde
-        # yazılır — tez seviyesi bir uyarının kaybolması, uyarıyı hiç kurmamaktan kötüdür.
-        if: steps.dedektor.outputs.kod == '20' && env.TELEGRAM_BOT_TOKEN != ''
+        # The DM must never fail silently. Telegram forbids a bot from sending the FIRST
+        # message to a user: if no private chat has been opened with the experiment's bot,
+        # the call returns 400/403. In that case the notification falls back to the group
+        # channel and the fallback is recorded both in the log and in the job summary — a
+        # lost thesis-level alert is worse than never having built the alert.
+        if: steps.detector.outputs.code == '20' && env.TELEGRAM_BOT_TOKEN != ''
         run: |
-          ISLEM="${{ steps.islem.outputs.islem_ozet }}"
-          RED="${{ steps.islem.outputs.red_sayisi }}"
-          MESAJ=$(printf '%s\n\n%s\n\n%s\n%s\n\n%s\n\n%s' \
-            "🔴 TEZ SEVİYESİ — seans içi yeniden değerlendirme" \
-            "Tetikleyici: ${{ steps.dedektor.outputs.tetiklenen_ozet }}" \
-            "Pozisyon(lar): ${{ steps.dedektor.outputs.tez_semboller }}" \
-            "Uygulanan işlem: ${ISLEM:-yok} · uygulanmayan karar: ${RED:-0}" \
-            "Gerekçe ve çarpıtma işareti KARAR_GUNLUGU.md'deki S# kaydında." \
-            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/KARAR_GUNLUGU.md")
+          TRADE="${{ steps.trade.outputs.trade_summary }}"
+          REJECTED="${{ steps.trade.outputs.rejected_count }}"
+          MESSAGE=$(printf '%s\n\n%s\n\n%s\n%s\n\n%s\n\n%s' \
+            "🔴 THESIS LEVEL — intraday reassessment" \
+            "Trigger: ${{ steps.detector.outputs.trigger_summary }}" \
+            "Position(s): ${{ steps.detector.outputs.thesis_symbols }}" \
+            "Trade executed: ${TRADE:-none} · decisions not executed: ${REJECTED:-0}" \
+            "The reasoning and the falsifier are in the S# entry in DECISION_LOG.md." \
+            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/DECISION_LOG.md")
 
-          gonder() {  # $1 = chat_id, $2 = etiket → HTTP kodunu basar, gövdeyi döndürür
+          send() {  # $1 = chat_id, $2 = text -> prints the body, then the HTTP code
             curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
               --data-urlencode "chat_id=$1" --data-urlencode "text=$2" \
               -w '\n%{http_code}'
           }
 
-          GITTI=0
+          DELIVERED=0
           if [ -n "${TELEGRAM_CHAT_ID_DM}" ]; then
-            YANIT=$(gonder "${TELEGRAM_CHAT_ID_DM}" "${MESAJ}")
-            KOD=$(printf '%s' "$YANIT" | tail -n1)
-            GOVDE=$(printf '%s' "$YANIT" | sed '$d')
-            echo "DM HTTP durum: ${KOD}"
-            if [ "$KOD" = "200" ]; then
-              GITTI=1
+            RESPONSE=$(send "${TELEGRAM_CHAT_ID_DM}" "${MESSAGE}")
+            CODE=$(printf '%s' "$RESPONSE" | tail -n1)
+            BODY=$(printf '%s' "$RESPONSE" | sed '$d')
+            echo "DM HTTP status: ${CODE}"
+            if [ "$CODE" = "200" ]; then
+              DELIVERED=1
             else
-              echo "::warning title=Tez seviyesi DM gönderilemedi::HTTP ${KOD} — ${GOVDE}"
-              echo "⚠️ Tez seviyesi DM gönderilemedi (HTTP ${KOD}): ${GOVDE}" >> "$GITHUB_STEP_SUMMARY"
-              echo "Telegram bir botun kullanıcıya ilk mesajı atmasına izin vermez — deney botuna bir kez /start gönderilmeli." >> "$GITHUB_STEP_SUMMARY"
+              echo "::warning title=Thesis-level DM failed::HTTP ${CODE} — ${BODY}"
+              echo "⚠️ Thesis-level DM failed (HTTP ${CODE}): ${BODY}" >> "$GITHUB_STEP_SUMMARY"
+              echo "Telegram does not let a bot send the first message to a user — send /start to the experiment's bot once." >> "$GITHUB_STEP_SUMMARY"
             fi
           else
-            echo "::warning title=TELEGRAM_CHAT_ID_DM tanımsız::Tez seviyesi bildirimi grup kanalına düşürülüyor"
+            echo "::warning title=TELEGRAM_CHAT_ID_DM is not set::Falling back to the group channel"
           fi
 
-          if [ "$GITTI" = "0" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
-            YEDEK=$(printf '%s\n\n%s' "⚠️ (DM'e ulaşılamadı, grup kanalına düşürüldü)" "${MESAJ}")
-            YANIT=$(gonder "${TELEGRAM_CHAT_ID}" "${YEDEK}")
-            KOD=$(printf '%s' "$YANIT" | tail -n1)
-            GOVDE=$(printf '%s' "$YANIT" | sed '$d')
-            echo "Yedek kanal HTTP durum: ${KOD}"
-            if [ "$KOD" = "200" ]; then
-              GITTI=1
-              echo "ℹ️ Bildirim yedek kanala (grup) gitti." >> "$GITHUB_STEP_SUMMARY"
+          if [ "$DELIVERED" = "0" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
+            FALLBACK=$(printf '%s\n\n%s' "⚠️ (the DM could not be reached, falling back to the group channel)" "${MESSAGE}")
+            RESPONSE=$(send "${TELEGRAM_CHAT_ID}" "${FALLBACK}")
+            CODE=$(printf '%s' "$RESPONSE" | tail -n1)
+            BODY=$(printf '%s' "$RESPONSE" | sed '$d')
+            echo "Fallback channel HTTP status: ${CODE}"
+            if [ "$CODE" = "200" ]; then
+              DELIVERED=1
+              echo "ℹ️ The notification went to the fallback channel (group)." >> "$GITHUB_STEP_SUMMARY"
             else
-              echo "::warning title=Yedek kanal da başarısız::HTTP ${KOD} — ${GOVDE}"
-              echo "⚠️ Yedek kanal da başarısız (HTTP ${KOD}): ${GOVDE}" >> "$GITHUB_STEP_SUMMARY"
+              echo "::warning title=The fallback channel failed too::HTTP ${CODE} — ${BODY}"
+              echo "⚠️ The fallback channel failed too (HTTP ${CODE}): ${BODY}" >> "$GITHUB_STEP_SUMMARY"
             fi
           fi
 
-          # Hiçbir kanal tutmadıysa adım KIRMIZI olur. İşlem zaten uygulandı ve
-          # KARAR_GUNLUGU.md'ye yazıldı; kaybolan şey haberdar olmak — bunun
-          # yeşil bir koşumda gizlenmesi kabul edilemez.
-          if [ "$GITTI" = "0" ]; then
-            echo "::error title=Tez seviyesi bildirimi hiçbir kanala gitmedi::Karar KARAR_GUNLUGU.md'ye yazıldı ama bildirim düştü — secret'ları ve bot sohbetini kontrol et"
+          # If no channel held, the step goes RED. The trade was already executed and
+          # written to DECISION_LOG.md; what is lost is knowing about it, and hiding that
+          # inside a green run is not acceptable.
+          if [ "$DELIVERED" = "0" ]; then
+            echo "::error title=The thesis-level notification reached no channel::The decision was written to DECISION_LOG.md but the notification was dropped — check the secrets and the bot chat"
             exit 1
           fi
-          echo "Tez seviyesi bildirimi iletildi."
+          echo "Thesis-level notification delivered."
 
-      - name: 7) Telegram — günlük 21:15 özeti (iddia seviyesi toplu)
-        if: steps.mod.outputs.tam == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
+      - name: 7) Telegram — the daily 21:15 summary (claim level, in bulk)
+        if: steps.mode.outputs.full == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
-          python - <<'PY' > /tmp/ozet.txt
+          python - <<'PY' > /tmp/summary.txt
           import json
-          durum = json.load(open("durum/ihlaller.json", encoding="utf-8"))
-          tezler = json.load(open("tezler.json", encoding="utf-8"))
-          satir = ["🕘 Günlük tez özeti — " + durum.get("zaman", "")]
-          for sym, poz in tezler.items():
-              if sym.startswith("_"):
+          state = json.load(open("state/violations.json", encoding="utf-8"))
+          theses = json.load(open("theses.json", encoding="utf-8"))
+          lines = ["🕘 Daily thesis summary — " + state.get("checked_at", "")]
+          for symbol, position in theses.items():
+              if symbol.startswith("_"):
                   continue
-              for idd in poz.get("iddialar", []):
-                  isaret = {"gecerli": "✅", "zayifladi": "🟡", "gecersiz": "🔴"}.get(
-                      idd.get("durum"), "❔")
-                  satir.append(f"{isaret} {idd['id']}: {idd.get('durum')}"
-                               + (f" — {idd['tetikleyici']}" if idd.get("tetikleyici") else ""))
-          bekleyen = [k for k, v in durum.get("kosullar", {}).items()
-                      if v.get("ihlal") and not v.get("onayli")]
-          if bekleyen:
-              satir.append("\nTeyit bekleyen koşul: " + ", ".join(sorted(bekleyen)))
-          satir.append("\nhttps://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/tezler.json")
-          print("\n".join(satir))
+              for claim in position.get("claims", []):
+                  mark = {"valid": "✅", "weakened": "🟡", "invalid": "🔴"}.get(
+                      claim.get("status"), "❔")
+                  lines.append(f"{mark} {claim['id']}: {claim.get('status')}"
+                               + (f" — {claim['trigger']}" if claim.get("trigger") else ""))
+          pending = [key for key, value in state.get("conditions", {}).items()
+                     if value.get("breach") and not value.get("confirmed")]
+          if pending:
+              lines.append("\nConditions awaiting confirmation: " + ", ".join(sorted(pending)))
+          lines.append("\nhttps://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/theses.json")
+          print("\n".join(lines))
           PY
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text@/tmp/ozet.txt" \
-            -o /dev/null -w "Özet HTTP durum: %{http_code}\n"
+            --data-urlencode "text@/tmp/summary.txt" \
+            -o /dev/null -w "Summary HTTP status: %{http_code}\n"

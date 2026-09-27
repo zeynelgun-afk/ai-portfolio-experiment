@@ -1,44 +1,30 @@
-# Portföy Raporu — 2026-09-26
+# Portfolio Report — 2026-09-28
 
-Veri: 2026-09-25 kapanışları · Başlangıç: 100,000 $ (2026-08-05)
+Data: closes as of 2026-09-25 · Starting capital: 100,000 $ (2026-08-05)
 
-## Durum
+## Positions
 
-| Hisse | Giriş | Son | Getiri | Değer $ | Ağırlık | Stop (mesafe) |
+| Ticker | Entry | Last | Return | Value $ | Weight | Stop (distance) |
 |---|---|---|---|---|---|---|
-| MU | 892.67 | 1082.28 | %+21.2 | 36,372 | %33.7 | 730 (%+48.3) |
-| AMD | 518.58 | 630.63 | %+21.6 | 24,321 | %22.5 | 440 (%+43.3) |
-| ANET | 190.51 | 206.55 | %+8.4 | 16,263 | %15.1 | 160 (%+29.1) |
-| NVDA | 230.36 | 225.07 | %-2.3 | 14,654 | %13.6 | 190 (%+18.5) |
+| MU | 892.67 | 1082.28 | +21.2% | 36,372 | 33.7% | 730 (+48.3%) |
+| AMD | 518.58 | 630.63 | +21.6% | 24,321 | 22.5% | 440 (+43.3%) |
+| ANET | 190.51 | 206.55 | +8.4% | 16,263 | 15.1% | 160 (+29.1%) |
+| NVDA | 230.36 | 225.07 | -2.3% | 14,654 | 13.6% | 190 (+18.5%) |
 
-**Nakit:** 16,421.00 $
+**Cash:** 16,421.00 $
 
-## Skor
+## Scoreboard
 
-| | Değer | Getiri |
+| | Value | Return |
 |---|---|---|
-| **AI Portföyü** | 108,032 $ | **%+8.03** |
-| SPY (aynı gün 100k) | 100,003 $ | %+0.00 |
-| SMH (aynı gün 100k) | 105,359 $ | %+5.36 |
+| **AI Portfolio** | 108,032 $ | **+8.03%** |
+| SPY (100k on the same day) | 100,003 $ | +0.00% |
+| SMH (100k on the same day) | 105,359 $ | +5.36% |
 
-Fark vs SPY: **%+8.03** · vs SMH: **%+2.67**
+Gap vs SPY: **+8.03%** · vs SMH: **+2.67%**
 
-## Stop kontrolü
+## Stop check
 
-Uyarı yok — tüm pozisyonlar çıkış seviyelerinin üzerinde.
+No warnings — every position is above its exit level.
 
-## Erteleme sayaçları
-
-KARAR_GUNLUGU.md'den hesaplandı (sayaclar.py) — bu sayılar turda yeniden üretilmez,
-buradan alınır. Sıfırlanması için ya pozisyon açılmış ya sembol listeden çıkarılmış olmalı.
-
-| Sembol | Ertelendi | Not |
-|---|---|---|
-| SNDK | 2/3 |  |
-| AVGO | 2/3 |  |
-| TSM | 2/3 |  |
-| MRVL | 2/3 |  |
-| MSFT | 2/3 |  |
-| GOOGL | 2/3 |  |
-
-*Otomatik rapor (guncelle.py). Kararlar ve tezler: KARAR_GUNLUGU.md*
+*Automated report (update.py). Decisions and theses: DECISION_LOG.md*
