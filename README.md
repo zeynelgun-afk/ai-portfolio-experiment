@@ -59,6 +59,7 @@ AI'a aittir.
 - `islem_uygula.py` — seans içi kararı deterministik uygulayan katman
 - `durum/` — dedektörün hafızası (histerezis, cooldown, işlem kilidi, bekleyen notlar)
 - `tests/` — dedektör ve işlem katmanı testleri (`python -m unittest discover -s tests -t .`)
+- `panel/` — Tez Nöbeti canlı izleme paneli (şablon + `uret.py`)
 
 ## Olay Güdümlü Yeniden Değerlendirme
 
@@ -132,6 +133,33 @@ düşüş yok.
 - **`tez` seviyesi / işlem** → Zeynel'in DM'ine anında (`TELEGRAM_CHAT_ID_DM`).
 - **`iddia` seviyesi** → anında bildirim yok; 21:15 tam yenileme özetinde toplu.
 
+### Tez Nöbeti — canlı izleme paneli
+
+`panel/` altındaki panel, aynı ayrımı ekranda gösterir: **ölçüm deterministik, yorum
+üretken.**
+
+- **Ölçüm** izleyenin kendi FMP konnektöründen canlı gelir (fiyat, günlük değişim,
+  50g/200g ortalama, sektör ETF'i). Eşik karşılaştırması tarayıcıda, `dedektor.py` ile
+  aynı mantıkla yapılır.
+- **Yorum** sayfaya gömülü değildir. "Bu iddia şu an ne durumda?" düğmesi soruyu canlı
+  ölçümlerle birlikte ajana gönderir; yanıt her seferinde yeniden üretilir. Altta serbest
+  bir soru konsolu var.
+- **Ölçülemeyen koşul `ölçülemedi` yazar.** Canlı konnektör 20 günlük ortalama hacim
+  vermediği için `hacim_oran_20g` koşulu panelde ölçülmez — tahmin edilmez.
+- **Panelde histerezis ve cooldown yok**; o hafıza `durum/ihlaller.json`'da yaşar. Panel
+  tek bir anlık ölçüm gösterir, panel işlem yapmaz.
+
+Tezler her Cumartesi turunda değiştiği için panel yeniden üretilip yayınlanır:
+
+```bash
+python panel/uret.py     # tezler.json + portfoy.json → panel/tez-nobeti.html
+```
+
+Sonra bir Claude oturumunda aynı artifact URL'ine yeniden yayınla. Şablon
+(`panel/tez-nobeti.sablon.html`) elle düzenlenir, üretilen HTML düzenlenmez — elle
+düzenlenmiş tek seferlik bir panel, ikinci turda bayatlayan bir yorum olurdu; yani
+panelin çözdüğü sorunun aynısı.
+
 ### Elle koşma
 
 ```bash
@@ -139,7 +167,8 @@ python dedektor.py --dry-run                      # ölçer, hiçbir dosyaya yaz
 python dedektor.py --sabit-veri tests/ornek.json  # ağ yok, sahte veriyle
 python yeniden_degerlendir.py --kod 10 --dry-run  # LLM çağrısı yok, promptu basar
 python islem_uygula.py --dry-run                  # ne yapacağını söyler, yapmaz
-python -m unittest discover -s tests -t .         # 73 test
+python -m unittest discover -s tests -t .         # 77 test
+python panel/uret.py                              # canlı paneli yeniden üret
 ```
 
 Actions → **Seans İçi Dedektör** → Run workflow ile de elle koşulabilir
