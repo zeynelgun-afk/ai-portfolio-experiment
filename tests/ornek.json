@@ -1,0 +1,45 @@
+{
+  "_not": "dedektor.py --sabit-veri için sahte veri: MU 50g'nin altına sarkmış, SMH sert düşmüş, hacim patlamış bir gün. Ağ erişimi yok.",
+  "zaman": "2026-09-28T15:00:00Z",
+  "semboller": {
+    "MU": {
+      "fiyat": 905.40,
+      "onceki_kapanis": 1082.28,
+      "hacim": 62000000,
+      "hacim_ort_20g": 17000000,
+      "bilanco_tarihi": "2026-09-30",
+      "veri_kaynagi": "sabit_veri"
+    },
+    "AMD": {
+      "fiyat": 612.10,
+      "onceki_kapanis": 630.63,
+      "hacim": 41000000,
+      "hacim_ort_20g": 38000000,
+      "bilanco_tarihi": "2026-11-03",
+      "veri_kaynagi": "sabit_veri"
+    },
+    "ANET": {
+      "fiyat": 203.80,
+      "onceki_kapanis": 206.55,
+      "hacim": 6100000,
+      "hacim_ort_20g": 5900000,
+      "bilanco_tarihi": "2026-11-03",
+      "veri_kaynagi": "sabit_veri"
+    },
+    "NVDA": {
+      "fiyat": 221.40,
+      "onceki_kapanis": 225.07,
+      "hacim": 180000000,
+      "hacim_ort_20g": 175000000,
+      "bilanco_tarihi": "2026-11-17",
+      "veri_kaynagi": "sabit_veri"
+    },
+    "SMH": {
+      "fiyat": 596.20,
+      "onceki_kapanis": 627.10,
+      "hacim": 9000000,
+      "hacim_ort_20g": 8500000,
+      "veri_kaynagi": "sabit_veri"
+    }
+  }
+}
