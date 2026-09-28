@@ -1,14 +1,29 @@
 # AI Portfolio Experiment: Multi-Agent Research Architecture
 
-An automated paper-trading experiment built around a specialist AI research team:
-macro, fundamental and news/sentiment analysts work in separate role contexts,
-their findings are assembled into a research dossier, and a decision model proposes
-portfolio actions. Deterministic code validates evidence and applies accepted actions
-to the virtual portfolio. Two independent auditors review recorded decisions.
+**Specialist agents research. Independent auditors challenge. Market changes trigger reassessment.**
 
-**Research question:** Can this process outperform SPY and SMH over a 12-month
-experiment? Outperformance and superiority to human research teams are hypotheses,
-not established results.
+Meet an AI research team built to carry an investment idea from discovery to a
+traceable portfolio decision. Macro, fundamental and news analysts contribute focused
+research. A decision model brings their findings together, while evidence checks and
+two independent auditors keep the process accountable.
+
+The work continues after the weekly report. Scheduled market checks look for meaningful
+changes, refresh affected claims and trigger a full thesis reassessment when needed.
+Every stage contributes to a documented paper-trading experiment that can be inspected,
+questioned and measured against SPY and SMH.
+
+**One connected workflow: discover → research → decide → validate → monitor → review.**
+
+### What makes the team different
+
+- **Specialized perspectives:** Separate macro, fundamental and news research contexts.
+- **Evidence-linked decisions:** Structured proposals checked against measured source fields.
+- **Independent challenge:** Two auditors review the same record and surface shared findings.
+- **Ongoing reassessment:** Important changes trigger targeted updates or a fresh thesis review.
+- **Controlled improvement:** Recurring findings feed reviewed proposals and bounded prompt adaptation.
+
+**The experiment:** Evaluate this research-and-decision process over 12 months in a
+$100,000 virtual portfolio, with SPY and SMH as benchmarks.
 
 - **Start Date:** 5 August 2026
 - **Starting Capital:** $100,000 in a virtual portfolio
@@ -53,7 +68,8 @@ A decision model receives the research dossiers, portfolio state and audit conte
 `WEEKLY_INSTRUCTIONS.md` defines the investment mandate, including market overreaction,
 conviction sizing, supply-chain effects and available insider/political-trading signals.
 These are strategy instructions, not demonstrated sources of excess returns. The
-charter's Kelly terminology does not establish a calibrated Kelly sizing calculation.
+instructions use Kelly terminology, but sizing remains a model decision rather than
+a calibrated Kelly calculation.
 A requested signal is usable only when supporting evidence is available.
 
 The model returns a **structured JSON proposal**. Code validates the response schema,
