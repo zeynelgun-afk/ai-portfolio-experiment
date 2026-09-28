@@ -16,7 +16,10 @@ version 2 every buy and sell decision belongs to the AI):
 import csv
 import json
 import os
+import math
 from datetime import date
+from datetime import datetime, timezone, timedelta
+from market_time import session
 
 import yfinance as yf
 
@@ -30,7 +33,8 @@ BREACH_PATH = os.path.join(BASE, "STOP_BREACH.md")
 TELEGRAM_PATH = os.path.join(BASE, "telegram.txt")
 
 
-def fetch_closes(symbols):
+def fetch_closes(symbols, moment=None):
+    moment = moment or datetime.now(timezone.utc)
     frame = yf.download(" ".join(symbols), period="10d", interval="1d",
                         auto_adjust=False, progress=False)["Close"]
     # yfinance can return a fully empty trailing day. ffill rescued the price, but the
@@ -38,14 +42,30 @@ def fetch_closes(symbols):
     # while the price actually belonged to 27 Aug. The date must come from the last day
     # that genuinely has data.
     filled = frame.dropna(how="all")
+    # Exclude a daily candle whose session has not closed yet.
+    filled = filled.loc[[bool(session(stamp.date()) and session(stamp.date())[1] <= moment)
+                         for stamp in filled.index]]
     if filled.empty:
         raise RuntimeError("No closing data available: every day is empty")
     as_of = filled.index[-1].date()
-    if hasattr(frame, "columns"):
-        last = frame.ffill().iloc[-1]
-        return {symbol: float(last[symbol]) for symbol in symbols}, as_of
+    expected = moment.date()
+    for offset in range(14):
+        candidate = moment.date() - timedelta(days=offset)
+        bounds = session(candidate)
+        if bounds and bounds[1] <= moment:
+            expected = candidate
+            break
+    if as_of != expected:
+        raise RuntimeError(f"Stale closing data: {as_of}, expected {expected}")
+    if hasattr(filled, "columns"):
+        last = filled.iloc[-1]
+        prices = {symbol: float(last[symbol]) for symbol in symbols}
+    else:
+        prices = {symbols[0]: float(filled.iloc[-1])}
+    if any(not math.isfinite(value) or value <= 0 for value in prices.values()):
+        raise RuntimeError("Incomplete or invalid close: refusing to mix dates or write NaN")
+    return prices, as_of
     # single-symbol case
-    return {symbols[0]: float(frame.ffill().iloc[-1])}, as_of
 
 
 def main():
@@ -61,7 +81,8 @@ def main():
     breaches = []
     for position in portfolio["positions"]:
         close = prices[position["symbol"]]
-        if close < position["stop_weekly_close"]:
+        stop = position.get("stop_weekly_close")
+        if stop is not None and stop > 0 and close < stop:
             performance = (close / position["entry_price"] - 1) * 100
             breaches.append(
                 f"- **{position['symbol']}**: close {close:.2f} $ < exit level "
@@ -114,11 +135,13 @@ def main():
         price = prices[position["symbol"]]
         value = position["shares"] * price
         performance = (price / position["entry_price"] - 1) * 100
-        stop_distance = (price / position["stop_weekly_close"] - 1) * 100
+        stop = position.get("stop_weekly_close")
+        stop_label = (f"{stop} ({(price / stop - 1) * 100:+.1f}%)"
+                      if stop is not None and stop > 0 else "not set")
         rows.append(
             f"| {position['symbol']} | {position['entry_price']:.2f} | {price:.2f} | "
             f"{performance:+.1f}% | {value:,.0f} | {value / total * 100:.1f}% | "
-            f"{position['stop_weekly_close']} ({stop_distance:+.1f}%) |"
+            f"{stop_label} |"
         )
 
     report = f"""# Portfolio Report — {today}
@@ -141,7 +164,7 @@ Data: closes as of {as_of} · Starting capital: {start:,.0f} $ (2026-08-05)
 | SPY (100k on the same day) | {spy_value:,.0f} $ | {(spy_value / start - 1) * 100:+.2f}% |
 | SMH (100k on the same day) | {smh_value:,.0f} $ | {(smh_value / start - 1) * 100:+.2f}% |
 
-Gap vs SPY: **{(total - spy_value) / start * 100:+.2f}%** · vs SMH: **{(total - smh_value) / start * 100:+.2f}%**
+Gap vs SPY: **{(total - spy_value) / start * 100:+.2f} pp** · vs SMH: **{(total - smh_value) / start * 100:+.2f} pp**
 
 ## Stop check
 
@@ -175,7 +198,7 @@ Gap vs SPY: **{(total - spy_value) / start * 100:+.2f}%** · vs SMH: **{(total -
             f"Total: {total:,.0f} $ ({(total / start - 1) * 100:+.2f}%)\n"
             f"SPY: {(spy_value / start - 1) * 100:+.2f}% · "
             f"SMH: {(smh_value / start - 1) * 100:+.2f}%\n"
-            f"Gap vs SPY: {(total - spy_value) / start * 100:+.2f}%\n\n"
+            f"Gap vs SPY: {(total - spy_value) / start * 100:+.2f} pp\n\n"
             f"Positions:\n{position_summary}\n"
             f"Cash: {portfolio['cash_usd']:,.0f} $\n\n"
             f"{breach_telegram}\n\n"

@@ -9,7 +9,8 @@ on:
     # US session, Mon-Fri, every 30 minutes (13:30-20:00 UTC)
     - cron: '30 13 * * 1-5'
     - cron: '0,30 14-19 * * 1-5'
-    - cron: '0 20 * * 1-5'
+    - cron: '0,30 20 * * 1-5'
+    - cron: '0 21 * * 1-5'
     # Post-close full review: every claim is revisited even if no threshold was crossed
     # (for the unknown unknowns — something we never tied to a threshold may have broken)
     - cron: '15 21 * * 1-5'
@@ -36,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+      PROMPT_METRICS_PATH: state/prompt_metrics.json
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       OPENROUTER_MODEL_NEWS: ${{ vars.OPENROUTER_MODEL_NEWS }}
       OPENROUTER_MODEL_FAST: ${{ vars.OPENROUTER_MODEL_FAST }}
@@ -53,7 +55,7 @@ jobs:
           python-version: '3.12'
 
       - name: Dependencies
-        run: pip install yfinance
+        run: pip install -r requirements.txt
 
       - name: Determine the mode
         id: mode
@@ -67,7 +69,14 @@ jobs:
             echo "Mode: event-driven (only claims whose threshold was crossed)"
           fi
 
+      - name: Exchange session gate
+        id: session
+        env:
+          FULL_REVIEW: ${{ steps.mode.outputs.full }}
+        run: python market_time.py
+
       - name: 1) Detector — measure conditions and assess news
+        if: steps.session.outputs.run == 'true'
         id: detector
         run: |
           : "${FMP_API_KEY:?FMP_API_KEY is required for news monitoring}"
@@ -104,7 +113,26 @@ jobs:
         if: steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0'
         run: python update.py
 
+      - name: Adapt evidence reminders
+        if: steps.reassess.outcome == 'success'
+        id: prompt_adapt
+        run: |
+          set +e
+          python prompt_adapt.py
+          CODE=$?
+          set -e
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+          if [ "$CODE" != "0" ] && [ "$CODE" != "2" ]; then exit "$CODE"; fi
+          if [ "$CODE" = "2" ]; then
+            git config user.name "portfolio-bot"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add state/prompt_adaptation.json state/prompt_reminders.md state/prompt_metrics.json
+            git commit -m "Roll back regressed prompt reminder"
+            git push
+          fi
+
       - name: 5) Commit + push
+        if: steps.detector.outcome == 'success'
         id: commit
         env:
           SUMMARY: ${{ steps.detector.outputs.trigger_summary }}
@@ -210,7 +238,7 @@ jobs:
           echo "Thesis-level notification delivered."
 
       - name: 7) Telegram — the daily 21:15 summary (claim level, in bulk)
-        if: steps.mode.outputs.full == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
+        if: steps.session.outputs.run == 'true' && steps.mode.outputs.full == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
           python - <<'PY' > /tmp/summary.txt
           import json
@@ -237,9 +265,21 @@ jobs:
             --data-urlencode "text@/tmp/summary.txt" \
             -o /dev/null -w "Summary HTTP status: %{http_code}\n"
 
+      - name: Reassessment health
+        if: always() && steps.reassess.outputs.error_count != '' && steps.reassess.outputs.error_count != '0'
+        run: |
+          echo "::error::One or more claims or theses could not be assessed. Failed claims remain eligible for retry."
+          exit 1
+
       - name: News assessment health
         id: news_health
         if: always() && steps.detector.outputs.news_error_count != '' && steps.detector.outputs.news_error_count != '0'
         run: |
           echo "::error::News assessment incomplete; failed headlines remain pending for the next run."
+          exit 1
+
+      - name: Report automatic prompt rollback
+        if: always() && steps.prompt_adapt.outputs.code == '2'
+        run: |
+          echo "::error::Prompt reminder rolled back after the measured failure rate increased; previous policy restored."
           exit 1

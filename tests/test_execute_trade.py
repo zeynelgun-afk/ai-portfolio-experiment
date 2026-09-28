@@ -11,6 +11,7 @@ import os
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timezone
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,7 +37,7 @@ def portfolio():
 
 
 def live(price=905.40, symbol="MU", source=et.LIVE_SOURCE):
-    return {symbol: {"price": price, "previous_close": 1082.28, "data_source": source}}
+    return {symbol: {"price": price, "previous_close": 1082.28, "data_source": source, "price_at": "2026-09-28T14:55Z"}}
 
 
 def decision(action="TRIM", symbol="MU", **extra):
@@ -181,9 +182,9 @@ class EndToEndTest(unittest.TestCase):
         state = os.path.join(temporary, "state")
         os.makedirs(state)
         et.write_json(os.path.join(state, "pending_decision.json"),
-                      {"time": "2026-09-28T15:00Z", "decisions": decisions})
+                      {"time": "2026-09-28T15:00Z", "measurement_at": "2026-09-28T15:00Z", "decisions": decisions})
         et.write_json(os.path.join(state, "violations.json"),
-                      {"market_open": market_open, "data": live(source=source)})
+                      {"checked_at": "2026-09-28T15:00Z", "market_open": market_open, "data": live(source=source)})
         et.PORTFOLIO_PATH = os.path.join(temporary, "portfolio.json")
         et.LOG_PATH = os.path.join(temporary, "DECISION_LOG.md")
         et.write_json(et.PORTFOLIO_PATH, portfolio())
@@ -195,7 +196,8 @@ class EndToEndTest(unittest.TestCase):
         original = sys.argv
         sys.argv = ["execute_trade.py", "--state-dir", state, *extra]
         try:
-            return et.main()
+            with patch.object(et, "now_utc", return_value=MOMENT):
+                return et.main()
         finally:
             sys.argv = original
 

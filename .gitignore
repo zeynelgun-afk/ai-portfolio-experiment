@@ -5,3 +5,9 @@ STOP_BREACH.md
 TELEGRAM.txt
 telegram.txt
 weekly_data.json
+
+.playwright-cli/
+output/
+.coverage
+prompt-evaluation.json
+prompt-proposals/

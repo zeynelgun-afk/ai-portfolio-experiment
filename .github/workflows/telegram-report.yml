@@ -26,7 +26,7 @@ jobs:
       # no side effects)
       - name: Build the report
         run: |
-          pip install yfinance
+          pip install -r requirements.txt
           python update.py
 
       - name: Telegram report

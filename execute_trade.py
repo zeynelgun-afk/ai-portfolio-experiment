@@ -34,6 +34,7 @@ import os
 import sys
 import tempfile
 from datetime import datetime, timezone
+from market_time import market_open, recent
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 PORTFOLIO_PATH = os.path.join(BASE, "portfolio.json")
@@ -62,8 +63,7 @@ def read_json(path, default):
         with open(path, encoding="utf-8") as handle:
             return json.load(handle)
     except (json.JSONDecodeError, OSError) as error:
-        print(f"WARNING: could not read {os.path.basename(path)} ({error})")
-        return default
+        raise RuntimeError(f"Unreadable execution state: {os.path.basename(path)}") from error
 
 
 def write_json(path, payload):
@@ -86,6 +86,8 @@ def write_json(path, payload):
 
 
 def number(value):
+    if isinstance(value, bool):
+        return None
     try:
         result = float(value)
     except (TypeError, ValueError):
@@ -102,6 +104,10 @@ def validate(decision, portfolio, data, market_is_open, locks, today):
     action = decision.get("action")
     if action == "HOLD":
         return False, "the decision is HOLD — nothing to execute", {}
+    if decision.get("new_stop") is not None:
+        stop = number(decision["new_stop"])
+        if stop is None or stop <= 0:
+            return False, "invalid new_stop — must be a positive finite price", {}
 
     row = data.get(symbol, {})
     price = number(row.get("price"))
@@ -114,8 +120,10 @@ def validate(decision, portfolio, data, market_is_open, locks, today):
         return False, ("the market is closed — the trade carries to the next session or "
                        "the Saturday round"), {}
 
-    lock = f"{today.isoformat()}:{symbol}:{action}"
-    if lock in locks:
+    direction = "SELL" if action in ("SELL", "TRIM") else action
+    lock = f"{today.isoformat()}:{symbol}:{direction}"
+    legacy_trim = f"{today.isoformat()}:{symbol}:TRIM"
+    if lock in locks or (direction == "SELL" and legacy_trim in locks):
         return False, f"a trade in the same direction already happened today ({lock})", {}
 
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
@@ -139,7 +147,7 @@ def validate(decision, portfolio, data, market_is_open, locks, today):
         amount = number(decision.get("amount_usd"))
         if amount is None or amount <= 0:
             return False, f"invalid amount_usd ({decision.get('amount_usd')!r})", {}
-        if amount > cash + 0.01:
+        if amount > cash:
             return False, f"not enough cash ({amount:.2f} $ > {cash:.2f} $)", {}
         return True, None, {"shares": amount / price, "price": price, "amount": amount,
                             "lock": lock}
@@ -230,9 +238,8 @@ def write_log(moment, executed, rejected):
     lines = [f"\n## S#{index} — {moment.date().isoformat()} "
              f"{moment.strftime('%H:%M')} UTC · INTRADAY DECISION\n",
              "This is not a weekly round but an event-driven intraday one "
-             "(`detector.py` -> `reassess.py` -> `execute_trade.py`). A threshold was "
-             "crossed, confirmed on 2 consecutive checks, and a thesis-level "
-             "reassessment was triggered.\n"]
+             "(`detector.py` -> `reassess.py` -> `execute_trade.py`). The trigger "
+             "and the resulting assessment are recorded below.\n"]
     for decision, details in executed:
         lines += [
             f"### {decision['symbol']} — {details['recorded_action']} (EXECUTED)\n",
@@ -313,18 +320,31 @@ def main():
         return 1
 
     moment = now_utc()
+    market_is_open = market_is_open and market_open(moment)
+    if (not recent(bundle.get("time"), moment, 900)
+            or not recent(violations.get("checked_at"), moment, 900)
+            or bundle.get("measurement_at") != violations.get("checked_at")):
+        raise RuntimeError("Decision and measurement are stale or do not belong to the same check")
     today = moment.date()
     locks = read_json(lock_path, {})
+    # Recover the lock if a previous process saved the portfolio and then crashed
+    # before saving trade_lock.json. The ledger must prevent replay on its own.
+    for trade in portfolio.get("trade_history", []):
+        if trade.get("source") == "intraday_autonomous" and trade.get("date") == today.isoformat():
+            direction = "SELL" if trade.get("action") in ("SELL", "TRIM") else trade.get("action")
+            locks[f"{today.isoformat()}:{trade['symbol']}:{direction}"] = trade.get("time_utc", "recorded")
     executed, rejected = [], []
 
     for decision in decisions:
+        row = data.get(decision.get("symbol"), {})
+        if market_is_open and decision.get("action") != "HOLD" and not recent(row.get("price_at"), moment):
+            raise RuntimeError("Trade refused: missing, stale or future price timestamp")
         ok, reason, details = validate(decision, portfolio, data, market_is_open, locks,
                                        today)
         label = f"{decision.get('symbol')} {decision.get('action')}"
         if not ok:
             print(f"SKIP {label}: {reason}")
-            if decision.get("action") != "HOLD":
-                rejected.append((decision, reason))
+            rejected.append((decision, reason))
             continue
         if args.dry_run:
             print(f"[dry-run] {label}: {details['shares']:.4f} shares × "

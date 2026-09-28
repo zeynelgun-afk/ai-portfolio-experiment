@@ -1,0 +1,7 @@
+{
+  "source_labels": {"pattern": "unsourced_reasoning", "text": "For each factual claim, identify the supplied source field or mark it unknown. Do not invent evidence to complete an answer."},
+  "as_of_dates": {"pattern": "commentary_stale", "text": "Distinguish the observation timestamp from the report date. State explicitly when evidence is old or unavailable."},
+  "counterfactual": {"pattern": "outcome_fitted_rationale", "text": "Evaluate the reasoning using evidence available at decision time. A positive later return alone does not validate that reasoning."},
+  "explicit_change": {"pattern": "silent_departure", "text": "When your assessment changes, identify the previous assessment and the new evidence explaining the change."},
+  "rule_origin": {"pattern": "phantom_rule", "text": "Distinguish an owner's explicit rule from the decision-maker's current preference. Do not attribute an invented limit to the charter."}
+}

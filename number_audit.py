@@ -137,11 +137,9 @@ def allowed_values(*texts):
     return allowed
 
 
-def _is_allowed(value, allowed):
-    if abs(value) <= COUNT_CEILING and float(value).is_integer():
+def _is_allowed(value, allowed, counting=False):
+    if counting and abs(value) <= COUNT_CEILING and float(value).is_integer():
         return True  # counting or ordinal number
-    if value in FREE_TERMS:
-        return True  # indicator parameter (50d, RSI 14, 20d volume, 200d)
     return any(abs(value - a) <= ABSOLUTE_TOLERANCE for a in allowed)
 
 
@@ -152,8 +150,18 @@ def unsourced_numbers(output, *sources):
     """
     allowed = allowed_values(*sources)
     unsourced, seen = [], set()
-    for raw, value in extract_numbers(output):
-        if _is_allowed(value, allowed) or value in seen:
+    # Exempt indicator parameters only in indicator syntax; "50% market share"
+    # and "a 5% return" are claims, not a 50-day window or a count of five rounds.
+    checked = re.sub(r"\b(?:14|20|50|200)\s*(?:d\b|[- ]days?\b)|\bRSI\s*\(\s*14\s*\)",
+                     "", output or "", flags=re.IGNORECASE)
+    for match in _NUMBER.finditer(checked):
+        raw = match.group(0)
+        value = _normalize(raw)
+        if value is None:
+            continue
+        tail = checked[match.end():]
+        counting = bool(re.match(r"\s+(?:consecutive\s+)?(?:rounds?|days?|checks?|claims?|times)\b", tail, re.I))
+        if _is_allowed(value, allowed, counting) or value in seen:
             continue
         seen.add(value)
         unsourced.append((raw, value))

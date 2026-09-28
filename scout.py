@@ -2,8 +2,20 @@
 import os
 import json
 import urllib.request
+import re
+from execute_trade import write_json
+from prompt_policy import policy
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def validate_symbols(symbols):
+    if not isinstance(symbols, list) or not 15 <= len(symbols) <= 20:
+        raise ValueError("Scout must return 15 to 20 ticker symbols")
+    if any(not isinstance(s, str) or not re.fullmatch(r"[A-Z][A-Z0-9.-]{0,9}", s)
+           for s in symbols):
+        raise ValueError("Scout returned an invalid ticker symbol")
+    return list(dict.fromkeys(symbols))
 
 def env(key, default=""):
     val = os.environ.get(key)
@@ -63,7 +75,8 @@ DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COH
             headers={"Authorization": f"Bearer {or_key}", "Content-Type": "application/json"},
             data=json.dumps({
                 "model": "openai/gpt-4o",
-                "messages": [{"role": "user", "content": prompt}],
+                "messages": [{"role": "system", "content": policy()},
+                             {"role": "user", "content": prompt}],
                 "temperature": 0.5
             }).encode("utf-8")
         )
@@ -74,7 +87,7 @@ DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COH
             if answer.startswith("```"): answer = answer[3:]
             if answer.endswith("```"): answer = answer[:-3]
             
-            new_symbols = json.loads(answer.strip())
+            new_symbols = validate_symbols(json.loads(answer.strip()))
             
             # Must always include current portfolio!
             port_path = os.path.join(BASE_DIR, "portfolio.json")
@@ -88,8 +101,7 @@ DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COH
             # Save to watchlist
             state_dir = os.path.join(BASE_DIR, "state")
             os.makedirs(state_dir, exist_ok=True)
-            with open(os.path.join(state_dir, "watchlist.json"), "w") as f:
-                json.dump(list(set(new_symbols)), f, indent=2)
+            write_json(os.path.join(state_dir, "watchlist.json"), sorted(set(new_symbols)))
             
             print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
             print(new_symbols)

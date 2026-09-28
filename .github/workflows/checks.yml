@@ -1,0 +1,41 @@
+name: System Checks
+run-name: "${{ inputs.exercise_failure_alert && 'TEST: Failure alert drill' || 'System Checks' }}"
+on:
+  push:
+    branches: [main]
+    paths: ['**.py', 'requirements.txt', 'prompts/**', 'RULES.md', 'WEEKLY_INSTRUCTIONS.md', '.github/workflows/**', 'dashboard/**']
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      exercise_failure_alert:
+        description: 'Intentionally fail after tests to exercise the Telegram alert chain'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Regression and isolated end-to-end tests
+        run: python -m unittest discover -s tests -t .
+      - name: Prompt contract and regression gate
+        run: python prompt_eval.py > prompt-evaluation.json
+      - name: Build dashboard
+        run: python dashboard/build.py --out /tmp/thesis-watch.html
+      - name: Preserve prompt evaluation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prompt-evaluation
+          path: prompt-evaluation.json
+      - name: Intentional failure for notification drill
+        if: inputs.exercise_failure_alert
+        run: |
+          echo "::error::Expected test failure to verify workflow_run Telegram delivery"
+          exit 1

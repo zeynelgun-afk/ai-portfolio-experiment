@@ -7,8 +7,13 @@ on:
     paths:
       - 'portfolio.json'
       - 'theses.json'
+      - 'history.csv'
+      - 'DECISION_LOG.md'
       - 'dashboard/**'
   workflow_dispatch:
+  workflow_run:
+    workflows: [Weekly Portfolio Round, Intraday Detector]
+    types: [completed]
 
 permissions:
   contents: read
@@ -21,6 +26,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -28,6 +34,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5

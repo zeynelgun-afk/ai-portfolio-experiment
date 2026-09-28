@@ -12,7 +12,7 @@ permissions:
   issues: write
   pull-requests: write
   id-token: write
-  actions: read
+  actions: write
 
 concurrency:
   group: portfolio-round
@@ -22,6 +22,7 @@ jobs:
   round:
     runs-on: ubuntu-latest
     env:
+      PROMPT_METRICS_PATH: state/prompt_metrics.json
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       OPENROUTER_MODEL_AUDIT_A: ${{ vars.OPENROUTER_MODEL_AUDIT_A }}
@@ -37,7 +38,7 @@ jobs:
           python-version: '3.12'
 
       - name: Dependencies
-        run: pip install yfinance
+        run: pip install -r requirements.txt
 
       - name: 1) Valuation + exit-level warning (makes no decisions)
         run: python update.py
@@ -48,6 +49,23 @@ jobs:
         # of it rather than discovering them a week later. The audit never writes to
         # portfolio.json or theses.json; it only produces AUDIT.md and AUDIT_LOG.md.
         run: python audit.py --review
+
+      - name: Adapt evidence reminders
+        id: prompt_adapt
+        run: |
+          set +e
+          python prompt_adapt.py
+          CODE=$?
+          set -e
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+          if [ "$CODE" != "0" ] && [ "$CODE" != "2" ]; then exit "$CODE"; fi
+          if [ "$CODE" = "2" ]; then
+            git config user.name "portfolio-bot"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add state/prompt_adaptation.json state/prompt_reminders.md state/prompt_metrics.json
+            git commit -m "Roll back regressed prompt reminder"
+            git push
+          fi
 
       - name: 2.5) Run Scout Agent (Dynamic Watchlist)
         run: python scout.py
@@ -61,7 +79,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           github_token: ${{ github.token }}
-          prompt: "Read WEEKLY_INSTRUCTIONS.md and carry out every instruction in it."
+          prompt: "Read prompts/runtime_policy.md and state/prompt_reminders.md if present, then WEEKLY_INSTRUCTIONS.md and carry out the weekly instructions. Preserve the charter and the owner's investment mandate."
           claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-opus-5.5'
 
       - name: 4) Refresh the report
@@ -84,7 +102,42 @@ jobs:
         if: env.OPENROUTER_API_KEY != ''
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python amend.py
+        run: |
+          CAN_CREATE=$(gh api "repos/$GITHUB_REPOSITORY/actions/permissions/workflow" --jq '.can_approve_pull_request_reviews')
+          if [ "$CAN_CREATE" = "true" ]; then
+            python amend.py
+          else
+            python amend.py --export-only
+          fi
+
+      - name: Preserve prompt proposals for owner review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: prompt-proposals
+          path: prompt-proposals/*.json
+          if-no-files-found: ignore
+          retention-days: 90
+
+      - name: Persist amendment tracking and request proposal tests
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git add state/audit_patterns.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Record proposed prompt amendments"
+            git pull --rebase
+            git push
+          fi
+          python - <<'PY'
+          import datetime, json, subprocess
+          state = json.load(open('state/audit_patterns.json'))
+          today = datetime.datetime.now(datetime.timezone.utc).date().isoformat()
+          for pattern, details in state.items():
+              if details.get('proposal_kind') != 'artifact' and str(details.get('proposed_at', '')).startswith(today):
+                  branch = 'audit/amend/' + pattern + '-' + today.replace('-', '')
+                  subprocess.run(['gh', 'workflow', 'run', 'checks.yml', '--ref', branch], check=True)
+          PY
 
       - name: 7) Exit-level notification (Issue)
         if: hashFiles('STOP_BREACH.md') != ''
@@ -134,3 +187,9 @@ jobs:
           if [ "$CODE" != "200" ]; then
             echo "::warning title=The audit reminder was not delivered::HTTP ${CODE}"
           fi
+
+      - name: Report automatic prompt rollback
+        if: always() && steps.prompt_adapt.outputs.code == '2'
+        run: |
+          echo "::error::Prompt reminder rolled back after the measured failure rate increased; previous policy restored."
+          exit 1

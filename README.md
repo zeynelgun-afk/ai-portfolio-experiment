@@ -90,3 +90,57 @@ python audit.py --review
 ```
 
 > ⚠️ **Disclaimer:** This is a fully autonomous AI experiment. It is not financial advice. The models execute real logical trades based on live market data, but operate on a paper-trading basis.
+
+
+## Session and execution integrity
+
+The NYSE session calendar gates intraday runs: no data/model/trade steps on weekends or
+exchange holidays, and no trades after early closes. Daily post-close reviews run only
+on trading days. The **Saturday 06:00 UTC weekly round stays enabled** and evaluates
+the last completed session. Session times and delayed quote timestamps are validated
+again before execution. The decision bundle must refer to the same detector check.
+SELL and TRIM share one daily sell-direction lock; the trade ledger also prevents replay
+if writing the separate lock file was interrupted. HOLD decisions are recorded too.
+
+## Prompt improvement without strategy drift
+
+The 12 base prompt templates and five adaptive reminders are English. `prompts/runtime_policy.md` provides
+shared role boundaries and evidence handling. It adds no position cap, cash target or
+compulsory investment action. `prompts/contract.json` records the policy version and
+charter hash. `python prompt_eval.py` reports source hashes and runs deterministic
+regressions; passing them is not proof of semantic correctness or investment quality.
+
+The improvement loop is: recorded fault → two-auditor consensus → recurring pattern →
+minimal insertion proposal → evaluation and owner review. The existing three-consensus
+threshold remains. Proposals must describe a regression scenario and preserve legitimate
+behavior. Explicit evidence-check bypasses and compulsory trade/position limits are rejected.
+
+When Actions is allowed to create PRs, the proposal branch gets `System Checks` and
+requires owner review. Otherwise `amend.py --export-only` publishes a `prompt-proposals`
+artifact with the proposed diff and source hash (90-day retention). No charter or live
+instruction is changed by exporting a proposal. Review packets are marked in the state
+to avoid repeatedly proposing the same amendment. The repository currently uses this
+artifact fallback. The permission to approve PRs was not enabled.
+
+`System Checks` runs regression tests, the isolated detector → model adapter → executor →
+report scenario, prompt evaluation and a dashboard build. Model responses in those tests
+are fixtures; live provider checks are documented separately in `SYSTEM_TEST_REPORT.md`.
+Failures are routed through the Telegram alert workflow. Its notification drill deliberately
+fails **only the test workflow**, without modifying portfolio state.
+
+
+### Bounded automatic prompt adaptation
+
+`prompt_adapt.py` can select one of five versioned evidence reminders in
+`prompts/adaptations.json`; it cannot generate free-form instructions, impose trades,
+change portfolio weights or merge code. Activation requires three audit consensuses for
+the matching pattern and at least 20 recorded model outcomes as a baseline. Only one
+reminder is changed at a time. After 20 further outcomes, an error-rate increase of more
+than 15 percentage points removes and quarantines the reminder. Rollback is persisted
+immediately and raises a Telegram-notified workflow failure. Transport, JSON, numerical
+gate and supported schema failures are monitored; this metric is not a measure of
+investment profitability or a causal proof of prompt quality.
+
+`state/prompt_metrics.json` and `state/prompt_adaptation.json` are populated by future
+production runs. No reminder is activated until the evidence threshold is met. Novel
+free-form rewrites remain review proposals; bounded automatic selection is separate.

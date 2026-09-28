@@ -37,10 +37,13 @@ import os
 import re
 import subprocess
 import sys
+import hashlib
+import difflib
 from datetime import datetime, timezone
 
 import reassess
 import reviewers
+from prompt_policy import amendment_problem
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 TARGET = "WEEKLY_INSTRUCTIONS.md"
@@ -68,6 +71,9 @@ HARD CONSTRAINTS, enforced in code after you answer:
 - `anchor` must be a line copied EXACTLY from the instructions you were given, and it
   must appear there exactly once. Your text is inserted directly after it.
 - Do not invent evidence. Quote only from the audit findings you were given.
+- Write in English. Preserve autonomous investment judgment and the approved strategy;
+  do not impose new position limits or compulsory trades. In rationale, name a
+  regression scenario that the wording should fix and a valid behavior it must preserve.
 
 Answer with VALID JSON ONLY:
 {"title": "<a short pull-request title, imperative mood>",
@@ -153,6 +159,9 @@ def validate(proposal, instructions):
     insertion = str(proposal["insertion"]).strip("\n")
     if not insertion:
         return None, "the insertion is empty"
+    problem = amendment_problem(insertion)
+    if problem:
+        return None, problem
 
     amended = instructions.replace(anchor, anchor + "\n\n" + insertion, 1)
     # Insertion only: every byte of the original must survive, and the file must grow.
@@ -224,7 +233,40 @@ def abandon_branch(branch):
     run(["git", "branch", "-D", branch])
 
 
-def propose(state_dir, dry_run=False):
+def export_proposals(state_dir, counts, pending, api_key):
+    """Reviewable fallback when the repository forbids Actions-created PRs."""
+    instructions = open(TARGET_PATH, encoding="utf-8").read()
+    audit_log = open(AUDIT_LOG_PATH, encoding="utf-8").read()
+    output_dir = os.path.join(BASE, "prompt-proposals")
+    os.makedirs(output_dir, exist_ok=True)
+    failures = []
+    for item in pending:
+        pattern = item["pattern"]
+        prompt = build_prompt(pattern, item["count"], item.get("first_seen", "unknown"),
+                              evidence_for(pattern, audit_log), instructions)
+        proposal, status = reassess.call_llm(
+            env("OPENROUTER_MODEL_DEEP", reassess.DEFAULT_DEEP_MODEL), SYSTEM, prompt, api_key)
+        amended, problem = validate(proposal, instructions) if isinstance(proposal, dict) else (None, status)
+        if amended is None:
+            failures.append(pattern)
+            print(f"REJECTED {pattern}: {problem}")
+            continue
+        packet = {"pattern": pattern, "created_at": now_stamp(), "proposal": proposal,
+                  "base_instructions_sha256": hashlib.sha256(instructions.encode()).hexdigest(),
+                  "status": "owner review required; not applied",
+                  "validation": "insertion-only and explicit authority/evidence checks passed; full semantic review still required",
+                  "diff": "".join(difflib.unified_diff(instructions.splitlines(True),
+                                  amended.splitlines(True), fromfile=TARGET, tofile=TARGET))}
+        with open(os.path.join(output_dir, pattern + ".json"), "w", encoding="utf-8") as handle:
+            json.dump(packet, handle, ensure_ascii=False, indent=2)
+        counts[pattern].update(proposed_at=now_stamp(), proposal_kind="artifact")
+    with open(os.path.join(state_dir, "audit_patterns.json"), "w", encoding="utf-8") as handle:
+        json.dump(counts, handle, ensure_ascii=False, indent=2, sort_keys=True)
+        handle.write("\n")
+    return 1 if failures else 0
+
+
+def propose(state_dir, dry_run=False, export_only=False):
     state_path = os.path.join(state_dir, "audit_patterns.json")
     counts, pending = pending_patterns(state_path)
     if not pending:
@@ -236,7 +278,10 @@ def propose(state_dir, dry_run=False):
     if not api_key and not dry_run:
         print("No OPENROUTER_API_KEY — the amendment text cannot be written; the "
               "recurring patterns stay flagged in AUDIT_LOG.md")
-        return 0
+        return 1
+
+    if export_only and not dry_run:
+        return export_proposals(state_dir, counts, pending, api_key)
 
     if not dry_run and not working_tree_is_clean():
         print("REFUSING: the working tree has uncommitted changes. A proposal branch cut "
@@ -354,9 +399,11 @@ def main():
     parser = argparse.ArgumentParser(
         description="Propose an instruction amendment for a recurring audit pattern")
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--export-only", action="store_true",
+                        help="export validated review packets without changing instructions or opening PRs")
     parser.add_argument("--state-dir", default=os.path.join(BASE, "state"))
     args = parser.parse_args()
-    return propose(args.state_dir, args.dry_run)
+    return propose(args.state_dir, args.dry_run, args.export_only)
 
 
 if __name__ == "__main__":

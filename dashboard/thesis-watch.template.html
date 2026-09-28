@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
 <title>Thesis Watch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -485,8 +490,8 @@
 <div class="wrap">
   <section class="lede">
     <h1>Autonomous Alpha Generation via Multi-Agent LLM Architecture</h1>
-    <p>This dashboard monitors a fully autonomous, event-driven portfolio managed by a <b>Mixture of Experts (MoE) LLM Architecture</b>. To eliminate context dilution and hallucinations, the system isolates responsibilities across specialized agent contexts: <b>GPT-4o</b> synthesizes macroeconomic data, <b>Claude 3.5 Sonnet</b> performs strict fundamental valuations, and <b>Gemini Flash</b> extracts news sentiment.</p>
-    <p>Risk is managed via an <b>Intraday Event-Driven State Machine</b>. The agents encode every investment thesis alongside deterministic falsification thresholds (e.g., price floors, P/E caps). A background daemon continuously polls live market data against these mathematical constraints; if an agent's fundamental thesis is empirically falsified during market hours, the system bypasses the weekly planning cycle and autonomously executes a liquidation sequence, ensuring <b>zero-latency risk management</b>.</p>
+    <p>This dashboard follows a virtual portfolio whose investment decisions are made by AI. Separate research roles examine macroeconomic data, fundamentals and news; their assessments inform the decision-maker and can be incomplete or wrong.</p>
+    <p>During US exchange sessions, a scheduled detector checks prices and news approximately every 30 minutes. Confirmed thresholds or supported news contradictions trigger reassessment. The decision may be HOLD, BUY, SELL or TRIM; execution validates the session, price timestamps and arithmetic. Delayed data, scheduling delays and model failures can postpone a decision.</p>
   </section>
 
   <div class="split">
@@ -691,7 +696,7 @@ function portfolioTotals() {
     const spyQuote = live.SPY, smhQuote = live.SMH;
     return {
       source: complete ? "live" : "partial",
-      total: holdings + DATA.cash_usd,
+      total: complete ? holdings + DATA.cash_usd : null,
       spy: spyQuote ? start * spyQuote.price / DATA.benchmark.SPY_reference : null,
       smh: smhQuote ? start * smhQuote.price / DATA.benchmark.SMH_reference : null,
       start,
@@ -722,7 +727,7 @@ function renderSummary() {
     : (totals.total / totals.start - 1) * 100;
   const asOf = totals.source === "live" ? "live"
     : totals.source === "partial" ? "live, partial data"
-    : totals.source === "none" ? "no data" : "close of " + totals.source;
+    : totals.source === "none" ? "no data" : "recorded " + totals.source;
 
   add("total value", money(totals.total), asOf);
   add("return", ret === null ? "—" : pct(ret),
@@ -760,7 +765,7 @@ function renderCurve() {
   const svg = el("curve");
   svg.textContent = "";
   el("curve-sub").textContent = points.length
-    ? points.length + " weekly points · " + points[0].date + " → "
+    ? points.length + " valuation records · " + points[0].date + " → "
       + points[points.length - 1].date + (points[points.length - 1].live ? " (live)" : "")
     : "no history yet";
   renderCurveLegend();

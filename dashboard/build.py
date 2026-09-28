@@ -98,7 +98,8 @@ def main():
     if template.count("__DATA__") != 1:
         raise SystemExit("The template must contain exactly one __DATA__ placeholder")
     html = template.replace(
-        "__DATA__", json.dumps(payload, ensure_ascii=False, separators=(",", ":")))
+        "__DATA__", json.dumps(payload, ensure_ascii=False, allow_nan=False,
+                               separators=(",", ":")).replace("<", "\\u003c"))
     with open(args.out, "w", encoding="utf-8") as handle:
         handle.write(html)
 

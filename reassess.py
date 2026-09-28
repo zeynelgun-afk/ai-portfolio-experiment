@@ -37,6 +37,8 @@ import urllib.request
 from datetime import datetime, timezone
 
 import number_audit
+from prompt_policy import policy
+from prompt_adapt import record_result
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 THESES_PATH = os.path.join(BASE, "theses.json")
@@ -175,7 +177,23 @@ def extract_json(text):
         return None
 
 
-def call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
+def call_llm(*args, **kwargs):
+    result = _call_llm(*args, **kwargs)
+    payload, status = result
+    success = status == "ok"
+    scope = kwargs.get("audit_scope")
+    if success and scope is claim_audit_scope:
+        success = payload.get("status") in VALID_STATUSES and bool(str(payload.get("text", "")).strip())
+    elif success and scope is thesis_audit_scope:
+        decision = payload.get("decision") or {}
+        success = (isinstance(decision, dict) and decision.get("action") in VALID_ACTIONS
+                   and bool(str(decision.get("reasoning", "")).strip())
+                   and bool(str(decision.get("falsifier", "")).strip()))
+    record_result(success)
+    return result
+
+
+def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
              sleep=None):
     """A JSON-returning LLM call that retries on transient errors and bad output.
 
@@ -198,7 +216,7 @@ def call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
     A None payload means the claim MUST NOT be changed.
     """
     sleep = sleep or SLEEP
-    messages = [{"role": "system", "content": system},
+    messages = [{"role": "system", "content": policy() + "\n\n" + system},
                 {"role": "user", "content": user}]
     last_status = "unparseable"
 
@@ -519,6 +537,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             print(f"WARNING {claim['id']}: {reason} — the claim text was NOT CHANGED, "
                   "marked 'unassessed'")
             mark_claim(claim, "unassessed", trigger.get("trigger"), moment)
+            violations.setdefault("assessment_errors", []).append(claim["id"])
             updated.append(claim["id"])
             continue
         mark_claim(claim, payload["status"], trigger.get("trigger"), moment,
@@ -534,6 +553,8 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
     data = violations.get("data", {})
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
     cash = portfolio.get("cash_usd", 0)
+    if not dry_run and os.path.exists(decision_path):
+        raise RuntimeError("Unconsumed decision bundle exists; refusing to overwrite it")
 
     # Symbols with a thesis-level trigger get processed, but ALL of that symbol's
     # triggers reach the prompt — the claim-level ones are part of the context too.
@@ -569,12 +590,12 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
             item.get("trigger", "") for item in triggers))
 
         if not payload or not str(payload.get("thesis_assessment", "")).strip():
+            violations.setdefault("assessment_errors", []).append(symbol)
             reason = REJECTION_REASON.get(status, "its output did not match the schema")
             print(f"WARNING {symbol}: {reason} — claims were NOT CHANGED, "
                   "no trade produced")
             for claim in position.get("claims", []):
-                if any(item["claim_id"] == claim["id"] for item in triggers):
-                    mark_claim(claim, "unassessed", trigger_text, moment)
+                mark_claim(claim, "unassessed", trigger_text, moment)
             append_note(notes_path, f"{iso(moment)} · {symbol} · UNASSESSED",
                         f"A thesis-level threshold was crossed ({trigger_text}) but the "
                         f"deep model's output was unusable: {reason}. Claims were left "
@@ -596,8 +617,14 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
         decision = payload.get("decision") or {}
         action = str(decision.get("action", "")).upper()
         if action not in VALID_ACTIONS:
+            violations.setdefault("assessment_errors", []).append(symbol)
             print(f"WARNING {symbol}: decision.action is invalid ({action!r}) — "
                   "no trade produced")
+            action = None
+        if action and (not str(decision.get("reasoning", "")).strip()
+                       or not str(decision.get("falsifier", "")).strip()):
+            violations.setdefault("assessment_errors", []).append(symbol)
+            print(f"WARNING {symbol}: reasoning or falsifier missing — no trade produced")
             action = None
         if action:
             decisions.append({
@@ -628,7 +655,9 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                     "\n".join(body))
 
     if decisions and not dry_run:
-        write_json(decision_path, {"time": iso(moment), "decisions": decisions})
+        write_json(decision_path, {"time": iso(moment),
+                                  "measurement_at": violations.get("checked_at"),
+                                  "decisions": decisions})
         print(f"{len(decisions)} decision(s) written to state/pending_decision.json "
               "(execution happens in execute_trade.py)")
     return decisions, counter
@@ -650,7 +679,7 @@ def main():
     if not api_key and not args.dry_run:
         print("No OPENROUTER_API_KEY — reassessment skipped (the detector keeps "
               "measuring; only the commentary is not refreshed)")
-        return 0
+        return 1
 
     moment = now_utc()
     theses = read_json(THESES_PATH, {})
@@ -658,7 +687,7 @@ def main():
     violations = read_json(os.path.join(args.state_dir, "violations.json"), {})
     if not violations:
         print("state/violations.json is missing — detector.py must run first")
-        return 0
+        return 1
 
     counter_path = os.path.join(args.state_dir, "llm_counter.json")
     notes_path = os.path.join(args.state_dir, "pending_notes.md")
@@ -675,8 +704,10 @@ def main():
     updated, decisions = [], []
 
     # Claims handled at thesis level are not rewritten again by the fast model.
-    thesis_claims = {item["claim_id"] for item in violations.get("triggered", [])
-                     if item.get("severity") == "thesis"}
+    thesis_symbols = {item["symbol"] for item in violations.get("triggered", [])
+                      if item.get("severity") == "thesis"}
+    thesis_claims = {claim["id"] for symbol in thesis_symbols
+                     for claim in theses.get(symbol, {}).get("claims", [])}
     if args.code >= 20:
         decisions, counter = thesis_flow(theses, violations, portfolio, moment, deep,
                                          api_key, counter, args.dry_run, notes_path,
@@ -690,21 +721,39 @@ def main():
     if args.dry_run:
         return 0
 
-    if updated or decisions:
+    if updated or decisions or violations.get("assessment_errors"):
         write_json(THESES_PATH, theses)
         cooldown = read_json(cooldown_path, {})
         for claim_id in updated:
-            cooldown[claim_id] = iso(moment)
+            failed = any(c["id"] == claim_id and c.get("status") == "unassessed"
+                         for p in theses.values() if isinstance(p, dict)
+                         for c in p.get("claims", []))
+            if not failed:
+                cooldown[claim_id] = iso(moment)
         for decision in decisions:
             cooldown[f"thesis:{decision['symbol']}"] = iso(moment)
         write_json(cooldown_path, cooldown)
     write_json(counter_path, counter)
+    failed_news = {item["symbol"] for item in violations.get("triggered", [])
+                   if item.get("claim_id") == "news_shock"
+                   and item["symbol"] in violations.get("assessment_errors", [])}
+    if failed_news:
+        news_path = os.path.join(args.state_dir, "last_news.json")
+        cursors = read_json(news_path, {})
+        previous = violations.get("news_previous", {})
+        for symbol in failed_news:
+            if symbol in previous:
+                cursors[symbol] = previous[symbol]
+            else:
+                cursors.pop(symbol, None)
+        write_json(news_path, cursors)
 
     gh_output = env("GITHUB_OUTPUT")
     if gh_output:
         with open(gh_output, "a", encoding="utf-8") as handle:
             handle.write(f"updated_claims={','.join(updated)}\n")
             handle.write(f"decision_count={len(decisions)}\n")
+            handle.write(f"error_count={len(violations.get('assessment_errors', []))}\n")
             handle.write(f"llm_calls={counter['calls']}/{limit}\n")
     print(f"Weekly LLM calls: {counter['calls']}/{limit}")
     return 0

@@ -8,6 +8,7 @@ on:
       - Intraday Detector
       - Deploy Dashboard to GitHub Pages
       - Telegram Report (manual)
+      - System Checks
     types: [completed]
 
 permissions:
@@ -43,5 +44,5 @@ jobs:
           SOURCE_WORKFLOW: ${{ github.event.workflow_run.name }}
           SOURCE_RUN_URL: ${{ github.event.workflow_run.html_url }}
           FAILED_STEPS_FILE: /tmp/failed_steps.json
-          ALERT_TEST: ${{ github.event_name == 'workflow_dispatch' }}
+          ALERT_TEST: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.workflow_run.display_title, 'TEST:') }}
         run: python notify_failure.py

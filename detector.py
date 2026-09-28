@@ -41,6 +41,8 @@ import random
 import sys
 import time
 from datetime import date, datetime, time as clock, timedelta, timezone
+from market_time import market_open, recent
+from prompt_policy import policy
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 THESES_PATH = os.path.join(BASE, "theses.json")
@@ -82,13 +84,6 @@ def now_utc():
 
 def iso(moment):
     return moment.strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def market_open(moment=None):
-    moment = moment or now_utc()
-    if moment.weekday() >= 5:
-        return False
-    return SESSION_OPEN <= moment.time() <= SESSION_CLOSE
 
 
 # ------------------------------------------------------------------- data fetching
@@ -173,11 +168,15 @@ def collect_live_data(symbols, earnings_fallback=None):
             previous_close = float(closes.iloc[-1])
             daily_last = previous_close
 
-        price = _last_valid(_series(intraday, "Close", symbol)) if intraday is not None \
-            else None
+        bars = _series(intraday, "Close", symbol) if intraday is not None else None
+        price = _last_valid(bars)
+        price_at = bars.index[-1].isoformat() if price is not None else None
         source = "intraday_5m"
         if price is None:
             price, source = daily_last, "daily_close"
+            price_at = closes.index[-1].isoformat()
+        elif not recent(price_at, now_utc()):
+            source = "stale_intraday_5m"
 
         volumes = _series(daily, "Volume", symbol)
         volume_avg_20d = None
@@ -203,6 +202,7 @@ def collect_live_data(symbols, earnings_fallback=None):
             "volume_avg_20d": volume_avg_20d,
             "earnings_date": _earnings_date(yf, symbol, earnings_fallback),
             "data_source": source,
+            "price_at": price_at,
         }
 
     # Fetch breaking news via FMP API
@@ -393,7 +393,7 @@ def check_news_shock(symbol, thesis_summary, news_items):
         req = urllib.request.Request(
             env("LLM_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/") + "/chat/completions",
             headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            data=json.dumps({"model": env("OPENROUTER_MODEL_NEWS", env("OPENROUTER_MODEL_FAST", "anthropic/claude-haiku-4.5")), "messages": [{"role": "user", "content": prompt}], "temperature": 0.0}).encode("utf-8")
+            data=json.dumps({"model": env("OPENROUTER_MODEL_NEWS", env("OPENROUTER_MODEL_FAST", "anthropic/claude-haiku-4.5")), "messages": [{"role": "system", "content": policy()}, {"role": "user", "content": prompt}], "temperature": 0.0}).encode("utf-8")
         )
         with urllib.request.urlopen(req, timeout=15) as res:
             answer = json.loads(res.read().decode("utf-8"))["choices"][0]["message"]["content"].strip().upper()
@@ -583,6 +583,7 @@ def main():
     report = run(theses, data, stops, previous, cooldown, moment, args.full_review, last_news, new_last_news,
                  assess_news=not args.dry_run)
     report["data"] = {symbol: data.get(symbol, {}) for symbol in sorted(data)}
+    report["news_previous"] = last_news
 
     if not args.dry_run:
         write_json(violations_path, report)
