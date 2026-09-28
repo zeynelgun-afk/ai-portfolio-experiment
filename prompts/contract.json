@@ -1,6 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "language": "English",
-  "charter_sha256": "1118902e177ca0b0fac73908902848910b7705e1132a3984a565be05d0b9b4fa",
-  "adoption": "owner-reviewed PR; never automatic merge"
+  "charter_sha256": "5ca49032f02cb42be68b1cae86357a7cda45041faa264ceb6e13ffe61ff4ca8d",
+  "adoption": "owner-reviewed PR; never automatic merge",
+  "authorized_change": "2026-09-28: owner requested session-only fills; weekend research preserved"
 }

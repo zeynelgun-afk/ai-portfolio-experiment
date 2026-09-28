@@ -209,3 +209,31 @@ completed for all four holdings with FMP serving history, earnings, fundamentals
 news for every holding. Forward P/E was explicitly unavailable for all four; no
 second provider or non-equivalent ratio was substituted merely to fill that optional
 field. The isolated run skipped LLM research and did not modify production records.
+
+## 2026-09-28 — Session execution and research depth upgrade
+
+Owner-authorized change: weekend research remains scheduled, but new weekly fills
+require an open NYSE session and renewed research/decision/quote validation. Earlier
+portfolio history is preserved. The charter hash was updated only for this execution
+boundary; position sizing authority remains unchanged.
+
+Validation:
+- 303 offline tests passed, including weekend/holiday/after-close refusal, stale/future
+  quote rejection, session repricing, shared directional replay protection, queued-plan
+  execution once, quarterly provenance, fallback coverage and prospective horizon checks.
+- Prompt inventory/regressions, actionlint and static dashboard build passed.
+- Read-only live FMP probe: AMD income, balance sheet and cash flow each returned eight
+  quarters; fourteen derived/source facts were available. Four discovery feeds answered.
+- Injected FMP statement outage: actual yfinance backup returned five valid AMD quarters.
+  An empty historical Yahoo column was excluded without discarding current statements.
+- Isolated one-company live research run: all three model roles succeeded. Fundamental
+  output contained summary, bull_case, bear_case, invalidation and data_gaps. No portfolio,
+  live thesis or trade records were modified by this probe.
+- Live sector-response inspection exposed averageChange mapping and coverage issues;
+  collector now uses the last completed session and preserves sector/exchange/date.
+
+Limits: future 5/20-session cohorts do not yet exist and no performance improvement is
+claimed. No end-to-end scheduled session fill was triggered during validation. Guidance
+and filing footnotes are explicitly unavailable, transaction costs remain unmodeled,
+and channel attribution is observational rather than causal. Provider/model probes are
+point-in-time checks, not guarantees of future availability.

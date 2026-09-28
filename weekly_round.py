@@ -12,7 +12,7 @@ import tempfile
 
 import evidence
 from execute_trade import execute, number, read_json, validate, write_json
-from market_time import session, weekly_slot as slot
+from market_time import session, market_open, recent, weekly_slot as slot
 from reassess import call_llm
 
 BASE = Path(__file__).resolve().parent
@@ -36,7 +36,8 @@ one JSON object with this schema:
 List one decision for EVERY currently held symbol, then any new buys. Order sells
 before buys if the proceeds fund buys. SELL means full exit; TRIM needs shares;
 BUY needs amount_usd. HOLD may update new_stop. No position, cash or weight caps
-are imposed. Prices come only from measured closing data. Supply theses for exactly
+are imposed. Weekend output is a research plan, never an executed order. During the session,
+reconsider that plan against current evidence and prices. Execution prices are measured by code. Supply theses for exactly
 the final held symbols. Every claim needs a supported measurable condition. Include
 all watchlist symbols. Explain every pending note in F; set pending_notes_addressed
 true only when all have been answered. No model-written prices, balances or fills.
@@ -104,7 +105,7 @@ def validate_theses(theses, book, moment):
             claim.update(last_updated=moment.isoformat(), trigger=None)
 
 
-def prepare(proposal, book, old_theses, data, moment, existing_log):
+def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=False, quotes=None, decision_at=None):
     """All validation is performed on copies before writing anything."""
     if set(proposal) != {'sections', 'decisions', 'theses', 'watchlist', 'pending_notes_addressed'}:
         raise ValueError('Use exactly the requested weekly response fields')
@@ -118,11 +119,23 @@ def prepare(proposal, book, old_theses, data, moment, existing_log):
         raise ValueError('Missing decisions')
     held = {p['symbol'] for p in book['positions']}
     seen, locks, fills = set(), {}, []
+    for trade in book.get('trade_history', []):
+        if str(trade.get('date', ''))[:10] == moment.date().isoformat():
+            direction = 'SELL' if trade.get('action') in {'SELL', 'TRIM'} else trade.get('action')
+            locks[f"{moment.date().isoformat()}:{trade.get('symbol')}:{direction}"] = True
+    if not preview and not market_open(moment):
+        raise ValueError('Weekly execution requires an open NYSE session')
     expected_date = closing_day(slot(moment))
     measured = {}
     for symbol, row in data.items():
         if not symbol.startswith('_') and isinstance(row, dict) and row.get('price_date') == expected_date:
             measured[symbol] = {'price': row.get('last_price'), 'data_source': 'weekly_close'}
+    if not preview:
+        measured = quotes or {}
+        for symbol, row in measured.items():
+            if (not recent(row.get('price_at'), moment, 900) or
+                    not market_open(datetime.fromisoformat(row['price_at']))):
+                raise ValueError(f'{symbol}: stale or out-of-session execution quote')
     for decision in decisions:
         if set(decision) - {'symbol', 'action', 'amount_usd', 'shares', 'new_stop', 'reasoning', 'falsifier'}:
             raise ValueError('Unexpected decision fields')
@@ -142,12 +155,16 @@ def prepare(proposal, book, old_theses, data, moment, existing_log):
                 next(p for p in result['positions'] if p['symbol'] == symbol)['stop_weekly_close'] = number(stop)
             continue
         ok, reason, details = validate(decision, result, measured, True, locks,
-                                        slot(moment).date(), price_source='weekly_close')
+                                        moment.date(), price_source='weekly_close' if preview else 'intraday_5m')
         if not ok:
             raise ValueError(f'{symbol}: {reason}')
         record = execute(decision, result, details, moment, source='weekly_autonomous')
-        record.update(round_id=slot(moment).date().isoformat(), price_date=expected_date,
-                      price_provider=data.get(symbol, {}).get('providers', {}).get('history', 'unknown'))
+        record.update(round_id=slot(moment).date().isoformat(),
+                      price_date=expected_date if preview else moment.date().isoformat(),
+                      research_session=expected_date,
+                      price_provider=(data.get(symbol, {}).get('providers', {}).get('history', 'unknown') if preview else measured[symbol]['price_provider']),
+                      price_at=expected_date if preview else measured[symbol]['price_at'],
+                      decision_at=(decision_at or moment).isoformat())
         fills.append(record)
         locks[details['lock']] = True
     if not held <= seen:
@@ -160,7 +177,7 @@ def prepare(proposal, book, old_theses, data, moment, existing_log):
     result.setdefault('completed_weekly_rounds', []).append(slot(moment).date().isoformat())
     indices = [int(n) for n in re.findall(r'^## #(\d+) ', existing_log, re.M)]
     lines = [f"\n## #{max(indices, default=0) + 1} — {slot(moment).date().isoformat()} · WEEKLY ROUND\n",
-             f"Executed at {moment.isoformat()}; closing-price session {expected_date}.\n"]
+             f"{'Preview only' if preview else 'Executed in session'} at {moment.isoformat()}; research closing session {expected_date}.\n"]
     for key, title in zip('ABCDEF', ['Data status', 'Causes of moves', 'Thesis health', 'Decisions', 'Theme risk', 'Accounting for yourself']):
         lines += [f'### {key}. {title}\n', proposal['sections'][key], '']
     lines += ['### Deterministic execution\n', '```json', json.dumps(fills, indent=2), '```']
@@ -196,7 +213,7 @@ def recover(root):
     if not path.exists():
         return False
     journal = read_json(str(path), None)
-    allowed = {'portfolio.json', 'theses.json', 'DECISION_LOG.md', 'state/pending_notes.md', 'state/watchlist.json'}
+    allowed = {'portfolio.json', 'theses.json', 'DECISION_LOG.md', 'state/pending_notes.md', 'state/watchlist.json', 'state/weekly_plan.json', 'state/research_observations.json'}
     if set(journal['targets']) - allowed:
         raise ValueError('Unexpected transaction target')
     for name, target in journal['targets'].items():
@@ -209,9 +226,9 @@ def recover(root):
     return True
 
 
-def build_targets(proposal, book, old_theses, data, moment, original_log):
+def build_targets(proposal, book, old_theses, data, moment, original_log, **execution):
     book, theses, log = prepare(proposal, book, old_theses, data, moment,
-                                original_log)
+                                original_log, **execution)
     watchlist = proposal.get('watchlist', [])
     expected = {s for s in data if not s.startswith('_')}
     if len(watchlist) != len(expected) or {r['symbol'] for r in watchlist} != expected:
@@ -240,38 +257,85 @@ def build_targets(proposal, book, old_theses, data, moment, original_log):
     return targets
 
 
+def live_quotes(symbols, moment):
+    import market_data
+    quotes = {}
+    for symbol in symbols:
+        frame = market_data.history(symbol, '1d', '5m', now=moment)
+        quotes[symbol] = {'price': float(frame['Close'].iloc[-1]),
+                          'data_source': 'intraday_5m',
+                          'price_at': frame.index[-1].isoformat(),
+                          'price_provider': frame.attrs['provider']}
+    return quotes
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--execute-pending', action='store_true')
     args = parser.parse_args()
     moment = datetime.now(timezone.utc)
     if not args.dry_run and recover(BASE):
-        print('Recovered the validated weekly transaction; no second decision requested')
+        print('Recovered an already validated transaction; no second decision requested')
         return
+    plan_path = BASE/'state/weekly_plan.json'
+    plan = read_json(str(plan_path), {})
     book = read_json(str(BASE/'portfolio.json'), None)
     if already_done(BASE, book, moment):
-        print('Weekly slot already recorded; no replay')
+        print('Weekly slot already executed; no replay')
         return
-    # Catch-up is confined to the weekend, before another market session can open.
-    if moment.weekday() not in {5, 6}:
-        raise ValueError('Weekly catch-up window is Saturday/Sunday only')
+    round_id = slot(moment).date().isoformat()
+    if args.execute_pending:
+        if not market_open(moment) or plan.get('status') != 'pending':
+            print('No pending weekly plan eligible for session execution')
+            return
+        if plan.get('round_id') != round_id:
+            raise ValueError('Expired weekly plan: new research is required')
+        # Rebuild research against current provider data; never blindly fill a weekend plan.
+        import weekly_data
+        weekly_data.main()
+        moment = datetime.now(timezone.utc)
+        if not market_open(moment):
+            raise ValueError('Session closed while refreshing research')
+    else:
+        if moment.weekday() not in {5, 6}:
+            raise ValueError('Weekly research window is Saturday/Sunday only')
+        if plan.get('round_id') == round_id and plan.get('status') == 'pending':
+            print('Weekend research already queued; portfolio remains unchanged')
+            return
     data = read_json(str(BASE/'weekly_data.json'), None)
     if not data or data.get('_meta', {}).get('date') != moment.date().isoformat():
-        raise ValueError('Weekly inputs must be freshly collected today')
+        raise ValueError('Research inputs must be freshly collected today')
+    if data.get('_meta', {}).get('research_errors'):
+        raise ValueError('Incomplete specialist research; no decision or execution')
+    symbols = {s for s in data if not s.startswith('_')}
+    quotes = live_quotes(symbols, moment) if args.execute_pending else None
+    if quotes:
+        for symbol, quote in quotes.items():
+            data[symbol].update(price=quote['price'], last_price=quote['price'], price_at=quote['price_at'],
+                                price_provider=quote['price_provider'])
     facts = evidence.ledger(data, data['_meta'].get('collected_at', moment.isoformat()), 'weekly_data/market_data')
     context = {}
     for name in ('RULES.md', 'WEEKLY_INSTRUCTIONS.md', 'portfolio.json', 'REPORT.md',
-                 'DECISION_LOG.md', 'theses.json', 'state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md'):
+                 'DECISION_LOG.md', 'theses.json', 'state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md',
+                 'state/audit_disagreements.json'):
         path = BASE/name
         context[name] = path.read_text()[-50000:] if path.exists() else 'unavailable'
     context['weekly_data.json'] = data
+    if quotes:
+        from research_metrics import exposure
+        context['current_exposure'] = exposure(book, quotes, data)
+    context['mode'] = 'SESSION REASSESSMENT: reconsider the weekend plan; HOLD is valid' if args.execute_pending else 'WEEKEND RESEARCH ONLY: no trades until session reassessment'
+    if args.execute_pending:
+        context['weekend_plan'] = plan['proposal']
     key = os.environ.get('OPENROUTER_API_KEY')
     if not key:
         raise ValueError('Weekly decision API key is missing')
     old_theses = read_json(str(BASE/'theses.json'), {})
     original_log = (BASE/'DECISION_LOG.md').read_text()
     def validate_proposal(payload):
-        build_targets(payload, book, old_theses, data, moment, original_log)
+        build_targets(payload, book, old_theses, data, moment, original_log,
+                      preview=not args.execute_pending, quotes=quotes)
     (BASE/'output').mkdir(exist_ok=True)
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data})
     proposal, status = call_llm(os.environ.get('OPENROUTER_MODEL_WEEKLY') or 'anthropic/claude-opus-5.5',
@@ -279,14 +343,43 @@ def main():
                                 response_validator=validate_proposal)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
-    targets = build_targets(proposal, book, old_theses, data, moment, original_log)
-    (BASE/'output').mkdir(exist_ok=True)
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data, 'proposal': proposal})
+    if not args.execute_pending:
+        build_targets(proposal, book, old_theses, data, moment, original_log, preview=True)
+        if not args.dry_run:
+            write_json(str(plan_path), {'round_id': round_id, 'created_at': moment.isoformat(),
+                       'status': 'pending', 'proposal': proposal, 'research_snapshot': digest(json.dumps(data, sort_keys=True))})
+        print('Weekend research queued; no portfolio, thesis, cash or fill changes')
+        return
+    # Reprice after the decision, check session again, and reject stale/over-budget batches.
+    decision_at = datetime.now(timezone.utc)
+    if not market_open(decision_at):
+        raise ValueError('Session closed during decision generation')
+    quotes = live_quotes(symbols, decision_at)
+    executed_at = datetime.now(timezone.utc)
+    targets = build_targets(proposal, book, old_theses, data, executed_at, original_log, quotes=quotes, decision_at=decision_at)
+    plan.update(status='executed', executed_at=executed_at.isoformat())
+    targets['state/weekly_plan.json'] = json.dumps(plan, indent=2) + '\n'
+    from research_metrics import observation, exposure
+    benchmarks = live_quotes({'SPY','SMH'}, datetime.now(timezone.utc))
+    final_time = datetime.now(timezone.utc)
+    if not market_open(final_time) or not recent(decision_at.isoformat(), final_time, 900) or any(not recent(q['price_at'], final_time, 900) for q in {**quotes, **benchmarks}.values()):
+        raise ValueError('Session/quote expired before final commit')
+    cohorts = read_json(str(BASE/'state/research_observations.json'), {})
+    if round_id in cohorts:
+        raise ValueError('Research cohort already recorded')
+    cohorts[round_id] = observation(round_id, executed_at, proposal, data, quotes,
+        read_json(str(BASE/'state/discovery.json'), {}), benchmarks,
+        exposure(json.loads(targets['portfolio.json']), quotes, data))
+    targets['state/research_observations.json'] = json.dumps(cohorts, indent=2) + '\n'
     if args.dry_run:
-        print('Validated weekly proposal; dry-run writes no investment records')
+        print('Session proposal validated; dry-run writes no investment records')
         return
     commit_bundle(BASE, targets)
-    print('Weekly proposal validated and saved with crash recovery and replay protection')
+    print('Weekly plan reassessed and executed in-session with current prices')
+    if os.environ.get('GITHUB_OUTPUT'):
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+            out.write('executed=true\n')
 
 
 if __name__ == '__main__':

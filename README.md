@@ -41,11 +41,18 @@ run sequentially; separate roles do not imply concurrent execution.
 
 ### 1. Opportunity discovery — Scout Agent (`scout.py`)
 
-The Saturday workflow runs a GPT-based Scout before collecting the weekly research
-inputs. It requests up to 30 FMP articles and 10 market gainers, with yfinance used
-only when the primary dataset fails validation. The prompt asks for 15–20 candidate
-symbols around supply-chain bottlenecks, business pivots and related opportunities.
-The validated watchlist also retains current holdings, so its final size may differ.
+The Saturday workflow combines four independently collected candidate channels:
+
+- **Momentum:** Market gainers for emerging attention and trend research.
+- **Dislocation:** Market losers for investigation of potential overreaction.
+- **Structural universe:** A rotating US technology, industrial, energy and utilities company pool.
+- **Insider purchases:** Reported open-market purchases from the latest insider feed.
+
+The Scout selects 15–20 symbols from that measured universe; existing holdings are
+retained. `state/discovery.json` records provider provenance and channel membership.
+These are candidate signals: a decline does not establish undervaluation, and sector
+membership does not prove a supply-chain bottleneck. Failed channels are explicit;
+FMP is primary and yfinance is used only where a compatible backup is mapped.
 
 ### 2. Specialist research — Multi-Agent Research Team (`weekly_data.py`)
 
@@ -54,7 +61,7 @@ Each analyst receives a separate, focused input dataset:
 | Role | Inputs | Output |
 |---|---|---|
 | **Macro Strategist** | Available rates, yields and sector performance | Macroeconomic outlook |
-| **Fundamental Analyst** | Valuation ratios, market capitalization and available insider transactions | Per-company fundamental thesis |
+| **Fundamental Analyst** | Up to eight dated quarters of income, balance-sheet and cash-flow data, valuation and insider evidence | Summary, bull case, bear case, invalidation and data gaps |
 | **News & Sentiment Analyst** | News headlines, analyst targets and consensus grades | Per-company sentiment assessment |
 
 The configured defaults use GPT, Claude and Gemini respectively; environment settings
@@ -72,7 +79,12 @@ instructions use Kelly terminology, but sizing remains a model decision rather t
 a calibrated Kelly calculation.
 A requested signal is usable only when supporting evidence is available.
 
-The model returns a **structured JSON proposal**. Code validates the response schema,
+The Saturday model returns a **structured JSON research plan** without changing
+holdings, cash, fills or live theses. The plan is queued in `state/weekly_plan.json`.
+During an open NYSE session, refreshed research and prices are supplied for a new
+decision; the model may revise or reject the weekend plan.
+
+The session model returns a **structured JSON proposal**. Code validates the response schema,
 measured prices, evidence references, thesis conditions and cash/share arithmetic before
 recording accepted virtual transactions. The model has no direct file-writing or
 broker-execution access. The detailed execution and replay safeguards are described below.
@@ -96,7 +108,8 @@ availability and model response time. A trigger can lead to HOLD; it does not re
 
 A deterministic scorecard summarizes recorded decisions and outcomes. Two auditors
 from different model families independently review the same evidence; only matching
-pattern findings enter the consensus record.
+pattern findings enter the consensus record. Unilateral objections remain visible in
+`state/audit_disagreements.json` and are reported to Telegram without becoming automatic rule changes.
 
 Recurring consensus findings can produce an instruction-change proposal through
 `amend.py`. The weekly workflow currently exports a review artifact rather than
@@ -111,7 +124,7 @@ prompt-improvement sections below for the activation and review boundaries.
 |---|---|---|
 | **Intraday Detector** | Weekday 30-minute schedule, gated by the NYSE session calendar | Measure conditions and assess unseen news; trigger validated reassessment when needed. |
 | **Post-close Review** | Weekdays at 21:15 UTC, trading days only | Run the full-review path after the session. |
-| **Weekly Round** | Saturday 06:00 UTC | Run discovery, research, audit and the weekly portfolio decision using the last completed session. |
+| **Weekly Round** | Saturday 06:00 UTC | Run discovery, research and audit using the last completed session; queue a plan without trading. |
 | **Daily Watchdog** | Daily 23:00 UTC / 02:00 Europe/Istanbul | Detect missed or stuck jobs, request bounded recovery and notify Telegram. |
 | **Pages Deployment** | Relevant data/dashboard pushes, successful weekly/detector runs, or manual dispatch | Generate a static HTML dashboard with Python and publish it to GitHub Pages. |
 
@@ -215,10 +228,13 @@ free-form rewrites remain review proposals; bounded automatic selection is separ
 ## Validated weekly execution and independent recovery
 
 `weekly_round.py` now receives a structured proposal instead of giving the model write
-access to investment files. It checks measured closing prices, cash/shares, all A-F
+access to investment files. It checks fresh session prices, cash/shares, all A-F
 sections, thesis coverage and condition schemas before saving a recoverable transaction.
-Saturday stays active during exchange holidays; Sunday catch-up uses the same completed
-session. A recorded weekly slot cannot execute again. The charter and strategy are unchanged.
+Saturday research stays active during exchange holidays; Sunday catch-up uses the same
+completed session. Execution waits for an open NYSE session and a fresh decision. Quotes
+are measured again after the model responds; session and freshness checks run before
+committing. A recorded weekly slot cannot execute again. Weekly and intraday fills share
+the same daily directional replay protection. The charter and strategy are unchanged.
 
 `evidence.py` binds numeric prose to a company, metric, unit, observation time, source and
 snapshot. References are rendered by code. Discretionary trade sizes and condition
@@ -254,3 +270,31 @@ provider merely for optional forward P/E; that field stays unknown when absent.
 FMP endpoints: [daily prices](https://site.financialmodelingprep.com/developer/docs/stable/historical-price-eod-full),
 [earnings](https://site.financialmodelingprep.com/developer/docs/stable/earnings-company)
 and the [API catalogue](https://site.financialmodelingprep.com/developer/docs).
+
+## Research depth and prospective measurement
+
+`fundamentals.py` collects quarterly statements with issuer, period, currency and
+publication checks. FMP is primary; a failed dataset can fall back as a whole to
+quarterly yfinance statements. Margins, year-over-year revenue growth and net debt
+are derived in code and enter the typed evidence ledger. Unavailable comparable
+quarters, publication timestamps, management guidance and filing footnotes remain
+explicit gaps. This is not a full filing/transcript ingestion system.
+
+`research_metrics.py` freezes selected research candidates, channel membership,
+agent reports, decisions and benchmark entry quotes at session execution. Future
+5- and 20-session price returns are compared with SPY and SMH. Missing or unmatured
+observations remain pending. Channel groups can overlap, and the sample covers the
+selected research universe; it does not establish causal agent contribution or
+predictive power. Existing historical returns are not retroactively reconstructed.
+Results appear in `RESEARCH_PERFORMANCE.md` after cohorts become available.
+
+Advisory position weights and downside scenarios accompany decisions and are stored
+with each cohort. They introduce no allocation cap or compulsory trade. Performance
+measurement remains separate from prompt output-error monitoring; neither mechanism
+trains model weights or automatically rewrites the investment strategy.
+
+Only new session fills use the revised execution policy. Earlier paper fills remain
+unchanged. Commissions, spread and slippage are still unmodeled, so these records
+should not be described as executable brokerage returns.
+
+Financial-statement and discovery endpoints follow the [FMP API documentation](https://site.financialmodelingprep.com/developer/docs).

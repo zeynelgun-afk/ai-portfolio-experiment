@@ -48,7 +48,8 @@ def ledger(data, observed_at, origin):
             # that their reporting period equals the quote's session date.
             quote_metric = metric in {'price', 'last_price', 'previous_close', 'sma50', 'sma200',
                                       'rsi', 'volume', 'volume_avg20', 'volume_avg_20d', 'price_date', 'price_at'} or metric.startswith('return_')
-            stamp = (row.get('price_at') or row.get('price_date')) if quote_metric else observed_at
+            stamp = ((row.get('price_at') or row.get('price_date')) if metric in {'price', 'last_price', 'price_at'}
+                     else (row.get('price_date') or row.get('price_at'))) if quote_metric else observed_at
             if not stamp:
                 continue
             providers = row.get('providers', {})
@@ -65,6 +66,15 @@ def ledger(data, observed_at, origin):
             ident = f'{symbol}.{metric}'
             facts[ident] = dict(symbol=symbol, metric=metric, value=value, unit=unit,
                                 as_of=stamp, source=(field_source + (' / FMP price-target-summary.lastQuarterAvgPriceTarget' if metric == 'analyst_target' and origin.startswith('weekly_data') else '')), snapshot=snapshot)
+        for metric, fact in row.get('fundamental_research', {}).get('facts', {}).items():
+            if not re.fullmatch(r'[a-z][a-z0-9_]*', metric) or not isinstance(fact, dict):
+                raise ValueError('Invalid fundamental fact identity')
+            if not fact.get('as_of') or not fact.get('source') or not fact.get('unit'):
+                raise ValueError('Fundamental fact provenance missing')
+            value = fact.get('value')
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+                raise ValueError('Invalid fundamental fact value')
+            facts[f'{symbol}.{metric}'] = dict(fact, symbol=symbol, metric=metric, snapshot=snapshot)
         for metric in ('sma50', 'sma200'):
             price_id = f'{symbol}.last_price' if f'{symbol}.last_price' in facts else f'{symbol}.price'
             base_id = f'{symbol}.{metric}'

@@ -83,7 +83,7 @@ class EvidenceTests(unittest.TestCase):
 
 class WeeklyTests(unittest.TestCase):
     def prepare(self, p=None, data=None):
-        return wr.prepare(p or proposal(), BOOK, {'_meta':{}}, data or DATA, SAT, '# Log\n')
+        return wr.prepare(p or proposal(), BOOK, {'_meta':{}}, data or DATA, SAT, '# Log\n', preview=True)
 
     def test_hold_records_and_updates_stop_without_trade(self):
         result, theses, log = self.prepare()
@@ -179,9 +179,11 @@ class WeeklyTests(unittest.TestCase):
                 clock.now.return_value=SAT
                 wr.main();wr.main()
                 self.assertEqual(model.call_count,1)
-            self.assertEqual((root/'state/pending_notes.md').read_text(),'')
+            self.assertEqual((root/'state/pending_notes.md').read_text(),'Review previous trigger.')
+            self.assertEqual(json.loads((root/'portfolio.json').read_text()), BOOK)
+            self.assertEqual(json.loads((root/'state/weekly_plan.json').read_text())['status'], 'pending')
             self.assertTrue((root/'DECISION_LOG.md').read_text().startswith('# Historical record, preserved.'))
-            self.assertEqual((root/'DECISION_LOG.md').read_text().count('WEEKLY ROUND'),1)
+            self.assertEqual((root/'DECISION_LOG.md').read_text().count('WEEKLY ROUND'),0)
             self.assertTrue((root/'output/weekly_evidence.json').exists())
 
     def test_new_numeric_fields_cannot_bypass_prose_gate(self):

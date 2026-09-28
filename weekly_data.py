@@ -7,6 +7,8 @@ import requests
 from datetime import datetime, timedelta, timezone
 
 import market_data as yf
+import fundamentals
+import evidence
 
 # For the cheap LLM filtering step
 try:
@@ -78,10 +80,23 @@ def fred_get(series_id, api_key):
         r.raise_for_status()
         data = r.json()
         if 'observations' in data and len(data['observations']) > 0:
-            return data['observations'][0]['value']
+            row = data['observations'][0]
+            value = float(row['value'])
+            return {'value': value, 'as_of': row['date'], 'source': 'FRED/'+series_id} if math.isfinite(value) else None
     except Exception:
         pass
     return None
+
+def sector_snapshot(rows, expected_day):
+    result = {}
+    for row in rows or []:
+        value = row.get('averageChange')
+        if (row.get('date') == expected_day and row.get('sector') and
+                isinstance(value, (int,float)) and not isinstance(value,bool) and math.isfinite(value)):
+            key = row['sector'] + ' / ' + str(row.get('exchange') or 'unspecified exchange')
+            result[key] = {'change_pct': value, 'as_of': expected_day, 'source': 'FMP sector-performance-snapshot'}
+    return result or None
+
 
 def main():
     SYMBOLS = load_symbols()
@@ -196,6 +211,8 @@ def main():
                     print(f"FMP Warning for {symbol}: {e}")
 
             results[symbol] = {
+                'fundamental_research': fundamentals.collect(symbol),
+                'daily_returns': {str(day.date()): float(value) for day,value in history['Close'].pct_change().dropna().tail(90).items() if math.isfinite(float(value))},
                 'providers': dict(ticker.providers),
                 'last_price': numeric(last_price, 'price'),
                 'price_date': price_date,
@@ -233,10 +250,10 @@ def main():
 
     sector_performance = None
     if FMP_API_KEY:
-        today_str = today.strftime("%Y-%m-%d")
+        today_str = yf.last_closed(datetime.now(timezone.utc)).isoformat()
         sectors = fmp_get("sector-performance-snapshot", FMP_API_KEY, {"date": today_str})
         if sectors:
-            sector_performance = {s.get("sector"): s.get("changesPercentage") for s in sectors[:5]}
+            sector_performance = sector_snapshot(sectors, today_str)
 
     macro_data = None
     if FRED_API_KEY:
@@ -244,6 +261,11 @@ def main():
             "10-Year Treasury Yield (DGS10)": fred_get("DGS10", FRED_API_KEY),
             "Federal Funds Rate (FEDFUNDS)": fred_get("FEDFUNDS", FRED_API_KEY)
         }
+
+    if not sector_performance:
+        missing_data.append('Sector performance unavailable')
+    if not macro_data or any(value is None for value in macro_data.values()):
+        missing_data.append('One or more macro observations unavailable')
 
     results['_meta'] = {
         'date': today.strftime('%Y-%m-%d'),
@@ -257,6 +279,8 @@ def main():
         'macro_data': macro_data,
     }
 
+    source_facts = evidence.ledger(results, results['_meta']['collected_at'], 'weekly_data/market_data')
+
     # --- MULTI-AGENT RESEARCH TEAM (FinThink / TradingAgents Architecture) ---
     api_key = os.environ.get("OPENROUTER_API_KEY")
 
@@ -267,6 +291,8 @@ def main():
         macro_model = (os.environ.get("OPENROUTER_MODEL_MACRO") or "openai/gpt-4o")
         fund_model = (os.environ.get("OPENROUTER_MODEL_FUNDAMENTAL") or "anthropic/claude-sonnet-5")
         sent_model = (os.environ.get("OPENROUTER_MODEL_SENTIMENT") or "google/gemini-3.5-flash")
+
+        results['_meta']['research_models'] = {'macro':macro_model, 'fundamental':fund_model, 'sentiment':sent_model}
 
         # 1. Macro Analyst Agent
         macro_data_only = {
@@ -291,7 +317,8 @@ def main():
                 "forward_pe": data.get("forward_pe"),
                 "trailing_pe": data.get("trailing_pe"),
                 "market_cap": data.get("market_cap"),
-                "insider_trades": data.get("insider_trades")
+                "insider_trades": data.get("insider_trades"),
+                "financial_statements": data.get("fundamental_research")
             }
             sentiment_data[sym] = {
                 "analyst_target": data.get("analyst_target"),
@@ -301,11 +328,24 @@ def main():
 
         # 2. Fundamental Analyst Agent
         fund_sys = (
-            "You are a strict Fundamental Analyst. You ONLY look at PE ratios, valuations, and insider buying/selling. "
-            "For each ticker, output a 1-sentence fundamental thesis. Ignore news and macro. "
-            "Return ONLY a JSON object mapping each ticker to its 1-sentence fundamental thesis."
+            "You are a fundamental research analyst. Assess revenue growth, margins, cash conversion, "
+            "debt, liquidity, valuation and insider evidence from the supplied dated statements. "
+            "Distinguish missing evidence from weakness. Do not invent guidance or filing footnotes. "
+            "Return a JSON object keyed by ticker. Each value must contain nonempty strings: "
+            "summary, bull_case, bear_case, invalidation, data_gaps. Explain the strongest "
+            "counterargument and what would falsify the thesis. Use only SOURCE_LEDGER references "
+            "for numeric facts; do not claim access to filings that were not supplied."
         )
-        fund_payload, fund_status = reassess.call_llm(fund_model, fund_sys, json.dumps(fundamental_data), api_key)
+        def validate_research(payload):
+            if not isinstance(payload, dict) or set(payload) != set(fundamental_data):
+                raise ValueError('Research must cover every supplied company')
+            for report in payload.values():
+                if not isinstance(report, dict) or set(report) != {'summary','bull_case','bear_case','invalidation','data_gaps'}:
+                    raise ValueError('Missing research or counterargument fields')
+                if any(not isinstance(t,str) or not t.strip() for t in report.values()):
+                    raise ValueError('Empty fundamental research field')
+        fund_payload, fund_status = reassess.call_llm(fund_model, fund_sys, json.dumps(fundamental_data), api_key,
+                                                     source_ledger=source_facts, response_validator=validate_research)
 
         # 3. Sentiment & News Analyst Agent
         sent_sys = (
@@ -333,7 +373,7 @@ def main():
         for role, payload, status in (("fundamental analyst", fund_payload, fund_status),
                                       ("sentiment analyst", sent_payload, sent_status)):
             if status != "ok" or not isinstance(payload, dict) or any(
-                    not isinstance(payload.get(symbol), str) or not payload[symbol].strip()
+                    not payload.get(symbol) or (role == 'sentiment analyst' and not isinstance(payload.get(symbol), str))
                     for symbol in results if not symbol.startswith("_")):
                 failures.append(role)
         results['_meta']['research_errors'] = failures

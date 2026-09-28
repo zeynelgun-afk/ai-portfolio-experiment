@@ -64,9 +64,10 @@ Doing nothing is also a decision, and it is written down too.
 There are two kinds of decision round, and both carry the same obligation to account for
 themselves.
 
-1. **The weekly round** — Saturday 06:00 UTC. A full record (the
-   `WEEKLY_INSTRUCTIONS.md` template). This is the round that builds the theses and
-   refreshes `theses.json`.
+1. **The weekly research round** — Saturday 06:00 UTC. A full research plan using
+   the `WEEKLY_INSTRUCTIONS.md` template is queued without changing holdings or live
+   theses. In the next eligible NYSE session it is reassessed with fresh inputs; only
+   then may validated orders update the portfolio and `theses.json`.
 2. **The intraday round** — Mon-Fri 13:30-20:00 UTC, every 30 minutes. An automated
    detector (`detector.py`) measures the validity conditions in `theses.json`
    deterministically. If a threshold is crossed, the AI either rewrites only the affected
@@ -111,8 +112,9 @@ honest.
    stated without numbers.
 4. **The AI may not change this file or `WEEKLY_INSTRUCTIONS.md`.** It proposes changes;
    the owner rules on them during the audit.
-5. **No retroactive correction.** Fills are assumed at the last close; slippage and
-   commission are ignored (this is a paper experiment). A thesis, once written, is not
+5. **No retroactive correction.** New fills are recorded only during an open NYSE session at measured session prices.
+   Saturday research is queued and reconsidered in-session before execution. Slippage
+   and commission remain unmodeled (this is a paper experiment). A thesis, once written, is not
    prettied up afterwards.
 6. This experiment is not investment advice and must not be copied one-for-one with real
    money.

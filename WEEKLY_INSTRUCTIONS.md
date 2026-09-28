@@ -60,6 +60,21 @@ This file does not tell you *what* to buy; it tells you *how* to account for you
 > The items here are not constraints on your decisions; they are rules about data
 > integrity and accountability.
 
+## Owner-authorized session execution and research depth
+
+Weekend runs produce research plans only. They cannot change holdings, cash, fills or
+live theses. At the next eligible NYSE session, re-evaluate the plan with refreshed
+research, current holdings and measured session quotes. HOLD, revision and cancellation
+remain valid outcomes. Never assume the prior close is an executable price.
+
+Use the dated statement packet to assess growth, margins, cash generation, debt and
+liquidity. Address the fundamental analyst's bear case and data gaps explicitly.
+Explain sizing with downside scenarios and shared theme exposure; confidence or agent
+agreement is not a calibrated probability and does not by itself establish Kelly sizing.
+Advisory exposure metrics impose no position cap or compulsory action. Review unilateral
+auditor objections as objections, not consensus. Prospective channel results are
+observational evidence, not proof of causality or instructions to change strategy.
+
 ## Execution protocol — owner-authorized deterministic layer
 
 The workflow collects data and supplies the files below as context. The model returns
@@ -138,7 +153,7 @@ claims or incomplete accountability reject the entire proposal before any file c
    and `_meta.next_friday` / `_meta.next_round` for future dates. Do not write a day name
    that is not in a field.
    (Round #7 wrote "4 September, Wednesday" and "2 September, Monday"; both were wrong.)
-   **This full-record round runs only on Saturday mornings** — do not promise "I will do
+   **The initial full-record research plan runs on Saturday mornings; its execution requires a fresh in-session reassessment** — do not promise "I will do
    another full round on Wednesday"; you cannot. The only thing that runs during the week
    is the intraday detector, driven by the conditions in `theses.json`; if you promise a
    mid-week check, you must tie that check to a condition in step 8 — a mid-week promise

@@ -330,7 +330,7 @@ def main():
     # Recover the lock if a previous process saved the portfolio and then crashed
     # before saving trade_lock.json. The ledger must prevent replay on its own.
     for trade in portfolio.get("trade_history", []):
-        if trade.get("source") == "intraday_autonomous" and trade.get("date") == today.isoformat():
+        if trade.get("source") in {"intraday_autonomous", "weekly_autonomous"} and trade.get("date") == today.isoformat():
             direction = "SELL" if trade.get("action") in ("SELL", "TRIM") else trade.get("action")
             locks[f"{today.isoformat()}:{trade['symbol']}:{direction}"] = trade.get("time_utc", "recorded")
     executed, rejected = [], []

@@ -16,7 +16,9 @@ def validate_symbols(symbols):
     if any(not isinstance(s, str) or not re.fullmatch(r"[A-Z][A-Z0-9.-]{0,9}", s)
            for s in symbols):
         raise ValueError("Scout returned an invalid ticker symbol")
-    return list(dict.fromkeys(symbols))
+    if len(set(symbols)) != len(symbols):
+        raise ValueError('Scout symbols must be unique')
+    return symbols
 
 def env(key, default=""):
     val = os.environ.get(key)
@@ -46,43 +48,22 @@ def run_scout():
     if not or_key:
         raise RuntimeError("Missing API keys for Scout")
 
-    print("Fetching market pulse for Scout Agent...")
-    def primary():
-        return {'articles':market_data.fmp('fmp-articles',limit=30),
-                'gainers':market_data.fmp('biggest-gainers',limit=10)}
-    def backup():
-        import yfinance
-        screened = yfinance.screen('day_gainers', count=10)
-        raw = yfinance.Ticker('SPY').news or []
-        articles=[]
-        for item in raw:
-            item=item.get('content') or item
-            articles.append({'title':item.get('title'), 'content':item.get('summary','')})
-        return {'articles':articles,'gainers':screened.get('quotes',[])}
-    def valid(pulse):
-        if not pulse.get('articles') or not pulse.get('gainers'):
-            raise market_data.ProviderError('Incomplete Scout market pulse')
-        return pulse
-    pulse,_ = market_data.select('*','scout',primary,backup,valid)
-    articles,gainers = pulse['articles'],pulse['gainers']
-    
-    news_text = "\n".join([f"- {a.get('title')}: {a.get('content', '')[:200]}" for a in articles])
-    gainers_text = ", ".join([g.get("symbol", "") for g in gainers])
-
-    prompt = f"""You are the Alpha Scout Agent. Your job is to find 15-20 highly asymmetric, bottleneck-solving, or pivoting US stock tickers based on current market trends.
-Do not pick boring mega-caps unless they are doing something new. Look for:
-- Companies solving critical bottlenecks (e.g. power, cooling, optical interconnects).
-- Companies pivoting their business model (e.g. miners becoming AI datacenters).
-- Companies acting as 'pick and shovel' plays for huge trends.
-
-Recent Macro News:
-{news_text}
-
-Top Gainers Today:
-{gainers_text}
-
-Based on this pulse and your deep knowledge of supply chains, return a JSON array of 15 to 20 ticker symbols.
-DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COHR", "ARM", "SMCI"]"""
+    from discovery import collect
+    from datetime import datetime, timezone
+    discovery = collect()
+    prompt = f"""You are the Alpha Scout Agent. Select 15-20 US stock candidates for deep research.
+Stay within the charter's US large-cap technology, semiconductor and AI infrastructure
+universe. Sector membership alone does not establish eligibility.
+Use ONLY symbols present in the supplied measured discovery channels. Consider each
+available channel: momentum/news, sharp declines needing fundamental verification,
+structural technology/industrial/energy suppliers, and reported insider purchases.
+A price decline does not prove overreaction. Sector membership does not prove an AI
+bottleneck. Insider purchase data does not prove investment quality. These are research
+hypotheses to verify. Compare opportunity with counterevidence and avoid choosing only
+the largest recent gainers. Preserve the aggressive fundamental research mandate.
+Return ONLY a JSON array of 15 to 20 unique ticker symbols from the supplied universe.
+DISCOVERY INPUTS:
+{json.dumps(discovery)}"""
 
     print("Asking LLM to hunt for dynamic watchlist...")
     try:
@@ -105,6 +86,9 @@ DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COH
             
             new_symbols = validate_symbols(json.loads(answer.strip()))
             
+            if any(symbol not in discovery['membership'] for symbol in new_symbols):
+                raise ValueError('Scout selected a company without discovery evidence')
+            selected = list(new_symbols)
             # Must always include current portfolio!
             port_path = os.path.join(BASE_DIR, "portfolio.json")
             if os.path.exists(port_path):
@@ -118,6 +102,9 @@ DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COH
             state_dir = os.path.join(BASE_DIR, "state")
             os.makedirs(state_dir, exist_ok=True)
             write_json(os.path.join(state_dir, "watchlist.json"), sorted(set(new_symbols)))
+            discovery['selected'] = selected
+            discovery['retained_holdings'] = sorted(set(new_symbols)-set(selected))
+            write_json(os.path.join(state_dir, 'discovery.json'), discovery)
             
             print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
             print(new_symbols)

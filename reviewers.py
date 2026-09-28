@@ -24,6 +24,7 @@ Usage (normally invoked by audit.py --review):
 
 import argparse
 import json
+import hashlib
 import os
 import sys
 from datetime import datetime, timezone
@@ -170,6 +171,28 @@ def run_auditor(model, prompt, api_key, dry_run=False):
     return findings
 
 
+def persist_disagreements(state_dir, findings_a, findings_b, agreed):
+    """Unilateral objections remain open until explicitly reviewed, without auto-adaptation."""
+    path = os.path.join(state_dir, 'audit_disagreements.json')
+    state = reassess.read_json(path, {'findings': []})
+    existing = {item['id']: item for item in state['findings']}
+    agreed_patterns = {item['pattern'] for item in agreed}
+    new_count = 0
+    for label, findings in (('a', findings_a), ('b', findings_b)):
+        for item in findings:
+            if item['pattern'] in agreed_patterns:
+                continue
+            identity = hashlib.sha256(json.dumps([label, item['pattern'], item['where'], item['evidence']],sort_keys=True).encode()).hexdigest()
+            if identity not in existing:
+                existing[identity] = {'id': identity, 'auditor': label, **item,
+                                      'status': 'open', 'first_seen': now_stamp()}
+                new_count += 1
+            existing[identity]['last_seen'] = now_stamp()
+    state.update(observed_at=now_stamp(), findings=list(existing.values()), new_count=new_count)
+    reassess.write_json(path, state)
+    return state
+
+
 def find_consensus(findings_a, findings_b):
     """A finding is recorded only when both auditors report the same pattern.
 
@@ -306,6 +329,7 @@ def review(scorecard, state_dir, dry_run=False):
         return []
 
     agreed, note = find_consensus(findings_a, findings_b)
+    persist_disagreements(state_dir, findings_a or [], findings_b or [], agreed)
     recurring = update_pattern_counts(
         os.path.join(state_dir, "audit_patterns.json"), agreed)
     append_audit_log(AUDIT_LOG_PATH, now_stamp(), agreed, note, recurring,

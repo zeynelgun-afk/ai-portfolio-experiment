@@ -37,6 +37,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      OPENROUTER_MODEL_MACRO: ${{ vars.OPENROUTER_MODEL_MACRO }}
+      OPENROUTER_MODEL_FUNDAMENTAL: ${{ vars.OPENROUTER_MODEL_FUNDAMENTAL }}
+      OPENROUTER_MODEL_SENTIMENT: ${{ vars.OPENROUTER_MODEL_SENTIMENT }}
+      OPENROUTER_MODEL_WEEKLY: ${{ vars.OPENROUTER_MODEL_WEEKLY }}
       PROMPT_METRICS_PATH: state/prompt_metrics.json
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       OPENROUTER_MODEL_NEWS: ${{ vars.OPENROUTER_MODEL_NEWS }}
@@ -49,6 +54,8 @@ jobs:
       TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
@@ -74,6 +81,35 @@ jobs:
         env:
           FULL_REVIEW: ${{ steps.mode.outputs.full }}
         run: python market_time.py
+
+      - name: Reassess and execute pending weekly research in-session
+        if: steps.session.outputs.run == 'true'
+        id: weekly_execution
+        run: python weekly_round.py --execute-pending
+
+      - name: Persist session execution before further analysis
+        if: steps.weekly_execution.outputs.executed == 'true'
+        run: |
+          git config user.name "portfolio-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add portfolio.json theses.json DECISION_LOG.md state/
+          git diff --cached --quiet || git commit -m "Execute weekly research after session reassessment"
+          git push
+
+      - name: Notify weekly session execution
+        if: steps.weekly_execution.outputs.executed == 'true'
+        env:
+          WATCHDOG_MESSAGE: 'AI Portföy: Cumartesi araştırması açık seansta güncel veriyle yeniden değerlendirildi. Kabul edilen işlemler ve HOLD kararları DECISION_LOG.md dosyasına kaydedildi.'
+        run: python notify_failure.py
+
+      - name: Preserve weekly session evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-session-evidence
+          path: output/weekly_evidence.json
+          if-no-files-found: ignore
+          retention-days: 90
 
       - name: 1) Detector — measure conditions and assess news
         if: steps.session.outputs.run == 'true'
@@ -118,7 +154,7 @@ jobs:
         run: python execute_trade.py
 
       - name: 4) Refresh the report (only if a trade happened)
-        if: steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0'
+        if: steps.weekly_execution.outputs.executed == 'true' || (steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0')
         run: python update.py
 
       - name: Adapt evidence reminders
@@ -139,6 +175,10 @@ jobs:
             git push
           fi
 
+      - name: Measure mature research cohorts
+        if: steps.session.outputs.run == 'true' && steps.mode.outputs.full == 'true'
+        run: python research_metrics.py
+
       - name: 5) Commit + push
         if: steps.detector.outcome == 'success'
         id: commit
@@ -147,7 +187,9 @@ jobs:
           TRADE: ${{ steps.trade.outputs.trade_summary }}
         run: |
           if [ "${{ steps.detector.outputs.code }}" = "0" ] \
-             && [ "${{ steps.detector.outputs.state_changed }}" != "true" ]; then
+             && [ "${{ steps.detector.outputs.state_changed }}" != "true" ] \
+             && [ "${{ steps.weekly_execution.outputs.executed }}" != "true" ] \
+             && [ "${{ steps.mode.outputs.full }}" != "true" ]; then
             # Nothing meaningful changed: the hysteresis counters are identical too, so
             # discarding the state file loses nothing. Committing an empty change every
             # 30 minutes would drown the audit trail.

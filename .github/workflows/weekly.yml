@@ -25,6 +25,11 @@ jobs:
       PROMPT_METRICS_PATH: state/prompt_metrics.json
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      OPENROUTER_MODEL_MACRO: ${{ vars.OPENROUTER_MODEL_MACRO }}
+      OPENROUTER_MODEL_FUNDAMENTAL: ${{ vars.OPENROUTER_MODEL_FUNDAMENTAL }}
+      OPENROUTER_MODEL_SENTIMENT: ${{ vars.OPENROUTER_MODEL_SENTIMENT }}
+      OPENROUTER_MODEL_WEEKLY: ${{ vars.OPENROUTER_MODEL_WEEKLY }}
       OPENROUTER_MODEL_AUDIT_A: ${{ vars.OPENROUTER_MODEL_AUDIT_A }}
       OPENROUTER_MODEL_AUDIT_B: ${{ vars.OPENROUTER_MODEL_AUDIT_B }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -32,6 +37,8 @@ jobs:
       TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
@@ -49,6 +56,19 @@ jobs:
         # of it rather than discovering them a week later. The audit never writes to
         # portfolio.json or theses.json; it only produces AUDIT.md and AUDIT_LOG.md.
         run: python audit.py --review
+
+      - name: Notify independent audit objections
+        run: |
+          python - <<'PYTHON'
+          import json
+          from notify_failure import notify
+          review = json.load(open('state/audit_disagreements.json'))
+          if review['new_count']:
+              notify(message='AI Portföy: Tek denetçiden gelen ' + str(review['new_count']) + ' itiraz inceleme kaydına alındı. Ortak karar değildir; otomatik strateji değişikliği uygulanmadı. state/audit_disagreements.json')
+          PYTHON
+
+      - name: Measure mature research cohorts
+        run: python research_metrics.py
 
       - name: Adapt evidence reminders
         id: prompt_adapt
@@ -73,7 +93,7 @@ jobs:
       - name: 3a) Collect measured weekly inputs
         run: python weekly_data.py
 
-      - name: 3b) Structured decision and deterministic execution
+      - name: 3b) Structured weekend research plan (no trades)
         run: python weekly_round.py
 
       - name: Preserve weekly source evidence
@@ -96,6 +116,11 @@ jobs:
           git diff --cached --quiet || git commit -m "Weekly round ($(date +%F))"
           git pull --rebase
           git push
+
+      - name: Notify queued weekend research
+        env:
+          WATCHDOG_MESSAGE: 'AI Portföy: Cumartesi araştırması tamamlandı. Seans dışında alım-satım yapılmadı; plan açık seansta güncel veri ve fiyatla yeniden değerlendirilecek.'
+        run: python notify_failure.py
 
       - name: 6) Propose an instruction amendment for a recurring fault
         # Runs after the push so the branch is cut from the updated default branch.
