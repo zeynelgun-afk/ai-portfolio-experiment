@@ -104,6 +104,15 @@ jobs:
             python reassess.py --code "${{ steps.detector.outputs.code }}"
           fi
 
+      - name: Preserve intraday source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: intraday-source-evidence
+          path: output/intraday_evidence.json
+          if-no-files-found: ignore
+          retention-days: 90
+
       - name: 3) Execute the decision (autonomous intraday trade)
         if: steps.detector.outputs.code == '20'
         id: trade

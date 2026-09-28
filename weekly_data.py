@@ -4,7 +4,7 @@ import json
 import math
 import os
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import yfinance as yf
 
@@ -251,6 +251,7 @@ def main():
 
     results['_meta'] = {
         'date': today.strftime('%Y-%m-%d'),
+        'collected_at': datetime.now(timezone.utc).isoformat(),
         'day_name': DAY_NAMES[today.weekday()],
         'next_friday': f"{next_friday.strftime('%Y-%m-%d')} (Friday — the weekly close)",
         'next_round': f"{next_round.strftime('%Y-%m-%d')} (Saturday — the next decision round)",

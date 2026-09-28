@@ -49,7 +49,7 @@ def theses():
 def violations(severity="claim"):
     return {
         "market_open": True,
-        "data": {"MU": {"price": 905.40, "previous_close": 1082.28,
+        "data": {"MU": {"price": 905.40, "price_at": MOMENT.isoformat(), "previous_close": 1082.28,
                         "data_source": "intraday_5m", "earnings_date": "2026-09-30"}},
         "triggered": [{"symbol": "MU", "claim_id": "MU-1", "severity": severity,
                        "condition_type": "price_below", "measured": 905.40,
@@ -123,7 +123,7 @@ class ClaimFlowTest(unittest.TestCase):
 
     def test_valid_output_rewrites_the_claim(self):
         claim, updated, counter = self.invoke(
-            '{"text": "The price slipped below the 50d average to 905.4.",'
+            '{"text": "The price slipped below the 50d average to {{MU.price}}.",'
             ' "status": "weakened"}')
         self.assertEqual(updated, ["MU-1"])
         self.assertEqual(claim["status"], "weakened")
@@ -212,7 +212,7 @@ class ThesisFlowTest(unittest.TestCase):
             ' "new_thesis_summary": "The super-cycle thesis is in question below the 50d.",'
             ' "claim_statuses": {"MU-1": "weakened"},'
             ' "decision": {"action": "TRIM", "shares": 8.5, "amount_usd": null,'
-            ' "new_stop": 820, "reasoning": "lost the 50d", "falsifier": "back above 941"},'
+            ' "new_stop": 820, "reasoning": "lost the 50d", "falsifier": "regaining the measured average"},'
             ' "saturday_note": "Revisit after earnings."}')
         self.assertEqual(len(decisions), 1)
         self.assertEqual(decisions[0]["action"], "TRIM")
@@ -229,7 +229,7 @@ class ThesisFlowTest(unittest.TestCase):
         _, decisions, _ = self.invoke(
             '{"thesis_assessment": "The thesis stands.", "claim_statuses": {},'
             ' "decision": {"action": "HOLD", "shares": null, "amount_usd": null,'
-            ' "reasoning": "the 730 $ stop is far away", "falsifier": "below 730"}}')
+            ' "reasoning": "the selected exit level is far away", "falsifier": "below the selected exit level"}}')
         self.assertEqual(decisions[0]["action"], "HOLD")
 
     def test_an_invalid_action_produces_no_decision_but_still_writes_a_note(self):
@@ -237,7 +237,7 @@ class ThesisFlowTest(unittest.TestCase):
             '{"thesis_assessment": "Unclear.", "claim_statuses": {"MU-1": "weakened"},'
             ' "decision": {"action": "YOLO", "reasoning": "?"}}')
         self.assertEqual(decisions, [])
-        self.assertEqual(payload["MU"]["claims"][0]["status"], "weakened")
+        self.assertEqual(payload["MU"]["claims"][0]["status"], "unassessed")
         self.assertTrue(os.path.exists(self.notes))
         self.assertFalse(os.path.exists(self.decision))
 

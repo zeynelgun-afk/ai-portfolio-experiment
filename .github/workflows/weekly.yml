@@ -70,17 +70,20 @@ jobs:
       - name: 2.5) Run Scout Agent (Dynamic Watchlist)
         run: python scout.py
 
-      - name: 3) Claude decision round (via OpenRouter)
-        if: env.OPENROUTER_API_KEY != ''
-        uses: anthropics/claude-code-action@v1
-        env:
-          ANTHROPIC_BASE_URL: https://openrouter.ai/api
-          ANTHROPIC_SMALL_FAST_MODEL: anthropic/claude-haiku-4.5
+      - name: 3a) Collect measured weekly inputs
+        run: python weekly_data.py
+
+      - name: 3b) Structured decision and deterministic execution
+        run: python weekly_round.py
+
+      - name: Preserve weekly source evidence
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
-          github_token: ${{ github.token }}
-          prompt: "Read prompts/runtime_policy.md and state/prompt_reminders.md if present, then WEEKLY_INSTRUCTIONS.md and carry out the weekly instructions. Preserve the charter and the owner's investment mandate."
-          claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-opus-5.5'
+          name: weekly-source-evidence
+          path: output/weekly_evidence.json
+          if-no-files-found: ignore
+          retention-days: 90
 
       - name: 4) Refresh the report
         run: python update.py

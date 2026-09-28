@@ -1,5 +1,5 @@
 """US equity sessions and timestamp checks shared by measurement and execution."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from functools import lru_cache
 from zoneinfo import ZoneInfo
 import os
@@ -35,6 +35,14 @@ def recent(stamp, moment, seconds=1800):
 def should_run(moment, full_review=False):
     bounds = session(moment.astimezone(ZoneInfo("America/New_York")).date())
     return bool(bounds and (market_open(moment) or (full_review and moment >= bounds[1])))
+
+
+def weekly_slot(moment):
+    saturday = (moment - timedelta(days=(moment.weekday() - 5) % 7)).replace(hour=6, minute=0, second=0, microsecond=0)
+    if moment < saturday:
+        saturday -= timedelta(days=7)
+    return saturday
+
 
 
 if __name__ == "__main__":

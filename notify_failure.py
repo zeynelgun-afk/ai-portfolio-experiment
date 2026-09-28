@@ -7,7 +7,7 @@ import urllib.parse
 import urllib.request
 
 
-def notify(environ=None, opener=None):
+def notify(environ=None, opener=None, message=None):
     environ = os.environ if environ is None else environ
     opener = urllib.request.urlopen if opener is None else opener
     token = environ.get("TELEGRAM_BOT_TOKEN", "").strip()
@@ -29,7 +29,7 @@ def notify(environ=None, opener=None):
                f"{environ.get('GITHUB_REPOSITORY', '')}/actions/runs/"
                f"{environ.get('GITHUB_RUN_ID', '')}")
     workflow = environ.get('SOURCE_WORKFLOW') or environ.get('GITHUB_WORKFLOW', 'unknown')
-    message = ("🚨 AI Portföy — otomasyon hatası\n"
+    message = message or ("🚨 AI Portföy — otomasyon hatası\n"
                f"İş akışı: {workflow}\n"
                f"Başarısız adımlar: {', '.join(str(name) for name in failed)[:2500] or 'GitHub kaydına bakın'}\n"
                "Çalışma tamamlanamadı. Ayrıntılar ve işlem durumu:\n" + run_url)

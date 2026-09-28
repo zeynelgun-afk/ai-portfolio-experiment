@@ -104,7 +104,7 @@ if writing the separate lock file was interrupted. HOLD decisions are recorded t
 
 ## Prompt improvement without strategy drift
 
-The 12 base prompt templates and five adaptive reminders are English. `prompts/runtime_policy.md` provides
+The 14 base prompt templates and five adaptive reminders are English. `prompts/runtime_policy.md` provides
 shared role boundaries and evidence handling. It adds no position cap, cash target or
 compulsory investment action. `prompts/contract.json` records the policy version and
 charter hash. `python prompt_eval.py` reports source hashes and runs deterministic
@@ -144,3 +144,25 @@ investment profitability or a causal proof of prompt quality.
 `state/prompt_metrics.json` and `state/prompt_adaptation.json` are populated by future
 production runs. No reminder is activated until the evidence threshold is met. Novel
 free-form rewrites remain review proposals; bounded automatic selection is separate.
+
+
+## Validated weekly execution and independent recovery
+
+`weekly_round.py` now receives a structured proposal instead of giving the model write
+access to investment files. It checks measured closing prices, cash/shares, all A-F
+sections, thesis coverage and condition schemas before saving a recoverable transaction.
+Saturday stays active during exchange holidays; Sunday catch-up uses the same completed
+session. A recorded weekly slot cannot execute again. The charter and strategy are unchanged.
+
+`evidence.py` binds numeric prose to a company, metric, unit, observation time, source and
+snapshot. References are rendered by code. Discretionary trade sizes and condition
+thresholds remain model choices. Unknown references, raw numeric prose and invalid response
+schemas trigger bounded retries, then rejection and the existing Telegram failure chain.
+GitHub artifacts retain measurement/evidence packets for ninety days. This proves which
+supplied field was cited; it does not prove provider accuracy or the semantics of every
+surrounding sentence. Research opinions are not independent quantitative sources.
+
+`watchdog.py` monitors missing/stuck jobs independently of GitHub's scheduler and requests
+only bounded, idempotency-protected recovery. Repair requests, unresolved incidents and
+verified recovery are reported to Telegram. It never rewrites strategy, disables a gate or
+replays an execution/commit failure. See [installation and limits](ops/README.md).

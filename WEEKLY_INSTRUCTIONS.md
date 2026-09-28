@@ -60,6 +60,28 @@ This file does not tell you *what* to buy; it tells you *how* to account for you
 > The items here are not constraints on your decisions; they are rules about data
 > integrity and accountability.
 
+## Execution protocol — owner-authorized deterministic layer
+
+The workflow collects data and supplies the files below as context. The model returns
+structured JSON to `weekly_round.py`; it never edits files or executes shell commands.
+References to reading, querying, applying or writing in the historical instructions
+below describe the desired result: collection and retries belong to the workflow,
+while portfolio arithmetic, fills, log append, thesis persistence and acknowledged-note
+clearing belong to the deterministic executor. Requesting a data repair does not permit
+inventing missing evidence. If unavailable, state the gap and use only known facts.
+
+Use the response schema supplied by the executor. Sections A-F are mandatory. Use
+`{{SYMBOL.metric}}` references for numerical facts; the renderer supplies the exact
+company, metric, value, unit, observation time and snapshot source. Source numbers from
+old prose or a research model's opinion do not become verified facts. Numeric decision
+parameters remain at your discretion. The watchlist counter is rendered and checked by
+code. The charter, investment universe and aggressive fundamental mandate are unchanged.
+
+Saturday remains the scheduled full round, including exchange-holiday weekends. A
+missed Saturday may be recovered on Sunday using the same last completed weekly
+session. A recorded weekly slot cannot execute twice. Invalid arithmetic, evidence,
+claims or incomplete accountability reject the entire proposal before any file changes.
+
 ## Steps
 
 1. **Read:** `RULES.md` (the charter), `portfolio.json` (the current state), `REPORT.md`

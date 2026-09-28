@@ -194,7 +194,7 @@ def call_llm(*args, **kwargs):
 
 
 def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
-             sleep=None):
+             sleep=None, source_ledger=None, response_validator=None):
     """A JSON-returning LLM call that retries on transient errors and bad output.
 
     Three problems share one loop, because the remedy for all three is the same: ask
@@ -218,6 +218,10 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
     sleep = sleep or SLEEP
     messages = [{"role": "system", "content": policy() + "\n\n" + system},
                 {"role": "user", "content": user}]
+    if source_ledger is not None:
+        import evidence
+        messages[0]["content"] += "\n" + evidence.INSTRUCTION
+        messages[1]["content"] += "\nSOURCE_LEDGER:\n" + json.dumps(source_ledger)
     last_status = "unparseable"
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
@@ -245,7 +249,27 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
             ]
             continue
 
-        if audit_sources:
+        if source_ledger is not None and audit_scope in (claim_audit_scope, thesis_audit_scope):
+            valid = isinstance(payload, dict)
+            if audit_scope is claim_audit_scope:
+                valid = valid and set(payload) == {'text', 'status'} and payload.get('status') in VALID_STATUSES and isinstance(payload.get('text'), str) and bool(payload['text'].strip())
+            else:
+                decision = payload.get('decision') if valid else None
+                valid = valid and isinstance(decision, dict) and decision.get('action') in VALID_ACTIONS and all(isinstance(decision.get(k), str) and decision[k].strip() for k in ('reasoning', 'falsifier')) and bool(payload.get('thesis_assessment'))
+            if not valid:
+                last_status = 'invalid_schema'
+                messages.append({'role': 'user', 'content': 'Return exactly the JSON schema in the system message. Required prose and decision fields are missing or invalid. Do not replace the schema with your own.'})
+                continue
+
+        if source_ledger is not None:
+            try:
+                payload = evidence.render_payload(payload, source_ledger)
+            except (ValueError, TypeError, AttributeError):
+                last_status = "invalid_evidence"
+                messages.append({"role": "user", "content": "Evidence validation failed. Use only exact SOURCE_LEDGER references for numeric facts; no raw numeric prose."})
+                continue
+
+        if audit_sources and source_ledger is None:
             if audit_scope:
                 audited, extra = audit_scope(payload)
             else:
@@ -267,6 +291,13 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
                 ]
                 continue
 
+        if response_validator is not None:
+            try:
+                response_validator(payload)
+            except (ValueError, TypeError, KeyError, AttributeError) as error:
+                last_status = "invalid_schema"
+                messages.append({"role": "user", "content": "Proposal validation failed: " + str(error)[:240] + ". Correct the JSON proposal; preserve evidence references."})
+                continue
         return payload, "ok"
 
     return None, last_status
@@ -480,6 +511,14 @@ REJECTION_REASON = {
 # ---------------------------------------------------------------------------- flows
 
 
+def evidence_for(data, violations, symbol):
+    import evidence
+    # Scope to the assessed issuer and sector benchmarks; another issuer cannot
+    # supply a convenient matching number. Old prose is never a factual source.
+    selected = {s: row for s, row in data.items() if s in {symbol, 'SPY', 'SMH'}}
+    return evidence.ledger(selected, violations.get('checked_at'), 'detector/yfinance')
+
+
 def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, limit,
                dry_run, full_review, skip=None):
     """Refresh the affected claims (or, in a full review, all of them) with the fast model.
@@ -530,7 +569,8 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
         # (those numbers were already audited in an earlier round).
         payload, status = call_llm(model, SYSTEM_CLAIM, prompt, api_key,
                                    audit_sources=(prompt, claim.get("text", "")),
-                                   audit_scope=claim_audit_scope)
+                                   audit_scope=claim_audit_scope,
+                                   source_ledger=evidence_for(data, violations, symbol))
         if not payload or payload.get("status") not in VALID_STATUSES \
                 or not str(payload.get("text", "")).strip():
             reason = REJECTION_REASON.get(status, "its output did not match the schema")
@@ -585,7 +625,8 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
         payload, status = call_llm(
             model, SYSTEM_THESIS, prompt, api_key,
             audit_sources=(prompt, position.get("thesis_summary", "")) + previous_texts,
-            audit_scope=thesis_audit_scope)
+            audit_scope=thesis_audit_scope,
+            source_ledger=evidence_for(data, violations, symbol))
         trigger_text = "; ".join(dict.fromkeys(
             item.get("trigger", "") for item in triggers))
 
@@ -688,6 +729,11 @@ def main():
     if not violations:
         print("state/violations.json is missing — detector.py must run first")
         return 1
+
+    if not args.dry_run:
+        write_json(os.path.join(BASE, 'output', 'intraday_evidence.json'), {
+            'measurement': violations,
+            'ledgers': {symbol: evidence_for(violations.get('data', {}), violations, symbol) for symbol in theses if not symbol.startswith('_')}})
 
     counter_path = os.path.join(args.state_dir, "llm_counter.json")
     notes_path = os.path.join(args.state_dir, "pending_notes.md")

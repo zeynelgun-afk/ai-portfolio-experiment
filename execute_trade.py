@@ -98,7 +98,7 @@ def number(value):
 # ------------------------------------------------------------------------ validation
 
 
-def validate(decision, portfolio, data, market_is_open, locks, today):
+def validate(decision, portfolio, data, market_is_open, locks, today, price_source=LIVE_SOURCE):
     """Returns (executable, rejection_reason, details). Never judges the decision itself."""
     symbol = decision.get("symbol")
     action = decision.get("action")
@@ -113,7 +113,7 @@ def validate(decision, portfolio, data, market_is_open, locks, today):
     price = number(row.get("price"))
     if price is None or price <= 0:
         return False, f"no measured price for {symbol} — no trade made", {}
-    if row.get("data_source") != LIVE_SOURCE:
+    if row.get("data_source") != price_source:
         return False, (f"the price source is not live ({row.get('data_source')}) — "
                        "no intraday trade made"), {}
     if not market_is_open:
@@ -158,7 +158,7 @@ def validate(decision, portfolio, data, market_is_open, locks, today):
 # ------------------------------------------------------------------------- execution
 
 
-def execute(decision, portfolio, details, moment):
+def execute(decision, portfolio, details, moment, source="intraday_autonomous"):
     """Mutate portfolio.json in place and return the trade_history record."""
     symbol, action = decision["symbol"], decision["action"]
     shares, price, amount = details["shares"], details["price"], details["amount"]
@@ -216,7 +216,7 @@ def execute(decision, portfolio, details, moment):
         "shares": round(shares, 6),
         "price": round(price, 2),
         "amount_usd": round(amount, 2),
-        "source": "intraday_autonomous",
+        "source": source,
         "note": decision.get("reasoning", "")[:400],
     }
     portfolio.setdefault("trade_history", []).append(record)

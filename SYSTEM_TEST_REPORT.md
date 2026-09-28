@@ -80,12 +80,6 @@ not a verified live quote terminal. That limitation is visible in the page.
 
 ## Remaining improvements, in priority order
 
-- **Weekly transaction gate:** the weekly Claude action can still edit portfolio files
-  directly. Route weekly decisions through a structured proposal and deterministic
-  executor too; test cash/trade/thesis invariants before committing the weekly round.
-- **Field-aware numerical provenance:** matching numeric values is only a coarse gate.
-  Associate every figure with a symbol, metric, timestamp and source so an existing number
-  cannot be reused for an unrelated claim. The current gate does not establish semantics.
 - **Historical watchlist membership:** deferral counters lack a dated candidate membership
   ledger. Newly discovered symbols can be counted against rounds before they entered the
   universe; fix this with forward-recorded membership, not invented retrospective dates.
@@ -96,9 +90,7 @@ not a verified live quote terminal. That limitation is visible in the page.
 - **Prompt semantic evaluation:** add held-out scenarios and repeated model evaluations.
   A deterministic prompt gate and a few successful responses cannot establish improved
   reasoning or trading returns. Compare error rates, source fidelity and decision consistency.
-- **Freshness watchdog:** workflow failure alerts do not detect a scheduled workflow that
-  never starts. Add a separate heartbeat/watchdog and persistent last-success timestamps.
-- **Crash consistency:** atomic portfolio writes and replay protection are present, but a
+- **Intraday crash consistency:** atomic portfolio writes and replay protection are present, but a
   journal spanning portfolio, lock and log files would make interrupted recovery complete.
 
 ## Bounded automatic prompt changes
@@ -130,3 +122,47 @@ Implementation commit: `43baf48`.
 Production trading was not triggered. The bounded adaptation controller is installed,
 but activation awaits enough production observations; no improvement in investment
 performance is claimed.
+
+
+## Owner-authorized resilience follow-up — 28 September 2026
+
+Implemented the requested weekly transaction gate, field-aware numerical provenance and
+independent heartbeat with bounded automatic recovery. The charter hash is unchanged.
+
+- Weekly decisions now return JSON to `weekly_round.py`; the model has no file tools.
+  All A-F sections, cash/shares, measured weekly close, thesis coverage/conditions and
+  watchlist dispositions must validate before persistence. The executor owns fills and
+  log writing. A write-ahead journal can finish interrupted writes without requesting
+  another decision; conflicting newer state is never overwritten.
+- Saturday remains enabled, including holiday weekends. Friday holidays use the last
+  completed exchange session. Sunday catch-up is allowed; recorded weekly slots cannot
+  replay, including historical rounds predating this change.
+- Numeric decision prose uses typed source references. Code renders company, metric,
+  value, unit, observation time, source and snapshot. Intraday sources are issuer-scoped;
+  old prose cannot authorize a number. Numeric trade/threshold choices remain free.
+  Evidence or schema rejection retries at most three times, then fails closed.
+- Weekly/intraday evidence artifacts retain the original measurement packet and source
+  references for ninety days. Provider truth and semantic correctness of surrounding
+  prose are not established by this structural check.
+- Independent systemd watchdog: ten-minute checks, NYSE/holiday-aware intraday deadlines,
+  separate closing-review deadline and Saturday weekly deadline. A green skipped detector
+  does not count as a measurement. Missing jobs can be dispatched; only dependency-stage
+  failures may be rerun. Running jobs block dispatch. No repair rewrites strategy or
+  investment history, disables validation or replays a failed execution/commit.
+- Repair limits: two attempts per incident, two-hour cooldown, four per UTC day; state
+  and repair intent persist before API calls. Telegram distinguishes repair requested,
+  unresolved incident and observed successful recovery.
+
+Validation: 263 local tests, including 34 new resilience scenarios. Real OpenRouter
+Haiku and Opus calls passed typed-evidence and weekly structured-proposal checks; invalid
+schema/reference responses were rejected and corrected within the bounded retry loop.
+The Opus scenario used synthetic inputs and wrote no investment records. It tests provider
+integration, not profitability or production decision quality. Prompt inventory now has
+nineteen entries (fourteen base templates plus five vetted adaptive reminders).
+
+The watchdog runs on the owner's local machine independently of GitHub's scheduler.
+Monitoring pauses when that machine is off or disconnected; persistent timers check on
+return. An always-on external host remains necessary for uninterrupted monitoring.
+
+API references: [dispatch a workflow](https://docs.github.com/en/rest/actions/workflows)
+and [read runs / rerun failed jobs](https://docs.github.com/en/rest/actions/workflow-runs).

@@ -179,7 +179,7 @@ class PromptContractTest(unittest.TestCase):
         import prompt_eval
         report=prompt_eval.evaluate()
         self.assertTrue(report['passed'], report['checks'])
-        self.assertEqual(len(report['prompts']),17)
+        self.assertEqual(len(report['prompts']),19)
 
     def test_shared_policy_reaches_model_system_message(self):
         captured=[]
