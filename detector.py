@@ -204,6 +204,22 @@ def collect_live_data(symbols, earnings_fallback=None):
             "earnings_date": _earnings_date(yf, symbol, earnings_fallback),
             "data_source": source,
         }
+
+    # Fetch breaking news via FMP API
+    fmp_key = env("FMP_API_KEY")
+    if fmp_key:
+        try:
+            import urllib.request
+            req = urllib.request.Request(f"https://financialmodelingprep.com/stable/news/stock?symbols={','.join(symbols)}&limit=30&apikey={fmp_key}")
+            with urllib.request.urlopen(req, timeout=10) as res:
+                news_data = json.loads(res.read().decode("utf-8"))
+                for item in news_data:
+                    sym = item.get("symbol")
+                    if sym and sym in result:
+                        result[sym].setdefault("recent_news", []).append(item)
+        except Exception as e:
+            print(f"WARNING: FMP news fetch failed: {e}")
+
     return result
 
 
@@ -365,7 +381,29 @@ def in_cooldown(cooldown, key, moment):
 # ---------------------------------------------------------------------------- run
 
 
-def run(theses, data, stops, previous_state, cooldown, moment, full_review=False):
+def check_news_shock(symbol, thesis_summary, news_items):
+    import urllib.request
+    api_key = env("OPENROUTER_API_KEY")
+    if not api_key or not news_items or not thesis_summary:
+        return False, ""
+    news_text = "\n".join([f"- {n.get('title', '')} ({n.get('publishedDate', '')})" for n in news_items])
+    prompt = f"You are a strict risk management AI.\nTHESIS SUMMARY FOR {symbol}:\n{thesis_summary}\n\nBREAKING NEWS:\n{news_text}\n\nDoes this breaking news fundamentally invalidate or severely contradict the core thesis summary above? Answer strictly with YES or NO."
+    try:
+        req = urllib.request.Request(
+            "https://openrouter.ai/api/v1/chat/completions",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            data=json.dumps({"model": "google/gemini-1.5-flash", "messages": [{"role": "user", "content": prompt}], "temperature": 0.0}).encode("utf-8")
+        )
+        with urllib.request.urlopen(req, timeout=15) as res:
+            answer = json.loads(res.read().decode("utf-8"))["choices"][0]["message"]["content"].strip().upper()
+            if "YES" in answer[:5]:
+                return True, f"News Shock: {news_items[0].get('title', '')}"
+    except Exception as e:
+        print(f"WARNING: News shock LLM failed for {symbol}: {e}")
+    return False, ""
+
+
+def run(theses, data, stops, previous_state, cooldown, moment, full_review=False, last_news=None, new_last_news=None):
     """Pure function: no network, no files. Tests feed data straight into this."""
     today = moment.date()
     state, triggered, flags = {}, [], []
@@ -374,6 +412,29 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
     for symbol, position in theses.items():
         if symbol.startswith("_"):
             continue
+
+        # News Sentiment Check
+        recent_news = data.get(symbol, {}).get("recent_news", [])
+        if recent_news and last_news is not None and new_last_news is not None:
+            latest_date = recent_news[0].get("publishedDate", "")
+            last_checked = last_news.get(symbol, "")
+            if latest_date and latest_date > last_checked:
+                new_items = [n for n in recent_news if n.get("publishedDate", "") > last_checked]
+                if new_items:
+                    is_shock, shock_detail = check_news_shock(symbol, position.get("thesis_summary", ""), new_items)
+                    new_last_news[symbol] = latest_date
+                    if is_shock:
+                        triggered.append({
+                            "symbol": symbol,
+                            "claim_id": "news_shock",
+                            "severity": "thesis",
+                            "condition_type": "sentiment",
+                            "measured": 1,
+                            "threshold": 0,
+                            "trigger": shock_detail,
+                            "cooldown_key": f"thesis:{symbol}"
+                        })
+
         row = data.get(symbol, {})
         suspect = False
         if row.get("price") and row.get("previous_close"):
@@ -501,14 +562,19 @@ def main():
 
     violations_path = os.path.join(args.state_dir, "violations.json")
     cooldown_path = os.path.join(args.state_dir, "cooldown.json")
+    last_news_path = os.path.join(args.state_dir, "last_news.json")
+    
     previous = read_json(violations_path, {}).get("conditions", {})
     cooldown = read_json(cooldown_path, {})
+    last_news = read_json(last_news_path, {})
+    new_last_news = last_news.copy()
 
-    report = run(theses, data, stops, previous, cooldown, moment, args.full_review)
+    report = run(theses, data, stops, previous, cooldown, moment, args.full_review, last_news, new_last_news)
     report["data"] = {symbol: data.get(symbol, {}) for symbol in sorted(data)}
 
     if not args.dry_run:
         write_json(violations_path, report)
+        write_json(last_news_path, new_last_news)
         append_trigger_log(os.path.join(args.state_dir, "triggers.jsonl"), report)
 
     # --- human-readable summary ---
