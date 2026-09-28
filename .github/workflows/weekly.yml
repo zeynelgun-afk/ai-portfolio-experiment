@@ -51,6 +51,12 @@ jobs:
           echo "audit exit: $?"
           set -e
 
+      - name: 2.5) Run Scout Agent (Dynamic Watchlist)
+        run: python scout.py
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+
       - name: 3) Claude decision round (via OpenRouter)
         if: env.OPENROUTER_API_KEY != ''
         uses: anthropics/claude-code-action@v1
