@@ -67,6 +67,10 @@ do; it tells you how to account for yourself.
    warranted* has survived that bar three times: writing the rule down again has not
    worked, so say in section F what you are doing differently this round, or write a
    `### CHARTER REVISION PROPOSAL` explaining why the rule itself is wrong.
+   **An open `[audit]` pull request is that proposal already written down.** It amends
+   these instructions and it is waiting on the owner, not on you — do not merge it, do not
+   close it, and do not edit the file it touches. Say in section F whether you agree with
+   it, because the owner reads your answer before deciding.
    **A trade may have happened during the week.** The positions you see in
    `portfolio.json` may not be the positions you left; entries tagged
    `"source": "intraday_autonomous"` in `trade_history` are the intraday round's trades.
