@@ -153,9 +153,17 @@ def monitor(now, state, fetch=api, send=notify, apply=False):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--github-alerts', action='store_true', help='send through the existing GitHub Telegram secret configuration')
     parser.add_argument('--apply', action='store_true', help='enable bounded repairs and Telegram alerts')
     parser.add_argument('--state', default=str(Path.home()/'.local/state/ai-portfolio/watchdog.json'))
     args = parser.parse_args()
+    def send_alert(**kwargs):
+        if args.github_alerts:
+            api('actions/workflows/failure-alert.yml/dispatches', 'POST',
+                {'ref': 'main', 'inputs': {'message': kwargs['message'][:3500]}})
+            print('Telegram delivery requested through GitHub; delivery is confirmed by the notification workflow')
+        else:
+            notify(**kwargs)
     path = Path(args.state)
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(str(path) + '.lock', 'w') as lock:
@@ -170,13 +178,13 @@ def main():
         if args.apply:
             state['_persist'] = persist
         try:
-            print(json.dumps(monitor(datetime.now(timezone.utc), state, apply=args.apply)))
+            print(json.dumps(monitor(datetime.now(timezone.utc), state, send=send_alert, apply=args.apply)))
             if args.apply:
                 state.pop('api_failure_alerted', None)
                 persist()
         except Exception:
             if args.apply and not state.get('api_failure_alerted'):
-                notify(message='🚨 AI Portföy — bağımsız gözcü kontrolü başarısız\nGitHub veya bildirim servisine erişilemiyor. Otomatik onarım doğrulanamadı.')
+                send_alert(message='🚨 AI Portföy — bağımsız gözcü kontrolü başarısız\nGitHub veya bildirim servisine erişilemiyor. Otomatik onarım doğrulanamadı.')
                 state['api_failure_alerted'] = True
                 persist()
             raise RuntimeError('Watchdog check failed; inspect connectivity/authentication') from None

@@ -166,3 +166,10 @@ return. An always-on external host remains necessary for uninterrupted monitorin
 
 API references: [dispatch a workflow](https://docs.github.com/en/rest/actions/workflows)
 and [read runs / rerun failed jobs](https://docs.github.com/en/rest/actions/workflow-runs).
+
+
+Runtime notification transport: the local environment has no Telegram destination ID,
+so the installed watchdog uses the existing GitHub Telegram workflow and repository
+secrets. No secrets were exported. Detection is independent of GitHub scheduling, but
+notification delivery in this mode still needs GitHub API/runners. Direct Telegram mode
+is implemented and requires the local target chat ID and matching bot credentials.

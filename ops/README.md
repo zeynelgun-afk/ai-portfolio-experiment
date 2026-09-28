@@ -37,3 +37,12 @@ ai-portfolio-watchdog.timer`. This machine must be awake, online and running the
 service manager. `Persistent=true` checks on return; it cannot monitor while the machine
 is off. For uninterrupted external monitoring deploy this timer on an always-on host
 with its own credentials. This is independent of GitHub scheduling, not an uptime guarantee.
+
+
+When Telegram credentials exist only in GitHub Secrets, install with
+`python ops/install_watchdog.py --github-alerts`. The timer and detection remain local;
+notifications dispatch the existing Telegram workflow, which uses its existing secrets.
+No secret is exported. A dispatch acknowledgment is not Telegram delivery confirmation;
+check the notification workflow result. This mode cannot deliver an alert during a
+complete GitHub API/runner outage. Switch to direct delivery with `--env-file` when the
+same bot's local token and target chat IDs are available.

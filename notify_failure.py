@@ -58,4 +58,4 @@ def notify(environ=None, opener=None, message=None):
 
 
 if __name__ == "__main__":
-    notify()
+    notify(message=os.environ.get("WATCHDOG_MESSAGE", "")[:3500] or None)

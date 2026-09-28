@@ -1,7 +1,14 @@
 name: Telegram Failure Alert
+run-name: "${{ inputs.message && 'Watchdog Telegram notification' || 'Telegram Failure Alert' }}"
 
 on:
   workflow_dispatch:
+    inputs:
+      message:
+        description: 'Independent watchdog notification; empty runs the alert test'
+        type: string
+        required: false
+        default: ''
   workflow_run:
     workflows:
       - Weekly Portfolio Round
@@ -44,5 +51,6 @@ jobs:
           SOURCE_WORKFLOW: ${{ github.event.workflow_run.name }}
           SOURCE_RUN_URL: ${{ github.event.workflow_run.html_url }}
           FAILED_STEPS_FILE: /tmp/failed_steps.json
-          ALERT_TEST: ${{ github.event_name == 'workflow_dispatch' || startsWith(github.event.workflow_run.display_title, 'TEST:') }}
+          WATCHDOG_MESSAGE: ${{ inputs.message }}
+          ALERT_TEST: ${{ (github.event_name == 'workflow_dispatch' && inputs.message == '') || startsWith(github.event.workflow_run.display_title, 'TEST:') }}
         run: python notify_failure.py
