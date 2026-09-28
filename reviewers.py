@@ -292,9 +292,7 @@ def append_audit_log(path, stamp, agreed, note, recurring, models):
 def review(scorecard, state_dir, dry_run=False):
     api_key = env("OPENROUTER_API_KEY")
     if not api_key and not dry_run:
-        print("No OPENROUTER_API_KEY — adversarial review skipped (the scorecard in "
-              "AUDIT.md is unaffected; it needs no model)")
-        return []
+        raise RuntimeError("OPENROUTER_API_KEY is required for the requested adversarial review")
 
     model_a = env("OPENROUTER_MODEL_AUDIT_A", DEFAULT_AUDITOR_A)
     model_b = env("OPENROUTER_MODEL_AUDIT_B", DEFAULT_AUDITOR_B)
@@ -312,6 +310,8 @@ def review(scorecard, state_dir, dry_run=False):
         os.path.join(state_dir, "audit_patterns.json"), agreed)
     append_audit_log(AUDIT_LOG_PATH, now_stamp(), agreed, note, recurring,
                      (model_a, model_b))
+    if findings_a is None or findings_b is None:
+        raise RuntimeError("Adversarial review incomplete: an auditor produced unusable output")
     print(f"Review: {note}")
     for finding in agreed:
         print(f"  [{finding['severity']}] {finding['pattern']} — "

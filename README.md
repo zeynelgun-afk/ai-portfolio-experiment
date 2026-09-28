@@ -286,3 +286,21 @@ Actions → **Intraday Detector** → Run workflow also runs it manually (the `f
 checkbox revisits every claim).
 
 > ⚠️ This is an experiment, not investment advice.
+
+
+## Failure monitoring
+
+`Telegram Failure Alert` watches failures of the weekly round, intraday detector,
+dashboard deployment and manual Telegram report. It sends the failed step names and
+run URL to the group, retries delivery and falls back to `TELEGRAM_CHAT_ID_DM`.
+Both destinations failing makes the alert workflow fail as well. Its manual dispatch
+sends an explicitly labelled test notification and does not run portfolio decisions.
+
+The detector requires `FMP_API_KEY` and `OPENROUTER_API_KEY` in Actions secrets.
+`OPENROUTER_MODEL_NEWS` overrides the news model; otherwise it uses
+`OPENROUTER_MODEL_FAST` or the existing Haiku default. Unavailable or ambiguous news
+assessments remain pending for retry. Valid price-triggered decisions can complete,
+then the news-health step marks the run failed so an alert is sent. News fetch errors,
+audit errors, unusable auditor responses and Scout errors also fail visibly.
+`--dry-run` does not call the news model. Failed workflows do not silently roll back
+already recorded decisions; inspect the linked run and decision log before retrying.

@@ -25,16 +25,14 @@ def get_fmp(endpoint, api_key, limit=20):
         with urllib.request.urlopen(req, timeout=10) as res:
             return json.loads(res.read().decode("utf-8"))
     except Exception as e:
-        print(f"FMP error {endpoint}: {e}")
-        return []
+        raise RuntimeError(f"Scout could not fetch FMP endpoint {endpoint}") from None
 
 def run_scout():
     fmp_key = env("FMP_API_KEY")
     or_key = env("OPENROUTER_API_KEY")
     
     if not fmp_key or not or_key:
-        print("Missing API keys for Scout.")
-        return
+        raise RuntimeError("Missing API keys for Scout")
 
     print("Fetching market pulse for Scout Agent...")
     articles = get_fmp("fmp-articles", fmp_key, 30)
@@ -96,7 +94,7 @@ DO NOT return markdown blocks. Return ONLY a valid JSON array like: ["VRT", "COH
             print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
             print(new_symbols)
     except Exception as e:
-        print(f"Scout Agent failed: {e}")
+        raise RuntimeError("Scout Agent failed; watchlist generation did not complete") from None
 
 if __name__ == "__main__":
     run_scout()

@@ -1,0 +1,47 @@
+name: Telegram Failure Alert
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - Weekly Portfolio Round
+      - Intraday Detector
+      - Deploy Dashboard to GitHub Pages
+      - Telegram Report (manual)
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  notify:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      # Only trusted default-branch code is executed; never the triggering run's code.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read failed step names
+        if: github.event_name == 'workflow_run'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID/jobs?per_page=100" \
+            --jq '[.jobs[].steps[] | select(.conclusion == "failure") | .name]' > /tmp/failed_steps.json
+      - name: Send failure alert, with DM fallback
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
+          SOURCE_WORKFLOW: ${{ github.event.workflow_run.name }}
+          SOURCE_RUN_URL: ${{ github.event.workflow_run.html_url }}
+          FAILED_STEPS_FILE: /tmp/failed_steps.json
+          ALERT_TEST: ${{ github.event_name == 'workflow_dispatch' }}
+        run: python notify_failure.py

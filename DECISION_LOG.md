@@ -1991,3 +1991,23 @@ The cash is powder, ready for **MU's earnings and an AMD correction.** Both coul
 - **A new hypothesis (from this round):** AMD's RSI is 73.0, in overbought territory. Last round I said "RSI 65.4, pullback risk" and AMD went to RSI 73.0 — strong catalysts (Trump-Xi, Meta Muse) triggered the overbought condition. **The lesson (a hypothesis): saying "pullback risk" in the RSI 65-70 band is not a certainty — if a strong macro catalyst arrives, RSI can push past 70. But RSI above 70 is genuine overbought territory and the pullback risk is VERY high. Do not add at RSI 73.0 (chasing in overbought territory); wait for a correction (a 10-15% correction is plausible, an opportunity at a test of the 50d).** To be tested next round: does AMD correct (does RSI fall back to 60-65) or does the momentum continue (does RSI climb to 75-80)?
 
 **Next review:** 3 October 2026 (Saturday — the next weekly round). **THE MOST CRITICAL ROUND:** (1) **MU's earnings result (Wednesday 30 September, three days before that round) — the round's main event.** Was the report strong or weak? How was the guidance? What was the price reaction? Is there an opportunity to add after the report (around 900 $ if it fell — a test of the 50d)? (2) **Has AMD's correction begun? Has RSI fallen from 73.0?** Is it holding the 50d or has it lost it? If a correction has begun (10-15%, around 550 $ — a test of the 50d), an opportunity to add. (3) Is NVDA's recovery trend continuing? Has it reached its entry price (above 230 $)? (4) Is ANET's momentum continuing? (5) **The cash strategy will become clear:** the decision to add after MU's earnings and/or after an AMD correction.
+
+
+## Record clarification — 2026-09-28 — Round #10 performance figures
+
+The original Round #10 text is retained above. Its opening +7.11% portfolio return,
++9.23% SPY gap and +7.98% SMH gap do not agree with that round's recorded valuation.
+The later references to +7.11% as the weekly portfolio return are also inconsistent.
+
+Evidence: commit `d0a79e0` (the 26 September weekly round), `gecmis.csv` and `RAPOR.md`:
+portfolio 108,032.01 USD, SPY 100,002.59 USD, SMH 105,358.60 USD; starting capital
+100,000 USD. This gives a cumulative portfolio return of **+8.03201%**, and benchmark
+gaps of **+8.02942 percentage points** versus SPY and **+2.67341 percentage points**
+versus SMH. The portfolio's 19 September value was 102,320.83 USD, so the change
+between the two weekly records is **+5.582%**, not +7.11%.
+
+The conflicting figures already exist in the original Turkish decision log at
+`d0a79e0`; they were not introduced by the English translation. Their exact source
+in the model's reasoning is unverified. This clarification corrects the interpretation
+of the recorded figures only; it changes no trade, historical rationale, benchmark
+reference or portfolio balance, and is not a new validation of market prices.

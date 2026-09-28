@@ -84,11 +84,7 @@ jobs:
         if: env.OPENROUTER_API_KEY != ''
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set +e
-          python amend.py
-          echo "amend exit: $?"
-          set -e
+        run: python amend.py
 
       - name: 7) Exit-level notification (Issue)
         if: hashFiles('STOP_BREACH.md') != ''
@@ -104,7 +100,7 @@ jobs:
         # green run looks identical to one that did. A non-200 makes the step red.
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
-          CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          CODE=$(curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text@telegram.txt" \
             -o /tmp/telegram_body.txt -w '%{http_code}')
@@ -130,7 +126,7 @@ jobs:
             "If it needs recalibrating, open a Claude session and say 'let us go through the decision log together' — WEEKLY_INSTRUCTIONS.md is updated jointly." \
             "${EXTRA}" \
             "https://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/DECISION_LOG.md")
-          CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          CODE=$(curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text=${MESSAGE}" \
             -o /dev/null -w '%{http_code}')
@@ -138,4 +134,3 @@ jobs:
           if [ "$CODE" != "200" ]; then
             echo "::warning title=The audit reminder was not delivered::HTTP ${CODE}"
           fi
-

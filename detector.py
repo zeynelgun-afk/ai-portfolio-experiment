@@ -6,9 +6,9 @@ When the price slipped below the 50-day average on a Monday, theses.json still r
 "+14.9% above the average". The principle: **data flows continuously, commentary is
 updated only when the meaning changes.**
 
-There is no LLM in this file. All it does is measure the validity conditions in
-theses.json and decide whether a threshold has been crossed. If one has, it signals
-through the exit code; who rewrites the commentary and how is reassess.py's job.
+Price conditions are deterministic. Unseen news is assessed by a configurable model;
+failed news assessments stay pending for retry. Commentary and trading decisions
+belong to reassess.py.
 
 Exit codes (the workflow branches on these):
     0  -> nothing changed (or only a `warning`-level flag)
@@ -218,7 +218,7 @@ def collect_live_data(symbols, earnings_fallback=None):
                     if sym and sym in result:
                         result[sym].setdefault("recent_news", []).append(item)
         except Exception as e:
-            print(f"WARNING: FMP news fetch failed: {e}")
+            raise RuntimeError("FMP news fetch failed; news monitoring is incomplete") from None
 
     return result
 
@@ -382,32 +382,37 @@ def in_cooldown(cooldown, key, moment):
 
 
 def check_news_shock(symbol, thesis_summary, news_items):
+    """Return True/False only for a completed assessment; None means retry later."""
     import urllib.request
     api_key = env("OPENROUTER_API_KEY")
     if not api_key or not news_items or not thesis_summary:
-        return False, ""
+        return None, "news assessment prerequisites are missing"
     news_text = "\n".join([f"- {n.get('title', '')} ({n.get('publishedDate', '')})" for n in news_items])
     prompt = f"You are a strict risk management AI.\nTHESIS SUMMARY FOR {symbol}:\n{thesis_summary}\n\nBREAKING NEWS:\n{news_text}\n\nDoes this breaking news fundamentally invalidate or severely contradict the core thesis summary above? Answer strictly with YES or NO."
     try:
         req = urllib.request.Request(
-            "https://openrouter.ai/api/v1/chat/completions",
+            env("LLM_BASE_URL", "https://openrouter.ai/api/v1").rstrip("/") + "/chat/completions",
             headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            data=json.dumps({"model": "google/gemini-1.5-flash", "messages": [{"role": "user", "content": prompt}], "temperature": 0.0}).encode("utf-8")
+            data=json.dumps({"model": env("OPENROUTER_MODEL_NEWS", env("OPENROUTER_MODEL_FAST", "anthropic/claude-haiku-4.5")), "messages": [{"role": "user", "content": prompt}], "temperature": 0.0}).encode("utf-8")
         )
         with urllib.request.urlopen(req, timeout=15) as res:
             answer = json.loads(res.read().decode("utf-8"))["choices"][0]["message"]["content"].strip().upper()
-            if "YES" in answer[:5]:
+            if answer == "YES":
                 return True, f"News Shock: {news_items[0].get('title', '')}"
+            if answer == "NO":
+                return False, ""
+            return None, "news model did not return YES or NO"
     except Exception as e:
         print(f"WARNING: News shock LLM failed for {symbol}: {e}")
-    return False, ""
+    return None, "news model request failed"
 
 
-def run(theses, data, stops, previous_state, cooldown, moment, full_review=False, last_news=None, new_last_news=None):
-    """Pure function: no network, no files. Tests feed data straight into this."""
+def run(theses, data, stops, previous_state, cooldown, moment, full_review=False, last_news=None, new_last_news=None, assess_news=True):
+    """Measure conditions; optionally assess unseen news using the news model."""
     today = moment.date()
     state, triggered, flags = {}, [], []
     state_changed = False
+    news_errors = []
 
     for symbol, position in theses.items():
         if symbol.startswith("_"):
@@ -415,14 +420,19 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
 
         # News Sentiment Check
         recent_news = data.get(symbol, {}).get("recent_news", [])
-        if recent_news and last_news is not None and new_last_news is not None:
+        if assess_news and recent_news and last_news is not None and new_last_news is not None:
+            recent_news = sorted(recent_news, key=lambda n: n.get("publishedDate", ""), reverse=True)
             latest_date = recent_news[0].get("publishedDate", "")
             last_checked = last_news.get(symbol, "")
             if latest_date and latest_date > last_checked:
                 new_items = [n for n in recent_news if n.get("publishedDate", "") > last_checked]
                 if new_items:
                     is_shock, shock_detail = check_news_shock(symbol, position.get("thesis_summary", ""), new_items)
-                    new_last_news[symbol] = latest_date
+                    if is_shock is None:
+                        news_errors.append({"symbol": symbol, "error": shock_detail})
+                    else:
+                        new_last_news[symbol] = latest_date
+                        state_changed = True
                     if is_shock:
                         triggered.append({
                             "symbol": symbol,
@@ -521,6 +531,7 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
         "triggered": triggered,
         "flags": flags,
         "state_changed": state_changed or bool(triggered),
+        "news_errors": news_errors,
     }
 
 
@@ -569,7 +580,8 @@ def main():
     last_news = read_json(last_news_path, {})
     new_last_news = last_news.copy()
 
-    report = run(theses, data, stops, previous, cooldown, moment, args.full_review, last_news, new_last_news)
+    report = run(theses, data, stops, previous, cooldown, moment, args.full_review, last_news, new_last_news,
+                 assess_news=not args.dry_run)
     report["data"] = {symbol: data.get(symbol, {}) for symbol in sorted(data)}
 
     if not args.dry_run:
@@ -600,11 +612,12 @@ def main():
                             for i in report["triggered"]) or "none"
         with open(gh_output, "a", encoding="utf-8") as handle:
             handle.write(f"code={report['code']}\n")
+            handle.write(f"news_error_count={len(report['news_errors'])}\n")
             handle.write(f"market_open={'true' if report['market_open'] else 'false'}\n")
             handle.write(
                 f"state_changed={'true' if report['state_changed'] else 'false'}\n")
             handle.write(f"thesis_symbols={','.join(thesis_symbols)}\n")
-            handle.write(f"trigger_summary={summary}\n")
+            handle.write(f"trigger_summary={' '.join(summary.splitlines())}\n")
 
     return report["code"]
 

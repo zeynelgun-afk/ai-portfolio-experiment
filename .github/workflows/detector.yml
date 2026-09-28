@@ -35,7 +35,9 @@ jobs:
   detect:
     runs-on: ubuntu-latest
     env:
+      FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENROUTER_MODEL_NEWS: ${{ vars.OPENROUTER_MODEL_NEWS }}
       OPENROUTER_MODEL_FAST: ${{ vars.OPENROUTER_MODEL_FAST }}
       OPENROUTER_MODEL_DEEP: ${{ vars.OPENROUTER_MODEL_DEEP }}
       MAX_LLM_CALLS_PER_WEEK: ${{ vars.MAX_LLM_CALLS_PER_WEEK }}
@@ -65,20 +67,26 @@ jobs:
             echo "Mode: event-driven (only claims whose threshold was crossed)"
           fi
 
-      - name: 1) Detector — measure the conditions (deterministic, no LLM)
+      - name: 1) Detector — measure conditions and assess news
         id: detector
         run: |
+          : "${FMP_API_KEY:?FMP_API_KEY is required for news monitoring}"
+          : "${OPENROUTER_API_KEY:?OPENROUTER_API_KEY is required for news assessment}"
           set +e
           if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
             python detector.py --full-review
           else
             python detector.py
           fi
-          echo "code=$?" >> "$GITHUB_OUTPUT"
+          CODE=$?
           set -e
+          case "$CODE" in
+            0|10|20) echo "code=$CODE" >> "$GITHUB_OUTPUT" ;;
+            *) echo "::error::Detector failed with exit code $CODE"; exit "$CODE" ;;
+          esac
 
       - name: 2) Reassessment (only when a threshold was crossed)
-        if: steps.detector.outputs.code != '0' && env.OPENROUTER_API_KEY != ''
+        if: (steps.detector.outputs.code == '10' || steps.detector.outputs.code == '20') && env.OPENROUTER_API_KEY != ''
         id: reassess
         run: |
           if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
@@ -98,6 +106,9 @@ jobs:
 
       - name: 5) Commit + push
         id: commit
+        env:
+          SUMMARY: ${{ steps.detector.outputs.trigger_summary }}
+          TRADE: ${{ steps.trade.outputs.trade_summary }}
         run: |
           if [ "${{ steps.detector.outputs.code }}" = "0" ] \
              && [ "${{ steps.detector.outputs.state_changed }}" != "true" ]; then
@@ -117,8 +128,6 @@ jobs:
             echo "No file differences — commit skipped"
             exit 0
           fi
-          SUMMARY="${{ steps.detector.outputs.trigger_summary }}"
-          TRADE="${{ steps.trade.outputs.trade_summary }}"
           MESSAGE="[bot/detector] intraday check (code ${{ steps.detector.outputs.code }})"
           if [ -n "$TRADE" ] && [ "$TRADE" != "none" ]; then
             MESSAGE="$MESSAGE — trade: $TRADE"
@@ -139,26 +148,29 @@ jobs:
         # channel and the fallback is recorded both in the log and in the job summary — a
         # lost thesis-level alert is worse than never having built the alert.
         if: steps.detector.outputs.code == '20' && env.TELEGRAM_BOT_TOKEN != ''
+        env:
+          TRADE: ${{ steps.trade.outputs.trade_summary }}
+          TRIGGER_SUMMARY: ${{ steps.detector.outputs.trigger_summary }}
+          THESIS_SYMBOLS: ${{ steps.detector.outputs.thesis_symbols }}
         run: |
-          TRADE="${{ steps.trade.outputs.trade_summary }}"
           REJECTED="${{ steps.trade.outputs.rejected_count }}"
           MESSAGE=$(printf '%s\n\n%s\n\n%s\n%s\n\n%s\n\n%s' \
             "🔴 THESIS LEVEL — intraday reassessment" \
-            "Trigger: ${{ steps.detector.outputs.trigger_summary }}" \
-            "Position(s): ${{ steps.detector.outputs.thesis_symbols }}" \
+            "Trigger: ${TRIGGER_SUMMARY}" \
+            "Position(s): ${THESIS_SYMBOLS}" \
             "Trade executed: ${TRADE:-none} · decisions not executed: ${REJECTED:-0}" \
             "The reasoning and the falsifier are in the S# entry in DECISION_LOG.md." \
             "https://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/DECISION_LOG.md")
 
           send() {  # $1 = chat_id, $2 = text -> prints the body, then the HTTP code
-            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
               --data-urlencode "chat_id=$1" --data-urlencode "text=$2" \
               -w '\n%{http_code}'
           }
 
           DELIVERED=0
           if [ -n "${TELEGRAM_CHAT_ID_DM}" ]; then
-            RESPONSE=$(send "${TELEGRAM_CHAT_ID_DM}" "${MESSAGE}")
+            RESPONSE=$(send "${TELEGRAM_CHAT_ID_DM}" "${MESSAGE}") || true
             CODE=$(printf '%s' "$RESPONSE" | tail -n1)
             BODY=$(printf '%s' "$RESPONSE" | sed '$d')
             echo "DM HTTP status: ${CODE}"
@@ -175,7 +187,7 @@ jobs:
 
           if [ "$DELIVERED" = "0" ] && [ -n "${TELEGRAM_CHAT_ID}" ]; then
             FALLBACK=$(printf '%s\n\n%s' "⚠️ (the DM could not be reached, falling back to the group channel)" "${MESSAGE}")
-            RESPONSE=$(send "${TELEGRAM_CHAT_ID}" "${FALLBACK}")
+            RESPONSE=$(send "${TELEGRAM_CHAT_ID}" "${FALLBACK}") || true
             CODE=$(printf '%s' "$RESPONSE" | tail -n1)
             BODY=$(printf '%s' "$RESPONSE" | sed '$d')
             echo "Fallback channel HTTP status: ${CODE}"
@@ -220,7 +232,14 @@ jobs:
           lines.append("\nhttps://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/theses.json")
           print("\n".join(lines))
           PY
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text@/tmp/summary.txt" \
             -o /dev/null -w "Summary HTTP status: %{http_code}\n"
+
+      - name: News assessment health
+        id: news_health
+        if: always() && steps.detector.outputs.news_error_count != '' && steps.detector.outputs.news_error_count != '0'
+        run: |
+          echo "::error::News assessment incomplete; failed headlines remain pending for the next run."
+          exit 1
