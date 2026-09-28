@@ -133,7 +133,7 @@ def _single_call(model, messages, api_key):
     request = urllib.request.Request(api_url(), data=body, headers={
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://github.com/zeynelgun-afk/ai-portfoy-deneyi",
+        "HTTP-Referer": "https://github.com/zeynelgun-afk/ai-portfolio-experiment",
         "X-Title": "AI Portfolio Experiment - detector",
     })
     try:

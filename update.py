@@ -179,7 +179,7 @@ Gap vs SPY: **{(total - spy_value) / start * 100:+.2f}%** · vs SMH: **{(total -
             f"Positions:\n{position_summary}\n"
             f"Cash: {portfolio['cash_usd']:,.0f} $\n\n"
             f"{breach_telegram}\n\n"
-            f"Details: https://github.com/zeynelgun-afk/ai-portfoy-deneyi"
+            f"Details: https://github.com/zeynelgun-afk/ai-portfolio-experiment"
         )
 
     # --- GitHub Actions output ---

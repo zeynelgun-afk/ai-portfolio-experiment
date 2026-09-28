@@ -54,7 +54,7 @@ jobs:
             "Review the decision log: what did the autonomous Claude do this week, and does its reasoning hold up?" \
             "If it needs recalibrating, open a Claude session and say 'let us go through the decision log together' — WEEKLY_INSTRUCTIONS.md is updated jointly." \
             "${EXTRA}" \
-            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/DECISION_LOG.md")
+            "https://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/DECISION_LOG.md")
           CODE=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             --data-urlencode "chat_id=${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text=${MESSAGE}" \

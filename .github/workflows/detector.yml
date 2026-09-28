@@ -148,7 +148,7 @@ jobs:
             "Position(s): ${{ steps.detector.outputs.thesis_symbols }}" \
             "Trade executed: ${TRADE:-none} · decisions not executed: ${REJECTED:-0}" \
             "The reasoning and the falsifier are in the S# entry in DECISION_LOG.md." \
-            "https://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/DECISION_LOG.md")
+            "https://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/DECISION_LOG.md")
 
           send() {  # $1 = chat_id, $2 = text -> prints the body, then the HTTP code
             curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
@@ -217,7 +217,7 @@ jobs:
                      if value.get("breach") and not value.get("confirmed")]
           if pending:
               lines.append("\nConditions awaiting confirmation: " + ", ".join(sorted(pending)))
-          lines.append("\nhttps://github.com/zeynelgun-afk/ai-portfoy-deneyi/blob/main/theses.json")
+          lines.append("\nhttps://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/theses.json")
           print("\n".join(lines))
           PY
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
