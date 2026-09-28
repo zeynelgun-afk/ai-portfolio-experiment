@@ -202,4 +202,19 @@ class ScoutUniqueness(unittest.TestCase):
         import scout
         with self.assertRaises(ValueError):scout.validate_symbols(['AMD']*15)
 
+
+
+
+# Existing flow fixtures isolate the new independent review service; its rejection
+# and citation semantics are exercised separately in test_evidence_depth.py.
+def setUpModule():
+    from unittest.mock import patch
+    global semantic_fixture
+    semantic_fixture = patch('claim_evidence.semantic_review', return_value={'verdict':'supported'})
+    semantic_fixture.start()
+
+
+def tearDownModule():
+    semantic_fixture.stop()
+
 if __name__=='__main__':unittest.main()

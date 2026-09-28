@@ -115,3 +115,28 @@ def collect(symbol, now=None):
         if kind == 'balance' and all(finite(row.get(k)) for k in ('totalDebt','cashAndCashEquivalents')):
             add('net_debt',row['totalDebt']-row['cashAndCashEquivalents'],row['currency'],row,kind,['totalDebt','cashAndCashEquivalents'])
     return result
+
+
+MONITOR_METRICS = {'revenue_yoy_pct', 'gross_margin_pct', 'operating_margin_pct',
+                   'quarter_operating_cash_flow', 'quarter_free_cash_flow', 'net_debt', 'total_debt'}
+
+
+def measured_fact(condition, row, today):
+    """A statement period is not its observation time; never treat missing/stale as healthy."""
+    metric = condition.get('metric')
+    if metric not in MONITOR_METRICS:
+        return None
+    packet = row.get('fundamental_research', {})
+    try:
+        observed = datetime.fromisoformat(packet['collected_at'])
+        fact = packet['facts'][metric]
+        period = date.fromisoformat(fact['as_of'])
+        if observed.date() != today or (today-period).days not in range(201):
+            return None
+        if not finite(fact['value']) or not fact.get('source') or not fact.get('unit'):
+            return None
+        if condition.get('unit') != fact['unit']:
+            return None
+        return fact
+    except (KeyError, TypeError, ValueError):
+        return None

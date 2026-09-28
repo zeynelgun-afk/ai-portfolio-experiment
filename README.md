@@ -282,7 +282,7 @@ explicit gaps. This is not a full filing/transcript ingestion system.
 
 `research_metrics.py` freezes selected research candidates, channel membership,
 agent reports, decisions and benchmark entry quotes at session execution. Future
-5- and 20-session price returns are compared with SPY and SMH. Missing or unmatured
+5- and 20-session split/dividend-adjusted research returns are compared with SPY and SMH (reinvestment assumption). Missing or unmatured
 observations remain pending. Channel groups can overlap, and the sample covers the
 selected research universe; it does not establish causal agent contribution or
 predictive power. Existing historical returns are not retroactively reconstructed.
@@ -298,3 +298,56 @@ unchanged. Commissions, spread and slippage are still unmodeled, so these record
 should not be described as executable brokerage returns.
 
 Financial-statement and discovery endpoints follow the [FMP API documentation](https://site.financialmodelingprep.com/developer/docs).
+
+## Economic thesis monitoring and evidence review
+
+New weekly theses must include an economic condition when measured fundamentals are
+available: revenue growth, gross/operating margin, operating/free cash flow or debt.
+The detector uses a freshly collected quarterly snapshot, explicit units and its
+existing confirmation logic. Missing/stale evidence blocks reassessment for that
+issuer; it never means the thesis passed. An assessed report is deduplicated until
+its period, value or condition changes. Old thesis thresholds are not invented or
+retroactively rewritten; migration happens at the next successful weekly decision.
+
+News checks require provider article/excerpt text, publication date, issuer and URL.
+Each assessment records exact source quotes, affected claim IDs, counterevidence and
+uncertainty. Headline-only or partially missing packets stay pending and generate
+assessment errors. These are provider excerpts, not independently scraped full text.
+
+A separate model challenges factual and causal assertions before weekly proposals
+or intraday thesis edits can pass. Unsupported/uncertain drafts leave existing text
+unassessed and produce no associated decision. Attributed forecasts remain forecasts;
+quoting an analyst does not establish their prediction as fact. The reviewer is still
+a fallible model, not a proof engine. Its English prompt is included in `prompt_eval.py`.
+`OPENROUTER_MODEL_REVIEW` selects it (default `openai/gpt-4o`). Review calls count toward
+the claim budget; existing thesis-level emergency budget exceptions remain unchanged.
+Evidence is retained in workflow artifacts and `state/violations.json` for intraday work.
+
+## Corporate actions and return basis
+
+Before scheduled analysis/trading, `corporate_actions.py` validates the active USD
+issuer identity and reconciles FMP split/dividend events. The first successful run
+establishes an explicit prospective boundary; no earlier entitlement is guessed.
+Splits rescale shares, entry price, stop and price thresholds while preserving cost.
+Dividends become non-spendable receivables on the ex-date and cash on the payment date,
+including when the holding was sold after entitlement. Events/payment credits are
+idempotent and share the atomic transaction journal with portfolio state.
+
+Accounting changes are committed before Telegram notification or subsequent trades.
+Missing providers, changed issuer identity, conflicting revisions or late events that
+cross recorded trades stop the workflow and use the existing Telegram failure path.
+Ticker renames, mergers, special distributions, cash-in-lieu, withholding and taxes
+are not automatically inferred. FMP event data has no equivalent Yahoo payment-date
+fallback: it fails closed. Ordinary historical return datasets do have a whole-packet
+Yahoo fallback; FMP remains primary and the two are not fetched routinely together.
+
+Research comparisons use dividend/split-adjusted series and a reinvestment assumption;
+actual portfolio dividends remain cash/receivables. Benchmarks adopt this basis only
+prospectively and retain earlier recorded history. The dashboard includes receivables
+in equity, but they cannot finance purchases; adjusted benchmark comparisons are
+available at the recorded close, not synthesized from unadjusted live quotes.
+Costs/slippage and exceptional corporate events remain explicit limitations.
+
+Endpoints and adjustment conventions follow the [FMP API catalogue](https://site.financialmodelingprep.com/developer/docs)
+and [historical price API guide](https://site.financialmodelingprep.com/how-to/fmp-historical-price-apis-from-light-charts-to-dividendadjusted-analysis).
+The separate, non-GitHub watchdog remains deferred at the owner's request.

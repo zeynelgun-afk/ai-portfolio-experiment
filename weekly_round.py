@@ -38,7 +38,12 @@ before buys if the proceeds fund buys. SELL means full exit; TRIM needs shares;
 BUY needs amount_usd. HOLD may update new_stop. No position, cash or weight caps
 are imposed. Weekend output is a research plan, never an executed order. During the session,
 reconsider that plan against current evidence and prices. Execution prices are measured by code. Supply theses for exactly
-the final held symbols. Every claim needs a supported measurable condition. Include
+the final held symbols. Every claim needs a supported measurable condition. Economic growth, margin and cash-flow
+claims must include at least one fundamental_below/fundamental_above condition per holding
+when measured fundamentals are available, with metric, value, unit and severity.
+Supported metrics: revenue_yoy_pct, gross_margin_pct, operating_margin_pct,
+quarter_operating_cash_flow, quarter_free_cash_flow, net_debt, total_debt. Use the source
+unit exactly. Do not substitute a price threshold for an economic falsifier. Include
 all watchlist symbols. Explain every pending note in F; set pending_notes_addressed
 true only when all have been answered. No model-written prices, balances or fills.
 Use source references for numeric factual prose; numeric choice fields remain numbers.
@@ -64,12 +69,12 @@ def already_done(root, book, moment):
     return bool(re.search(r'^## #\d+ — ' + round_date + r' · (?:WEEKLY ROUND|ROUND SKIPPED)', log, re.M))
 
 
-def validate_theses(theses, book, moment):
+def validate_theses(theses, book, moment, data=None):
     symbols = {p['symbol'] for p in book['positions']}
     if not isinstance(theses, dict) or set(theses) != symbols:
         raise ValueError('Theses must match the final holdings exactly')
     allowed = {'price_below', 'stop_proximity_pct', 'volume_ratio_20d',
-               'daily_change_pct', 'sector_etf_change_pct', 'earnings_approaching'}
+               'daily_change_pct', 'sector_etf_change_pct', 'earnings_approaching', 'fundamental_below', 'fundamental_above'}
     ids = set()
     for symbol, block in theses.items():
         if set(block) != {'thesis_summary', 'claims'}:
@@ -77,6 +82,10 @@ def validate_theses(theses, book, moment):
         if not block.get('thesis_summary') or not block.get('claims'):
             raise ValueError('Each holding requires a thesis and measurable claims')
         block['source'] = 'deterministic weekly round ' + slot(moment).date().isoformat()
+        from fundamentals import MONITOR_METRICS, measured_fact
+        available={metric:fact for metric,fact in (data or {}).get(symbol,{}).get('fundamental_research',{}).get('facts',{}).items() if metric in MONITOR_METRICS}
+        if available and not any(c.get('type','').startswith('fundamental_') for claim in block['claims'] for c in claim.get('conditions',[])):
+            raise ValueError('A holding with measured fundamentals needs at least one economic thesis condition')
         for claim in block['claims']:
             if set(claim) != {'id', 'text', 'status', 'conditions'}:
                 raise ValueError('Unexpected claim fields')
@@ -89,11 +98,17 @@ def validate_theses(theses, book, moment):
             if not claim.get('conditions'):
                 raise ValueError('Unmeasurable claim')
             for condition in claim['conditions']:
-                if set(condition) - {'type', 'value', 'days', 'severity', 'symbol'}:
+                if set(condition) - {'type', 'value', 'days', 'severity', 'symbol', 'metric', 'unit'}:
                     raise ValueError('Unexpected condition fields')
                 kind = condition.get('type')
                 if kind not in allowed or condition.get('severity') not in {'warning', 'claim', 'thesis'}:
                     raise ValueError('Unsupported detector condition')
+                if kind.startswith('fundamental_'):
+                    from fundamentals import MONITOR_METRICS
+                    if condition.get('metric') not in MONITOR_METRICS or not isinstance(condition.get('unit'), str) or not condition['unit']:
+                        raise ValueError('Fundamental condition needs supported metric and explicit unit')
+                    if data is not None and measured_fact(condition,data.get(symbol,{}),moment.date()) is None:
+                        raise ValueError('Fundamental condition has no fresh matching metric/unit evidence')
                 field = 'days' if kind == 'earnings_approaching' else 'value'
                 val = number(condition.get(field))
                 if val is None or (kind in {'price_below', 'volume_ratio_20d'} and val <= 0):
@@ -170,7 +185,7 @@ def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=F
     if not held <= seen:
         raise ValueError('Every existing holding needs a decision, including HOLD')
     theses = copy.deepcopy(proposal.get('theses'))
-    validate_theses(theses, result, moment)
+    validate_theses(theses, result, moment, data)
     theses['_meta'] = copy.deepcopy(old_theses['_meta'])
     for position in result['positions']:
         position['next_earnings'] = data.get(position['symbol'], {}).get('earnings_date')
@@ -213,7 +228,7 @@ def recover(root):
     if not path.exists():
         return False
     journal = read_json(str(path), None)
-    allowed = {'portfolio.json', 'theses.json', 'DECISION_LOG.md', 'state/pending_notes.md', 'state/watchlist.json', 'state/weekly_plan.json', 'state/research_observations.json'}
+    allowed = {'portfolio.json', 'theses.json', 'DECISION_LOG.md', 'state/pending_notes.md', 'state/watchlist.json', 'state/weekly_plan.json', 'state/research_observations.json', 'state/corporate_actions.json', 'CORPORATE_ACTIONS.md', 'state/violations.json'}
     if set(journal['targets']) - allowed:
         raise ValueError('Unexpected transaction target')
     for name, target in journal['targets'].items():
@@ -343,7 +358,9 @@ def main():
                                 response_validator=validate_proposal)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
-    write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data, 'proposal': proposal})
+    from claim_evidence import semantic_review
+    review = semantic_review(proposal, data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')
+    write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data, 'proposal': proposal, 'semantic_review':review})
     if not args.execute_pending:
         build_targets(proposal, book, old_theses, data, moment, original_log, preview=True)
         if not args.dry_run:

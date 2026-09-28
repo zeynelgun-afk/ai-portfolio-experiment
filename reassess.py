@@ -433,6 +433,10 @@ def claim_prompt(symbol, position, claim, trigger, data, holding, moment):
             f"  shares: {holding.get('shares')}",
             f"  stop_weekly_close: {holding.get('stop_weekly_close')} $",
         ]
+    if row.get("news_assessments") or row.get("source_documents"):
+        lines += ["NEWS SOURCE EVIDENCE:", json.dumps({"assessments":row.get("news_assessments"),"documents":row.get("source_documents")})]
+    if row.get("fundamental_research"):
+        lines += ["DATED FUNDAMENTAL EVIDENCE:", json.dumps(row["fundamental_research"])]
     return "\n".join(lines)
 
 
@@ -476,6 +480,10 @@ def thesis_prompt(symbol, position, triggers, data, holding, cash, moment):
             f"  next earnings: {holding.get('next_earnings')}",
         ]
     lines += ["", f"CASH: {cash} $ (amount_usd in a BUY decision cannot exceed this)"]
+    if row.get("news_assessments") or row.get("source_documents"):
+        lines += ["NEWS SOURCE EVIDENCE:", json.dumps({"assessments":row.get("news_assessments"),"documents":row.get("source_documents")})]
+    if row.get("fundamental_research"):
+        lines += ["DATED FUNDAMENTAL EVIDENCE:", json.dumps(row["fundamental_research"])]
     return "\n".join(lines)
 
 
@@ -528,6 +536,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
     would only narrow that context.
     """
     data = violations.get("data", {})
+    blocked = {item["symbol"] for item in violations.get("measurement_errors", [])}
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
     skip = set(skip or ())
     grouped = {}
@@ -555,7 +564,12 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
 
     updated = []
     for symbol, position, claim, trigger in targets:
-        if counter["calls"] >= limit:
+        if symbol in blocked:
+            mark_claim(claim, "unassessed", "Fundamental evidence unavailable", moment)
+            violations.setdefault("assessment_errors", []).append(claim["id"])
+            updated.append(claim["id"])
+            continue
+        if counter["calls"] + 2 > limit:
             print(f"BUDGET: the weekly limit ({limit}) is spent — {claim['id']} skipped; "
                   "only code-20 calls are made from here on")
             break
@@ -580,6 +594,18 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             violations.setdefault("assessment_errors", []).append(claim["id"])
             updated.append(claim["id"])
             continue
+        try:
+            from claim_evidence import semantic_review
+            counter['calls'] += 1
+            review = semantic_review(payload, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
+                            api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
+            violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'review':review})
+        except ValueError as error:
+            violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'error':str(error)})
+            mark_claim(claim, 'unassessed', 'Semantic evidence review incomplete', moment)
+            violations.setdefault('assessment_errors',[]).append(claim['id'])
+            updated.append(claim['id'])
+            continue
         mark_claim(claim, payload["status"], trigger.get("trigger"), moment,
                    str(payload["text"]).strip())
         updated.append(claim["id"])
@@ -591,6 +617,7 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                 notes_path, decision_path):
     """Thesis level: re-evaluate the whole position, produce an executable decision."""
     data = violations.get("data", {})
+    blocked = {item["symbol"] for item in violations.get("measurement_errors", [])}
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
     cash = portfolio.get("cash_usd", 0)
     if not dry_run and os.path.exists(decision_path):
@@ -610,6 +637,11 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
 
     decisions = []
     for symbol, triggers in groups.items():
+        if symbol in blocked:
+            violations.setdefault("assessment_errors", []).append(symbol)
+            for claim in theses.get(symbol,{}).get("claims",[]):
+                mark_claim(claim,"unassessed","Fundamental evidence unavailable",moment)
+            continue
         position = theses.get(symbol)
         if not position:
             continue
@@ -644,6 +676,18 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                         "Saturday round.")
             continue
 
+        try:
+            from claim_evidence import semantic_review
+            counter['calls'] += 1
+            review = semantic_review(payload, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
+                            api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
+            violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'review':review})
+        except ValueError as error:
+            violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'error':str(error)})
+            violations.setdefault('assessment_errors',[]).append(symbol)
+            for claim in position.get('claims',[]):
+                mark_claim(claim,'unassessed','Semantic evidence review incomplete',moment)
+            continue
         statuses = payload.get("claim_statuses") or {}
         for claim in position.get("claims", []):
             proposed = statuses.get(claim["id"])
@@ -778,8 +822,18 @@ def main():
                 cooldown[claim_id] = iso(moment)
         for decision in decisions:
             cooldown[f"thesis:{decision['symbol']}"] = iso(moment)
+        for item in violations.get('triggered', []):
+            if item.get('cooldown_key','').startswith('fundamental:'):
+                successful = (item['claim_id'] in updated or any(d['symbol']==item['symbol'] for d in decisions))
+                failed = item['symbol'] in violations.get('assessment_errors',[]) or item['claim_id'] in violations.get('assessment_errors',[])
+                if successful and not failed:
+                    cooldown[item['cooldown_key']] = iso(moment)
         write_json(cooldown_path, cooldown)
     write_json(counter_path, counter)
+    write_json(os.path.join(args.state_dir, "violations.json"), violations)
+    write_json(os.path.join(BASE, "output", "intraday_evidence.json"), {
+        "measurement": violations,
+        "ledgers": {symbol: evidence_for(violations.get("data", {}), violations, symbol) for symbol in theses if not symbol.startswith("_")}})
     failed_news = {item["symbol"] for item in violations.get("triggered", [])
                    if item.get("claim_id") == "news_shock"
                    and item["symbol"] in violations.get("assessment_errors", [])}

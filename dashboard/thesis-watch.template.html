@@ -590,6 +590,11 @@ function measure(condition, symbol) {
   const threshold = condition.value !== undefined ? condition.value : condition.days;
 
   switch (condition.type) {
+    case "fundamental_below":
+    case "fundamental_above":
+      return { label: condition.metric.replaceAll("_", " "),
+        threshold: (condition.type === "fundamental_below" ? "<" : ">") + fmt(threshold) + " " + condition.unit,
+        state: "na", value: "server monitored", note: "quarterly statement evidence is checked by the scheduled detector" };
     case "price_below":
       if (!quote) return { label: "price", threshold: fmt(threshold), state: "na", value: "—" };
       return {
@@ -696,9 +701,9 @@ function portfolioTotals() {
     const spyQuote = live.SPY, smhQuote = live.SMH;
     return {
       source: complete ? "live" : "partial",
-      total: complete ? holdings + DATA.cash_usd : null,
-      spy: spyQuote ? start * spyQuote.price / DATA.benchmark.SPY_reference : null,
-      smh: smhQuote ? start * smhQuote.price / DATA.benchmark.SMH_reference : null,
+      total: complete ? holdings + DATA.cash_usd + (DATA.dividend_receivable_usd || 0) : null,
+      spy: spyQuote && !DATA.benchmark_total_return_basis?.SPY ? start * spyQuote.price / DATA.benchmark.SPY_reference : null,
+      smh: smhQuote && !DATA.benchmark_total_return_basis?.SMH ? start * smhQuote.price / DATA.benchmark.SMH_reference : null,
       start,
     };
   }
@@ -737,9 +742,10 @@ function renderSummary() {
     const gap = (value === null || totals.total === null) ? null
       : (totals.total - value) / totals.start * 100;
     add(label, gap === null ? "—" : pct(gap),
-      value === null ? "benchmark unavailable" : money(value) + " on the benchmark",
+      value === null ? (Object.keys(DATA.benchmark_total_return_basis || {}).length ? "adjusted benchmark available at close" : "benchmark unavailable") : money(value) + " on the benchmark",
       gap === null ? null : (gap >= 0 ? "up" : "down"));
   }
+  if (DATA.dividend_receivable_usd) add("dividend receivables", money(DATA.dividend_receivable_usd), "not spendable cash");
   add("cash", money(DATA.cash_usd),
     totals.total ? (DATA.cash_usd / totals.total * 100).toFixed(1) + "% of the portfolio"
       : null);
@@ -1014,7 +1020,7 @@ function renderCards() {
     const quote = live && live[symbol];
     const holding = DATA.positions[symbol];
     return total + (quote && holding ? quote.price * holding.shares : 0);
-  }, 0) + DATA.cash_usd;
+  }, 0) + DATA.cash_usd + (DATA.dividend_receivable_usd || 0);
 
   for (const symbol of SYMBOLS) {
     const position = DATA.theses[symbol];

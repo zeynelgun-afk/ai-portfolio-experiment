@@ -171,10 +171,14 @@ def main():
                 forward_pe, trailing_pe, market_cap = None, None, None
 
             try:
+                from claim_evidence import documents
+                articles = ticker.news or []
+                news_documents = documents(symbol, articles)
                 news_titles = [title for title in
-                               (headline(item) for item in (ticker.news or [])[:5]) if title]
+                               (headline(item) for item in articles[:5]) if title]
             except Exception:
                 news_titles = []
+                news_documents = {}
             if not news_titles:
                 missing_data.append(f"{symbol}: no news headlines")
 
@@ -232,6 +236,7 @@ def main():
                 'consensus_grade': consensus_grade,
                 'insider_trades': insider_trades,
                 'news_titles': news_titles,
+                'source_documents': news_documents,
             }
 
             if results[symbol]['last_price'] is None:
@@ -323,7 +328,8 @@ def main():
             sentiment_data[sym] = {
                 "analyst_target": data.get("analyst_target"),
                 "consensus_grade": data.get("consensus_grade"),
-                "news_titles": data.get("news_titles")
+                "news_titles": data.get("news_titles"),
+                "source_documents": data.get("source_documents")
             }
 
         # 2. Fundamental Analyst Agent
@@ -349,7 +355,7 @@ def main():
 
         # 3. Sentiment & News Analyst Agent
         sent_sys = (
-            "You are a Sentiment and News Analyst. You ONLY look at news headlines and Wall Street analyst targets/grades. "
+            "You are a Sentiment and News Analyst. Use provided source excerpts and analyst targets/grades. Distinguish headline-only hypotheses from sourced assertions. State missing text and uncertainty; do not infer causality from headlines. "
             "For each ticker, output a 1-sentence sentiment analysis based on the narrative and targets. "
             "Return ONLY a JSON object mapping each ticker to its 1-sentence sentiment analysis."
         )

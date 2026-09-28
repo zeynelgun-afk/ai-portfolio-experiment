@@ -130,7 +130,7 @@ class ClaimFlowTest(unittest.TestCase):
         self.assertIn("905.4", claim["text"])
         self.assertEqual(claim["last_updated"], ra.iso(MOMENT))
         self.assertIn("trigger: price 905.40", claim["trigger"])
-        self.assertEqual(counter["calls"], 1)
+        self.assertEqual(counter["calls"], 2)
 
     def test_malformed_json_leaves_the_claim_text_alone(self):
         claim, updated, _ = self.invoke("the model rambled, no JSON")
@@ -478,6 +478,21 @@ class PromptTest(unittest.TestCase):
         for system in (ra.SYSTEM_CLAIM, ra.SYSTEM_THESIS):
             self.assertIn("NEVER INVENT A NUMBER", system)
 
+
+
+
+
+# Existing flow fixtures isolate the new independent review service; its rejection
+# and citation semantics are exercised separately in test_evidence_depth.py.
+def setUpModule():
+    from unittest.mock import patch
+    global semantic_fixture
+    semantic_fixture = patch('claim_evidence.semantic_review', return_value={'verdict':'supported'})
+    semantic_fixture.start()
+
+
+def tearDownModule():
+    semantic_fixture.stop()
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

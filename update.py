@@ -106,10 +106,23 @@ def main():
     # --- Valuation ---
     position_value = sum(p["shares"] * prices[p["symbol"]]
                          for p in portfolio["positions"])
-    total = portfolio["cash_usd"] + position_value
+    total = portfolio["cash_usd"] + portfolio.get("dividend_receivable_usd",0) + position_value
     start = portfolio["starting_capital_usd"]
     spy_value = start * prices["SPY"] / portfolio["benchmark"]["SPY_reference"]
     smh_value = start * prices["SMH"] / portfolio["benchmark"]["SMH_reference"]
+
+    # Forward-only total-return benchmark basis. Historical rows are never rewritten.
+    basis=portfolio.get('benchmark_total_return_basis',{})
+    for ticker in ('SPY','SMH'):
+        if ticker in basis:
+            series=yf.return_history(ticker)
+            old=series.loc[series.index.date==date.fromisoformat(basis[ticker]['date'])]
+            current=series.loc[series.index.date==as_of]
+            if len(old)!=1 or len(current)!=1:
+                raise RuntimeError('Benchmark corporate-action basis is unavailable')
+            value=basis[ticker]['value_usd']*float(current['total_close'].iloc[0]/old['total_close'].iloc[0])
+            if ticker=='SPY':spy_value=value
+            else:smh_value=value
 
     # --- History (equity curve; a same-day row is overwritten) ---
     previous_rows = []
@@ -156,6 +169,10 @@ Data: closes as of {as_of} · Starting capital: {start:,.0f} $ (2026-08-05)
 
 **Cash:** {portfolio['cash_usd']:,.2f} $
 
+**Dividend receivables (not spendable cash):** {portfolio.get('dividend_receivable_usd',0):,.2f} $
+
+Benchmark returns include split/dividend adjustment prospectively from the recorded migration basis; earlier rows retain their original basis.
+
 ## Scoreboard
 
 | | Value | Return |
@@ -200,7 +217,8 @@ Gap vs SPY: **{(total - spy_value) / start * 100:+.2f} pp** · vs SMH: **{(total
             f"SMH: {(smh_value / start - 1) * 100:+.2f}%\n"
             f"Gap vs SPY: {(total - spy_value) / start * 100:+.2f} pp\n\n"
             f"Positions:\n{position_summary}\n"
-            f"Cash: {portfolio['cash_usd']:,.0f} $\n\n"
+            f"Cash: {portfolio['cash_usd']:,.0f} $\n"
+            f"Dividend receivables: {portfolio.get('dividend_receivable_usd',0):,.2f} $\n\n"
             f"{breach_telegram}\n\n"
             f"Details: https://github.com/zeynelgun-afk/ai-portfolio-experiment"
         )

@@ -75,6 +75,8 @@ def main():
         "stamp": date.today().isoformat(),
         "source_round": latest_round_label(),
         "cash_usd": portfolio["cash_usd"],
+        "dividend_receivable_usd": portfolio.get("dividend_receivable_usd",0),
+        "benchmark_total_return_basis": portfolio.get("benchmark_total_return_basis",{}),
         "positions": {p["symbol"]: {
             "shares": p["shares"],
             "entry_price": p["entry_price"],

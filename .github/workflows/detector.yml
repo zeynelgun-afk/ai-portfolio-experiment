@@ -41,6 +41,7 @@ jobs:
       OPENROUTER_MODEL_MACRO: ${{ vars.OPENROUTER_MODEL_MACRO }}
       OPENROUTER_MODEL_FUNDAMENTAL: ${{ vars.OPENROUTER_MODEL_FUNDAMENTAL }}
       OPENROUTER_MODEL_SENTIMENT: ${{ vars.OPENROUTER_MODEL_SENTIMENT }}
+      OPENROUTER_MODEL_REVIEW: ${{ vars.OPENROUTER_MODEL_REVIEW }}
       OPENROUTER_MODEL_WEEKLY: ${{ vars.OPENROUTER_MODEL_WEEKLY }}
       PROMPT_METRICS_PATH: state/prompt_metrics.json
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
@@ -81,6 +82,26 @@ jobs:
         env:
           FULL_REVIEW: ${{ steps.mode.outputs.full }}
         run: python market_time.py
+
+      - name: Reconcile corporate actions
+        if: steps.session.outputs.run == 'true'
+        id: corporate
+        run: python corporate_actions.py
+
+      - name: Persist corporate-action accounting
+        if: steps.corporate.outputs.changed == 'true'
+        run: |
+          git config user.name "portfolio-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add portfolio.json theses.json state/ CORPORATE_ACTIONS.md
+          git diff --cached --quiet || git commit -m "Reconcile corporate actions without investment decisions"
+          git push
+
+      - name: Notify persisted corporate actions
+        if: steps.corporate.outputs.changed == 'true'
+        env:
+          WATCHDOG_MESSAGE: 'AI Portföy: Bölünme/temettü muhasebe kaydı GitHub’a kaydedildi. Alım-satım kararı değildir. Ayrıntılar: CORPORATE_ACTIONS.md'
+        run: python notify_failure.py
 
       - name: Reassess and execute pending weekly research in-session
         if: steps.session.outputs.run == 'true'
@@ -153,8 +174,8 @@ jobs:
         id: trade
         run: python execute_trade.py
 
-      - name: 4) Refresh the report (only if a trade happened)
-        if: steps.weekly_execution.outputs.executed == 'true' || (steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0')
+      - name: 4) Refresh the report after trades or corporate actions
+        if: steps.corporate.outputs.changed == 'true' || steps.weekly_execution.outputs.executed == 'true' || (steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0')
         run: python update.py
 
       - name: Adapt evidence reminders
@@ -189,6 +210,7 @@ jobs:
           if [ "${{ steps.detector.outputs.code }}" = "0" ] \
              && [ "${{ steps.detector.outputs.state_changed }}" != "true" ] \
              && [ "${{ steps.weekly_execution.outputs.executed }}" != "true" ] \
+             && [ "${{ steps.corporate.outputs.changed }}" != "true" ] \
              && [ "${{ steps.mode.outputs.full }}" != "true" ]; then
             # Nothing meaningful changed: the hysteresis counters are identical too, so
             # discarding the state file loses nothing. Committing an empty change every

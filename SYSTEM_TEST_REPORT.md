@@ -237,3 +237,34 @@ claimed. No end-to-end scheduled session fill was triggered during validation. G
 and filing footnotes are explicitly unavailable, transaction costs remain unmodeled,
 and channel attribution is observational rather than causal. Provider/model probes are
 point-in-time checks, not guarantees of future availability.
+
+
+## Economic evidence and corporate actions — follow-up to `74a522d`
+
+- 325 automated tests pass. The 22 added behavioral checks cover fresh/stale quarterly
+  evidence and units, report-specific trigger deduplication, missing-data trade blocking,
+  weekly economic-condition requirements, review-call budget reservation, exact citations,
+  partial/uncertain news, unsupported semantic claims, split/reverse-split cost invariance,
+  dividend entitlement/payment idempotency after sale, revised/late events, issuer currency,
+  interrupted accounting-journal recovery and adjusted-return fallback.
+- Python compilation, workflow actionlint, the English prompt inventory/regression gate
+  (20 entries including reminders), dashboard build and generated JavaScript syntax pass.
+- Read-only FMP probes returned 507 rows each for MU/SPY raw/adjusted return series with
+  latest completed date 2026-09-25. SPY event parsing returned 136 historical events.
+  MU returned 10/10 usable news excerpts; issuer identity/currency checks succeeded.
+- An isolated live corporate initialization verified all four current issuer identities
+  and SPY/SMH benchmark anchors without changing cash, positions or trade history. The
+  production portfolio files were not written by these tests.
+- A real independent-model probe initially rejected an attributed forecast too broadly.
+  The English reviewer instructions were corrected to distinguish reporting a forecast
+  from asserting that it occurred. The bounded repeat accepted the explicitly attributed,
+  uncertain analyst forecast and rejected the same forecast presented as confirmed
+  earnings with all risks eliminated. This is a small behavioral probe, not a statistical
+  accuracy claim or proof of investment quality.
+- Provider outage and adjusted Yahoo fallback were exercised with deterministic fixtures;
+  no real Yahoo outage/failover or actual dividend/split in the live portfolio is claimed.
+- Existing historical portfolio records remain untouched. Corporate accounting activates
+  prospectively on the next scheduled workflow; economic thresholds migrate at the next
+  successfully reviewed weekly decision. Exceptional actions/ambiguous identity require
+  reconciliation rather than guessed trades. Non-GitHub watchdog work stays deferred.
+- Existing unrelated ResourceWarnings in amendment/auditor file reads do not fail tests.

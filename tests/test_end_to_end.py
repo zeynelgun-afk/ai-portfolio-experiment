@@ -179,7 +179,7 @@ class PromptContractTest(unittest.TestCase):
         import prompt_eval
         report=prompt_eval.evaluate()
         self.assertTrue(report['passed'], report['checks'])
-        self.assertEqual(len(report['prompts']),19)
+        self.assertEqual(len(report['prompts']),20)
 
     def test_shared_policy_reaches_model_system_message(self):
         captured=[]
@@ -335,3 +335,16 @@ class AutomaticPromptAdaptationTest(unittest.TestCase):
             reassess.call_llm('test','system','data','key',audit_scope=reassess.claim_audit_scope)
             metrics=json.loads((Path(temp)/'metrics.json').read_text())
             self.assertEqual(metrics,{'success':0,'failure':1})
+
+
+# Existing flow fixtures isolate the new independent review service; its rejection
+# and citation semantics are exercised separately in test_evidence_depth.py.
+def setUpModule():
+    from unittest.mock import patch
+    global semantic_fixture
+    semantic_fixture = patch('claim_evidence.semantic_review', return_value={'verdict':'supported'})
+    semantic_fixture.start()
+
+
+def tearDownModule():
+    semantic_fixture.stop()

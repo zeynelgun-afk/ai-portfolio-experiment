@@ -13,7 +13,7 @@ BASE=Path(__file__).resolve().parent
 
 def exposure(book, quotes, data=None):
     values={p['symbol']:p['shares']*quotes[p['symbol']]['price'] for p in book['positions']}
-    total=book['cash_usd']+sum(values.values())
+    total=book['cash_usd']+book.get('dividend_receivable_usd',0)+sum(values.values())
     if not math.isfinite(total) or total <= 0:
         raise ValueError('Invalid portfolio valuation for exposure report')
     weights={s:round(v/total*100,4) for s,v in values.items()}
@@ -45,7 +45,7 @@ def observation(round_id, moment, proposal, data, quotes, discovery, benchmark_q
     payload={'round_id':round_id,'observed_at':moment.isoformat(),'candidates':rows,
              'benchmarks':benchmark_quotes,'risk':risk,
              'research_models':data.get('_meta',{}).get('research_models',{}),
-             'limits':'Selected research universe only; channel groups overlap. Price-only forward returns, not causal agent contribution or portfolio returns.'}
+             'limits':'Selected research universe only; channel groups overlap. Forward returns use provider split/dividend adjustment when available; not causal agent contribution or portfolio returns.'}
     payload['snapshot']=hashlib.sha256(json.dumps(payload,sort_keys=True).encode()).hexdigest()
     return payload
 
@@ -72,13 +72,27 @@ def score(cohort, histories):
                 if frame is None:return None
                 rows=frame.loc[frame.index.date==end]
                 return float(rows['Close'].iloc[0]) if len(rows)==1 else None
-            prices={s:close(s) for s in (symbol,'SPY','SMH')}
+            total_mode=all({'raw_close','total_close'} <= set(histories.get(s,{}).columns) for s in (symbol,'SPY','SMH') if histories.get(s) is not None) and all(histories.get(s) is not None for s in (symbol,'SPY','SMH'))
+            def wealth(ticker,entry):
+                frame=histories[ticker]
+                opening=frame.loc[frame.index.date==start]
+                closing=frame.loc[frame.index.date==end]
+                if len(opening)!=1 or len(closing)!=1:return None
+                return float(closing['total_close'].iloc[0]/opening['total_close'].iloc[0]*opening['raw_close'].iloc[0]/entry)
+            if not total_mode and any('total_close' in frame.columns for frame in histories.values()):
+                pending.append(f'{symbol}:{horizon}:missing adjusted endpoint');continue
+            if total_mode:
+                multiples={s:wealth(s,row['entry_price'] if s==symbol else cohort['benchmarks'][s]['price']) for s in (symbol,'SPY','SMH')}
+                prices={s:multiple for s,multiple in multiples.items()}
+            else:
+                prices={s:close(s) for s in (symbol,'SPY','SMH')}
             if any(v is None or not math.isfinite(v) or v<=0 for v in prices.values()):
                 pending.append(f'{symbol}:{horizon}:missing endpoint');continue
-            ret=100*(prices[symbol]/row['entry_price']-1)
-            bases={s:100*(prices[s]/cohort['benchmarks'][s]['price']-1) for s in ('SPY','SMH')}
+            ret=100*(prices[symbol]-1) if total_mode else 100*(prices[symbol]/row['entry_price']-1)
+            bases={s:100*(prices[s]-1) if total_mode else 100*(prices[s]/cohort['benchmarks'][s]['price']-1) for s in ('SPY','SMH')}
             results.append({'symbol':symbol,'decision':row['decision'],'channels':row['channels'],
                             'horizon_sessions':horizon,'end_date':end.isoformat(),
+                            'basis':'split_dividend_adjusted_reinvestment' if total_mode else 'legacy_price_only',
                             'return_pct':ret,'excess_spy_pp':ret-bases['SPY'],'excess_smh_pp':ret-bases['SMH']})
     groups={}
     for row in results:
@@ -97,15 +111,15 @@ def main():
     symbols={'SPY','SMH'}|{s for c in observations.values() for s in c['candidates']}
     histories={}; failures=[]
     for symbol in sorted(symbols):
-        try:histories[symbol]=market_data.history(symbol,'2y','1d')
+        try:histories[symbol]=market_data.return_history(symbol)
         except market_data.ProviderError:failures.append(symbol)
     output={'as_of':datetime.now(timezone.utc).isoformat(),
             'cohorts':[score(c,histories) for c in observations.values()],
             'unavailable_symbols':failures,
-            'limits':'Forward observational price returns; corporate-action adjustments are not reconciled. No dividends, cost model, causal attribution or automatic strategy changes.'}
+            'limits':'Forward split/dividend-adjusted research returns assume reinvestment via provider-adjusted series. Actual portfolio dividends are cash/receivables. Costs and causal attribution remain unmodeled.'}
     write_json(str(BASE/'state/research_performance.json'),output)
     lines=['# Prospective research performance','',output['limits'],'',
-           '| Round / channel / sessions | n | Mean price return | Mean excess vs SPY |',
+           '| Round / channel / sessions | n | Mean adjusted return | Mean excess vs SPY |',
            '|---|---:|---:|---:|']
     for cohort in output['cohorts']:
         for channel,item in cohort['channel_summary'].items():

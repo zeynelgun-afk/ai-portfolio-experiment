@@ -259,3 +259,38 @@ class Ticker:
         rows,provider=news(self.symbol)
         self.providers['news']=provider
         return rows
+
+
+def return_history(symbol, now=None):
+    """Raw historical closes and split/dividend-adjusted wealth index, one provider per packet."""
+    now=now or datetime.now(timezone.utc)
+    def primary():
+        params={'symbol':symbol,'from':(now.date()-timedelta(days=740)).isoformat(),'to':now.date().isoformat()}
+        raw=fmp('historical-price-eod/non-split-adjusted',**params)
+        adjusted=fmp('historical-price-eod/dividend-adjusted',**params)
+        def frame(rows,field):
+            if any(r.get('symbol',symbol)!=symbol for r in rows):raise ProviderError('Return series issuer mismatch')
+            records=[{'Date':r['date'],'Close':r.get('adjClose',r.get('close')),'Volume':r.get('volume',0)} for r in rows]
+            result=pd.DataFrame(records).set_index('Date');result.index=pd.to_datetime(result.index)
+            return validate_history(result,'1d',now)['Close'].rename(field)
+        return pd.concat([frame(raw,'raw_close'),frame(adjusted,'total_close')],axis=1)
+    def backup():
+        import yfinance
+        frame=yfinance.Ticker(symbol).history(period='2y',auto_adjust=False,actions=True)
+        if not {'Close','Adj Close','Stock Splits'} <= set(frame.columns):raise ProviderError('Return adjustment columns unavailable')
+        splits=frame['Stock Splits'].replace(0,1)
+        # Yahoo Close already adjusts old bars for later splits. Undo only later events.
+        future=splits.iloc[::-1].cumprod().iloc[::-1]/splits
+        result=pd.DataFrame({'raw_close':frame['Close']*future,'total_close':frame['Adj Close']})
+        result.index=pd.to_datetime([stamp.date() for stamp in result.index])
+        return result.loc[result.index.date <= last_closed(now)]
+    def valid(frame):
+        frame=frame.sort_index()
+        if frame.empty or frame.index.has_duplicates or frame.index[-1].date()!=last_closed(now):
+            raise ProviderError('Invalid/stale return series')
+        if frame.isna().any().any() or not all(frame[col].map(lambda v: math.isfinite(v) and v>0).all() for col in frame):
+            raise ProviderError('Incomplete adjusted return values')
+        return frame
+    frame,provider=select(symbol,'total_return_history',primary,backup,valid)
+    frame.attrs['provider']=provider
+    return frame
