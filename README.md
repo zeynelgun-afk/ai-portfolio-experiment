@@ -162,7 +162,7 @@ GitHub artifacts retain measurement/evidence packets for ninety days. This prove
 supplied field was cited; it does not prove provider accuracy or the semantics of every
 surrounding sentence. Research opinions are not independent quantitative sources.
 
-`watchdog.py` monitors missing/stuck jobs independently of GitHub's scheduler and requests
+`watchdog.py` runs daily on GitHub Actions at 23:00 UTC (02:00 Europe/Istanbul), monitors missing/stuck jobs and requests
 only bounded, idempotency-protected recovery. Repair requests, unresolved incidents and
 verified recovery are reported to Telegram. It never rewrites strategy, disables a gate or
 replays an execution/commit failure. See [installation and limits](ops/README.md).

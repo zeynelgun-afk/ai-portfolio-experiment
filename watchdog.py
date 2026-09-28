@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Independent heartbeat and bounded repairs. Never edits investment data or code."""
 import argparse
+import base64
 from datetime import datetime, timedelta, timezone
 import fcntl
 import json
@@ -84,11 +85,38 @@ def repair_plan(kind, run, jobs):
     return None
 
 
-def monitor(now, state, fetch=api, send=notify, apply=False):
+def daily_anchor(now):
+    anchor = now.replace(hour=23, minute=0, second=0, microsecond=0)
+    return anchor if now >= anchor else anchor - timedelta(days=1)
+
+
+class RemoteState:
+    """Durable state on a separate branch; SHA preconditions prevent lost updates."""
+    def __init__(self, fetch=api):
+        self.fetch = fetch
+        self.path = 'contents/watchdog.json'
+        packet = fetch(self.path + '?ref=watchdog-state')
+        self.sha = packet['sha']
+        self.state = json.loads(base64.b64decode(packet['content']))
+        if not isinstance(self.state, dict):
+            raise ValueError('Invalid remote watchdog state; refusing to reset repair limits')
+
+    def save(self, state):
+        clean = {k: v for k, v in state.items() if k != '_persist'}
+        content = base64.b64encode((json.dumps(clean, indent=2) + '\n').encode()).decode()
+        packet = self.fetch(self.path, 'PUT', {'branch': 'watchdog-state',
+            'sha': self.sha, 'message': 'Checkpoint daily watchdog state', 'content': content})
+        self.sha = packet['content']['sha']
+
+
+def monitor(now, state, fetch=api, send=notify, apply=False, daily=False):
     state.setdefault('incidents', {})
     state.setdefault('daily_repairs', {})
     observations = []
-    windows = due_windows(now)
+    windows = due_windows(daily_anchor(now) if daily else now)
+    if state.get('monitoring_started_at'):
+        windows = {name: since for name, since in windows.items()
+                   if since >= stamp(state['monitoring_started_at'])}
     # Continue checking an existing incident after its schedule window, but never
     # perform an out-of-window catch-up trade.
     for workflow, incident in state['incidents'].items():
@@ -153,6 +181,8 @@ def monitor(now, state, fetch=api, send=notify, apply=False):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--remote-state', action='store_true', help='persist repair limits on the watchdog-state branch')
+    parser.add_argument('--daily', action='store_true', help='evaluate the last daily deadline even if the runner is delayed')
     parser.add_argument('--github-alerts', action='store_true', help='send through the existing GitHub Telegram secret configuration')
     parser.add_argument('--apply', action='store_true', help='enable bounded repairs and Telegram alerts')
     parser.add_argument('--state', default=str(Path.home()/'.local/state/ai-portfolio/watchdog.json'))
@@ -172,13 +202,17 @@ def main():
         except BlockingIOError:
             print('Another watchdog is running')
             return
-        state = read_json(str(path), {})
+        remote = RemoteState() if args.remote_state else None
+        state = remote.state if remote else read_json(str(path), {})
         def persist():
-            write_json(str(path), {k: v for k, v in state.items() if k != '_persist'})
+            if remote:
+                remote.save(state)
+            else:
+                write_json(str(path), {k: v for k, v in state.items() if k != '_persist'})
         if args.apply:
             state['_persist'] = persist
         try:
-            print(json.dumps(monitor(datetime.now(timezone.utc), state, send=send_alert, apply=args.apply)))
+            print(json.dumps(monitor(datetime.now(timezone.utc), state, send=send_alert, apply=args.apply, daily=args.daily)))
             if args.apply:
                 state.pop('api_failure_alerted', None)
                 persist()

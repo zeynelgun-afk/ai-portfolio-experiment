@@ -173,3 +173,15 @@ so the installed watchdog uses the existing GitHub Telegram workflow and reposit
 secrets. No secrets were exported. Detection is independent of GitHub scheduling, but
 notification delivery in this mode still needs GitHub API/runners. Direct Telegram mode
 is implemented and requires the local target chat ID and matching bot credentials.
+
+
+## Daily cloud migration — 28 September 2026
+
+Supersedes the local-runtime limitation above. The production watchdog now runs on GitHub
+Actions daily at 23:00 UTC (02:00 Europe/Istanbul), with direct Telegram delivery using
+repository secrets. Local monitoring is disabled during migration. Repair limits and
+incident history are persisted on a separate `watchdog-state` branch, with conditional
+SHA updates before repair dispatch. Delayed jobs evaluate the prior daily deadline;
+predeployment missing runs do not trigger retrospective repairs. GitHub-wide outages
+remain a shared dependency. Local regression suite: 267 tests passed, including remote
+checkpoint failure blocking dispatch, SHA updates and delayed-deadline evaluation.

@@ -1,49 +1,47 @@
-# Independent heartbeat and bounded recovery
+# Daily cloud watchdog
 
-`watchdog.py` runs outside GitHub Actions once daily at 23:00 UTC (02:00 Europe/Istanbul) using a systemd user timer.
-This follows the closing-review deadline; there is no extra startup trigger.
-It reads the authenticated GitHub CLI's Actions API and observes main-branch scheduled
-and manually dispatched runs. It does not read or edit investment records.
+The production watchdog runs in `.github/workflows/watchdog.yml` on GitHub Actions,
+once daily at 23:00 UTC (02:00 Europe/Istanbul). The owner's computer is not required.
+A delayed run evaluates the last daily deadline. GitHub schedules are best effort,
+so 02:00 is the planned trigger time, not a delivery-time guarantee.
 
-- Intraday: NYSE sessions only, ninety-minute startup/staleness grace. Holidays are excluded. The scheduled
-  close review has its own deadline after 21:15 UTC. Calendar-only skipped runs do not count.
-- Weekly: Saturday at 06:00 UTC plus two-hour grace, even after a Friday holiday;
-  automatic catch-up ends on Sunday. The executor uses the week's last actual session.
-- A queued/running job blocks dispatch; a stuck job is alerted, not cancelled.
-- Missing jobs can be dispatched. Failed jobs can be retried only when failure is
-  confined to dependency bootstrap, before any successful decision/execution/commit step.
-- Maximum two attempts per incident, two-hour cooldown, four repairs per UTC day.
-  Intent is persisted before API calls. A file lock prevents concurrent local repairs.
-- Data/schema/evidence rejection, execution, push and Telegram failures require inspection;
-  they never trigger replay of investment decisions. No self-modifying code is allowed.
-- Telegram distinguishes a repair request from a subsequently observed successful run.
-  Alerts repeat at most every twelve hours while an incident remains unresolved.
-- The existing `workflow_run` Telegram alarm continues to report failed Actions.
+Telegram is sent directly from the watchdog runner using existing repository secrets.
+The failure-alert workflow also monitors the watchdog's own failures. No local chat
+credentials or secret export are required. A complete GitHub scheduler/runner outage
+can stop both detection and notification; this is not independent external monitoring.
 
-Install from a tested commit using the project venv (install `ops/requirements.txt` for the installer):
+State lives in `watchdog.json` on the dedicated `watchdog-state` branch. Repair intent
+is checkpointed before dispatch; each write uses the previous file SHA as a precondition.
+Missing/corrupt/unwritable state fails closed instead of resetting repair limits.
+Workflow concurrency serializes runs. Portfolio files and the main branch are not used
+for monitoring-state persistence. Migration begins at the recorded deployment time;
+missing jobs before deployment are not treated as new incidents.
+
+- Intraday: NYSE sessions and holidays, plus a separate closing-review deadline.
+- Weekly: Saturday remains active, including Friday holidays; catch-up ends Sunday.
+- A green calendar-only skip is not a successful measurement heartbeat.
+- Missing jobs can be dispatched. Only dependency bootstrap failures before a successful
+  decision/execution/commit can be rerun. Running jobs block new dispatches.
+- At most two repairs per incident, two-hour cooldown, four per UTC day. Under the daily
+  schedule, a subsequent observation/repair normally occurs on the next daily check.
+- Data/schema/evidence, execution and commit failures are alerted without replaying trades.
+- Telegram distinguishes a repair request from an observed successful recovery.
+
+Manual verification:
 
 ```
-python ops/install_watchdog.py --env-file /absolute/path/to/private/.env
-systemctl --user status ai-portfolio-watchdog.timer ai-portfolio-watchdog.service
-journalctl --user -u ai-portfolio-watchdog.service
+gh workflow run watchdog.yml --ref main -f test_notification=true
+gh run list --workflow watchdog.yml
 ```
 
-The installer copies only the four required scripts to a separate local runtime, records
-the source commit, and writes only Telegram credentials to a private 0600 environment
-file. GitHub authentication remains in the user's existing `gh` configuration. Reinstall
-after reviewed code updates; the runtime never pulls arbitrary changes itself.
+The optional test sends a clearly labelled Telegram delivery message. It does not force
+an investment round. The normal monitor still runs and may repair an eligible real incident.
 
-Read-only check: `python watchdog.py`. Stop: `systemctl --user disable --now
-ai-portfolio-watchdog.timer`. This machine must be awake, online and running the user
-service manager. `Persistent=true` checks on return; it cannot monitor while the machine
-is off. For uninterrupted external monitoring deploy this timer on an always-on host
-with its own credentials. This is independent of GitHub scheduling, not an uptime guarantee.
+The former local `ai-portfolio-watchdog.timer` is disabled after cloud migration to avoid
+duplicate checks. `install_watchdog.py` remains available for an explicitly requested
+future independent host: install `ops/requirements.txt`, then use `--env-file` for direct
+Telegram or `--github-alerts` for notification dispatch. Do not enable both monitoring
+installations concurrently with separate state.
 
-
-When Telegram credentials exist only in GitHub Secrets, install with
-`python ops/install_watchdog.py --github-alerts`. The timer and detection remain local;
-notifications dispatch the existing Telegram workflow, which uses its existing secrets.
-No secret is exported. A dispatch acknowledgment is not Telegram delivery confirmation;
-check the notification workflow result. This mode cannot deliver an alert during a
-complete GitHub API/runner outage. Switch to direct delivery with `--env-file` when the
-same bot's local token and target chat IDs are available.
+References: [GitHub scheduled events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule)
+and [conditional content updates](https://docs.github.com/en/rest/repos/contents#create-or-update-file-contents).

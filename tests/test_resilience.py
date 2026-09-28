@@ -258,4 +258,42 @@ class WatchdogTests(unittest.TestCase):
         self.assertTrue(all(len(c)==1 for c in calls))
 
 
+
+
+class CloudWatchdogTests(unittest.TestCase):
+    def test_delayed_daily_run_checks_previous_deadline(self):
+        now=MON.replace(hour=1)+timedelta(days=1)
+        self.assertEqual(wd.daily_anchor(now), MON.replace(hour=23))
+        self.assertIn('detector.yml',wd.due_windows(wd.daily_anchor(now)))
+
+    def test_remote_checkpoint_updates_sha_and_omits_callback(self):
+        import base64
+        calls=[]
+        def fetch(endpoint,method='GET',payload=None):
+            calls.append((endpoint,method,payload))
+            if method=='GET':return {'sha':'old','content':base64.b64encode(b'{"incidents": {}}').decode()}
+            return {'content':{'sha':'new'}}
+        store=wd.RemoteState(fetch)
+        store.save({'attempts':1,'_persist':lambda:None})
+        self.assertEqual(calls[-1][2]['sha'],'old')
+        self.assertEqual(json.loads(base64.b64decode(calls[-1][2]['content'])),{'attempts':1})
+        store.save({'attempts':2})
+        self.assertEqual(calls[-1][2]['sha'],'new')
+
+    def test_failed_checkpoint_prevents_dispatch(self):
+        def fail():raise RuntimeError('state write failed')
+        calls=[]
+        def fetch(endpoint,method='GET',payload=None):
+            calls.append(method)
+            return {'workflow_runs':[]}
+        with self.assertRaises(RuntimeError):
+            wd.monitor(SAT,{'_persist':fail},fetch,lambda **kw:None,True)
+        self.assertNotIn('POST',calls)
+
+    def test_migration_does_not_alert_for_predeployment_runs(self):
+        state={'monitoring_started_at':MON.isoformat()}
+        def fetch(*args):raise AssertionError('Must not inspect predeployment window')
+        self.assertEqual(wd.monitor(MON,state,fetch,apply=False,daily=True),[])
+
+
 if __name__=='__main__':unittest.main()

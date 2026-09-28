@@ -16,6 +16,7 @@ on:
       - Deploy Dashboard to GitHub Pages
       - Telegram Report (manual)
       - System Checks
+      - Daily Watchdog
     types: [completed]
 
 permissions:

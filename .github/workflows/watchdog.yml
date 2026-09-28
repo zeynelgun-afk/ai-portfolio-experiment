@@ -1,0 +1,49 @@
+name: Daily Watchdog
+
+on:
+  schedule:
+    # 02:00 Europe/Istanbul; after the US closing review deadline.
+    - cron: '0 23 * * *'
+  workflow_dispatch:
+    inputs:
+      test_notification:
+        description: 'Also send a clearly labelled Telegram delivery test'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: daily-watchdog
+  cancel-in-progress: false
+
+jobs:
+  watchdog:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Dependencies
+        run: pip install -r requirements.txt
+      - name: Check schedules and request bounded recovery
+        run: python watchdog.py --apply --daily --remote-state --state /tmp/watchdog.json
+      - name: Verify Telegram delivery
+        if: inputs.test_notification
+        run: |
+          python - <<'PY'
+          from notify_failure import notify
+          notify(message='✅ AI Portföy — GitHub gözcüsü TESTİ\nGünlük gözcü GitHub üzerinde çalıştı. Bilgisayarın açık olması gerekmiyor.\nPlanlanan kontrol: Türkiye saatiyle 02:00. Bu mesaj bir teslim testidir; onarım yapıldığı anlamına gelmez.')
+          PY
