@@ -23,10 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       OPENROUTER_MODEL_AUDIT_A: ${{ vars.OPENROUTER_MODEL_AUDIT_A }}
       OPENROUTER_MODEL_AUDIT_B: ${{ vars.OPENROUTER_MODEL_AUDIT_B }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
     steps:
       - uses: actions/checkout@v4
 
@@ -45,17 +47,10 @@ jobs:
         # the decision-maker walks into the round with its own failure patterns in front
         # of it rather than discovering them a week later. The audit never writes to
         # portfolio.json or theses.json; it only produces AUDIT.md and AUDIT_LOG.md.
-        run: |
-          set +e
-          python audit.py --review
-          echo "audit exit: $?"
-          set -e
+        run: python audit.py --review
 
       - name: 2.5) Run Scout Agent (Dynamic Watchlist)
         run: python scout.py
-        env:
-          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
 
       - name: 3) Claude decision round (via OpenRouter)
         if: env.OPENROUTER_API_KEY != ''
@@ -143,3 +138,4 @@ jobs:
           if [ "$CODE" != "200" ]; then
             echo "::warning title=The audit reminder was not delivered::HTTP ${CODE}"
           fi
+
