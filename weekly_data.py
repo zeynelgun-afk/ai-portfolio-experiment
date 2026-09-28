@@ -2,9 +2,17 @@
 """Collect market data for the weekly decision round."""
 import json
 import math
+import os
+import requests
 from datetime import datetime, timedelta
 
 import yfinance as yf
+
+# For the cheap LLM filtering step
+try:
+    import reassess
+except ImportError:
+    reassess = None
 
 # Portfolio positions + watchlist
 # PLTR and VRT were dropped from the list in round #7; the fetch list must stay identical
@@ -32,6 +40,44 @@ def headline(item):
     """The yfinance news schema varies by version: a flat 'title' or 'content.title'."""
     return item.get('title') or item.get('content', {}).get('title', '')
 
+
+def fmp_get(endpoint, api_key, params=None):
+    if not api_key: return None
+    if params is None: params = {}
+    params['apikey'] = api_key
+    url = f"https://financialmodelingprep.com/stable/{endpoint}"
+    try:
+        r = requests.get(url, params=params, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        if isinstance(data, dict) and 'Error Message' in data:
+            return None
+        return data
+    except Exception:
+        return None
+
+def fred_get(series_id, api_key):
+    if not api_key: return None
+    url = "https://api.stlouisfed.org/fred/series/observations"
+    params = {
+        "series_id": series_id,
+        "api_key": api_key,
+        "file_type": "json",
+        "sort_order": "desc",
+        "limit": 1
+    }
+    try:
+        r = requests.get(url, params=params, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        if 'observations' in data and len(data['observations']) > 0:
+            return data['observations'][0]['value']
+    except Exception:
+        pass
+    return None
+
+FMP_API_KEY = os.environ.get("FMP_API_KEY")
+FRED_API_KEY = os.environ.get("FRED_API_KEY")
 
 for symbol in SYMBOLS:
     try:
@@ -92,6 +138,14 @@ for symbol in SYMBOLS:
             missing_data.append(f"{symbol}: earnings date unavailable")
 
         try:
+            info = ticker.info
+            forward_pe = info.get('forwardPE')
+            trailing_pe = info.get('trailingPE')
+            market_cap = info.get('marketCap')
+        except Exception:
+            forward_pe, trailing_pe, market_cap = None, None, None
+
+        try:
             news_titles = [title for title in
                            (headline(item) for item in (ticker.news or [])[:5]) if title]
         except Exception:
@@ -106,6 +160,31 @@ for symbol in SYMBOLS:
                 return None
             return round(float(value), places)
 
+        # FMP API Enrichment
+        analyst_target = None
+        consensus_grade = None
+        insider_trades = []
+        if FMP_API_KEY:
+            try:
+                targets = fmp_get("price-target-summary", FMP_API_KEY, {"symbol": symbol})
+                if targets and len(targets) > 0:
+                    analyst_target = targets[0].get("lastQuarterAvgPriceTarget")
+                
+                grades = fmp_get("grades-consensus", FMP_API_KEY, {"symbol": symbol})
+                if grades and len(grades) > 0:
+                    consensus_grade = grades[0].get("consensus")
+                    
+                insiders = fmp_get("insider-trading/search", FMP_API_KEY, {"symbol": symbol, "limit": 3})
+                if insiders:
+                    for trade in insiders:
+                        trade_type = trade.get("transactionType", "")
+                        shares = trade.get("securitiesTransacted", 0)
+                        person = trade.get("reportingName", "")
+                        if "P-Purchase" in trade_type or "S-Sale" in trade_type:
+                            insider_trades.append(f"{trade_type.split('-')[-1]} {shares} shares by {person}")
+            except Exception as e:
+                print(f"FMP Warning for {symbol}: {e}")
+
         results[symbol] = {
             'last_price': numeric(last_price, 'price'),
             'price_date': price_date,
@@ -118,6 +197,12 @@ for symbol in SYMBOLS:
             'return_3m_pct': numeric(return_3m, '3m return', 1),
             'earnings_date': str(earnings_date) if earnings_date else None,
             'earnings_day_name': day_name_of(earnings_date),
+            'forward_pe': numeric(forward_pe, 'Forward PE', 2),
+            'trailing_pe': numeric(trailing_pe, 'Trailing PE', 2),
+            'market_cap': numeric(market_cap, 'Market Cap', 0),
+            'analyst_target': numeric(analyst_target, 'Analyst Target', 2),
+            'consensus_grade': consensus_grade,
+            'insider_trades': insider_trades,
             'news_titles': news_titles,
         }
 
@@ -135,6 +220,20 @@ today = datetime.now()
 next_friday = today + timedelta(days=(4 - today.weekday()) % 7 or 7)
 next_round = today + timedelta(days=(5 - today.weekday()) % 7 or 7)
 
+sector_performance = None
+if FMP_API_KEY:
+    today_str = today.strftime("%Y-%m-%d")
+    sectors = fmp_get("sector-performance-snapshot", FMP_API_KEY, {"date": today_str})
+    if sectors:
+        sector_performance = {s.get("sector"): s.get("changesPercentage") for s in sectors[:5]}
+
+macro_data = None
+if FRED_API_KEY:
+    macro_data = {
+        "10-Year Treasury Yield (DGS10)": fred_get("DGS10", FRED_API_KEY),
+        "Federal Funds Rate (FEDFUNDS)": fred_get("FEDFUNDS", FRED_API_KEY)
+    }
+
 results['_meta'] = {
     'date': today.strftime('%Y-%m-%d'),
     'day_name': DAY_NAMES[today.weekday()],
@@ -142,7 +241,100 @@ results['_meta'] = {
     'next_round': f"{next_round.strftime('%Y-%m-%d')} (Saturday — the next decision round)",
     'symbol_count': f"{len(results)}/{len(SYMBOLS)}",
     'missing_data': missing_data,
+    'sector_performance': sector_performance,
+    'macro_data': macro_data,
 }
+
+# --- MULTI-AGENT RESEARCH TEAM (FinThink / TradingAgents Architecture) ---
+api_key = os.environ.get("OPENROUTER_API_KEY")
+
+def auto_select_model(api_key, keyword, fallback):
+    if not api_key: return fallback
+    try:
+        r = requests.get("https://openrouter.ai/api/v1/models", timeout=5)
+        if r.status_code == 200:
+            data = r.json().get('data', [])
+            # Filter matches, exclude batch variants or specialized vision models if not needed
+            matches = [m for m in data if keyword in m['id'].lower() and ':batch' not in m['id']]
+            if matches:
+                # Sort by newest (created timestamp)
+                matches.sort(key=lambda x: x.get('created', 0), reverse=True)
+                print(f"Auto-selected newest {keyword} model: {matches[0]['id']}")
+                return matches[0]['id']
+    except Exception as e:
+        print(f"Auto-select failed for {keyword}: {e}")
+    return fallback
+
+if api_key and reassess:
+    print("\nDeploying Multi-Agent Research Team (Isolating Contexts)...")
+    
+    # Dynamic Auto-Discovery: Find the absolute newest models available on OpenRouter
+    macro_model = os.environ.get("OPENROUTER_MODEL_MACRO", auto_select_model(api_key, "gpt-4o", "openai/gpt-4o"))
+    fund_model = os.environ.get("OPENROUTER_MODEL_FUNDAMENTAL", auto_select_model(api_key, "claude-sonnet", "anthropic/claude-sonnet-5"))
+    sent_model = os.environ.get("OPENROUTER_MODEL_SENTIMENT", auto_select_model(api_key, "gemini", "google/gemini-3.5-flash"))
+    
+    # 1. Macro Analyst Agent
+    macro_data_only = {
+        "macro_data": results.get('_meta', {}).get('macro_data'),
+        "sector_performance": results.get('_meta', {}).get('sector_performance')
+    }
+    macro_sys = (
+        "You are the Chief Macro Strategist. Analyze these interest rates, yields, and sector performances. "
+        "Provide a 2-3 sentence global macroeconomic outlook on how this environment affects the tech/semiconductor sector. "
+        "Return ONLY a JSON object with a single key 'macro_environment' mapping to your outlook string."
+    )
+    macro_payload, _ = reassess.call_llm(macro_model, macro_sys, json.dumps(macro_data_only), api_key)
+    global_macro_outlook = macro_payload.get('macro_environment', '') if isinstance(macro_payload, dict) else str(macro_payload)
+    
+    # Prepare stripped-down datasets for the other two agents
+    fundamental_data = {}
+    sentiment_data = {}
+    for sym, data in results.items():
+        if sym == '_meta': continue
+        fundamental_data[sym] = {
+            "last_price": data.get("last_price"),
+            "forward_pe": data.get("forward_pe"),
+            "trailing_pe": data.get("trailing_pe"),
+            "market_cap": data.get("market_cap"),
+            "insider_trades": data.get("insider_trades")
+        }
+        sentiment_data[sym] = {
+            "analyst_target": data.get("analyst_target"),
+            "consensus_grade": data.get("consensus_grade"),
+            "news_titles": data.get("news_titles")
+        }
+        
+    # 2. Fundamental Analyst Agent
+    fund_sys = (
+        "You are a strict Fundamental Analyst. You ONLY look at PE ratios, valuations, and insider buying/selling. "
+        "For each ticker, output a 1-sentence fundamental thesis. Ignore news and macro. "
+        "Return ONLY a JSON object mapping each ticker to its 1-sentence fundamental thesis."
+    )
+    fund_payload, fund_status = reassess.call_llm(fund_model, fund_sys, json.dumps(fundamental_data), api_key)
+    
+    # 3. Sentiment & News Analyst Agent
+    sent_sys = (
+        "You are a Sentiment and News Analyst. You ONLY look at news headlines and Wall Street analyst targets/grades. "
+        "For each ticker, output a 1-sentence sentiment analysis based on the narrative and targets. "
+        "Return ONLY a JSON object mapping each ticker to its 1-sentence sentiment analysis."
+    )
+    sent_payload, sent_status = reassess.call_llm(sent_model, sent_sys, json.dumps(sentiment_data), api_key)
+    
+    # Combine outputs into the Research Dossier
+    for symbol in SYMBOLS:
+        if symbol not in results: continue
+        f_thesis = fund_payload.get(symbol, "N/A") if isinstance(fund_payload, dict) else "N/A"
+        s_thesis = sent_payload.get(symbol, "N/A") if isinstance(sent_payload, dict) else "N/A"
+        
+        results[symbol]['research_team_dossier'] = {
+            "macro_environment": global_macro_outlook,
+            "fundamental_thesis": f_thesis,
+            "sentiment_news": s_thesis
+        }
+        
+    print("Successfully compiled Multi-Agent Research Dossiers.")
+else:
+    print("No OPENROUTER_API_KEY found, skipping multi-agent research.")
 
 with open('weekly_data.json', 'w', encoding='utf-8') as handle:
     json.dump(results, handle, indent=2, ensure_ascii=False, allow_nan=False)

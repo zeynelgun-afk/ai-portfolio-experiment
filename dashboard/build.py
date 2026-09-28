@@ -83,7 +83,7 @@ def main():
             "cost_usd": p.get("cost_usd"),
         } for p in portfolio["positions"]},
         "theses": {key: value for key, value in theses.items()
-                   if not key.startswith("_")},
+                   if not key.startswith("_") and key in {p["symbol"] for p in portfolio["positions"]}},
         # The dashboard also serves as the portfolio view: the equity curve, the
         # benchmark references and every trade to date.
         "starting_capital_usd": portfolio["starting_capital_usd"],
