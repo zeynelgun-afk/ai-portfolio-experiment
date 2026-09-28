@@ -13,19 +13,19 @@ This repository is not a simple "trading bot". It is an **Event-Driven, Multi-Ag
 
 ## 🧠 Core Architecture & AI Agents
 
-The system operates on a dual-cadence architecture: **Weekly Strategy Discovery** and **Intraday Event-Driven Execution**. It utilizes multiple LLMs (GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Flash) specializing in different analytical domains.
+The system operates on a dual-cadence architecture: **Weekly Strategy Discovery** and **Intraday Event-Driven Execution**. It utilizes multiple LLMs (GPT, Claude, Gemini) specializing in different analytical domains.
 
 ### 1. The Scout Agent (`scout.py`)
-Traditional screeners rely on rigid filters (e.g., Market Cap > $2B). The Scout Agent is a **Dynamic Watchlist Generator** powered by GPT-4o. 
+Traditional screeners rely on rigid filters (e.g., Market Cap > $2B). The Scout Agent is a **Dynamic Watchlist Generator** powered by GPT. 
 - **Trigger:** Runs every Saturday before the main decision round.
 - **Function:** Ingests the top 50 financial news articles and top market gainers via the FMP (Financial Modeling Prep) API.
 - **Mandate:** Hunts for "Second-Order Bottlenecks" (e.g., optical interconnects, cooling systems), corporate pivots (e.g., miners becoming AI datacenters), and asymmetric supply/demand shocks. It autonomously generates `watchlist.json` containing 15-20 highly relevant tickers.
 
 ### 2. The Multi-Agent Research Team (`weekly_data.py`)
 Before the Lead Strategist makes any decision, a team of specialized AI agents analyzes the dynamic watchlist:
-- **Macro Strategist (GPT-4o):** Analyzes Federal Funds Rates, 10-Year Treasury Yields, and sector performance to provide a global macroeconomic outlook.
-- **Fundamental Analyst (Claude 3.5 Sonnet):** Evaluates P/E ratios, market cap, and corporate insider trading data (CEO/CFO open-market purchases).
-- **Sentiment Analyst (Gemini 1.5 Flash):** Evaluates analyst consensus grades, price targets, and recent news headlines.
+- **Macro Strategist (GPT):** Analyzes Federal Funds Rates, 10-Year Treasury Yields, and sector performance to provide a global macroeconomic outlook.
+- **Fundamental Analyst (Claude):** Evaluates P/E ratios, market cap, and corporate insider trading data (CEO/CFO open-market purchases).
+- **Sentiment Analyst (Gemini):** Evaluates analyst consensus grades, price targets, and recent news headlines.
 
 ### 3. The Lead Alpha Strategist (Claude via OpenRouter)
 The core decision-maker that executes trades based on the Research Team's dossiers. It is governed by `WEEKLY_INSTRUCTIONS.md`, which enforces the **5 Pillars of Asymmetric Alpha**:
@@ -38,7 +38,7 @@ The core decision-maker that executes trades based on the Research Team's dossie
 ### 4. Intraday News & Price Detector (`detector.py`)
 A deterministic Python state machine that polls the market every 30 minutes. 
 - **Price/Volume Shocks:** Checks for standard threshold breaches, utilizing hysteresis and cooldown layers to prevent flapping.
-- **News Sentiment Shock (Gemini 1.5 Flash):** Fetches real-time FMP breaking news. If a breaking headline drops, Gemini evaluates if the news *fundamentally contradicts the core thesis*. If YES, it triggers an immediate reassessment (`reassess.py`) causing the system to rewrite the thesis and potentially close the position mid-session, achieving zero-latency risk management.
+- **News Sentiment Shock (Gemini):** Fetches real-time FMP breaking news. If a breaking headline drops, Gemini evaluates if the news *fundamentally contradicts the core thesis*. If YES, it triggers an immediate reassessment (`reassess.py`) causing the system to rewrite the thesis and potentially close the position mid-session, achieving zero-latency risk management.
 
 ### 5. The Adversarial Audit Layer (`audit.py` & `reviewers.py`)
 A fully automated post-mortem layer. 
@@ -61,7 +61,7 @@ The entire hedge fund runs serverless on GitHub Actions.
 
 ## 📂 Repository Structure
 
-- `scout.py` — The GPT-4o dynamic opportunity and bottleneck discoverer.
+- `scout.py` — The GPT dynamic opportunity and bottleneck discoverer.
 - `detector.py` — The 30-min event-driven state machine (Price + News Sentiment Shock).
 - `weekly_data.py` — Data aggregation and Multi-Agent Research pre-processing.
 - `reassess.py` / `execute_trade.py` — LLM thesis rewriting and deterministic trade arithmetic.
