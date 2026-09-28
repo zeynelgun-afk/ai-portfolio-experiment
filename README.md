@@ -49,6 +49,8 @@ reason is the AI's decision.
 |---|---|---|
 | `OPENROUTER_MODEL_FAST` | `anthropic/claude-haiku-4.5` | The fast model that rewrites a single claim |
 | `OPENROUTER_MODEL_DEEP` | `anthropic/claude-opus-5.5` | The deep model that re-evaluates a whole thesis and produces the trade |
+| `OPENROUTER_MODEL_AUDIT_A` | `anthropic/claude-opus-5.5` | Auditor A — same family as the decision-maker |
+| `OPENROUTER_MODEL_AUDIT_B` | `openai/gpt-5.6-sol` | Auditor B — a different family, so the blind spots differ |
 | `MAX_LLM_CALLS_PER_WEEK` | `60` | The weekly LLM call budget; once exceeded only `thesis`-level calls are made |
 | `LLM_BASE_URL` | `https://openrouter.ai/api/v1` | Point this at any OpenAI-compatible endpoint during an outage |
 
@@ -65,7 +67,9 @@ reason is the AI's decision.
 - `number_audit.py` — the gate that checks the AI's figures against the data it was given
 - `execute_trade.py` — the layer that executes an intraday decision deterministically
 - `state/` — the detector's memory (hysteresis, cooldown, trade lock, pending notes)
-- `tests/` — tests for the detector, the number gate and the execution layer
+- `audit.py` — the deterministic audit scorecard (no LLM) → `AUDIT.md`
+- `reviewers.py` — two adversarial auditors, consensus only → `AUDIT_LOG.md`
+- `tests/` — tests for the detector, the number gate, the execution layer and the audit
   (`python -m unittest discover -s tests -t .`)
 - `dashboard/` — the Thesis Watch live monitoring page (template + `build.py`)
 
@@ -198,6 +202,45 @@ Then republish to the same artifact URL from a Claude session. The template
 hand-edited one-off page would be stale commentary by the second round, which is the very
 problem the page exists to solve.
 
+## The audit layer
+
+The experiment's weakest link was never the decisions — it was that the weekly human audit
+it depends on was not happening. An audit that does not happen is not a safeguard, so the
+parts of it that can be computed are computed, and the part that cannot is put to two
+independent auditors who have to agree.
+
+**`audit.py` — the deterministic scorecard (no LLM).** Everything on it is derived from
+the repository's own record:
+
+- **Label against action** — a thesis marked BROKEN while the position is held is a rule
+  violation the instructions forbid. It is now checked rather than trusted. (Running it
+  over the existing record found one, in round #6.)
+- **Exits scored against what happened next** — the one thing the decision-maker could not
+  know at the time. SNDK, sold at 1212 $ and 46.7% higher a month later, becomes this
+  number rather than a paragraph of regret.
+- **Threshold quality** — from `state/triggers.jsonl`, a permanent append-only log. A
+  condition firing on most checks measures noise; a `thesis`-level condition that has never
+  fired was tied to a number that cannot happen.
+- **Decision cadence** — weekly trades against intraday trades, the question charter
+  version 3 added.
+- **Commentary health** — claims stuck on `unassessed` mean the LLM layer is rejecting its
+  own output and nobody noticed.
+
+**`reviewers.py` — two auditors, two model families, consensus only.** An auditor reading
+the same data as the decision-maker produces a correlated second guess, and an auditor from
+the same model family shares its blind spots. So the auditors are fed the scorecard first —
+they argue from what happened — and **a finding is recorded only when both report the same
+pattern.** Findings use a closed taxonomy, because free text cannot be matched across two
+models and the second auditor would be decoration.
+
+The auditors judge reasoning, never outcomes, and may not propose trades: an auditor that
+starts trading has stopped auditing. When the same pattern survives consensus three times it
+stops being an incident and becomes a gap in the instructions — the audit says so and the
+owner decides, exactly as charter rule 4 requires. It proposes; it never applies.
+
+The audit runs in the weekly workflow **before** the decision round, so the AI walks in with
+its own failure patterns in front of it rather than discovering them a week later.
+
 ### Running it by hand
 
 ```bash
@@ -206,7 +249,10 @@ python detector.py --fixed-data tests/sample.json # no network, fixture data
 python reassess.py --code 10 --dry-run            # no LLM call; prints the prompt
 python execute_trade.py --dry-run                 # says what it would do, does nothing
 python execute_trade.py --rollback                # restore the pre-trade snapshot
-python -m unittest discover -s tests -t .         # 121 tests
+python audit.py                                   # the deterministic scorecard
+python audit.py --review                          # + the two adversarial auditors
+python reviewers.py --dry-run                     # print both auditor prompts, no calls
+python -m unittest discover -s tests -t .         # 162 tests
 python dashboard/build.py                         # rebuild the live dashboard
 ```
 

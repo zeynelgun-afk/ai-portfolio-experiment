@@ -303,9 +303,18 @@ class BackoffTest(unittest.TestCase):
         self.assertIsNone(detector._retry("test", always_fails))
         self.assertEqual(len(self.waits), detector.FETCH_ATTEMPTS - 1)
 
-    def test_the_backoff_grows(self):
+    def test_each_delay_sits_in_its_jittered_band(self):
+        """The delay doubles per attempt, spread over a 0.5x-1.5x jitter band.
+
+        Asserting waits[1] > waits[0] would be flaky: the bands overlap by design
+        (attempt 1 reaches 4.5s, attempt 2 starts at 3.0s). The contract is the band,
+        so that is what is checked.
+        """
         detector._retry("test", lambda: None)
-        self.assertGreater(self.waits[1], self.waits[0])
+        for attempt, delay in enumerate(self.waits):
+            expected = detector.BACKOFF_BASE * (2 ** attempt)
+            self.assertGreaterEqual(delay, expected * 0.5)
+            self.assertLessEqual(delay, expected * 1.5)
 
     def test_an_empty_response_counts_as_a_failure(self):
         class Empty:

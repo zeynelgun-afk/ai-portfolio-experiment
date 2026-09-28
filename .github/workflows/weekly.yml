@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      OPENROUTER_MODEL_AUDIT_A: ${{ vars.OPENROUTER_MODEL_AUDIT_A }}
+      OPENROUTER_MODEL_AUDIT_B: ${{ vars.OPENROUTER_MODEL_AUDIT_B }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
@@ -37,7 +39,18 @@ jobs:
       - name: 1) Valuation + exit-level warning (makes no decisions)
         run: python update.py
 
-      - name: 2) Claude decision round (via OpenRouter)
+      - name: 2) Audit the previous rounds — BEFORE this round decides
+        # The scorecard and the review read the record as it stood before this round, so
+        # the decision-maker walks into the round with its own failure patterns in front
+        # of it rather than discovering them a week later. The audit never writes to
+        # portfolio.json or theses.json; it only produces AUDIT.md and AUDIT_LOG.md.
+        run: |
+          set +e
+          python audit.py --review
+          echo "audit exit: $?"
+          set -e
+
+      - name: 3) Claude decision round (via OpenRouter)
         if: env.OPENROUTER_API_KEY != ''
         uses: anthropics/claude-code-action@v1
         env:
@@ -49,10 +62,10 @@ jobs:
           prompt: "Read WEEKLY_INSTRUCTIONS.md and carry out every instruction in it."
           claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-opus-5.5'
 
-      - name: 3) Refresh the report
+      - name: 4) Refresh the report
         run: python update.py
 
-      - name: 4) Commit + push
+      - name: 5) Commit + push
         run: |
           git config user.name "portfolio-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -61,7 +74,7 @@ jobs:
           git pull --rebase
           git push
 
-      - name: 5) Exit-level notification (Issue)
+      - name: 6) Exit-level notification (Issue)
         if: hashFiles('STOP_BREACH.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
@@ -70,7 +83,7 @@ jobs:
             --title "⚠️ Below the exit level — the AI's decision is in the log ($(date +%F))" \
             --body-file STOP_BREACH.md
 
-      - name: 6) Telegram report
+      - name: 7) Telegram report
         # The send must not fail silently: a weekly report that never arrives inside a
         # green run looks identical to one that did. A non-200 makes the step red.
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
@@ -86,7 +99,7 @@ jobs:
             exit 1
           fi
 
-      - name: 7) Audit reminder
+      - name: 8) Audit reminder
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
           WEEK=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))

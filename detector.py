@@ -314,6 +314,36 @@ def read_json(path, default):
         return default
 
 
+def append_trigger_log(path, report):
+    """Append this check's confirmed breaches to a permanent, line-delimited log.
+
+    violations.json is overwritten on every run, so it can say what is true *now* but
+    never what has been true. Threshold quality — is this condition firing constantly
+    (noise), or has a thesis-level condition never fired at all (decoration)? — is a
+    question about history, so the history has to be kept. One line per confirmed
+    breach, appended, never rewritten.
+    """
+    confirmed = [record for record in report["conditions"].values()
+                 if record.get("confirmed")]
+    if not confirmed:
+        return
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "a", encoding="utf-8") as handle:
+        for record in confirmed:
+            handle.write(json.dumps({
+                "checked_at": report["checked_at"],
+                "symbol": record["symbol"],
+                "claim_id": record["claim_id"],
+                "type": record["type"],
+                "severity": record["severity"],
+                "measured": record["measured"],
+                "threshold": record["threshold"],
+                "acted_on": any(item["claim_id"] == record["claim_id"]
+                                and item["condition_type"] == record["type"]
+                                for item in report["triggered"]),
+            }, ensure_ascii=False, sort_keys=True) + "\n")
+
+
 def write_json(path, payload):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as handle:
@@ -479,6 +509,7 @@ def main():
 
     if not args.dry_run:
         write_json(violations_path, report)
+        append_trigger_log(os.path.join(args.state_dir, "triggers.jsonl"), report)
 
     # --- human-readable summary ---
     print(f"Check {report['checked_at']} · market open: {report['market_open']} · "
