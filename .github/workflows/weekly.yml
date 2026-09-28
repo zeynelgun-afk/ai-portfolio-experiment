@@ -103,7 +103,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          CAN_CREATE=$(gh api "repos/$GITHUB_REPOSITORY/actions/permissions/workflow" --jq '.can_approve_pull_request_reviews')
+          if ! CAN_CREATE=$(gh api "repos/$GITHUB_REPOSITORY/actions/permissions/workflow" --jq '.can_approve_pull_request_reviews'); then
+            echo "PR capability query unavailable; exporting review artifacts instead."
+            CAN_CREATE=false
+          fi
           if [ "$CAN_CREATE" = "true" ]; then
             python amend.py
           else

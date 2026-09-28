@@ -120,5 +120,13 @@ The dashboard completion trigger follows [GitHub workflow event semantics](https
 
 ## Deployment evidence
 
-GitHub CI, deployment and the automatic failure-notification drill will be recorded below
-after the corrected revision is pushed and those runs finish.
+Implementation commit: `43baf48`.
+
+- [System Checks 36407433789](https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/36407433789): success; 229 tests passed on GitHub's Python 3.12 runner, prompt gate and dashboard build passed.
+- [Pages deployment 36407433757](https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/36407433757): success; the public page returned the corrected text.
+- [Intentional failure drill 36407455420](https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/36407455420): tests passed; only the explicitly labelled notification-drill step failed, as intended.
+- [Automatic Telegram alert 36407518836](https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/36407518836): launched by the failed workflow rather than manual notification dispatch. Delivery evidence was checked in its logs.
+
+Production trading was not triggered. The bounded adaptation controller is installed,
+but activation awaits enough production observations; no improvement in investment
+performance is claimed.
