@@ -69,6 +69,7 @@ reason is the AI's decision.
 - `state/` — the detector's memory (hysteresis, cooldown, trade lock, pending notes)
 - `audit.py` — the deterministic audit scorecard (no LLM) → `AUDIT.md`
 - `reviewers.py` — two adversarial auditors, consensus only → `AUDIT_LOG.md`
+- `amend.py` — opens a pull request proposing an instruction amendment for a recurring fault
 - `tests/` — tests for the detector, the number gate, the execution layer and the audit
   (`python -m unittest discover -s tests -t .`)
 - `dashboard/` — the Thesis Watch live monitoring page (template + `build.py`)
@@ -238,8 +239,32 @@ starts trading has stopped auditing. When the same pattern survives consensus th
 stops being an incident and becomes a gap in the instructions — the audit says so and the
 owner decides, exactly as charter rule 4 requires. It proposes; it never applies.
 
+**`amend.py` — the loop closes.** `WEEKLY_INSTRUCTIONS.md`'s version history is a list of
+moments where a human noticed a failure pattern and turned it into a rule; versions 6, 7
+and 8 all came from that, and nobody was doing it any more. So when a pattern survives
+consensus three times, `amend.py` writes a proposed amendment and **opens a pull request**.
+
+Three guarantees make "it proposes, it never applies" real, and all three are enforced in
+code rather than requested in a prompt:
+
+1. **Only `WEEKLY_INSTRUCTIONS.md`** — not the charter, not the code, not the portfolio or
+   the theses. A process that can rewrite the charter or the executor is not proposing, it
+   is governing.
+2. **Insertion only.** Removing a constraint is the one edit that can make the system less
+   safe, and it is exactly the edit an AI under audit has an interest in making. The
+   validator re-derives the original file from the amended one and rejects anything that
+   is not a pure addition.
+3. **A branch and a pull request, never a merge and never the default branch.** One
+   proposal per pattern: re-proposing the same amendment every week would train the owner
+   to close the tab, which is the same failure as an audit nobody reads.
+
+The amendment prompt is told to prefer a rule that becomes *checkable* — a required line, a
+number that must be written — over one that restates the prohibition more loudly, because
+restating it more loudly is what already failed.
+
 The audit runs in the weekly workflow **before** the decision round, so the AI walks in with
-its own failure patterns in front of it rather than discovering them a week later.
+its own failure patterns in front of it rather than discovering them a week later; the
+amendment step runs after the push, so its branch is cut from the updated default branch.
 
 ### Running it by hand
 
@@ -252,7 +277,8 @@ python execute_trade.py --rollback                # restore the pre-trade snapsh
 python audit.py                                   # the deterministic scorecard
 python audit.py --review                          # + the two adversarial auditors
 python reviewers.py --dry-run                     # print both auditor prompts, no calls
-python -m unittest discover -s tests -t .         # 162 tests
+python amend.py --dry-run                         # show what would be proposed, touch nothing
+python -m unittest discover -s tests -t .         # 178 tests
 python dashboard/build.py                         # rebuild the live dashboard
 ```
 

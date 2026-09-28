@@ -10,6 +10,7 @@ on:
 permissions:
   contents: write
   issues: write
+  pull-requests: write
   id-token: write
   actions: read
 
@@ -74,7 +75,21 @@ jobs:
           git pull --rebase
           git push
 
-      - name: 6) Exit-level notification (Issue)
+      - name: 6) Propose an instruction amendment for a recurring fault
+        # Runs after the push so the branch is cut from the updated default branch.
+        # amend.py can only add text to WEEKLY_INSTRUCTIONS.md, only on a branch, and
+        # only once per pattern — the guarantees are enforced in code, not asked for in
+        # a prompt. Nothing here is ever merged: it proposes, the owner decides.
+        if: env.OPENROUTER_API_KEY != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python amend.py
+          echo "amend exit: $?"
+          set -e
+
+      - name: 7) Exit-level notification (Issue)
         if: hashFiles('STOP_BREACH.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
@@ -83,7 +98,7 @@ jobs:
             --title "⚠️ Below the exit level — the AI's decision is in the log ($(date +%F))" \
             --body-file STOP_BREACH.md
 
-      - name: 7) Telegram report
+      - name: 8) Telegram report
         # The send must not fail silently: a weekly report that never arrives inside a
         # green run looks identical to one that did. A non-200 makes the step red.
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
@@ -99,7 +114,7 @@ jobs:
             exit 1
           fi
 
-      - name: 8) Audit reminder
+      - name: 9) Audit reminder
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
           WEEK=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
