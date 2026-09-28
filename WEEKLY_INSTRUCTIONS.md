@@ -174,6 +174,15 @@ invalid:
 If you cannot write both, either the label is wrong (you should have said WEAKENING) or the
 position should be closed; say which.
 
+**Make the answer a line the scorecard can read.** For every position you label BROKEN this round, section C must contain this line, filled in. Missing or malformed means the BROKEN-and-hold is invalid:
+`BROKEN-ACTION: SYMBOL — action: CLOSE | TRIM to N shares | HOLD N shares — remainder thesis: <one sentence, or "none"> — refuter: <claim id in theses.json> = <condition type> <value>`
+- If the action is anything other than `CLOSE`, the remainder thesis may not be `none`. The refuter must name a `severity: "thesis"` condition that exists in this round's `theses.json` for that symbol, and its number must be written out. A refuter that is not in the file is not a refuter.
+- If the only reason for keeping the position is a date (an earnings report, a round, "next week"), the action must be `CLOSE`, or the label must change to WEAKENING on the same line. You cannot keep the BROKEN label and wait.
+
+**Every `broken_but_held` entry in `AUDIT.md` gets a written verdict.** In section F, write one line per entry:
+`BROKEN-HELD REVIEW: round N SYMBOL — reasoning at the time: sound | unsound — because <one sentence about the reasoning, not the outcome>`
+How the exit turned out is not an answer. A later lesson may not cite a `broken_but_held` entry as evidence that holding was right. That is judging by the outcome, and it is how round 8 made round 6's mismatch into a lesson.
+
 **Label deferral — the position-level counterpart of the watchlist counter.** If you are
 writing **the same label for the third round in a row** on the same position (e.g. AMD:
 rounds #5, #6, #7 — WEAKENING all three times, "the next round is critical" all three
