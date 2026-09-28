@@ -46,8 +46,11 @@ PORTFOLIO_PATH = os.path.join(BASE, "portfolio.json")
 # another OpenAI-compatible endpoint should not require a code change.
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
 API_PATH = "/chat/completions"
+# Model ids verified against OpenRouter's live catalogue and exercised with a real call
+# before being set as defaults — not taken from memory. Opus 5.5 is both newer and cheaper
+# than Opus 5 ($4/$20 vs $5/$25 per 1M) at the same 1M context, so the deep tier uses it.
 DEFAULT_FAST_MODEL = "anthropic/claude-haiku-4.5"
-DEFAULT_DEEP_MODEL = "anthropic/claude-sonnet-4.5"
+DEFAULT_DEEP_MODEL = "anthropic/claude-opus-5.5"
 DEFAULT_BUDGET = 60
 REQUEST_TIMEOUT = 120
 

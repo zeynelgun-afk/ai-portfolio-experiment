@@ -48,7 +48,7 @@ reason is the AI's decision.
 | Variable | Default | What it does |
 |---|---|---|
 | `OPENROUTER_MODEL_FAST` | `anthropic/claude-haiku-4.5` | The fast model that rewrites a single claim |
-| `OPENROUTER_MODEL_DEEP` | `anthropic/claude-sonnet-4.5` | The deep model that re-evaluates a whole thesis |
+| `OPENROUTER_MODEL_DEEP` | `anthropic/claude-opus-5.5` | The deep model that re-evaluates a whole thesis and produces the trade |
 | `MAX_LLM_CALLS_PER_WEEK` | `60` | The weekly LLM call budget; once exceeded only `thesis`-level calls are made |
 | `LLM_BASE_URL` | `https://openrouter.ai/api/v1` | Point this at any OpenAI-compatible endpoint during an outage |
 

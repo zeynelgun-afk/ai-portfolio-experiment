@@ -47,7 +47,7 @@ jobs:
           anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           github_token: ${{ github.token }}
           prompt: "Read WEEKLY_INSTRUCTIONS.md and carry out every instruction in it."
-          claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-sonnet-4.5'
+          claude_args: '--allowedTools "Bash,Read,Write,Edit,Glob,Grep" --max-turns 60 --model anthropic/claude-opus-5.5'
 
       - name: 3) Refresh the report
         run: python update.py
