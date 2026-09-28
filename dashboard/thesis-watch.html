@@ -145,6 +145,142 @@
   .split .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12.5px; }
   .split .srf { font-family: "IBM Plex Serif", Georgia, serif; font-size: 14px; }
 
+  /* ---------- Portfolio summary + chart + trades ----------
+     The chart's three series use the validated categorical slots 1-2-3
+     (blue / orange / aqua), stepped separately for the dark surface. They are
+     deliberately NOT the page's status colours: good/warning/critical are reserved
+     for thesis state and never do duty as a series. On the light surface two of the
+     three fall under 3:1 contrast, so the relief rule applies — the chart ships
+     direct end-labels and a table view, and never relies on colour alone. */
+  :root {
+    --series-portfolio: #2a78d6;
+    --series-spy: #eb6834;
+    --series-smh: #1baf7a;
+    --grid: #D3D9D7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --series-portfolio: #3987e5;
+      --series-spy: #d95926;
+      --series-smh: #199e70;
+      --grid: #2B3336;
+    }
+  }
+  :root[data-theme="dark"] {
+    --series-portfolio: #3987e5;
+    --series-spy: #d95926;
+    --series-smh: #199e70;
+    --grid: #2B3336;
+  }
+
+  .summary {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    border: 1px solid var(--line); border-radius: var(--r);
+    background: var(--surface); box-shadow: var(--shadow);
+    margin-bottom: 18px; overflow: hidden;
+  }
+  .summary > div { padding: 15px 18px; border-right: 1px solid var(--line); }
+  .summary > div:last-child { border-right: 0; }
+  .summary dt {
+    font: 500 9.5px/1 "IBM Plex Sans", sans-serif; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--ink-faint); margin-bottom: 7px;
+  }
+  .summary dd {
+    margin: 0; font: 600 22px/1.1 "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  }
+  .summary dd small {
+    display: block; margin-top: 5px; font-size: 11px; font-weight: 400;
+    letter-spacing: 0; color: var(--ink-faint);
+  }
+
+  .panel {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--r); box-shadow: var(--shadow); margin-bottom: 18px;
+  }
+  .panel-head {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
+    padding: 14px 18px; border-bottom: 1px solid var(--line);
+  }
+  .panel-head h2 {
+    margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -.01em;
+  }
+  .panel-head .sub {
+    font: 400 12px/1.3 "IBM Plex Mono", monospace; color: var(--ink-faint);
+  }
+  .panel-head .spacer { margin-left: auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; }
+  .legend span {
+    display: inline-flex; align-items: center; gap: 6px;
+    font: 400 12px/1 "IBM Plex Sans", sans-serif; color: var(--ink-muted);
+  }
+  .legend i { width: 14px; height: 2px; border-radius: 1px; flex: none; }
+
+  .chart-wrap { padding: 8px 18px 16px; overflow-x: auto; }
+  .chart { display: block; width: 100%; min-width: 460px; height: 260px; touch-action: none; }
+  .chart .grid-line { stroke: var(--grid); stroke-width: 1; }
+  .chart .axis-label {
+    font: 400 10.5px "IBM Plex Mono", monospace; fill: var(--ink-faint);
+  }
+  .chart .series { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+  .chart .end-label {
+    font: 600 11px "IBM Plex Mono", monospace; paint-order: stroke;
+    stroke: var(--surface); stroke-width: 3px;
+  }
+  .chart .crosshair { stroke: var(--ink-faint); stroke-width: 1; opacity: .55; }
+  .chart .focus-dot { stroke: var(--surface); stroke-width: 2; }
+  .tip {
+    position: absolute; pointer-events: none; z-index: 10;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: var(--r); box-shadow: var(--shadow);
+    padding: 9px 11px; min-width: 168px; opacity: 0; transition: opacity .1s;
+  }
+  .tip.on { opacity: 1; }
+  .tip .when {
+    font: 500 10.5px/1 "IBM Plex Sans", sans-serif; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--ink-faint); margin-bottom: 7px;
+  }
+  .tip .row {
+    display: flex; align-items: baseline; gap: 8px; margin-top: 4px;
+    font: 500 13px/1.2 "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums;
+  }
+  .tip .row i { width: 12px; height: 2px; border-radius: 1px; flex: none; }
+  .tip .row em {
+    font-style: normal; font-weight: 400; font-size: 11px; color: var(--ink-muted);
+    font-family: "IBM Plex Sans", sans-serif;
+  }
+  .tip .row b { margin-left: auto; font-weight: 600; }
+
+  .grid-table { width: 100%; border-collapse: collapse; }
+  .grid-table th {
+    font: 500 9.5px/1 "IBM Plex Sans", sans-serif; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--ink-faint); text-align: left;
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  .grid-table td {
+    font: 400 13px/1.4 "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    padding: 10px 14px; border-bottom: 1px solid var(--line); white-space: nowrap;
+  }
+  .grid-table tr:last-child td { border-bottom: 0; }
+  .grid-table td.note {
+    font: 400 12.5px/1.45 "IBM Plex Serif", Georgia, serif;
+    color: var(--ink-muted); white-space: normal; min-width: 240px;
+  }
+  .grid-table .num { text-align: right; }
+  .tag {
+    display: inline-block; font: 600 9.5px/1 "IBM Plex Sans", sans-serif;
+    text-transform: uppercase; letter-spacing: .08em;
+    padding: 4px 6px; border-radius: 2px;
+  }
+  .tag.buy { color: var(--ok); background: var(--ok-soft); }
+  .tag.sell { color: var(--bad); background: var(--bad-soft); }
+  .tag.trim { color: var(--warn); background: var(--warn-soft); }
+  .tag.auto {
+    color: var(--accent); background: var(--accent-soft); margin-left: 6px;
+  }
+  .scroll { overflow-x: auto; }
+
   /* ---------- Card ---------- */
   .card {
     background: var(--surface); border: 1px solid var(--line);
@@ -380,8 +516,34 @@
     </div>
   </div>
 
+  <dl class="summary" id="summary"></dl>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Equity curve</h2>
+      <span class="sub" id="curve-sub"></span>
+      <span class="spacer"></span>
+      <div class="legend" id="curve-legend"></div>
+      <button class="btn" id="curve-mode" aria-pressed="false">Table view</button>
+    </div>
+    <div class="chart-wrap" id="curve-wrap" style="position: relative;">
+      <div class="tip" id="curve-tip" role="status" aria-live="polite"></div>
+      <svg class="chart" id="curve" role="img"
+           aria-label="Weekly value of the portfolio against SPY and SMH"></svg>
+    </div>
+    <div class="scroll" id="curve-table" hidden></div>
+  </section>
+
   <div id="banner"></div>
   <main id="cards"></main>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Trades to date</h2>
+      <span class="sub" id="trades-sub"></span>
+    </div>
+    <div class="scroll" id="trades"></div>
+  </section>
 
   <section class="console">
     <h2>Ask the agent</h2>
@@ -425,9 +587,9 @@
 </div>
 
 <script>
-const DATA = {"stamp":"2026-09-28","source_round":"DECISION_LOG.md #10 — 2026-09-26","cash_usd":16421.0,"positions":{"MU":{"shares":33.6072,"entry_price":892.67,"stop":730,"earnings":"2026-09-30","cost_usd":30000.0},"AMD":{"shares":38.5668,"entry_price":518.58,"stop":440,"earnings":"2026-11-03","cost_usd":20000.0},"ANET":{"shares":78.736,"entry_price":190.51,"stop":160,"earnings":"2026-11-03","cost_usd":15000.0},"NVDA":{"shares":65.11,"entry_price":230.36,"stop":190,"earnings":"2026-11-17","cost_usd":15000.0}},"theses":{"MU":{"thesis_summary":"Memory super-cycle / HBM leadership. The price sits well above the 50-day average (941.62 $, 25 Sep 2026) and the gap is widening; the Q4 earnings report on 30 September is the thesis's main test.","source":"DECISION_LOG.md #10","claims":[{"id":"MU-1","text":"HBM/DRAM demand is holding the price above the 50-day average (941.62 $); the 25 Sep close of 1082.28 $ is +14.9% above that average and the gap has widened for two rounds running.","conditions":[{"type":"price_below","value":941.62,"severity":"claim"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"daily_change_pct","value":-7,"severity":"thesis"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"MU-2","text":"Earnings (30 September 2026) are the thesis's two-sided test: the position is carried into the report because its stop distance (+48.3%) is the widest in the portfolio. A post-earnings price below 800 $ refutes the thesis.","conditions":[{"type":"earnings_approaching","days":3,"severity":"warning"},{"type":"price_below","value":800,"severity":"thesis"},{"type":"daily_change_pct","value":-10,"severity":"thesis"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"AMD":{"thesis_summary":"The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory — the thesis is strong but short-term pullback risk is high.","source":"DECISION_LOG.md #10","claims":[{"id":"AMD-1","text":"The NVDA-alternative thesis holds while the price stays above the 50-day average (504.71 $); slipping below that average would be a break signal after the momentum surge.","conditions":[{"type":"price_below","value":504.71,"severity":"thesis"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"AMD-2","text":"No adding to the position while RSI sits at 73.0 in overbought territory; a 10-15% pullback (around 550 $, a test of the 50-day average) would count as an entry opportunity.","conditions":[{"type":"price_below","value":550,"severity":"claim"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"daily_change_pct","value":-7,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"ANET":{"thesis_summary":"Leader in AI data-center network hardware; the steadiest position in the portfolio. +8.6% above the 50-day average (190.23 $, 25 Sep 2026).","source":"DECISION_LOG.md #10","claims":[{"id":"ANET-1","text":"Network-hardware leadership holds while the price stays above the 50-day average (190.23 $); momentum has continued since the guidance raise. Losing that average puts the thesis in question.","conditions":[{"type":"price_below","value":190.23,"severity":"thesis"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"warning"},{"type":"earnings_approaching","days":3,"severity":"warning"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"NVDA":{"thesis_summary":"AI accelerator leadership. A two-week recovery trend is intact, +4.3% above the 50-day average (215.79 $, 25 Sep 2026); the price is still 2.3% below the entry price (230.36 $).","source":"DECISION_LOG.md #10","claims":[{"id":"NVDA-1","text":"The two-week recovery trend continues above the 50-day average (215.79 $); losing that average and staying below it would mean the recovery has failed.","conditions":[{"type":"price_below","value":215.79,"severity":"claim"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"NVDA-2","text":"The position is held below its entry price (230.36 $) because the recovery trend has been confirmed for two rounds; a price below 200 $ refutes that reasoning and puts a trim on the table.","conditions":[{"type":"price_below","value":200,"severity":"thesis"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"earnings_approaching","days":3,"severity":"warning"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]}}};
+const DATA = {"stamp":"2026-09-28","source_round":"DECISION_LOG.md #10 — 2026-09-26","cash_usd":16421.0,"positions":{"MU":{"shares":33.6072,"entry_price":892.67,"stop":730,"earnings":"2026-09-30","cost_usd":30000.0},"AMD":{"shares":38.5668,"entry_price":518.58,"stop":440,"earnings":"2026-11-03","cost_usd":20000.0},"ANET":{"shares":78.736,"entry_price":190.51,"stop":160,"earnings":"2026-11-03","cost_usd":15000.0},"NVDA":{"shares":65.11,"entry_price":230.36,"stop":190,"earnings":"2026-11-17","cost_usd":15000.0}},"theses":{"MU":{"thesis_summary":"Memory super-cycle / HBM leadership. The price sits well above the 50-day average (941.62 $, 25 Sep 2026) and the gap is widening; the Q4 earnings report on 30 September is the thesis's main test.","source":"DECISION_LOG.md #10","claims":[{"id":"MU-1","text":"HBM/DRAM demand is holding the price above the 50-day average (941.62 $); the 25 Sep close of 1082.28 $ is +14.9% above that average and the gap has widened for two rounds running.","conditions":[{"type":"price_below","value":941.62,"severity":"claim"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"daily_change_pct","value":-7,"severity":"thesis"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"MU-2","text":"Earnings (30 September 2026) are the thesis's two-sided test: the position is carried into the report because its stop distance (+48.3%) is the widest in the portfolio. A post-earnings price below 800 $ refutes the thesis.","conditions":[{"type":"earnings_approaching","days":3,"severity":"warning"},{"type":"price_below","value":800,"severity":"thesis"},{"type":"daily_change_pct","value":-10,"severity":"thesis"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"AMD":{"thesis_summary":"The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory — the thesis is strong but short-term pullback risk is high.","source":"DECISION_LOG.md #10","claims":[{"id":"AMD-1","text":"The NVDA-alternative thesis holds while the price stays above the 50-day average (504.71 $); slipping below that average would be a break signal after the momentum surge.","conditions":[{"type":"price_below","value":504.71,"severity":"thesis"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"AMD-2","text":"No adding to the position while RSI sits at 73.0 in overbought territory; a 10-15% pullback (around 550 $, a test of the 50-day average) would count as an entry opportunity.","conditions":[{"type":"price_below","value":550,"severity":"claim"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"daily_change_pct","value":-7,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"ANET":{"thesis_summary":"Leader in AI data-center network hardware; the steadiest position in the portfolio. +8.6% above the 50-day average (190.23 $, 25 Sep 2026).","source":"DECISION_LOG.md #10","claims":[{"id":"ANET-1","text":"Network-hardware leadership holds while the price stays above the 50-day average (190.23 $); momentum has continued since the guidance raise. Losing that average puts the thesis in question.","conditions":[{"type":"price_below","value":190.23,"severity":"thesis"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"warning"},{"type":"earnings_approaching","days":3,"severity":"warning"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]},"NVDA":{"thesis_summary":"AI accelerator leadership. A two-week recovery trend is intact, +4.3% above the 50-day average (215.79 $, 25 Sep 2026); the price is still 2.3% below the entry price (230.36 $).","source":"DECISION_LOG.md #10","claims":[{"id":"NVDA-1","text":"The two-week recovery trend continues above the 50-day average (215.79 $); losing that average and staying below it would mean the recovery has failed.","conditions":[{"type":"price_below","value":215.79,"severity":"claim"},{"type":"stop_proximity_pct","value":5,"severity":"warning"},{"type":"daily_change_pct","value":-7,"severity":"claim"},{"type":"sector_etf_change_pct","symbol":"SMH","value":-4,"severity":"claim"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null},{"id":"NVDA-2","text":"The position is held below its entry price (230.36 $) because the recovery trend has been confirmed for two rounds; a price below 200 $ refutes that reasoning and puts a trim on the table.","conditions":[{"type":"price_below","value":200,"severity":"thesis"},{"type":"volume_ratio_20d","value":3.0,"severity":"claim"},{"type":"earnings_approaching","days":3,"severity":"warning"}],"status":"valid","last_updated":"2026-09-26T00:00Z","trigger":null}]}},"starting_capital_usd":100000,"start_date":"2026-08-05","benchmark":{"note":"References recorded on 2026-08-05; performance is compared against these prices.","SPY_reference":771.33,"SMH_reference":575.71},"history":[{"date":"2026-08-05","portfolio":100000.11,"spy":100000.0,"smh":100000.0},{"date":"2026-08-08","portfolio":95956.02,"spy":100250.22,"smh":101214.16},{"date":"2026-08-15","portfolio":100282.52,"spy":100649.53,"smh":102103.49},{"date":"2026-08-22","portfolio":97143.65,"spy":99272.68,"smh":97344.15},{"date":"2026-08-29","portfolio":97237.04,"spy":99970.18,"smh":99529.28},{"date":"2026-09-05","portfolio":99260.29,"spy":99852.2,"smh":98488.82},{"date":"2026-09-12","portfolio":99030.02,"spy":99087.29,"smh":98752.85},{"date":"2026-09-19","portfolio":102320.83,"spy":98750.21,"smh":99529.28},{"date":"2026-09-26","portfolio":108032.01,"spy":100002.59,"smh":105358.6},{"date":"2026-09-28","portfolio":108032.01,"spy":100002.59,"smh":105358.6}],"trades":[{"date":"2026-08-05","action":"BUY","symbol":"MU","shares":33.6072,"price":892.67,"amount_usd":30000.0},{"date":"2026-08-05","action":"BUY","symbol":"AMD","shares":38.5668,"price":518.58,"amount_usd":20000.0},{"date":"2026-08-05","action":"BUY","symbol":"SNDK","shares":10.507,"price":1427.62,"amount_usd":15000.0},{"date":"2026-08-05","action":"BUY","symbol":"ANET","shares":78.736,"price":190.51,"amount_usd":15000.0},{"date":"2026-08-05","action":"BUY","symbol":"AVGO","shares":23.9143,"price":418.16,"amount_usd":10000.0},{"date":"2026-08-08","action":"SELL","symbol":"SNDK","shares":10.507,"price":1212.21,"amount_usd":12737.0,"note":"Cut loss - thesis broken, momentum snapped (1mo -36.7%), stop distance +10.2%"},{"date":"2026-08-22","action":"SELL","symbol":"AVGO","shares":11.9572,"price":368.45,"amount_usd":4405.0,"note":"Trim position - lost the 50d average, stop is tight (+5.3%), reducing risk ahead of earnings"},{"date":"2026-09-05","action":"SELL","symbol":"AVGO","shares":11.9571,"price":357.9,"amount_usd":4279.0,"note":"Full exit - post-earnings decline (-2.7%), stop very tight (+2.3%), thesis broken, below both the 50d and 200d averages"},{"date":"2026-09-05","action":"BUY","symbol":"NVDA","shares":65.11,"price":230.36,"amount_usd":15000.0,"note":"AI accelerator leadership - above the 50d average, momentum strong, earnings 73 days out"}]};
 const SYMBOLS = Object.keys(DATA.theses);
-const WATCHED = [...SYMBOLS, "SMH"];
+const WATCHED = [...SYMBOLS, "SMH", "SPY"];
 const FMP = "claude_ai_FMP";
 const QUOTE_INPUT = { endpoint: "batch-quote", symbols: WATCHED };
 
@@ -540,6 +702,342 @@ function positionVerdict(symbol) {
   if (worst === "claim") return { className: "warn", text: "claim threshold crossed" };
   if (worst === "warning") return { className: "warn", text: "warning flag" };
   return { className: "ok", text: "no threshold crossed" };
+}
+
+/* ---------- the portfolio view: summary, equity curve, trades ---------- */
+const SERIES = [
+  { key: "portfolio", label: "Portfolio", css: "--series-portfolio" },
+  { key: "spy", label: "SPY", css: "--series-spy" },
+  { key: "smh", label: "SMH", css: "--series-smh" },
+];
+
+const money = (value) => value === null || !isFinite(value) ? "—"
+  : Number(value).toLocaleString("en-US", { maximumFractionDigits: 0 }) + " $";
+
+function portfolioTotals() {
+  /* Live totals when the connector answers; otherwise the last row of history.csv,
+     labelled as such. The page never presents a stale number as a live one. */
+  const start = DATA.starting_capital_usd;
+  if (live) {
+    let holdings = 0;
+    let complete = true;
+    for (const symbol of SYMBOLS) {
+      const quote = live[symbol];
+      const position = DATA.positions[symbol];
+      if (!quote || !position) { complete = false; continue; }
+      holdings += quote.price * position.shares;
+    }
+    const spyQuote = live.SPY, smhQuote = live.SMH;
+    return {
+      source: complete ? "live" : "partial",
+      total: holdings + DATA.cash_usd,
+      spy: spyQuote ? start * spyQuote.price / DATA.benchmark.SPY_reference : null,
+      smh: smhQuote ? start * smhQuote.price / DATA.benchmark.SMH_reference : null,
+      start,
+    };
+  }
+  const last = DATA.history[DATA.history.length - 1];
+  if (!last) return { source: "none", total: null, spy: null, smh: null, start };
+  return { source: last.date, total: last.portfolio, spy: last.spy, smh: last.smh, start };
+}
+
+function renderSummary() {
+  const totals = portfolioTotals();
+  const root = el("summary");
+  root.textContent = "";
+  const add = (label, value, sub, className) => {
+    const box = document.createElement("div");
+    const term = document.createElement("dt"); term.textContent = label;
+    const detail = document.createElement("dd"); detail.textContent = value;
+    if (className) detail.classList.add(className);
+    if (sub) {
+      const small = document.createElement("small"); small.textContent = sub;
+      detail.append(small);
+    }
+    box.append(term, detail); root.append(box);
+  };
+
+  const ret = totals.total === null ? null
+    : (totals.total / totals.start - 1) * 100;
+  const asOf = totals.source === "live" ? "live"
+    : totals.source === "partial" ? "live, partial data"
+    : totals.source === "none" ? "no data" : "close of " + totals.source;
+
+  add("total value", money(totals.total), asOf);
+  add("return", ret === null ? "—" : pct(ret),
+    "since " + DATA.start_date,
+    ret === null ? null : (ret >= 0 ? "up" : "down"));
+  for (const [label, value] of [["vs SPY", totals.spy], ["vs SMH", totals.smh]]) {
+    const gap = (value === null || totals.total === null) ? null
+      : (totals.total - value) / totals.start * 100;
+    add(label, gap === null ? "—" : pct(gap),
+      value === null ? "benchmark unavailable" : money(value) + " on the benchmark",
+      gap === null ? null : (gap >= 0 ? "up" : "down"));
+  }
+  add("cash", money(DATA.cash_usd),
+    totals.total ? (DATA.cash_usd / totals.total * 100).toFixed(1) + "% of the portfolio"
+      : null);
+}
+
+/* The curve's points: the weekly history, plus a live point when prices are in. */
+function curvePoints() {
+  const points = DATA.history.map((row) => ({ ...row, live: false }));
+  const totals = portfolioTotals();
+  if (totals.source === "live" && totals.spy !== null && totals.smh !== null) {
+    const stamp = liveStamp ? new Date(liveStamp).toISOString().slice(0, 10) : "now";
+    const last = points[points.length - 1];
+    const row = { date: stamp, portfolio: totals.total, spy: totals.spy,
+                  smh: totals.smh, live: true };
+    if (last && last.date === stamp) points[points.length - 1] = row;
+    else points.push(row);
+  }
+  return points;
+}
+
+function renderCurve() {
+  const points = curvePoints();
+  const svg = el("curve");
+  svg.textContent = "";
+  el("curve-sub").textContent = points.length
+    ? points.length + " weekly points · " + points[0].date + " → "
+      + points[points.length - 1].date + (points[points.length - 1].live ? " (live)" : "")
+    : "no history yet";
+  renderCurveLegend();
+  renderCurveTable(points);
+  if (points.length < 2) return;
+
+  const W = 900, H = 260, PAD = { t: 16, r: 74, b: 30, l: 62 };
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("preserveAspectRatio", "none");
+  const plotW = W - PAD.l - PAD.r, plotH = H - PAD.t - PAD.b;
+
+  const values = points.flatMap((p) => [p.portfolio, p.spy, p.smh]);
+  let min = Math.min(...values), max = Math.max(...values);
+  const span = (max - min) || 1;
+  min -= span * 0.12; max += span * 0.12;
+  const x = (i) => PAD.l + (points.length === 1 ? plotW / 2
+    : i / (points.length - 1) * plotW);
+  const y = (v) => PAD.t + plotH - (v - min) / (max - min) * plotH;
+
+  const ns = "http://www.w3.org/2000/svg";
+  const node = (name, attrs, text) => {
+    const element = document.createElementNS(ns, name);
+    for (const [key, value] of Object.entries(attrs)) {
+      element.setAttribute(key, value);
+    }
+    if (text !== undefined) element.textContent = text;
+    return element;
+  };
+
+  /* Recessive grid: hairline, solid, one step off the surface. */
+  const ticks = 4;
+  for (let i = 0; i <= ticks; i++) {
+    const value = min + (max - min) * i / ticks;
+    const yy = y(value);
+    svg.append(node("line", { class: "grid-line", x1: PAD.l, x2: W - PAD.r,
+                              y1: yy, y2: yy }));
+    svg.append(node("text", { class: "axis-label", x: PAD.l - 8, y: yy + 3.5,
+                              "text-anchor": "end" },
+                    Math.round(value / 1000) + "k"));
+  }
+  const xTicks = points.length <= 6 ? points.map((_, i) => i)
+    : [0, Math.floor((points.length - 1) / 2), points.length - 1];
+  for (const i of xTicks) {
+    svg.append(node("text", { class: "axis-label", x: x(i), y: H - 10,
+                              "text-anchor": i === 0 ? "start"
+                                : i === points.length - 1 ? "end" : "middle" },
+                    points[i].date.slice(5)));
+  }
+
+  /* 2px lines, round join and cap. The start point is the common base — every
+     series begins at the same 100,000 $, so one axis is correct here. */
+  for (const series of SERIES) {
+    const colour = `var(${series.css})`;
+    const path = points.map((p, i) =>
+      `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(p[series.key]).toFixed(1)}`).join(" ");
+    svg.append(node("path", { class: "series", d: path, stroke: colour }));
+    const lastIndex = points.length - 1;
+    svg.append(node("circle", { class: "focus-dot", cx: x(lastIndex),
+                                cy: y(points[lastIndex][series.key]), r: 4.5,
+                                fill: colour }));
+    /* Direct end-labels — the relief the light-mode contrast warning requires:
+       identity never rests on colour alone. */
+    svg.append(node("text", { class: "end-label", x: x(lastIndex) + 9,
+                              y: y(points[lastIndex][series.key]) + 4,
+                              fill: colour }, series.label));
+  }
+
+  /* The crosshair finds the X; one tooltip lists every series. */
+  const crosshair = node("line", { class: "crosshair", y1: PAD.t, y2: PAD.t + plotH,
+                                   x1: 0, x2: 0, visibility: "hidden" });
+  svg.append(crosshair);
+  const dots = SERIES.map((series) => {
+    const dot = node("circle", { class: "focus-dot", r: 5, visibility: "hidden",
+                                 fill: `var(${series.css})` });
+    svg.append(dot); return dot;
+  });
+  const tip = el("curve-tip");
+  const hide = () => {
+    crosshair.setAttribute("visibility", "hidden");
+    for (const dot of dots) dot.setAttribute("visibility", "hidden");
+    tip.classList.remove("on");
+  };
+  const show = (clientX, clientY) => {
+    const box = svg.getBoundingClientRect();
+    const local = (clientX - box.left) / box.width * W;
+    let index = 0, best = Infinity;
+    points.forEach((_, i) => {
+      const distance = Math.abs(x(i) - local);
+      if (distance < best) { best = distance; index = i; }
+    });
+    const point = points[index];
+    crosshair.setAttribute("x1", x(index));
+    crosshair.setAttribute("x2", x(index));
+    crosshair.setAttribute("visibility", "visible");
+    SERIES.forEach((series, i) => {
+      dots[i].setAttribute("cx", x(index));
+      dots[i].setAttribute("cy", y(point[series.key]));
+      dots[i].setAttribute("visibility", "visible");
+    });
+    tip.textContent = "";
+    const when = document.createElement("div");
+    when.className = "when";
+    when.textContent = point.date + (point.live ? " · live" : "");
+    tip.append(when);
+    for (const series of SERIES) {
+      const row = document.createElement("div"); row.className = "row";
+      const key = document.createElement("i");
+      key.style.background = `var(${series.css})`;
+      const name = document.createElement("em"); name.textContent = series.label;
+      const value = document.createElement("b");
+      value.textContent = money(point[series.key]);
+      row.append(key, name, value); tip.append(row);
+    }
+    const wrap = el("curve-wrap").getBoundingClientRect();
+    const px = box.left - wrap.left + x(index) / W * box.width;
+    tip.style.left = Math.max(4, Math.min(px + 14, wrap.width - 190)) + "px";
+    tip.style.top = Math.max(4, clientY - wrap.top - 20) + "px";
+    tip.classList.add("on");
+  };
+  svg.addEventListener("pointermove", (event) => show(event.clientX, event.clientY));
+  svg.addEventListener("pointerleave", hide);
+  svg.addEventListener("pointercancel", hide);
+}
+
+function renderCurveLegend() {
+  const legend = el("curve-legend");
+  legend.textContent = "";
+  for (const series of SERIES) {
+    const item = document.createElement("span");
+    const key = document.createElement("i");
+    key.style.background = `var(${series.css})`;
+    const label = document.createElement("span"); label.textContent = series.label;
+    item.append(key, label); legend.append(item);
+  }
+}
+
+function renderCurveTable(points) {
+  const host = el("curve-table");
+  host.textContent = "";
+  const table = document.createElement("table");
+  table.className = "grid-table";
+  const head = document.createElement("tr");
+  for (const label of ["Date", "Portfolio", "SPY", "SMH", "vs SPY"]) {
+    const cell = document.createElement("th");
+    cell.textContent = label;
+    if (label !== "Date") cell.className = "num";
+    head.append(cell);
+  }
+  table.append(head);
+  for (const point of [...points].reverse()) {
+    const row = document.createElement("tr");
+    const date = document.createElement("td");
+    date.textContent = point.date + (point.live ? " (live)" : "");
+    row.append(date);
+    for (const key of ["portfolio", "spy", "smh"]) {
+      const cell = document.createElement("td");
+      cell.className = "num"; cell.textContent = money(point[key]);
+      row.append(cell);
+    }
+    const gap = document.createElement("td");
+    gap.className = "num";
+    const value = (point.portfolio - point.spy) / DATA.starting_capital_usd * 100;
+    gap.textContent = pct(value);
+    gap.classList.add(value >= 0 ? "up" : "down");
+    row.append(gap);
+    table.append(row);
+  }
+  host.append(table);
+}
+
+const ACTION_CLASS = { BUY: "buy", SELL: "sell", TRIM: "trim" };
+
+function renderTrades() {
+  const host = el("trades");
+  host.textContent = "";
+  const trades = [...(DATA.trades || [])].reverse();
+  const intraday = trades.filter((t) => t.source === "intraday_autonomous").length;
+  el("trades-sub").textContent = trades.length
+    ? trades.length + " trades · " + intraday + " intraday"
+    : "no trades yet";
+  if (!trades.length) return;
+
+  const table = document.createElement("table");
+  table.className = "grid-table";
+  const head = document.createElement("tr");
+  for (const label of ["Date", "Action", "Symbol", "Shares", "Price", "Amount",
+                       "Reasoning"]) {
+    const cell = document.createElement("th");
+    cell.textContent = label;
+    if (["Shares", "Price", "Amount"].includes(label)) cell.className = "num";
+    head.append(cell);
+  }
+  table.append(head);
+  for (const trade of trades) {
+    const row = document.createElement("tr");
+    const date = document.createElement("td");
+    date.textContent = trade.date + (trade.time_utc ? " " + trade.time_utc : "");
+    row.append(date);
+
+    const action = document.createElement("td");
+    const tag = document.createElement("span");
+    tag.className = "tag " + (ACTION_CLASS[trade.action] || "");
+    tag.textContent = trade.action;
+    action.append(tag);
+    if (trade.source === "intraday_autonomous") {
+      const auto = document.createElement("span");
+      auto.className = "tag auto"; auto.textContent = "intraday";
+      action.append(auto);
+    }
+    row.append(action);
+
+    const symbol = document.createElement("td");
+    symbol.textContent = trade.symbol; row.append(symbol);
+    for (const [key, places] of [["shares", 4], ["price", 2]]) {
+      const cell = document.createElement("td");
+      cell.className = "num"; cell.textContent = fmt(trade[key], places);
+      row.append(cell);
+    }
+    const amount = document.createElement("td");
+    amount.className = "num"; amount.textContent = money(trade.amount_usd);
+    row.append(amount);
+    const note = document.createElement("td");
+    note.className = "note"; note.textContent = trade.note || "—";
+    row.append(note);
+    table.append(row);
+  }
+  host.append(table);
+}
+
+function setUpCurveToggle() {
+  const button = el("curve-mode");
+  button.addEventListener("click", () => {
+    const showingTable = el("curve-table").hidden;
+    el("curve-table").hidden = !showingTable;
+    el("curve-wrap").hidden = showingTable;
+    button.textContent = showingTable ? "Chart view" : "Table view";
+    button.setAttribute("aria-pressed", String(showingTable));
+  });
 }
 
 /* ---------- rendering ---------- */
@@ -768,6 +1266,8 @@ function handleQuotes(result) {
     : "time unknown";
   setPulse("live", (cache && cache.revalidating ? "refreshing · " : "") + clock, true);
   el("refresh").disabled = false;
+  renderSummary();
+  renderCurve();
   renderCards();
 }
 
@@ -926,6 +1426,10 @@ function setUpConsole() {
 
 /* ---------- start ---------- */
 el("stamp").textContent = DATA.source_round;
+renderSummary();
+renderCurve();
+renderTrades();
+setUpCurveToggle();
 renderCards();
 setUpConsole();
 

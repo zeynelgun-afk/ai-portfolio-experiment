@@ -16,6 +16,7 @@ Then, in a Claude session, republish to the same artifact URL.
 """
 
 import argparse
+import csv
 import json
 import os
 from datetime import date
@@ -28,6 +29,26 @@ DEFAULT_OUT = os.path.join(BASE, "dashboard", "thesis-watch.html")
 def load(name):
     with open(os.path.join(BASE, name), encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def equity_curve():
+    """The weekly value series from history.csv: portfolio vs SPY vs SMH."""
+    path = os.path.join(BASE, "history.csv")
+    if not os.path.exists(path):
+        return []
+    rows = []
+    with open(path, newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            try:
+                rows.append({
+                    "date": row["date"],
+                    "portfolio": float(row["portfolio_usd"]),
+                    "spy": float(row["spy_usd"]),
+                    "smh": float(row["smh_usd"]),
+                })
+            except (KeyError, ValueError):
+                continue  # a malformed row is skipped, never guessed at
+    return rows
 
 
 def latest_round_label(default="DECISION_LOG.md (no round found)"):
@@ -63,6 +84,13 @@ def main():
         } for p in portfolio["positions"]},
         "theses": {key: value for key, value in theses.items()
                    if not key.startswith("_")},
+        # The dashboard also serves as the portfolio view: the equity curve, the
+        # benchmark references and every trade to date.
+        "starting_capital_usd": portfolio["starting_capital_usd"],
+        "start_date": portfolio["start_date"],
+        "benchmark": portfolio["benchmark"],
+        "history": equity_curve(),
+        "trades": portfolio.get("trade_history", []),
     }
 
     with open(TEMPLATE, encoding="utf-8") as handle:
@@ -76,6 +104,7 @@ def main():
 
     claims = sum(len(v["claims"]) for v in payload["theses"].values())
     print(f"wrote {args.out} · {len(payload['theses'])} positions, {claims} claims, "
+          f"{len(payload['history'])} history points, {len(payload['trades'])} trades, "
           f"source: {payload['source_round']}")
 
 
