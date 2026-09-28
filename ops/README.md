@@ -1,6 +1,7 @@
 # Independent heartbeat and bounded recovery
 
-`watchdog.py` runs outside GitHub Actions every ten minutes using a systemd user timer.
+`watchdog.py` runs outside GitHub Actions once daily at 23:00 UTC (02:00 Europe/Istanbul) using a systemd user timer.
+This follows the closing-review deadline; there is no extra startup trigger.
 It reads the authenticated GitHub CLI's Actions API and observes main-branch scheduled
 and manually dispatched runs. It does not read or edit investment records.
 

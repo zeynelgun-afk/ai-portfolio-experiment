@@ -144,7 +144,7 @@ independent heartbeat with bounded automatic recovery. The charter hash is uncha
 - Weekly/intraday evidence artifacts retain the original measurement packet and source
   references for ninety days. Provider truth and semantic correctness of surrounding
   prose are not established by this structural check.
-- Independent systemd watchdog: ten-minute checks, NYSE/holiday-aware intraday deadlines,
+- Independent systemd watchdog: daily checks at 23:00 UTC (02:00 Europe/Istanbul), NYSE/holiday-aware intraday deadlines,
   separate closing-review deadline and Saturday weekly deadline. A green skipped detector
   does not count as a measurement. Missing jobs can be dispatched; only dependency-stage
   failures may be rerun. Running jobs block dispatch. No repair rewrites strategy or

@@ -66,8 +66,7 @@ UMask=0077
 Description=Check AI portfolio schedules independently of GitHub Actions
 
 [Timer]
-OnCalendar=*:0/10
-OnStartupSec=90
+OnCalendar=*-*-* 23:00:00 UTC
 Persistent=true
 RandomizedDelaySec=30
 Unit=ai-portfolio-watchdog.service
