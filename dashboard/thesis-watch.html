@@ -545,40 +545,7 @@
     <div class="scroll" id="trades"></div>
   </section>
 
-  <section class="console">
-    <h2>Ask the agent</h2>
-    <p>The live measurements on this page are sent along with your question. The answer is
-      produced fresh each time — there is no canned reply embedded in the page.</p>
-    <div class="console-box">
-      <div class="chips" id="chips"></div>
-      <div class="row">
-        <label class="sr" for="q">Your question</label>
-        <textarea id="q" placeholder="e.g. Which position's thesis is most fragile on these measurements, and why?"></textarea>
-        <button class="btn send" id="send">Ask</button>
-      </div>
-      <div id="qout"></div>
-    </div>
-  </section>
 
-  <div class="note">
-    <h3>What this page does not show</h3>
-    <ul>
-      <li><b>No hysteresis and no cooldown.</b> In the repository, <code>detector.py</code>
-        requires 2 consecutive checks before a condition counts as breached, and it will not
-        rewrite the same claim twice within 4 hours. What you see here is a single
-        instantaneous measurement — a "breach" pill is not the detector's
-        <em>confirmed</em> breach.</li>
-      <li><b>The volume ratio cannot be measured.</b> The live connector gives today's volume
-        but not the 20-day average, so that condition is marked
-        <code>unmeasurable</code>.</li>
-      <li><b>This page does not trade.</b> The intraday trading decision belongs to the chain
-        in the repository (<code>detector.py</code> → <code>reassess.py</code> →
-        <code>execute_trade.py</code>), and every step of it is written to
-        <code>DECISION_LOG.md</code>.</li>
-      <li><b>This is not investment advice.</b> A virtual portfolio, an experiment on
-        paper.</li>
-    </ul>
-  </div>
 
   <footer>
     Thesis text: <span id="stamp"></span> · Live price: the FMP connector, under the viewer's
@@ -1168,16 +1135,6 @@ function renderCards() {
         pills.append(pill);
       }
       block.append(pills);
-
-      /* a live question per claim */
-      const ask = document.createElement("div"); ask.className = "ask";
-      const button = document.createElement("button");
-      button.className = "btn";
-      button.textContent = "What is this claim's status right now?";
-      const output = document.createElement("div");
-      button.addEventListener("click", () => askAboutClaim(symbol, claim, button, output));
-      ask.append(button, output);
-      block.append(ask);
       card.append(block);
     }
     root.append(card);
@@ -1294,135 +1251,7 @@ function measurementSummary() {
   return lines.join("\n");
 }
 
-const DISCIPLINE = [
-  "You are the intraday commentary layer of a portfolio experiment. The rules of record",
-  "honesty:",
-  "- Use ONLY the numbers in the measurement block given to you. Do not write a price,",
-  "  market share, product name, analyst target or P/E from memory. If a number was not",
-  "  given, it does not belong in your sentence.",
-  "- When you write a percentage, name its base (against entry / against the previous close).",
-  "- A wish is not a thesis: 'could recover', 'earnings may come in strong', 'I will wait",
-  "  and see' are forbidden.",
-  "- Do not give trading advice; this page does not trade. Assess the state of the thesis.",
-  "- Write in plain, short sentences. Do not use markdown headings.",
-].join("\n");
 
-async function streamAnswer(prompt, target, label, length) {
-  const sample = await capability("sample");
-  if (!sample) {
-    target.className = "ask-out err";
-    target.textContent = "Cannot send a question to the agent: live answers are off in "
-      + "this view.";
-    return;
-  }
-  target.className = "ask-out";
-  target.textContent = "";
-  const who = document.createElement("span");
-  who.className = "who"; who.textContent = label;
-  const body = document.createElement("span");
-  body.className = "thinking"; body.textContent = "Thinking…";
-  target.append(who, body);
-  try {
-    const result = await sample(prompt, {
-      modelTier: length === "long" ? "default" : "quick",
-      onText: ({ text }) => { body.className = ""; body.textContent = text; },
-    });
-    body.className = ""; body.textContent = result.text;
-    if (result.truncated) {
-      const note = document.createElement("small");
-      note.textContent = "\n\n(The answer was cut short — ask something narrower.)";
-      target.append(note);
-    }
-  } catch (error) {
-    const code = error && error.code;
-    target.className = "ask-out err";
-    if (code === "not_granted") {
-      target.textContent = "Permission for live answers was not granted. The measurements "
-        + "and thresholds on this page still hold.";
-    } else if (code === "rate_limited") {
-      target.textContent = "Too many questions too quickly. Wait a moment and try again.";
-    } else if (code === "cancelled") {
-      target.textContent = "The question was cancelled.";
-    } else {
-      target.textContent = "No answer came back"
-        + (error && error.message ? ": " + error.message : ".")
-        + (error && error.text ? "\n\nThe partial answer:\n" + error.text : "");
-    }
-  }
-}
-
-function askAboutClaim(symbol, claim, button, target) {
-  const conditions = claim.conditions.map((condition) => {
-    const result = measure(condition, symbol);
-    return "  - [" + (SEVERITY_LABEL[condition.severity] || condition.severity) + "] "
-      + result.label + ": measured " + result.value + ", threshold " + result.threshold
-      + (result.state === "hit" ? " → THRESHOLD CROSSED"
-        : result.state === "na" ? " → unmeasurable" : "");
-  }).join("\n");
-  const prompt = [
-    DISCIPLINE, "",
-    "POSITION: " + symbol,
-    "The position's thesis summary: " + DATA.theses[symbol].thesis_summary, "",
-    "THE CLAIM TO ASSESS (" + claim.id + ", status on file: "
-      + (STATUS_LABEL[claim.status] || claim.status) + ", last updated "
-      + (claim.last_updated || "unknown") + "):",
-    claim.text, "",
-    "This claim's validity conditions and their current measurements:", conditions, "",
-    measurementSummary(), "",
-    "Question: is this claim still standing on the current measurements? Answer in three",
-    "short paragraphs:",
-    "(1) where the claim's evidence stands today — which measurement holds it up, which one",
-    "strains it;",
-    "(2) is the status on file (" + (STATUS_LABEL[claim.status] || claim.status)
-      + ") correct against these measurements, and if not what should it be and why;",
-    "(3) what is the SINGLE observation that would refute this claim — it must be",
-    "measurable and checkable on the next run.",
-  ].join("\n");
-  button.disabled = true;
-  streamAnswer(prompt, target, "live assessment · " + claim.id, "short")
-    .finally(() => { button.disabled = false; button.textContent = "Ask again"; });
-}
-
-const SUGGESTIONS = [
-  "Which position's thesis is most fragile on these measurements? Rank them with one reason each.",
-  "Which of the thresholds looks wrongly set against today's measurements?",
-  "The whole portfolio sits in one theme — do these measurements raise or lower that risk today?",
-  "Which single number should I watch on the next run, and why that one?",
-];
-
-function setUpConsole() {
-  const chips = el("chips");
-  for (const suggestion of SUGGESTIONS) {
-    const chip = document.createElement("button");
-    chip.className = "chip"; chip.type = "button"; chip.textContent = suggestion;
-    chip.addEventListener("click", () => { el("q").value = suggestion; el("q").focus(); });
-    chips.append(chip);
-  }
-  const submit = () => {
-    const question = el("q").value.trim();
-    if (!question) { el("q").focus(); return; }
-    const summary = SYMBOLS.map((symbol) => {
-      const position = DATA.theses[symbol];
-      return "  " + symbol + " — " + position.thesis_summary + "\n"
-        + position.claims.map((claim) =>
-          "     [" + claim.id + "] (" + (STATUS_LABEL[claim.status] || claim.status)
-          + ") " + claim.text).join("\n");
-    }).join("\n");
-    const prompt = [
-      DISCIPLINE, "",
-      "THE PORTFOLIO'S THESES (last decision round: " + DATA.source_round + "):", summary,
-      "", measurementSummary(), "",
-      "The viewer's question: " + question,
-    ].join("\n");
-    el("send").disabled = true;
-    streamAnswer(prompt, el("qout"), "live answer", "long")
-      .finally(() => { el("send").disabled = false; });
-  };
-  el("send").addEventListener("click", submit);
-  el("q").addEventListener("keydown", (event) => {
-    if ((event.metaKey || event.ctrlKey) && event.key === "Enter") submit();
-  });
-}
 
 /* ---------- start ---------- */
 el("stamp").textContent = DATA.source_round;
@@ -1431,7 +1260,7 @@ renderCurve();
 renderTrades();
 setUpCurveToggle();
 renderCards();
-setUpConsole();
+
 
 capability("mcp").then((mcp) => {
   if (!mcp) {
