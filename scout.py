@@ -5,6 +5,7 @@ import urllib.request
 import re
 from execute_trade import write_json
 from prompt_policy import policy
+import market_data
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -40,15 +41,30 @@ def get_fmp(endpoint, api_key, limit=20):
         raise RuntimeError(f"Scout could not fetch FMP endpoint {endpoint}") from None
 
 def run_scout():
-    fmp_key = env("FMP_API_KEY")
     or_key = env("OPENROUTER_API_KEY")
     
-    if not fmp_key or not or_key:
+    if not or_key:
         raise RuntimeError("Missing API keys for Scout")
 
     print("Fetching market pulse for Scout Agent...")
-    articles = get_fmp("fmp-articles", fmp_key, 30)
-    gainers = get_fmp("biggest-gainers", fmp_key, 10)
+    def primary():
+        return {'articles':market_data.fmp('fmp-articles',limit=30),
+                'gainers':market_data.fmp('biggest-gainers',limit=10)}
+    def backup():
+        import yfinance
+        screened = yfinance.screen('day_gainers', count=10)
+        raw = yfinance.Ticker('SPY').news or []
+        articles=[]
+        for item in raw:
+            item=item.get('content') or item
+            articles.append({'title':item.get('title'), 'content':item.get('summary','')})
+        return {'articles':articles,'gainers':screened.get('quotes',[])}
+    def valid(pulse):
+        if not pulse.get('articles') or not pulse.get('gainers'):
+            raise market_data.ProviderError('Incomplete Scout market pulse')
+        return pulse
+    pulse,_ = market_data.select('*','scout',primary,backup,valid)
+    articles,gainers = pulse['articles'],pulse['gainers']
     
     news_text = "\n".join([f"- {a.get('title')}: {a.get('content', '')[:200]}" for a in articles])
     gainers_text = ", ".join([g.get("symbol", "") for g in gainers])

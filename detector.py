@@ -132,12 +132,11 @@ def _last_valid(series):
 def collect_live_data(symbols, earnings_fallback=None):
     """Intraday price + previous close + 20-day average volume + earnings date.
 
-    The price comes from the latest intraday 5-minute bar (yfinance, ~15 minutes
-    delayed). If the intraday fetch fails the code falls back to the daily close and
+    The price comes from FMP intraday bars, with yfinance only on primary failure. If the intraday fetch fails the code falls back to the daily close and
     records that in `data_source` — quietly calling daily data "live" would be the very
     staleness this system exists to prevent.
     """
-    import yfinance as yf
+    import market_data as yf
 
     joined = " ".join(symbols)
     daily = _retry("daily series", lambda: yf.download(
@@ -195,38 +194,41 @@ def collect_live_data(symbols, earnings_fallback=None):
         if volume is None and volumes is not None and len(volumes):
             volume = float(volumes.iloc[-1])
 
+        providers = {}
+        earnings_date = _earnings_date(yf, symbol, earnings_fallback, providers)
         result[symbol] = {
             "price": round(price, 4),
             "previous_close": round(previous_close, 4),
             "volume": volume,
             "volume_avg_20d": volume_avg_20d,
-            "earnings_date": _earnings_date(yf, symbol, earnings_fallback),
+            "earnings_date": earnings_date,
+            "providers": providers,
             "data_source": source,
             "price_at": price_at,
         }
 
-    # Fetch breaking news via FMP API
-    fmp_key = env("FMP_API_KEY")
-    if fmp_key:
-        try:
-            import urllib.request
-            req = urllib.request.Request(f"https://financialmodelingprep.com/stable/news/stock?symbols={','.join(symbols)}&limit=30&apikey={fmp_key}")
-            with urllib.request.urlopen(req, timeout=10) as res:
-                news_data = json.loads(res.read().decode("utf-8"))
-                for item in news_data:
-                    sym = item.get("symbol")
-                    if sym and sym in result:
-                        result[sym].setdefault("recent_news", []).append(item)
-        except Exception as e:
-            raise RuntimeError("FMP news fetch failed; news monitoring is incomplete") from None
+    # FMP first; only an unavailable/invalid primary dataset opens the backup.
+    for symbol, row in result.items():
+        row['recent_news'], row['news_provider'] = yf.news(symbol)
+        price_frame = intraday if source_for_row(row) else daily
+        row['price_provider'] = (price_frame.attrs.get('providers', {}).get(symbol, 'unknown')
+                                 if price_frame is not None else 'unknown')
+        row['daily_provider'] = daily.attrs.get('providers', {}).get(symbol, 'unknown')
 
     return result
 
 
-def _earnings_date(yf, symbol, fallback):
-    """yfinance calendar -> the portfolio.json fallback -> none. Never raises."""
+def source_for_row(row):
+    return row.get('data_source') in {'intraday_5m', 'stale_intraday_5m'}
+
+
+def _earnings_date(yf, symbol, fallback, providers=None):
+    """FMP calendar -> yfinance fallback -> stored portfolio date. Never raises."""
     try:
-        calendar = yf.Ticker(symbol).calendar
+        ticker = yf.Ticker(symbol)
+        calendar = ticker.calendar
+        if providers is not None:
+            providers.update(ticker.providers)
         if calendar:
             dates = calendar.get("Earnings Date") or []
             if dates:
@@ -234,6 +236,8 @@ def _earnings_date(yf, symbol, fallback):
                 return first.isoformat() if hasattr(first, "isoformat") else str(first)
     except Exception:
         pass
+    if providers is not None and (fallback or {}).get(symbol):
+        providers['earnings'] = 'portfolio_snapshot'
     return (fallback or {}).get(symbol)
 
 

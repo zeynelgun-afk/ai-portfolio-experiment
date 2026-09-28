@@ -3,7 +3,7 @@
 
 What it does (measurement and reporting only; it makes NO decisions — since charter
 version 2 every buy and sell decision belongs to the AI):
-  1. Fetches the latest closing prices (yfinance, no key required).
+  1. Fetches completed closing prices from FMP, with yfinance as fallback.
   2. Values the portfolio and computes the SPY/SMH comparison.
   3. FLAGS positions that closed below their exit level — it never closes them. That
      decision belongs to the AI in the weekly round.
@@ -21,7 +21,7 @@ from datetime import date
 from datetime import datetime, timezone, timedelta
 from market_time import session
 
-import yfinance as yf
+import market_data as yf
 
 import counters
 

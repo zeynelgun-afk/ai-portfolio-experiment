@@ -23,7 +23,7 @@ strategy or decision autonomy.
 
 UNITS = {'price': 'USD', 'last_price': 'USD', 'previous_close': 'USD',
          'sma50': 'USD', 'sma200': 'USD', 'analyst_target': 'USD',
-         'market_cap': 'USD', 'volume': 'shares', 'volume_avg20': 'shares',
+         'market_cap': 'USD', 'volume': 'shares', 'volume_avg20': 'shares', 'volume_avg_20d': 'shares',
          'forward_pe': 'ratio', 'trailing_pe': 'ratio', 'rsi': 'index',
          'return_1w_pct': '% vs previous week', 'return_1m_pct': '% vs previous month',
          'return_3m_pct': '% vs previous quarter', 'earnings_date': 'date',
@@ -47,13 +47,24 @@ def ledger(data, observed_at, origin):
             # Fundamentals are observations at collection time, not statements
             # that their reporting period equals the quote's session date.
             quote_metric = metric in {'price', 'last_price', 'previous_close', 'sma50', 'sma200',
-                                      'rsi', 'volume', 'volume_avg20', 'price_date', 'price_at'} or metric.startswith('return_')
+                                      'rsi', 'volume', 'volume_avg20', 'volume_avg_20d', 'price_date', 'price_at'} or metric.startswith('return_')
             stamp = (row.get('price_at') or row.get('price_date')) if quote_metric else observed_at
             if not stamp:
                 continue
+            providers = row.get('providers', {})
+            if quote_metric:
+                provider = row.get('daily_provider') if metric in {'previous_close', 'volume_avg20', 'volume_avg_20d'} else row.get('price_provider')
+                provider = provider or providers.get('history')
+            elif metric == 'earnings_date':
+                provider = providers.get('earnings')
+            elif metric == 'analyst_target':
+                provider = 'FMP'
+            else:
+                provider = providers.get('fundamentals')
+            field_source = origin + (' / ' + provider if provider else '')
             ident = f'{symbol}.{metric}'
             facts[ident] = dict(symbol=symbol, metric=metric, value=value, unit=unit,
-                                as_of=stamp, source=(origin + (' / FMP price-target-summary.lastQuarterAvgPriceTarget' if metric == 'analyst_target' and origin.startswith('weekly_data') else '')), snapshot=snapshot)
+                                as_of=stamp, source=(field_source + (' / FMP price-target-summary.lastQuarterAvgPriceTarget' if metric == 'analyst_target' and origin.startswith('weekly_data') else '')), snapshot=snapshot)
         for metric in ('sma50', 'sma200'):
             price_id = f'{symbol}.last_price' if f'{symbol}.last_price' in facts else f'{symbol}.price'
             base_id = f'{symbol}.{metric}'
@@ -61,7 +72,7 @@ def ledger(data, observed_at, origin):
                 name = f'above_{metric}_pct'
                 facts[f'{symbol}.{name}'] = dict(symbol=symbol, metric=name,
                     value=round((facts[price_id]['value'] / facts[base_id]['value'] - 1) * 100, 4),
-                    unit=f'% vs {metric}', as_of=facts[price_id]['as_of'], source=origin,
+                    unit=f'% vs {metric}', as_of=facts[price_id]['as_of'], source=facts[price_id]['source'],
                     snapshot=snapshot, operands=[price_id, base_id])
     return facts
 

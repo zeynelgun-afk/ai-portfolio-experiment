@@ -166,3 +166,25 @@ surrounding sentence. Research opinions are not independent quantitative sources
 only bounded, idempotency-protected recovery. Repair requests, unresolved incidents and
 verified recovery are reported to Telegram. It never rewrites strategy, disables a gate or
 replays an execution/commit failure. See [installation and limits](ops/README.md).
+
+
+## Data provider priority
+
+FMP is the primary provider. `market_data.py` requests yfinance only after a primary
+request fails, is empty/invalid, mismatches the issuer or returns stale price data.
+There are no routine duplicate requests or provider averaging. Each symbol/dataset
+selects one provider; a price-history series is replaced as a whole, never spliced.
+This routing covers valuation, weekly history/fundamentals/earnings/news, intraday
+measurement, exit-score prices and Scout market-pulse discovery.
+
+NYSE-session, finite-value, timestamp and execution gates remain active on both paths.
+Provider choice is recorded in source evidence and fills. Failover or unavailable data
+is summarized to Telegram once per workflow and archived in `provider-routing` artifacts.
+If both providers fail, missing prices cannot become trades. FMP-specific optional
+insider/consensus/sector enrichment has no fabricated Yahoo equivalent: gaps remain
+explicitly unavailable. A valid FMP fundamental snapshot does not trigger a second
+provider merely for optional forward P/E; that field stays unknown when absent.
+
+FMP endpoints: [daily prices](https://site.financialmodelingprep.com/developer/docs/stable/historical-price-eod-full),
+[earnings](https://site.financialmodelingprep.com/developer/docs/stable/earnings-company)
+and the [API catalogue](https://site.financialmodelingprep.com/developer/docs).

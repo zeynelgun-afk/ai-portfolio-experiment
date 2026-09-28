@@ -146,7 +146,8 @@ def prepare(proposal, book, old_theses, data, moment, existing_log):
         if not ok:
             raise ValueError(f'{symbol}: {reason}')
         record = execute(decision, result, details, moment, source='weekly_autonomous')
-        record.update(round_id=slot(moment).date().isoformat(), price_date=expected_date)
+        record.update(round_id=slot(moment).date().isoformat(), price_date=expected_date,
+                      price_provider=data.get(symbol, {}).get('providers', {}).get('history', 'unknown'))
         fills.append(record)
         locks[details['lock']] = True
     if not held <= seen:
@@ -257,7 +258,7 @@ def main():
     data = read_json(str(BASE/'weekly_data.json'), None)
     if not data or data.get('_meta', {}).get('date') != moment.date().isoformat():
         raise ValueError('Weekly inputs must be freshly collected today')
-    facts = evidence.ledger(data, data['_meta'].get('collected_at', moment.isoformat()), 'weekly_data/yfinance+FMP')
+    facts = evidence.ledger(data, data['_meta'].get('collected_at', moment.isoformat()), 'weekly_data/market_data')
     context = {}
     for name in ('RULES.md', 'WEEKLY_INSTRUCTIONS.md', 'portfolio.json', 'REPORT.md',
                  'DECISION_LOG.md', 'theses.json', 'state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md'):

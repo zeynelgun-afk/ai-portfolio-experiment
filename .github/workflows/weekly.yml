@@ -199,3 +199,16 @@ jobs:
         run: |
           echo "::error::Prompt reminder rolled back after the measured failure rate increased; previous policy restored."
           exit 1
+
+      - name: Report provider failover
+        if: always()
+        run: python provider_health.py
+
+      - name: Preserve provider routing evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: provider-routing
+          path: output/provider-events.jsonl
+          if-no-files-found: ignore
+          retention-days: 90

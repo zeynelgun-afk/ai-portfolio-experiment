@@ -354,6 +354,7 @@ def main():
             # Snapshot before the first mutation, so --rollback has a clean state.
             write_json(snapshot_path, read_json(PORTFOLIO_PATH, portfolio))
         record = execute(decision, portfolio, details, moment)
+        record['price_provider'] = row.get('price_provider', 'unknown')
         details["recorded_action"] = record["action"]
         locks[details["lock"]] = iso(moment)
         executed.append((decision, details))

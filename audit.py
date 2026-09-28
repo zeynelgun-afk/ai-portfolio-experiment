@@ -173,7 +173,7 @@ def fetch_prices_since(symbols):
     if not symbols:
         return {}
     try:
-        import yfinance as yf
+        import market_data as yf
     except ImportError:
         print("NOTE: yfinance is not installed — exit scoring skipped")
         return {}

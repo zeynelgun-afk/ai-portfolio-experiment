@@ -70,6 +70,11 @@ while portfolio arithmetic, fills, log append, thesis persistence and acknowledg
 clearing belong to the deterministic executor. Requesting a data repair does not permit
 inventing missing evidence. If unavailable, state the gap and use only known facts.
 
+The collector uses FMP as the primary source. yfinance is a backup only after a
+failed, missing or invalid primary dataset; valid FMP data does not require a second
+provider query. Use the recorded field provider, and leave unsupported optional facts
+unknown. Do not reinterpret different provider metrics as interchangeable.
+
 Use the response schema supplied by the executor. Sections A-F are mandatory. Use
 `{{SYMBOL.metric}}` references for numerical facts; the renderer supplies the exact
 company, metric, value, unit, observation time and snapshot source. Source numbers from

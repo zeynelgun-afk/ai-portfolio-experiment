@@ -185,3 +185,27 @@ SHA updates before repair dispatch. Delayed jobs evaluate the prior daily deadli
 predeployment missing runs do not trigger retrospective repairs. GitHub-wide outages
 remain a shared dependency. Local regression suite: 267 tests passed, including remote
 checkpoint failure blocking dispatch, SHA updates and delayed-deadline evaluation.
+
+
+## FMP-primary / yfinance-fallback — 28 September 2026
+
+Central provider routing replaces unconditional Yahoo queries. Primary failure, empty
+or malformed data, issuer mismatch and stale timestamps permit failover; normal FMP
+success leaves Yahoo idle. Both providers undergo identical price/session validation.
+A full price series belongs to one provider. News cursors use a consistent timestamp
+separator across providers; original publication stamps remain in the evidence.
+
+Live read-only verification: AMD, MU, ANET, NVDA, SPY and SMH closes all used FMP with
+25 September as the last completed session. AMD returned 507 history rows; fundamentals,
+earnings, news and detector prices/news used FMP. A patched Yahoo sentinel confirmed
+zero backup calls. An injected FMP outage then fetched a real Yahoo backup (ten daily
+rows, same latest session). Neither probe wrote portfolio, thesis or trade records.
+
+Provider failures/failover are archived and summarized to Telegram once per workflow.
+FMP-only optional enrichment is not silently replaced by non-equivalent Yahoo metrics.
+
+Final provider verification: 282 tests passed. An isolated weekly collection also
+completed for all four holdings with FMP serving history, earnings, fundamentals and
+news for every holding. Forward P/E was explicitly unavailable for all four; no
+second provider or non-equivalent ratio was substituted merely to fill that optional
+field. The isolated run skipped LLM research and did not modify production records.

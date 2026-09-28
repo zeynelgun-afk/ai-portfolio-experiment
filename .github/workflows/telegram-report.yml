@@ -13,6 +13,7 @@ jobs:
   send:
     runs-on: ubuntu-latest
     env:
+      FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
@@ -60,3 +61,16 @@ jobs:
             --data-urlencode "text=${MESSAGE}" \
             -o /dev/null -w '%{http_code}')
           echo "Reminder HTTP status: ${CODE}"
+
+      - name: Report provider failover
+        if: always()
+        run: python provider_health.py
+
+      - name: Preserve provider routing evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: provider-routing
+          path: output/provider-events.jsonl
+          if-no-files-found: ignore
+          retention-days: 90

@@ -516,7 +516,7 @@ def evidence_for(data, violations, symbol):
     # Scope to the assessed issuer and sector benchmarks; another issuer cannot
     # supply a convenient matching number. Old prose is never a factual source.
     selected = {s: row for s, row in data.items() if s in {symbol, 'SPY', 'SMH'}}
-    return evidence.ledger(selected, violations.get('checked_at'), 'detector/yfinance')
+    return evidence.ledger(selected, violations.get('checked_at'), 'detector/market_data')
 
 
 def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, limit,

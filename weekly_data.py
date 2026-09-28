@@ -6,7 +6,7 @@ import os
 import requests
 from datetime import datetime, timedelta, timezone
 
-import yfinance as yf
+import market_data as yf
 
 # For the cheap LLM filtering step
 try:
@@ -54,19 +54,14 @@ def headline(item):
 
 
 def fmp_get(endpoint, api_key, params=None):
-    if not api_key: return None
-    if params is None: params = {}
-    params['apikey'] = api_key
-    url = f"https://financialmodelingprep.com/stable/{endpoint}"
-    try:
-        r = requests.get(url, params=params, timeout=10)
-        r.raise_for_status()
-        data = r.json()
-        if isinstance(data, dict) and 'Error Message' in data:
-            return None
-        return data
-    except Exception:
+    if not api_key:
         return None
+    try:
+        return yf.fmp(endpoint, **(params or {}))
+    except yf.ProviderError:
+        yf.event('*', endpoint, 'unavailable', 'FMP enrichment unavailable; no equivalent backup mapped')
+        return None
+
 
 def fred_get(series_id, api_key):
     if not api_key: return None
@@ -201,6 +196,7 @@ def main():
                     print(f"FMP Warning for {symbol}: {e}")
 
             results[symbol] = {
+                'providers': dict(ticker.providers),
                 'last_price': numeric(last_price, 'price'),
                 'price_date': price_date,
                 'price_day_name': price_day_name,
