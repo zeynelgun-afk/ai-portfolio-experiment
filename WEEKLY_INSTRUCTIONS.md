@@ -174,6 +174,23 @@ invalid:
 If you cannot write both, either the label is wrong (you should have said WEAKENING) or the
 position should be closed; say which.
 
+**The label-action line — written as data, not prose.** For every position you label BROKEN this round, section C must contain exactly one line in this fixed form, which a script can check:
+
+`LABEL-ACTION: SYMBOL — BROKEN — action: CLOSE | TRIM <shares> | HOLD — (a) <new thesis or "n/a"> — (b) <refuting observation or "n/a">`
+
+- If `action` is `CLOSE`, (a) and (b) are `n/a`.
+- If `action` is `TRIM` or `HOLD`, both (a) and (b) must be filled in.
+- The (a) text may not name the position's earnings date or its report. "Waiting for the report" is the calendar the rule above already rejects.
+- A BROKEN label with no `LABEL-ACTION:` line counts as an unanswered BROKEN-and-hold.
+
+**Every `broken_but_held` row in `AUDIT.md` needs a written verdict.** Answer each row in section F with this line:
+
+`BROKEN-HELD VERDICT: round <N>, SYMBOL — wrong was: LABEL | ACTION — <one sentence>`
+
+`BOTH RIGHT` is not an allowed value, because the scorecard row exists precisely because they disagreed. A profitable later exit does not make a disagreement right; it only means the outcome was lucky.
+
+No lesson may describe a `broken_but_held` round as correct unless its verdict line already names which of the two was wrong. For example, the round-8 lesson "waiting for AVGO's report and then closing was right (the thesis was broken)" would need its verdict line first.
+
 **Label deferral — the position-level counterpart of the watchlist counter.** If you are
 writing **the same label for the third round in a row** on the same position (e.g. AMD:
 rounds #5, #6, #7 — WEAKENING all three times, "the next round is critical" all three
