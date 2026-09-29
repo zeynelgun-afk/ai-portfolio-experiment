@@ -2011,3 +2011,25 @@ The conflicting figures already exist in the original Turkish decision log at
 in the model's reasoning is unverified. This clarification corrects the interpretation
 of the recorded figures only; it changes no trade, historical rationale, benchmark
 reference or portfolio balance, and is not a new validation of market prices.
+
+## S#2 — 2026-09-29 19:03 UTC · INTRADAY DECISION
+
+This is not a weekly round but an event-driven intraday one (`detector.py` -> `reassess.py` -> `execute_trade.py`). The trigger and the resulting assessment are recorded below.
+
+### ANET — HOLD (NOT EXECUTED)
+
+- **Trigger:** Legacy decision needs executable falsifier and review deadline; no threshold is invented
+- **Why it was not executed:** the decision is HOLD — nothing to execute
+- **The model's reasoning (recorded, not acted on):** No issuer-specific negative evidence has arrived. The price remains above both moving averages. The latest reported fundamentals show high growth, high margins, a debt-free balance sheet and strong cash generation. The trigger only requires executable monitoring, and nothing in the data argues for adding, trimming or exiting. I am not adding because consensus estimates show no fresh upward movement in the observed snapshots, and the next fundamental catalyst is the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot 86fbf9e8b505].
+
+### MU — HOLD (NOT EXECUTED)
+
+- **Trigger:** Legacy decision needs executable falsifier and review deadline; no threshold is invented
+- **Why it was not executed:** the decision is HOLD — nothing to execute
+- **The model's reasoning (recorded, not acted on):** Nothing in today's data contradicts the thesis. The price is above the previous close and well above the medium-term average. The sector ETF is positive while the broad market is flat. The latest reported fundamentals show high margins and net cash. Consensus forecasts for the current and next fiscal years ticked up against the prior observed snapshot ([MU | analyst_eps_20260828_revision_pct: 0.11596077993318474 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] and [MU | analyst_eps_20270828_revision_pct: 1.0241930149073122 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] for EPS). I choose to carry the position into the report as a deliberate test rather than add ahead of an unresolved binary event. The existing weekly-close stop is unchanged.
+
+### AMD — HOLD (NOT EXECUTED)
+
+- **Trigger:** Legacy decision needs executable falsifier and review deadline; no threshold is invented
+- **Why it was not executed:** the decision is HOLD — nothing to execute
+- **The model's reasoning (recorded, not acted on):** Nothing in the triggering data breaks the thesis. The price is far above both trend averages, the latest reported quarter shows strong growth and cash generation, and the sector ETF is firm. I am not adding: the price is stretched well above the fifty-day average, volume is light relative to its twenty-day average, and the consensus estimate windows have insufficient snapshots to show fresh upward revisions. I am not trimming: no fundamental or price falsifier has fired, and the next hard evidence is the earnings report on [AMD | earnings_date: 2026-11-03 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot 26bf98813d64]. The weekly-close stop stays unchanged because no new non-price evidence justifies moving it.

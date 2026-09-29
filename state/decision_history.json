@@ -1,0 +1,889 @@
+{
+  "0bdad3577a638e3282b4eb90": {
+    "symbol": "ANET",
+    "action": "HOLD",
+    "time": "2026-09-29T18:53Z",
+    "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented",
+    "reasoning": "No issuer-specific negative evidence has arrived. The price remains above both moving averages. The latest reported fundamentals show high growth, high margins, a debt-free balance sheet and strong cash generation. The trigger only requires executable monitoring, and nothing in the data argues for adding, trimming or exiting. I am not adding because consensus estimates show no fresh upward movement in the observed snapshots, and the next fundamental catalyst is the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot 86fbf9e8b505].",
+    "falsifier": "Two outcomes would show this HOLD was wrong. First, the price falls below its freshly calculated fifty-day moving average: the moving-average condition set at zero distance, which is the thesis-severity falsifier. Second, the next reported quarter shows revenue growth or operating margin falling below the fundamental thresholds set in monitoring.",
+    "before": {
+      "thesis_summary": "Leader in AI data-center network hardware; the steadiest position in the portfolio. +8.6% above the 50-day average (190.23 $, 25 Sep 2026).",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "ANET-1",
+          "text": "Network-hardware leadership holds while the price stays above the 50-day average (190.23 $); momentum has continued since the guidance raise. Losing that average puts the thesis in question.",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 190.23,
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "warning"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T01:05Z",
+          "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
+        }
+      ],
+      "pending_review": {
+        "claim_id": "monitoring_migration",
+        "condition_type": "monitoring_migration",
+        "cooldown_key": "migration:ANET",
+        "measured": 1,
+        "severity": "thesis",
+        "symbol": "ANET",
+        "threshold": 0,
+        "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented"
+      }
+    },
+    "after": {
+      "thesis_summary": "Arista's most recent reported quarter shows strong revenue growth, high margins, strong free cash flow and no debt, and the price holds above its rising fifty-day average ahead of the next report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot 86fbf9e8b505].",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "ANET-1",
+          "text": "The latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505], free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 86fbf9e8b505] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 86fbf9e8b505]. The price of [ANET | price: 204.01 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] sits above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 86fbf9e8b505]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows growth or margin deteriorating below the chosen fundamental thresholds.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 20,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 38,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "warning"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_above_sma50_pct",
+              "value": 15,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-09-29T18:53Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "ANET-1",
+            "text": "The latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505], free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 86fbf9e8b505] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 86fbf9e8b505]. The price of [ANET | price: 204.01 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] sits above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 86fbf9e8b505]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows growth or margin deteriorating below the chosen fundamental thresholds.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 20,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 38,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "warning"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_above_sma50_pct",
+                "value": 15,
+                "severity": "warning"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-06T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "ANET-1",
+          "condition_index": 0
+        },
+        "change_reason": "Old conditions: a fixed price threshold equal to the fifty-day average on the old claim date, plus warnings for stop proximity, a large daily drop, an SMH decline and approaching earnings. New conditions: the fixed price is replaced by the live fifty-day moving-average condition at zero distance, which keeps the same meaning and does not loosen it, because the average has since moved to [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 86fbf9e8b505]. All old warning and claim conditions are kept unchanged. Fundamental-below conditions on revenue growth and operating margin are added because dated fundamental evidence is now supplied. A positive review flag for extension far above the average is also added; it requests review only and does not mandate a trade. No threshold was moved to excuse a price loss.",
+        "evidence_ids": [
+          "ANET.price",
+          "ANET.sma50",
+          "ANET.above_sma50_pct",
+          "ANET.revenue_yoy_pct",
+          "ANET.operating_margin_pct",
+          "ANET.quarter_free_cash_flow",
+          "ANET.total_debt",
+          "ANET.earnings_date",
+          "analyst:f05c6aa44b5f373eac206aec",
+          "analyst:9872f054b205b46e23e75f77"
+        ],
+        "revision": "435f113d35b8eecdedbba27c",
+        "created_at": "2026-09-29T18:53:03+00:00",
+        "evidence_fingerprints": {
+          "ANET.price": "503bb0547c48273a848c7091",
+          "ANET.sma50": "90a845c750595e7c2708b9d1",
+          "ANET.above_sma50_pct": "b626c70630e010e4245f5a16",
+          "ANET.revenue_yoy_pct": "729c29de7d4dc17f225fa18b",
+          "ANET.operating_margin_pct": "a0a725026f0ba02cce51f12e",
+          "ANET.quarter_free_cash_flow": "2243fdc94e5592106b8a4cb6",
+          "ANET.total_debt": "8e9e3df8b3efac8ddb24a58e",
+          "ANET.earnings_date": "35c0c234f6245a52203e6f42",
+          "analyst:f05c6aa44b5f373eac206aec": "86782a8784259e3d343c31ba",
+          "analyst:9872f054b205b46e23e75f77": "6b930c1d3e19920c1c792e72"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Hypothesis, not the analysts' stated reason: the target raises cluster immediately after the latest quarterly filing. That filing shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505] and operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505]. Same-period consensus is unchanged versus the prior observed snapshot: current-year EPS of [ANET | analyst_eps_20261231: 4.10819 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505] with revision [ANET | analyst_eps_20261231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505], and next-year EPS of [ANET | analyst_eps_20271231: 5.22751 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505] with revision [ANET | analyst_eps_20271231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505]. The seven-, thirty- and ninety-day estimate revision windows lack the same-period snapshots needed to measure a trend.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "ANET.revenue_yoy_pct",
+            "ANET.operating_margin_pct",
+            "ANET.analyst_eps_20261231",
+            "ANET.analyst_eps_20261231_revision_pct",
+            "ANET.analyst_eps_20271231",
+            "ANET.analyst_eps_20271231_revision_pct",
+            "analyst:acd4102c7aef1c24cdb4b0f3",
+            "analyst:546e9746972d9dd02bb1fb00"
+          ]
+        },
+        "company_news": {
+          "assessment": "No contract, product, regulatory or partnership news is supplied. The target-revision records list the reason as unknown. One headline is quarantined because the publisher's firm differs from the provider's firm, and it is not used. The company-event driver is an explicit gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only: the semiconductor ETF trades [SMH | above_sma50_pct: 7.3505 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] above its fifty-day average, while SPY is only [SPY | above_sma50_pct: 0.3763 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] above its own. This is consistent with continued AI-infrastructure theme strength that also supports ANET. Price data alone does not prove fund flows or that analysts cited the theme.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "SMH.above_sma50_pct",
+            "SPY.above_sma50_pct",
+            "ANET.above_sma200_pct"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis: the revision arithmetic shows ANET's price rose substantially between each firm's prior and current target. Part of the target increases may therefore reflect repricing of the growth story, not new forecasts. Target dispersion in the ninety-day window is narrow, but forecast horizons are unknown. With the price now [ANET | above_sma200_pct: 29.6015 % vs sma200 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] above its two-hundred-day average, crowded positioning is a counter-risk. No multiple data is supplied.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:f05c6aa44b5f373eac206aec",
+            "analyst:12974e24181d2030bae06a34",
+            "analyst:42fc10092baef6aeb1726f09",
+            "analyst:a2b2b28b67ada4851405d8e6",
+            "ANET.above_sma200_pct"
+          ]
+        }
+      }
+    }
+  },
+  "e12c924cbbcfdebd8cfbbf72": {
+    "symbol": "MU",
+    "action": "HOLD",
+    "time": "2026-09-29T18:53Z",
+    "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented",
+    "reasoning": "Nothing in today's data contradicts the thesis. The price is above the previous close and well above the medium-term average. The sector ETF is positive while the broad market is flat. The latest reported fundamentals show high margins and net cash. Consensus forecasts for the current and next fiscal years ticked up against the prior observed snapshot ([MU | analyst_eps_20260828_revision_pct: 0.11596077993318474 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] and [MU | analyst_eps_20270828_revision_pct: 1.0241930149073122 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] for EPS). I choose to carry the position into the report as a deliberate test rather than add ahead of an unresolved binary event. The existing weekly-close stop is unchanged.",
+    "falsifier": "This hold is wrong if, after the report, MU trades below the fixed thesis floor in MU-2's price condition. It is also wrong if the next reported quarter shows operating margin falling below the fundamental floor set in MU-2. Either would mean carrying the position through the report exposed it to a thesis break rather than a confirmation.",
+    "before": {
+      "thesis_summary": "Memory super-cycle / HBM leadership. The price sits well above the 50-day average (941.62 $, 25 Sep 2026) and the gap is widening; the Q4 earnings report on 30 September is the thesis's main test.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "MU-1",
+          "text": "HBM/DRAM demand is holding the price above the 50-day average (941.62 $); the 25 Sep close of 1082.28 $ is +14.9% above that average and the gap has widened for two rounds running.",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 941.62,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "thesis"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T01:05Z",
+          "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
+        },
+        {
+          "id": "MU-2",
+          "text": "Earnings (30 September 2026) are the thesis's two-sided test: the position is carried into the report because its stop distance (+48.3%) is the widest in the portfolio. A post-earnings price below 800 $ refutes the thesis.",
+          "conditions": [
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_below",
+              "value": 800,
+              "severity": "thesis"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -10,
+              "severity": "thesis"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T01:05Z",
+          "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
+        }
+      ],
+      "pending_review": {
+        "claim_id": "monitoring_migration",
+        "condition_type": "monitoring_migration",
+        "cooldown_key": "migration:MU",
+        "measured": 1,
+        "severity": "thesis",
+        "symbol": "MU",
+        "threshold": 0,
+        "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented"
+      }
+    },
+    "after": {
+      "thesis_summary": "Micron's most recent reported quarter shows very high margins, strong cash generation and a net cash balance sheet, and the stock trades well above both moving averages into the report on [MU | earnings_date: 2026-09-30 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot b5371fcd4ca1], which is the thesis's primary two-sided test.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "MU-1",
+          "text": "Memory demand is reflected in the price holding well above the freshly calculated medium-term average ([MU | above_sma50_pct: 13.2967 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot b5371fcd4ca1] above [MU | sma50: 945.7158000000001 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot b5371fcd4ca1]) and the long-term average. The latest reported quarter shows very high gross and operating margins ([MU | gross_margin_pct: 84.561945 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1], [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1]). The earlier claim that the gap was widening is withdrawn.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "thesis"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_above_pct",
+              "value": 10,
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-09-29T18:53Z",
+          "trigger": null
+        },
+        {
+          "id": "MU-2",
+          "text": "The report on [MU | earnings_date: 2026-09-30 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot b5371fcd4ca1] is the thesis's two-sided test. The thesis requires that the new quarter keep strong profitability and cash generation, compared against the dated operating margin [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1] and free cash flow [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot b5371fcd4ca1]. A post-report break below the fixed thesis floor refutes it.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_below",
+              "value": 800,
+              "severity": "thesis"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -10,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 60,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 0,
+              "unit": "USD",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-09-29T18:53Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "MU-1",
+            "text": "Memory demand is reflected in the price holding well above the freshly calculated medium-term average ([MU | above_sma50_pct: 13.2967 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot b5371fcd4ca1] above [MU | sma50: 945.7158000000001 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot b5371fcd4ca1]) and the long-term average. The latest reported quarter shows very high gross and operating margins ([MU | gross_margin_pct: 84.561945 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1], [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1]). The earlier claim that the gap was widening is withdrawn.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "thesis"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_above_pct",
+                "value": 10,
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "MU-2",
+            "text": "The report on [MU | earnings_date: 2026-09-30 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot b5371fcd4ca1] is the thesis's two-sided test. The thesis requires that the new quarter keep strong profitability and cash generation, compared against the dated operating margin [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1] and free cash flow [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot b5371fcd4ca1]. A post-report break below the fixed thesis floor refutes it.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_below",
+                "value": 800,
+                "severity": "thesis"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -10,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 60,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 0,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-01T15:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "MU-2",
+          "condition_index": 1
+        },
+        "change_reason": "Migration of legacy monitoring, with these changes. In MU-1, the old fixed price condition froze the medium-term average at a stale value. It is replaced by the moving-average distance condition at the equivalent zero-distance level, so no threshold moves; only the reference is now freshly calculated. MU-1 also gains a positive large-daily-move review trigger, which requests review only. MU-2 gains fundamental floors on operating margin and quarterly free cash flow because dated fundamentals are now supplied. All other old thresholds are unchanged. Review is set shortly after the report so the decision is revisited on the reported evidence.",
+        "evidence_ids": [
+          "MU.price",
+          "MU.previous_close",
+          "MU.sma50",
+          "MU.sma200",
+          "MU.above_sma50_pct",
+          "MU.volume",
+          "MU.volume_avg_20d",
+          "MU.earnings_date",
+          "MU.operating_margin_pct",
+          "MU.gross_margin_pct",
+          "MU.quarter_free_cash_flow",
+          "MU.net_debt",
+          "MU.revenue_yoy_pct",
+          "analyst:e47506d6cd877bd169a92d69",
+          "analyst:32c21a9640a4236b56cc3e41"
+        ],
+        "revision": "7a6731c87fcd6e6f367b07a1",
+        "created_at": "2026-09-29T18:53:03+00:00",
+        "evidence_fingerprints": {
+          "MU.price": "4f37040df87357e970315fbf",
+          "MU.previous_close": "52f2ed395adc1002dd2c6bac",
+          "MU.sma50": "1fd034df3728c66af773aa19",
+          "MU.sma200": "68d79063d0ba7ec309e0768a",
+          "MU.above_sma50_pct": "63799f4af67b1f4ace27e048",
+          "MU.volume": "ca88f13d43e22e5ce862df82",
+          "MU.volume_avg_20d": "c5125e7f884f2f4fa134f543",
+          "MU.earnings_date": "4b221f6d2ef2206bc364ce9e",
+          "MU.operating_margin_pct": "3beea901db718df37b058d62",
+          "MU.gross_margin_pct": "f469171370c3947126ea9b02",
+          "MU.quarter_free_cash_flow": "136939587f6715139997ee02",
+          "MU.net_debt": "4b31ac26bd45965d7f2f6d4f",
+          "MU.revenue_yoy_pct": "7decd3bccf5b9b8e3fb42b51",
+          "analyst:e47506d6cd877bd169a92d69": "5fd8ff89b5e17f9882e86452",
+          "analyst:32c21a9640a4236b56cc3e41": "4a9510d2e0cd6159a38a3dff"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Same-period consensus forecasts rose slightly against the prior observed snapshot. The current fiscal year moved by EPS [MU | analyst_eps_20260828_revision_pct: 0.11596077993318474 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] and revenue [MU | analyst_revenue_20260828_revision_pct: 0.08767118899062401 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1]. The next fiscal year moved by EPS [MU | analyst_eps_20270828_revision_pct: 1.0241930149073122 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] and revenue [MU | analyst_revenue_20270828_revision_pct: 0.7936115415044304 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1]. These are consensus snapshots, not analyst-by-analyst revisions. Linking them to target changes is a hypothesis.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "MU.analyst_eps_20260828_revision_pct",
+            "MU.analyst_revenue_20260828_revision_pct",
+            "MU.analyst_eps_20270828_revision_pct",
+            "MU.analyst_revenue_20270828_revision_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "No issuer news covering contracts, products, regulation or partnerships was supplied. This is an explicit evidence gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "The semiconductor ETF is up today while SPY is roughly flat, and the ETF trades above its medium-term average ([SMH | above_sma50_pct: 7.3505 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot b5371fcd4ca1]). As a hypothesis, this is consistent with continued sector demand attention. Price moves alone do not prove fund flows or cause.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "SMH.price",
+            "SMH.previous_close",
+            "SMH.above_sma50_pct",
+            "SPY.price",
+            "SPY.previous_close"
+          ]
+        },
+        "valuation": {
+          "assessment": "The recent revisions are split. Wells Fargo lowered its target and Baird raised its target, giving [MU | analyst_up_firms_30d: 1 firms | as-of 2026-09-29T18:49:49+00:00 | FMP price-target-news / same-firm matched observations | snapshot b5371fcd4ca1] up and [MU | analyst_down_firms_30d: 1 firms | as-of 2026-09-29T18:49:49+00:00 | FMP price-target-news / same-firm matched observations | snapshot b5371fcd4ca1] down over thirty days, with median revision [MU | analyst_median_revision_pct_30d: 5.2767 % | as-of 2026-09-29T18:49:49+00:00 | FMP price-target-news / same-firm matched observations | snapshot b5371fcd4ca1] versus each firm's prior target. Stated reasons and forecast horizons are unknown. One hypothesis is that some analysts are reassessing how much of the growth story is already priced in, but no article attributes that reason. Several provider records are quarantined for firm-attribution conflicts and were not used.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:e47506d6cd877bd169a92d69",
+            "analyst:32c21a9640a4236b56cc3e41",
+            "MU.analyst_up_firms_30d",
+            "MU.analyst_down_firms_30d",
+            "MU.analyst_median_revision_pct_30d"
+          ]
+        }
+      }
+    }
+  },
+  "387c33fc184d11949426aed8": {
+    "symbol": "AMD",
+    "action": "HOLD",
+    "time": "2026-09-29T18:53Z",
+    "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented",
+    "reasoning": "Nothing in the triggering data breaks the thesis. The price is far above both trend averages, the latest reported quarter shows strong growth and cash generation, and the sector ETF is firm. I am not adding: the price is stretched well above the fifty-day average, volume is light relative to its twenty-day average, and the consensus estimate windows have insufficient snapshots to show fresh upward revisions. I am not trimming: no fundamental or price falsifier has fired, and the next hard evidence is the earnings report on [AMD | earnings_date: 2026-11-03 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot 26bf98813d64]. The weekly-close stop stays unchanged because no new non-price evidence justifies moving it.",
+    "falsifier": "This hold is wrong if the price closes below the freshly calculated fifty-day average by more than the modest margin set in the thesis condition. That would mean the trend leg of the thesis failed without any offsetting fundamental news. It is also wrong if the next reported operating margin falls below the chosen fundamental floor, showing the growth is not converting into profit.",
+    "before": {
+      "thesis_summary": "The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory — the thesis is strong but short-term pullback risk is high.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "AMD-1",
+          "text": "The NVDA-alternative thesis holds while the price stays above the 50-day average (504.71 $); slipping below that average would be a break signal after the momentum surge.",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 504.71,
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T01:05Z",
+          "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
+        },
+        {
+          "id": "AMD-2",
+          "text": "No adding to the position while RSI sits at 73.0 in overbought territory; a 10-15% pullback (around 550 $, a test of the 50-day average) would count as an entry opportunity.",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 550,
+              "severity": "claim"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T01:05Z",
+          "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
+        }
+      ],
+      "pending_review": {
+        "claim_id": "monitoring_migration",
+        "condition_type": "monitoring_migration",
+        "cooldown_key": "migration:AMD",
+        "measured": 1,
+        "severity": "thesis",
+        "symbol": "AMD",
+        "threshold": 0,
+        "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented"
+      }
+    },
+    "after": {
+      "thesis_summary": "AMD's accelerator-and-server growth thesis is supported by strong year-over-year revenue growth, margins and positive free cash flow in the latest reported quarter, while the price sits well above its rising fifty-day average with light volume.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "AMD-1",
+          "text": "The growth thesis holds while the price stays above its freshly calculated fifty-day average and the latest reported quarter's profitability is sustained. Current evidence: price [AMD | price: 610.555 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] versus fifty-day average [AMD | sma50: 506.9552 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 26bf98813d64], operating margin [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64], revenue growth year over year [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64]. A close meaningfully below the moving average, or a margin collapse in the next report, would break it.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 1,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 12,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 20,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-09-29T18:53Z",
+          "trigger": null
+        },
+        {
+          "id": "AMD-2",
+          "text": "No adding while the price is stretched far above the fifty-day average ([AMD | above_sma50_pct: 20.4357 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] above it) on below-average volume. A pullback toward the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 550,
+              "severity": "claim"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-09-29T18:53Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "AMD-1",
+            "text": "The growth thesis holds while the price stays above its freshly calculated fifty-day average and the latest reported quarter's profitability is sustained. Current evidence: price [AMD | price: 610.555 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] versus fifty-day average [AMD | sma50: 506.9552 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 26bf98813d64], operating margin [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64], revenue growth year over year [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64]. A close meaningfully below the moving average, or a margin collapse in the next report, would break it.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 1,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 12,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 20,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "AMD-2",
+            "text": "No adding while the price is stretched far above the fifty-day average ([AMD | above_sma50_pct: 20.4357 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] above it) on below-average volume. A pullback toward the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below",
+                "value": 550,
+                "severity": "claim"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-06T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "AMD-1",
+          "condition_index": 0
+        },
+        "change_reason": "Migration only, with no price-driven threshold move. The old AMD-1 thesis condition froze the fifty-day average as a fixed price. It is replaced with a moving-average distance condition, so the reference updates automatically, as the monitoring rules require. The fundamental conditions are new: dated fundamentals for the latest reported quarter are now supplied, and the rules require at least one fundamental falsifier. The warning and claim conditions from AMD-1 (stop proximity, daily drop, SMH drop) are kept unchanged. AMD-2 keeps its old pullback, volume and daily-drop conditions. Its RSI-based text was dropped because RSI is not in the current ledger.",
+        "evidence_ids": [
+          "AMD.price",
+          "AMD.previous_close",
+          "AMD.sma50",
+          "AMD.sma200",
+          "AMD.above_sma50_pct",
+          "AMD.volume",
+          "AMD.volume_avg_20d",
+          "AMD.earnings_date",
+          "AMD.revenue_yoy_pct",
+          "AMD.gross_margin_pct",
+          "AMD.operating_margin_pct",
+          "AMD.quarter_operating_cash_flow",
+          "AMD.quarter_free_cash_flow",
+          "AMD.net_debt",
+          "analyst:ea561a3bfbc7a1d25d3c51b2",
+          "analyst:df0b966501accc97ae0cdcc3",
+          "analyst:648f4f7a0f4ad22845d7be42",
+          "analyst:33c996d393761f86bd26e7ab",
+          "analyst:ecd4c0dc17ea97d2da42ab7b",
+          "analyst:32975cf8a1f911fed099a1a9"
+        ],
+        "revision": "9b711423d8a0ca7702b35e93",
+        "created_at": "2026-09-29T18:53:03+00:00",
+        "evidence_fingerprints": {
+          "AMD.price": "90590e5627e0f878e1c2e600",
+          "AMD.previous_close": "ed3b53cad84bcfb8ee9cc3df",
+          "AMD.sma50": "0fb40a74fb1017b90c8ef91b",
+          "AMD.sma200": "f63cb32f205e5cc256db7f70",
+          "AMD.above_sma50_pct": "17736cdcfb39e58d51c1ea47",
+          "AMD.volume": "4f5d5b423e07cead53f5b41d",
+          "AMD.volume_avg_20d": "844c60e65468e0ab4668cb41",
+          "AMD.earnings_date": "3493ff753ad133b93e00e6ec",
+          "AMD.revenue_yoy_pct": "04cf69cf77b89fc4e5629054",
+          "AMD.gross_margin_pct": "0bdb221bfcc8b3329314c08b",
+          "AMD.operating_margin_pct": "46188297bbcd2ddff0436542",
+          "AMD.quarter_operating_cash_flow": "864a50af0ed46477408cecbc",
+          "AMD.quarter_free_cash_flow": "11d0a22b767ccbb5b591fda8",
+          "AMD.net_debt": "d75b1fbcbfb3269e81341a19",
+          "analyst:ea561a3bfbc7a1d25d3c51b2": "1b3dffe992d6590e31f31b8a",
+          "analyst:df0b966501accc97ae0cdcc3": "21f736d1320274d97a9984a6",
+          "analyst:648f4f7a0f4ad22845d7be42": "f16b4e6226c0113ccb7496c7",
+          "analyst:33c996d393761f86bd26e7ab": "305febe6585e04257094e09d",
+          "analyst:ecd4c0dc17ea97d2da42ab7b": "c501b7a65679acc7aa9d9ae6",
+          "analyst:32975cf8a1f911fed099a1a9": "e5c0afc12624d4c9f164a525"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Consensus annual forecasts step up sharply from the current fiscal year, [AMD | analyst_eps_20261227: 7.62759 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] EPS, to the next, [AMD | analyst_eps_20271227: 15.9005 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] EPS. Revenue forecasts are [AMD | analyst_revenue_20261227: 50927903792.0 USD | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] and [AMD | analyst_revenue_20271227: 89386465498.0 USD | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] respectively. Between the two observed snapshots the forecasts are unchanged ([AMD | analyst_eps_20271227_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64]). The seven-, thirty- and ninety-day revision windows lack enough same-period snapshots, so there is no measured evidence of fresh estimate upgrades. Hypothesis only: the target raises may reflect the strong growth of the latest reported quarter ([AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64]). No analyst article in the data states this reason.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "AMD.analyst_eps_20261227",
+            "AMD.analyst_eps_20271227",
+            "AMD.analyst_revenue_20261227",
+            "AMD.analyst_revenue_20271227",
+            "AMD.analyst_eps_20271227_revision_pct",
+            "AMD.revenue_yoy_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "The supplied records are target observations with reasons marked unknown. One Stifel headline refers to the server-CPU franchise as an AI winner, but the provider record lists its reason as unknown, so I treat it as context rather than a verified stated rationale. No contract, product, regulatory or partnership news is supplied. One record attributing a target raise to a firm inconsistent with its headline is quarantined and excluded.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:df0b966501accc97ae0cdcc3"
+          ]
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only: most matched firms raised their targets over the ninety-day window, while the semiconductor ETF trades above its own fifty-day average ([SMH | above_sma50_pct: 7.3505 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64]). This is consistent with a sector-wide AI-compute theme lifting targets, but no analyst article in the data states that reason. Price strength alone does not prove fund flows or attention.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "SMH.above_sma50_pct",
+            "analyst:ea561a3bfbc7a1d25d3c51b2",
+            "analyst:fecfa4702373f65c37c8de91",
+            "analyst:ecd4c0dc17ea97d2da42ab7b"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis only: many target raises roughly tracked the price move between reports, which suggests analysts repriced the growth story rather than independently leading it. Counterevidence exists: KeyBanc lowered its target, and Morgan Stanley's target sat below the price when posted. Current price dispersion versus targets and forecast horizons are unknown. The stock is extended above its fifty-day average ([AMD | above_sma50_pct: 20.4357 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64]), and that extension is consistent with crowded positioning, though it does not prove it. None of this prescribes a trade.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:648f4f7a0f4ad22845d7be42",
+            "analyst:33c996d393761f86bd26e7ab",
+            "analyst:65b8ad97aa27d9cc148b2460",
+            "AMD.above_sma50_pct"
+          ]
+        }
+      }
+    }
+  }
+}
