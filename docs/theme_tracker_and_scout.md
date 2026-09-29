@@ -77,17 +77,36 @@ hiçbir sıralama otomatik olarak karar havuzuna hisse eklemez.
 
 ETF'ler FMP EOD ile alınır; uygun tarih/veri doğrulamasından geçmeyen seride mevcut
 yfinance yedeği denenir. Eksik temalar gizlenmek yerine veri eksikliği olarak
-kaydedilir. Çalışan ilk sürüm 24 ETF tarihçesi ve bir SPY karşılaştırması için tarama
-başına yaklaşık 26 FMP isteği yapar. FMP [ETF holdings](https://site.financialmodelingprep.com/developer/docs/stable/holdings)
+kaydedilir. Tema fiyat panosu 24 ETF tarihçesi ve SPY karşılaştırması için yaklaşık
+25 FMP isteği yapar; liderlere göre buna en fazla 10 holdings isteği ve bir toplu
+fiyat isteği eklenir. FMP [ETF holdings](https://site.financialmodelingprep.com/developer/docs/stable/holdings)
 ve disclosure verileri tema bileşenlerini ve kurumsal portföy açıklamalarını
 araştırmaya yardım edebilir, ancak tek başına anlık net fon akışı ölçümü değildir.
-FRED faiz/makro serileri ve EIA enerji serileri daha sonra
-ilgili temalara **bağlam/teyit** sağlayabilir; fiyat getirileriyle aynı puana
-karıştırılmaz. EIA/FRED anahtarları şu an GitHub Actions repository secret'larında
-bulunmadığı için enerji/makro teyidi henüz bu iş akışına bağlanmadı; ilk tema
-sıralaması FMP verisiyle çalışır. FRED ekonomik gözlem serileri sunar; EIA da
-elektrik ve diğer enerji veri serilerine erişim sağlar, bu nedenle bunlar fiyat
-sıralamasından çok tema tezi için makro/arz-talep bağlamı ekler.
+### Bileşen genişliği ve makro bağlamı
+
+Tema sıralamasına, hem 1 haftalık hem 1 aylık ilk beş ETF'nin açıklanmış en yüksek
+ağırlıklı en fazla 10 bileşeni için günlük yükselen/düşen oranı eklendi. Holdings
+sembolleri ve ağırlıkları FMP [ETF holdings](https://site.financialmodelingprep.com/developer/docs/stable/holdings),
+bileşenlerin güncel günlük değişimi ise tek bir FMP [batch quote](https://site.financialmodelingprep.com/developer/docs/stable/batch-quote)
+isteğiyle alınır. Holdings tarih damgası 35 günden eskiyse o ETF'nin genişliği
+hesaplanmaz; fiyat kotasyonu kapsamı %70'in altındaysa oran gösterilmez. Raporda
+örneklem büyüklüğü ve holdings tarihi görünür. Bu ölçüm ETF'nin tüm bileşenlerini
+kapsamaz, günlük kesitsel genişliktir ve uzun vadeli genişlik serisi değildir.
+
+FRED'in [gözlem API'si](https://fred.stlouisfed.org/docs/api/fred/series_observations.html)
+10 yıllık Hazine faizi (DGS10) ve efektif federal fon faizi (FEDFUNDS) için son
+gözlemi ve uygun olduğunda beş gözlem önceye göre değişimi sağlar. EIA'nın [API v2](https://www.eia.gov/opendata/documentation.php)
+elektrik perakende satışları verisinde eyaletlerin `ALL` sektör toplamı birleştirilerek
+son aylık ABD toplamı ve mümkünse yıllık/aylık değişimi çıkarılır. Eyalet bileşenleri
+kullanılır; olası ulusal toplama satırı çifte sayımı önlemek için dışarıda bırakılır.
+Her seri kendi gözlem tarihini taşır.
+Telegram'da bunlar **makro bağlam (puanlamaya katılmaz)** olarak gösterilir; tema
+getirisine, aday seçimine veya işlem kararına eklenmez.
+
+GitHub Actions `weekly.yml` içine FRED ve EIA ortamları bağlandı; `FRED_API_KEY` ve
+`EIA_API_KEY` repo secrets'larına eklendi. Haftalık araştırmada otomatik toplanır;
+eksik/bozuk sağlayıcı verisi turu durdurmaz, eksik bağlam olarak kaydedilir.
+Kullanılacak secrets: `FRED_API_KEY` ve `EIA_API_KEY`.
 
 ### Canlı FMP örnek anlık görüntüsü
 
@@ -117,14 +136,11 @@ nedenle Telegram'daki toplam sembol sayısı 20'yi aşabilir. İlk havuz bildiri
 29 Eylül 2026'da gerçek GitHub Telegram eylemiyle gönderildi ve gönderim durumu
 `state/telegram_watchlist_state.json` içine kaydedildi.
 
-## Sonraki geliştirme: tema genişliği ve akış teyidi
+## Sonraki geliştirme: geniş kapsam ve akış teyidi
 
-Bir sonraki adım, ETF'nin tek başına getirisini temanın tamamı gibi göstermemek için
-FMP ETF holdings verisinden tarihli/yenilenme zamanı belli bileşen listesini
-çıkarmak ve bileşenlerin eşit ağırlıklı getiri/genişliğini ayrıca ölçmektir. İzleme
-kaydı tema tanımı, bileşen sembolleri, sağlayıcı, ölçüm zamanı, ağırlıklandırma ve
-veri boşluklarını saklamalı. Bileşen kaynağı güncel değilse genişlik skoru
-hesaplanmamalı.
+Gelecek deneylerde FMP'nin izin ve maliyet sınırları doğrulanarak tüm disclosed
+holdings kapsamı, ağırlıklı genişlik ve birkaç haftalık kalıcılık ölçülebilir. Mevcut
+ilk 10 örneklem bu geniş kapsamlı ölçümlerin yerine geçmez.
 
 Akış verisi gerçekten erişilebilir ve tanımı doğrulanmış ayrı bir sağlayıcıdan
 gelirse (ETF pay adedi × fiyat/AUM etkisini ayırabilen akış serisi), bu gösterge

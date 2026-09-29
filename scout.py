@@ -53,6 +53,30 @@ def theme_telegram_section(radar):
                     text+=f"; SPY'ye göre {excess:+.1f} puan"
                 entries.append(text)
             lines.append(f"{label}: " + ' · '.join(entries))
+    breadth_rows=radar.get('theme_proxy_momentum',{}).get('constituent_breadth',[])
+    breadth_leaders=sorted((row for row in breadth_rows if row.get('status')=='available'),
+        key=lambda row:row.get('advancing_pct',-1),reverse=True)[:4]
+    if breadth_leaders:
+        lines.append('Bileşen genişliği (lider ETF’lerin açıklanmış ilk 10 hissesi; günlük): ' + ' · '.join(
+            f"{row['theme']} {row['advancing_pct']:.0f}% yükselen ({row['quoted_count']}/{row['holdings_count']} fiyat; bileşen tarihi {row.get('holdings_as_of') or 'belirsiz'})"
+            for row in breadth_leaders))
+    macro=radar.get('macro_context',{})
+    macro_bits=[]
+    for row in macro.get('fred',[]):
+        if row.get('series')=='DGS10':
+            change=row.get('change_over_observations')
+            suffix=f"; 5 gözlem önceye göre {change:+.2f} puan" if isinstance(change,(int,float)) else ''
+            macro_bits.append(f"ABD 10 yıllık Hazine faizi {row['value']:.2f}% ({row['as_of']}{suffix})")
+        elif row.get('series')=='FEDFUNDS':
+            macro_bits.append(f"Fed efektif faiz {row['value']:.2f}% ({row['as_of']})")
+    for row in macro.get('eia',[]):
+        yoy=row.get('year_over_year_pct')
+        suffix=f"; yıllık {yoy:+.1f}%" if isinstance(yoy,(int,float)) else ''
+        macro_bits.append(f"ABD elektrik perakende satışları {row['as_of']}{suffix}")
+    if macro_bits:
+        lines.append('Makro bağlam (puanlamaya katılmaz): ' + ' · '.join(macro_bits))
+    elif macro.get('status')=='unavailable':
+        lines.append('Makro bağlam alınamadı; FRED/EIA verisi bu turda yok.')
     industry_rankings=radar.get('theme_momentum',{}).get('rankings',{})
     weekly=industry_rankings.get('5_sessions',[])
     accelerators=sorted((row for row in weekly

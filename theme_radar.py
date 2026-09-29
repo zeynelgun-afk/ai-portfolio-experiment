@@ -5,6 +5,7 @@ import math
 from collections import OrderedDict
 
 import market_data
+import theme_macro_context
 import pandas as pd
 
 MIN_MARKET_CAP = 200_000_000
@@ -13,6 +14,9 @@ MAX_COMPANIES_PER_INDUSTRY = 3
 MAX_INDUSTRY_HISTORY_CHECKS = 20
 POSITIVE_INDUSTRY_SAMPLE = 12
 NEGATIVE_INDUSTRY_SAMPLE = 8
+MAX_BREADTH_THEMES = 10
+MAX_HOLDINGS_PER_THEME = 10
+MIN_BREADTH_COVERAGE = 0.7
 THEME_PROXIES = (
     ('Bitcoin', 'IBIT'), ('Semiconductors', 'SMH'), ('Genomics', 'ARKG'),
     ('Quantum computing', 'QTUM'), ('Biotechnology', 'XBI'),
@@ -160,11 +164,90 @@ def theme_proxy_momentum(now, spy_returns=None):
         except market_data.ProviderError:
             failures.append({'dataset': 'theme_proxy_history', 'symbol': symbol,
                              'reason': 'provider_unavailable'})
+    rankings = _rank_theme_proxies(rows, spy_returns)
+    breadth = _theme_constituent_breadth(rankings, now)
     return {'as_of': market_data.last_closed(now).isoformat(),
         'sampled_theme_count': len(rows),
-        'rankings': _rank_theme_proxies(rows, spy_returns), 'failures': failures,
+        'rankings': rankings, 'constituent_breadth': breadth['rows'],
+        'failures': failures + breadth['failures'],
         'limits': ['ETF proxy returns measure market prices, not net fund flows.',
-                   'Theme definitions are represented by one ETF proxy each and can be imperfect.']}
+                   'Theme definitions are represented by one ETF proxy each and can be imperfect.',
+                   'Breadth covers up to the 10 highest-weight disclosed holdings of the leading ETFs, not every constituent.',
+                   'Daily breadth is the share of covered holdings with a positive daily change; it is not a multi-day breadth measure.']}
+
+
+def _theme_constituent_breadth(rankings, now):
+    """Daily breadth of disclosed top holdings for the union of short and medium-term leaders."""
+    chosen = {}
+    for horizon in ('5_sessions', '21_sessions'):
+        for row in rankings.get(horizon, [])[:5]:
+            chosen[row['proxy_symbol']] = row
+    chosen = dict(list(chosen.items())[:MAX_BREADTH_THEMES])
+    if not chosen:
+        return {'rows': [], 'failures': []}
+    holdings_by_etf, symbols, failures = {}, set(), []
+    for etf, theme_row in chosen.items():
+        try:
+            items = market_data.fmp('etf/holdings', symbol=etf, allow_empty=True)
+            selected = []
+            for item in items:
+                ticker = item.get('asset') or item.get('symbol')
+                weight = item.get('weightPercentage')
+                updated = item.get('updatedAt') or item.get('date')
+                if (not isinstance(ticker, str) or not ticker.strip() or ticker == etf or
+                    not _number(weight) or float(weight) <= 0):
+                    continue
+                selected.append({'symbol': ticker.strip(), 'weight_pct': float(weight),
+                                 'updated_at': str(updated or '')[:10] or None})
+            selected.sort(key=lambda x: x['weight_pct'], reverse=True)
+            selected = selected[:MAX_HOLDINGS_PER_THEME]
+            if not selected:
+                raise market_data.ProviderError('No valid disclosed holdings')
+            dates = [x['updated_at'] for x in selected if x['updated_at']]
+            if len(dates) != len(selected):
+                raise market_data.ProviderError('Holdings disclosure date unavailable')
+            latest = max(dates)
+            try:
+                if (market_data.last_closed(now) - date.fromisoformat(latest)).days > 35:
+                    raise market_data.ProviderError('Holdings disclosure is stale')
+            except ValueError:
+                raise market_data.ProviderError('Invalid holdings disclosure date') from None
+            holdings_by_etf[etf] = {'theme': theme_row['theme'], 'holdings': selected,
+                                    'holdings_as_of': latest}
+            symbols.update(item['symbol'] for item in selected)
+        except market_data.ProviderError:
+            failures.append({'dataset': 'theme_etf_holdings', 'symbol': etf,
+                             'reason': 'provider_unavailable'})
+    changes = {}
+    if symbols:
+        try:
+            quotes = market_data.fmp('batch-quote', symbols=','.join(sorted(symbols)), allow_empty=True)
+            for quote in quotes:
+                ticker = quote.get('symbol')
+                value = quote.get('changePercentage')
+                if ticker in symbols and _number(value):
+                    changes[ticker] = float(value)
+        except market_data.ProviderError:
+            failures.append({'dataset': 'theme_constituent_quotes', 'reason': 'provider_unavailable'})
+    output = []
+    for etf, data in holdings_by_etf.items():
+        holdings = data['holdings']
+        observed = [item for item in holdings if item['symbol'] in changes]
+        advances = sum(changes[item['symbol']] > 0 for item in observed)
+        declines = sum(changes[item['symbol']] < 0 for item in observed)
+        coverage = len(observed) / len(holdings)
+        valid = coverage >= MIN_BREADTH_COVERAGE
+        output.append({'theme': data['theme'], 'proxy_symbol': etf,
+            'holdings_count': len(holdings), 'quoted_count': len(observed),
+            'advancing_count': advances, 'declining_count': declines,
+            'unchanged_count': len(observed) - advances - declines,
+            'advancing_pct': 100 * advances / len(observed) if valid and observed else None,
+            'net_advancing_pct': 100 * (advances - declines) / len(observed) if valid and observed else None,
+            'coverage_pct': 100 * coverage, 'holdings_as_of': data['holdings_as_of'],
+            'as_of': market_data.last_closed(now).isoformat(),
+            'status': 'available' if valid else 'insufficient_quote_coverage',
+            'scope': 'top_weighted_disclosed_holdings'})
+    return {'rows': output, 'failures': failures}
 
 
 def _industry_sample(rows):
@@ -305,6 +388,7 @@ def collect(now=None):
                    'Returns are price-performance signals, not observed fund or capital flows.']}
     theme_proxies = theme_proxy_momentum(now, spy_returns)
     failures.extend(theme_proxies.pop('failures'))
+    macro_context = theme_macro_context.collect()
     for leader in leaders:
         if benchmarks is None:
             break
@@ -345,7 +429,7 @@ def collect(now=None):
                                    r['relative_strength']['20']['excess_spy_pp']), reverse=True)
     return {'observed_at': now.isoformat(), 'as_of': date_text, 'mode': 'research_only',
         'news': news, 'theme_momentum': theme_momentum,
-        'theme_proxy_momentum': theme_proxies,
+        'theme_proxy_momentum': theme_proxies, 'macro_context': macro_context,
         'leading_industries': leaders, 'candidates': candidates,
         'failures': failures,
         'limits': ['Industry performance and share price strength are not direct measures of capital inflows.',

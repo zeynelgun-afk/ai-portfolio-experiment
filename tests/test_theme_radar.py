@@ -47,7 +47,8 @@ class ThemeRadarTests(unittest.TestCase):
         self.assertEqual(result['rankings']['21_sessions'][0]['proxy_symbol'],'IBIT')
         self.assertEqual(result['rankings']['5_sessions'][0]['provider'],'FMP')
         self.assertEqual(result['rankings']['21_sessions'][1]['provider'],'yfinance')
-        self.assertEqual(len(result['failures']),len(theme_radar.THEME_PROXIES)-2)
+        history_failures=[row for row in result['failures'] if row['dataset']=='theme_proxy_history']
+        self.assertEqual(len(history_failures),len(theme_radar.THEME_PROXIES)-2)
 
     def test_news_requires_recent_dated_headline_and_source_link(self):
         now=datetime(2026,9,29,12,tzinfo=timezone.utc)
@@ -122,6 +123,44 @@ class ThemeRadarTests(unittest.TestCase):
         quiet=scout.theme_telegram_section({'theme_momentum':{'rankings':{'5_sessions':[
             {'industry':'Semiconductors','weekly_vs_monthly_pace_pp':-1.2}]}}})
         self.assertIn('aylık tempoyu aşan haftalık getiri yok',quiet)
+
+    def test_theme_breadth_uses_leader_holdings_and_requires_quote_coverage(self):
+        rankings={'5_sessions':[{'theme':'Semiconductors','proxy_symbol':'SMH'}],
+                  '21_sessions':[]}
+        holdings=[{'symbol':f'S{i}','weightPercentage':10-i,'updatedAt':'2026-09-28'}
+                  for i in range(10)]
+        quotes=[{'symbol':f'S{i}','changePercentage':1 if i<6 else -1} for i in range(8)]
+        with patch.object(theme_radar.market_data,'fmp',side_effect=[holdings,quotes]), \
+             patch.object(theme_radar.market_data,'last_closed',return_value=date(2026,9,29)):
+            result=theme_radar._theme_constituent_breadth(rankings,datetime(2026,9,29,tzinfo=timezone.utc))
+        row=result['rows'][0]
+        self.assertEqual(row['status'],'available')
+        self.assertEqual(row['quoted_count'],8)
+        self.assertEqual(row['advancing_count'],6)
+        self.assertEqual(row['advancing_pct'],75)
+        self.assertEqual(row['scope'],'top_weighted_disclosed_holdings')
+
+    def test_theme_breadth_does_not_report_ratio_when_coverage_is_too_low(self):
+        rankings={'5_sessions':[{'theme':'Semiconductors','proxy_symbol':'SMH'}]}
+        holdings=[{'symbol':f'S{i}','weightPercentage':10-i,'updatedAt':'2026-09-28'}
+                  for i in range(10)]
+        quotes=[{'symbol':'S0','changePercentage':2}]
+        with patch.object(theme_radar.market_data,'fmp',side_effect=[holdings,quotes]), \
+             patch.object(theme_radar.market_data,'last_closed',return_value=date(2026,9,29)):
+            row=theme_radar._theme_constituent_breadth(rankings,datetime(2026,9,29,tzinfo=timezone.utc))['rows'][0]
+        self.assertEqual(row['status'],'insufficient_quote_coverage')
+        self.assertIsNone(row['advancing_pct'])
+
+    def test_macro_context_is_separate_from_ranking_and_reported_without_scoring(self):
+        radar={'theme_proxy_momentum':{'constituent_breadth':[{'theme':'Semiconductors',
+            'status':'available','advancing_pct':70,'quoted_count':7,'holdings_count':10,
+            'holdings_as_of':'2026-09-28'}]},'macro_context':{'status':'available','fred':[
+            {'series':'DGS10','value':4.1,'as_of':'2026-09-28','change_over_observations':0.2}],
+            'eia':[{'as_of':'2026-07','year_over_year_pct':3.2}]}}
+        text=scout.theme_telegram_section(radar)
+        self.assertIn('Bileşen genişliği',text)
+        self.assertIn('puanlamaya katılmaz',text)
+        self.assertIn('ABD elektrik perakende satışları',text)
 
     def test_theme_collection_failure_is_separate_and_does_not_touch_watchlist(self):
         import tempfile, json
