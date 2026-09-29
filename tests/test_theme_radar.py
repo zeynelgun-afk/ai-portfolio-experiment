@@ -89,8 +89,8 @@ class ThemeRadarTests(unittest.TestCase):
         themes=theme_radar.validate_theme_analysis({'themes':[
             {'name':'AI compute','stance':'tailwind','article_ids':['a1','invented'],
              'industries':['Semiconductors','Invented'], 'counterevidence_article_ids':['bad']},
-            {'name':'Unsupported','stance':'tailwind','article_ids':['bad'],
-             'industries':['Semiconductors']} ]},radar)
+             {'name':'Unsupported','stance':'tailwind','article_ids':['bad'],
+             'industries':['Semiconductors']} ]},radar)['themes']
         result=theme_radar.attach_theme_links(radar,themes)
         self.assertEqual(themes[0]['article_ids'],['a1'])
         self.assertEqual(themes[0]['industries'],['Semiconductors'])
@@ -106,7 +106,23 @@ class ThemeRadarTests(unittest.TestCase):
                     '20':{'excess_spy_pp':3.2},'60':{'excess_spy_pp':7.1}}}]}
         text=scout.theme_telegram_section(radar)
         self.assertIn('AAA',text);self.assertIn('https://source.test/a',text)
-        self.assertIn('alım sinyali değildir',text);self.assertIn('doğrudan fon akışı ölçümü değildir',text)
+        self.assertIn('alım sinyali değildir',text);self.assertIn('fon/sermaye akışı ölçümü değildir',text)
+
+    def test_telegram_shows_article_read_coverage_and_verified_component_source(self):
+        radar={'news':[{'id':'a1','title':'Optical supply','url':'https://source.test/a',
+                        'content_read_status':'article_body_extracted'},
+                       {'id':'a2','title':'Another story','url':'https://source.test/b',
+                        'content_read_status':'provider_excerpt_only'}],
+            'candidates':[{'symbol':'COHR','company':'Coherent','pool_status':'new',
+                'candidate_type':'verified_company_product_exposure','product':'optical transceivers',
+                'component':'DSP','exposure_role':'supply-chain participant','article_ids':['a1'],
+                'filing_form':'10-K','filing_date':'2026-08-20','filing_url':'https://www.sec.gov/filing'}]}
+        text=scout.theme_telegram_section(radar)
+        self.assertIn('1/2',text)
+        self.assertIn('COHR',text)
+        self.assertIn('DSP',text)
+        self.assertIn('https://www.sec.gov/filing',text)
+        self.assertIn('https://source.test/a',text)
 
     def test_telegram_summary_shows_separate_week_and_month_theme_leaders(self):
         radar={'theme_proxy_momentum':{'rankings':{
@@ -189,7 +205,7 @@ class ThemeRadarTests(unittest.TestCase):
             root=Path(tmp);(root/'state').mkdir()
             watchlist=root/'state/watchlist.json';watchlist.write_text('["AMD"]')
             (root/'telegram.txt').write_text('Weekly portfolio summary')
-            with patch.object(scout,'BASE_DIR',str(root)),patch.object(scout,'collect_theme_radar',return_value=radar),patch.object(scout,'annotate_theme_stories',return_value=themes),patch.dict('os.environ',{'OPENROUTER_API_KEY':'test'}):
+            with patch.object(scout,'BASE_DIR',str(root)),patch.object(scout,'collect_theme_radar',return_value=radar),patch.object(scout,'annotate_theme_stories',return_value={'themes': themes, 'company_exposures': []}),patch.dict('os.environ',{'OPENROUTER_API_KEY':'test'}):
                 scout.refresh_theme_research_inbox()
             self.assertEqual(json.loads(watchlist.read_text()),['AMD'])
             inbox=json.loads((root/'state/theme_research_inbox.json').read_text())

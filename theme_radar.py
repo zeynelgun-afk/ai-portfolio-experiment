@@ -6,6 +6,7 @@ from collections import OrderedDict
 
 import market_data
 import theme_macro_context
+import article_reader
 import pandas as pd
 
 MIN_MARKET_CAP = 200_000_000
@@ -327,7 +328,7 @@ def collect(now=None):
     as_of = market_data.last_closed(now)
     date_text = as_of.isoformat()
     news_rows = market_data.fmp('news/general-latest', page=0, limit=100, allow_empty=True)
-    news = validate_news(news_rows, now)
+    news = article_reader.enrich_news(validate_news(news_rows, now))
     snapshot = market_data.fmp('industry-performance-snapshot', date=date_text, allow_empty=True)
     daily = _dated_rows(snapshot, 'averageChange', as_of)
     daily = [r for r in daily if r.get('exchange') in {'NYSE', 'NASDAQ', 'AMEX'} and
@@ -439,22 +440,23 @@ def collect(now=None):
 
 
 def validate_theme_analysis(payload, radar):
-    """Keep only model links grounded in supplied, dated article and industry IDs."""
+    """Ground theme and company claims in the exact dated articles supplied."""
     if not isinstance(payload, dict) or not isinstance(payload.get('themes'), list):
         raise ValueError('Theme analysis schema invalid')
-    article_ids = {row['id'] for row in radar.get('news', [])}
+    article_map = {row['id']: row for row in radar.get('news', [])}
+    article_ids = set(article_map)
     industry_names = {row['industry'] for row in radar.get('leading_industries', [])}
     themes = []
     for row in payload['themes'][:8]:
         if not isinstance(row, dict) or not isinstance(row.get('name'), str):
             continue
-        articles = row.get('article_ids'); industries = row.get('industries')
+        theme_article_ids = row.get('article_ids'); industries = row.get('industries')
         counter = row.get('counterevidence_article_ids', [])
         stance = row.get('stance')
-        if (not isinstance(articles, list) or not isinstance(industries, list) or
+        if (not isinstance(theme_article_ids, list) or not isinstance(industries, list) or
             not isinstance(counter, list) or stance not in ('tailwind', 'headwind', 'mixed', 'watch')):
             continue
-        cited = sorted({value for value in articles if isinstance(value, str) and value in article_ids})
+        cited = sorted({value for value in theme_article_ids if isinstance(value, str) and value in article_ids})
         mapped = sorted({value for value in industries if isinstance(value, str) and value in industry_names})
         counter_cited = sorted({value for value in counter if isinstance(value, str) and value in article_ids})
         if not cited or not mapped:
@@ -462,7 +464,32 @@ def validate_theme_analysis(payload, radar):
         themes.append({'name': row['name'].strip()[:100], 'stance': stance,
             'article_ids': cited, 'industries': mapped,
             'counterevidence_article_ids': counter_cited})
-    return themes
+    exposures = []
+    for row in payload.get('company_exposures', [])[:8]:
+        if not isinstance(row, dict):
+            continue
+        company = row.get('company_name'); symbol = row.get('symbol')
+        article_ids_for_row = row.get('article_ids'); quote = row.get('article_evidence_quote')
+        if (not isinstance(company, str) or not company.strip() or
+            not isinstance(symbol, str) or
+            not isinstance(article_ids_for_row, list) or not isinstance(quote, str)):
+            continue
+        cited = sorted({value for value in article_ids_for_row
+                        if isinstance(value, str) and value in article_ids and
+                        article_map[value].get('content_read_status') == 'article_body_extracted'})
+        normalized_quote = ' '.join(quote.split())
+        supported = any(normalized_quote and normalized_quote in
+                        ' '.join(str(article_map[ident].get('article_body_text', '')).split())
+                        for ident in cited)
+        if not cited or not supported or len(normalized_quote) < 35:
+            continue
+        exposures.append({'theme': str(row.get('theme') or '')[:100],
+            'company_name': company.strip()[:160], 'symbol': symbol.strip().upper()[:12],
+            'product': str(row.get('product') or '')[:160],
+            'component': str(row.get('component') or '')[:160],
+            'role': str(row.get('role') or '')[:180],
+            'article_ids': cited, 'article_evidence_quote': normalized_quote[:500]})
+    return {'themes': themes, 'company_exposures': exposures}
 
 
 def attach_theme_links(radar, themes):
@@ -480,6 +507,40 @@ def attach_theme_links(radar, themes):
         (candidates if links else unlinked).append(enriched)
     result['candidates'] = candidates
     result['price_leaders_without_news_link'] = unlinked
+    return result
+
+
+def attach_company_exposures(radar, exposures):
+    """Add only filing-supported exposure candidates to the separate research inbox."""
+    result = dict(radar)
+    candidates = list(result.get('candidates', []))
+    known = {row.get('symbol') for row in candidates}
+    verified = []
+    for row in exposures:
+        if row.get('verification_status') != 'verified':
+            continue
+        candidate = {'symbol': row['symbol'], 'company': row.get('company_name'),
+            'industry': 'Supply-chain exposure', 'theme_links': [row['theme']] if row.get('theme') else [],
+            'candidate_type': 'verified_company_product_exposure',
+            'product': row.get('product'), 'component': row.get('component'),
+            'exposure_role': row.get('role'), 'article_ids': row.get('article_ids', []),
+            'article_evidence_quote': row.get('article_evidence_quote'),
+            'filing_form': row.get('filing_form'), 'filing_date': row.get('filing_date'),
+            'filing_url': row.get('filing_url'),
+            'filing_evidence_quote': row.get('filing_evidence_quote'),
+            'source': 'Dated article + SEC issuer filing'}
+        verified.append(candidate)
+        if candidate['symbol'] in known:
+            candidates = [({**item, **{key: value for key, value in candidate.items()
+                           if key not in {'symbol', 'industry'}}}
+                           if item.get('symbol') == candidate['symbol'] else item) for item in candidates]
+        else:
+            candidates.append(candidate)
+            known.add(candidate['symbol'])
+    result['candidates'] = candidates
+    result['verified_company_exposures'] = verified
+    result['unverified_company_exposure_leads'] = [row for row in exposures
+        if row.get('verification_status') != 'verified']
     return result
 
 

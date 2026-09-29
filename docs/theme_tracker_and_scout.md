@@ -68,8 +68,26 @@ hiçbir sıralama otomatik olarak karar havuzuna hisse eklemez.
 - Aday taraması için 20 ve 60 seanslık pencerelerde pozitif kalan en güçlü sektörleri seçer.
 - Her önde gelen sektörde en büyük üç uygun ABD şirketini tarar. Adayın 20 ve 60
   seanslık toplam getirisi aynı tarihlerde ölçülen SPY getirisini aşmalıdır.
-- AI tema eşleştirmesi yalnızca verilen haber kimliklerine ve sektör adlarına
-  dayanabilir; uydurulmuş veya kaynaksız eşleşmeler atılır.
+- Haber sağlayıcısının verdiği metin 1.200 karakterle sınırlı bir excerpt'tir.
+  Radar artık haftalık en fazla 12 kaynak sayfasını, HTTPS ve herkese açık adres
+  denetimiyle indirip JSON-LD `articleBody` veya makale alanındaki paragraflardan
+  çıkarır. En az 1.200 karakter ve dört paragraf yoksa içerik açıkça excerpt-only/
+  erişilemedi olarak etiketlenir. Gövde sadece analiz süresince bellekte tutulur;
+  kalıcı inbox'ta URL, tarih, okuma durumu, kelime sayısı ve seçilen kanıt alıntısı
+  saklanır. Bu erişim paywall'ları aşmaz; her makalenin tamamının erişilebilir
+  olduğu iddia edilmez.
+- Tam gövdesi çıkarılan haberlerde AI, şirket/ürün/komponent ve tedarik zinciri
+  rolünü birebir haber alıntısıyla aday olarak çıkarabilir. Ticker ve şirket kimliği
+  FMP profiliyle eşleştirilir; FMP'nin SEC dosya aramasındaki son 10-K/20-F/40-F
+  raporu içeriği taranır ve asıl SEC dosya URL'si korunur. Yalnızca şirket raporunda
+  ürün/komponent rolünü açıkça destekleyen, rapordan birebir alıntısı doğrulanan
+  iddia ayrı araştırma havuzuna eklenir. Kısmi, çelişkili veya teyitsiz iddialar
+  aday olmaz; haber iddiası tek başına şirket beyanı ya da ekonomik fayda kanıtı
+  değildir.
+- Bu ürün/komponent yolu sektör büyüklüğü ve fiyat filtresinden bağımsız olarak
+  tedarik zinciri ipuçlarını araştırma kuyruğuna ekler. Fiyat teyidi varsa ayrıca
+  gösterilir; yoksa aday yine yalnızca araştırma adayı olarak kalır. Ana
+  `state/watchlist.json` ve alım-satım kararı değişmez.
 - Adayları `state/theme_research_inbox.json` içinde yeni, devam eden veya artık
   doğrulanmayan olarak izler. Ana `state/watchlist.json` değişmez.
 - Tema sıralamalarını ve yeni araştırma adaylarını mevcut haftalık Telegram raporuna
@@ -79,7 +97,9 @@ ETF'ler FMP EOD ile alınır; uygun tarih/veri doğrulamasından geçmeyen serid
 yfinance yedeği denenir. Eksik temalar gizlenmek yerine veri eksikliği olarak
 kaydedilir. Tema fiyat panosu 24 ETF tarihçesi ve SPY karşılaştırması için yaklaşık
 25 FMP isteği yapar; liderlere göre buna en fazla 10 holdings isteği ve bir toplu
-fiyat isteği eklenir. FMP [ETF holdings](https://site.financialmodelingprep.com/developer/docs/stable/holdings)
+fiyat isteği eklenir. Haber gövdesi okuyucu haftada en fazla 12 URL dener; tedarik
+zinciri doğrulaması en fazla beş şirketi FMP SEC filing search ve yıllık rapor JSON
+uçlarıyla kontrol eder. FMP [ETF holdings](https://site.financialmodelingprep.com/developer/docs/stable/holdings)
 ve disclosure verileri tema bileşenlerini ve kurumsal portföy açıklamalarını
 araştırmaya yardım edebilir, ancak tek başına anlık net fon akışı ölçümü değildir.
 ### Bileşen genişliği ve makro bağlamı

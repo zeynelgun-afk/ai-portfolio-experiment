@@ -120,17 +120,21 @@ class StatementEvidence(unittest.TestCase):
 class Attribution(unittest.TestCase):
     def test_unmatured_data_has_no_success_label(self):
         cohort={'round_id':'r','observed_at':OPEN.isoformat(),'candidates':{'AMD':{'entry_price':100,'decision':'BUY','channels':['dislocation']}},'benchmarks':{'SPY':{'price':100},'SMH':{'price':100}}}
-        dates=pd.bdate_range('2026-10-06',periods=5)
-        histories={s:pd.DataFrame({'Close':[price]*5},index=dates) for s,price in [('AMD',110),('SPY',105),('SMH',108)]}
+        dates=metrics._session_days(OPEN.date(),121)
+        histories={s:pd.DataFrame({'Close':[price+(i+1)*step for i in range(len(dates))]},index=pd.to_datetime(dates))
+                   for s,price,step in [('AMD',100,2),('SPY',100,1),('SMH',100,1.5)]}
         result=metrics.score(cohort,histories)
-        self.assertEqual(len(result['results']),1)
-        self.assertAlmostEqual(result['results'][0]['excess_spy_pp'],5)
-        self.assertTrue(any('20:not mature' in s for s in result['pending']))
+        twenty=next(row for row in result['results'] if row['horizon_sessions']==20)
+        self.assertAlmostEqual(twenty['return_pct'],40)
+        self.assertAlmostEqual(twenty['excess_spy_pp'],20)
+        self.assertAlmostEqual(twenty['net_return_scenarios_pct']['100'],39)
+        self.assertIn('maximum_drawdown_pct',twenty)
     def test_missing_symbol_endpoint_not_dropped_from_denominator_silently(self):
         cohort={'round_id':'r','observed_at':OPEN.isoformat(),'candidates':{'AMD':{'entry_price':100,'decision':'WATCH','channels':['structural_universe']}},'benchmarks':{'SPY':{'price':100},'SMH':{'price':100}}}
-        frame=pd.DataFrame({'Close':[105]*21},index=pd.bdate_range('2026-10-06',periods=21))
+        dates=metrics._session_days(OPEN.date(),121)
+        frame=pd.DataFrame({'Close':[105]*len(dates)},index=pd.to_datetime(dates))
         result=metrics.score(cohort,{'SPY':frame,'SMH':frame})
-        self.assertEqual(result['results'],[]);self.assertEqual(len(result['pending']),2)
+        self.assertEqual(result['results'],[]);self.assertEqual(len(result['pending']),3)
     def test_exposure_reports_loss_scenarios_without_changing_book(self):
         before=copy.deepcopy(BOOK);report=metrics.exposure(BOOK,quotes())
         self.assertLess(report['all_positions_down_20pct_equity_impact_pct'],0)
@@ -181,12 +185,13 @@ class BackupStatementCoverage(unittest.TestCase):
 class CalendarAttribution(unittest.TestCase):
     def test_missing_benchmark_session_is_not_replaced_with_later_day(self):
         cohort={'round_id':'r','observed_at':OPEN.isoformat(),'candidates':{'AMD':{'entry_price':100,'decision':'BUY','channels':['momentum']}},'benchmarks':{'SPY':{'price':100},'SMH':{'price':100}}}
-        dates=pd.bdate_range('2026-10-06',periods=22)
-        frame=pd.DataFrame({'Close':[105]*22},index=dates)
-        spy=frame.drop(pd.Timestamp('2026-10-12'))
+        dates=metrics._session_days(OPEN.date(),121)
+        target=dates[19]
+        frame=pd.DataFrame({'Close':[105]*len(dates)},index=pd.to_datetime(dates))
+        spy=frame.drop(pd.Timestamp(target))
         scored=metrics.score(cohort,{'AMD':frame,'SPY':spy,'SMH':frame})
-        self.assertTrue(any('5:missing endpoint' in p for p in scored['pending']))
-        self.assertFalse(any(r['horizon_sessions']==5 for r in scored['results']))
+        self.assertTrue(any('20:missing endpoint' in p for p in scored['pending']))
+        self.assertFalse(any(r['horizon_sessions']==20 for r in scored['results']))
 
 class MacroCoverage(unittest.TestCase):
     def test_sector_snapshot_uses_measured_average_change_and_all_sectors(self):

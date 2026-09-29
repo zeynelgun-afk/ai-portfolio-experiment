@@ -86,7 +86,8 @@ def ledger(data, observed_at, origin):
                     unit='firms' if field.endswith('firms') else '%', as_of=analyst['observed_at'],
                     source='FMP price-target-news / same-firm matched observations', snapshot=snapshot)
         for period, changes in analyst.get('estimate_changes', {}).get('periods', {}).items():
-            for field, change in changes.items():
+            for field in ('epsAvg','revenueAvg'):
+                change=changes.get(field,{})
                 name = 'eps' if field == 'epsAvg' else 'revenue'
                 for suffix, value, unit in (('', change.get('current'), 'USD/share' if name == 'eps' else 'USD'),
                                             ('_revision_pct', change.get('change_pct'), '% vs prior observed consensus')):
@@ -97,6 +98,15 @@ def ledger(data, observed_at, origin):
                         unit=unit, as_of=analyst['observed_at'], fiscal_period=period,
                         previous_observed_at=analyst['estimate_changes'].get('previous_observed_at'),
                         source='FMP analyst-estimates / annual consensus forecast, not reported result', snapshot=snapshot)
+        for window, summary in analyst.get('estimate_revision_windows',{}).items():
+            for change in summary.get('periods',[]):
+                metric='analyst_revenue_'+change['fiscal_period'].replace('-','')+'_revision_'+window+'d_pct'
+                facts[f'{symbol}.{metric}']=dict(symbol=symbol,metric=metric,
+                    value=change['revision_pct'],unit='% vs same-period consensus snapshot',
+                    as_of=analyst['observed_at'],fiscal_period=change['fiscal_period'],
+                    previous_observed_at=summary.get('baseline_observed_at'),
+                    source='FMP analyst-estimates / same-fiscal-period consensus snapshots; not individual analyst breadth',
+                    snapshot=snapshot)
         for metric in ('sma50', 'sma200'):
             price_id = f'{symbol}.last_price' if f'{symbol}.last_price' in facts else f'{symbol}.price'
             base_id = f'{symbol}.{metric}'

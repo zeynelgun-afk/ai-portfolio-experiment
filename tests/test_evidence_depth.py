@@ -213,13 +213,15 @@ class CorporateAccounting(unittest.TestCase):
 
 class AdjustedReturns(unittest.TestCase):
     def test_split_does_not_look_like_a_loss_and_dividend_adds_return(self):
-        days=pd.to_datetime(['2026-09-28','2026-10-05','2026-10-26'])
+        dates=research_metrics._session_days(NOW.date(),20)
+        days=pd.to_datetime([NOW.date(),*dates])
         cohort={'round_id':'test','observed_at':NOW.isoformat(),'candidates':{'MU':{'entry_price':100,'decision':'HOLD','channels':['value']}},'benchmarks':{'SPY':{'price':100},'SMH':{'price':100}}}
-        histories={'MU':pd.DataFrame({'raw_close':[100,50,50],'total_close':[49,50,50]},index=days)}
-        for symbol in ('SPY','SMH'):histories[symbol]=pd.DataFrame({'raw_close':[100,100,100],'total_close':[100,100,100]},index=days)
+        histories={'MU':pd.DataFrame({'raw_close':[100]+[50]*len(dates),'total_close':[49]+[50]*len(dates)},index=days)}
+        for symbol in ('SPY','SMH'):histories[symbol]=pd.DataFrame({'raw_close':[100]*(len(dates)+1),'total_close':[100]*(len(dates)+1)},index=days)
         report=research_metrics.score(cohort,histories)
-        self.assertEqual(len(report['results']),2)
+        self.assertEqual(len(report['results']),1)
         self.assertAlmostEqual(report['results'][0]['return_pct'],(50/49-1)*100)
+        self.assertEqual(report['results'][0]['horizon_sessions'],20)
         del histories['SMH']
         self.assertEqual(research_metrics.score(cohort,histories)['results'],[])
 

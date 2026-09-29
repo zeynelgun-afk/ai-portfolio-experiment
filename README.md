@@ -78,6 +78,13 @@ industry IDs are checked against the supplied sources; this does not independent
 prove the interpretation is correct. Uncited or out-of-universe links are discarded.
 This is a discovery experiment, not a validated return edge.
 
+News coverage records whether the provider excerpt or an independently fetched
+article body was available. The reader tries a bounded set of public article pages;
+paywalls and extraction failures remain explicitly excerpt-only. A separate supply-
+chain research path requires a verbatim article quote and corroboration in a recent
+issuer annual filing before admitting a product/component exposure candidate. It
+keeps the official SEC filing link and does not modify the decision watchlist.
+
 The Theme Tracker concept is now reproduced from dated provider data: a curated ETF
 proxy board compares one-week and one-month total returns, while a separate dynamic
 FMP-industry board ranks short-term movers. The supplied screenshot itself is not

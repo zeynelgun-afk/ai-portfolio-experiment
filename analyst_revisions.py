@@ -13,6 +13,9 @@ import market_data
 
 BASE = Path(__file__).resolve().parent
 WINDOWS = (7, 30, 90)
+ESTIMATE_WINDOWS = (7, 30, 90)
+FORWARD_HORIZONS = (20, 60, 120)
+ROUND_TRIP_COST_SCENARIOS_BPS = (0, 25, 50, 100, 250)
 INTEGRITY_VERSION = 2
 LIMITS = ('Provider observations, not verified analyst reports. Targets are forecasts; '
           'revision reasons and forecast horizon are unknown unless separately sourced. '
@@ -208,7 +211,10 @@ def estimates(rows, symbol):
         if row.get('symbol') != symbol: continue
         try: period = datetime.fromisoformat(row['date']).date().isoformat()
         except (ValueError, KeyError, TypeError): continue
-        result[period] = {key: number(row.get(key)) for key in ('epsAvg', 'revenueAvg')}
+        fields=('epsAvg','revenueAvg','revenueLow','revenueHigh','numAnalystsRevenue','numAnalystsEps')
+        result[period] = {key: number(row.get(key)) for key in fields}
+        if row.get('reportedCurrency'):
+            result[period]['reportedCurrency']=str(row['reportedCurrency']).upper()
     return result
 
 
@@ -238,11 +244,22 @@ def collect(symbol, moment, previous=None, fetch=None):
     changes = {}
     for period, current in result['estimates'].items():
         old = (previous or {}).get('estimates', {}).get(period, {})
+        if old.get('reportedCurrency') and current.get('reportedCurrency') and old['reportedCurrency'] != current['reportedCurrency']:
+            old = {}
         changes[period] = {key: {'previous': old.get(key), 'current': value,
-                                 'change_pct': 100*(value-old[key])/abs(old[key]) if value is not None and old.get(key) not in (None, 0) else None}
-                           for key, value in current.items()}
+                                 'change_pct': 100*(value-old[key])/abs(old[key]) if isinstance(value,(int,float)) and isinstance(old.get(key),(int,float)) and old[key] != 0 else None}
+                           for key, value in current.items() if key != 'reportedCurrency'}
+        revenue_change=changes[period].get('revenueAvg',{})
+        revenue_pct=revenue_change.get('change_pct')
+        changes[period]['direction'] = ('up' if isinstance(revenue_pct,(int,float)) and revenue_pct>0 else
+            'down' if isinstance(revenue_pct,(int,float)) and revenue_pct<0 else 'unchanged_or_unmeasured')
+        if revenue_change.get('change_pct') not in (None,0):
+            changes[period]['event_id']=identity([symbol,period,(previous or {}).get('observed_at'),
+                old.get('revenueAvg'),current.get('revenueAvg')])
+            changes[period]['event_observed_at']=moment.isoformat()
+            changes[period]['previous_observed_at']=(previous or {}).get('observed_at')
     result['estimate_changes'] = {'previous_observed_at': (previous or {}).get('observed_at'),
-                                  'periods': changes, 'limits': 'Same fiscal period across observed snapshots; consensus co-movement is not a cause of any individual target change.'}
+                                  'periods': changes, 'limits': 'Same fiscal period across observed FMP consensus snapshots; this is not analyst-by-analyst breadth, company guidance or a cause of price/target changes.'}
     return result
 
 
@@ -252,9 +269,45 @@ def refresh(symbol, moment, state, fetch=None):
     if key in state: return copy.deepcopy(state[key]), False
     previous = [v for v in state.values() if v.get('symbol') == symbol and stamp(v['observed_at']) < moment]
     prior = max(previous, key=lambda r: r['observed_at']) if previous else None
-    result = collect(symbol, moment, prior, fetch)
+    estimate_history=[r for r in previous if r.get('estimates_status')=='ok' and r.get('estimates')]
+    prior_estimates=max(estimate_history,key=lambda r:r['observed_at']) if estimate_history else None
+    result = collect(symbol, moment, prior_estimates or prior, fetch)
+    result['estimate_revision_windows']=estimate_revision_windows(
+        [r for r in estimate_history if r.get('observed_at')], result, moment)
     state[key] = copy.deepcopy(result)
     return result, True
+
+
+def estimate_revision_windows(history, current, moment):
+    """Compare same-fiscal-period revenue consensus against dated prior snapshots."""
+    windows={}
+    for lookback in ESTIMATE_WINDOWS:
+        cutoff=moment-timedelta(days=lookback)
+        prior=[r for r in history if stamp(r['observed_at'])<=cutoff]
+        baseline=max(prior,key=lambda r:r['observed_at']) if prior else None
+        periods=[]
+        if baseline and (cutoff-stamp(baseline['observed_at'])).days<=14:
+            for fiscal_period,value in sorted(current.get('estimates',{}).items()):
+                old=baseline.get('estimates',{}).get(fiscal_period,{})
+                before,after=old.get('revenueAvg'),value.get('revenueAvg')
+                if not isinstance(before,(int,float)) or not isinstance(after,(int,float)) or before==0:
+                    continue
+                old_currency=old.get('reportedCurrency');new_currency=value.get('reportedCurrency')
+                if old_currency and new_currency and old_currency!=new_currency:
+                    continue
+                periods.append({'fiscal_period':fiscal_period,'previous_revenue_avg':before,
+                    'current_revenue_avg':after,'revision_pct':100*(after-before)/abs(before),
+                    'previous_analyst_count':old.get('numAnalystsRevenue'),
+                    'current_analyst_count':value.get('numAnalystsRevenue'),
+                    'currency':new_currency or old_currency or 'provider-reported currency'})
+        windows[str(lookback)]={'status':'available' if periods else 'insufficient_same_period_snapshots',
+            'baseline_observed_at':baseline.get('observed_at') if baseline else None,
+            'elapsed_days':(moment-stamp(baseline['observed_at'])).days if baseline else None,
+            'periods':periods,
+            'upward_periods':sum(row['revision_pct']>0 for row in periods),
+            'downward_periods':sum(row['revision_pct']<0 for row in periods),
+            'limits':'Consensus estimate change between observed snapshots; provider does not identify same-analyst revisions.'}
+    return windows
 
 
 def attach(row, report):
@@ -284,15 +337,15 @@ def review_trigger(symbol, report, cooldown, moment):
 @lru_cache(maxsize=512)
 def forward_days(observed):
     calendar = market_data.calendars.get_calendar('NYSE')
-    schedule = calendar.schedule(start_date=observed+timedelta(days=1), end_date=observed+timedelta(days=130))
-    return tuple(schedule.index.date[:61])
+    schedule = calendar.schedule(start_date=observed+timedelta(days=1), end_date=observed+timedelta(days=400))
+    return tuple(schedule.index.date[:max(FORWARD_HORIZONS)+1])
 
 
 def forward_score(report, histories):
-    """Observed cohorts; next-session close to 20/60-session total-return endpoints."""
+    """Next-session-close cohorts with cost sensitivities and path-risk measures."""
     days = forward_days(stamp(report['observed_at']).date())
     result = []
-    for horizon in (20, 60):
+    for horizon in FORWARD_HORIZONS:
         values = {}
         for symbol in (report['symbol'], 'SPY'):
             frame = histories.get(symbol)
@@ -301,10 +354,27 @@ def forward_score(report, histories):
             end = frame.loc[frame.index.date == days[horizon], 'total_close']
             if len(start) == len(end) == 1 and number(start.iloc[0]) and start.iloc[0] > 0 and number(end.iloc[0]) and end.iloc[0] > 0:
                 values[symbol] = 100*(float(end.iloc[0])/float(start.iloc[0])-1)
+        measured=len(values)==2
+        gross=values.get(report['symbol'])
+        spy=values.get('SPY')
+        frame=histories.get(report['symbol'])
+        risk=None
+        if measured and frame is not None:
+            path=frame.loc[(frame.index.date>=days[0])&(frame.index.date<=days[horizon]),'total_close']
+            if len(path):
+                wealth=path.astype(float)/float(path.iloc[0])
+                dd=(wealth/wealth.cummax()-1)*100
+                daily=wealth.pct_change().dropna()
+                risk={'maximum_drawdown_pct':float(dd.min()),
+                      'realized_volatility_annualized_pct':float(daily.std(ddof=1)*math.sqrt(252)*100) if len(daily)>1 else None,
+                      'observations':len(daily)}
+        net={str(bps):gross-bps/100 for bps in ROUND_TRIP_COST_SCENARIOS_BPS} if measured else {}
         result.append({'horizon_sessions': horizon, 'baseline_date': days[0].isoformat(),
-                       'end_date': days[horizon].isoformat(), 'status': 'measured' if len(values) == 2 else 'pending',
-                       'return_pct': values.get(report['symbol']),
-                       'excess_spy_pp': values[report['symbol']]-values['SPY'] if len(values) == 2 else None})
+                       'end_date': days[horizon].isoformat(), 'status': 'measured' if measured else 'pending',
+                       'return_pct':gross,'net_return_scenarios_pct':net,
+                       'excess_spy_pp':gross-spy if measured else None,
+                       'net_excess_spy_vs_gross_benchmark_pp':{str(bps):net[str(bps)]-spy for bps in ROUND_TRIP_COST_SCENARIOS_BPS} if measured else {},
+                       'risk':risk})
     return result
 
 
@@ -313,24 +383,29 @@ def publish(state, root=BASE, histories=None):
     latest = {}
     for key, report in sorted(state.items()): latest[report['symbol']] = report
     lines = ['# Analyst revision research', '', LIMITS, '',
-             '| Symbol | Observed | Coverage | Up / down firms (30d) | Median revision | Estimate history |',
-             '|---|---|---|---|---|---|']
+             '| Symbol | Observed | Target revisions up/down firms (30d) | Target median | Revenue consensus revision (FY, 30d) | Revenue analyst count |',
+             '|---|---|---:|---:|---:|---:|']
     for symbol, report in sorted(latest.items()):
         window = report['windows']['30']
         revision = f"{window['median_revision_pct']:.2f}%" if window['median_revision_pct'] is not None else 'unavailable'
-        lines.append(f"| {symbol} | {report['observed_at']} | {report['status']} | {window['up_firms']} / {window['down_firms']} | {revision} | {report['estimate_changes']['previous_observed_at'] or 'not yet available'} |")
+        revs=report.get('estimate_revision_windows',{}).get('30',{}).get('periods',[])
+        closest=next(iter(revs),None)
+        forecast=(f"{closest['fiscal_period']} {closest['revision_pct']:+.2f}%" if closest else 'unavailable')
+        coverage=(f"{closest.get('previous_analyst_count')} → {closest.get('current_analyst_count')}" if closest else '—')
+        lines.append(f"| {symbol} | {report['observed_at']} | {report['status']} · {window['up_firms']} / {window['down_firms']} | {revision} | {forecast} | {coverage} |")
     lines += ['', '## Quarantined provider records', '',
               'Records below are excluded, not relabeled by inference. A consistent later provider observation can restore eligibility; previous observations remain immutable.']
     for symbol, report in sorted(latest.items()):
         for item in report.get('quarantined_records', []):
             lines.append(f"- {symbol} / {item['at']} / {item['firm']}: {', '.join(item['reasons'])}. Record `{item['id']}`; source: {item.get('url') or 'unavailable'}")
-    lines += ['', 'Forward outcome records: [analyst_revision_performance.json](state/analyst_revision_performance.json).',
+    lines += ['', 'Revenue forecast changes compare the same fiscal-period FMP consensus between dated snapshots. They show estimate movement, not individual analyst breadth, company guidance, realized results or the cause of a price move.',
+              'Forward outcome records: [analyst_revision_performance.json](state/analyst_revision_performance.json).',
               'No baseline forecast history means unknown earnings support, not unchanged estimates.',
               'Earnings improvements are not required: reviews also examine company news, sector/theme attention and valuation. '
               'Attributed analyst reasons, contextual hypotheses and unknowns are stored separately.']
     if histories is not None:
         # Keep one forward cohort per unique matched-event set, not repeated daily votes.
-        cohorts = {}
+        cohorts = {}; estimate_cohorts={}
         for key, report in sorted(state.items()):
             events = sorted(r['id'] for r in report['windows']['30']['revisions'])
             ident = identity([report['symbol'], report['status'], events])
@@ -340,8 +415,24 @@ def publish(state, root=BASE, histories=None):
                                  'observation_key': key,
                                  'window_30d': {k: v for k, v in report['windows']['30'].items() if k != 'revisions'},
                                  'results': forward_score(report, histories)}
-        output = {'cohorts': cohorts, 'limits': 'Prospective observed cohorts, overlapping and selected universe; total returns before costs, no causal attribution or proven predictive benefit. Baseline is next session close.'}
+            for period,change in report.get('estimate_changes',{}).get('periods',{}).items():
+                event_id=change.get('event_id')
+                if not event_id or event_id in estimate_cohorts:continue
+                event={'symbol':report['symbol'],'observed_at':change['event_observed_at']}
+                estimate_cohorts[event_id]={'symbol':report['symbol'],'fiscal_period':period,
+                    'observed_at':change['event_observed_at'],'previous_observed_at':change.get('previous_observed_at'),
+                    'previous_consensus_revenue':change['revenueAvg']['previous'],
+                    'current_consensus_revenue':change['revenueAvg']['current'],
+                    'revision_pct':change['revenueAvg']['change_pct'],
+                    'analyst_count_previous':change.get('numAnalystsRevenue',{}).get('previous'),
+                    'analyst_count_current':change.get('numAnalystsRevenue',{}).get('current'),
+                    'results':forward_score(event,histories)}
+        output = {'target_revision_cohorts': cohorts,'revenue_consensus_revision_cohorts':estimate_cohorts,
+            'limits': ('Prospective, selected-universe overlapping cohorts. Cost sensitivities subtract 0/25/50/100/250 bp round-trip from candidate returns; these are not measured execution costs. '
+                       'Net excess is compared with gross benchmark returns. Risk records path drawdown and annualized volatility. '
+                       'Consensus estimate events are not individual analyst votes, company guidance or causal proof. No predictive benefit is established. Baseline is next session close.')}
         write_json(str(root/'state/analyst_revision_performance.json'), output)
         lines += ['', output['limits'], '', f'Unique observed cohorts: {len(cohorts)}',
-                  f"Mature endpoints: {sum(r['status']=='measured' for c in cohorts.values() for r in c['results'])}"]
+                  f"Target-revision mature endpoints: {sum(r['status']=='measured' for c in cohorts.values() for r in c['results'])}",
+                  f"Revenue-consensus revision events: {len(estimate_cohorts)}; mature endpoints: {sum(r['status']=='measured' for c in estimate_cohorts.values() for r in c['results'])}"]
     (root/'ANALYST_REVISIONS.md').write_text('\n'.join(lines)+'\n')

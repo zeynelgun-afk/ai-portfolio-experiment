@@ -183,6 +183,30 @@ class Collection(unittest.TestCase):
         self.assertEqual(report['estimate_changes']['periods']['2027-09-30']['epsAvg']['change_pct'], 10)
         self.assertIsNone(report['estimate_changes']['periods']['2028-09-30']['epsAvg']['change_pct'])
 
+    def test_revenue_estimate_snapshot_change_is_same_fiscal_year_not_analyst_breadth(self):
+        baseline={'symbol':'SPCX','observed_at':(NOW-timedelta(days=32)).isoformat(),
+            'estimates_status':'ok','estimates':{'2027-12-31':{'revenueAvg':100,'numAnalystsRevenue':8}}}
+        current={'symbol':'SPCX','observed_at':NOW.isoformat(),
+            'estimates':{'2027-12-31':{'revenueAvg':115,'numAnalystsRevenue':9}}}
+        windows=ar.estimate_revision_windows([baseline],current,NOW)
+        row=windows['30']['periods'][0]
+        self.assertAlmostEqual(row['revision_pct'],15)
+        self.assertEqual(row['previous_analyst_count'],8)
+        self.assertEqual(row['current_analyst_count'],9)
+        self.assertEqual(windows['30']['upward_periods'],1)
+        self.assertEqual(windows['7']['status'],'insufficient_same_period_snapshots')
+        self.assertIn('does not identify same-analyst revisions',windows['30']['limits'])
+
+    def test_revenue_consensus_event_gets_120_session_cost_and_risk_outcomes(self):
+        dates=ar.forward_days(NOW.date())
+        histories={}
+        for symbol,step in (('SPCX',2.0),('SPY',1.0)):
+            histories[symbol]=pd.DataFrame({'total_close':[100+i*step for i in range(len(dates))]},index=pd.to_datetime(dates))
+        results=ar.forward_score({'symbol':'SPCX','observed_at':NOW.isoformat()},histories)
+        self.assertEqual([r['horizon_sessions'] for r in results],list(ar.FORWARD_HORIZONS))
+        self.assertAlmostEqual(results[-1]['net_return_scenarios_pct']['100'],239)
+        self.assertIn('maximum_drawdown_pct',results[-1]['risk'])
+
     def test_zero_and_negative_earnings_changes(self):
         prior = {'estimates': {'2027-09-30': {'epsAvg': -2, 'revenueAvg': 0}}}
         fetch = Mock(side_effect=[sample(), [{'symbol': 'MU', 'date': '2027-09-30', 'epsAvg': -1, 'revenueAvg': 120}]])
@@ -207,8 +231,9 @@ class Collection(unittest.TestCase):
             ar.publish({'first': report, 'second': later}, root, {})
             import json
             data = json.loads((root/'state/analyst_revision_performance.json').read_text())
-            self.assertEqual(len(data['cohorts']), 1)
-            self.assertIn('Mature endpoints: 0', (root/'ANALYST_REVISIONS.md').read_text())
+            self.assertEqual(len(data['target_revision_cohorts']), 1)
+            self.assertEqual(data['revenue_consensus_revision_cohorts'], {})
+            self.assertIn('Target-revision mature endpoints: 0', (root/'ANALYST_REVISIONS.md').read_text())
 
 
 class DriverReview(unittest.TestCase):
