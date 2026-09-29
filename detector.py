@@ -458,6 +458,15 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
         if symbol.startswith("_"):
             continue
 
+        from analyst_revisions import review_trigger
+        analyst_report = data.get(symbol, {}).get('analyst_revisions')
+        if analyst_report:
+            analyst_trigger = review_trigger(symbol, analyst_report, cooldown, moment)
+            if analyst_trigger:
+                triggered.append(analyst_trigger)
+            if data[symbol].get('analyst_refreshed') and (analyst_report.get('status') != 'ok' or analyst_report.get('estimates_status') != 'ok'):
+                news_errors.append({'symbol': symbol, 'error': 'Analyst revision/estimate coverage incomplete; see ANALYST_REVISIONS.md'})
+
         # News Sentiment Check
         recent_news = data.get(symbol, {}).get("recent_news", [])
         if assess_news and recent_news and last_news is not None and new_last_news is not None:
@@ -635,6 +644,7 @@ def main():
                          for p in portfolio["positions"]}
 
     moment = now_utc()
+    analyst_changed = False
     if args.fixed_data:
         fixture = read_json(os.path.join(BASE, args.fixed_data), {})
         data = fixture.get("symbols", fixture)
@@ -646,14 +656,33 @@ def main():
                 for claim in position.get("claims", [])
                 for condition in claim.get("conditions", [])
                 if condition.get("type") in {"sector_etf_change_pct", "sector_etf_above_pct"}}
-        symbols = sorted({k for k in theses if not k.startswith("_")} | etfs)
+        symbols = sorted({k for k in theses if not k.startswith("_")} | etfs | {'SPY', 'SMH'})
         data = collect_live_data(symbols, earnings_fallback)
         import fundamentals
+        import analyst_revisions
+        from execute_trade import read_json as strict_read
+        analyst_path = os.path.join(args.state_dir, 'analyst_revision_observations.json')
+        analyst_state = strict_read(analyst_path, {})
+        analyst_health_path = os.path.join(args.state_dir, 'analyst_revision_health.json')
+        analyst_health = strict_read(analyst_health_path, {})
         for symbol, position in theses.items():
             if symbol.startswith('_') or symbol not in data:
                 continue
             if not position.get('monitoring') or any(c.get('type','').startswith('fundamental_') for claim in position.get('claims',[]) for c in claim.get('conditions',[])):
                 data[symbol]['fundamental_research'] = fundamentals.collect(symbol, moment)
+            analyst_report, changed = analyst_revisions.refresh(symbol, moment, analyst_state)
+            analyst_revisions.attach(data[symbol], analyst_report)
+            health_key = moment.date().isoformat() + ':' + symbol
+            incomplete = analyst_report['status'] != 'ok' or analyst_report['estimates_status'] != 'ok'
+            health_due = incomplete and health_key not in analyst_health
+            data[symbol]['analyst_refreshed'] = health_due
+            if health_due:
+                analyst_health[health_key] = {'reported_to_workflow_at': moment.isoformat(), 'status': analyst_report['status']}
+            analyst_changed = analyst_changed or changed or health_due
+        if not args.dry_run:
+            write_json(analyst_path, analyst_state)
+            write_json(analyst_health_path, analyst_health)
+            analyst_revisions.publish(analyst_state)
 
     violations_path = os.path.join(args.state_dir, "violations.json")
     cooldown_path = os.path.join(args.state_dir, "cooldown.json")
@@ -668,6 +697,7 @@ def main():
                  assess_news=not args.dry_run, initialize_monitors=True)
     report["data"] = {symbol: data.get(symbol, {}) for symbol in sorted(data)}
     report["news_previous"] = last_news
+    report['state_changed'] = report['state_changed'] or analyst_changed
 
     if not args.dry_run:
         write_json(violations_path, report)

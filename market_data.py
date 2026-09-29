@@ -21,7 +21,7 @@ class ProviderError(RuntimeError):
     pass
 
 
-def fmp(endpoint, **params):
+def fmp(endpoint, *, allow_empty=False, **params):
     key = os.environ.get('FMP_API_KEY', '').strip()
     if not key:
         raise ProviderError('FMP key unavailable')
@@ -36,7 +36,7 @@ def fmp(endpoint, **params):
             if response.status_code != 200:
                 raise ProviderError(f'FMP HTTP {response.status_code}')
             payload = response.json()
-            if not isinstance(payload, list) or not payload:
+            if not isinstance(payload, list) or (not payload and not allow_empty):
                 raise ProviderError('FMP empty or invalid response')
             return payload
         except ProviderError:

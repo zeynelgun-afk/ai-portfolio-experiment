@@ -1129,6 +1129,23 @@ function renderCards() {
         + (Date.parse(position.monitoring.next_review_at)<=Date.now() ? " · due for reassessment" : "")
       : "Executable decision monitoring: awaiting scheduled assessment";
     card.append(review);
+    const analyst = DATA.analyst_revisions?.[symbol];
+    const analystNote = document.createElement("p");
+    analystNote.className = "stamp";
+    analystNote.textContent = analyst
+      ? "Analyst revisions · " + analyst.observed_at + " · " + analyst.status
+        + (analyst.status === "ok" ? " · 30d independent firms: " + analyst.summary.up_firms + " up / "
+          + analyst.summary.down_firms + " down · research signal, not a trade instruction"
+          : " · insufficient coverage; no analyst signal")
+      : "Analyst revision research: awaiting first observation";
+    card.append(analystNote);
+    const driverLabels = {earnings:"Earnings expectations", company_news:"Company news", sector_theme:"Sector / theme", valuation:"Valuation"};
+    for (const [axis, finding] of Object.entries(position.analyst_review || {})) {
+      const driver = document.createElement("p");
+      driver.className = "stamp";
+      driver.textContent = (driverLabels[axis] || axis) + " · " + finding.evidence_status + ": " + finding.assessment;
+      card.append(driver);
+    }
     /* claims */
     for (const claim of position.claims) {
       const block = document.createElement("div"); block.className = "claim";

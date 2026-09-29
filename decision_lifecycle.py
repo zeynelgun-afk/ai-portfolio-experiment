@@ -93,7 +93,7 @@ def validate_monitoring(monitoring, symbol, old, data, facts, moment, stop_befor
         old_evidence=old.get('monitoring',{}).get('evidence_fingerprints',{})
         changed=[k for k in references if fingerprints[k]!=old_evidence.get(k)]
         fundamental_metrics={'revenue_yoy_pct','gross_margin_pct','operating_margin_pct','quarter_operating_cash_flow','quarter_free_cash_flow','net_debt','total_debt'}
-        if not any(k.startswith('news:') or available[k].get('metric') in fundamental_metrics for k in changed):
+        if not any(k.startswith(('news:', 'analyst:')) or available[k].get('metric') in fundamental_metrics for k in changed):
             raise ValueError('Changing/removing old thresholds requires new non-price evidence; price moves alone cannot justify it')
     return dict(copy.deepcopy(monitoring),revision=digest(monitoring),created_at=moment.isoformat(),evidence_fingerprints=fingerprints)
 

@@ -155,7 +155,7 @@ def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=F
                     not market_open(datetime.fromisoformat(row['price_at']))):
                 raise ValueError(f'{symbol}: stale or out-of-session execution quote')
     for decision in decisions:
-        if set(decision) - {'symbol', 'action', 'amount_usd', 'shares', 'new_stop', 'reasoning', 'falsifier', 'monitoring'}:
+        if set(decision) - {'symbol', 'action', 'amount_usd', 'shares', 'new_stop', 'reasoning', 'falsifier', 'monitoring', 'analyst_review'}:
             raise ValueError('Unexpected decision fields')
         symbol = decision.get('symbol')
         if not isinstance(symbol, str) or not re.fullmatch(r'[A-Z][A-Z0-9.-]{0,9}', symbol) or symbol in seen:
@@ -210,6 +210,9 @@ def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=F
             if monitor['claims'] != proposal['theses'][symbol]['claims']:
                 raise ValueError('Decision monitors and thesis claims must be identical')
             theses[symbol]['monitoring']=monitor
+            if decision.get('analyst_review'):
+                from analyst_revisions import validate_review
+                theses[symbol]['analyst_review'] = validate_review(decision['analyst_review'], symbol, data, facts)
     return result, theses, existing_log + '\n'.join(lines) + '\n'
 
 
@@ -361,18 +364,21 @@ def main():
     old_theses = read_json(str(BASE/'theses.json'), {})
     original_log = (BASE/'DECISION_LOG.md').read_text()
     import decision_lifecycle as lifecycle
+    from analyst_revisions import REVIEW_INSTRUCTION, validate_review
     context['NOW']=moment.isoformat()
     context['monitoring_instruction']=lifecycle.INSTRUCTION
     def validate_proposal(payload):
         for decision in payload.get('decisions',[]):
             symbol=decision['symbol']
+            if data.get(symbol, {}).get('analyst_revisions'):
+                validate_review(decision.get('analyst_review'), symbol, data, facts)
             lifecycle.validate_monitoring(decision.get('monitoring'),symbol,old_theses.get(symbol,{}),data,facts,moment, next((p.get('stop_weekly_close') for p in book['positions'] if p['symbol']==symbol),None),decision.get('new_stop'))
         build_targets(payload, book, old_theses, data, moment, original_log,
                       preview=not args.execute_pending, quotes=quotes)
     (BASE/'output').mkdir(exist_ok=True)
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data})
     proposal, status = call_llm(os.environ.get('OPENROUTER_MODEL_WEEKLY') or 'anthropic/claude-opus-5.5',
-                                SYSTEM+"\n"+lifecycle.INSTRUCTION+"\nPut monitoring inside EACH decision; its claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
+                                SYSTEM+"\n"+lifecycle.INSTRUCTION+"\n"+REVIEW_INSTRUCTION+"\nPut monitoring and analyst_review inside EACH decision; monitoring claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
                                 response_validator=validate_proposal)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)

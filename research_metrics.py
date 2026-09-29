@@ -106,13 +106,18 @@ def score(cohort, histories):
 
 def main():
     observations=read_json(str(BASE/'state/research_observations.json'),{})
-    if not observations:
+    analyst_observations=read_json(str(BASE/'state/analyst_revision_observations.json'),{})
+    if not observations and not analyst_observations:
         print('No prospective research cohorts yet');return
     symbols={'SPY','SMH'}|{s for c in observations.values() for s in c['candidates']}
+    symbols.update(r['symbol'] for r in analyst_observations.values())
     histories={}; failures=[]
     for symbol in sorted(symbols):
         try:histories[symbol]=market_data.return_history(symbol)
         except market_data.ProviderError:failures.append(symbol)
+    if analyst_observations:
+        from analyst_revisions import publish
+        publish(analyst_observations, BASE, histories)
     output={'as_of':datetime.now(timezone.utc).isoformat(),
             'cohorts':[score(c,histories) for c in observations.values()],
             'unavailable_symbols':failures,

@@ -386,5 +386,24 @@ news text is deduplicated across publication URLs and batch groupings; semantic
 paraphrases are not guaranteed to be the same detected event. Session, freshness,
 nonnegative cash and owned-share checks still apply. No condition mandates a trade.
 
-Analyst target revision momentum is a separate design proposal in
-[docs/analyst_revision_design.md](docs/analyst_revision_design.md), not an activated rule.
+Analyst target revision momentum is documented in
+[docs/analyst_revision_design.md](docs/analyst_revision_design.md) as a research review channel.
+
+### Analyst revision research
+
+Analyst targets now form an additional **research and decision-review channel**. FMP
+observations are collected daily and matched by firm across 7/30/90-day windows;
+syndicated reports and repeated unchanged targets do not count as independent votes.
+Two or more firms in the dominant 30-day revision direction can request reassessment,
+with coverage checks and persistent event acknowledgement. This is a routing heuristic,
+not a standalone buy/sell signal or an exception to trading/session safeguards.
+
+Reviews separately examine **earnings, company news, sector/theme attention and valuation**.
+Improving EPS is not a prerequisite. Analyst-stated reasons, contextual hypotheses and
+unknowns have separate evidence statuses and source references. Missing estimate history
+means unknown earnings support; it does not invalidate news or narrative evidence.
+
+See [dated observations](ANALYST_REVISIONS.md) and the
+[implementation/evaluation design](docs/analyst_revision_design.md). First snapshots are
+recorded; prospective 20/60-session excess-return measurements remain pending until
+mature. No predictive advantage or cost-adjusted profitability has been established.

@@ -1,0 +1,149 @@
+{
+  "cohorts": {
+    "e888f51ced977d40a6d7de73": {
+      "symbol": "AMD",
+      "observed_at": "2026-09-29T07:50:54.359693+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-09-29:AMD",
+      "window_30d": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 2,
+        "initiated_or_resumed_firms": 1,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": 8.396946564885496
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-10-28",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-12-24",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        }
+      ]
+    },
+    "d8b0626467aa6e11bbd6cf71": {
+      "symbol": "ANET",
+      "observed_at": "2026-09-29T07:50:56.950451+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-09-29:ANET",
+      "window_30d": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "initiated_or_resumed_firms": 1,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-10-28",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-12-24",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        }
+      ]
+    },
+    "f335003ceede1f95dc57d70d": {
+      "symbol": "MU",
+      "observed_at": "2026-09-29T07:50:51.790097+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-09-29:MU",
+      "window_30d": {
+        "up_firms": 1,
+        "down_firms": 1,
+        "matched_firms": 2,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "breadth": 0.0,
+        "median_revision_pct": 5.2767,
+        "target_dispersion_pct": 4.109589041095891
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-10-28",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-12-24",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        }
+      ]
+    },
+    "e7932b68dfcec43873aa0e03": {
+      "symbol": "NVDA",
+      "observed_at": "2026-09-29T07:50:58.246044+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-09-29:NVDA",
+      "window_30d": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "initiated_or_resumed_firms": 1,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-10-28",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-09-30",
+          "end_date": "2026-12-24",
+          "status": "pending",
+          "return_pct": null,
+          "excess_spy_pp": null
+        }
+      ]
+    }
+  },
+  "limits": "Prospective observed cohorts, overlapping and selected universe; total returns before costs, no causal attribution or proven predictive benefit. Baseline is next session close."
+}

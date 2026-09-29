@@ -111,6 +111,7 @@ jobs:
         run: python scout.py
 
       - name: 3a) Collect measured weekly inputs
+        id: weekly_inputs
         run: python weekly_data.py
 
       - name: 3b) Structured weekend research plan (no trades)
@@ -248,6 +249,19 @@ jobs:
       - name: Report provider failover
         if: always()
         run: python provider_health.py
+
+      - name: Analyst revision evidence health
+        if: always() && steps.weekly_inputs.outcome == 'success'
+        run: |
+          python - <<'PY'
+          import json
+          data = json.load(open('weekly_data.json'))
+          missing = [s for s, row in data.items() if not s.startswith('_') and
+                     (row.get('analyst_revisions', {}).get('status') != 'ok' or
+                      row.get('analyst_revisions', {}).get('estimates_status') != 'ok')]
+          if missing:
+              raise SystemExit('Analyst revision evidence incomplete: ' + ', '.join(missing))
+          PY
 
       - name: Preserve provider routing evidence
         if: always()

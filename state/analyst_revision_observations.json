@@ -1,0 +1,2688 @@
+{
+  "2026-09-29:MU": {
+    "symbol": "MU",
+    "observed_at": "2026-09-29T07:50:51.790097+00:00",
+    "windows": {
+      "7": {
+        "up_firms": 1,
+        "down_firms": 1,
+        "matched_firms": 2,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "breadth": 0.0,
+        "median_revision_pct": 5.2767,
+        "target_dispersion_pct": 4.109589041095891,
+        "revisions": [
+          {
+            "id": "e47506d6cd877bd169a92d69",
+            "firm": "wells fargo",
+            "at": "2026-09-23T09:44:00+00:00",
+            "previous": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-06-25T09:50:08+00:00",
+              "target_adjusted": 1525.0,
+              "target_raw": 1525.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375124",
+              "title": "Micron price target raised to $1,525 from $1,220 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "wells fargo",
+              "analyst": "Aaron Rakers",
+              "at": "2026-09-23T09:44:00+00:00",
+              "target_adjusted": 1400.0,
+              "target_raw": 1400.0,
+              "price_when_posted": 1096.16,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html",
+              "title": "Micron Technology (MU) PT Lowered to $1,400 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": -8.1967,
+            "baseline_age_days": 89,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 4.5445,
+            "gap_when_posted_pct": 27.7186
+          },
+          {
+            "id": "32c21a9640a4236b56cc3e41",
+            "firm": "robert w baird",
+            "at": "2026-09-28T09:20:00+00:00",
+            "previous": {
+              "firm": "robert w baird",
+              "analyst": "",
+              "at": "2026-06-25T10:26:31+00:00",
+              "target_adjusted": 1280.0,
+              "target_raw": 1280.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375182",
+              "title": "Micron price target raised to $1,280 from $550 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "robert w baird",
+              "analyst": "Tristan Gerra",
+              "at": "2026-09-28T09:20:00+00:00",
+              "target_adjusted": 1520.0,
+              "target_raw": 1520.0,
+              "price_when_posted": 1082.28,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Raised+to+%241%2C520+at+Baird/27109200.html",
+              "title": "Micron Technology (MU) PT Raised to $1,520 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 18.75,
+            "baseline_age_days": 94,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 3.2208,
+            "gap_when_posted_pct": 40.4442
+          }
+        ]
+      },
+      "30": {
+        "up_firms": 1,
+        "down_firms": 1,
+        "matched_firms": 2,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "breadth": 0.0,
+        "median_revision_pct": 5.2767,
+        "target_dispersion_pct": 4.109589041095891,
+        "revisions": [
+          {
+            "id": "e47506d6cd877bd169a92d69",
+            "firm": "wells fargo",
+            "at": "2026-09-23T09:44:00+00:00",
+            "previous": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-06-25T09:50:08+00:00",
+              "target_adjusted": 1525.0,
+              "target_raw": 1525.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375124",
+              "title": "Micron price target raised to $1,525 from $1,220 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "wells fargo",
+              "analyst": "Aaron Rakers",
+              "at": "2026-09-23T09:44:00+00:00",
+              "target_adjusted": 1400.0,
+              "target_raw": 1400.0,
+              "price_when_posted": 1096.16,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html",
+              "title": "Micron Technology (MU) PT Lowered to $1,400 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": -8.1967,
+            "baseline_age_days": 89,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 4.5445,
+            "gap_when_posted_pct": 27.7186
+          },
+          {
+            "id": "32c21a9640a4236b56cc3e41",
+            "firm": "robert w baird",
+            "at": "2026-09-28T09:20:00+00:00",
+            "previous": {
+              "firm": "robert w baird",
+              "analyst": "",
+              "at": "2026-06-25T10:26:31+00:00",
+              "target_adjusted": 1280.0,
+              "target_raw": 1280.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375182",
+              "title": "Micron price target raised to $1,280 from $550 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "robert w baird",
+              "analyst": "Tristan Gerra",
+              "at": "2026-09-28T09:20:00+00:00",
+              "target_adjusted": 1520.0,
+              "target_raw": 1520.0,
+              "price_when_posted": 1082.28,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Raised+to+%241%2C520+at+Baird/27109200.html",
+              "title": "Micron Technology (MU) PT Raised to $1,520 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 18.75,
+            "baseline_age_days": 94,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 3.2208,
+            "gap_when_posted_pct": 40.4442
+          }
+        ]
+      },
+      "90": {
+        "up_firms": 3,
+        "down_firms": 2,
+        "matched_firms": 5,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "initiated_or_resumed_firms": 1,
+        "breadth": 0.2,
+        "median_revision_pct": 9.375,
+        "target_dispersion_pct": 12.722640027642717,
+        "revisions": [
+          {
+            "id": "6fbdb19054704c9e931c1f66",
+            "firm": "keybanc",
+            "at": "2026-07-14T09:48:01+00:00",
+            "previous": {
+              "firm": "keybanc",
+              "analyst": "John Vinh",
+              "at": "2026-06-25T05:17:00+00:00",
+              "target_adjusted": 1600.0,
+              "target_raw": 1600.0,
+              "price_when_posted": 1048.51,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Raised+to+%241%2C600+at+KeyBanc/26687090.html",
+              "title": "Micron Technology (MU) PT Raised to $1,600 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "keybanc",
+              "analyst": "",
+              "at": "2026-07-14T09:48:01+00:00",
+              "target_adjusted": 1750.0,
+              "target_raw": 1750.0,
+              "price_when_posted": 937.0,
+              "url": "https://thefly.com/ajax/news_get.php?id=4384217",
+              "title": "Micron price target raised to $1,750 from $1,600 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 9.375,
+            "baseline_age_days": 19,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -10.6351,
+            "gap_when_posted_pct": 86.7663
+          },
+          {
+            "id": "808821a8e317d1557f818386",
+            "firm": "new street",
+            "at": "2026-08-14T12:12:02+00:00",
+            "previous": {
+              "firm": "new street",
+              "analyst": "",
+              "at": "2025-10-14T12:42:17+00:00",
+              "target_adjusted": 190.0,
+              "target_raw": 190.0,
+              "price_when_posted": 187.23,
+              "url": "https://thefly.com/permalinks/entry.php/id4213208/7033286394/MU;TSM-New-Street-downgrades-Micron-on-risk-of-multiple-compression",
+              "title": "New Street downgrades Micron on risk of multiple compression",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "new street",
+              "analyst": "Pierre Ferragu",
+              "at": "2026-08-14T12:12:02+00:00",
+              "target_adjusted": 1250.0,
+              "target_raw": 1250.0,
+              "price_when_posted": 979.87,
+              "url": "https://thefly.com/ajax/news_get.php?id=4411598",
+              "title": "Micron upgraded to Buy from Neutral at New Street",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 557.8947,
+            "baseline_age_days": 303,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 423.351,
+            "gap_when_posted_pct": 27.5679
+          },
+          {
+            "id": "61af81dd04a7b1bbb01b50f5",
+            "firm": "mizuho securities",
+            "at": "2026-08-25T10:43:28+00:00",
+            "previous": {
+              "firm": "mizuho securities",
+              "analyst": "",
+              "at": "2026-06-25T11:23:07+00:00",
+              "target_adjusted": 1375.0,
+              "target_raw": 1375.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375295",
+              "title": "Micron price target raised to $1,375 from $1,150 at Mizuho",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "mizuho securities",
+              "analyst": "",
+              "at": "2026-08-25T10:43:28+00:00",
+              "target_adjusted": 1300.0,
+              "target_raw": 1300.0,
+              "price_when_posted": 910.43,
+              "url": "https://thefly.com/ajax/news_get.php?id=4416150",
+              "title": "Micron price target lowered to $1,300 from $1,375 at Mizuho",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": -5.4545,
+            "baseline_age_days": 60,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -13.1692,
+            "gap_when_posted_pct": 42.7897
+          },
+          {
+            "id": "e47506d6cd877bd169a92d69",
+            "firm": "wells fargo",
+            "at": "2026-09-23T09:44:00+00:00",
+            "previous": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-06-25T09:50:08+00:00",
+              "target_adjusted": 1525.0,
+              "target_raw": 1525.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375124",
+              "title": "Micron price target raised to $1,525 from $1,220 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "wells fargo",
+              "analyst": "Aaron Rakers",
+              "at": "2026-09-23T09:44:00+00:00",
+              "target_adjusted": 1400.0,
+              "target_raw": 1400.0,
+              "price_when_posted": 1096.16,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html",
+              "title": "Micron Technology (MU) PT Lowered to $1,400 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": -8.1967,
+            "baseline_age_days": 89,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 4.5445,
+            "gap_when_posted_pct": 27.7186
+          },
+          {
+            "id": "32c21a9640a4236b56cc3e41",
+            "firm": "robert w baird",
+            "at": "2026-09-28T09:20:00+00:00",
+            "previous": {
+              "firm": "robert w baird",
+              "analyst": "",
+              "at": "2026-06-25T10:26:31+00:00",
+              "target_adjusted": 1280.0,
+              "target_raw": 1280.0,
+              "price_when_posted": 1048.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4375182",
+              "title": "Micron price target raised to $1,280 from $550 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "robert w baird",
+              "analyst": "Tristan Gerra",
+              "at": "2026-09-28T09:20:00+00:00",
+              "target_adjusted": 1520.0,
+              "target_raw": 1520.0,
+              "price_when_posted": 1082.28,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Raised+to+%241%2C520+at+Baird/27109200.html",
+              "title": "Micron Technology (MU) PT Raised to $1,520 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 18.75,
+            "baseline_age_days": 94,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 3.2208,
+            "gap_when_posted_pct": 40.4442
+          }
+        ]
+      }
+    },
+    "direction": "mixed_or_insufficient",
+    "status": "ok",
+    "coverage": {
+      "pagination_complete": true,
+      "received_rows": 262,
+      "rejected_rows": 0,
+      "conflicts": [
+        "keybanc:2025-12-18",
+        "morgan stanley:2023-09-28",
+        "stifel nicolaus:2022-09-30"
+      ],
+      "recent_conflicts": [],
+      "unpaired_segments": 43,
+      "firms": 38
+    },
+    "attribution_conflicts": [
+      {
+        "firm": "ubs",
+        "title_firm": "jpmorgan",
+        "at": "2026-06-25T10:49:43+00:00",
+        "title": "Micron price target raised to $1,540 from $550 at JPMorgan"
+      },
+      {
+        "firm": "ubs",
+        "title_firm": "needham",
+        "at": "2025-12-16T12:55:31+00:00",
+        "title": "Micron price target raised to $300 from $200 at Needham"
+      },
+      {
+        "firm": "ubs",
+        "title_firm": "morgan stanley",
+        "at": "2025-10-06T09:04:26+00:00",
+        "title": "Micron upgraded to Overweight from Equal Weight at Morgan Stanley"
+      }
+    ],
+    "limits": "Provider observations, not verified analyst reports. Targets are forecasts; revision reasons and forecast horizon are unknown unless separately sourced. Two independent firms is a research routing heuristic, not a fitted investment rule. Historical targets may be provider-restated. No automatic BUY/SELL or execution-lock bypass.",
+    "estimates": {
+      "2030-08-28": {
+        "epsAvg": 282.13,
+        "revenueAvg": 464785000000.0
+      },
+      "2029-08-28": {
+        "epsAvg": 189.89,
+        "revenueAvg": 351220250000.0
+      },
+      "2028-08-28": {
+        "epsAvg": 178.69015,
+        "revenueAvg": 286924507244.0
+      },
+      "2027-08-28": {
+        "epsAvg": 158.42424,
+        "revenueAvg": 253149537517.0
+      },
+      "2026-08-28": {
+        "epsAvg": 73.76632,
+        "revenueAvg": 130112689600.0
+      },
+      "2025-08-28": {
+        "epsAvg": 8.09168,
+        "revenueAvg": 37194840113.0
+      },
+      "2024-08-29": {
+        "epsAvg": 4.20711,
+        "revenueAvg": 31323000000.0
+      },
+      "2023-08-31": {
+        "epsAvg": -4.56377,
+        "revenueAvg": 15478927293.0
+      },
+      "2022-09-01": {
+        "epsAvg": 8.23455,
+        "revenueAvg": 30866024996.0
+      },
+      "2021-09-02": {
+        "epsAvg": 5.98342,
+        "revenueAvg": 27650617699.0
+      }
+    },
+    "estimates_status": "ok",
+    "estimate_changes": {
+      "previous_observed_at": null,
+      "periods": {
+        "2030-08-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 282.13,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 464785000000.0,
+            "change_pct": null
+          }
+        },
+        "2029-08-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 189.89,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 351220250000.0,
+            "change_pct": null
+          }
+        },
+        "2028-08-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 178.69015,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 286924507244.0,
+            "change_pct": null
+          }
+        },
+        "2027-08-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 158.42424,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 253149537517.0,
+            "change_pct": null
+          }
+        },
+        "2026-08-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 73.76632,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 130112689600.0,
+            "change_pct": null
+          }
+        },
+        "2025-08-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 8.09168,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 37194840113.0,
+            "change_pct": null
+          }
+        },
+        "2024-08-29": {
+          "epsAvg": {
+            "previous": null,
+            "current": 4.20711,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 31323000000.0,
+            "change_pct": null
+          }
+        },
+        "2023-08-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": -4.56377,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 15478927293.0,
+            "change_pct": null
+          }
+        },
+        "2022-09-01": {
+          "epsAvg": {
+            "previous": null,
+            "current": 8.23455,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 30866024996.0,
+            "change_pct": null
+          }
+        },
+        "2021-09-02": {
+          "epsAvg": {
+            "previous": null,
+            "current": 5.98342,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 27650617699.0,
+            "change_pct": null
+          }
+        }
+      },
+      "limits": "Same fiscal period across observed snapshots; consensus co-movement is not a cause of any individual target change."
+    }
+  },
+  "2026-09-29:AMD": {
+    "symbol": "AMD",
+    "observed_at": "2026-09-29T07:50:54.359693+00:00",
+    "windows": {
+      "7": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "revisions": []
+      },
+      "30": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 2,
+        "initiated_or_resumed_firms": 1,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": 8.396946564885496,
+        "revisions": []
+      },
+      "90": {
+        "up_firms": 15,
+        "down_firms": 1,
+        "matched_firms": 16,
+        "unchanged_firms": 0,
+        "unpaired_firms": 3,
+        "initiated_or_resumed_firms": 2,
+        "breadth": 0.875,
+        "median_revision_pct": 23.245,
+        "target_dispersion_pct": 23.5088658719455,
+        "revisions": [
+          {
+            "id": "ea561a3bfbc7a1d25d3c51b2",
+            "firm": "goldman sachs",
+            "at": "2026-07-06T10:15:52+00:00",
+            "previous": {
+              "firm": "goldman sachs",
+              "analyst": "",
+              "at": "2026-05-06T00:41:51+00:00",
+              "target_adjusted": 450.0,
+              "target_raw": 450.0,
+              "price_when_posted": 355.26,
+              "url": "https://thefly.com/ajax/news_get.php?id=4345978",
+              "title": "AMD upgraded to Buy from Neutral at Goldman Sachs",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "goldman sachs",
+              "analyst": "",
+              "at": "2026-07-06T10:15:52+00:00",
+              "target_adjusted": 640.0,
+              "target_raw": 640.0,
+              "price_when_posted": 517.82,
+              "url": "https://thefly.com/ajax/news_get.php?id=4379319",
+              "title": "AMD price target raised to $640 from $450 at Goldman Sachs",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 42.2222,
+            "baseline_age_days": 61,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 45.758,
+            "gap_when_posted_pct": 23.5951
+          },
+          {
+            "id": "df0b966501accc97ae0cdcc3",
+            "firm": "stifel nicolaus",
+            "at": "2026-07-10T11:15:00+00:00",
+            "previous": {
+              "firm": "stifel nicolaus",
+              "analyst": "",
+              "at": "2026-04-20T11:21:42+00:00",
+              "target_adjusted": 320.0,
+              "target_raw": 320.0,
+              "price_when_posted": 278.39,
+              "url": "https://thefly.com/ajax/news_get.php?id=4332233",
+              "title": "AMD price target raised to $320 from $280 at Stifel",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "stifel nicolaus",
+              "analyst": "",
+              "at": "2026-07-10T11:15:00+00:00",
+              "target_adjusted": 635.0,
+              "target_raw": 635.0,
+              "price_when_posted": 546.72,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24635+at+Stifel+as+%27EPYC+Server-CPU+Franchise+is+an+AI+Winner%27/26755172.html",
+              "title": "AMD (AMD) PT Raised to $635 at Stifel as 'EPYC Server-CPU Franchise is an AI Winner'Member Login",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 98.4375,
+            "baseline_age_days": 80,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 96.3864,
+            "gap_when_posted_pct": 16.1472
+          },
+          {
+            "id": "648f4f7a0f4ad22845d7be42",
+            "firm": "keybanc",
+            "at": "2026-08-05T08:08:00+00:00",
+            "previous": {
+              "firm": "keybanc",
+              "analyst": "",
+              "at": "2026-07-14T09:48:15+00:00",
+              "target_adjusted": 725.0,
+              "target_raw": 725.0,
+              "price_when_posted": 534.39,
+              "url": "https://thefly.com/ajax/news_get.php?id=4384220",
+              "title": "AMD price target raised to $725 from $530 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "keybanc",
+              "analyst": "",
+              "at": "2026-08-05T08:08:00+00:00",
+              "target_adjusted": 650.0,
+              "target_raw": 650.0,
+              "price_when_posted": 518.58,
+              "url": "https://www.streetinsider.com/Analyst+Comments/RothMKM+Reiterates+Buy+Rating+on+AMD+%28AMD%29/26868936.html",
+              "title": "Roth/MKM Reiterates Buy Rating on AMD (AMD)",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": -10.3448,
+            "baseline_age_days": 21,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -2.9585,
+            "gap_when_posted_pct": 25.3423
+          },
+          {
+            "id": "fecfa4702373f65c37c8de91",
+            "firm": "ubs",
+            "at": "2026-07-24T08:32:00+00:00",
+            "previous": {
+              "firm": "ubs",
+              "analyst": "Timothy Arcuri",
+              "at": "2026-07-15T11:22:41+00:00",
+              "target_adjusted": 700.0,
+              "target_raw": 700.0,
+              "price_when_posted": 548.13,
+              "url": "https://thefly.com/ajax/news_get.php?id=4385276",
+              "title": "AMD price target raised to $700 from $670 at UBS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "ubs",
+              "analyst": "Timothy Arcuri",
+              "at": "2026-07-24T08:32:00+00:00",
+              "target_adjusted": 730.0,
+              "target_raw": 730.0,
+              "price_when_posted": 539.69,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24730+at+UBS/26809721.html",
+              "title": "AMD (AMD) PT Raised to $730 at UBS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 4.2857,
+            "baseline_age_days": 8,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -1.5398,
+            "gap_when_posted_pct": 35.2628
+          },
+          {
+            "id": "cf80de22e0dd2613bbaacca7",
+            "firm": "jefferies",
+            "at": "2026-08-05T08:10:00+00:00",
+            "previous": {
+              "firm": "jefferies",
+              "analyst": "Blayne Curtis",
+              "at": "2026-07-24T01:48:53+00:00",
+              "target_adjusted": 640.0,
+              "target_raw": 640.0,
+              "price_when_posted": 539.69,
+              "url": "https://thefly.com/ajax/news_get.php?id=4391535",
+              "title": "AMD price target raised to $640 from $515 at Jefferies",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "jefferies",
+              "analyst": "Blayne Curtis",
+              "at": "2026-08-05T08:10:00+00:00",
+              "target_adjusted": 650.0,
+              "target_raw": 650.0,
+              "price_when_posted": 518.58,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24650+at+Jefferies/26868939.html",
+              "title": "AMD (AMD) PT Raised to $650 at Jefferies",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 1.5625,
+            "baseline_age_days": 12,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -3.9115,
+            "gap_when_posted_pct": 25.3423
+          },
+          {
+            "id": "65b8ad97aa27d9cc148b2460",
+            "firm": "robert w baird",
+            "at": "2026-07-24T10:12:00+00:00",
+            "previous": {
+              "firm": "robert w baird",
+              "analyst": "Tristan Gerra",
+              "at": "2025-11-05T06:53:00+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 250.05,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24300+at+Baird/25555901.html",
+              "title": "AMD (AMD) PT Raised to $300 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "robert w baird",
+              "analyst": "Tristan Gerra",
+              "at": "2026-07-24T10:12:00+00:00",
+              "target_adjusted": 1250.0,
+              "target_raw": 1250.0,
+              "price_when_posted": 539.69,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%241%2C250+at+Baird/26810154.html",
+              "title": "AMD (AMD) PT Raised to $1,250 at Baird",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 316.6667,
+            "baseline_age_days": 261,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 115.8328,
+            "gap_when_posted_pct": 131.6144
+          },
+          {
+            "id": "6dee2cdf8ff56bb35bb1944d",
+            "firm": "melius research",
+            "at": "2026-07-24T10:13:00+00:00",
+            "previous": {
+              "firm": "melius research",
+              "analyst": "",
+              "at": "2026-05-18T17:25:23+00:00",
+              "target_adjusted": 540.0,
+              "target_raw": 540.0,
+              "price_when_posted": 418.15009,
+              "url": "https://thefly.com/ajax/news_get.php?id=4357192",
+              "title": "AMD price target raised to $540 from $500 at Melius Research",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "melius research",
+              "analyst": "Ben Reitzers",
+              "at": "2026-07-24T10:13:00+00:00",
+              "target_adjusted": 660.0,
+              "target_raw": 660.0,
+              "price_when_posted": 539.69,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24660+at+Melius/26810158.html",
+              "title": "AMD (AMD) PT Raised to $660 at Melius",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 22.2222,
+            "baseline_age_days": 66,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 29.0661,
+            "gap_when_posted_pct": 22.2924
+          },
+          {
+            "id": "fee2e94bfc4a2b6fb5d0ff58",
+            "firm": "roth capital",
+            "at": "2026-07-24T10:31:48+00:00",
+            "previous": {
+              "firm": "roth capital",
+              "analyst": "",
+              "at": "2026-05-06T00:11:53+00:00",
+              "target_adjusted": 500.0,
+              "target_raw": 500.0,
+              "price_when_posted": 355.26,
+              "url": "https://thefly.com/ajax/news_get.php?id=4345971",
+              "title": "AMD price target raised to $500 from $300 at Roth Capital",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "roth capital",
+              "analyst": "Suji Desilva",
+              "at": "2026-07-24T10:31:48+00:00",
+              "target_adjusted": 650.0,
+              "target_raw": 650.0,
+              "price_when_posted": 539.69,
+              "url": "https://thefly.com/ajax/news_get.php?id=4391672",
+              "title": "AMD price target raised to $650 from $500 at Roth Capital",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 30.0,
+            "baseline_age_days": 79,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 51.9141,
+            "gap_when_posted_pct": 20.4395
+          },
+          {
+            "id": "9cfc1311523e329fed4a38e9",
+            "firm": "mizuho securities",
+            "at": "2026-07-27T13:14:21+00:00",
+            "previous": {
+              "firm": "mizuho securities",
+              "analyst": "",
+              "at": "2026-06-01T10:47:52+00:00",
+              "target_adjusted": 615.0,
+              "target_raw": 615.0,
+              "price_when_posted": 516.1,
+              "url": "https://thefly.com/ajax/news_get.php?id=4363659",
+              "title": "AMD price target raised to $615 from $515 at Mizuho",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "mizuho securities",
+              "analyst": "",
+              "at": "2026-07-27T13:14:21+00:00",
+              "target_adjusted": 625.0,
+              "target_raw": 625.0,
+              "price_when_posted": 486.98,
+              "url": "https://thefly.com/ajax/news_get.php?id=4392996",
+              "title": "AMD price target raised to $625 from $615 at Mizuho",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 1.626,
+            "baseline_age_days": 56,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -5.6423,
+            "gap_when_posted_pct": 28.342
+          },
+          {
+            "id": "4f37c08dca26b6ded73d563b",
+            "firm": "truist financial",
+            "at": "2026-08-05T08:09:00+00:00",
+            "previous": {
+              "firm": "truist financial",
+              "analyst": "",
+              "at": "2026-05-06T13:06:36+00:00",
+              "target_adjusted": 478.0,
+              "target_raw": 478.0,
+              "price_when_posted": 408.41,
+              "url": "https://thefly.com/ajax/news_get.php?id=4346864",
+              "title": "AMD price target raised to $478 from $283 at Truist",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "truist financial",
+              "analyst": "William Stein",
+              "at": "2026-08-05T08:09:00+00:00",
+              "target_adjusted": 594.0,
+              "target_raw": 594.0,
+              "price_when_posted": 518.58,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24594+at+Truist+Securities/26868938.html",
+              "title": "AMD (AMD) PT Raised to $594 at Truist Securities",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 24.2678,
+            "baseline_age_days": 90,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 26.9753,
+            "gap_when_posted_pct": 14.5436
+          },
+          {
+            "id": "d36697b7b0dc79e5a6f2370c",
+            "firm": "bernstein",
+            "at": "2026-08-05T08:15:00+00:00",
+            "previous": {
+              "firm": "bernstein",
+              "analyst": "",
+              "at": "2026-06-17T10:51:08+00:00",
+              "target_adjusted": 600.0,
+              "target_raw": 600.0,
+              "price_when_posted": 507.29,
+              "url": "https://thefly.com/ajax/news_get.php?id=4371929",
+              "title": "AMD price target raised to $600 from $525 at Bernstein",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "bernstein",
+              "analyst": "Stacy Rasgon",
+              "at": "2026-08-05T08:15:00+00:00",
+              "target_adjusted": 650.0,
+              "target_raw": 650.0,
+              "price_when_posted": 518.58,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24650+at+Bernstein+SocGen+Group/26868946.html",
+              "title": "AMD (AMD) PT Raised to $650 at Bernstein SocGen Group",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 8.3333,
+            "baseline_age_days": 48,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 2.2256,
+            "gap_when_posted_pct": 25.3423
+          },
+          {
+            "id": "33c996d393761f86bd26e7ab",
+            "firm": "morgan stanley",
+            "at": "2026-08-05T08:59:00+00:00",
+            "previous": {
+              "firm": "morgan stanley",
+              "analyst": "",
+              "at": "2026-05-06T10:06:03+00:00",
+              "target_adjusted": 410.0,
+              "target_raw": 410.0,
+              "price_when_posted": 355.26,
+              "url": "https://thefly.com/ajax/news_get.php?id=4346105",
+              "title": "AMD price target raised to $410 from $360 at Morgan Stanley",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "morgan stanley",
+              "analyst": "Joseph Moore",
+              "at": "2026-08-05T08:59:00+00:00",
+              "target_adjusted": 465.0,
+              "target_raw": 465.0,
+              "price_when_posted": 518.58,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24465+at+Morgan+Stanley/26869063.html",
+              "title": "AMD (AMD) PT Raised to $465 at Morgan Stanley",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 13.4146,
+            "baseline_age_days": 90,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 45.972,
+            "gap_when_posted_pct": -10.3321
+          },
+          {
+            "id": "ecd4c0dc17ea97d2da42ab7b",
+            "firm": "wells fargo",
+            "at": "2026-08-05T10:48:38+00:00",
+            "previous": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-06-30T09:37:00+00:00",
+              "target_adjusted": 615.0,
+              "target_raw": 615.0,
+              "price_when_posted": 539.49,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24615+at+Wells+Fargo/26708627.html",
+              "title": "AMD (AMD) PT Raised to $615 at Wells FargoMember Login",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-08-05T10:48:38+00:00",
+              "target_adjusted": 700.0,
+              "target_raw": 700.0,
+              "price_when_posted": 518.58,
+              "url": "https://thefly.com/ajax/news_get.php?id=4401726",
+              "title": "AMD price target raised to $700 from $615 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 13.8211,
+            "baseline_age_days": 36,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -3.8759,
+            "gap_when_posted_pct": 34.984
+          },
+          {
+            "id": "5e2bbb3b8dbd8a32ea105985",
+            "firm": "da davidson",
+            "at": "2026-08-05T14:06:00+00:00",
+            "previous": {
+              "firm": "da davidson",
+              "analyst": "",
+              "at": "2026-04-24T10:13:30+00:00",
+              "target_adjusted": 375.0,
+              "target_raw": 375.0,
+              "price_when_posted": 305.33,
+              "url": "https://thefly.com/ajax/news_get.php?id=4336203",
+              "title": "AMD upgraded to Buy from Neutral at DA Davidson",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "da davidson",
+              "analyst": "Gil Luria",
+              "at": "2026-08-05T14:06:00+00:00",
+              "target_adjusted": 550.0,
+              "target_raw": 550.0,
+              "price_when_posted": 486.59,
+              "url": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24550+at+DA+Davidson/26871769.html",
+              "title": "AMD (AMD) PT Raised to $550 at DA Davidson",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 46.6667,
+            "baseline_age_days": 103,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 59.3653,
+            "gap_when_posted_pct": 13.0315
+          },
+          {
+            "id": "cca0a741b6c853b583bf882c",
+            "firm": "argus research",
+            "at": "2026-08-06T12:55:34+00:00",
+            "previous": {
+              "firm": "argus research",
+              "analyst": "",
+              "at": "2025-02-06T14:19:40+00:00",
+              "target_adjusted": 160.0,
+              "target_raw": 160.0,
+              "price_when_posted": 110.16,
+              "url": "https://thefly.com/permalinks/entry.php/id4065772/1939286394/AMD-AMD-price-target-lowered-by--at-Argus-heres-why",
+              "title": "AMD price target lowered to $160 from $220 at Argus",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "argus research",
+              "analyst": "",
+              "at": "2026-08-06T12:55:34+00:00",
+              "target_adjusted": 625.0,
+              "target_raw": 625.0,
+              "price_when_posted": 487.98001,
+              "url": "https://thefly.com/ajax/news_get.php?id=4404440",
+              "title": "AMD price target raised to $625 from $450 at Argus",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 290.625,
+            "baseline_age_days": 545,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 342.9739,
+            "gap_when_posted_pct": 28.079
+          },
+          {
+            "id": "32975cf8a1f911fed099a1a9",
+            "firm": "raymond james",
+            "at": "2026-08-25T07:39:00+00:00",
+            "previous": {
+              "firm": "raymond james",
+              "analyst": "",
+              "at": "2025-11-20T21:25:18+00:00",
+              "target_adjusted": 377.0,
+              "target_raw": 377.0,
+              "price_when_posted": 206.02,
+              "url": "https://thefly.com/permalinks/entry.php/id4244024/4913286394/AMD-AMD-assumed-with-an-Outperform-at-Raymond-James",
+              "title": "AMD assumed with an Outperform at Raymond James",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "raymond james",
+              "analyst": "Simon Leopold",
+              "at": "2026-08-25T07:39:00+00:00",
+              "target_adjusted": 641.0,
+              "target_raw": 641.0,
+              "price_when_posted": 456.745,
+              "url": "https://www.streetinsider.com/Upgrades/Raymond+James+Upgrades+AMD+%28AMD%29+to+Strong+Buy/26969859.html",
+              "title": "Raymond James Upgrades AMD (AMD) to Strong Buy",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 70.0265,
+            "baseline_age_days": 277,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 121.6993,
+            "gap_when_posted_pct": 40.3409
+          }
+        ]
+      }
+    },
+    "direction": "mixed_or_insufficient",
+    "status": "incomplete",
+    "coverage": {
+      "pagination_complete": true,
+      "received_rows": 265,
+      "rejected_rows": 0,
+      "conflicts": [
+        "deutsche bank:2025-10-14",
+        "piper sandler:2022-05-17"
+      ],
+      "recent_conflicts": [],
+      "unpaired_segments": 47,
+      "firms": 43
+    },
+    "attribution_conflicts": [
+      {
+        "firm": "truist financial",
+        "title_firm": "bank of america",
+        "at": "2026-09-25T13:51:00+00:00",
+        "title": "AMD (AMD) PT Raised to $720 at BofA Securities"
+      }
+    ],
+    "limits": "Provider observations, not verified analyst reports. Targets are forecasts; revision reasons and forecast horizon are unknown unless separately sourced. Two independent firms is a research routing heuristic, not a fitted investment rule. Historical targets may be provider-restated. No automatic BUY/SELL or execution-lock bypass.",
+    "estimates": {
+      "2030-12-27": {
+        "epsAvg": 44.752,
+        "revenueAvg": 240230200000.0
+      },
+      "2029-12-27": {
+        "epsAvg": 31.452,
+        "revenueAvg": 163967400000.0
+      },
+      "2028-12-27": {
+        "epsAvg": 22.87482,
+        "revenueAvg": 123068459007.0
+      },
+      "2027-12-27": {
+        "epsAvg": 15.9005,
+        "revenueAvg": 89386465498.0
+      },
+      "2026-12-27": {
+        "epsAvg": 7.62759,
+        "revenueAvg": 50927903792.0
+      },
+      "2025-12-27": {
+        "epsAvg": 3.9621,
+        "revenueAvg": 34093849318.0
+      },
+      "2024-12-28": {
+        "epsAvg": 3.3149,
+        "revenueAvg": 25672684072.0
+      },
+      "2023-12-30": {
+        "epsAvg": 2.655,
+        "revenueAvg": 22668714623.0
+      },
+      "2022-12-31": {
+        "epsAvg": 3.49889,
+        "revenueAvg": 23520416326.0
+      },
+      "2021-12-25": {
+        "epsAvg": 2.64582,
+        "revenueAvg": 16129371055.0
+      }
+    },
+    "estimates_status": "ok",
+    "estimate_changes": {
+      "previous_observed_at": null,
+      "periods": {
+        "2030-12-27": {
+          "epsAvg": {
+            "previous": null,
+            "current": 44.752,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 240230200000.0,
+            "change_pct": null
+          }
+        },
+        "2029-12-27": {
+          "epsAvg": {
+            "previous": null,
+            "current": 31.452,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 163967400000.0,
+            "change_pct": null
+          }
+        },
+        "2028-12-27": {
+          "epsAvg": {
+            "previous": null,
+            "current": 22.87482,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 123068459007.0,
+            "change_pct": null
+          }
+        },
+        "2027-12-27": {
+          "epsAvg": {
+            "previous": null,
+            "current": 15.9005,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 89386465498.0,
+            "change_pct": null
+          }
+        },
+        "2026-12-27": {
+          "epsAvg": {
+            "previous": null,
+            "current": 7.62759,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 50927903792.0,
+            "change_pct": null
+          }
+        },
+        "2025-12-27": {
+          "epsAvg": {
+            "previous": null,
+            "current": 3.9621,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 34093849318.0,
+            "change_pct": null
+          }
+        },
+        "2024-12-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 3.3149,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 25672684072.0,
+            "change_pct": null
+          }
+        },
+        "2023-12-30": {
+          "epsAvg": {
+            "previous": null,
+            "current": 2.655,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 22668714623.0,
+            "change_pct": null
+          }
+        },
+        "2022-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 3.49889,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 23520416326.0,
+            "change_pct": null
+          }
+        },
+        "2021-12-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 2.64582,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 16129371055.0,
+            "change_pct": null
+          }
+        }
+      },
+      "limits": "Same fiscal period across observed snapshots; consensus co-movement is not a cause of any individual target change."
+    }
+  },
+  "2026-09-29:ANET": {
+    "symbol": "ANET",
+    "observed_at": "2026-09-29T07:50:56.950451+00:00",
+    "windows": {
+      "7": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "revisions": []
+      },
+      "30": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "initiated_or_resumed_firms": 1,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "revisions": []
+      },
+      "90": {
+        "up_firms": 7,
+        "down_firms": 0,
+        "matched_firms": 7,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "initiated_or_resumed_firms": 1,
+        "breadth": 1.0,
+        "median_revision_pct": 27.5,
+        "target_dispersion_pct": 8.956429295370356,
+        "revisions": [
+          {
+            "id": "a2b2b28b67ada4851405d8e6",
+            "firm": "wells fargo",
+            "at": "2026-08-05T10:41:39+00:00",
+            "previous": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-07-16T10:31:48+00:00",
+              "target_adjusted": 200.0,
+              "target_raw": 200.0,
+              "price_when_posted": 171.92,
+              "url": "https://thefly.com/ajax/news_get.php?id=4386118",
+              "title": "Arista Networks price target raised to $200 from $185 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "wells fargo",
+              "analyst": "",
+              "at": "2026-08-05T10:41:39+00:00",
+              "target_adjusted": 255.0,
+              "target_raw": 255.0,
+              "price_when_posted": 190.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4401703",
+              "title": "Arista Networks price target raised to $255 from $200 at Wells Fargo",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 27.5,
+            "baseline_age_days": 20,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 10.8132,
+            "gap_when_posted_pct": 33.8512
+          },
+          {
+            "id": "acd4102c7aef1c24cdb4b0f3",
+            "firm": "needham",
+            "at": "2026-08-05T09:04:00+00:00",
+            "previous": {
+              "firm": "needham",
+              "analyst": "Ryan Koontz",
+              "at": "2026-02-13T14:08:20+00:00",
+              "target_adjusted": 185.0,
+              "target_raw": 185.0,
+              "price_when_posted": 143.86,
+              "url": "https://thefly.com/permalinks/entry.php/id4292870/1862286394/ANET-Arista-Networks-price-target-raised-by--at-Needham-heres-why",
+              "title": "Arista Networks price target raised to $185 from $165 at Needham",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "needham",
+              "analyst": "Alex Henderson",
+              "at": "2026-08-05T09:04:00+00:00",
+              "target_adjusted": 260.0,
+              "target_raw": 260.0,
+              "price_when_posted": 190.51,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Arista+Networks+%28ANET%29+PT+Raised+to+%24260+at+Needham/26869080.html",
+              "title": "Arista Networks (ANET) PT Raised to $260 at Needham",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 40.5405,
+            "baseline_age_days": 172,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 32.4274,
+            "gap_when_posted_pct": 36.4758
+          },
+          {
+            "id": "f05c6aa44b5f373eac206aec",
+            "firm": "barclays",
+            "at": "2026-08-05T10:02:48+00:00",
+            "previous": {
+              "firm": "barclays",
+              "analyst": "",
+              "at": "2026-05-07T09:24:27+00:00",
+              "target_adjusted": 195.0,
+              "target_raw": 195.0,
+              "price_when_posted": 147.06,
+              "url": "https://thefly.com/ajax/news_get.php?id=4347740",
+              "title": "Arista Networks price target raised to $195 from $184 at Barclays",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "barclays",
+              "analyst": "Tim Long",
+              "at": "2026-08-05T10:02:48+00:00",
+              "target_adjusted": 289.0,
+              "target_raw": 289.0,
+              "price_when_posted": 190.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4401562",
+              "title": "Arista Networks price target raised to $289 from $195 at Barclays",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 48.2051,
+            "baseline_age_days": 90,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 29.5458,
+            "gap_when_posted_pct": 51.6981
+          },
+          {
+            "id": "546e9746972d9dd02bb1fb00",
+            "firm": "keybanc",
+            "at": "2026-08-05T10:12:39+00:00",
+            "previous": {
+              "firm": "keybanc",
+              "analyst": "Brandon Nispel",
+              "at": "2026-06-18T10:17:34+00:00",
+              "target_adjusted": 200.0,
+              "target_raw": 200.0,
+              "price_when_posted": 164.93,
+              "url": "https://thefly.com/ajax/news_get.php?id=4372516",
+              "title": "Arista Networks price target raised to $200 from $178 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "keybanc",
+              "analyst": "",
+              "at": "2026-08-05T10:12:39+00:00",
+              "target_adjusted": 250.0,
+              "target_raw": 250.0,
+              "price_when_posted": 190.51,
+              "url": "https://thefly.com/ajax/news_get.php?id=4401587",
+              "title": "Arista Networks price target raised to $250 from $200 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 25.0,
+            "baseline_age_days": 47,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 15.5096,
+            "gap_when_posted_pct": 31.2267
+          },
+          {
+            "id": "12974e24181d2030bae06a34",
+            "firm": "morgan stanley",
+            "at": "2026-08-05T12:26:06+00:00",
+            "previous": {
+              "firm": "morgan stanley",
+              "analyst": "",
+              "at": "2026-06-12T10:49:01+00:00",
+              "target_adjusted": 190.0,
+              "target_raw": 190.0,
+              "price_when_posted": 156.4,
+              "url": "https://thefly.com/ajax/news_get.php?id=4370007",
+              "title": "Arista Networks price target raised to $190 from $180 at Morgan Stanley",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "morgan stanley",
+              "analyst": "",
+              "at": "2026-08-05T12:26:06+00:00",
+              "target_adjusted": 220.0,
+              "target_raw": 220.0,
+              "price_when_posted": 195.07,
+              "url": "https://thefly.com/ajax/news_get.php?id=4402241",
+              "title": "Arista Networks price target raised to $220 from $190 at Morgan Stanley",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 15.7895,
+            "baseline_age_days": 54,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 24.7251,
+            "gap_when_posted_pct": 12.78
+          },
+          {
+            "id": "9872f054b205b46e23e75f77",
+            "firm": "ubs",
+            "at": "2026-08-05T12:59:41+00:00",
+            "previous": {
+              "firm": "ubs",
+              "analyst": "David Vogt",
+              "at": "2026-05-06T13:35:08+00:00",
+              "target_adjusted": 187.0,
+              "target_raw": 187.0,
+              "price_when_posted": 145.58,
+              "url": "https://thefly.com/ajax/news_get.php?id=4346966",
+              "title": "Arista Networks price target raised to $187 from $177 at UBS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "ubs",
+              "analyst": "David Vogt",
+              "at": "2026-08-05T12:59:41+00:00",
+              "target_adjusted": 259.0,
+              "target_raw": 259.0,
+              "price_when_posted": 200.225,
+              "url": "https://thefly.com/ajax/news_get.php?id=4402361",
+              "title": "Arista Networks price target raised to $259 from $187 at UBS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 38.5027,
+            "baseline_age_days": 90,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 37.5361,
+            "gap_when_posted_pct": 29.3545
+          },
+          {
+            "id": "42fc10092baef6aeb1726f09",
+            "firm": "goldman sachs",
+            "at": "2026-08-05T13:26:20+00:00",
+            "previous": {
+              "firm": "goldman sachs",
+              "analyst": "",
+              "at": "2026-02-13T14:44:21+00:00",
+              "target_adjusted": 188.0,
+              "target_raw": 188.0,
+              "price_when_posted": 143.2,
+              "url": "https://thefly.com/permalinks/entry.php/id4292970/4564286394/ANET-Arista-Networks-price-target-raised-by--at-Goldman-Sachs-heres-why",
+              "title": "Arista Networks price target raised to $188 from $165 at Goldman Sachs",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "goldman sachs",
+              "analyst": "Michael Ng",
+              "at": "2026-08-05T13:26:20+00:00",
+              "target_adjusted": 225.0,
+              "target_raw": 225.0,
+              "price_when_posted": 198.82001,
+              "url": "https://thefly.com/ajax/news_get.php?id=4402517",
+              "title": "Arista Networks price target raised to $225 from $196 at Goldman Sachs",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 19.6809,
+            "baseline_age_days": 172,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 38.8408,
+            "gap_when_posted_pct": 13.1677
+          }
+        ]
+      }
+    },
+    "direction": "mixed_or_insufficient",
+    "status": "incomplete",
+    "coverage": {
+      "pagination_complete": true,
+      "received_rows": 90,
+      "rejected_rows": 0,
+      "conflicts": [],
+      "recent_conflicts": [],
+      "unpaired_segments": 29,
+      "firms": 28
+    },
+    "attribution_conflicts": [
+      {
+        "firm": "jefferies",
+        "title_firm": "evercore isi",
+        "at": "2026-08-05T07:09:00+00:00",
+        "title": "Arista Networks (ANET) PT Raised to $250 at Evercore ISI"
+      }
+    ],
+    "limits": "Provider observations, not verified analyst reports. Targets are forecasts; revision reasons and forecast horizon are unknown unless separately sourced. Two independent firms is a research routing heuristic, not a fitted investment rule. Historical targets may be provider-restated. No automatic BUY/SELL or execution-lock bypass.",
+    "estimates": {
+      "2029-12-31": {
+        "epsAvg": 7.86508,
+        "revenueAvg": 24110796610.0
+      },
+      "2028-12-31": {
+        "epsAvg": 6.39461,
+        "revenueAvg": 20377139673.0
+      },
+      "2027-12-31": {
+        "epsAvg": 5.22751,
+        "revenueAvg": 16463094622.0
+      },
+      "2026-12-31": {
+        "epsAvg": 4.10819,
+        "revenueAvg": 12669675525.0
+      },
+      "2025-12-31": {
+        "epsAvg": 2.88346,
+        "revenueAvg": 8897591880.0
+      },
+      "2024-12-31": {
+        "epsAvg": 2.19209,
+        "revenueAvg": 6972107988.0
+      },
+      "2023-12-31": {
+        "epsAvg": 1.63935,
+        "revenueAvg": 5855234552.0
+      },
+      "2022-12-31": {
+        "epsAvg": 1.09562,
+        "revenueAvg": 4305597434.0
+      },
+      "2021-12-31": {
+        "epsAvg": 0.67629,
+        "revenueAvg": 2913361845.0
+      },
+      "2020-12-31": {
+        "epsAvg": 0.55884,
+        "revenueAvg": 2298975201.0
+      }
+    },
+    "estimates_status": "ok",
+    "estimate_changes": {
+      "previous_observed_at": null,
+      "periods": {
+        "2029-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 7.86508,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 24110796610.0,
+            "change_pct": null
+          }
+        },
+        "2028-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 6.39461,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 20377139673.0,
+            "change_pct": null
+          }
+        },
+        "2027-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 5.22751,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 16463094622.0,
+            "change_pct": null
+          }
+        },
+        "2026-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 4.10819,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 12669675525.0,
+            "change_pct": null
+          }
+        },
+        "2025-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 2.88346,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 8897591880.0,
+            "change_pct": null
+          }
+        },
+        "2024-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 2.19209,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 6972107988.0,
+            "change_pct": null
+          }
+        },
+        "2023-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 1.63935,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 5855234552.0,
+            "change_pct": null
+          }
+        },
+        "2022-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 1.09562,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 4305597434.0,
+            "change_pct": null
+          }
+        },
+        "2021-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 0.67629,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 2913361845.0,
+            "change_pct": null
+          }
+        },
+        "2020-12-31": {
+          "epsAvg": {
+            "previous": null,
+            "current": 0.55884,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 2298975201.0,
+            "change_pct": null
+          }
+        }
+      },
+      "limits": "Same fiscal period across observed snapshots; consensus co-movement is not a cause of any individual target change."
+    }
+  },
+  "2026-09-29:NVDA": {
+    "symbol": "NVDA",
+    "observed_at": "2026-09-29T07:50:58.246044+00:00",
+    "windows": {
+      "7": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "revisions": []
+      },
+      "30": {
+        "up_firms": 0,
+        "down_firms": 0,
+        "matched_firms": 0,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "initiated_or_resumed_firms": 1,
+        "breadth": null,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "revisions": []
+      },
+      "90": {
+        "up_firms": 15,
+        "down_firms": 1,
+        "matched_firms": 16,
+        "unchanged_firms": 0,
+        "unpaired_firms": 2,
+        "initiated_or_resumed_firms": 2,
+        "breadth": 0.875,
+        "median_revision_pct": 10.5556,
+        "target_dispersion_pct": 19.201027839353774,
+        "revisions": [
+          {
+            "id": "ed7282397fb37533d5492830",
+            "firm": "keybanc",
+            "at": "2026-07-14T09:47:55+00:00",
+            "previous": {
+              "firm": "keybanc",
+              "analyst": "John Vinh",
+              "at": "2026-05-21T06:26:00+00:00",
+              "target_adjusted": 310.0,
+              "target_raw": 310.0,
+              "price_when_posted": 223.47,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24310+at+KeyBanc/26530319.html",
+              "title": "NVIDIA (NVDA) PT Raised to $310 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "keybanc",
+              "analyst": "John Vinh",
+              "at": "2026-07-14T09:47:55+00:00",
+              "target_adjusted": 330.0,
+              "target_raw": 330.0,
+              "price_when_posted": 203.53,
+              "url": "https://thefly.com/ajax/news_get.php?id=4384216",
+              "title": "Nvidia price target raised to $330 from $310 at KeyBanc",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 6.4516,
+            "baseline_age_days": 54,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -8.9229,
+            "gap_when_posted_pct": 62.1383
+          },
+          {
+            "id": "cf89d5a00c20fd2b93b20843",
+            "firm": "oppenheimer",
+            "at": "2026-08-27T10:51:35+00:00",
+            "previous": {
+              "firm": "oppenheimer",
+              "analyst": "Rick Schafer",
+              "at": "2026-08-20T13:02:00+00:00",
+              "target_adjusted": 265.0,
+              "target_raw": 265.0,
+              "price_when_posted": 218.175,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Oppenheimer+Reiterates+Outperform+Rating+on+NVIDIA+%28NVDA%29+Into+EPS/26953914.html",
+              "title": "Oppenheimer Reiterates Outperform Rating on NVIDIA (NVDA) Into EPS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "oppenheimer",
+              "analyst": "",
+              "at": "2026-08-27T10:51:35+00:00",
+              "target_adjusted": 315.0,
+              "target_raw": 315.0,
+              "price_when_posted": 209.66,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417373",
+              "title": "Nvidia price target raised to $315 from $265 at Oppenheimer",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 18.8679,
+            "baseline_age_days": 6,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -3.9028,
+            "gap_when_posted_pct": 50.2433
+          },
+          {
+            "id": "ab809dca89f8d4fdcd56725e",
+            "firm": "da davidson",
+            "at": "2026-08-27T13:21:00+00:00",
+            "previous": {
+              "firm": "da davidson",
+              "analyst": "",
+              "at": "2026-08-21T13:41:00+00:00",
+              "target_adjusted": 335.0,
+              "target_raw": 335.0,
+              "price_when_posted": 214.95,
+              "url": "https://www.streetinsider.com/Analyst+Comments/Benchmark+Reiterates+Buy+Rating+on+NVIDIA+%28NVDA%29%2C+Updates+Estimates/26959240.html",
+              "title": "Benchmark Reiterates Buy Rating on NVIDIA (NVDA), Updates Estimates",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "da davidson",
+              "analyst": "Gil Luria",
+              "at": "2026-08-27T13:21:00+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 225.64,
+              "url": "https://www.streetinsider.com/Analyst+Comments/DA+Davidson+Reiterates+Buy+Rating+on+NVIDIA+%28NVDA%29/26986085.html",
+              "title": "DA Davidson Reiterates Buy Rating on NVIDIA (NVDA)",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": -10.4478,
+            "baseline_age_days": 5,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 4.9732,
+            "gap_when_posted_pct": 32.9551
+          },
+          {
+            "id": "ab413d9ac6cefbe9daaa508b",
+            "firm": "raymond james",
+            "at": "2026-08-27T11:00:20+00:00",
+            "previous": {
+              "firm": "raymond james",
+              "analyst": "",
+              "at": "2026-08-25T09:43:28+00:00",
+              "target_adjusted": 352.0,
+              "target_raw": 352.0,
+              "price_when_posted": 208.48,
+              "url": "https://thefly.com/ajax/news_get.php?id=4416078",
+              "title": "Nvidia price target raised to $352 from $330 at Raymond James",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "raymond james",
+              "analyst": "",
+              "at": "2026-08-27T11:00:20+00:00",
+              "target_adjusted": 515.0,
+              "target_raw": 515.0,
+              "price_when_posted": 209.66,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417401",
+              "title": "Nvidia price target raised to $515 from $352 at Raymond James",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 46.3068,
+            "baseline_age_days": 2,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 0.566,
+            "gap_when_posted_pct": 145.6358
+          },
+          {
+            "id": "9d31528c3ef8c5d6c836b080",
+            "firm": "mizuho securities",
+            "at": "2026-08-27T06:28:00+00:00",
+            "previous": {
+              "firm": "mizuho securities",
+              "analyst": "Vijay Rakesh",
+              "at": "2026-05-21T04:42:00+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 223.47,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24300+at+Mizuho/26530184.html",
+              "title": "NVIDIA (NVDA) PT Raised to $300 at Mizuho",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "mizuho securities",
+              "analyst": "Vijay Rakesh",
+              "at": "2026-08-27T06:28:00+00:00",
+              "target_adjusted": 315.0,
+              "target_raw": 315.0,
+              "price_when_posted": 209.66,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24315+at+Mizuho/26983481.html",
+              "title": "NVIDIA (NVDA) PT Raised to $315 at Mizuho",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 5.0,
+            "baseline_age_days": 98,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 50.2433
+          },
+          {
+            "id": "f4c864523a7ce1ca5d7d04fc",
+            "firm": "melius research",
+            "at": "2026-08-27T06:32:00+00:00",
+            "previous": {
+              "firm": "melius research",
+              "analyst": "Ben Reitzes",
+              "at": "2026-05-21T06:43:00+00:00",
+              "target_adjusted": 400.0,
+              "target_raw": 400.0,
+              "price_when_posted": 223.47,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24400+at+Melius/26530344.html",
+              "title": "NVIDIA (NVDA) PT Raised to $400 at Melius",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "melius research",
+              "analyst": "Ben Reitzes",
+              "at": "2026-08-27T06:32:00+00:00",
+              "target_adjusted": 420.0,
+              "target_raw": 420.0,
+              "price_when_posted": 209.66,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24420+at+Melius/26983487.html",
+              "title": "NVIDIA (NVDA) PT Raised to $420 at Melius",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 5.0,
+            "baseline_age_days": 97,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 100.3243
+          },
+          {
+            "id": "4b7be1dccafba97d7ae6e2e7",
+            "firm": "goldman sachs",
+            "at": "2026-08-27T06:38:00+00:00",
+            "previous": {
+              "firm": "goldman sachs",
+              "analyst": "",
+              "at": "2026-05-21T11:21:57+00:00",
+              "target_adjusted": 285.0,
+              "target_raw": 285.0,
+              "price_when_posted": 223.47,
+              "url": "https://thefly.com/ajax/news_get.php?id=4358921",
+              "title": "Nvidia price target raised to $285 from $250 at Goldman Sachs",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "goldman sachs",
+              "analyst": "James Schneider",
+              "at": "2026-08-27T06:38:00+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 209.66,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24300+at+Goldman+Sachs/26983489.html",
+              "title": "NVIDIA (NVDA) PT Raised to $300 at Goldman Sachs",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 5.2632,
+            "baseline_age_days": 97,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 43.0888
+          },
+          {
+            "id": "6d42711d31819158a70380e0",
+            "firm": "bernstein",
+            "at": "2026-08-27T06:43:00+00:00",
+            "previous": {
+              "firm": "bernstein",
+              "analyst": "",
+              "at": "2025-11-20T11:19:34+00:00",
+              "target_adjusted": 275.0,
+              "target_raw": 275.0,
+              "price_when_posted": 186.52,
+              "url": "https://thefly.com/permalinks/entry.php/id4243287/7071286394/NVDA-Nvidia-price-target-raised-by--at-Bernstein-heres-why",
+              "title": "Nvidia price target raised to $275 from $255 at Bernstein",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "bernstein",
+              "analyst": "",
+              "at": "2026-08-27T06:43:00+00:00",
+              "target_adjusted": 400.0,
+              "target_raw": 400.0,
+              "price_when_posted": 209.66,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24400+at+Bernstein+SocGen+Group/26983494.html",
+              "title": "NVIDIA (NVDA) PT Raised to $400 at Bernstein SocGen GroupMember Login",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 45.4545,
+            "baseline_age_days": 279,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 12.4062,
+            "gap_when_posted_pct": 90.7851
+          },
+          {
+            "id": "a57ee44ba386a680ac75097e",
+            "firm": "rosenblatt securities",
+            "at": "2026-08-27T10:34:00+00:00",
+            "previous": {
+              "firm": "rosenblatt securities",
+              "analyst": "Hans Mosesmann",
+              "at": "2024-10-30T15:26:00+00:00",
+              "target_adjusted": 250.0,
+              "target_raw": 250.0,
+              "price_when_posted": 139.335,
+              "url": "https://www.benzinga.com/analyst-ratings/price-target/24/10/41634850/amd-stock-drops-on-q4-outlook-as-10-analysts-highlight-long-term-ai-growth-opportuni",
+              "title": "AMD Stock Drops On Q4 Outlook As 10 Analysts Highlight 'Long-Term AI Growth Opportunity,' Nvidia Rivalry",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "rosenblatt securities",
+              "analyst": "Kevin Cassidy",
+              "at": "2026-08-27T10:34:00+00:00",
+              "target_adjusted": 390.0,
+              "target_raw": 390.0,
+              "price_when_posted": 209.66,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24390+at+Rosenblatt/26984329.html",
+              "title": "NVIDIA (NVDA) PT Raised to $390 at Rosenblatt",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 56.0,
+            "baseline_age_days": 665,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 50.4719,
+            "gap_when_posted_pct": 86.0155
+          },
+          {
+            "id": "aadf348ab092611d68a2fa01",
+            "firm": "stifel nicolaus",
+            "at": "2026-08-27T10:46:48+00:00",
+            "previous": {
+              "firm": "stifel nicolaus",
+              "analyst": "Ruben Roy",
+              "at": "2026-05-21T04:42:00+00:00",
+              "target_adjusted": 282.0,
+              "target_raw": 282.0,
+              "price_when_posted": 223.47,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24282+at+Stifel/26530183.html",
+              "title": "NVIDIA (NVDA) PT Raised to $282 at Stifel",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "stifel nicolaus",
+              "analyst": "Ruben Roy",
+              "at": "2026-08-27T10:46:48+00:00",
+              "target_adjusted": 315.0,
+              "target_raw": 315.0,
+              "price_when_posted": 209.66,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417358",
+              "title": "Nvidia price target raised to $315 from $282 at Stifel",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 11.7021,
+            "baseline_age_days": 98,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 50.2433
+          },
+          {
+            "id": "d663728c03eb924696143895",
+            "firm": "morgan stanley",
+            "at": "2026-08-27T10:53:11+00:00",
+            "previous": {
+              "firm": "morgan stanley",
+              "analyst": "Joseph Moore",
+              "at": "2026-05-21T06:10:00+00:00",
+              "target_adjusted": 288.0,
+              "target_raw": 288.0,
+              "price_when_posted": 223.47,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24288+at+Morgan+Stanley/26530304.html",
+              "title": "NVIDIA (NVDA) PT Raised to $288 at Morgan Stanley",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "morgan stanley",
+              "analyst": "",
+              "at": "2026-08-27T10:53:11+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 209.66,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417377",
+              "title": "Nvidia price target raised to $300 from $288 at Morgan Stanley",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 4.1667,
+            "baseline_age_days": 98,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 43.0888
+          },
+          {
+            "id": "476d977e432e62a33c0d36b1",
+            "firm": "ubs",
+            "at": "2026-08-27T10:59:09+00:00",
+            "previous": {
+              "firm": "ubs",
+              "analyst": "",
+              "at": "2026-05-21T11:18:19+00:00",
+              "target_adjusted": 280.0,
+              "target_raw": 280.0,
+              "price_when_posted": 223.47,
+              "url": "https://thefly.com/ajax/news_get.php?id=4358914",
+              "title": "Nvidia price target raised to $280 from $275 at UBS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "ubs",
+              "analyst": "",
+              "at": "2026-08-27T10:59:09+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 209.66,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417398",
+              "title": "Nvidia price target raised to $300 from $280 at UBS",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 7.1429,
+            "baseline_age_days": 97,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 43.0888
+          },
+          {
+            "id": "14854164aa5b06fe4f3ddd2c",
+            "firm": "evercore isi",
+            "at": "2026-08-27T11:50:19+00:00",
+            "previous": {
+              "firm": "evercore isi",
+              "analyst": "Mark Lipacis",
+              "at": "2026-05-21T10:25:23+00:00",
+              "target_adjusted": 413.0,
+              "target_raw": 413.0,
+              "price_when_posted": 223.47,
+              "url": "https://thefly.com/ajax/news_get.php?id=4358814",
+              "title": "Nvidia price target raised to $413 from $352 at Evercore ISI",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "evercore isi",
+              "analyst": "Mark Lipacis",
+              "at": "2026-08-27T11:50:19+00:00",
+              "target_adjusted": 465.0,
+              "target_raw": 465.0,
+              "price_when_posted": 209.66,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417502",
+              "title": "Nvidia price target raised to $465 from $413 at Evercore ISI",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 12.5908,
+            "baseline_age_days": 98,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": -6.1798,
+            "gap_when_posted_pct": 121.7877
+          },
+          {
+            "id": "d25b1e33ee843f04f350ceee",
+            "firm": "needham",
+            "at": "2026-08-27T12:04:59+00:00",
+            "previous": {
+              "firm": "needham",
+              "analyst": "Rajvindra Gill",
+              "at": "2026-05-21T09:08:00+00:00",
+              "target_adjusted": 270.0,
+              "target_raw": 270.0,
+              "price_when_posted": 223.47,
+              "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24270+at+Needham/26530526.html",
+              "title": "NVIDIA (NVDA) PT Raised to $270 at Needham",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "needham",
+              "analyst": "Quinn Bolton",
+              "at": "2026-08-27T12:04:59+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 224.714,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417534",
+              "title": "Nvidia price target raised to $300 from $270 at Needham",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 11.1111,
+            "baseline_age_days": 98,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 0.5567,
+            "gap_when_posted_pct": 33.503
+          },
+          {
+            "id": "3bf1f35c9ff5295cfe7a1192",
+            "firm": "rbc capital",
+            "at": "2026-08-27T12:45:32+00:00",
+            "previous": {
+              "firm": "rbc capital",
+              "analyst": "Srini Pajjuri",
+              "at": "2026-08-20T12:38:45+00:00",
+              "target_adjusted": 300.0,
+              "target_raw": 300.0,
+              "price_when_posted": 217.645,
+              "url": "https://thefly.com/ajax/news_get.php?id=4414530",
+              "title": "Nvidia to report another 'strong quarter', says RBC Capital",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "rbc capital",
+              "analyst": "",
+              "at": "2026-08-27T12:45:32+00:00",
+              "target_adjusted": 330.0,
+              "target_raw": 330.0,
+              "price_when_posted": 225.53081,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417635",
+              "title": "Nvidia price target raised to $330 from $300 at RBC Capital",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 10.0,
+            "baseline_age_days": 7,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 3.6232,
+            "gap_when_posted_pct": 46.3215
+          },
+          {
+            "id": "cedbff772df7e2a9c5f155bc",
+            "firm": "truist financial",
+            "at": "2026-08-27T13:36:07+00:00",
+            "previous": {
+              "firm": "truist financial",
+              "analyst": "",
+              "at": "2026-05-21T13:22:59+00:00",
+              "target_adjusted": 307.0,
+              "target_raw": 307.0,
+              "price_when_posted": 219.71,
+              "url": "https://thefly.com/ajax/news_get.php?id=4359138",
+              "title": "Nvidia price target raised to $307 from $287 at Truist",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "current": {
+              "firm": "truist financial",
+              "analyst": "",
+              "at": "2026-08-27T13:36:07+00:00",
+              "target_adjusted": 346.0,
+              "target_raw": 346.0,
+              "price_when_posted": 225.9758,
+              "url": "https://thefly.com/ajax/news_get.php?id=4417703",
+              "title": "Nvidia price target raised to $346 from $307 at Truist",
+              "coverage_action": "update_or_unknown",
+              "reason": "unknown",
+              "forecast_horizon": "unknown"
+            },
+            "revision_pct": 12.7036,
+            "baseline_age_days": 98,
+            "comparison_scope": "Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.",
+            "price_move_between_reports_pct": 2.8519,
+            "gap_when_posted_pct": 53.1137
+          }
+        ]
+      }
+    },
+    "direction": "mixed_or_insufficient",
+    "status": "incomplete",
+    "coverage": {
+      "pagination_complete": true,
+      "received_rows": 340,
+      "rejected_rows": 0,
+      "conflicts": [
+        "mizuho securities:2022-09-15",
+        "rbc capital:2026-05-21"
+      ],
+      "recent_conflicts": [],
+      "unpaired_segments": 54,
+      "firms": 47
+    },
+    "attribution_conflicts": [
+      {
+        "firm": "macquarie",
+        "title_firm": "jpmorgan",
+        "at": "2026-08-27T06:25:00+00:00",
+        "title": "NVIDIA (NVDA) PT Raised to $320 at JPMorgan"
+      },
+      {
+        "firm": "rbc capital",
+        "title_firm": "jpmorgan",
+        "at": "2026-05-21T06:13:00+00:00",
+        "title": "NVIDIA (NVDA) PT Raised to $280 at JPMorgan"
+      }
+    ],
+    "limits": "Provider observations, not verified analyst reports. Targets are forecasts; revision reasons and forecast horizon are unknown unless separately sourced. Two independent firms is a research routing heuristic, not a fitted investment rule. Historical targets may be provider-restated. No automatic BUY/SELL or execution-lock bypass.",
+    "estimates": {
+      "2031-01-25": {
+        "epsAvg": 20.0,
+        "revenueAvg": 1119719500000.0
+      },
+      "2030-01-25": {
+        "epsAvg": 23.0,
+        "revenueAvg": 1106047088760.0
+      },
+      "2029-01-25": {
+        "epsAvg": 21.34742,
+        "revenueAvg": 923097095878.0
+      },
+      "2028-01-25": {
+        "epsAvg": 15.73796,
+        "revenueAvg": 691334268187.0
+      },
+      "2027-01-25": {
+        "epsAvg": 9.2745,
+        "revenueAvg": 409404836075.0
+      },
+      "2026-01-25": {
+        "epsAvg": 4.69388,
+        "revenueAvg": 213656385457.0
+      },
+      "2025-01-26": {
+        "epsAvg": 2.95192,
+        "revenueAvg": 129426091457.0
+      },
+      "2024-01-28": {
+        "epsAvg": 1.23926,
+        "revenueAvg": 59306860332.0
+      },
+      "2023-01-29": {
+        "epsAvg": 0.32685,
+        "revenueAvg": 26952415189.0
+      },
+      "2022-01-30": {
+        "epsAvg": 0.43252,
+        "revenueAvg": 26662163796.0
+      }
+    },
+    "estimates_status": "ok",
+    "estimate_changes": {
+      "previous_observed_at": null,
+      "periods": {
+        "2031-01-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 20.0,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 1119719500000.0,
+            "change_pct": null
+          }
+        },
+        "2030-01-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 23.0,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 1106047088760.0,
+            "change_pct": null
+          }
+        },
+        "2029-01-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 21.34742,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 923097095878.0,
+            "change_pct": null
+          }
+        },
+        "2028-01-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 15.73796,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 691334268187.0,
+            "change_pct": null
+          }
+        },
+        "2027-01-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 9.2745,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 409404836075.0,
+            "change_pct": null
+          }
+        },
+        "2026-01-25": {
+          "epsAvg": {
+            "previous": null,
+            "current": 4.69388,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 213656385457.0,
+            "change_pct": null
+          }
+        },
+        "2025-01-26": {
+          "epsAvg": {
+            "previous": null,
+            "current": 2.95192,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 129426091457.0,
+            "change_pct": null
+          }
+        },
+        "2024-01-28": {
+          "epsAvg": {
+            "previous": null,
+            "current": 1.23926,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 59306860332.0,
+            "change_pct": null
+          }
+        },
+        "2023-01-29": {
+          "epsAvg": {
+            "previous": null,
+            "current": 0.32685,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 26952415189.0,
+            "change_pct": null
+          }
+        },
+        "2022-01-30": {
+          "epsAvg": {
+            "previous": null,
+            "current": 0.43252,
+            "change_pct": null
+          },
+          "revenueAvg": {
+            "previous": null,
+            "current": 26662163796.0,
+            "change_pct": null
+          }
+        }
+      },
+      "limits": "Same fiscal period across observed snapshots; consensus co-movement is not a cause of any individual target change."
+    }
+  }
+}

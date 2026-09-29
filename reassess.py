@@ -447,6 +447,13 @@ def claim_prompt(symbol, position, claim, trigger, data, holding, moment):
         lines += ["NEWS SOURCE EVIDENCE:", json.dumps({"assessments":row.get("news_assessments"),"documents":row.get("source_documents")})]
     if row.get("fundamental_research"):
         lines += ["DATED FUNDAMENTAL EVIDENCE:", json.dumps(row["fundamental_research"])]
+    if row.get('analyst_revisions'):
+        lines += ['ANALYST REVISION RESEARCH (forecasts, not realized outcomes):', json.dumps(row['analyst_revisions']),
+                  'Compare revision breadth, downside revisions, price-following and missing estimate history. '
+                  'Consensus EPS/revenue co-movement does not prove why a firm changed its target. '
+                  'A target revision requests review; it does not prescribe BUY or SELL. '
+                  'Consider company news, sector/theme attention and valuation as well as earnings. '
+                  'Earnings improvement is not required; distinguish attributed analyst reasons from hypotheses.']
     return "\n".join(lines)
 
 
@@ -490,6 +497,10 @@ def thesis_prompt(symbol, position, triggers, data, holding, cash, moment):
             f"  next earnings: {holding.get('next_earnings')}",
         ]
     lines += ["", f"CASH: {cash} $ (amount_usd in a BUY decision cannot exceed this)"]
+    if row.get('analyst_revisions'):
+        from analyst_revisions import REVIEW_INSTRUCTION
+        lines += ['ANALYST REVISION RESEARCH:', json.dumps(row['analyst_revisions']), REVIEW_INSTRUCTION,
+                  'Put analyst_review at the TOP LEVEL, alongside monitoring.']
     if row.get("news_assessments") or row.get("source_documents"):
         lines += ["NEWS SOURCE EVIDENCE:", json.dumps({"assessments":row.get("news_assessments"),"documents":row.get("source_documents")})]
     if row.get("fundamental_research"):
@@ -667,6 +678,9 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
         prompt += "\nCOMPLETE PREVIOUS THESIS AND CONDITIONS:\n"+json.dumps(position)
         prompt += "\n"+lifecycle.INSTRUCTION+"\nPut monitoring at the top level of the response."
         def validate_monitor(payload):
+            if data.get(symbol, {}).get('analyst_revisions'):
+                from analyst_revisions import validate_review
+                validate_review(payload.get('analyst_review'), symbol, data, evidence_for(data, violations, symbol))
             if violations.get('lifecycle_version')==1 or 'monitoring' in payload:
                 lifecycle.validate_monitoring(payload.get('monitoring'),symbol,position,data,evidence_for(data,violations,symbol),moment, holdings.get(symbol,{}).get('stop_weekly_close'),payload.get('decision',{}).get('new_stop'))
                 if payload.get('claim_statuses')!={c['id']:c['status'] for c in payload['monitoring']['claims']}:
@@ -725,6 +739,8 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
         if monitor:
             position['claims']=copy.deepcopy(monitor['claims'])
             position['monitoring']=monitor
+        if payload.get('analyst_review'):
+            position['analyst_review'] = copy.deepcopy(payload['analyst_review'])
         position.pop('pending_review',None)
         statuses = payload.get("claim_statuses") or {}
         for claim in position.get("claims", []):
@@ -869,6 +885,9 @@ def main():
         for decision in decisions:
             cooldown[f"thesis:{decision['symbol']}"] = iso(moment)
         for item in violations.get('triggered', []):
+            if item.get('condition_type') == 'analyst_revision' and any(d['symbol']==item['symbol'] for d in decisions) and item['symbol'] not in violations.get('assessment_errors',[]):
+                for key in item.get('analyst_event_keys', []):
+                    cooldown[key] = iso(moment)
             if item.get('cooldown_key','').startswith(('fundamental:','event:')):
                 successful = (item['claim_id'] in updated or any(d['symbol']==item['symbol'] for d in decisions))
                 failed = item['symbol'] in violations.get('assessment_errors',[]) or item['claim_id'] in violations.get('assessment_errors',[])

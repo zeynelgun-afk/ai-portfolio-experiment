@@ -356,7 +356,7 @@ jobs:
         id: news_health
         if: always() && steps.detector.outputs.news_error_count != '' && steps.detector.outputs.news_error_count != '0'
         run: |
-          echo "::error::News assessment incomplete; failed headlines remain pending for the next run."
+          echo "::error::Research evidence incomplete: inspect news, monitored metrics and analyst coverage in state/violations.json and ANALYST_REVISIONS.md."
           exit 1
 
       - name: Report automatic prompt rollback

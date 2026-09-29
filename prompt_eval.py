@@ -12,6 +12,7 @@ from prompt_policy import amendment_problem, policy
 
 BASE = Path(__file__).parent
 REGISTRY = {
+    "analyst_revision_review": ("analyst_revisions.py", {"REVIEW_INSTRUCTION"}),
     "decision_lifecycle": ("decision_lifecycle.py", {"INSTRUCTION"}),
     "semantic_review": ("claim_evidence.py", {"instruction"}),
     "weekly_executor": ("weekly_round.py", {"SYSTEM"}),

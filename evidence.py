@@ -75,6 +75,28 @@ def ledger(data, observed_at, origin):
             if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
                 raise ValueError('Invalid fundamental fact value')
             facts[f'{symbol}.{metric}'] = dict(fact, symbol=symbol, metric=metric, snapshot=snapshot)
+        analyst = row.get('analyst_revisions', {})
+        for window, measurements in analyst.get('windows', {}).items():
+            for field in ('up_firms', 'down_firms', 'matched_firms', 'unchanged_firms', 'unpaired_firms', 'median_revision_pct', 'target_dispersion_pct'):
+                value = measurements.get(field)
+                if value is None or analyst.get('status') != 'ok':
+                    continue
+                metric = 'analyst_' + field + '_' + window + 'd'
+                facts[f'{symbol}.{metric}'] = dict(symbol=symbol, metric=metric, value=value,
+                    unit='firms' if field.endswith('firms') else '%', as_of=analyst['observed_at'],
+                    source='FMP price-target-news / same-firm matched observations', snapshot=snapshot)
+        for period, changes in analyst.get('estimate_changes', {}).get('periods', {}).items():
+            for field, change in changes.items():
+                name = 'eps' if field == 'epsAvg' else 'revenue'
+                for suffix, value, unit in (('', change.get('current'), 'USD/share' if name == 'eps' else 'USD'),
+                                            ('_revision_pct', change.get('change_pct'), '% vs prior observed consensus')):
+                    if value is None:
+                        continue
+                    metric = 'analyst_' + name + '_' + period.replace('-', '') + suffix
+                    facts[f'{symbol}.{metric}'] = dict(symbol=symbol, metric=metric, value=value,
+                        unit=unit, as_of=analyst['observed_at'], fiscal_period=period,
+                        previous_observed_at=analyst['estimate_changes'].get('previous_observed_at'),
+                        source='FMP analyst-estimates / annual consensus forecast, not reported result', snapshot=snapshot)
         for metric in ('sma50', 'sma200'):
             price_id = f'{symbol}.last_price' if f'{symbol}.last_price' in facts else f'{symbol}.price'
             base_id = f'{symbol}.{metric}'

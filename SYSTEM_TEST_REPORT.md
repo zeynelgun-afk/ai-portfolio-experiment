@@ -295,3 +295,39 @@ point-in-time checks, not guarantees of future availability.
   successfully reviewed weekly decision. Exceptional actions/ambiguous identity require
   reconciliation rather than guessed trades. Non-GitHub watchdog work stays deferred.
 - Existing unrelated ResourceWarnings in amendment/auditor file reads do not fail tests.
+
+## Analyst revision research — 29 September 2026
+
+- 380 automated tests passed, including daily immutable observations, paginated history,
+  same-firm/alias matching, independent-firm breadth, initiations/resumptions, conflicting
+  attribution, split restatement, future/wrong-issuer rejection, symmetric review triggers,
+  persistent acknowledgement, forecast period matching and 20/60-session forward outcomes.
+- The isolated detector → reassessment → decision/history test accepts a HOLD, preserves
+  all four driver axes, acknowledges the analyst events and leaves the portfolio unchanged.
+  Analyst events do not receive execution-lock bypass identities.
+- Reviews cover earnings, company news, sector/theme attention and valuation. Tests verify
+  that company-news context remains valid without improving or observable EPS revisions;
+  a price move cannot be labeled the analyst's reported rationale. Unknown source IDs and
+  cross-issuer evidence are refused.
+- Read-only real FMP checks returned 262 MU, 265 AMD, 90 ANET and 340 NVDA target records,
+  plus annual estimates for all four. Pagination finished in this bounded provider feed;
+  it does not establish complete analyst-universe coverage. First observed snapshots are
+  committed separately from portfolio state; all forward endpoints remain pending.
+- Live data exposed an AMD initiation incorrectly resembling a revision and headline/firm
+  attribution mismatches for AMD, ANET and NVDA. Those records are quarantined and current
+  analyst-trigger routing for affected symbols is inhibited. The preliminary AMD threshold
+  finding was withdrawn. Missing evidence is not a negative investment opinion.
+- The live driver-generation probe returned the four-axis schema. Exact-source review
+  initially failed on invisible formatting in provider news. Original text is now retained
+  while citation text removes only specified invisible formatting characters. Fact sources
+  include readable copy excerpts plus full metadata; changed words/numbers still fail the
+  exact-quote checks. Live exact-citation validation subsequently completed.
+- Prompt evaluation (22 entries), actionlint, Python compilation, dashboard build and
+  generated-JavaScript syntax checks passed. No live decision/executor or test Telegram
+  send was invoked. Scheduled decisions still require the independent semantic verdict,
+  current evidence and the existing session, quote and execution checks.
+- Live verdict boundary: one retry reached a schema-valid `uncertain` semantic verdict;
+  a later retry still produced non-exact quotes and was rejected. No live driver review
+  was accepted. Readable excerpts and formatting normalization improve input handling,
+  but do not establish reliable model compliance or investment correctness. The gate
+  remains closed for rejected/uncertain reviews, with the normal retry/notification path.

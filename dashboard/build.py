@@ -71,7 +71,14 @@ def main():
 
     theses = load("theses.json")
     portfolio = load("portfolio.json")
+    analyst_path = os.path.join(BASE, 'state', 'analyst_revision_observations.json')
+    analyst_latest = {}
+    if os.path.exists(analyst_path):
+        for _, observation in sorted(load('state/analyst_revision_observations.json').items()):
+            analyst_latest[observation['symbol']] = {key: observation[key] for key in ('observed_at', 'status', 'direction')}
+            analyst_latest[observation['symbol']]['summary'] = {k: v for k, v in observation['windows']['30'].items() if k != 'revisions'}
     payload = {
+        'analyst_revisions': analyst_latest,
         "stamp": date.today().isoformat(),
         "source_round": latest_round_label(),
         "cash_usd": portfolio["cash_usd"],

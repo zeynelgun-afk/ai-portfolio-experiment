@@ -1,6 +1,62 @@
-# Analyst target revision momentum — design proposal
+# Analyst target revision momentum — implementation and evaluation
 
-Status: brainstorming requested by the owner; not an enabled trading or scoring rule.
+Status: approved research/reassessment channel implemented on 29 September 2026.
+It is not a standalone trading rule or a profitability-weighted score.
+
+## Operational behavior
+
+`analyst_revisions.py` collects FMP target news (paginated, bounded at ten pages) and
+annual consensus estimates once per UTC date and symbol. Intraday detection covers
+held positions; weekly collection also covers its research universe. First observations
+are immutable in `state/analyst_revision_observations.json`; errors are explicit and
+retry at the next daily observation. No-record responses are unknown, not neutral.
+yfinance aggregates cannot reconstruct matching firm histories, so this dataset is
+marked unavailable when FMP fails rather than fabricated from an incompatible fallback.
+
+For each 7/30/90-day window, the latest observed nonzero revision per normalized firm
+counts once. Reiterations do not erase an earlier revision within the window. Reported
+unchanged observations and unpaired firms are separate. A missing predecessor is not
+proof of initiation. Explicit initiation/resumption headlines start a new comparison
+chain. A recognized firm in the headline that contradicts the provider's analyst-company
+field quarantines that record; a recent conflict inhibits automatic routing.
+Comparison is to the previous observed same-firm target, which
+can predate the window by months; provider history need not contain every real update.
+Baseline age is retained. Adjusted targets are compared without mixing raw bases;
+event identities use raw reported targets and dates to survive split restatement.
+Same-day conflicting values break the comparison chain; recent conflicts inhibit
+automatic routing, while unrelated historical conflicts stay visible in coverage.
+
+With complete bounded-provider coverage and no recent conflicts, at least two firms
+in the dominant direction over 30 days request whole-thesis review. This is a declared
+routing heuristic, not an optimized return threshold. Positive and negative events use
+the same route. Successful reviewed decisions acknowledge the constituent events;
+failure remains retryable. Analyst signals never bypass the execution lock or session
+and quote safeguards. Existing decision/failure Telegram flows include these reviews;
+daily collection failures and weekly evidence failures enter the alert chain.
+
+## Multiple explanations, not an earnings-only gate
+
+Every decision with analyst evidence must include `analyst_review` across four axes:
+
+- Earnings: same-fiscal-period EPS/revenue consensus changes between actual observations.
+- Company news: contracts, products, partnerships, regulation and other issuer events.
+- Sector/theme: industry demand, rotation hypotheses, attention to a narrative and related news.
+- Valuation: changes in multiples, discount rates, positioning or the growth story's perceived value.
+
+Each axis records `reported_reason`, `context_only` or `unknown`, an assessment and bound
+source IDs. A reported reason requires an attributable news source and independent
+semantic checking. A contextual connection stays an inference. Price movements alone
+do not establish fund flows, crowding or investor attention. Missing or unchanged EPS
+does not veto company-news or sector/theme explanations. Target increases can still
+coexist with valuation risk and opposing evidence. The original analyst rationale can
+remain unknown even when market context is informative.
+
+`ANALYST_REVISIONS.md` and the dashboard expose dated coverage. Accepted multi-axis
+reviews persist with the thesis and decision history. `research_metrics.py` measures
+unique observed event cohorts after 20/60 exchange sessions against SPY using total
+return data, starting at the next session close. Records include insufficient/mixed
+cases; immature or unavailable endpoints remain pending. This is before-cost research
+performance with overlapping selected cohorts, not a tradable backtest or causal proof.
 
 ## Hypothesis
 

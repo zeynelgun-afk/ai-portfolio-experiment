@@ -248,6 +248,18 @@ def main():
             print(f"ERROR {symbol}: {error}")
             missing_data.append(f"{symbol}: {error}")
 
+    import analyst_revisions
+    from execute_trade import read_json as strict_read, write_json
+    analyst_path = os.path.join(BASE, 'state', 'analyst_revision_observations.json')
+    analyst_state = strict_read(analyst_path, {})
+    for symbol, row in results.items():
+        report, _ = analyst_revisions.refresh(symbol, datetime.now(timezone.utc), analyst_state)
+        analyst_revisions.attach(row, report)
+        if report['status'] != 'ok' or report['estimates_status'] != 'ok':
+            missing_data.append(symbol + ': analyst revision or forecast coverage incomplete')
+    write_json(analyst_path, analyst_state)
+    analyst_revisions.publish(analyst_state)
+
     # Date information — so the decision round never computes a day name itself.
     today = datetime.now()
     next_friday = today + timedelta(days=(4 - today.weekday()) % 7 or 7)
@@ -323,13 +335,16 @@ def main():
                 "trailing_pe": data.get("trailing_pe"),
                 "market_cap": data.get("market_cap"),
                 "insider_trades": data.get("insider_trades"),
-                "financial_statements": data.get("fundamental_research")
+                "financial_statements": data.get("fundamental_research"),
+                "analyst_revision_research": data.get("analyst_revisions")
             }
             sentiment_data[sym] = {
                 "analyst_target": data.get("analyst_target"),
                 "consensus_grade": data.get("consensus_grade"),
                 "news_titles": data.get("news_titles"),
-                "source_documents": data.get("source_documents")
+                "source_documents": data.get("source_documents"),
+                "analyst_revision_research": data.get("analyst_revisions"),
+                "sector_context": results.get('_meta', {}).get('sector_performance')
             }
 
         # 2. Fundamental Analyst Agent
@@ -357,6 +372,9 @@ def main():
         sent_sys = (
             "You are a Sentiment and News Analyst. Use provided source excerpts and analyst targets/grades. Distinguish headline-only hypotheses from sourced assertions. State missing text and uncertainty; do not infer causality from headlines. "
             "For each ticker, output a 1-sentence sentiment analysis based on the narrative and targets. "
+            "Consider company news, sector/theme attention and valuation as well as earnings. "
+            "Missing EPS revisions do not veto a news or theme explanation. Separate attributed analyst "
+            "reasons from contextual hypotheses; price moves alone do not prove flows or investor attention. "
             "Return ONLY a JSON object mapping each ticker to its 1-sentence sentiment analysis."
         )
         sent_payload, sent_status = reassess.call_llm(sent_model, sent_sys, json.dumps(sentiment_data), api_key)
