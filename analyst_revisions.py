@@ -13,6 +13,7 @@ import market_data
 
 BASE = Path(__file__).resolve().parent
 WINDOWS = (7, 30, 90)
+INTEGRITY_VERSION = 2
 LIMITS = ('Provider observations, not verified analyst reports. Targets are forecasts; '
           'revision reasons and forecast horizon are unknown unless separately sourced. '
           'Two independent firms is a research routing heuristic, not a fitted investment rule. '
@@ -92,7 +93,7 @@ def firm_name(value):
 
 
 def analyze(symbol, rows, moment, complete):
-    groups, rejected, conflicts, attribution_conflicts = {}, 0, [], []
+    groups, rejected, conflicts, attribution_conflicts, quarantined = {}, 0, [], [], []
     known_firms = {firm_name(r.get('analystCompany')) for r in rows if isinstance(r, dict)} | set(ALIASES.values())
     for row in rows:
         try:
@@ -105,10 +106,19 @@ def analyze(symbol, rows, moment, complete):
                 raise ValueError('Invalid target observation')
             title = str(row.get('newsTitle') or '')
             named = re.search(r'\b(?:at|by)\s+([A-Za-z .&-]+)$', title)
+            reasons = []
             if named and firm_name(named[1]) in known_firms and firm_name(named[1]) != firm:
                 attribution_conflicts.append({'firm': firm, 'title_firm': firm_name(named[1]), 'at': when.isoformat(), 'title': title})
+                reasons.append('headline_firm_differs_from_provider_firm')
+            headline_target = re.search(r'\b(?:price target|PT)\b.*?\bto\s+\$([\d,]+(?:\.\d+)?)', title, re.I)
+            if headline_target and not math.isclose(float(headline_target[1].replace(',', '')), raw, abs_tol=0.01, rel_tol=0):
+                reasons.append('headline_target_differs_from_raw_provider_target')
+            if reasons:
+                quarantined.append({'id': identity([symbol,row]), 'symbol': symbol, 'firm': firm,
+                    'at': when.isoformat(), 'title': title, 'url': row.get('newsURL'), 'raw_record': copy.deepcopy(row),
+                    'reasons': reasons, 'resolution': 'Awaiting a consistent provider record or independently verified source; no inferred repair'})
                 continue
-            initiation = bool(re.search(r'\b(?:re[- ]?)?initiat\w*\b|\b(?:starts?|resumes?|assumes?)\b', title, re.I))
+            initiation = bool(re.search(r'\b(?:re[- ]?)?initiat\w*\b.{0,70}\b(?:coverage|overweight|underweight|outperform|underperform|neutral|buy|hold|sell)\b|\b(?:starts?|resumes?|assumes?)\b.{0,100}\b(?:coverage|with an? (?:overweight|underweight|outperform|underperform|neutral|buy|hold|sell))\b', title, re.I))
             item = {'firm': firm, 'analyst': row.get('analystName'), 'at': when.isoformat(),
                     'target_adjusted': target, 'target_raw': raw, 'price_when_posted': price,
                     'url': row.get('newsURL'), 'title': row.get('newsTitle'),
@@ -179,15 +189,16 @@ def analyze(symbol, rows, moment, complete):
                              'revisions': values}
     eligible = windows['30']
     recent_conflicts = [c for c in conflicts if c.rsplit(':', 1)[-1] >= (moment-timedelta(days=90)).date().isoformat()]
-    recent_attribution_conflicts = [c for c in attribution_conflicts if stamp(c['at']) >= moment-timedelta(days=90)]
+    recent_quarantine = [c for c in quarantined if stamp(c['at']) >= moment-timedelta(days=90)]
     direction = ('up' if eligible['up_firms'] >= 2 and eligible['up_firms'] > eligible['down_firms'] else
                  'down' if eligible['down_firms'] >= 2 and eligible['down_firms'] > eligible['up_firms'] else 'mixed_or_insufficient')
-    return {'symbol': symbol, 'observed_at': moment.isoformat(), 'windows': windows,
+    return {'symbol': symbol, 'observed_at': moment.isoformat(), 'windows': windows, 'integrity_version': INTEGRITY_VERSION,
             'direction': direction, 'status': ('no_records' if not rows and complete else
-                'ok' if complete and not rejected and not recent_conflicts and not recent_attribution_conflicts else 'incomplete'),
+                'ok' if complete and not rejected and not recent_conflicts and not recent_quarantine else 'incomplete'),
             'coverage': {'pagination_complete': complete, 'received_rows': len(rows), 'rejected_rows': rejected,
                          'conflicts': conflicts, 'recent_conflicts': recent_conflicts, 'unpaired_segments': unpaired, 'firms': len(groups)},
             'attribution_conflicts': attribution_conflicts,
+            'quarantined_records': quarantined,
             'limits': LIMITS}
 
 
@@ -237,7 +248,7 @@ def collect(symbol, moment, previous=None, fetch=None):
 
 def refresh(symbol, moment, state, fetch=None):
     """One observation per UTC date; no historical backfilling into observation time."""
-    key = moment.date().isoformat() + ':' + symbol
+    key = moment.date().isoformat() + ':' + symbol + ':v' + str(INTEGRITY_VERSION)
     if key in state: return copy.deepcopy(state[key]), False
     previous = [v for v in state.values() if v.get('symbol') == symbol and stamp(v['observed_at']) < moment]
     prior = max(previous, key=lambda r: r['observed_at']) if previous else None
@@ -308,6 +319,11 @@ def publish(state, root=BASE, histories=None):
         window = report['windows']['30']
         revision = f"{window['median_revision_pct']:.2f}%" if window['median_revision_pct'] is not None else 'unavailable'
         lines.append(f"| {symbol} | {report['observed_at']} | {report['status']} | {window['up_firms']} / {window['down_firms']} | {revision} | {report['estimate_changes']['previous_observed_at'] or 'not yet available'} |")
+    lines += ['', '## Quarantined provider records', '',
+              'Records below are excluded, not relabeled by inference. A consistent later provider observation can restore eligibility; previous observations remain immutable.']
+    for symbol, report in sorted(latest.items()):
+        for item in report.get('quarantined_records', []):
+            lines.append(f"- {symbol} / {item['at']} / {item['firm']}: {', '.join(item['reasons'])}. Record `{item['id']}`; source: {item.get('url') or 'unavailable'}")
     lines += ['', 'Forward outcome records: [analyst_revision_performance.json](state/analyst_revision_performance.json).',
               'No baseline forecast history means unknown earnings support, not unchanged estimates.',
               'Earnings improvements are not required: reviews also examine company news, sector/theme attention and valuation. '

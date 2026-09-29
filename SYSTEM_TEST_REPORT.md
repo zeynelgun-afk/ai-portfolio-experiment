@@ -331,3 +331,21 @@ point-in-time checks, not guarantees of future availability.
   was accepted. Readable excerpts and formatting normalization improve input handling,
   but do not establish reliable model compliance or investment correctness. The gate
   remains closed for rejected/uncertain reviews, with the normal retry/notification path.
+
+## Citation selection and provider integrity repair — 29 September 2026
+
+- 389 tests passed, including deterministic excerpt restoration, full long-text coverage,
+  unknown IDs, changed source snapshots, source identity binding, news-assessor integration,
+  and continued refusal of uncertain/unsupported reviews even with valid citations.
+- Provider tests cover headline target/field disagreement, false initiation matches and
+  recovery after a consistent later observation without rewriting old evidence.
+- Real FMP rechecks still show recent attribution conflicts for AMD, ANET and NVDA;
+  MU passed these bounded integrity checks. Upstream defects are NOT claimed repaired.
+  Quarantined records cannot trigger a revision decision. The next scheduled collection
+  applies integrity version 2 without discarding the first observed snapshots.
+- Live independent-model probes: a simple factual statement about a supplied FMP annual
+  EPS forecast passed and its quotation was restored by code; a guaranteed-return claim
+  failed. The earlier rich AMD driver draft reached a valid uncertain verdict, with
+  restored citations, rather than failing to transcribe source text. It was NOT approved.
+- No actual order, portfolio mutation or manual Telegram message was sent by these probes.
+  Passing these cases verifies bounded protocol behavior, not general model correctness.

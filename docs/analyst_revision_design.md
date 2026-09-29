@@ -108,3 +108,20 @@ The existing prospective research cohort machinery is a starting point, not caus
 
 - https://site.financialmodelingprep.com/developer/docs/stable/price-target-summary
 - https://site.financialmodelingprep.com/education/financial-analysis/building-singlestock-estimate--price-target-heatmaps-without-heavy-code
+
+## Integrity and citation repair — 29 September 2026
+
+Integrity version 2 checks explicit headline target amounts against raw provider targets,
+keeps conflicting records with their original payload, URL and quarantine reason, and
+narrows initiation detection so an issuer starting production is not mistaken for a
+broker initiating coverage. Collection caches are versioned: upgrading validation creates
+a new dated observation rather than silently reusing or overwriting the old snapshot.
+Consistent later observations restore eligibility; tests verify immutable prior evidence.
+This does not repair the provider's upstream data or assert an inferred firm identity.
+
+The news assessor and independent semantic reviewer now select code-generated excerpt
+IDs. Code restores the exact source ID and text; unknown IDs, modified snapshots and
+extra quote text are rejected. Old saved exact-quote outputs retain strict validation
+for read compatibility. The semantic reviewer still checks relevance, full context,
+contradictions and uncertainty. Valid excerpts do not override an uncertain/unsupported
+verdict. Reviews preserve selections, restored quotations and a source-bundle hash.
