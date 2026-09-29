@@ -128,6 +128,18 @@ GitHub Actions `weekly.yml` içine FRED ve EIA ortamları bağlandı; `FRED_API_
 eksik/bozuk sağlayıcı verisi turu durdurmaz, eksik bağlam olarak kaydedilir.
 Kullanılacak secrets: `FRED_API_KEY` ve `EIA_API_KEY`.
 
+### Hata durumunda havuz doğrulaması
+
+Tema/haber modeli başarısız olduğunda bu turdaki aday değişimi **belirsiz** sayılır.
+Önceki doğrulanmış adaylar bu nedenle `no_longer_confirmed` listesine eklenmez.
+Telegram, “aday yok” demek yerine değerlendirmenin tamamlanamadığını bildirir.
+
+Ürün maruziyeti için kullanılan yıllık rapor içeriği, FMP'nin sembol eşleştirmesinden
+sonra SEC accession numarası ve SEC submissions `reportDate` alanıyla doğrulanır.
+Alıntı araması aynı SEC `finalLink` belgesinin kendisinde yapılır; takvimdeki filing
+yılı mali dönem yılı yerine kullanılmaz. Bu kontrol 10-K, 20-F ve 40-F formlarını
+kapsar. Belge/period eşleşmesi doğrulanamazsa adaylık teyidi verilmez.
+
 ### Canlı FMP örnek anlık görüntüsü
 
 Ölçüm: 28 Eylül 2026 kapanışı. Bu tarihli snapshot'ta 1 hafta (5 seans)

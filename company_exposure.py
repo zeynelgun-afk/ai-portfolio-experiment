@@ -1,7 +1,6 @@
 """Resolve article-named companies and gather dated issuer filing evidence."""
 from html.parser import HTMLParser
 from datetime import date, timedelta
-import os
 import re
 
 import requests
@@ -10,9 +9,12 @@ import market_data
 
 SEC_ROOT = 'https://www.sec.gov'
 MAX_EXPOSURES = 5
+MAX_FILING_BYTES = 20_000_000
+ANNUAL_FORMS = {'10-K', '20-F', '40-F'}
 COMPONENT_TERMS = ('optical', 'transceiver', 'photonics', 'laser', 'EML',
                    'indium phosphide', 'silicon photonics', 'digital signal processor',
                    'printed circuit board', 'mSAP', 'data center', 'datacom', 'optical module')
+SEC_USER_AGENT = 'AI-Portfolio-Experiment research (https://github.com/zeynelgun-afk/ai-portfolio-experiment)'
 
 
 def _normal_name(value):
@@ -68,6 +70,63 @@ def _filing_context(text, claim):
     return [snippet for _, snippet in sorted(matches)]
 
 
+def _sec_report_period(cik, filing, get_submissions=None):
+    """Resolve the fiscal period from the exact SEC accession, never filing year."""
+    links = [filing.get('link'), filing.get('finalLink')]
+    accession = None
+    for link in links:
+        match = re.search(r'/Archives/edgar/data/\d+/(\d{18})(?:/|$)', str(link or ''))
+        if match:
+            accession = match.group(1)
+            break
+    if not accession:
+        return None
+    payload = (get_submissions(cik) if get_submissions else requests.get(
+        f'{SEC_ROOT}/submissions/CIK{str(cik).zfill(10)}.json',
+        headers={'User-Agent': SEC_USER_AGENT, 'Accept-Encoding': 'gzip, deflate'}, timeout=20
+    ).json())
+    recent = payload.get('filings', {}).get('recent', {}) if isinstance(payload, dict) else {}
+    accessions = recent.get('accessionNumber', [])
+    for index, value in enumerate(accessions):
+        if str(value).replace('-', '') != accession:
+            continue
+        forms = recent.get('form', [])
+        dates = recent.get('reportDate', [])
+        form = forms[index] if index < len(forms) else None
+        report_date = dates[index] if index < len(dates) else None
+        if form not in ANNUAL_FORMS or not isinstance(report_date, str) or not re.fullmatch(r'\d{4}-\d{2}-\d{2}', report_date):
+            return None
+        return {'accession': str(value), 'form': form, 'report_date': report_date,
+                'fiscal_year': int(report_date[:4])}
+    return None
+
+
+def _download_sec_filing(url):
+    """Read a bounded primary filing document from SEC EDGAR only."""
+    from urllib.parse import urlsplit
+    parts = urlsplit(str(url or ''))
+    if (parts.scheme != 'https' or parts.hostname not in {'www.sec.gov', 'sec.gov'} or
+            not parts.path.startswith('/Archives/edgar/data/')):
+        raise ValueError('Filing URL is not an SEC EDGAR archive document')
+    with requests.get(url, headers={'User-Agent': SEC_USER_AGENT,
+            'Accept-Encoding': 'gzip, deflate', 'Accept': 'text/html,application/xhtml+xml,application/xml'},
+            timeout=30, stream=True, allow_redirects=False) as response:
+        if response.is_redirect:
+            raise ValueError('SEC filing URL unexpectedly redirected')
+        response.raise_for_status()
+        content_type = response.headers.get('Content-Type', '').lower()
+        if content_type and not any(kind in content_type for kind in ('html', 'xml', 'text/plain')):
+            raise ValueError('SEC filing is not a readable document')
+        chunks=[]; size=0
+        for chunk in response.iter_content(131072):
+            if not chunk: continue
+            size += len(chunk)
+            if size > MAX_FILING_BYTES:
+                raise ValueError('SEC filing exceeded the bounded document size')
+            chunks.append(chunk)
+        return b''.join(chunks).decode(response.encoding or 'utf-8', errors='replace')
+
+
 def _matching_symbol(company_name, proposed_symbol=None, fmp=market_data.fmp):
     rows = []
     if isinstance(proposed_symbol, str) and proposed_symbol.strip():
@@ -88,7 +147,7 @@ def _matching_symbol(company_name, proposed_symbol=None, fmp=market_data.fmp):
     return None, None
 
 
-def issuer_filing_evidence(claim, *, fmp=market_data.fmp, get_report=None):
+def issuer_filing_evidence(claim, *, fmp=market_data.fmp, get_report=None, get_submissions=None):
     """Return dated annual issuer-report evidence linked to its official SEC filing."""
     company_name = str(claim.get('company_name') or '').strip()
     if not company_name:
@@ -102,33 +161,32 @@ def issuer_filing_evidence(claim, *, fmp=market_data.fmp, get_report=None):
         end = date.today().isoformat()
         filings = fmp('sec-filings-search/symbol', symbol=symbol,
             **{'from': start, 'to': end, 'page': 0, 'limit': 100}, allow_empty=True)
-        eligible = [row for row in filings if row.get('formType') in {'10-K', '20-F', '40-F'}
+        eligible = [row for row in filings if row.get('formType') in ANNUAL_FORMS
                     and row.get('filingDate') and (row.get('finalLink') or row.get('link'))]
         if not eligible:
             return {**claim, 'symbol': symbol, 'issuer_status': 'no_recent_periodic_filing'}
         filing = max(eligible, key=lambda row: row['filingDate'])
         filing_date = str(filing['filingDate'])[:10]
         filing_url = filing.get('finalLink') or filing.get('link')
-        year_match = re.search(r'(?:19|20)\d{2}', filing_url.rsplit('/', 1)[-1])
-        report_year = int(year_match.group()) if year_match else int(filing_date[:4])
-        if get_report is None:
-            key = os.environ.get('FMP_API_KEY', '').strip()
-            if not key:
-                return {**claim, 'symbol': symbol, 'issuer_status': 'filing_provider_key_unavailable'}
-            response = requests.get('https://financialmodelingprep.com/stable/financial-reports-json',
-                params={'symbol': symbol, 'year': report_year, 'period': 'FY', 'apikey': key}, timeout=30)
-            response.raise_for_status()
-            report = response.json()
-        else:
-            report = get_report(symbol, report_year, 'FY')
-        if not isinstance(report, dict):
+        filing_cik = str(filing.get('cik') or '').strip()
+        if filing_cik.isdigit() and filing_cik.zfill(10) != cik.zfill(10):
+            return {**claim, 'symbol': symbol, 'issuer_status': 'filing_issuer_mismatch'}
+        period = _sec_report_period(cik, filing, get_submissions)
+        if not period or period['form'] != filing.get('formType'):
+            return {**claim, 'symbol': symbol, 'issuer_status': 'filing_period_unverified'}
+        report_year = period['fiscal_year']
+        report = get_report(filing_url) if get_report else _download_sec_filing(filing_url)
+        if not isinstance(report, (str, dict)):
             return {**claim, 'symbol': symbol, 'issuer_status': 'filing_content_unavailable'}
-        text = _filing_text(__import__('json').dumps(report, ensure_ascii=False))
+        text = _filing_text(report if isinstance(report, str) else
+                            __import__('json').dumps(report, ensure_ascii=False))
         contexts = _filing_context(text, claim)
         return {**claim, 'symbol': symbol, 'issuer_status': 'filing_retrieved',
             'issuer_name': profile.get('companyName'), 'cik': cik.zfill(10), 'filing_form': filing.get('formType'),
             'filing_date': filing_date, 'filing_url': filing_url,
-            'filing_data_source': 'FMP extracted SEC annual filing',
+            'filing_accession': period['accession'], 'filing_period_end': period['report_date'],
+            'filing_fiscal_year': report_year,
+            'filing_data_source': 'Exact SEC EDGAR primary filing document',
             'filing_contexts': contexts, 'filing_has_relevant_context': bool(contexts)}
     except Exception:
         return {**claim, 'issuer_status': 'filing_unavailable'}

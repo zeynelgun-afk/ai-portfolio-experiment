@@ -249,6 +249,7 @@ def collect(symbol, moment, previous=None, fetch=None):
         changes[period] = {key: {'previous': old.get(key), 'current': value,
                                  'change_pct': 100*(value-old[key])/abs(old[key]) if isinstance(value,(int,float)) and isinstance(old.get(key),(int,float)) and old[key] != 0 else None}
                            for key, value in current.items() if key != 'reportedCurrency'}
+        changes[period]['reportedCurrency'] = current.get('reportedCurrency') or old.get('reportedCurrency')
         revenue_change=changes[period].get('revenueAvg',{})
         revenue_pct=revenue_change.get('change_pct')
         changes[period]['direction'] = ('up' if isinstance(revenue_pct,(int,float)) and revenue_pct>0 else

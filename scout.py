@@ -145,7 +145,10 @@ def theme_telegram_section(radar):
     lines.append('Bu sıralamalar araştırma ipucudur; tek başına alım kararı değildir.')
     lines.append('🔎 Tema araştırma adayları (inceleme içindir; alım sinyali değildir):')
     if not fresh:
-        lines.append('Haber, öne çıkan sektör ve 20/60 seans göreli güç koşullarını geçen yeni aday yok.')
+        if radar.get('theme_analysis_status') == 'unavailable':
+            lines.append('Tema/haber değerlendirmesi bu turda tamamlanamadı; yeni adayların durumu belirsiz. Önceki doğrulanmış kayıtlar geçmiş gözlemlerde korunuyor.')
+        else:
+            lines.append('Haber, öne çıkan sektör ve 20/60 seans göreli güç koşullarını geçen yeni aday yok.')
         return '\n'.join(lines)
     article_map={row['id']:row for row in radar.get('news',[]) if row.get('id')}
     theme_map={theme['name']:theme for theme in radar.get('themes',[])}

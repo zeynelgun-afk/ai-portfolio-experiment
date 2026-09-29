@@ -62,15 +62,26 @@ class CompanyExposureTests(unittest.TestCase):
                 return [{'companyName': 'Coherent Corp.', 'cik': '0000820318'}]
             if endpoint == 'sec-filings-search/symbol':
                 return [{'formType': '10-K', 'filingDate': '2026-08-20',
-                         'finalLink': 'https://www.sec.gov/Archives/edgar/data/820318/cohr-20260630.htm'}]
+                         'cik':'0000820318',
+                         'finalLink': 'https://www.sec.gov/Archives/edgar/data/820318/000082031826000123/cohr-10k.htm'}]
             raise AssertionError(endpoint)
         report = {'business': 'Coherent supplies optical transceivers and EML lasers to datacom customers.'}
         claim = {'company_name': 'Coherent Corp.', 'symbol': 'COHR', 'component': 'EML lasers',
                  'product': 'optical transceivers', 'role': 'supplies components'}
+        requested_year=[]
+        def get_report(url):
+            requested_year.append(url)
+            return report
         evidence = company_exposure.issuer_filing_evidence(claim, fmp=fmp,
-                    get_report=lambda symbol, year, period: report)
+                    get_report=get_report,
+                    get_submissions=lambda cik:{'filings':{'recent':{
+                        'accessionNumber':['0000820318-26-000123'],'form':['10-K'],
+                        'reportDate':['2025-06-30']}}})
         self.assertEqual(evidence['issuer_status'], 'filing_retrieved')
-        self.assertEqual(evidence['filing_url'], 'https://www.sec.gov/Archives/edgar/data/820318/cohr-20260630.htm')
+        self.assertEqual(evidence['filing_url'], 'https://www.sec.gov/Archives/edgar/data/820318/000082031826000123/cohr-10k.htm')
+        self.assertEqual(evidence['filing_fiscal_year'],2025)
+        self.assertEqual(evidence['filing_period_end'],'2025-06-30')
+        self.assertEqual(requested_year,[evidence['filing_url']])
         self.assertTrue(evidence['filing_contexts'])
         quote = evidence['filing_contexts'][0]
         verified = company_exposure.validate_issuer_verifications([{
@@ -82,6 +93,31 @@ class CompanyExposureTests(unittest.TestCase):
             'symbol': 'COHR', 'verification_status': 'verified',
             'filing_evidence_quote': 'A fabricated issuer filing claim of sufficient length.'}], [evidence])
         self.assertEqual(rejected, [])
+
+    def test_filing_year_is_not_guessed_from_calendar_filing_date(self):
+        def fmp(endpoint, **kwargs):
+            if endpoint == 'profile': return [{'companyName':'Coherent Corp.','cik':'0000820318'}]
+            if endpoint == 'sec-filings-search/symbol': return [{'formType':'10-K',
+                'filingDate':'2026-08-20','finalLink':'https://www.sec.gov/Archives/edgar/data/820318/000082031826000123/form10k.htm'}]
+            raise AssertionError(endpoint)
+        result=company_exposure.issuer_filing_evidence({'company_name':'Coherent Corp.','symbol':'COHR'},
+            fmp=fmp,get_submissions=lambda cik:{'filings':{'recent':{'accessionNumber':[], 'form':[], 'reportDate':[]}}})
+        self.assertEqual(result['issuer_status'],'filing_period_unverified')
+
+    def test_20f_is_verified_from_its_exact_sec_document_and_report_period(self):
+        def fmp(endpoint, **kwargs):
+            if endpoint == 'profile': return [{'companyName':'Example Ltd.','cik':'0000820318'}]
+            if endpoint == 'sec-filings-search/symbol': return [{'formType':'20-F',
+                'filingDate':'2026-08-20','finalLink':'https://www.sec.gov/Archives/edgar/data/820318/000082031826000123/report.htm'}]
+            raise AssertionError(endpoint)
+        requested=[]
+        result=company_exposure.issuer_filing_evidence({'company_name':'Example Ltd.','symbol':'EXM'},fmp=fmp,
+            get_submissions=lambda cik:{'filings':{'recent':{'accessionNumber':['0000820318-26-000123'],
+                'form':['20-F'],'reportDate':['2025-12-31']}}},
+            get_report=lambda url:requested.append(url) or '<html><p>Example makes optical transceivers and laser systems.</p></html>')
+        self.assertEqual(result['issuer_status'],'filing_retrieved')
+        self.assertEqual(result['filing_period_end'],'2025-12-31')
+        self.assertEqual(requested,[result['filing_url']])
 
     def test_exposure_candidates_enter_research_inbox_only_when_verified(self):
         radar = {'candidates': [], 'news': []}

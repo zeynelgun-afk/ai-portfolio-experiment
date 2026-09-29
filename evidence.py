@@ -89,7 +89,8 @@ def ledger(data, observed_at, origin):
             for field in ('epsAvg','revenueAvg'):
                 change=changes.get(field,{})
                 name = 'eps' if field == 'epsAvg' else 'revenue'
-                for suffix, value, unit in (('', change.get('current'), 'USD/share' if name == 'eps' else 'USD'),
+                currency=changes.get('reportedCurrency') or 'provider-reported currency'
+                for suffix, value, unit in (('', change.get('current'), f'{currency}/share' if name == 'eps' else currency),
                                             ('_revision_pct', change.get('change_pct'), '% vs prior observed consensus')):
                     if value is None:
                         continue

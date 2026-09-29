@@ -551,10 +551,15 @@ def merge_snapshot(result, previous=None):
     prior_symbols = {row.get('symbol') for row in prior_latest.get('candidates', [])
                      if isinstance(row, dict)}
     snapshot = dict(result)
-    for row in snapshot.get('candidates', []):
-        row['pool_status'] = 'continued' if row.get('symbol') in prior_symbols else 'new'
-    current_symbols = {row.get('symbol') for row in snapshot.get('candidates', [])}
-    snapshot['no_longer_confirmed'] = sorted(s for s in prior_symbols - current_symbols if s)
+    if snapshot.get('theme_analysis_status') == 'unavailable':
+        # A failed analysis cannot confirm disappearance from the pool.
+        snapshot['no_longer_confirmed'] = []
+        snapshot['pool_comparison_status'] = 'unknown_analysis_unavailable'
+    else:
+        for row in snapshot.get('candidates', []):
+            row['pool_status'] = 'continued' if row.get('symbol') in prior_symbols else 'new'
+        current_symbols = {row.get('symbol') for row in snapshot.get('candidates', [])}
+        snapshot['no_longer_confirmed'] = sorted(s for s in prior_symbols - current_symbols if s)
     observations = OrderedDict()
     for item in previous.get('observations', []):
         if isinstance(item, dict) and item.get('as_of'):

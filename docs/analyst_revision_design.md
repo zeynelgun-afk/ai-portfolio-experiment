@@ -91,6 +91,11 @@ does not establish that one analyst upgraded, because identities and individual 
 changes are not supplied. Prospective events receive separate 20/60/120-session outcome
 records; they do not become trade instructions.
 
+Estimate amounts preserve FMP's reported currency in the evidence ledger. If the provider
+omits currency, the unit remains explicitly unknown instead of being labeled USD.
+Next-session-close cohorts start all candidate and benchmark paths at that session's
+close; the observation-time quote is not reused as an entry price.
+
 ## Proposed measurements
 
 - Compare each firm's latest eligible target with its own preceding dated target;

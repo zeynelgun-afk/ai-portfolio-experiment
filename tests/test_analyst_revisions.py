@@ -183,6 +183,14 @@ class Collection(unittest.TestCase):
         self.assertEqual(report['estimate_changes']['periods']['2027-09-30']['epsAvg']['change_pct'], 10)
         self.assertIsNone(report['estimate_changes']['periods']['2028-09-30']['epsAvg']['change_pct'])
 
+    def test_estimate_revision_preserves_provider_reported_currency(self):
+        prior={'observed_at':(NOW-timedelta(days=1)).isoformat(), 'estimates':{
+            '2027-12-31':{'revenueAvg':100,'reportedCurrency':'EUR'}}}
+        fetch=Mock(side_effect=[sample(),[{'symbol':'SAP','date':'2027-12-31',
+            'revenueAvg':110,'reportedCurrency':'EUR'}]])
+        report=ar.collect('SAP',NOW,prior,fetch)
+        self.assertEqual(report['estimate_changes']['periods']['2027-12-31']['reportedCurrency'],'EUR')
+
     def test_revenue_estimate_snapshot_change_is_same_fiscal_year_not_analyst_breadth(self):
         baseline={'symbol':'SPCX','observed_at':(NOW-timedelta(days=32)).isoformat(),
             'estimates_status':'ok','estimates':{'2027-12-31':{'revenueAvg':100,'numAnalystsRevenue':8}}}

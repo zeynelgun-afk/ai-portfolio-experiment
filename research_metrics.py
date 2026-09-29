@@ -122,7 +122,12 @@ def score(cohort, histories):
             prices={}
             paths={}
             for ticker in symbols:
-                entry=row.get('entry_price') if ticker==symbol else cohort.get('benchmarks',{}).get(ticker,{}).get('price')
+                if row.get('entry_mode')=='next_session_close':
+                    # The baseline is the next session's close for every series;
+                    # using observation-time quotes here would leak pre-entry movement.
+                    entry=None
+                else:
+                    entry=row.get('entry_price') if ticker==symbol else cohort.get('benchmarks',{}).get(ticker,{}).get('price')
                 path=_daily_values(histories.get(ticker),baseline,end,entry)
                 if path:
                     paths[ticker]=path;prices[ticker]=path['wealth_multiple']

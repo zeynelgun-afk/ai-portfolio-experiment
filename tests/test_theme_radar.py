@@ -83,6 +83,17 @@ class ThemeRadarTests(unittest.TestCase):
         self.assertEqual(third['latest']['no_longer_confirmed'],['AAA','BBB'])
         self.assertEqual(len(third['observations']),3)
 
+    def test_analysis_outage_does_not_retire_prior_candidates_or_claim_pool_is_empty(self):
+        prior=theme_radar.merge_snapshot({'as_of':'2026-09-26','observed_at':'t1',
+            'candidates':[{'symbol':'AAA'}]})
+        failed=theme_radar.merge_snapshot({'as_of':'2026-10-03','observed_at':'t2',
+            'theme_analysis_status':'unavailable','candidates':[]},prior)
+        self.assertEqual(failed['latest']['no_longer_confirmed'],[])
+        self.assertEqual(failed['latest']['pool_comparison_status'],'unknown_analysis_unavailable')
+        text=scout.theme_telegram_section(failed['latest'])
+        self.assertIn('durumu belirsiz',text)
+        self.assertNotIn('geçen yeni aday yok',text)
+
     def test_story_links_must_cite_supplied_article_and_leading_industry(self):
         radar={'news':[{'id':'a1'}],'leading_industries':[{'industry':'Semiconductors'}],
                'candidates':[{'symbol':'AAA','industry':'Semiconductors'}]}

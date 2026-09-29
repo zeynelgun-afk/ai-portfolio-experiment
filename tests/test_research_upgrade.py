@@ -118,6 +118,16 @@ class StatementEvidence(unittest.TestCase):
 
 
 class Attribution(unittest.TestCase):
+    def test_consensus_estimate_evidence_uses_provider_currency(self):
+        row={'analyst_revisions':{'observed_at':OPEN.isoformat(),
+            'estimate_changes':{'previous_observed_at':(OPEN-timedelta(days=7)).isoformat(),
+                'periods':{'2027-12-31':{'reportedCurrency':'EUR',
+                    'revenueAvg':{'current':1000,'change_pct':5},
+                    'epsAvg':{'current':2.5,'change_pct':4}}}}}}
+        facts=evidence.ledger({'SAP':row},OPEN.isoformat(),'test')
+        self.assertEqual(facts['SAP.analyst_revenue_20271231']['unit'],'EUR')
+        self.assertEqual(facts['SAP.analyst_eps_20271231']['unit'],'EUR/share')
+
     def test_unmatured_data_has_no_success_label(self):
         cohort={'round_id':'r','observed_at':OPEN.isoformat(),'candidates':{'AMD':{'entry_price':100,'decision':'BUY','channels':['dislocation']}},'benchmarks':{'SPY':{'price':100},'SMH':{'price':100}}}
         dates=metrics._session_days(OPEN.date(),121)
@@ -135,6 +145,18 @@ class Attribution(unittest.TestCase):
         frame=pd.DataFrame({'Close':[105]*len(dates)},index=pd.to_datetime(dates))
         result=metrics.score(cohort,{'SPY':frame,'SMH':frame})
         self.assertEqual(result['results'],[]);self.assertEqual(len(result['pending']),3)
+
+    def test_next_session_close_baseline_excludes_observation_to_entry_move(self):
+        dates=metrics._session_days(OPEN.date(),121)
+        histories={}
+        for symbol,baseline,end in [('AMD',110,120),('SPY',210,220),('SMH',310,330)]:
+            values=[baseline+(end-baseline)*i/20 for i in range(21)] + [end]*100
+            histories[symbol]=pd.DataFrame({'raw_close':values,'total_close':values},index=pd.to_datetime(dates))
+        cohort={'round_id':'r','observed_at':OPEN.isoformat(),'candidates':{
+            'AMD':{'entry_price':100,'entry_mode':'next_session_close','decision':'WATCH','channels':['theme']}},
+            'benchmarks':{'SPY':{'price':200},'SMH':{'price':300}}}
+        row=next(item for item in metrics.score(cohort,histories)['results'] if item['horizon_sessions']==20)
+        self.assertAlmostEqual(row['return_pct'],100*(120/110-1))
     def test_exposure_reports_loss_scenarios_without_changing_book(self):
         before=copy.deepcopy(BOOK);report=metrics.exposure(BOOK,quotes())
         self.assertLess(report['all_positions_down_20pct_equity_impact_pct'],0)
