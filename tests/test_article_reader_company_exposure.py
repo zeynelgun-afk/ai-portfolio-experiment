@@ -34,6 +34,14 @@ class ArticleReaderTests(unittest.TestCase):
 
 
 class CompanyExposureTests(unittest.TestCase):
+    def test_sec_contact_is_required_and_never_guesses_a_contact(self):
+        import os
+        with patch.dict(os.environ,{},clear=True):
+            with self.assertRaisesRegex(RuntimeError,'SEC_CONTACT_EMAIL'):
+                company_exposure._sec_headers()
+        with patch.dict(os.environ,{'SEC_CONTACT_EMAIL':'research@example.org'}):
+            self.assertIn('research@example.org',company_exposure._sec_headers()['User-Agent'])
+
     def test_article_quote_gate_rejects_excerpt_and_invented_quotes(self):
         quote = 'The company supplies EML laser components for optical transceivers.'
         radar = {'news': [{'id': 'a1', 'content_read_status': 'provider_excerpt_only',
@@ -103,6 +111,17 @@ class CompanyExposureTests(unittest.TestCase):
         result=company_exposure.issuer_filing_evidence({'company_name':'Coherent Corp.','symbol':'COHR'},
             fmp=fmp,get_submissions=lambda cik:{'filings':{'recent':{'accessionNumber':[], 'form':[], 'reportDate':[]}}})
         self.assertEqual(result['issuer_status'],'filing_period_unverified')
+
+    def test_missing_sec_contact_prevents_live_claim_verification(self):
+        import os
+        def fmp(endpoint, **kwargs):
+            if endpoint == 'profile': return [{'companyName':'Coherent Corp.','cik':'0000820318'}]
+            if endpoint == 'sec-filings-search/symbol': return [{'formType':'10-K',
+                'filingDate':'2026-08-20','finalLink':'https://www.sec.gov/Archives/edgar/data/820318/000082031826000123/a.htm'}]
+            raise AssertionError(endpoint)
+        with patch.dict(os.environ,{},clear=True):
+            result=company_exposure.issuer_filing_evidence({'company_name':'Coherent Corp.','symbol':'COHR'},fmp=fmp)
+        self.assertEqual(result['issuer_status'],'sec_contact_unconfigured')
 
     def test_20f_is_verified_from_its_exact_sec_document_and_report_period(self):
         def fmp(endpoint, **kwargs):

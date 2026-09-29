@@ -1,6 +1,7 @@
 """Resolve article-named companies and gather dated issuer filing evidence."""
 from html.parser import HTMLParser
 from datetime import date, timedelta
+import os
 import re
 
 import requests
@@ -14,7 +15,7 @@ ANNUAL_FORMS = {'10-K', '20-F', '40-F'}
 COMPONENT_TERMS = ('optical', 'transceiver', 'photonics', 'laser', 'EML',
                    'indium phosphide', 'silicon photonics', 'digital signal processor',
                    'printed circuit board', 'mSAP', 'data center', 'datacom', 'optical module')
-SEC_USER_AGENT = 'AI-Portfolio-Experiment research (https://github.com/zeynelgun-afk/ai-portfolio-experiment)'
+SEC_USER_AGENT_PREFIX = 'AI-Portfolio-Experiment research'
 
 
 def _normal_name(value):
@@ -83,7 +84,7 @@ def _sec_report_period(cik, filing, get_submissions=None):
         return None
     payload = (get_submissions(cik) if get_submissions else requests.get(
         f'{SEC_ROOT}/submissions/CIK{str(cik).zfill(10)}.json',
-        headers={'User-Agent': SEC_USER_AGENT, 'Accept-Encoding': 'gzip, deflate'}, timeout=20
+        headers=_sec_headers(), timeout=20
     ).json())
     recent = payload.get('filings', {}).get('recent', {}) if isinstance(payload, dict) else {}
     accessions = recent.get('accessionNumber', [])
@@ -101,6 +102,19 @@ def _sec_report_period(cik, filing, get_submissions=None):
     return None
 
 
+def _sec_headers():
+    email = os.environ.get('SEC_CONTACT_EMAIL', '').strip()
+    if not re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+', email):
+        raise RuntimeError('SEC_CONTACT_EMAIL is not configured')
+    return {'User-Agent': f'{SEC_USER_AGENT_PREFIX} {email}',
+            'Accept-Encoding': 'gzip, deflate'}
+
+
+def _has_sec_contact():
+    return bool(re.fullmatch(r'[^\s@]+@[^\s@]+\.[^\s@]+',
+                             os.environ.get('SEC_CONTACT_EMAIL', '').strip()))
+
+
 def _download_sec_filing(url):
     """Read a bounded primary filing document from SEC EDGAR only."""
     from urllib.parse import urlsplit
@@ -108,8 +122,8 @@ def _download_sec_filing(url):
     if (parts.scheme != 'https' or parts.hostname not in {'www.sec.gov', 'sec.gov'} or
             not parts.path.startswith('/Archives/edgar/data/')):
         raise ValueError('Filing URL is not an SEC EDGAR archive document')
-    with requests.get(url, headers={'User-Agent': SEC_USER_AGENT,
-            'Accept-Encoding': 'gzip, deflate', 'Accept': 'text/html,application/xhtml+xml,application/xml'},
+    with requests.get(url, headers={**_sec_headers(),
+            'Accept': 'text/html,application/xhtml+xml,application/xml'},
             timeout=30, stream=True, allow_redirects=False) as response:
         if response.is_redirect:
             raise ValueError('SEC filing URL unexpectedly redirected')
@@ -171,10 +185,14 @@ def issuer_filing_evidence(claim, *, fmp=market_data.fmp, get_report=None, get_s
         filing_cik = str(filing.get('cik') or '').strip()
         if filing_cik.isdigit() and filing_cik.zfill(10) != cik.zfill(10):
             return {**claim, 'symbol': symbol, 'issuer_status': 'filing_issuer_mismatch'}
+        if get_submissions is None and not _has_sec_contact():
+            return {**claim, 'symbol': symbol, 'issuer_status': 'sec_contact_unconfigured'}
         period = _sec_report_period(cik, filing, get_submissions)
         if not period or period['form'] != filing.get('formType'):
             return {**claim, 'symbol': symbol, 'issuer_status': 'filing_period_unverified'}
         report_year = period['fiscal_year']
+        if get_report is None and not _has_sec_contact():
+            return {**claim, 'symbol': symbol, 'issuer_status': 'sec_contact_unconfigured'}
         report = get_report(filing_url) if get_report else _download_sec_filing(filing_url)
         if not isinstance(report, (str, dict)):
             return {**claim, 'symbol': symbol, 'issuer_status': 'filing_content_unavailable'}

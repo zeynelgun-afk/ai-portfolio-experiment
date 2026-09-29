@@ -248,6 +248,9 @@ def refresh_theme_research_inbox():
         result = attach_theme_links(result, analysis.get('themes', []))
         result = attach_company_exposures(result, analysis.get('company_exposures', []))
         result['unverified_company_exposure_leads'] = analysis.get('unverified_company_exposure_leads', [])
+        if any(row.get('verification_status') == 'sec_contact_unconfigured'
+               for row in result['unverified_company_exposure_leads']):
+            alerts.append('⚠️ AI Portföy — SEC tedarikçi doğrulaması yapılmadı; GitHub Actions içinde SEC_CONTACT_EMAIL ayarı gerekiyor. Doğrulanmamış iddia aday havuzuna alınmadı.')
     except Exception:
         result['themes'] = []
         result['theme_analysis_status'] = 'unavailable'
