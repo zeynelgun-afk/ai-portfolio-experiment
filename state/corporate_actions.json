@@ -1,0 +1,24 @@
+{
+  "baseline_date": "2026-09-29",
+  "checked_through": "2026-09-29",
+  "events": {},
+  "receivables": {},
+  "identities": {
+    "AMD": {
+      "identifier": "US0079031078",
+      "currency": "USD"
+    },
+    "ANET": {
+      "identifier": "US0404132054",
+      "currency": "USD"
+    },
+    "MU": {
+      "identifier": "US5951121038",
+      "currency": "USD"
+    },
+    "NVDA": {
+      "identifier": "US67066G1040",
+      "currency": "USD"
+    }
+  }
+}

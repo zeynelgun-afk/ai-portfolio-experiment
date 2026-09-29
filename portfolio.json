@@ -128,5 +128,17 @@
       "amount_usd": 15000.0,
       "note": "AI accelerator leadership - above the 50d average, momentum strong, earnings 73 days out"
     }
-  ]
+  ],
+  "benchmark_total_return_basis": {
+    "SPY": {
+      "date": "2026-09-28",
+      "value_usd": 99258.42376155472,
+      "provider": "FMP"
+    },
+    "SMH": {
+      "date": "2026-09-28",
+      "value_usd": 104220.87509336298,
+      "provider": "FMP"
+    }
+  }
 }
