@@ -1,5 +1,32 @@
 # System test report — 28 September 2026
 
+## Decision lifecycle extension — 29 September 2026
+
+- 348 automated tests passed. Added coverage includes claim-to-position escalation,
+  executable falsifiers, review expiry, evidence-bound condition changes, positive
+  triggers, moving-average references, durable material-event replay prevention,
+  unchanged holdings on HOLD stop updates, split-adjusted monitors and retry obligations.
+- Prompt contract evaluation, Python compilation, actionlint, dashboard generation and
+  generated JavaScript syntax validation passed. Production portfolio state was not
+  changed by these tests.
+- Isolated real-provider probes collected FMP evidence and called the production deep
+  model. They exposed numeric-provenance false rejections for known claim labels and
+  moving-average condition identifiers; narrow label handling and regressions fix these.
+  Numeric factual claims still require bound evidence.
+- The final live probe passed the main decision/monitor schema and reached independent
+  semantic review. That reviewer failed exact-source citation validation after retries.
+  No decision was accepted and no execution or Telegram test message was sent. Thus
+  live end-to-end acceptance is NOT verified; offline passing tests do not establish
+  investment correctness. Failed reviews stay pending for a subsequent scheduled run.
+- Analyst target revision research is documented in `docs/analyst_revision_design.md`.
+  Read-only MU target summary/news access was verified; no analyst trading signal,
+  scoring weights or predictive-performance claim was enabled.
+- Exact normalized news text is deduplicated across republication and regrouping;
+  paraphrased reports of the same event can still need stronger semantic deduplication.
+  Financial event identities are per metric, fiscal date, value and unit, not globally
+  per filing. Existing legacy monitors are migrated through validated reassessment,
+  not by inventing thresholds in a code migration.
+
 ## Scope and evidence boundaries
 
 Baseline: `f9e4fce`; concurrent README-only commits were preserved. Tests covered data

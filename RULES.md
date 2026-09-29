@@ -59,6 +59,16 @@ and no mandatory threshold:
 One condition takes the place of the rules: **the rationale is written down.**
 Doing nothing is also a decision, and it is written down too.
 
+## Decision lifecycle — owner-authorized 29 September 2026
+
+A newly invalid claim or multiple weakened claims opens whole-position review.
+Each new decision carries executable falsifier conditions and a review deadline of at
+most one week; expiry requests fresh review, not a forced trade. Thesis text and monitors
+are versioned together. Both supportive and adverse evidence can request review.
+Moving-average conditions use measured current averages. Changing/removing old thresholds
+requires changed non-price evidence and an explicit explanation; a falling price alone
+cannot excuse moving the threshold. Decision history retains the previous and new states.
+
 ## Decision moments
 
 There are two kinds of decision round, and both carry the same obligation to account for
@@ -84,7 +94,9 @@ integrity constraints:**
   is filtered out at the cost of one cycle; a genuine crash is still caught within 60
   minutes.
 - **The arithmetic is validated:** cash cannot go negative, more shares than are held
-  cannot be sold, and the same direction cannot be traded twice in one day. These do not
+  cannot be sold, and repeated execution of the same material event is forbidden. The same-direction
+  daily lock remains the default; a separately verified new news/report event may reopen
+  a decision after fresh review, with event identities recorded in the fill ledger. These do not
   judge the decision; they only say "this trade cannot be done with these numbers".
 - **Numbers are audited.** Every figure in the AI's commentary must appear in the data it
   was given or be derivable from it (`number_audit.py`). A figure written from memory is

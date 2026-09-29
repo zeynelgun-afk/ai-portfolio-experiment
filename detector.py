@@ -140,7 +140,7 @@ def collect_live_data(symbols, earnings_fallback=None):
 
     joined = " ".join(symbols)
     daily = _retry("daily series", lambda: yf.download(
-        joined, period="120d", interval="1d", auto_adjust=False, progress=False))
+        joined, period="2y", interval="1d", auto_adjust=False, progress=False))
     if daily is None:
         raise RuntimeError("Daily data unavailable — no series for any symbol")
 
@@ -198,6 +198,9 @@ def collect_live_data(symbols, earnings_fallback=None):
         earnings_date = _earnings_date(yf, symbol, earnings_fallback, providers)
         result[symbol] = {
             "price": round(price, 4),
+            "price_date": closes.index[-1].date().isoformat(),
+            "sma50": float(closes.iloc[-50:].mean()) if len(closes)>=50 else None,
+            "sma200": float(closes.iloc[-200:].mean()) if len(closes)>=200 else None,
             "previous_close": round(previous_close, 4),
             "volume": volume,
             "volume_avg_20d": volume_avg_20d,
@@ -264,10 +267,17 @@ def measure(condition, symbol, data, stop, today):
                 'below' if kind == 'fundamental_below' else 'above',
                 f"{condition['metric']} {fact['value']} {fact['unit']} ({fact['as_of']}; {fact['source']})")
 
-    if kind == "price_below":
+    if kind in {'price_below_sma50_pct','price_above_sma50_pct','price_below_sma200_pct','price_above_sma200_pct'}:
+        metric=kind.split('_')[2]
+        average=row.get(metric)
+        if price is None or not average or average<=0:return None
+        value=100*(price/average-1)
+        return value,float(condition['value']),'below' if '_below_' in kind else 'above',f"price relative to current {metric}: {value:+.2f}%"
+
+    if kind in {"price_below", "price_above"}:
         if price is None:
             return None
-        return price, float(condition["value"]), "below", f"price {price:.2f}"
+        return price, float(condition["value"]), "above" if kind == "price_above" else "below", f"price {price:.2f}"
 
     if kind == "stop_proximity_pct":
         if price is None or not stop:
@@ -283,21 +293,21 @@ def measure(condition, symbol, data, stop, today):
         ratio = volume / average
         return round(ratio, 2), float(condition["value"]), "above", f"volume {ratio:.1f}x"
 
-    if kind == "daily_change_pct":
+    if kind in {"daily_change_pct", "daily_change_above_pct"}:
         previous = row.get("previous_close")
         if price is None or not previous:
             return None
         change = (price / previous - 1) * 100
-        return (round(change, 2), float(condition["value"]), "below",
+        return (round(change, 2), float(condition["value"]), "above" if kind == "daily_change_above_pct" else "below",
                 f"daily change {change:+.1f}%")
 
-    if kind == "sector_etf_change_pct":
+    if kind in {"sector_etf_change_pct", "sector_etf_above_pct"}:
         etf = condition.get("symbol", "SMH")
         row_etf = data.get(etf, {})
         if row_etf.get("price") is None or not row_etf.get("previous_close"):
             return None
         change = (row_etf["price"] / row_etf["previous_close"] - 1) * 100
-        return (round(change, 2), float(condition["value"]), "below",
+        return (round(change, 2), float(condition["value"]), "above" if kind == "sector_etf_above_pct" else "below",
                 f"{etf} {change:+.1f}%")
 
     if kind == "earnings_approaching":
@@ -384,7 +394,7 @@ def in_cooldown(cooldown, key, moment):
     stamp = cooldown.get(key)
     if not stamp:
         return False
-    if key.startswith("fundamental:"):
+    if key.startswith(("fundamental:","event:")):
         return True
     try:
         last = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
@@ -420,7 +430,7 @@ Every completed verdict needs exact citations from the supplied source texts."""
             raise ValueError('Invalid news impact')
         if not isinstance(payload['claim_ids'],list) or not set(payload['claim_ids']) <= claim_ids:
             raise ValueError('Unknown affected claim')
-        if payload['impact']=='invalidates' and not payload['claim_ids']:
+        if payload['impact'] in {'invalidates','supports'} and not payload['claim_ids']:
             raise ValueError('Invalidation must name an affected claim')
         if any(not isinstance(payload[k],str) or not payload[k].strip() for k in ('reasoning','counterevidence','uncertainty')):
             raise ValueError('Missing news reasoning or uncertainty')
@@ -433,10 +443,10 @@ Every completed verdict needs exact citations from the supplied source texts."""
     report['source_documents']=sources
     if report['impact']=='uncertain':
         return None, report
-    return report['impact']=='invalidates', report
+    return report['impact'] in {'invalidates','supports'}, report
 
 
-def run(theses, data, stops, previous_state, cooldown, moment, full_review=False, last_news=None, new_last_news=None, assess_news=True):
+def run(theses, data, stops, previous_state, cooldown, moment, full_review=False, last_news=None, new_last_news=None, assess_news=True, initialize_monitors=False):
     """Measure conditions; optionally assess unseen news using the news model."""
     today = moment.date()
     state, triggered, flags = {}, [], []
@@ -471,7 +481,7 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
                             "symbol": symbol,
                             "claim_id": "news_shock",
                             "severity": "thesis",
-                            "condition_type": "sentiment",
+                            "condition_type": "sentiment_support" if isinstance(shock_detail,dict) and shock_detail.get("impact")=="supports" else "sentiment",
                             "measured": 1,
                             "threshold": 0,
                             "trigger": shock_detail.get("reasoning", "News thesis invalidation") if isinstance(shock_detail,dict) else shock_detail,
@@ -492,9 +502,9 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
                 previous = previous_state.get(key, {})
                 measured = measure(condition, symbol, data, stops.get(symbol), today)
                 if measured is None:
-                    if condition.get('type', '').startswith('fundamental_'):
+                    if condition.get('type', '').startswith('fundamental_') or '_sma' in condition.get('type',''):
                         measurement_errors.append({'symbol':symbol, 'claim_id':claim['id'],
-                                                   'metric':condition.get('metric'), 'error':'fundamental evidence unavailable/stale or unit mismatch'})
+                                                   'metric':condition.get('metric'), 'error':'monitored evidence unavailable/stale or unit mismatch'})
                     # An unmeasurable condition keeps its previous state; "no data" is
                     # not a breach.
                     if previous:
@@ -540,11 +550,11 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
                     continue
                 lock = f"thesis:{symbol}" if severity == "thesis" else claim["id"]
                 if condition.get('type','').startswith('fundamental_'):
-                    import hashlib
                     from fundamentals import measured_fact
                     fact = measured_fact(condition, row, today)
-                    signature = hashlib.sha256(json.dumps([fact['as_of'],fact['value'],fact['unit'],condition],sort_keys=True).encode()).hexdigest()[:20]
-                    lock = f"fundamental:{claim['id']}:{signature}"
+                    import decision_lifecycle as lifecycle
+                    material=lifecycle.event_id(symbol,'financial_report',[condition['metric'],fact['as_of'],fact['value'],fact['unit']])
+                    lock='event:'+material
                 if in_cooldown(cooldown, lock, moment):
                     record["cooldown"] = True
                     continue
@@ -553,12 +563,35 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
                     "claim_id": claim["id"],
                     "severity": severity,
                     "condition_type": condition["type"],
+                    "metric": condition.get("metric"),
                     "measured": value,
                     "threshold": threshold,
                     "trigger": detail,
                     "cooldown_key": lock,
                 })
 
+    import decision_lifecycle as lifecycle
+    for symbol,position in theses.items():
+        if symbol.startswith('_'):continue
+        if initialize_monitors and not position.get('monitoring'):
+            triggered.append({'symbol':symbol,'claim_id':'monitoring_migration','severity':'thesis',
+                'condition_type':'monitoring_migration','measured':1,'threshold':0,
+                'trigger':'Legacy decision needs executable falsifier and review deadline; no threshold is invented',
+                'cooldown_key':'migration:'+symbol})
+        if position.get('pending_review'):
+            triggered.append(position['pending_review'])
+        monitoring=position.get('monitoring',{})
+        due=monitoring.get('next_review_at')
+        if due and moment >= datetime.fromisoformat(due.replace('Z','+00:00')):
+            triggered.append({'symbol':symbol,'claim_id':'decision_expired','severity':'thesis',
+                'condition_type':'review_deadline','measured':1,'threshold':0,
+                'trigger':'Decision review deadline reached: '+due,
+                'cooldown_key':'deadline:'+lifecycle.event_id(symbol,'deadline',due)})
+    for item in triggered:
+        events=lifecycle.material_events(item,data)
+        if events:
+            item['material_event_ids']=events
+            item['material_event_id']=events[0]
     code = 0
     if triggered:
         code = max(SEVERITY_CODE[item["severity"]] for item in triggered)
@@ -567,6 +600,7 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
 
     return {
         "checked_at": iso(moment),
+        "lifecycle_version": 1,
         "market_open": market_open(moment),
         "full_review": full_review,
         "code": code,
@@ -611,14 +645,14 @@ def main():
                 for position in theses.values() if isinstance(position, dict)
                 for claim in position.get("claims", [])
                 for condition in claim.get("conditions", [])
-                if condition.get("type") == "sector_etf_change_pct"}
+                if condition.get("type") in {"sector_etf_change_pct", "sector_etf_above_pct"}}
         symbols = sorted({k for k in theses if not k.startswith("_")} | etfs)
         data = collect_live_data(symbols, earnings_fallback)
         import fundamentals
         for symbol, position in theses.items():
             if symbol.startswith('_') or symbol not in data:
                 continue
-            if any(c.get('type','').startswith('fundamental_') for claim in position.get('claims',[]) for c in claim.get('conditions',[])):
+            if not position.get('monitoring') or any(c.get('type','').startswith('fundamental_') for claim in position.get('claims',[]) for c in claim.get('conditions',[])):
                 data[symbol]['fundamental_research'] = fundamentals.collect(symbol, moment)
 
     violations_path = os.path.join(args.state_dir, "violations.json")
@@ -631,7 +665,7 @@ def main():
     new_last_news = last_news.copy()
 
     report = run(theses, data, stops, previous, cooldown, moment, args.full_review, last_news, new_last_news,
-                 assess_news=not args.dry_run)
+                 assess_news=not args.dry_run, initialize_monitors=True)
     report["data"] = {symbol: data.get(symbol, {}) for symbol in sorted(data)}
     report["news_previous"] = last_news
 

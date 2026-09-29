@@ -132,6 +132,14 @@ class PipelineTest(unittest.TestCase):
                      'claim_statuses':{'MU-1':'weakened'},
                      'decision':{'action':'TRIM','shares':2,'reasoning':'Risk increased.',
                                  'falsifier':'Recovery above support.'}}
+            claims=json.loads(json.dumps(thesis['MU']['claims']))
+            for claim in claims:
+                claim['status']=payload['claim_statuses'][claim['id']]
+                claim['text']='Current evidence weakens the thesis.'
+                for key in ('last_updated','trigger'):claim.pop(key,None)
+            payload['monitoring']={'claims':claims,'next_review_at':'2026-09-29T15:00:00+00:00',
+                'falsifier_condition':{'claim_id':claims[0]['id'],'condition_index':0},
+                'change_reason':'Keep the existing threshold while reassessing current evidence.', 'evidence_ids':['MU.price']}
             with patch.object(reassess, '_single_call', return_value=(json.dumps(payload),False)):
                 decisions,_=reassess.thesis_flow(thesis, report, book, MOMENT, 'test','key',
                    {'week':'test','calls':0},False,str(state/'notes.md'),str(state/'pending_decision.json'))
@@ -179,7 +187,7 @@ class PromptContractTest(unittest.TestCase):
         import prompt_eval
         report=prompt_eval.evaluate()
         self.assertTrue(report['passed'], report['checks'])
-        self.assertEqual(len(report['prompts']),20)
+        self.assertEqual(len(report['prompts']),21)
 
     def test_shared_policy_reaches_model_system_message(self):
         captured=[]

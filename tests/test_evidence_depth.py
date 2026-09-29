@@ -48,7 +48,7 @@ class FundamentalMonitoring(unittest.TestCase):
             report=detector.run(thesis(),data,{},previous,{},NOW,assess_news=False)
             previous=report['conditions']
         hit=report['triggered'][0];lock=hit['cooldown_key']
-        self.assertTrue(lock.startswith('fundamental:'))
+        self.assertTrue(lock.startswith('event:'))
         repeat=detector.run(thesis(),data,{},previous,{lock:NOW.isoformat()},NOW,assess_news=False)
         self.assertEqual(repeat['triggered'],[])
         data['MU']['fundamental_research']['facts']['operating_margin_pct']['as_of']='2026-09-01'
@@ -146,6 +146,14 @@ class CorporateAccounting(unittest.TestCase):
             self.assertEqual(theses['MU']['claims'][0]['conditions'][0]['value'],90/ratio)
             again,_,_,changes=ca.reconcile(book,theses,state,[event],NOW.date())
             self.assertEqual(again,book);self.assertEqual(changes,[])
+
+    def test_split_rescales_active_monitors_and_requests_revalidation(self):
+        import copy
+        self.theses['MU']['claims'][0].update(text='Price supports thesis.',status='valid')
+        self.theses['MU']['monitoring']={'claims':copy.deepcopy(self.theses['MU']['claims'])}
+        _,theses,_,_=ca.reconcile(self.book,self.theses,self.state,[self.split],NOW.date())
+        self.assertEqual(theses['MU']['monitoring']['claims'][0]['conditions'][0]['value'],45)
+        self.assertEqual(theses['MU']['pending_review']['condition_type'],'split_revalidation')
 
     def test_dividend_entitlement_survives_sale_and_pays_once(self):
         book,theses,state,_=ca.reconcile(self.book,self.theses,self.state,[self.div],NOW.date())

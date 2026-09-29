@@ -98,7 +98,7 @@ def number(value):
 # ------------------------------------------------------------------------ validation
 
 
-def validate(decision, portfolio, data, market_is_open, locks, today, price_source=LIVE_SOURCE):
+def validate(decision, portfolio, data, market_is_open, locks, today, price_source=LIVE_SOURCE, authorized_events=None):
     """Returns (executable, rejection_reason, details). Never judges the decision itself."""
     symbol = decision.get("symbol")
     action = decision.get("action")
@@ -123,7 +123,16 @@ def validate(decision, portfolio, data, market_is_open, locks, today, price_sour
     direction = "SELL" if action in ("SELL", "TRIM") else action
     lock = f"{today.isoformat()}:{symbol}:{direction}"
     legacy_trim = f"{today.isoformat()}:{symbol}:TRIM"
-    if lock in locks or (direction == "SELL" and legacy_trim in locks):
+    event_ids=decision.get('event_ids',[])
+    if not isinstance(event_ids,list) or any(not isinstance(e,str) for e in event_ids):
+        return False,'Invalid event identities',{}
+    authorized=set(authorized_events or [])
+    if event_ids and not set(event_ids)<=authorized:
+        return False,'Event identity is not supported by this measurement',{}
+    fresh_events=[e for e in event_ids if f"event:{symbol}:{e}" not in locks]
+    if event_ids and not fresh_events:
+        return False,'Material event already executed',{}
+    if not fresh_events and (lock in locks or (direction == "SELL" and legacy_trim in locks)):
         return False, f"a trade in the same direction already happened today ({lock})", {}
 
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
@@ -219,6 +228,8 @@ def execute(decision, portfolio, details, moment, source="intraday_autonomous"):
         "source": source,
         "note": decision.get("reasoning", "")[:400],
     }
+    if decision.get('event_ids'):
+        record['event_ids']=decision['event_ids']
     portfolio.setdefault("trade_history", []).append(record)
     portfolio["last_updated"] = moment.date().isoformat()
     return record
@@ -330,18 +341,32 @@ def main():
     # Recover the lock if a previous process saved the portfolio and then crashed
     # before saving trade_lock.json. The ledger must prevent replay on its own.
     for trade in portfolio.get("trade_history", []):
+        for ident in trade.get('event_ids',[]):
+            locks[f"event:{trade['symbol']}:{ident}"]=trade.get('time_utc','recorded')
         if trade.get("source") in {"intraday_autonomous", "weekly_autonomous"} and trade.get("date") == today.isoformat():
             direction = "SELL" if trade.get("action") in ("SELL", "TRIM") else trade.get("action")
             locks[f"{today.isoformat()}:{trade['symbol']}:{direction}"] = trade.get("time_utc", "recorded")
     executed, rejected = [], []
+    monitoring_changed=False
 
     for decision in decisions:
         row = data.get(decision.get("symbol"), {})
         if market_is_open and decision.get("action") != "HOLD" and not recent(row.get("price_at"), moment):
             raise RuntimeError("Trade refused: missing, stale or future price timestamp")
         ok, reason, details = validate(decision, portfolio, data, market_is_open, locks,
-                                       today)
+                                       today, authorized_events=[ident for t in violations.get('triggered',[]) if t.get('symbol')==decision.get('symbol') for ident in t.get('material_event_ids',([t['material_event_id']] if t.get('material_event_id') else []))])
         label = f"{decision.get('symbol')} {decision.get('action')}"
+        if not ok and decision.get('action')=='HOLD' and decision.get('new_stop') is not None:
+            stop=number(decision['new_stop'])
+            holding=next((p for p in portfolio['positions'] if p['symbol']==decision.get('symbol')),None)
+            if not stop or stop<=0 or holding is None:
+                raise ValueError('Invalid HOLD monitoring update')
+            if not args.dry_run and holding.get('stop_weekly_close')!=stop:
+                if not executed and not monitoring_changed:
+                    write_json(snapshot_path,read_json(PORTFOLIO_PATH,portfolio))
+                holding['stop_weekly_close']=stop
+                monitoring_changed=True
+                reason='HOLD; exit reference updated to '+str(stop)+'; no shares traded'
         if not ok:
             print(f"SKIP {label}: {reason}")
             rejected.append((decision, reason))
@@ -357,6 +382,8 @@ def main():
         record['price_provider'] = row.get('price_provider', 'unknown')
         details["recorded_action"] = record["action"]
         locks[details["lock"]] = iso(moment)
+        for ident in decision.get('event_ids',[]):
+            locks[f"event:{decision['symbol']}:{ident}"]=iso(moment)
         executed.append((decision, details))
         print(f"DONE {label}: {record['shares']} shares × {record['price']} $ "
               f"= {record['amount_usd']} $ · cash {portfolio['cash_usd']} $")
@@ -364,7 +391,7 @@ def main():
     if args.dry_run:
         return 0
 
-    if executed:
+    if executed or monitoring_changed:
         write_json(PORTFOLIO_PATH, portfolio)
         write_json(lock_path, locks)
     write_log(moment, executed, rejected)
@@ -385,6 +412,7 @@ def main():
             f"{d['symbol']} {x['recorded_action']} {x['shares']:.4f}@{x['price']:.2f}"
             for d, x in executed) or "none"
         with open(gh_output, "a", encoding="utf-8") as handle:
+            handle.write(f"monitoring_changed={str(monitoring_changed).lower()}\n")
             handle.write(f"trade_count={len(executed)}\n")
             handle.write(f"trade_summary={summary}\n")
             handle.write(f"rejected_count={len(rejected)}\n")

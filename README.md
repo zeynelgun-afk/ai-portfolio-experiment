@@ -351,3 +351,40 @@ Costs/slippage and exceptional corporate events remain explicit limitations.
 Endpoints and adjustment conventions follow the [FMP API catalogue](https://site.financialmodelingprep.com/developer/docs)
 and [historical price API guide](https://site.financialmodelingprep.com/how-to/fmp-historical-price-apis-from-light-charts-to-dividendadjusted-analysis).
 The separate, non-GitHub watchdog remains deferred at the owner's request.
+
+
+## Decision lifecycle (29 September 2026)
+
+Claim reassessment now escalates a newly invalid claim or multiple weakened claims to a
+whole-position decision in the same run. Failed deep reviews remain pending for retry.
+Legacy decisions request an initial monitoring review; the migration does not invent
+financial thresholds or force trades. Both adverse and supportive news can open review.
+
+Every production decision response must supply a complete claims/conditions replacement,
+an executable falsifier reference, issuer-specific evidence IDs, an old/new explanation
+and a future review deadline within one week. HOLD has the same requirements. Expiry
+opens review even if no price threshold crossed. A non-HOLD proposal made outside a
+session stays marked for fresh session reassessment; stale orders are never replayed.
+
+Price relative to the current SMA50/SMA200 can be monitored as a percentage, avoiding
+frozen moving-average price thresholds. Completed daily bars supply the averages.
+Removing or changing existing conditions, or lowering an exit reference, requires
+changed non-price evidence. The independent model reviews the proposed change against
+the previous state; this remains fallible semantic judgement, not a truth guarantee.
+HOLD can update its reviewed exit reference without creating a fictitious fill.
+
+`state/decision_history.json` retains before/after decision snapshots. Weekly history is
+written in the same atomic bundle as its portfolio/thesis update. Intraday history and
+source artifacts retain the rationale, monitored conditions and review deadline.
+Telegram includes the changed evidence, resulting decision, falsifier and next review.
+
+Daily directional locks still apply to ordinary price/review events. A verified new
+news/report event can reopen the same direction after another full decision review.
+Code supplies event IDs; the model cannot authorize its own exception. Executed IDs are
+retained in the fill ledger for crash recovery, including across dates. Exact repeated
+news text is deduplicated across publication URLs and batch groupings; semantic
+paraphrases are not guaranteed to be the same detected event. Session, freshness,
+nonnegative cash and owned-share checks still apply. No condition mandates a trade.
+
+Analyst target revision momentum is a separate design proposal in
+[docs/analyst_revision_design.md](docs/analyst_revision_design.md), not an activated rule.

@@ -590,6 +590,27 @@ function measure(condition, symbol) {
   const threshold = condition.value !== undefined ? condition.value : condition.days;
 
   switch (condition.type) {
+    case "price_above":
+    case "daily_change_above_pct":
+    case "sector_etf_above_pct": {
+      const current = condition.type === "sector_etf_above_pct" ? live?.[condition.symbol || "SMH"] : quote;
+      const value = condition.type === "price_above" ? current?.price : current?.changePercentage;
+      return {label: "positive review signal",threshold: ">" + fmt(threshold),
+        value: value === undefined ? "—" : fmt(value), state: "na",
+        note: "Supports reassessment; never an automatic buy or an invalid thesis."};
+    }
+    case "price_below_sma50_pct":
+    case "price_above_sma50_pct":
+    case "price_below_sma200_pct":
+    case "price_above_sma200_pct": {
+      const average=condition.type.includes("sma200") ? quote?.priceAvg200 : quote?.priceAvg50;
+      const value=quote && average > 0 ? (quote.price/average-1)*100 : null;
+      const below=condition.type.includes("_below_");
+      return {label: "distance from current " + (condition.type.includes("sma200") ? "200d" : "50d"),
+        threshold:(below ? "<" : ">")+fmt(threshold)+"%",value:value===null ? "—" : pct(value),
+        state:value===null || !below ? "na" : (value<threshold ? "hit" : "ok"),
+        note:"Moving reference, recalculated from current data; server confirmation is required."};
+    }
     case "fundamental_below":
     case "fundamental_above":
       return { label: condition.metric.replaceAll("_", " "),
@@ -1101,6 +1122,13 @@ function renderCards() {
       card.append(drift);
     }
 
+    const review = document.createElement("p");
+    review.className="stamp";
+    review.textContent=position.monitoring?.next_review_at
+      ? "Next decision review: " + position.monitoring.next_review_at
+        + (Date.parse(position.monitoring.next_review_at)<=Date.now() ? " · due for reassessment" : "")
+      : "Executable decision monitoring: awaiting scheduled assessment";
+    card.append(review);
     /* claims */
     for (const claim of position.claims) {
       const block = document.createElement("div"); block.className = "claim";

@@ -30,6 +30,7 @@ Usage:
 import argparse
 import json
 import os
+import copy
 import sys
 import time
 import urllib.error
@@ -264,9 +265,9 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
         if source_ledger is not None:
             try:
                 payload = evidence.render_payload(payload, source_ledger)
-            except (ValueError, TypeError, AttributeError):
+            except (ValueError, TypeError, AttributeError) as error:
                 last_status = "invalid_evidence"
-                messages.append({"role": "user", "content": "Evidence validation failed. Use only exact SOURCE_LEDGER references for numeric facts; no raw numeric prose."})
+                messages.append({"role": "user", "content": "Evidence validation failed: "+str(error)[:240]+". Use only existing SOURCE_LEDGER IDs. Describe chosen thresholds qualitatively in prose; keep their numbers in condition.value. Rewrite old numeric text rather than copying it."})
                 continue
 
         if audit_sources and source_ledger is None:
@@ -296,6 +297,7 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
                 response_validator(payload)
             except (ValueError, TypeError, KeyError, AttributeError) as error:
                 last_status = "invalid_schema"
+                print("  SCHEMA REJECTED: "+str(error)[:240])
                 messages.append({"role": "user", "content": "Proposal validation failed: " + str(error)[:240] + ". Correct the JSON proposal; preserve evidence references."})
                 continue
         return payload, "ok"
@@ -396,7 +398,15 @@ Schema:
    "reasoning": "<why this decision — tied to the triggering data>",
    "falsifier": "<what I would have to see to know this decision was wrong>"
  },
- "saturday_note": "<a note to carry into the weekly round; empty string if none>"}
+ "saturday_note": "<a note to carry into the weekly round; empty string if none>",
+ "monitoring": {
+   "claims": [{"id":"<existing claim id>","text":"<rewritten evidence-based claim>",
+     "status":"valid|weakened|invalid","conditions":[{"type":"price_below","value":100,"severity":"thesis"}]}],
+   "next_review_at":"<future ISO timestamp with timezone>",
+   "falsifier_condition":{"claim_id":"<monitored claim id>","condition_index":0},
+   "change_reason":"<why conditions change or stay unchanged>",
+   "evidence_ids":["<supplied issuer-specific fact or news ID>"]
+ }}
 
 TRIM = sell part of the position (give shares). SELL = sell all of it (shares = every
 share held). BUY = add to the position (amount_usd, at most the available cash)."""
@@ -535,6 +545,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
     model with the full context; rewriting the same claim afterwards with the fast model
     would only narrow that context.
     """
+    import decision_lifecycle as lifecycle
     data = violations.get("data", {})
     blocked = {item["symbol"] for item in violations.get("measurement_errors", [])}
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
@@ -606,8 +617,13 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             violations.setdefault('assessment_errors',[]).append(claim['id'])
             updated.append(claim['id'])
             continue
+        before={c['id']:c.get('status') for c in position.get('claims',[])}
         mark_claim(claim, payload["status"], trigger.get("trigger"), moment,
                    str(payload["text"]).strip())
+        promoted=lifecycle.escalation(symbol,position,before)
+        if promoted:
+            position['pending_review']=promoted
+            violations.setdefault('escalations',[]).append(promoted)
         updated.append(claim["id"])
         print(f"OK {claim['id']} -> {payload['status']}")
     return updated, counter
@@ -616,6 +632,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
 def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, dry_run,
                 notes_path, decision_path):
     """Thesis level: re-evaluate the whole position, produce an executable decision."""
+    import decision_lifecycle as lifecycle
     data = violations.get("data", {})
     blocked = {item["symbol"] for item in violations.get("measurement_errors", [])}
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
@@ -647,18 +664,27 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
             continue
         prompt = thesis_prompt(symbol, position, triggers, data, holdings.get(symbol),
                               cash, moment)
+        prompt += "\nCOMPLETE PREVIOUS THESIS AND CONDITIONS:\n"+json.dumps(position)
+        prompt += "\n"+lifecycle.INSTRUCTION+"\nPut monitoring at the top level of the response."
+        def validate_monitor(payload):
+            if violations.get('lifecycle_version')==1 or 'monitoring' in payload:
+                lifecycle.validate_monitoring(payload.get('monitoring'),symbol,position,data,evidence_for(data,violations,symbol),moment, holdings.get(symbol,{}).get('stop_weekly_close'),payload.get('decision',{}).get('new_stop'))
+                if payload.get('claim_statuses')!={c['id']:c['status'] for c in payload['monitoring']['claims']}:
+                    raise ValueError('Claim statuses must match the complete monitoring claims')
         if dry_run:
             print(f"--- thesis prompt for {symbol} ({model}) ---\n{prompt}\n")
             continue
+        # Persist the review obligation until both model and evidence checks pass.
+        position['pending_review']=dict(triggers[0],severity='thesis')
         # The thesis level is not gated by the budget (see the module docstring); the
         # call is still counted.
         counter["calls"] += 1
         previous_texts = tuple(c.get("text", "") for c in position.get("claims", []))
         payload, status = call_llm(
-            model, SYSTEM_THESIS, prompt, api_key,
+            model, SYSTEM_THESIS+"\n"+lifecycle.INSTRUCTION+"\nPut monitoring at the top level.", prompt, api_key,
             audit_sources=(prompt, position.get("thesis_summary", "")) + previous_texts,
             audit_scope=thesis_audit_scope,
-            source_ledger=evidence_for(data, violations, symbol))
+            source_ledger=evidence_for(data, violations, symbol), response_validator=validate_monitor)
         trigger_text = "; ".join(dict.fromkeys(
             item.get("trigger", "") for item in triggers))
 
@@ -679,7 +705,7 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
         try:
             from claim_evidence import semantic_review
             counter['calls'] += 1
-            review = semantic_review(payload, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
+            review = semantic_review({'proposal':payload,'previous_thesis':position,'review_focus':'Require new non-price evidence for threshold changes; compare before and after and verify the falsifier maps to the referenced condition.'}, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
                             api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'review':review})
         except ValueError as error:
@@ -688,6 +714,18 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
             for claim in position.get('claims',[]):
                 mark_claim(claim,'unassessed','Semantic evidence review incomplete',moment)
             continue
+        try:
+            validate_monitor(payload)
+            monitor=lifecycle.validate_monitoring(payload['monitoring'],symbol,position,data,evidence_for(data,violations,symbol),moment) if payload.get('monitoring') else None
+        except (ValueError,TypeError,KeyError) as error:
+            violations.setdefault('assessment_errors',[]).append(symbol)
+            position['pending_review']=dict(triggers[0],severity='thesis')
+            continue
+        previous=copy.deepcopy(position)
+        if monitor:
+            position['claims']=copy.deepcopy(monitor['claims'])
+            position['monitoring']=monitor
+        position.pop('pending_review',None)
         statuses = payload.get("claim_statuses") or {}
         for claim in position.get("claims", []):
             proposed = statuses.get(claim["id"])
@@ -723,10 +761,17 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                 "trigger": trigger_text,
                 "thesis_assessment": str(payload["thesis_assessment"]).strip(),
                 "model": model,
+                "event_ids": sorted({ident for t in triggers for ident in t.get('material_event_ids',([t['material_event_id']] if t.get('material_event_id') else []))}),
                 "time": iso(moment),
             })
             print(f"OK {symbol} thesis re-evaluated -> decision: {action}")
 
+        if action:
+            if action!='HOLD' and not violations.get('market_open',False):
+                position['pending_review']=dict(triggers[0],severity='thesis',trigger='Deferred outside session; reassess with fresh data: '+trigger_text)
+            violations.setdefault('decision_changes',[]).append({'symbol':symbol,'action':action,'time':iso(moment),
+                'trigger':trigger_text,'reasoning':decision['reasoning'],'falsifier':decision['falsifier'],
+                'before':previous,'after':copy.deepcopy(position)})
         saturday_note = str(payload.get("saturday_note", "")).strip()
         body = [f"**Trigger:** {trigger_text}",
                 "", f"**Thesis assessment:** {payload['thesis_assessment']}"]
@@ -798,15 +843,16 @@ def main():
                       if item.get("severity") == "thesis"}
     thesis_claims = {claim["id"] for symbol in thesis_symbols
                      for claim in theses.get(symbol, {}).get("claims", [])}
-    if args.code >= 20:
-        decisions, counter = thesis_flow(theses, violations, portfolio, moment, deep,
-                                         api_key, counter, args.dry_run, notes_path,
-                                         decision_path)
-    # A single run can trip both levels; both are processed.
     if (args.code >= 10 or args.full_review) and not budget_spent:
         updated, counter = claim_flow(theses, violations, portfolio, moment, fast,
                                       api_key, counter, limit, args.dry_run,
                                       args.full_review, skip=thesis_claims)
+    promoted=violations.get('escalations',[])
+    violations.setdefault('triggered',[]).extend(promoted)
+    if args.code >= 20 or promoted:
+        decisions, counter = thesis_flow(theses, violations, portfolio, moment, deep,
+                                         api_key, counter, args.dry_run, notes_path,
+                                         decision_path)
 
     if args.dry_run:
         return 0
@@ -823,13 +869,18 @@ def main():
         for decision in decisions:
             cooldown[f"thesis:{decision['symbol']}"] = iso(moment)
         for item in violations.get('triggered', []):
-            if item.get('cooldown_key','').startswith('fundamental:'):
+            if item.get('cooldown_key','').startswith(('fundamental:','event:')):
                 successful = (item['claim_id'] in updated or any(d['symbol']==item['symbol'] for d in decisions))
                 failed = item['symbol'] in violations.get('assessment_errors',[]) or item['claim_id'] in violations.get('assessment_errors',[])
                 if successful and not failed:
                     cooldown[item['cooldown_key']] = iso(moment)
         write_json(cooldown_path, cooldown)
     write_json(counter_path, counter)
+    if violations.get('decision_changes'):
+        import decision_lifecycle as lifecycle
+        from execute_trade import read_json as strict_read
+        history_path=os.path.join(args.state_dir,'decision_history.json')
+        write_json(history_path,lifecycle.history_update(strict_read(history_path,{}),violations['decision_changes']))
     write_json(os.path.join(args.state_dir, "violations.json"), violations)
     write_json(os.path.join(BASE, "output", "intraday_evidence.json"), {
         "measurement": violations,

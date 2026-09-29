@@ -265,6 +265,16 @@ class EndToEndTest(unittest.TestCase):
             self.assertIn("market is closed", log)
             self.assertIn("DECISION NOT EXECUTED", notes)
 
+    def test_hold_updates_exit_reference_without_a_fill(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            state = self.build(temporary, [decision("HOLD", new_stop=800)])
+            with open(et.PORTFOLIO_PATH) as handle:before=json.load(handle)
+            self.assertEqual(self.invoke(state),0)
+            with open(et.PORTFOLIO_PATH) as handle:after=json.load(handle)
+            self.assertEqual(after['cash_usd'],before['cash_usd'])
+            self.assertEqual(after['trade_history'],before['trade_history'])
+            self.assertEqual(next(p for p in after['positions'] if p['symbol']=='MU')['stop_weekly_close'],800)
+
     def test_dry_run_changes_nothing(self):
         with tempfile.TemporaryDirectory() as temporary:
             state = self.build(temporary, [decision("TRIM", shares=10)])

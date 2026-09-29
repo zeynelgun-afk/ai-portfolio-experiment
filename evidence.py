@@ -87,12 +87,15 @@ def ledger(data, observed_at, origin):
     return facts
 
 
-def render(text, facts):
+def render(text, facts, claim_ids=()):
     if not isinstance(text, str):
         raise ValueError('Evidence prose must be text')
     stripped = REFERENCE.sub('', text)
+    for ident in claim_ids:
+        stripped=re.sub(r'(?<![A-Za-z0-9_-])'+re.escape(ident)+r'(?![A-Za-z0-9_-])','',stripped)
     # Indicator names are parameters, not asserted measured values.
     stripped = re.sub(r'\b(?:SMA(?:50|200)|RSI\(14\)|(?:50|200)(?:[- ]day|d))\b', '', stripped)
+    stripped = re.sub(r'\bprice_(?:below|above)_sma(?:50|200)_pct\b', '', stripped)
     if re.search(r'\d', stripped) or '{{' in stripped or '}}' in stripped:
         raise ValueError('Raw numeric claim or malformed evidence reference')
     def expand(match):
@@ -110,13 +113,25 @@ def render(text, facts):
 def render_payload(payload, facts):
     """Render only prose fields; decision parameters stay numeric and executable."""
     result = copy.deepcopy(payload)
+    issuers={fact['symbol'] for fact in facts.values()}
+    claim_ids=set()
+    def identifiers(value):
+        if isinstance(value,dict):
+            for claim in value.get('claims',[]) if isinstance(value.get('claims',[]),list) else []:
+                ident=claim.get('id') if isinstance(claim,dict) else None
+                if isinstance(ident,str) and any(re.fullmatch(re.escape(symbol)+r'-[A-Za-z0-9_-]{1,64}',ident) for symbol in issuers):
+                    claim_ids.add(ident)
+            for child in value.values():identifiers(child)
+        elif isinstance(value,list):
+            for child in value:identifiers(child)
+    identifiers(result)
     def visit(value):
         if isinstance(value, dict):
             for key, child in list(value.items()):
-                if isinstance(child, str) and key not in {'symbol', 'id', 'status', 'action', 'severity', 'type'}:
-                    value[key] = render(child, facts)
+                if isinstance(child, str) and key not in {'symbol', 'id', 'status', 'action', 'severity', 'type', 'next_review_at', 'claim_id'}:
+                    value[key] = render(child, facts, claim_ids)
                 elif key == 'sections':
-                    value[key] = {k: render(v, facts) for k, v in child.items()}
+                    value[key] = {k: render(v, facts, claim_ids) for k, v in child.items()}
                 else:
                     visit(child)
         elif isinstance(value, list):

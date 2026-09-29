@@ -109,6 +109,14 @@ def reconcile(book, theses, state, feed, today):
                         if condition.get('type')=='price_below':condition['value']/=ratio
                     claim['status']='unassessed'
                     claim['trigger']='Share split reconciled; revalidate text against the new share basis'
+                block=theses.get(symbol,{})
+                if block.get('monitoring'):
+                    import decision_lifecycle as lifecycle
+                    block['monitoring']['claims']=[{k:copy.deepcopy(c[k]) for k in ('id','text','status','conditions')} for c in block.get('claims',[])]
+                    block['monitoring']['revision']=lifecycle.digest(block['monitoring']['claims'])
+                    block['pending_review']={'symbol':symbol,'claim_id':'corporate_split','severity':'thesis',
+                        'condition_type':'split_revalidation','measured':ratio,'threshold':1,
+                        'trigger':'Share basis changed; revalidate decision and monitors', 'cooldown_key':'split:'+ident}
                 # cost_usd is invariant; raw trade history remains unchanged.
             changes.append({'event':event,'eligible_shares':shares})
         else:

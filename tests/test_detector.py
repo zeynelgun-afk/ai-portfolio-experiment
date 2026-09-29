@@ -338,13 +338,13 @@ class CliTest(unittest.TestCase):
 
     def test_fixed_data_runs_and_writes_state(self):
         process, files = self.invoke()
-        self.assertEqual(process.returncode, 0, process.stderr)  # hysteresis pending
+        self.assertEqual(process.returncode, 20, process.stderr)  # hysteresis pending
         self.assertIn("violations.json", files)
         self.assertIn("awaiting confirmation", process.stdout)
 
     def test_dry_run_writes_nothing(self):
         process, files = self.invoke("--dry-run")
-        self.assertEqual(process.returncode, 0, process.stderr)
+        self.assertEqual(process.returncode, 20, process.stderr)
         self.assertEqual(files, [])
 
     def test_two_consecutive_runs_trigger(self):
@@ -365,7 +365,8 @@ class CliTest(unittest.TestCase):
     def test_the_full_review_flag_raises_the_code(self):
         with tempfile.TemporaryDirectory() as temporary:
             process, _ = self.invoke("--full-review", state_dir=temporary)
-        self.assertEqual(process.returncode, 10, process.stdout + process.stderr)
+        self.assertEqual(process.returncode, 20, process.stdout + process.stderr)
+        self.assertIn("monitoring_migration",process.stdout)
 
 
 if __name__ == "__main__":

@@ -73,7 +73,7 @@ def validate_theses(theses, book, moment, data=None):
     symbols = {p['symbol'] for p in book['positions']}
     if not isinstance(theses, dict) or set(theses) != symbols:
         raise ValueError('Theses must match the final holdings exactly')
-    allowed = {'price_below', 'stop_proximity_pct', 'volume_ratio_20d',
+    allowed = {'price_below_sma50_pct','price_above_sma50_pct','price_below_sma200_pct','price_above_sma200_pct','price_below', 'price_above', 'daily_change_above_pct', 'sector_etf_above_pct', 'stop_proximity_pct', 'volume_ratio_20d',
                'daily_change_pct', 'sector_etf_change_pct', 'earnings_approaching', 'fundamental_below', 'fundamental_above'}
     ids = set()
     for symbol, block in theses.items():
@@ -109,13 +109,16 @@ def validate_theses(theses, book, moment, data=None):
                         raise ValueError('Fundamental condition needs supported metric and explicit unit')
                     if data is not None and measured_fact(condition,data.get(symbol,{}),moment.date()) is None:
                         raise ValueError('Fundamental condition has no fresh matching metric/unit evidence')
+                if '_sma' in kind and data is not None:
+                    average=number(data.get(symbol,{}).get(kind.split('_')[2]))
+                    if average is None or average<=0:raise ValueError('Moving-reference condition has no measured average')
                 field = 'days' if kind == 'earnings_approaching' else 'value'
                 val = number(condition.get(field))
-                if val is None or (kind in {'price_below', 'volume_ratio_20d'} and val <= 0):
+                if val is None or (kind in {'price_below', 'price_above', 'volume_ratio_20d'} and val <= 0):
                     raise ValueError('Invalid condition threshold')
                 if kind in {'earnings_approaching', 'stop_proximity_pct'} and val < 0:
                     raise ValueError('Negative condition distance')
-                if kind == 'sector_etf_change_pct' and condition.get('symbol') not in {'SMH', 'SPY'}:
+                if kind in {'sector_etf_change_pct','sector_etf_above_pct'} and condition.get('symbol') not in {'SMH', 'SPY'}:
                     raise ValueError('Unsupported sector benchmark')
             claim.update(last_updated=moment.isoformat(), trigger=None)
 
@@ -152,7 +155,7 @@ def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=F
                     not market_open(datetime.fromisoformat(row['price_at']))):
                 raise ValueError(f'{symbol}: stale or out-of-session execution quote')
     for decision in decisions:
-        if set(decision) - {'symbol', 'action', 'amount_usd', 'shares', 'new_stop', 'reasoning', 'falsifier'}:
+        if set(decision) - {'symbol', 'action', 'amount_usd', 'shares', 'new_stop', 'reasoning', 'falsifier', 'monitoring'}:
             raise ValueError('Unexpected decision fields')
         symbol = decision.get('symbol')
         if not isinstance(symbol, str) or not re.fullmatch(r'[A-Z][A-Z0-9.-]{0,9}', symbol) or symbol in seen:
@@ -198,6 +201,15 @@ def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=F
     lines += ['### Deterministic execution\n', '```json', json.dumps(fills, indent=2), '```']
     for d in decisions:
         lines += [f"\n**{d['symbol']} — {d['action']}**: {d['reasoning']}", f"Falsifier: {d['falsifier']}"]
+    for decision in decisions:
+        if decision.get('monitoring') and decision['symbol'] in theses:
+            import decision_lifecycle as lifecycle
+            symbol=decision['symbol']
+            facts=evidence.ledger(data,moment.isoformat(),'weekly_data/market_data')
+            monitor=lifecycle.validate_monitoring(decision['monitoring'],symbol,old_theses.get(symbol,{}),data,facts,moment, next((p.get('stop_weekly_close') for p in book['positions'] if p['symbol']==symbol),None),decision.get('new_stop'))
+            if monitor['claims'] != proposal['theses'][symbol]['claims']:
+                raise ValueError('Decision monitors and thesis claims must be identical')
+            theses[symbol]['monitoring']=monitor
     return result, theses, existing_log + '\n'.join(lines) + '\n'
 
 
@@ -228,7 +240,7 @@ def recover(root):
     if not path.exists():
         return False
     journal = read_json(str(path), None)
-    allowed = {'portfolio.json', 'theses.json', 'DECISION_LOG.md', 'state/pending_notes.md', 'state/watchlist.json', 'state/weekly_plan.json', 'state/research_observations.json', 'state/corporate_actions.json', 'CORPORATE_ACTIONS.md', 'state/violations.json'}
+    allowed = {'portfolio.json', 'theses.json', 'DECISION_LOG.md', 'state/pending_notes.md', 'state/watchlist.json', 'state/weekly_plan.json', 'state/research_observations.json', 'state/corporate_actions.json', 'CORPORATE_ACTIONS.md', 'state/violations.json', 'state/decision_history.json'}
     if set(journal['targets']) - allowed:
         raise ValueError('Unexpected transaction target')
     for name, target in journal['targets'].items():
@@ -348,18 +360,24 @@ def main():
         raise ValueError('Weekly decision API key is missing')
     old_theses = read_json(str(BASE/'theses.json'), {})
     original_log = (BASE/'DECISION_LOG.md').read_text()
+    import decision_lifecycle as lifecycle
+    context['NOW']=moment.isoformat()
+    context['monitoring_instruction']=lifecycle.INSTRUCTION
     def validate_proposal(payload):
+        for decision in payload.get('decisions',[]):
+            symbol=decision['symbol']
+            lifecycle.validate_monitoring(decision.get('monitoring'),symbol,old_theses.get(symbol,{}),data,facts,moment, next((p.get('stop_weekly_close') for p in book['positions'] if p['symbol']==symbol),None),decision.get('new_stop'))
         build_targets(payload, book, old_theses, data, moment, original_log,
                       preview=not args.execute_pending, quotes=quotes)
     (BASE/'output').mkdir(exist_ok=True)
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data})
     proposal, status = call_llm(os.environ.get('OPENROUTER_MODEL_WEEKLY') or 'anthropic/claude-opus-5.5',
-                                SYSTEM, json.dumps(context), key, source_ledger=facts,
+                                SYSTEM+"\n"+lifecycle.INSTRUCTION+"\nPut monitoring inside EACH decision; its claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
                                 response_validator=validate_proposal)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
     from claim_evidence import semantic_review
-    review = semantic_review(proposal, data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')
+    review = semantic_review({'proposal':proposal,'previous_theses':old_theses,'review_focus':'Compare old and new conditions; reject price-only excuses for changing thresholds.'}, data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data, 'proposal': proposal, 'semantic_review':review})
     if not args.execute_pending:
         build_targets(proposal, book, old_theses, data, moment, original_log, preview=True)
@@ -375,6 +393,12 @@ def main():
     quotes = live_quotes(symbols, decision_at)
     executed_at = datetime.now(timezone.utc)
     targets = build_targets(proposal, book, old_theses, data, executed_at, original_log, quotes=quotes, decision_at=decision_at)
+    final_theses=json.loads(targets['theses.json'])
+    changes=[{'symbol':d['symbol'],'action':d['action'],'time':executed_at.isoformat(),
+              'trigger':'Weekly research reassessed in-session','reasoning':d['reasoning'],
+              'falsifier':d['falsifier'],'before':old_theses.get(d['symbol'],{}),'after':final_theses.get(d['symbol'],{})} for d in proposal['decisions']]
+    history=lifecycle.history_update(read_json(str(BASE/'state/decision_history.json'),{}),changes)
+    targets['state/decision_history.json']=json.dumps(history,indent=2)+'\n'
     plan.update(status='executed', executed_at=executed_at.isoformat())
     targets['state/weekly_plan.json'] = json.dumps(plan, indent=2) + '\n'
     from research_metrics import observation, exposure
