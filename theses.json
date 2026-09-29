@@ -2,7 +2,7 @@
   "_meta": {
     "version": 1,
     "created": "2026-09-27T00:00Z",
-    "source": "DECISION_LOG.md #10 (26 September 2026) \u2014 the initial theses were derived from that round's sections C and D",
+    "source": "DECISION_LOG.md #10 (26 September 2026) — the initial theses were derived from that round's sections C and D",
     "note": "The Saturday round writes and refreshes this file (WEEKLY_INSTRUCTIONS.md step 8). During the week only reassess.py updates individual claims; it never changes the schema.",
     "severity_levels": "warning (flag only) < claim (rewrite the single claim) < thesis (re-evaluate the whole position)",
     "condition_types": {
@@ -49,9 +49,9 @@
             "severity": "claim"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       },
       {
         "id": "MU-2",
@@ -73,14 +73,14 @@
             "severity": "thesis"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       }
     ]
   },
   "AMD": {
-    "thesis_summary": "The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory \u2014 the thesis is strong but short-term pullback risk is high.",
+    "thesis_summary": "The NVDA alternative in AI accelerators. +24.9% above the 50-day average (504.71 $, 25 Sep 2026); RSI 73.0 puts it in overbought territory — the thesis is strong but short-term pullback risk is high.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
@@ -109,9 +109,9 @@
             "severity": "claim"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       },
       {
         "id": "AMD-2",
@@ -133,9 +133,9 @@
             "severity": "claim"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       }
     ]
   },
@@ -174,9 +174,9 @@
             "severity": "warning"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       }
     ]
   },
@@ -210,9 +210,9 @@
             "severity": "claim"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       },
       {
         "id": "NVDA-2",
@@ -234,9 +234,9 @@
             "severity": "warning"
           }
         ],
-        "status": "valid",
-        "last_updated": "2026-09-26T00:00Z",
-        "trigger": null
+        "status": "unassessed",
+        "last_updated": "2026-09-29T01:05Z",
+        "trigger": "2026-09-29T01:05Z, trigger: daily bulk review (no threshold crossed)"
       }
     ]
   }
