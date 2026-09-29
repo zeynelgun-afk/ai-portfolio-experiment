@@ -54,6 +54,28 @@ These are candidate signals: a decline does not establish undervaluation, and se
 membership does not prove a supply-chain bottleneck. Failed channels are explicit;
 FMP is primary and yfinance is used only where a compatible backup is mapped.
 
+Scout sends the current complete research pool to the AI Portföy Telegram channel on
+its first run, then sends a new complete list with added/removed symbols only when
+membership changes. Delivery state is stored in
+`state/telegram_watchlist_state.json`; an unchanged pool produces no duplicate alert.
+
+#### Cross-sector theme research inbox
+
+After Scout updates the decision watchlist, a separate read-only radar scans recent
+general news, daily industry performance, 20/60-session industry returns, and the
+largest screened companies in leading US industries. A company qualifies only when
+its 20- and 60-session total returns both exceed SPY and a cited news item is linked by
+the theme review to its measured industry. News/article IDs and provider dates are
+retained in `state/theme_research_inbox.json`; newly qualified names are also shown in
+the weekly Telegram report. This inbox is not merged into `state/watchlist.json` and
+does not issue trade decisions. Missing radar inputs send a Telegram failure alert.
+
+Industry performance and relative share-price strength are not direct fund-flow
+measurements. The story-to-industry link is an AI annotation whose article and
+industry IDs are checked against the supplied sources; this does not independently
+prove the interpretation is correct. Uncited or out-of-universe links are discarded.
+This is a discovery experiment, not a validated return edge.
+
 ### 2. Specialist research — Multi-Agent Research Team (`weekly_data.py`)
 
 Each analyst receives a separate, focused input dataset:
