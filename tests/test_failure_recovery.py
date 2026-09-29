@@ -42,6 +42,21 @@ class NewsRecoveryTest(unittest.TestCase):
         self.assertEqual(report['code'], 20)
         self.assertIn('MU', seen)
 
+    def test_large_news_backlog_is_processed_oldest_first_in_bounded_batches(self):
+        news = [{'title': str(day), 'publishedDate': f'2026-09-{day:02d}T12:00:00Z'}
+                for day in range(20, 28)]
+        seen = {}
+        with patch.object(detector, 'check_news_shock', return_value=(False, {})) as check:
+            detector.run({'MU': {'thesis_summary': 'test', 'claims': []}},
+                         {'MU': {'recent_news': news}}, {}, {}, {},
+                         datetime(2026, 9, 28, 15, tzinfo=timezone.utc),
+                         last_news={}, new_last_news=seen)
+        batch = check.call_args.args[2]
+        self.assertEqual(len(batch), detector.MAX_NEWS_PER_ASSESSMENT)
+        self.assertEqual(batch[0]['publishedDate'], '2026-09-20T12:00:00Z')
+        self.assertEqual(batch[-1]['publishedDate'], '2026-09-25T12:00:00Z')
+        self.assertEqual(seen['MU'], '2026-09-25T12:00:00Z')
+
     def test_timeout_is_not_a_negative_assessment(self):
         with patch.object(detector, 'env', return_value='test'), patch(
                 'urllib.request.urlopen', side_effect=TimeoutError('outage')):
@@ -128,3 +143,11 @@ class TelegramFailureTest(unittest.TestCase):
         opener = MagicMock(return_value=self.response())
         notify_failure.notify(dict(self.ENV, FAILED_STEPS_FILE='/nonexistent/steps'), opener)
         self.assertEqual(opener.call_count, 1)
+
+    def test_failure_alert_says_other_steps_may_have_completed(self):
+        opener = MagicMock(return_value=self.response())
+        notify_failure.notify(dict(self.ENV, FAILED_STEPS_FILE=''), opener)
+        from urllib.parse import parse_qs
+        payload = parse_qs(opener.call_args.args[0].data.decode())
+        self.assertIn('önceki karar veya bildirim adımları tamamlanmış olabilir', payload['text'][0])
+        self.assertIn('DECISION_LOG', payload['text'][0])

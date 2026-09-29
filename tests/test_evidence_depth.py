@@ -83,8 +83,7 @@ class FundamentalMonitoring(unittest.TestCase):
 
 class EvidenceGates(unittest.TestCase):
     def news_report(self, impact='invalidates'):
-        source=next(iter(ce.documents('MU',NEWS)))
-        return {'impact':impact,'claim_ids':['MU-1'],'citations':[{'source_id':source,'quote':TEXT}],
+        return {'impact':impact,'claim_ids':['MU-1'],'citations':[{'source_id':'N1'}],
             'reasoning':'Reported margin pressure challenges the margin thesis.',
             'counterevidence':'The excerpt does not establish permanence.','uncertainty':'One reporting period only.'}
 
@@ -102,7 +101,7 @@ class EvidenceGates(unittest.TestCase):
             payload=self.news_report('uncertain');kwargs['response_validator'](payload);return payload,'ok'
         with patch.dict('os.environ',{'OPENROUTER_API_KEY':'test'}),patch.object(reassess,'call_llm',side_effect=mock):
             verdict,report=detector.check_news_shock('MU','Thesis',NEWS,[{'id':'MU-1'}])
-            self.assertIsNone(verdict);self.assertIn('source_documents',report)
+            self.assertFalse(verdict);self.assertIn('source_documents',report)
             with self.assertRaises(ValueError):detector.check_news_shock('MU','Thesis',NEWS,[{'id':'OTHER'}])
 
     def test_partial_news_packet_is_not_marked_complete(self):
@@ -111,10 +110,10 @@ class EvidenceGates(unittest.TestCase):
             model.assert_not_called()
 
     def test_semantic_reviewer_rejects_unsupported_or_unresolved_claims(self):
-        source=next(iter(ce.documents('MU',NEWS)))
+        source='S1'
         for verdict,issues in [('unsupported',['Causal claim not established']),('supported',['Contradiction'])]:
             payload={'verdict':verdict,'issues':issues,'counterargument':'Persistence is not known.',
-                     'citations':[{'source_id':source,'quote':TEXT}]}
+                     'citations':[{'source_id':source}]}
             def mock(*args,**kwargs):kwargs['response_validator'](payload);return payload,'ok'
             with patch.object(reassess,'call_llm',side_effect=mock),self.assertRaises(ValueError):
                 ce.semantic_review({'thesis':'Permanent deterioration'}, {'MU':{'source_documents':ce.documents('MU',NEWS)}},{},'test','review')

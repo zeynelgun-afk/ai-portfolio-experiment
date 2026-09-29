@@ -126,7 +126,7 @@ class TriggerTransitions(unittest.TestCase):
         from claim_evidence import documents
         news=[{'symbol':'MU','title':'Report','text':NEWS['news:test']['text'],'publishedDate':NOW.isoformat(),'url':'https://example.org/report'}]
         sources=documents('MU',news)
-        report={'impact':'supports','claim_ids':['thesis_summary'],'citations':[{'source_id':next(iter(sources)),'quote':news[0]['text']}],
+        report={'impact':'supports','claim_ids':['thesis_summary'],'citations':[{'source_id':'N1'}],
                 'reasoning':'Evidence supports the thesis.','counterevidence':'Persistence remains uncertain.','uncertainty':'Future outcomes are unknown.'}
         def response(*args,**kwargs):kwargs['response_validator'](report);return report,'ok'
         with patch.dict(os.environ,{'OPENROUTER_API_KEY':'test'}),patch.object(reassess,'call_llm',side_effect=response):

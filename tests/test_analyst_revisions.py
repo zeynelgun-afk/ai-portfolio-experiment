@@ -282,16 +282,13 @@ class DriverReview(unittest.TestCase):
         facts = {'MU.price': {'symbol': 'MU', 'metric': 'price', 'value': 100, 'unit': 'USD', 'as_of': NOW.isoformat(), 'source': 'test'}}
         def model(*args, **kwargs):
             sources = json.loads(args[2])['sources']
-            self.assertEqual(sources['MU.price']['metadata'], facts['MU.price'])
-            quote = sources['MU.price']['citation_excerpt']
-            output = {'verdict': 'supported', 'citations': [{'source_id': 'MU.price', 'quote': quote}], 'issues': [], 'counterargument': 'The target remains uncertain.'}
+            self.assertIn('MU | price: 100 USD', sources['S1']['text'])
+            output = {'verdict': 'supported', 'citations': [{'source_id': 'S1'}], 'issues': [], 'counterargument': 'The target remains uncertain.'}
             kwargs['response_validator'](output)
-            output['citations'][0]['quote'] = 'This quote was rewritten and is not evidence.'
-            with self.assertRaises(ValueError): kwargs['response_validator'](output)
-            output['citations'][0]['quote'] = quote
             return output, 'ok'
         with patch.object(reassess, 'call_llm', side_effect=model):
-            claim_evidence.semantic_review({'assessment': 'Measured price'}, data, facts, 'test', 'test')
+            result = claim_evidence.semantic_review({'assessment': 'Measured price'}, data, facts, 'test', 'test')
+        self.assertEqual(result['citations'][0], {'source_id':'MU.price', 'quote':'MU | price: 100 USD | as-of '+NOW.isoformat()+' | test'})
         self.assertEqual(data, before)
 
     def test_missing_axis_and_wrong_issuer_are_rejected(self):

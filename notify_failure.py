@@ -32,7 +32,8 @@ def notify(environ=None, opener=None, message=None):
     message = message or ("🚨 AI Portföy — otomasyon hatası\n"
                f"İş akışı: {workflow}\n"
                f"Başarısız adımlar: {', '.join(str(name) for name in failed)[:2500] or 'GitHub kaydına bakın'}\n"
-               "Çalışma tamamlanamadı. Ayrıntılar ve işlem durumu:\n" + run_url)
+               "Bazı incelemeler eksik kalmış olabilir; önceki karar veya bildirim adımları tamamlanmış olabilir. "
+               "İşlem durumunu DECISION_LOG ve GitHub kaydından doğrulayın:\n" + run_url)
     if environ.get("ALERT_TEST") == "true":
         message = ("✅ AI Portföy — hata bildirimi TESTİ\n"
                    "Bu bir test mesajıdır; yeni bir otomasyon hatası bildirmiyor.\n"

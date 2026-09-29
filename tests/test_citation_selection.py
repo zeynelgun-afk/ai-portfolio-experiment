@@ -14,6 +14,7 @@ class CitationSelection(unittest.TestCase):
         self.sources = ce.documents('MU', NEWS)
         self.catalog = ce.excerpt_catalog(self.sources)
         self.ident = next(iter(self.catalog))
+        self.source_id = next(iter(self.sources))
 
     def test_code_restores_exact_source_and_quote(self):
         result = ce.resolve_citations([{'excerpt_id':self.ident}],self.sources,self.catalog)
@@ -38,8 +39,8 @@ class CitationSelection(unittest.TestCase):
 
     def invoke(self, verdict):
         def model(*args, **kwargs):
-            inputs=json.loads(args[2]);ident=next(iter(inputs['excerpts']))
-            output={'verdict':verdict,'citations':[{'excerpt_id':ident}],
+            inputs=json.loads(args[2]);ident=next(iter(inputs['sources']))
+            output={'verdict':verdict,'citations':[{'source_id':ident}],
                     'issues':[] if verdict=='supported' else ['A material assertion lacks evidence.'],
                     'counterargument':'The future remains uncertain.'}
             kwargs['response_validator'](output)
@@ -51,23 +52,30 @@ class CitationSelection(unittest.TestCase):
         result=self.invoke('supported')
         ce.validate_citations(result['citations'],self.sources)
         self.assertEqual(len(result['source_bundle_sha256']),64)
-        self.assertEqual(result['citation_selections'],[{'excerpt_id':self.ident}])
+        self.assertEqual(result['citation_selections'],[{'source_id':self.source_id}])
 
     def test_real_quote_selection_does_not_override_negative_verdict(self):
         for verdict in ('uncertain','unsupported'):
             with self.assertRaises(ValueError):self.invoke(verdict)
 
-    def test_news_model_also_selects_excerpts(self):
+    def test_news_model_selects_stable_source_ids(self):
         def model(*args,**kwargs):
             inputs=json.loads(args[2])
-            payload={'impact':'supports','claim_ids':['MU-1'],'citations':[{'excerpt_id':next(iter(inputs['excerpts']))}],
-                     'reasoning':'New evidence supports a review.','counterevidence':'Only one period.','uncertainty':'Future demand is unknown.'}
+            payload={'impact':'supports','claim_ids':['MU-1'],'citations':[{'source_id':next(iter(inputs['sources']))}],
+                     'reasoning':'New evidence supports a review.','counterevidence':'Only one period.','uncertainty':'Future demand is unknown.',
+                     'provider_metadata':'ignored safely'}
             kwargs['response_validator'](payload)
             return payload,'ok'
         with patch.dict('os.environ',{'OPENROUTER_API_KEY':'test'}),patch.object(reassess,'call_llm',side_effect=model):
             supported,report=detector.check_news_shock('MU','Demand',NEWS,[{'id':'MU-1'}])
         self.assertTrue(supported)
+        self.assertNotIn('provider_metadata',report)
+        self.assertEqual(report['citation_selections'],[{'source_id':next(iter(report['source_documents']))}])
         ce.validate_citations(report['citations'],report['source_documents'])
+
+    def test_unknown_short_source_alias_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'Unknown source_id'):
+            ce.resolve_source_references([{'source_id':'S999'}], {'S1':{'text':TEXT}})
 
 class ProviderIntegrity(unittest.TestCase):
     def test_business_start_is_not_coverage_initiation(self):

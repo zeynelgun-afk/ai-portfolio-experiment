@@ -13,7 +13,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from datetime import datetime, timedelta, timezone
+import pandas as pd
 
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE)
@@ -43,6 +45,24 @@ def run(theses, rows, previous=None, cooldown=None, moment=MOMENT, stops=None,
 
 
 class ThresholdTest(unittest.TestCase):
+    def test_benchmark_etfs_do_not_request_an_earnings_calendar(self):
+        dates = pd.date_range(end=datetime.now(), periods=205, freq='D')
+        symbols = ['MU', 'SPY']
+        closes = pd.DataFrame({symbol: [100.0 + i for i in range(205)] for symbol in symbols}, index=dates)
+        volumes = pd.DataFrame({symbol: [1_000_000.0] * 205 for symbol in symbols}, index=dates)
+        daily = pd.concat({'Close': closes, 'Volume': volumes}, axis=1)
+        intraday = pd.concat({'Close': pd.DataFrame({'MU':[305.0], 'SPY':[305.0]},
+                                                     index=[datetime.now()]),
+                              'Volume': pd.DataFrame({'MU':[1000.0], 'SPY':[1000.0]},
+                                                     index=[datetime.now()])}, axis=1)
+        with patch('market_data.download', side_effect=[daily, intraday]), \
+                patch('market_data.news', return_value=([], 'FMP')), \
+                patch.object(detector, '_earnings_date', return_value=None) as earnings:
+            result = detector.collect_live_data(symbols, {'MU':'2026-10-01'}, {'MU'})
+        self.assertEqual(set(result), set(symbols))
+        self.assertEqual(earnings.call_count, 1)
+        self.assertEqual(earnings.call_args.args[1], 'MU')
+
     def test_price_below_threshold_is_a_breach(self):
         report = run(thesis([{"type": "price_below", "value": 941.62,
                               "severity": "claim"}]),
