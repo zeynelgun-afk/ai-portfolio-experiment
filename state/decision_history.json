@@ -885,5 +885,545 @@
         }
       }
     }
+  },
+  "d363633239afc2fcf7bcad27": {
+    "symbol": "ANET",
+    "action": "HOLD",
+    "time": "2026-09-29T19:15Z",
+    "trigger": "The supplied sources corroborate the thesis narrative without contradicting the reported fundamentals. Excerpt Eb561864b7d confirms Arista's pivotal role in AI infrastructure with surging earnings since 2021 and notes a 56.99% YTD return, consistent with strong momentum. Eab50ab877d reinforces market dominance in high-speed networking for AI data centers. E1dd3970751 explicitly identifies ANET as a cash-rich, high-ROE stock, aligning with the zero-debt and strong margin profile. Ebcf23d0931 (Goldman Sachs commentary) supports the structural tailwind: hyperscaler spending acceleration benefits infrastructure suppliers like Arista, not just chip makers. No source contradicts the reported 37.7% revenue growth, 45.4% operating margin, $1.05B free cash flow, or zero debt as of Q2 2026. The price action (204.01 above 50-day SMA of 190.96) is consistent with the positive sentiment across sources.",
+    "reasoning": "The triggering data is positive sentiment without new fundamental information, so it neither invalidates nor materially strengthens the thesis. Reported growth, margins, cash generation and the debt-free balance sheet remain the evidence base. The price remains above its live fifty-day average, and the small intraday dip versus the previous close came on light volume. I do not add here. Media enthusiasm is not new evidence, the price is well extended above the two-hundred-day average, and one supplied article flags a stretched earnings multiple. The existing position already carries the thesis into the next report. The weekly-close stop is unchanged.",
+    "falsifier": "This HOLD is wrong if the price falls below the live fifty-day average, which is the referenced thesis condition set at zero distance. It is also wrong if the next report shows revenue growth or operating margin below the chosen fundamental thresholds. A supplied source reporting demand deterioration, customer loss or competitive share loss would also falsify it.",
+    "before": {
+      "thesis_summary": "Arista's most recent reported quarter shows strong revenue growth, high margins, strong free cash flow and no debt, and the price holds above its rising fifty-day average ahead of the next report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot 86fbf9e8b505].",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "ANET-1",
+          "text": "The latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505], free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 86fbf9e8b505] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 86fbf9e8b505]. The price of [ANET | price: 204.01 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] sits above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 86fbf9e8b505]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows growth or margin deteriorating below the chosen fundamental thresholds.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 20,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 38,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "warning"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_above_sma50_pct",
+              "value": 15,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-09-29T18:53Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "ANET-1",
+            "text": "The latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505], free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 86fbf9e8b505] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 86fbf9e8b505]. The price of [ANET | price: 204.01 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] sits above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 86fbf9e8b505]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows growth or margin deteriorating below the chosen fundamental thresholds.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 20,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 38,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "warning"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_above_sma50_pct",
+                "value": 15,
+                "severity": "warning"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-06T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "ANET-1",
+          "condition_index": 0
+        },
+        "change_reason": "Old conditions: a fixed price threshold equal to the fifty-day average on the old claim date, plus warnings for stop proximity, a large daily drop, an SMH decline and approaching earnings. New conditions: the fixed price is replaced by the live fifty-day moving-average condition at zero distance, which keeps the same meaning and does not loosen it, because the average has since moved to [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 86fbf9e8b505]. All old warning and claim conditions are kept unchanged. Fundamental-below conditions on revenue growth and operating margin are added because dated fundamental evidence is now supplied. A positive review flag for extension far above the average is also added; it requests review only and does not mandate a trade. No threshold was moved to excuse a price loss.",
+        "evidence_ids": [
+          "ANET.price",
+          "ANET.sma50",
+          "ANET.above_sma50_pct",
+          "ANET.revenue_yoy_pct",
+          "ANET.operating_margin_pct",
+          "ANET.quarter_free_cash_flow",
+          "ANET.total_debt",
+          "ANET.earnings_date",
+          "analyst:f05c6aa44b5f373eac206aec",
+          "analyst:9872f054b205b46e23e75f77"
+        ],
+        "revision": "435f113d35b8eecdedbba27c",
+        "created_at": "2026-09-29T18:53:03+00:00",
+        "evidence_fingerprints": {
+          "ANET.price": "503bb0547c48273a848c7091",
+          "ANET.sma50": "90a845c750595e7c2708b9d1",
+          "ANET.above_sma50_pct": "b626c70630e010e4245f5a16",
+          "ANET.revenue_yoy_pct": "729c29de7d4dc17f225fa18b",
+          "ANET.operating_margin_pct": "a0a725026f0ba02cce51f12e",
+          "ANET.quarter_free_cash_flow": "2243fdc94e5592106b8a4cb6",
+          "ANET.total_debt": "8e9e3df8b3efac8ddb24a58e",
+          "ANET.earnings_date": "35c0c234f6245a52203e6f42",
+          "analyst:f05c6aa44b5f373eac206aec": "86782a8784259e3d343c31ba",
+          "analyst:9872f054b205b46e23e75f77": "6b930c1d3e19920c1c792e72"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Hypothesis, not the analysts' stated reason: the target raises cluster immediately after the latest quarterly filing. That filing shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505] and operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 86fbf9e8b505]. Same-period consensus is unchanged versus the prior observed snapshot: current-year EPS of [ANET | analyst_eps_20261231: 4.10819 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505] with revision [ANET | analyst_eps_20261231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505], and next-year EPS of [ANET | analyst_eps_20271231: 5.22751 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505] with revision [ANET | analyst_eps_20271231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 86fbf9e8b505]. The seven-, thirty- and ninety-day estimate revision windows lack the same-period snapshots needed to measure a trend.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "ANET.revenue_yoy_pct",
+            "ANET.operating_margin_pct",
+            "ANET.analyst_eps_20261231",
+            "ANET.analyst_eps_20261231_revision_pct",
+            "ANET.analyst_eps_20271231",
+            "ANET.analyst_eps_20271231_revision_pct",
+            "analyst:acd4102c7aef1c24cdb4b0f3",
+            "analyst:546e9746972d9dd02bb1fb00"
+          ]
+        },
+        "company_news": {
+          "assessment": "No contract, product, regulatory or partnership news is supplied. The target-revision records list the reason as unknown. One headline is quarantined because the publisher's firm differs from the provider's firm, and it is not used. The company-event driver is an explicit gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only: the semiconductor ETF trades [SMH | above_sma50_pct: 7.3505 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] above its fifty-day average, while SPY is only [SPY | above_sma50_pct: 0.3763 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] above its own. This is consistent with continued AI-infrastructure theme strength that also supports ANET. Price data alone does not prove fund flows or that analysts cited the theme.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "SMH.above_sma50_pct",
+            "SPY.above_sma50_pct",
+            "ANET.above_sma200_pct"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis: the revision arithmetic shows ANET's price rose substantially between each firm's prior and current target. Part of the target increases may therefore reflect repricing of the growth story, not new forecasts. Target dispersion in the ninety-day window is narrow, but forecast horizons are unknown. With the price now [ANET | above_sma200_pct: 29.6015 % vs sma200 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 86fbf9e8b505] above its two-hundred-day average, crowded positioning is a counter-risk. No multiple data is supplied.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:f05c6aa44b5f373eac206aec",
+            "analyst:12974e24181d2030bae06a34",
+            "analyst:42fc10092baef6aeb1726f09",
+            "analyst:a2b2b28b67ada4851405d8e6",
+            "ANET.above_sma200_pct"
+          ]
+        }
+      },
+      "pending_review": {
+        "claim_id": "news_shock",
+        "condition_type": "sentiment_support",
+        "cooldown_key": "thesis:ANET",
+        "material_event_id": "13ec784b6aa2ad1c23a9334e",
+        "material_event_ids": [
+          "13ec784b6aa2ad1c23a9334e",
+          "181dc1980f2770aeee246b56",
+          "2456c229bc3685fe5fad336b",
+          "d3886b09516f514821f24f99"
+        ],
+        "measured": 1,
+        "news_evidence": {
+          "citation_selections": [
+            {
+              "excerpt_id": "Eb561864b7d"
+            },
+            {
+              "excerpt_id": "Eab50ab877d"
+            },
+            {
+              "excerpt_id": "E1dd3970751"
+            },
+            {
+              "excerpt_id": "Ebcf23d0931"
+            }
+          ],
+          "citations": [
+            {
+              "quote": "Arista Networks is pivotal in AI infrastructure, supplying high-speed networking gear that connects GPUs for major cloud providers like Microsoft and Meta. ANET's earnings have surged since 2021, driving a 56.99% YTD total return and earning an A+ performance grade in the Gunderson Grading System. My valuation model estimates a five-year target price of $404.76, implying 96.77% upside from $205.70, though the current 60x earnings multiple is supported by only five years of rapid growth.",
+              "source_id": "news:1121da6ce03df78c0d8aa405"
+            },
+            {
+              "quote": "Arista Networks dominates the high-speed networking market for artificial intelligence data centers and cloud titans. International Business Machines has successfully pivoted toward high-margin hybrid cloud software and consulting services.",
+              "source_id": "news:5ab0584e3b26c84f5d31537d"
+            },
+            {
+              "quote": "TEL, ANET, ROST, IT and PCAR stand out as cash-rich, high-ROE stocks screened for strong efficiency amid elevated market volatility.",
+              "source_id": "news:45194ffc2d750f70e3bec13f"
+            },
+            {
+              "quote": "Goldman Sachs sees hyperscalers accelerating toward a spending level that dwarfs anything the tech industry has attempted before, and the companies positioned to profit most may have nothing to do with the chips getting all the attention.",
+              "source_id": "news:3be86170a3aa031a4011eb02"
+            }
+          ],
+          "claim_ids": [
+            "ANET-1"
+          ],
+          "counterevidence": "Excerpt Eb561864b7d introduces a valuation caution: the 60x earnings multiple is supported by only five years of rapid growth, implying sustainability risk if growth decelerates. This does not invalidate current fundamentals but flags execution risk. No source provides contradictory financial data, competitive loss, or demand deterioration.",
+          "impact": "supports",
+          "reasoning": "The supplied sources corroborate the thesis narrative without contradicting the reported fundamentals. Excerpt Eb561864b7d confirms Arista's pivotal role in AI infrastructure with surging earnings since 2021 and notes a 56.99% YTD return, consistent with strong momentum. Eab50ab877d reinforces market dominance in high-speed networking for AI data centers. E1dd3970751 explicitly identifies ANET as a cash-rich, high-ROE stock, aligning with the zero-debt and strong margin profile. Ebcf23d0931 (Goldman Sachs commentary) supports the structural tailwind: hyperscaler spending acceleration benefits infrastructure suppliers like Arista, not just chip makers. No source contradicts the reported 37.7% revenue growth, 45.4% operating margin, $1.05B free cash flow, or zero debt as of Q2 2026. The price action (204.01 above 50-day SMA of 190.96) is consistent with the positive sentiment across sources.",
+          "source_documents": {
+            "news:1121da6ce03df78c0d8aa405": {
+              "published_at": "2026-09-29 09:49:33",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Arista Networks is pivotal in AI infrastructure, supplying high-speed networking gear that connects GPUs for major cloud providers like Microsoft and Meta. ANET's earnings have surged since 2021, driving a 56.99% YTD total return and earning an A+ performance grade in the Gunderson Grading System. My valuation model estimates a five-year target price of $404.76, implying 96.77% upside from $205.70, though the current 60x earnings multiple is supported by only five years of rapid growth.",
+              "title": "Arista: The Layer Beneath The Chips",
+              "url": "https://seekingalpha.com/article/4950657-arista-the-layer-beneath-the-chips"
+            },
+            "news:292d8af2e8e1bce451ac0a9e": {
+              "published_at": "2026-09-25 10:01:05",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Zacks.com users have recently been watching Arista Networks (ANET) quite a bit. Thus, it is worth knowing the facts that could determine the stock's prospects.",
+              "title": "Arista Networks, Inc. (ANET) Is a Trending Stock: Facts to Know Before Betting on It",
+              "url": "https://www.zacks.com/stock/news/2995721/arista-networks-inc-anet-is-a-trending-stock-facts-to-know-before-betting-on-it?cid=CS-STOCKNEWSAPI-FT-fundamental_analysis|most_searched_stocks-2995721"
+            },
+            "news:3be86170a3aa031a4011eb02": {
+              "published_at": "2026-09-26 07:19:40",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Goldman Sachs sees hyperscalers accelerating toward a spending level that dwarfs anything the tech industry has attempted before, and the companies positioned to profit most may have nothing to do with the chips getting all the attention.",
+              "title": "Goldman Sachs Says a $7.6 Trillion AI Spending Boom Is Coming. Skip the GPUs, Follow the Money Here",
+              "url": "https://247wallst.com/investing/2026/09/26/goldman-sachs-says-a-7-6-trillion-ai-spending-boom-is-coming-skip-the-gpus-follow-the-money-here/"
+            },
+            "news:3de4e405a373912b8ff091b1": {
+              "published_at": "2026-09-28 04:15:54",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Arista Networks (NYSE: ANET - Get Free Report) and Harmonic (NASDAQ: HLIT - Get Free Report) are both technology companies, but which is the better investment? We will compare the two businesses based on the strength of their earnings, institutional ownership, profitability, analyst recommendations, risk, valuation and dividends. Analyst Ratings This is a summary of current ratings",
+              "title": "Harmonic (NASDAQ:HLIT) and Arista Networks (NYSE:ANET) Head-To-Head Analysis",
+              "url": "https://www.defenseworld.net/2026/09/28/harmonic-nasdaqhlit-and-arista-networks-nyseanet-head-to-head-analysis.html"
+            },
+            "news:40decc6556e2e0c7d7017c67": {
+              "published_at": "2026-09-24 10:22:00",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Chips, large language models, and software may be the flashy parts of the AI boom, but Arista and Ciena are building the roads that keep the whole thing moving.",
+              "title": "2 Millionaire-Maker Networking Stocks Powering the AI Buildout",
+              "url": "https://www.fool.com/investing/2026/09/24/2-millionaire-maker-networking-stocks-powering-the/"
+            },
+            "news:45194ffc2d750f70e3bec13f": {
+              "published_at": "2026-09-24 12:26:06",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "TEL, ANET, ROST, IT and PCAR stand out as cash-rich, high-ROE stocks screened for strong efficiency amid elevated market volatility.",
+              "title": "5 Stocks With High ROE to Consider Amid Market Volatility",
+              "url": "https://www.zacks.com/stock/news/2995247/5-stocks-with-high-roe-to-consider-amid-market-volatility?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-2995247"
+            },
+            "news:48b191adafaeacd10763268b": {
+              "published_at": "2026-09-28 11:34:54",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Arista Stock: The AI stock leader is approaching a new buy point despite Monday's market weakness. Its RS line hit a new high last week.",
+              "title": "AI Stock Leader Arista Eyes Latest Buy Point With RS Line At New Highs",
+              "url": "https://www.investors.com/research/arista-stock-anet-buy-point/"
+            },
+            "news:5ab0584e3b26c84f5d31537d": {
+              "published_at": "2026-09-29 09:10:01",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Arista Networks dominates the high-speed networking market for artificial intelligence data centers and cloud titans. International Business Machines has successfully pivoted toward high-margin hybrid cloud software and consulting services.",
+              "title": "Arista Networks vs. International Business Machines: Which Tech Stock Is a Better Buy in 2026?",
+              "url": "https://www.fool.com/coverage/better-buy/2026/09/29/arista-networks-vs-international-business-machines-which-technology-stock-is-a-better-buy-in-2026/"
+            },
+            "news:9294dffdc9ccdece081963e3": {
+              "published_at": "2026-09-25 10:40:53",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Here is how Arista Networks (ANET) and DHI Group (DHX) have performed compared to their sector so far this year.",
+              "title": "Are Computer and Technology Stocks Lagging Arista Networks (ANET) This Year?",
+              "url": "https://www.zacks.com/stock/news/2995831/are-computer-and-technology-stocks-lagging-arista-networks-anet-this-year?cid=CS-STOCKNEWSAPI-FT-fundamental_analysis|yseop_template_1-2995831"
+            },
+            "news:c0ee670a686ab9122526abe6": {
+              "published_at": "2026-09-23 12:30:00",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "The SGA U.S. LCG Portfolio returned 6.8% (Gross) and 6.0% (Net) in Q2 compared to the Russell 1000 Growth Index return of 16.7% and the S&P 500 Index return of 15.2%. Recent purchases include Equinix and Arista Networks. We liquidated our position in Intuit and Aon.",
+              "title": "Virtus SGA U.S. Large Cap Growth Q2 2026 Portfolio Update",
+              "url": "https://seekingalpha.com/article/4949088-virtus-sga-us-large-cap-growth-q2-2026-portfolio-update"
+            }
+          },
+          "uncertainty": "Sources do not provide forward guidance, customer concentration detail, or competitive threat assessment. The Goldman Sachs commentary (Ebcf23d0931) is generic infrastructure positioning and does not quantify Arista's specific exposure or market share trends. Analyst target prices (Eb561864b7d: $404.76) are model-dependent and do not constitute independent verification of near-term earnings or margin sustainability. The thesis conditions specify that deterioration below 20% revenue growth or 38% operating margin in the next report (2026-11-03) would question the thesis; current sources do not preview that outcome."
+        },
+        "severity": "thesis",
+        "symbol": "ANET",
+        "threshold": 0,
+        "trigger": "The supplied sources corroborate the thesis narrative without contradicting the reported fundamentals. Excerpt Eb561864b7d confirms Arista's pivotal role in AI infrastructure with surging earnings since 2021 and notes a 56.99% YTD return, consistent with strong momentum. Eab50ab877d reinforces market dominance in high-speed networking for AI data centers. E1dd3970751 explicitly identifies ANET as a cash-rich, high-ROE stock, aligning with the zero-debt and strong margin profile. Ebcf23d0931 (Goldman Sachs commentary) supports the structural tailwind: hyperscaler spending acceleration benefits infrastructure suppliers like Arista, not just chip makers. No source contradicts the reported 37.7% revenue growth, 45.4% operating margin, $1.05B free cash flow, or zero debt as of Q2 2026. The price action (204.01 above 50-day SMA of 190.96) is consistent with the positive sentiment across sources."
+      }
+    },
+    "after": {
+      "thesis_summary": "Arista's latest reported quarter shows strong revenue growth, high operating margins, strong free cash flow and no debt, and the price holds above its live fifty-day average ahead of the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-29T19:13:29Z | detector/market_data / FMP | snapshot 990f1469941a].",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "ANET-1",
+          "text": "Arista's latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 990f1469941a] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 990f1469941a]. The live price of [ANET | price: 203.395 USD | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] trades [ANET | above_sma50_pct: 6.5123 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 990f1469941a]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows revenue growth or operating margin below the chosen fundamental thresholds.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 20,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 38,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "warning"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_above_sma50_pct",
+              "value": 15,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-09-29T19:15Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "ANET-1",
+            "text": "Arista's latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 990f1469941a] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 990f1469941a]. The live price of [ANET | price: 203.395 USD | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] trades [ANET | above_sma50_pct: 6.5123 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 990f1469941a]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows revenue growth or operating margin below the chosen fundamental thresholds.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 20,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 38,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "warning"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_above_sma50_pct",
+                "value": 15,
+                "severity": "warning"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-06T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "ANET-1",
+          "condition_index": 0
+        },
+        "change_reason": "All conditions are unchanged. The trigger supplied only supportive news sentiment and no new non-price evidence: no new financial statements, guidance or company events. No threshold is justified to move. The live fifty-day condition, the fundamental thresholds on growth and margin, the warning conditions and the positive extension review flag are all kept as they were. The claim text is rewritten with the current price snapshot.",
+        "evidence_ids": [
+          "ANET.price",
+          "ANET.previous_close",
+          "ANET.sma50",
+          "ANET.above_sma50_pct",
+          "ANET.above_sma200_pct",
+          "ANET.revenue_yoy_pct",
+          "ANET.operating_margin_pct",
+          "ANET.gross_margin_pct",
+          "ANET.quarter_free_cash_flow",
+          "ANET.total_debt",
+          "ANET.net_debt",
+          "ANET.earnings_date",
+          "news:1121da6ce03df78c0d8aa405",
+          "news:5ab0584e3b26c84f5d31537d",
+          "news:45194ffc2d750f70e3bec13f",
+          "news:3be86170a3aa031a4011eb02"
+        ],
+        "revision": "8af75151bf96f8e78e4a99f6",
+        "created_at": "2026-09-29T19:15:13+00:00",
+        "evidence_fingerprints": {
+          "ANET.price": "41ddc6829b3f552760f728e0",
+          "ANET.previous_close": "137787e21277da890d89b5aa",
+          "ANET.sma50": "90a845c750595e7c2708b9d1",
+          "ANET.above_sma50_pct": "1e4bf680ec2052f20ad1ecf0",
+          "ANET.above_sma200_pct": "88407c2350a5fa299e4de75c",
+          "ANET.revenue_yoy_pct": "729c29de7d4dc17f225fa18b",
+          "ANET.operating_margin_pct": "a0a725026f0ba02cce51f12e",
+          "ANET.gross_margin_pct": "d162e9ccbd86c69a6a0ddfde",
+          "ANET.quarter_free_cash_flow": "2243fdc94e5592106b8a4cb6",
+          "ANET.total_debt": "8e9e3df8b3efac8ddb24a58e",
+          "ANET.net_debt": "700a11354b04b54f1043bdac",
+          "ANET.earnings_date": "30c9005d577c3738a31175bb",
+          "news:1121da6ce03df78c0d8aa405": "26a9419710c515f5f0c0b425",
+          "news:5ab0584e3b26c84f5d31537d": "d062245a91e81e012f1abb36",
+          "news:45194ffc2d750f70e3bec13f": "39e702e037543096a12e211d",
+          "news:3be86170a3aa031a4011eb02": "a9479ea72939b8f8ca0d2c0c"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Hypothesis, not the analysts' stated reason: the observed target raises cluster right after the latest quarterly filing. That filing shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a] and operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a]. Same-period consensus is unchanged versus the prior observed snapshot. Current-year EPS consensus is [ANET | analyst_eps_20261231: 4.10819 provider-reported currency/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a] with revision [ANET | analyst_eps_20261231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a]. Next-year EPS consensus is [ANET | analyst_eps_20271231: 5.22751 provider-reported currency/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a] with revision [ANET | analyst_eps_20271231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a]. The estimate revision windows lack enough same-period snapshots to measure a trend.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "ANET.revenue_yoy_pct",
+            "ANET.operating_margin_pct",
+            "ANET.analyst_eps_20261231",
+            "ANET.analyst_eps_20261231_revision_pct",
+            "ANET.analyst_eps_20271231",
+            "ANET.analyst_eps_20271231_revision_pct",
+            "analyst:acd4102c7aef1c24cdb4b0f3",
+            "analyst:f05c6aa44b5f373eac206aec"
+          ]
+        },
+        "company_news": {
+          "assessment": "No contract, product, regulatory or partnership event is supplied. The target-revision records list their reasons as unknown. One headline is quarantined because the publisher's firm differs from the provider's firm, and it is not used. The company-event driver remains an explicit gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only. The Goldman Sachs spending commentary article and the Motley Fool networking pieces describe hyperscaler infrastructure demand that benefits networking suppliers. The semiconductor ETF trades [SMH | above_sma50_pct: 7.2588 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its fifty-day average, while SPY is only [SPY | above_sma50_pct: 0.3586 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its own. This is consistent with AI-infrastructure theme strength. None of these sources states an analyst's reason for a revision. Price data does not prove fund flows.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:3be86170a3aa031a4011eb02",
+            "news:40decc6556e2e0c7d7017c67",
+            "news:5ab0584e3b26c84f5d31537d",
+            "SMH.above_sma50_pct",
+            "SPY.above_sma50_pct"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis: the price rose substantially between each firm's prior and current target, so part of the target increases may reflect repricing of the growth story rather than new forecasts. The Seeking Alpha article 'Arista: The Layer Beneath The Chips' notes that the current earnings multiple rests on a limited history of rapid growth. This is a counter-risk. The price is [ANET | above_sma200_pct: 29.2109 % vs sma200 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its two-hundred-day average, and crowded positioning is possible. Forecast horizons are unknown, and no verified multiple data is in the ledger.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:1121da6ce03df78c0d8aa405",
+            "analyst:9872f054b205b46e23e75f77",
+            "analyst:12974e24181d2030bae06a34",
+            "analyst:42fc10092baef6aeb1726f09",
+            "ANET.above_sma200_pct"
+          ]
+        }
+      }
+    }
   }
 }
