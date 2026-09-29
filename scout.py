@@ -40,9 +40,34 @@ INPUT:\n{json.dumps(evidence,ensure_ascii=False)}'''
 
 def theme_telegram_section(radar):
     fresh=[row for row in radar.get('candidates',[]) if row.get('pool_status')=='new'][:5]
-    lines=['🔎 Theme research candidates (research only; not buy signals):']
+    lines=['📊 Tema nabzı (fiyat performansı; fon/sermaye akışı ölçümü değildir):']
+    proxy_rankings=radar.get('theme_proxy_momentum',{}).get('rankings',{})
+    for horizon,label in (('5_sessions','1 hafta'),('21_sessions','1 ay')):
+        leaders=proxy_rankings.get(horizon,[])[:4]
+        if leaders:
+            entries=[]
+            for row in leaders:
+                text=f"{row['theme']} ({row['proxy_symbol']}) {row['return_'+horizon+'_pct']:+.1f}%"
+                excess=row.get('excess_spy_pp')
+                if isinstance(excess,(int,float)):
+                    text+=f"; SPY'ye göre {excess:+.1f} puan"
+                entries.append(text)
+            lines.append(f"{label}: " + ' · '.join(entries))
+    industry_rankings=radar.get('theme_momentum',{}).get('rankings',{})
+    weekly=industry_rankings.get('5_sessions',[])
+    accelerators=sorted((row for row in weekly
+        if isinstance(row.get('weekly_vs_monthly_pace_pp'),(int,float)) and
+        row['weekly_vs_monthly_pace_pp'] > 0),
+        key=lambda row:row['weekly_vs_monthly_pace_pp'],reverse=True)[:3]
+    if accelerators:
+        lines.append('Aylık tempoya göre haftalık ivmelenen sektörler: ' + ' · '.join(
+            f"{row['industry']} {row['weekly_vs_monthly_pace_pp']:+.1f} puan" for row in accelerators))
+    elif weekly:
+        lines.append('Seçilmiş sektör örnekleminde aylık tempoyu aşan haftalık getiri yok.')
+    lines.append('Bu sıralamalar araştırma ipucudur; tek başına alım kararı değildir.')
+    lines.append('🔎 Tema araştırma adayları (inceleme içindir; alım sinyali değildir):')
     if not fresh:
-        lines.append('No new candidates passed linked-news, leading-industry and 20/60-session relative-strength checks.')
+        lines.append('Haber, öne çıkan sektör ve 20/60 seans göreli güç koşullarını geçen yeni aday yok.')
         return '\n'.join(lines)
     article_map={row['id']:row for row in radar.get('news',[]) if row.get('id')}
     theme_map={theme['name']:theme for theme in radar.get('themes',[])}
@@ -55,7 +80,7 @@ def theme_telegram_section(radar):
             cited=[article_map[a] for a in theme.get('article_ids',[]) if a in article_map]
             if cited:
                 lines.append(f"  News: {cited[0]['title']} {cited[0]['url']}")
-    lines.append('Industry/price strength is not a direct measurement of fund flows. Review the evidence before adding to the decision watchlist.')
+    lines.append('Sektör/fiyat gücü doğrudan fon akışı ölçümü değildir. Karar havuzuna eklemeden önce kanıtları inceleyin.')
     return '\n'.join(lines)
 
 

@@ -5,11 +5,26 @@ import math
 from collections import OrderedDict
 
 import market_data
+import pandas as pd
 
 MIN_MARKET_CAP = 200_000_000
 MAX_INDUSTRIES = 5
 MAX_COMPANIES_PER_INDUSTRY = 3
-MAX_INDUSTRY_HISTORY_CHECKS = 10
+MAX_INDUSTRY_HISTORY_CHECKS = 20
+POSITIVE_INDUSTRY_SAMPLE = 12
+NEGATIVE_INDUSTRY_SAMPLE = 8
+THEME_PROXIES = (
+    ('Bitcoin', 'IBIT'), ('Semiconductors', 'SMH'), ('Genomics', 'ARKG'),
+    ('Quantum computing', 'QTUM'), ('Biotechnology', 'XBI'),
+    ('Healthcare', 'XLV'), ('Airlines', 'JETS'), ('China internet', 'KWEB'),
+    ('Artificial intelligence', 'AIQ'), ('Medical devices', 'IHI'),
+    ('Homebuilders', 'XHB'), ('Bitcoin miners', 'WGMI'), ('Robotics', 'BOTZ'),
+    ('Industrials', 'XLI'), ('Software', 'IGV'), ('Retail', 'XRT'),
+    ('Social media', 'SOCL'), ('Cybersecurity', 'CIBR'), ('Energy', 'XLE'),
+    ('Uranium', 'URA'), ('Data centers', 'SRVR'),
+    ('Electric grid', 'GRID'), ('Cloud computing', 'SKYY'),
+    ('Aerospace and defense', 'ITA'),
+)
 
 
 def _number(value):
@@ -46,6 +61,127 @@ def compound_change(rows, sessions):
     selected = values[-sessions:]
     result = math.prod(1 + value / 100 for value in selected) - 1
     return 100 * result if math.isfinite(result) else None
+
+
+def rank_industry_momentum(rows, spy_returns=None):
+    """Rank sampled FMP industries by 5/21-session return without blending horizons."""
+    spy_returns = spy_returns or {}
+    rankings = {}
+    for horizon, field in (('5_sessions', 'return_5_sessions_pct'),
+                           ('21_sessions', 'return_21_sessions_pct')):
+        ordered = sorted((row for row in rows if _number(row.get(field))),
+                         key=lambda row: row[field], reverse=True)
+        rankings[horizon] = []
+        for rank, row in enumerate(ordered, 1):
+            spy = spy_returns.get(horizon)
+            rankings[horizon].append({**row, 'rank': rank,
+                'spy_return_pct': spy,
+                'excess_spy_pp': row[field] - spy if _number(spy) else None})
+    return rankings
+
+
+def _rank_theme_proxies(rows, spy_returns=None):
+    spy_returns = spy_returns or {}
+    rankings = {}
+    for horizon, field in (('5_sessions', 'return_5_sessions_pct'),
+                           ('21_sessions', 'return_21_sessions_pct')):
+        ordered = sorted((row for row in rows if _number(row.get(field))),
+                         key=lambda row: row[field], reverse=True)
+        rankings[horizon] = []
+        for rank, row in enumerate(ordered, 1):
+            spy = spy_returns.get(horizon)
+            rankings[horizon].append({**row, 'rank': rank,
+                'spy_return_pct': spy,
+                'excess_spy_pp': row[field] - spy if _number(spy) else None})
+    return rankings
+
+
+def _history_return(frame, sessions, now):
+    today = market_data.last_closed(now)
+    history = frame.loc[frame.index.date <= today]
+    if len(history) < sessions + 1:
+        return None
+    base, latest = float(history['total_close'].iloc[-sessions-1]), float(history['total_close'].iloc[-1])
+    if min(base, latest) <= 0:
+        return None
+    return 100 * (latest / base - 1)
+
+
+def _theme_proxy_history(symbol, now):
+    start = (now.date() - timedelta(days=75)).isoformat()
+    end = market_data.last_closed(now).isoformat()
+
+    def primary():
+        rows = market_data.fmp('historical-price-eod/dividend-adjusted', symbol=symbol,
+                               **{'from': start, 'to': end})
+        if any(row.get('symbol', symbol) != symbol for row in rows):
+            raise market_data.ProviderError('Theme proxy symbol mismatch')
+        records = []
+        for row in rows:
+            close = row.get('adjClose', row.get('close'))
+            if not row.get('date') or not _number(close):
+                continue
+            records.append({'Date': row['date'], 'Close': float(close),
+                            'Volume': row.get('volume', 0) or 0})
+        if not records:
+            raise market_data.ProviderError('Theme proxy history unavailable')
+        frame = pd.DataFrame(records).set_index('Date')
+        frame.index = pd.to_datetime(frame.index)
+        return frame
+
+    def backup():
+        import yfinance
+        return yfinance.Ticker(symbol).history(period='3mo', interval='1d',
+                                                auto_adjust=True, actions=False)
+
+    frame, provider = market_data.select(symbol, 'theme_proxy_history', primary, backup,
+                                         lambda value: market_data.validate_history(value, '1d', now))
+    frame = frame.rename(columns={'Close': 'total_close'})[['total_close']]
+    frame.attrs['provider'] = provider
+    return frame
+
+
+def theme_proxy_momentum(now, spy_returns=None):
+    rows, failures = [], []
+    for theme, symbol in THEME_PROXIES:
+        try:
+            frame = _theme_proxy_history(symbol, now)
+            ret5, ret21 = _history_return(frame, 5, now), _history_return(frame, 21, now)
+            if ret5 is None or ret21 is None:
+                raise market_data.ProviderError('Theme proxy history too short')
+            expected_week = ((1 + ret21 / 100) ** (5 / 21) - 1) * 100
+            rows.append({'theme': theme, 'proxy_symbol': symbol,
+                'return_5_sessions_pct': ret5, 'return_21_sessions_pct': ret21,
+                'weekly_vs_monthly_pace_pp': ret5 - expected_week,
+                'as_of': market_data.last_closed(now).isoformat(),
+                'source': ('FMP dividend-adjusted EOD price' if frame.attrs.get('provider') == 'FMP'
+                           else 'yfinance auto-adjusted EOD price'),
+                'provider': frame.attrs.get('provider', 'unknown')})
+        except market_data.ProviderError:
+            failures.append({'dataset': 'theme_proxy_history', 'symbol': symbol,
+                             'reason': 'provider_unavailable'})
+    return {'as_of': market_data.last_closed(now).isoformat(),
+        'sampled_theme_count': len(rows),
+        'rankings': _rank_theme_proxies(rows, spy_returns), 'failures': failures,
+        'limits': ['ETF proxy returns measure market prices, not net fund flows.',
+                   'Theme definitions are represented by one ETF proxy each and can be imperfect.']}
+
+
+def _industry_sample(rows):
+    """Use a bounded positive/negative daily-mover sample; never imply full coverage."""
+    unique = {}
+    for row in rows:
+        current = unique.get(row['industry'])
+        if current is None or abs(row['averageChange']) > abs(current['averageChange']):
+            unique[row['industry']] = row
+    values = list(unique.values())
+    positive = sorted((row for row in values if row['averageChange'] > 0),
+                      key=lambda row: row['averageChange'], reverse=True)[:POSITIVE_INDUSTRY_SAMPLE]
+    negative = sorted((row for row in values if row['averageChange'] < 0),
+                      key=lambda row: row['averageChange'])[:NEGATIVE_INDUSTRY_SAMPLE]
+    selected = positive + negative
+    selected.sort(key=lambda row: row['averageChange'], reverse=True)
+    return selected[:MAX_INDUSTRY_HISTORY_CHECKS]
 
 
 def _close_at_or_before(frame, target):
@@ -112,12 +248,10 @@ def collect(now=None):
     snapshot = market_data.fmp('industry-performance-snapshot', date=date_text, allow_empty=True)
     daily = _dated_rows(snapshot, 'averageChange', as_of)
     daily = [r for r in daily if r.get('exchange') in {'NYSE', 'NASDAQ', 'AMEX'} and
-             isinstance(r.get('industry'), str) and r['industry'] and r['averageChange'] > 0]
-    daily.sort(key=lambda r: r['averageChange'], reverse=True)
-    daily = list({(r['industry'], r['exchange']): r for r in reversed(daily)}.values())
-    daily.sort(key=lambda r: r['averageChange'], reverse=True)
-    daily = daily[:MAX_INDUSTRY_HISTORY_CHECKS]
+             isinstance(r.get('industry'), str) and r['industry']]
+    daily = _industry_sample(daily)
     ranked, failures = [], []
+    momentum_rows = []
     start = (as_of - timedelta(days=130)).isoformat()
     for daily_row in daily:
         industry, exchange = daily_row['industry'], daily_row['exchange']
@@ -128,14 +262,23 @@ def collect(now=None):
             if any(r.get('industry') not in (None, industry) or
                    r.get('exchange') not in (None, exchange) for r in rows):
                 continue
-            change20, change60 = compound_change(rows, 20), compound_change(rows, 60)
-            if change20 is None or change60 is None:
+            if not rows or max(row['date'] for row in rows) != date_text:
                 continue
-            ranked.append({'industry': industry,
+            change5, change21 = compound_change(rows, 5), compound_change(rows, 21)
+            change20, change60 = compound_change(rows, 20), compound_change(rows, 60)
+            if change5 is None or change21 is None:
+                continue
+            momentum = {'industry': industry,
                 'sector': daily_row.get('sector'), 'exchange': exchange,
                 'daily_change_pct': daily_row['averageChange'],
+                'return_5_sessions_pct': change5, 'return_21_sessions_pct': change21,
+                'weekly_vs_monthly_pace_pp': change5 - ((1 + change21 / 100) ** (5 / 21) - 1) * 100,
                 'return_20_sessions_pct': change20, 'return_60_sessions_pct': change60,
-                'as_of': date_text, 'source': 'FMP historical-industry-performance'})
+                'as_of': date_text, 'source': 'FMP historical-industry-performance'}
+            momentum_rows.append(momentum)
+            if change20 is None or change60 is None:
+                continue
+            ranked.append(momentum)
         except market_data.ProviderError:
             failures.append({'dataset': 'historical_industry_performance', 'industry': industry,
                              'exchange': exchange, 'reason': 'provider_unavailable'})
@@ -144,11 +287,27 @@ def collect(now=None):
                       r['return_60_sessions_pct'] > 0),
                      key=lambda r: (r['return_60_sessions_pct'], r['return_20_sessions_pct']), reverse=True)[:MAX_INDUSTRIES]
     candidates = []
-    if leaders:
-        benchmarks = market_data.return_history('SPY', now)
-    else:
-        benchmarks = None
+    benchmarks = None
+    spy_returns = {}
+    if momentum_rows:
+        try:
+            benchmarks = market_data.return_history('SPY', now)
+            for horizon, sessions in (('5_sessions', 5), ('21_sessions', 21)):
+                spy_returns[horizon] = _history_return(benchmarks, sessions, now)
+        except market_data.ProviderError:
+            failures.append({'dataset': 'theme_momentum_benchmark', 'symbol': 'SPY',
+                             'reason': 'provider_unavailable'})
+    theme_momentum = {'as_of': date_text, 'sampled_industry_count': len(momentum_rows),
+        'sample_method': f'top {POSITIVE_INDUSTRY_SAMPLE} positive and bottom {NEGATIVE_INDUSTRY_SAMPLE} negative daily industry movers, capped at {MAX_INDUSTRY_HISTORY_CHECKS}',
+        'source': 'FMP industry-performance-snapshot + historical-industry-performance',
+        'rankings': rank_industry_momentum(momentum_rows, spy_returns),
+        'limits': ['Ranks cover the bounded daily-mover sample, not every industry.',
+                   'Returns are price-performance signals, not observed fund or capital flows.']}
+    theme_proxies = theme_proxy_momentum(now, spy_returns)
+    failures.extend(theme_proxies.pop('failures'))
     for leader in leaders:
+        if benchmarks is None:
+            break
         try:
             profiles = market_data.fmp('company-screener', industry=leader['industry'], country='US',
                 exchange=leader['exchange'], isEtf=False, isFund=False, isActivelyTrading=True, marketCapMoreThan=MIN_MARKET_CAP,
@@ -185,7 +344,9 @@ def collect(now=None):
     candidates.sort(key=lambda r: (r['relative_strength']['60']['excess_spy_pp'],
                                    r['relative_strength']['20']['excess_spy_pp']), reverse=True)
     return {'observed_at': now.isoformat(), 'as_of': date_text, 'mode': 'research_only',
-        'news': news, 'leading_industries': leaders, 'candidates': candidates,
+        'news': news, 'theme_momentum': theme_momentum,
+        'theme_proxy_momentum': theme_proxies,
+        'leading_industries': leaders, 'candidates': candidates,
         'failures': failures,
         'limits': ['Industry performance and share price strength are not direct measures of capital inflows.',
           'News is context for research; this deterministic stage does not infer causality or theme exposure.',

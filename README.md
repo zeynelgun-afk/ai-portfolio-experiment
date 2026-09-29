@@ -66,15 +66,23 @@ general news, daily industry performance, 20/60-session industry returns, and th
 largest screened companies in leading US industries. A company qualifies only when
 its 20- and 60-session total returns both exceed SPY and a cited news item is linked by
 the theme review to its measured industry. News/article IDs and provider dates are
-retained in `state/theme_research_inbox.json`; newly qualified names are also shown in
-the weekly Telegram report. This inbox is not merged into `state/watchlist.json` and
-does not issue trade decisions. Missing radar inputs send a Telegram failure alert.
+retained in `state/theme_research_inbox.json`; the weekly Telegram report also ranks
+24 ETF theme proxies over 5 and 21 sessions and shows sampled FMP industry leaders.
+Newly qualified names are shown separately. This inbox is not merged into
+`state/watchlist.json` and does not issue trade decisions. Missing radar inputs send
+a Telegram failure alert.
 
 Industry performance and relative share-price strength are not direct fund-flow
 measurements. The story-to-industry link is an AI annotation whose article and
 industry IDs are checked against the supplied sources; this does not independently
 prove the interpretation is correct. Uncited or out-of-universe links are discarded.
 This is a discovery experiment, not a validated return edge.
+
+The Theme Tracker concept is now reproduced from dated provider data: a curated ETF
+proxy board compares one-week and one-month total returns, while a separate dynamic
+FMP-industry board ranks short-term movers. The supplied screenshot itself is not
+ingested. Price movement is not fund flow; source coverage and integration limits
+are documented in [`docs/theme_tracker_and_scout.md`](docs/theme_tracker_and_scout.md).
 
 ### 2. Specialist research — Multi-Agent Research Team (`weekly_data.py`)
 

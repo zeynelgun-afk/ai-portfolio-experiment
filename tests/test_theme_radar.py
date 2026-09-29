@@ -13,6 +13,42 @@ class ThemeRadarTests(unittest.TestCase):
         self.assertAlmostEqual(theme_radar.compound_change(rows,20),22.019,places=2)
         self.assertIsNone(theme_radar.compound_change(rows[:19],20))
 
+    def test_industry_sample_keeps_gainers_and_losers_and_ranks_each_horizon(self):
+        rows=[{'industry':'Semiconductors','exchange':'NASDAQ','return_5_sessions_pct':5,
+               'return_21_sessions_pct':8},
+              {'industry':'Genomics','exchange':'NYSE','return_5_sessions_pct':2,
+               'return_21_sessions_pct':10}]
+        ranks=theme_radar.rank_industry_momentum(rows,{'5_sessions':1,'21_sessions':3})
+        self.assertEqual(ranks['5_sessions'][0]['industry'],'Semiconductors')
+        self.assertEqual(ranks['21_sessions'][0]['industry'],'Genomics')
+        self.assertEqual(ranks['5_sessions'][0]['excess_spy_pp'],4)
+        sample=theme_radar._industry_sample([
+            {'industry':'Same','exchange':'NYSE','averageChange':2},
+            {'industry':'Same','exchange':'NASDAQ','averageChange':-3},
+            {'industry':'Up','exchange':'NYSE','averageChange':1},
+            {'industry':'Down','exchange':'NASDAQ','averageChange':-1}])
+        self.assertEqual({row['industry'] for row in sample},{'Same','Up','Down'})
+        self.assertEqual(len(sample),3)
+
+    def test_theme_proxy_momentum_ranks_one_week_and_one_month_separately(self):
+        now=datetime(2026,9,29,12,tzinfo=timezone.utc)
+        dates=pd.bdate_range(end='2026-09-25',periods=30)
+        bitcoin=pd.DataFrame({'total_close':[100+i*1.5 for i in range(30)]},index=dates)
+        semis=pd.DataFrame({'total_close':[100+i*.5 for i in range(30)]},index=dates)
+        bitcoin.attrs['provider']='FMP';semis.attrs['provider']='yfinance'
+        def history(symbol, _now):
+            if symbol=='IBIT': return bitcoin
+            if symbol=='SMH': return semis
+            raise theme_radar.market_data.ProviderError('not available in fixture')
+        with patch.object(theme_radar,'_theme_proxy_history',side_effect=history), \
+             patch.object(theme_radar.market_data,'last_closed',return_value=date(2026,9,25)):
+            result=theme_radar.theme_proxy_momentum(now,{'5_sessions':0,'21_sessions':0})
+        self.assertEqual(result['rankings']['5_sessions'][0]['theme'],'Bitcoin')
+        self.assertEqual(result['rankings']['21_sessions'][0]['proxy_symbol'],'IBIT')
+        self.assertEqual(result['rankings']['5_sessions'][0]['provider'],'FMP')
+        self.assertEqual(result['rankings']['21_sessions'][1]['provider'],'yfinance')
+        self.assertEqual(len(result['failures']),len(theme_radar.THEME_PROXIES)-2)
+
     def test_news_requires_recent_dated_headline_and_source_link(self):
         now=datetime(2026,9,29,12,tzinfo=timezone.utc)
         result=theme_radar.validate_news([
@@ -69,7 +105,23 @@ class ThemeRadarTests(unittest.TestCase):
                     '20':{'excess_spy_pp':3.2},'60':{'excess_spy_pp':7.1}}}]}
         text=scout.theme_telegram_section(radar)
         self.assertIn('AAA',text);self.assertIn('https://source.test/a',text)
-        self.assertIn('not buy signals',text);self.assertIn('not a direct measurement',text)
+        self.assertIn('alım sinyali değildir',text);self.assertIn('doğrudan fon akışı ölçümü değildir',text)
+
+    def test_telegram_summary_shows_separate_week_and_month_theme_leaders(self):
+        radar={'theme_proxy_momentum':{'rankings':{
+            '5_sessions':[{'theme':'Semiconductors','proxy_symbol':'SMH',
+                'return_5_sessions_pct':7,'excess_spy_pp':3}],
+            '21_sessions':[{'theme':'Genomics','proxy_symbol':'ARKG',
+                'return_21_sessions_pct':9,'excess_spy_pp':5}]}},
+            'theme_momentum':{'rankings':{'5_sessions':[
+                {'industry':'Semiconductors','weekly_vs_monthly_pace_pp':2.5}]}}}
+        text=scout.theme_telegram_section(radar)
+        self.assertIn('1 hafta: Semiconductors (SMH) +7.0%',text)
+        self.assertIn('1 ay: Genomics (ARKG) +9.0%',text)
+        self.assertIn('Aylık tempoya göre haftalık ivmelenen sektörler',text)
+        quiet=scout.theme_telegram_section({'theme_momentum':{'rankings':{'5_sessions':[
+            {'industry':'Semiconductors','weekly_vs_monthly_pace_pp':-1.2}]}}})
+        self.assertIn('aylık tempoyu aşan haftalık getiri yok',quiet)
 
     def test_theme_collection_failure_is_separate_and_does_not_touch_watchlist(self):
         import tempfile, json
