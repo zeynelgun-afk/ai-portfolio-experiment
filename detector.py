@@ -443,9 +443,27 @@ Every completed verdict needs exact citations from the supplied source texts. Ex
  "uncertainty":"One excerpt cannot establish persistence."}"""
     def validate(payload):
         validate_news_assessment(payload, claim_ids, model_sources)
+    news_schema = {
+        'name': 'news_assessment',
+        'schema': {
+            'type': 'object',
+            'properties': {
+                'impact': {'type': 'string', 'enum': ['invalidates', 'supports', 'neutral', 'uncertain']},
+                'claim_ids': {'type': 'array', 'items': {'type': 'string'}},
+                'citations': {'type': 'array', 'items': {
+                    'type': 'object', 'properties': {'source_id': {'type': 'string'}},
+                    'required': ['source_id'], 'additionalProperties': False}},
+                'reasoning': {'type': 'string'},
+                'counterevidence': {'type': 'string'},
+                'uncertainty': {'type': 'string'},
+            },
+            'required': ['impact', 'claim_ids', 'citations', 'reasoning', 'counterevidence', 'uncertainty'],
+            'additionalProperties': False,
+        },
+    }
     report,status=call_llm(env('OPENROUTER_MODEL_NEWS',env('OPENROUTER_MODEL_FAST','anthropic/claude-haiku-4.5')),
                            prompt,json.dumps({'thesis_summary':thesis_summary,'claims':claims or [],'sources':model_sources}),
-                           api_key,response_validator=validate)
+                           api_key,response_validator=validate,response_schema=news_schema)
     if not report:
         return None, 'news evidence assessment failed: '+status
     allowed = {'impact', 'claim_ids', 'citations', 'reasoning', 'counterevidence', 'uncertainty'}

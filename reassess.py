@@ -63,6 +63,18 @@ BACKOFF_BASE = 2.0  # seconds; doubles each attempt
 SLEEP = time.sleep  # tests replace this to disable real waiting
 
 VALID_STATUSES = {"valid", "weakened", "invalid"}
+CLAIM_RESPONSE_SCHEMA = {
+    "name": "claim_assessment",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "text": {"type": "string"},
+            "status": {"type": "string", "enum": ["valid", "weakened", "invalid"]},
+        },
+        "required": ["text", "status"],
+        "additionalProperties": False,
+    },
+}
 VALID_ACTIONS = {"HOLD", "BUY", "SELL", "TRIM"}
 
 
@@ -138,14 +150,22 @@ def api_url():
     return base + API_PATH
 
 
-def _single_call(model, messages, api_key):
+def _single_call(model, messages, api_key, response_schema=None):
     """One HTTP call. Returns (text, retryable)."""
-    body = json.dumps({
+    request_body = {
         "model": model,
         "messages": messages,
         "temperature": 0.2,
-        "response_format": {"type": "json_object"},
-    }).encode("utf-8")
+        "response_format": ({"type": "json_schema", "json_schema": {
+            "name": response_schema["name"], "strict": True,
+            "schema": response_schema["schema"]}}
+            if response_schema else {"type": "json_object"}),
+    }
+    if response_schema:
+        # Do not silently route a schema-constrained request to an endpoint that
+        # ignores response_format. OpenRouter will select compatible providers only.
+        request_body["provider"] = {"require_parameters": True}
+    body = json.dumps(request_body).encode("utf-8")
     request = urllib.request.Request(api_url(), data=body, headers={
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
@@ -205,7 +225,8 @@ def call_llm(*args, **kwargs):
 
 
 def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
-             sleep=None, source_ledger=None, response_validator=None):
+             sleep=None, source_ledger=None, response_validator=None,
+             response_schema=None):
     """A JSON-returning LLM call that retries on transient errors and bad output.
 
     Three problems share one loop, because the remedy for all three is the same: ask
@@ -236,7 +257,11 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
     last_status = "unparseable"
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
-        text, retryable = _single_call(model, messages, api_key)
+        if response_schema:
+            text, retryable = _single_call(model, messages, api_key,
+                                           response_schema=response_schema)
+        else:
+            text, retryable = _single_call(model, messages, api_key)
         if text is None:
             if not retryable or attempt == MAX_ATTEMPTS:
                 return None, "unparseable"
@@ -628,7 +653,8 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
         payload, status = call_llm(model, SYSTEM_CLAIM, prompt, api_key,
                                    audit_sources=(prompt, claim.get("text", "")),
                                    audit_scope=claim_audit_scope,
-                                   source_ledger=evidence_for(data, violations, symbol))
+                                   source_ledger=evidence_for(data, violations, symbol),
+                                   response_schema=CLAIM_RESPONSE_SCHEMA)
         if not payload or payload.get("status") not in VALID_STATUSES \
                 or not str(payload.get("text", "")).strip():
             reason = REJECTION_REASON.get(status, "its output did not match the schema")

@@ -30,9 +30,10 @@ def stub_http(*responses):
     queue = list(responses) or [None]
     record = {"calls": 0, "prompts": []}
 
-    def stub(model, messages, api_key):
+    def stub(model, messages, api_key, **kwargs):
         record["calls"] += 1
         record["prompts"].append(messages[-1]["content"])
+        record.setdefault("call_options", []).append(kwargs)
         item = queue.pop(0) if len(queue) > 1 else queue[0]
         return item if isinstance(item, tuple) else (item, False)
 
