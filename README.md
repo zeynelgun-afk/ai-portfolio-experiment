@@ -14,6 +14,8 @@ questioned and measured against SPY and SMH.
 
 **One connected workflow: discover → research → decide → validate → monitor → review.**
 
+**Live dashboard:** [AI Portfolio Experiment](https://zeynelgun-afk.github.io/ai-portfolio-experiment/)
+
 ### What makes the team different
 
 - **Specialized perspectives:** Separate macro, fundamental and news research contexts.
