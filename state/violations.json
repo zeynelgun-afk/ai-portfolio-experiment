@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-30T18:32:12Z",
+  "checked_at": "2026-09-30T18:59:42Z",
   "code": 20,
   "conditions": {
     "AMD-1#0": {
@@ -7,9 +7,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +19.63%",
+      "detail": "price relative to current sma50: +19.66%",
       "first_seen": null,
-      "measured": 19.62826932204298,
+      "measured": 19.661665833718377,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -54,7 +54,7 @@
       "data_suspect": false,
       "detail": "stop distance +38.4% (stop 440)",
       "first_seen": null,
-      "measured": 38.4,
+      "measured": 38.44,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -67,9 +67,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.2%",
+      "detail": "daily change +0.3%",
       "first_seen": null,
-      "measured": 0.23,
+      "measured": 0.26,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -82,9 +82,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +0.5%",
+      "detail": "SMH +0.3%",
       "first_seen": null,
-      "measured": 0.51,
+      "measured": 0.33,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -97,9 +97,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 608.95",
+      "detail": "price 609.12",
       "first_seen": null,
-      "measured": 608.95,
+      "measured": 609.12,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -112,9 +112,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "volume 0.4x",
+      "detail": "volume 0.5x",
       "first_seen": null,
-      "measured": 0.45,
+      "measured": 0.48,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -127,9 +127,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.2%",
+      "detail": "daily change +0.3%",
       "first_seen": null,
-      "measured": 0.23,
+      "measured": 0.26,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -142,9 +142,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +6.66%",
+      "detail": "price relative to current sma50: +6.54%",
       "first_seen": null,
-      "measured": 6.658999088866335,
+      "measured": 6.538975752154963,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -187,9 +187,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +27.7% (stop 160)",
+      "detail": "stop distance +27.6% (stop 160)",
       "first_seen": null,
-      "measured": 27.74,
+      "measured": 27.6,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -202,9 +202,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.8%",
+      "detail": "daily change +0.6%",
       "first_seen": null,
-      "measured": 0.75,
+      "measured": 0.64,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -217,9 +217,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +0.5%",
+      "detail": "SMH +0.3%",
       "first_seen": null,
-      "measured": 0.51,
+      "measured": 0.33,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -247,9 +247,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +6.66%",
+      "detail": "price relative to current sma50: +6.54%",
       "first_seen": null,
-      "measured": 6.658999088866335,
+      "measured": 6.538975752154963,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -262,9 +262,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +12.58%",
+      "detail": "price relative to current sma50: +12.36%",
       "first_seen": null,
-      "measured": 12.580021947794041,
+      "measured": 12.360828304946669,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -277,9 +277,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +46.5% (stop 730)",
+      "detail": "stop distance +46.2% (stop 730)",
       "first_seen": null,
-      "measured": 46.46,
+      "measured": 46.18,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -294,7 +294,7 @@
       "data_suspect": false,
       "detail": "volume 0.6x",
       "first_seen": null,
-      "measured": 0.57,
+      "measured": 0.62,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -307,9 +307,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.4%",
+      "detail": "daily change +0.2%",
       "first_seen": null,
-      "measured": 0.39,
+      "measured": 0.19,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -322,9 +322,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +0.5%",
+      "detail": "SMH +0.3%",
       "first_seen": null,
-      "measured": 0.51,
+      "measured": 0.33,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -337,9 +337,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.4%",
+      "detail": "daily change +0.2%",
       "first_seen": null,
-      "measured": 0.39,
+      "measured": 0.19,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -357,7 +357,7 @@
       "measured": 0,
       "required_streak": 2,
       "severity": "warning",
-      "streak": 5,
+      "streak": 6,
       "symbol": "MU",
       "threshold": 3.0,
       "type": "earnings_approaching"
@@ -367,9 +367,9 @@
       "claim_id": "MU-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 1069.18",
+      "detail": "price 1067.10",
       "first_seen": null,
-      "measured": 1069.1817,
+      "measured": 1067.1,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -382,9 +382,9 @@
       "claim_id": "MU-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.4%",
+      "detail": "daily change +0.2%",
       "first_seen": null,
-      "measured": 0.39,
+      "measured": 0.19,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -427,9 +427,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +6.26%",
+      "detail": "price relative to current sma50: +6.20%",
       "first_seen": null,
-      "measured": 6.26496129075671,
+      "measured": 6.200392116016196,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -442,9 +442,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +21.4% (stop 190)",
+      "detail": "stop distance +21.3% (stop 190)",
       "first_seen": null,
-      "measured": 21.35,
+      "measured": 21.28,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -457,9 +457,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +1.5%",
+      "detail": "daily change +1.4%",
       "first_seen": null,
-      "measured": 1.48,
+      "measured": 1.42,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -472,9 +472,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +0.5%",
+      "detail": "SMH +0.3%",
       "first_seen": null,
-      "measured": 0.51,
+      "measured": 0.33,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -487,9 +487,9 @@
       "claim_id": "NVDA-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 230.57",
+      "detail": "price 230.43",
       "first_seen": null,
-      "measured": 230.5701,
+      "measured": 230.43,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -504,7 +504,7 @@
       "data_suspect": false,
       "detail": "volume 0.5x",
       "first_seen": null,
-      "measured": 0.51,
+      "measured": 0.53,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -1748,11 +1748,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-11-03",
       "fundamental_research": {
-        "collected_at": "2026-09-30T18:32:12+00:00",
+        "collected_at": "2026-09-30T18:59:42+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -1763,7 +1763,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -1775,7 +1775,7 @@
           },
           "net_debt": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -1787,7 +1787,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -1799,7 +1799,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -1810,7 +1810,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -1821,7 +1821,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -1832,7 +1832,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "netIncome"
             ],
@@ -1843,7 +1843,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -1854,7 +1854,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -1865,7 +1865,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue"
             ],
@@ -1876,7 +1876,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue@2026-06-27",
               "revenue@2025-06-28"
@@ -1888,7 +1888,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -1899,7 +1899,7 @@
           },
           "total_debt": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -2188,9 +2188,9 @@
             "AMD-1",
             "AMD-2"
           ],
-          "counterevidence": "The sources do not report any change to AMD's operating margin, revenue growth rate, or guidance. They do not establish that the fifty-day average has moved materially or that volume has spiked. The World Labs deal is framed as a strategic, long-term AI infrastructure acquisition, consistent with the thesis that near-term valuation is stretched and that the deal is not an immediate earnings driver. No source reports a margin collapse, a revenue miss, or a guidance reduction.",
+          "counterevidence": "N1, N3, and N6 document significant outflows from AMD by a major growth-focused investor, which may signal concern about valuation or relative opportunity cost. This is consistent with Claim AMD-2's caution against adding at stretched valuations. However, portfolio reallocation does not establish that AMD's business fundamentals have deteriorated or that the fifty-day average relationship has broken. N5 notes shares 'slipped' after the World Labs announcement, but the excerpt does not quantify the move or compare it to the SMA50 or volume conditions.",
           "impact": "neutral",
-          "reasoning": "The supplied sources report portfolio activity by Cathie Wood (ARK Invest) involving AMD position reductions and shifts toward Nvidia and Broadcom. These are data points about institutional investor allocation preference, not measurements of AMD's business fundamentals, profitability, revenue growth, price-to-moving-average relationship, or volume dynamics. Claim AMD-1 rests on sustained YoY revenue growth (50.1%), operating margin (17.25%), and price above the fifty-day average (20.4% premium). None of the sources contradict these measurements or establish a change in AMD's Data Center revenue trajectory, margin sustainability, or near-term profitability. Claim AMD-2 cautions against adding at stretched valuations on light volume; the sources confirm the World Labs acquisition ($8.2B all-stock deal) but do not establish that this transaction alters the current price, volume profile, or the thesis-level conditions that would trigger a review. Cathie Wood's reallocation is a sentiment signal and a data point about relative opportunity cost (Nvidia vs. AMD), not evidence that AMD's growth thesis has broken or that its valuation metrics have changed.",
+          "reasoning": "The supplied sources report portfolio reallocation activity by Cathie Wood / ARK Invest (N1, N3, N6) and the World Labs acquisition announcement (N5), but none directly contradict the thesis conditions. N1 and N3 document trimming/selling of AMD in favor of NVDA and BROADCOM, which reflects a relative preference shift, not a fundamental invalidation of AMD's growth or profitability. N5 confirms the $8.2B all-stock World Labs deal, consistent with the trigger's characterization as a long-term strategic bet. N4 raises a sector-level AI-slowdown risk but does not report a change in AMD's reported margins, revenue growth, or price-to-SMA50 relationship. The sources do not provide updated financial data, guidance revisions, or customer/revenue warnings that would break the thesis conditions (operating margin collapse below 12%, YoY revenue growth below 20%, or price meaningfully below SMA50).",
           "source_documents": {
             "news:1e31b045b776618bedfe140b": {
               "published_at": "2026-09-30 09:28:00",
@@ -2241,13 +2241,13 @@
               "url": "https://247wallst.com/investing/2026/09/30/cathie-wood-sold-110-million-of-amd-and-bought-nvidia-instead/"
             }
           },
-          "uncertainty": "The excerpts are truncated and do not provide full context for Cathie Wood's reasoning or the magnitude of her reallocation relative to her total AI-chip exposure. The sources do not quantify whether her shift reflects a change in AMD's fundamental outlook or a tactical preference for Nvidia's current valuation and market position. A single institutional investor's reallocation, even at scale, does not establish a thesis-level break without corroborating evidence of business deterioration, guidance reduction, or a sustained price collapse below the moving average. The sources are dated 2026-09-30, the same day as the latest price and SMA50 measurements, so they do not establish a forward-looking contradiction of the claims."
+          "uncertainty": "The sources are truncated excerpts and do not provide full context for the reallocation rationale, AMD's updated guidance, or the magnitude and timing of the price slip after the World Labs deal. N4 raises a conditional AI-slowdown risk but does not report current AMD revenue or margin data. The thesis rests on sustained profitability and growth; the latest reported quarter (2026-06-27) showed 50.1% YoY revenue growth and 17.25% operating margin, both above thesis thresholds. No source reports a new earnings miss, guidance cut, or customer loss that would invalidate those metrics. Cathie Wood's reallocation may reflect valuation concerns or a shift in relative opportunity, but it does not establish a thesis-level business change."
         }
       ],
       "news_provider": "FMP",
       "previous_close": 607.57,
-      "price": 608.95,
-      "price_at": "2026-09-30T18:25:00+00:00",
+      "price": 609.12,
+      "price_at": "2026-09-30T18:55:00+00:00",
       "price_date": "2026-09-29",
       "price_provider": "FMP",
       "providers": {
@@ -2529,7 +2529,7 @@
           "url": "https://247wallst.com/investing/2026/09/30/cathie-wood-sold-110-million-of-amd-and-bought-nvidia-instead/"
         }
       },
-      "volume": 9889509.40935,
+      "volume": 10578839.837619998,
       "volume_avg_20d": 22167361.25
     },
     "ANET": {
@@ -3414,11 +3414,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-11-03",
       "fundamental_research": {
-        "collected_at": "2026-09-30T18:32:12+00:00",
+        "collected_at": "2026-09-30T18:59:42+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -3429,7 +3429,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -3441,7 +3441,7 @@
           },
           "net_debt": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -3453,7 +3453,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -3465,7 +3465,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -3476,7 +3476,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -3487,7 +3487,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -3498,7 +3498,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "netIncome"
             ],
@@ -3509,7 +3509,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -3520,7 +3520,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -3531,7 +3531,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue"
             ],
@@ -3542,7 +3542,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue@2026-06-30",
               "revenue@2025-06-30"
@@ -3554,7 +3554,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -3565,7 +3565,7 @@
           },
           "total_debt": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -3816,40 +3816,10 @@
           ]
         }
       },
-      "news_assessments": [
-        {
-          "citation_selections": [
-            {
-              "source_id": "news:42ba2b01f0026741870dc373"
-            }
-          ],
-          "citations": [
-            {
-              "quote": "On September 29, 2026, Arista Networks Inc (ANET) shares fell 1.0% to $202.86, remaining within a 52-week range of $114.52 to $214.89. The stock has shown notab",
-              "source_id": "news:42ba2b01f0026741870dc373"
-            }
-          ],
-          "claim_ids": [],
-          "counterevidence": "The source does not report any change to Arista's latest quarterly financials, guidance revision, margin compression, cash flow deterioration, or debt issuance. It does not challenge the 37.7% YoY revenue growth, 45.4% operating margin, $1.05B quarterly free cash flow, or zero-debt position cited in ANET-1.",
-          "impact": "neutral",
-          "reasoning": "Source N1 reports a 1.0% intraday price decline to $202.86 on 2026-09-29, which aligns with the claimed live price in ANET-1 (snapshot timestamp 2026-09-29T19:55:00+00:00). The excerpt confirms the price remains above the fifty-day average (thesis condition intact) and provides no contradictory information about revenue growth, operating margins, free cash flow, debt levels, or the upcoming earnings date. The 52-week range ($114.52–$214.89) contextualizes the current price but does not invalidate the fundamental metrics or technical position stated in the thesis.",
-          "source_documents": {
-            "news:42ba2b01f0026741870dc373": {
-              "published_at": "2026-09-29 20:07:00",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "ANET",
-              "text": "On September 29, 2026, Arista Networks Inc (ANET) shares fell 1.0% to $202.86, remaining within a 52-week range of $114.52 to $214.89. The stock has shown notab",
-              "title": "Arista Networks Inc (ANET) Shares Fall 1.0% -- What GF Score of 97 Tells Investors",
-              "url": "https://www.gurufocus.com/news/9102506/arista-networks-inc-anet-shares-fall-10-what-gf-score-of-97-tells-investors"
-            }
-          },
-          "uncertainty": "The excerpt is truncated ('The stock has shown notab[le]...') and does not provide full context on the GF Score of 97 or its investment implications. A single day's 1.0% price move does not establish a trend or thesis-level reversal. The source does not address whether the price decline reflects deteriorating fundamentals or normal volatility ahead of the 2026-11-03 earnings report."
-        }
-      ],
       "news_provider": "FMP",
       "previous_close": 202.86,
-      "price": 204.39,
-      "price_at": "2026-09-30T18:25:00+00:00",
+      "price": 204.16,
+      "price_at": "2026-09-30T18:55:00+00:00",
       "price_date": "2026-09-29",
       "price_provider": "FMP",
       "providers": {
@@ -4018,17 +3988,9 @@
           "symbol": "ANET",
           "text": "{\"at\": \"2026-08-05T10:02:48+00:00\", \"baseline_age_days\": 90, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Tim Long\", \"at\": \"2026-08-05T10:02:48+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"barclays\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 190.51, \"reason\": \"unknown\", \"target_adjusted\": 289.0, \"target_raw\": 289.0, \"title\": \"Arista Networks price target raised to $289 from $195 at Barclays\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4401562\"}, \"firm\": \"barclays\", \"gap_when_posted_pct\": 51.6981, \"id\": \"f05c6aa44b5f373eac206aec\", \"previous\": {\"analyst\": \"\", \"at\": \"2026-05-07T09:24:27+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"barclays\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 147.06, \"reason\": \"unknown\", \"target_adjusted\": 195.0, \"target_raw\": 195.0, \"title\": \"Arista Networks price target raised to $195 from $184 at Barclays\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4347740\"}, \"price_move_between_reports_pct\": 29.5458, \"revision_pct\": 48.2051}",
           "url": "https://thefly.com/ajax/news_get.php?id=4401562"
-        },
-        "news:42ba2b01f0026741870dc373": {
-          "published_at": "2026-09-29 20:07:00",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "ANET",
-          "text": "On September 29, 2026, Arista Networks Inc (ANET) shares fell 1.0% to $202.86, remaining within a 52-week range of $114.52 to $214.89. The stock has shown notab",
-          "title": "Arista Networks Inc (ANET) Shares Fall 1.0% -- What GF Score of 97 Tells Investors",
-          "url": "https://www.gurufocus.com/news/9102506/arista-networks-inc-anet-shares-fall-10-what-gf-score-of-97-tells-investors"
         }
       },
-      "volume": 2101187.17158,
+      "volume": 2205283.17158,
       "volume_avg_20d": 4771179.25
     },
     "MU": {
@@ -4978,11 +4940,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-09-30",
       "fundamental_research": {
-        "collected_at": "2026-09-30T18:32:12+00:00",
+        "collected_at": "2026-09-30T18:59:42+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -4993,7 +4955,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -5005,7 +4967,7 @@
           },
           "net_debt": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -5017,7 +4979,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -5029,7 +4991,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -5040,7 +5002,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -5051,7 +5013,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -5062,7 +5024,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "netIncome"
             ],
@@ -5073,7 +5035,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -5084,7 +5046,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -5095,7 +5057,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue"
             ],
@@ -5106,7 +5068,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue@2026-05-28",
               "revenue@2025-05-29"
@@ -5118,7 +5080,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -5129,7 +5091,7 @@
           },
           "total_debt": {
             "as_of": "2026-05-28",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -5382,14 +5344,25 @@
       },
       "news_provider": "FMP",
       "previous_close": 1065.08,
-      "price": 1069.1817,
-      "price_at": "2026-09-30T18:25:00+00:00",
+      "price": 1067.1,
+      "price_at": "2026-09-30T18:55:00+00:00",
       "price_date": "2026-09-29",
       "price_provider": "FMP",
       "providers": {
         "earnings": "FMP"
       },
       "recent_news": [
+        {
+          "image": "https://images.financialmodelingprep.com/news/phenomenal-earnings-v-cyclical-concerns-mu-faces-key-ai-20260930.jpg",
+          "publishedDate": "2026-09-30 14:30:06",
+          "publisher": "Schwab Network",
+          "site": "youtube.com",
+          "sourcePublishedDate": "2026-09-30 14:30:06",
+          "symbol": "MU",
+          "text": "The outlook for AI memory stocks remains bullish, according to Yaël Ossowski, who discusses Micron (MU) earnings just ahead of the report. \"There's just not enough memory\" to power AI demand, says Yaël, who points to \"huge opportunities\" Micron can use to leverage more pricing power.",
+          "title": "\"Phenomenal\" Earnings v. Cyclical Concerns: MU Faces Key AI Questions",
+          "url": "https://www.youtube.com/watch?v=0uRLItVsiGM"
+        },
         {
           "image": "https://images.financialmodelingprep.com/news/why-micron-earnings-hold-the-key-for-this-wildly-20260930.jpg",
           "publishedDate": "2026-09-30 14:18:00",
@@ -5488,17 +5461,6 @@
           "text": "The Zacks Style Scores offers investors a way to easily find top-rated stocks based on their investing style. Here's why you should take advantage.",
           "title": "Why Micron (MU) is a Top Momentum Stock for the Long-Term",
           "url": "https://www.zacks.com/stock/news/2998164/why-micron-mu-is-a-top-momentum-stock-for-the-long-term?cid=CS-STOCKNEWSAPI-FT-fundamental_analysis|zacks_education_momentum_score-2998164"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-to-announce-q4-results-today-what-to-expect-20260930.jpg",
-          "publishedDate": "2026-09-30 10:42:41",
-          "publisher": "Invezz",
-          "site": "invezz.com",
-          "sourcePublishedDate": "2026-09-30 10:42:41",
-          "symbol": "MU",
-          "text": "Micron Technology shares MU rose 0.49% in trading on Wednesday as investors prepared for the memory-chip maker's fiscal fourth-quarter results after the market close. The results are expected to show another sharp increase in revenue and earnings, but investors are likely to focus on Micron's outlook for fiscal 2027 and whether strong artificial intelligence demand can sustain elevated memory prices and margins.",
-          "title": "Micron to announce Q4 results today: what to expect",
-          "url": "https://invezz.com/news/2026/09/30/micron-to-announce-q4-results-today-what-to-expect/"
         }
       ],
       "sma200": 669.11285,
@@ -5540,7 +5502,7 @@
           "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html"
         }
       },
-      "volume": 14176666.833020002,
+      "volume": 15381015.21677,
       "volume_avg_20d": 24830277.35
     },
     "NVDA": {
@@ -6758,11 +6720,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-11-18",
       "fundamental_research": {
-        "collected_at": "2026-09-30T18:32:12+00:00",
+        "collected_at": "2026-09-30T18:59:42+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -6773,7 +6735,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -6785,7 +6747,7 @@
           },
           "net_debt": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -6797,7 +6759,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -6809,7 +6771,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -6820,7 +6782,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -6831,7 +6793,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -6842,7 +6804,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "netIncome"
             ],
@@ -6853,7 +6815,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -6864,7 +6826,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -6875,7 +6837,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue"
             ],
@@ -6886,7 +6848,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "revenue@2026-07-26",
               "revenue@2025-07-27"
@@ -6898,7 +6860,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -6909,7 +6871,7 @@
           },
           "total_debt": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-09-30T18:32:12+00:00",
+            "observed_at": "2026-09-30T18:59:42+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -7162,8 +7124,8 @@
       },
       "news_provider": "FMP",
       "previous_close": 227.21,
-      "price": 230.5701,
-      "price_at": "2026-09-30T18:25:00+00:00",
+      "price": 230.43,
+      "price_at": "2026-09-30T18:55:00+00:00",
       "price_date": "2026-09-29",
       "price_provider": "FMP",
       "providers": {
@@ -7397,7 +7359,7 @@
           "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24420+at+Melius/26983487.html"
         }
       },
-      "volume": 57099573.62344,
+      "volume": 59850664.9396,
       "volume_avg_20d": 112268522.75
     },
     "SMH": {
@@ -7406,8 +7368,8 @@
       "earnings_date": null,
       "news_provider": "FMP",
       "previous_close": 606.9,
-      "price": 610.0,
-      "price_at": "2026-09-30T18:25:00+00:00",
+      "price": 608.93,
+      "price_at": "2026-09-30T18:55:00+00:00",
       "price_date": "2026-09-29",
       "price_provider": "FMP",
       "providers": {},
@@ -7525,7 +7487,7 @@
       ],
       "sma200": 495.60074999999995,
       "sma50": 567.7216,
-      "volume": 2818268.64155,
+      "volume": 2985936.9512099996,
       "volume_avg_20d": 6482743.95
     },
     "SPY": {
@@ -7534,8 +7496,8 @@
       "earnings_date": null,
       "news_provider": "FMP",
       "previous_close": 764.2,
-      "price": 766.71,
-      "price_at": "2026-09-30T18:25:00+00:00",
+      "price": 766.22,
+      "price_at": "2026-09-30T18:55:00+00:00",
       "price_date": "2026-09-29",
       "price_provider": "FMP",
       "providers": {},
@@ -7653,7 +7615,7 @@
       ],
       "sma200": 719.2479999999999,
       "sma50": 762.4544000000001,
-      "volume": 18313682.0,
+      "volume": 19849070.0,
       "volume_avg_20d": 43950863.75
     }
   },
@@ -7668,7 +7630,7 @@
       "measured": 0,
       "required_streak": 2,
       "severity": "warning",
-      "streak": 5,
+      "streak": 6,
       "symbol": "MU",
       "threshold": 3.0,
       "type": "earnings_approaching"
@@ -7689,7 +7651,7 @@
     }
   ],
   "news_previous": {
-    "ANET": "2026-09-29 18:46:13"
+    "ANET": "2026-09-29 20:07:00"
   },
   "state_changed": true,
   "triggered": [
