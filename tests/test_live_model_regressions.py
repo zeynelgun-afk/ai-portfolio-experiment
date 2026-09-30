@@ -30,7 +30,8 @@ class LiveNewsResponseRegressions(unittest.TestCase):
             (dict(self.valid, claim_ids=['AMD-1']), 'Unknown affected claim'),
             (dict(self.valid, impact={'supports': True}), 'Invalid news impact'),
             (dict(self.valid, uncertainty=''), 'Missing news reasoning'),
-            ({k: v for k, v in self.valid.items() if k != 'counterevidence'}, 'Invalid news assessment schema'),
+            ({k: v for k, v in self.valid.items() if k != 'counterevidence'},
+             'missing required fields: counterevidence'),
         )
         for payload, error in cases:
             with self.subTest(error=error), self.assertRaisesRegex(ValueError, error):

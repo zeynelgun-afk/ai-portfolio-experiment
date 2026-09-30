@@ -7,6 +7,25 @@ import urllib.parse
 import urllib.request
 
 
+def decision_notification(state, trade="none"):
+    """Format only a validated decision; return None when there is nothing to report."""
+    changes = state.get("decision_changes") if isinstance(state, dict) else None
+    if not isinstance(changes, list) or not changes:
+        return None
+    lines = ["AI Portföy — karar yeniden değerlendirildi"]
+    for change in changes:
+        symbol = str(change.get("symbol", "?"))
+        lines += [symbol + " → " + str(change.get("action", "?")),
+                  "Ne değişti: " + str(change.get("trigger", ""))[:400],
+                  "Kararın gerekçesi: " + str(change.get("reasoning", ""))[:600],
+                  "Yanlışlanma koşulu: " + str(change.get("falsifier", ""))[:400],
+                  "Sonraki inceleme: " + str(change.get("after", {}).get(
+                      "monitoring", {}).get("next_review_at", "weekly round"))]
+    lines += ["İşlem sonucu: " + str(trade or "none"),
+              "https://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/DECISION_LOG.md"]
+    return "\n".join(lines)[:3500]
+
+
 def notify(environ=None, opener=None, message=None):
     environ = os.environ if environ is None else environ
     opener = urllib.request.urlopen if opener is None else opener

@@ -136,6 +136,8 @@ class ClaimFlowTest(unittest.TestCase):
         claim, updated, _ = self.invoke("the model rambled, no JSON")
         self.assertEqual(claim["text"], OLD_TEXT)
         self.assertEqual(claim["status"], "unassessed")
+        self.assertIn("Assessment failed", claim["trigger"])
+        self.assertIn("price 905.40", claim["trigger"])
         self.assertEqual(updated, ["MU-1"])
 
     def test_an_invalid_status_value_is_rejected(self):
@@ -238,6 +240,8 @@ class ThesisFlowTest(unittest.TestCase):
             ' "decision": {"action": "YOLO", "reasoning": "?"}}')
         self.assertEqual(decisions, [])
         self.assertEqual(payload["MU"]["claims"][0]["status"], "unassessed")
+        self.assertIn("Assessment failed", payload["MU"]["claims"][0]["trigger"])
+        self.assertIn("price 905.40", payload["MU"]["claims"][0]["trigger"])
         self.assertTrue(os.path.exists(self.notes))
         self.assertFalse(os.path.exists(self.decision))
 

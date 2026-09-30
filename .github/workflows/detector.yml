@@ -247,7 +247,7 @@ jobs:
         # the call returns 400/403. In that case the notification falls back to the group
         # channel and the fallback is recorded both in the log and in the job summary — a
         # lost thesis-level alert is worse than never having built the alert.
-        if: (steps.detector.outputs.code == '20' || (steps.reassess.outputs.decision_count != '' && steps.reassess.outputs.decision_count != '0')) && env.TELEGRAM_BOT_TOKEN != ''
+        if: steps.reassess.outputs.decision_count != '' && steps.reassess.outputs.decision_count != '0' && env.TELEGRAM_BOT_TOKEN != ''
         env:
           TRADE: ${{ steps.trade.outputs.trade_summary }}
           TRIGGER_SUMMARY: ${{ steps.detector.outputs.trigger_summary }}
@@ -256,20 +256,18 @@ jobs:
           REJECTED="${{ steps.trade.outputs.rejected_count }}"
           MESSAGE=$(python - <<'PYTHON'
           import json
+          import os
+          from notify_failure import decision_notification
           state=json.load(open('state/violations.json'))
-          lines=['AI Portföy — karar yeniden değerlendirildi']
-          for change in state.get('decision_changes',[]):
-              lines += [change['symbol']+' → '+change['action'],
-                        'Ne değişti: '+change['trigger'][:400],
-                        'Kararın gerekçesi: '+change['reasoning'][:600],
-                        'Yanlışlanma koşulu: '+change['falsifier'][:400],
-                        'Sonraki inceleme: '+change['after'].get('monitoring',{}).get('next_review_at','weekly round')]
-          if not state.get('decision_changes'):lines.append('İnceleme tamamlanamadı; kanıt ve hata kayıtlarını kontrol edin.')
-          lines += ['İşlem sonucu: '+__import__('os').environ.get('TRADE','none'),
-                    'https://github.com/zeynelgun-afk/ai-portfolio-experiment/blob/main/DECISION_LOG.md']
-          print('\n'.join(lines)[:3500])
+          message=decision_notification(state, os.environ.get('TRADE','none'))
+          if message: print(message)
           PYTHON
           )
+
+          if [ -z "$MESSAGE" ]; then
+            echo "No validated decision change; decision notification skipped."
+            exit 0
+          fi
 
           send() {  # $1 = chat_id, $2 = text -> prints the body, then the HTTP code
             curl --fail-with-body -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \

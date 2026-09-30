@@ -80,6 +80,12 @@ class NewsRecoveryTest(unittest.TestCase):
                 last_news={}, new_last_news={}, assess_news=False)
         check.assert_not_called()
 
+    def test_news_schema_error_names_missing_fields_for_the_retry(self):
+        with self.assertRaisesRegex(ValueError, 'missing required fields: citations, impact'):
+            detector.validate_news_assessment(
+                {'claim_ids': [], 'reasoning': 'r', 'counterevidence': 'c', 'uncertainty': 'u'},
+                {'thesis_summary'}, {})
+
 
 class ReviewFailureTest(unittest.TestCase):
     def test_missing_key_fails_explicit_review(self):
@@ -108,6 +114,19 @@ class TelegramFailureTest(unittest.TestCase):
         response.__enter__.return_value.status = 200
         response.__enter__.return_value.read.return_value = json.dumps({'ok': ok}).encode()
         return response
+
+    def test_no_decision_change_produces_no_decision_notification(self):
+        self.assertIsNone(notify_failure.decision_notification({'decision_changes': []}))
+
+    def test_decision_notification_contains_only_a_recorded_decision(self):
+        message = notify_failure.decision_notification({
+            'decision_changes': [{'symbol': 'NVDA', 'action': 'HOLD',
+                                  'trigger': 'review due', 'reasoning': 'thesis intact',
+                                  'falsifier': 'below floor', 'after': {'monitoring': {
+                                      'next_review_at': '2026-10-06T20:00:00Z'}}}]
+        })
+        self.assertIn('NVDA → HOLD', message)
+        self.assertIn('2026-10-06T20:00:00Z', message)
 
     def test_primary_success_does_not_duplicate_to_dm(self):
         opener = MagicMock(return_value=self.response())

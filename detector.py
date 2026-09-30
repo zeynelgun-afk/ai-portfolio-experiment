@@ -467,8 +467,11 @@ def validate_news_assessment(payload, allowed_claim_ids, sources):
     """Strict, separately testable contract for the news model's structured output."""
     from claim_evidence import resolve_source_references
     required = {'impact','claim_ids','citations','reasoning','counterevidence','uncertainty'}
-    if not isinstance(payload, dict) or not required <= set(payload):
-        raise ValueError('Invalid news assessment schema')
+    if not isinstance(payload, dict):
+        raise ValueError('News assessment must be a JSON object')
+    missing = sorted(required - set(payload))
+    if missing:
+        raise ValueError('News assessment is missing required fields: ' + ', '.join(missing))
     if not isinstance(payload['impact'], str) or payload['impact'] not in {'invalidates','supports','neutral','uncertain'}:
         raise ValueError('Invalid news impact')
     claim_ids = payload['claim_ids']

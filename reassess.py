@@ -264,12 +264,17 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
             valid = isinstance(payload, dict)
             if audit_scope is claim_audit_scope:
                 valid = valid and set(payload) == {'text', 'status'} and payload.get('status') in VALID_STATUSES and isinstance(payload.get('text'), str) and bool(payload['text'].strip())
+                schema_error = "Claim output must contain exactly nonempty text and a valid status."
             else:
                 decision = payload.get('decision') if valid else None
                 valid = valid and isinstance(decision, dict) and decision.get('action') in VALID_ACTIONS and all(isinstance(decision.get(k), str) and decision[k].strip() for k in ('reasoning', 'falsifier')) and bool(payload.get('thesis_assessment'))
+                schema_error = ("Thesis output requires thesis_assessment and decision.action in "
+                                "HOLD/BUY/SELL/TRIM with nonempty reasoning and falsifier.")
             if not valid:
                 last_status = 'invalid_schema'
-                messages.append({'role': 'user', 'content': 'Return exactly the JSON schema in the system message. Required prose and decision fields are missing or invalid. Do not replace the schema with your own.'})
+                detail = schema_error if isinstance(payload, dict) else "Output must be a JSON object."
+                print("  SCHEMA REJECTED: " + detail)
+                messages.append({'role': 'user', 'content': detail + ' Return only the required JSON object. Do not replace the schema with your own.'})
                 continue
 
         if source_ledger is not None:
@@ -544,7 +549,14 @@ def append_note(path, heading, body):
 REJECTION_REASON = {
     "unsourced_numbers": "it insisted on writing unsourced numbers",
     "unparseable": "its output could not be read as JSON",
+    "invalid_schema": "its output missed required fields or violated the structured evidence contract",
 }
+
+
+def failed_assessment_trigger(reason, original_trigger):
+    """Keep a failed review from looking like a successful assessment in the log."""
+    return (f"Assessment failed: {reason}. Original trigger: "
+            f"{str(original_trigger or 'not recorded')[:360]}")
 
 
 # ---------------------------------------------------------------------------- flows
@@ -622,7 +634,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             reason = REJECTION_REASON.get(status, "its output did not match the schema")
             print(f"WARNING {claim['id']}: {reason} — the claim text was NOT CHANGED, "
                   "marked 'unassessed'")
-            mark_claim(claim, "unassessed", trigger.get("trigger"), moment)
+            mark_claim(claim, "unassessed", failed_assessment_trigger(reason, trigger.get("trigger")), moment)
             violations.setdefault("assessment_errors", []).append(claim["id"])
             updated.append(claim["id"])
             continue
@@ -634,7 +646,8 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'review':review})
         except ValueError as error:
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'error':str(error)})
-            mark_claim(claim, 'unassessed', 'Semantic evidence review incomplete', moment)
+            mark_claim(claim, 'unassessed', failed_assessment_trigger(
+                'semantic evidence review incomplete', trigger.get('trigger')), moment)
             violations.setdefault('assessment_errors',[]).append(claim['id'])
             updated.append(claim['id'])
             continue
@@ -718,7 +731,7 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
             print(f"WARNING {symbol}: {reason} — claims were NOT CHANGED, "
                   "no trade produced")
             for claim in position.get("claims", []):
-                mark_claim(claim, "unassessed", trigger_text, moment)
+                mark_claim(claim, "unassessed", failed_assessment_trigger(reason, trigger_text), moment)
             append_note(notes_path, f"{iso(moment)} · {symbol} · UNASSESSED",
                         f"A thesis-level threshold was crossed ({trigger_text}) but the "
                         f"deep model's output was unusable: {reason}. Claims were left "
@@ -736,7 +749,8 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'error':str(error)})
             violations.setdefault('assessment_errors',[]).append(symbol)
             for claim in position.get('claims',[]):
-                mark_claim(claim,'unassessed','Semantic evidence review incomplete',moment)
+                mark_claim(claim,'unassessed',failed_assessment_trigger(
+                    'semantic evidence review incomplete', trigger_text),moment)
             continue
         try:
             validate_monitor(payload)
