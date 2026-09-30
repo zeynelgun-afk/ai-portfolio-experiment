@@ -1425,5 +1425,346 @@
         }
       }
     }
+  },
+  "16446041f93236f00accd273": {
+    "symbol": "NVDA",
+    "action": "HOLD",
+    "time": "2026-09-30T00:32Z",
+    "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented",
+    "reasoning": "The migration trigger carries no adverse information. Price sits above both moving averages on quiet, below-average volume with a flat sector ETF, and the latest reported fundamentals remain strong. None of this justifies selling. Adding is not justified either: the position is still below entry, the cash-conversion drop and higher debt are unexplained, and the earnings catalyst ([NVDA | earnings_date: 2026-11-18 date | as-of 2026-09-30T00:30:22Z | detector/market_data / FMP | snapshot 5480e2859f25]) is still weeks away. HOLD keeps the existing exposure with executable downside tests. The weekly-close stop stays unchanged.",
+    "falsifier": "The decision is wrong if the price falls below the long-horizon price floor in claim NVDA-2, a fixed level near the two-hundred-day average. That level would mean the recovery has failed and a trim decision is required. It is also wrong if the next reported operating margin drops below the NVDA-3 thesis threshold, which would break the fundamental leg.",
+    "before": {
+      "thesis_summary": "AI accelerator leadership. A two-week recovery trend is intact, +4.3% above the 50-day average (215.79 $, 25 Sep 2026); the price is still 2.3% below the entry price (230.36 $).",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "NVDA-1",
+          "text": "The two-week recovery trend continues above the 50-day average (215.79 $); losing that average and staying below it would mean the recovery has failed.",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 215.79,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T19:15Z",
+          "trigger": "2026-09-29T19:15Z, trigger: Semantic evidence review incomplete"
+        },
+        {
+          "id": "NVDA-2",
+          "text": "The position is held below its entry price (230.36 $) because the recovery trend has been confirmed for two rounds; a price below 200 $ refutes that reasoning and puts a trim on the table.",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 200,
+              "severity": "thesis"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            }
+          ],
+          "status": "unassessed",
+          "last_updated": "2026-09-29T19:15Z",
+          "trigger": "2026-09-29T19:15Z, trigger: Semantic evidence review incomplete"
+        }
+      ],
+      "pending_review": {
+        "claim_id": "monitoring_migration",
+        "condition_type": "monitoring_migration",
+        "cooldown_key": "migration:NVDA",
+        "measured": 1,
+        "severity": "thesis",
+        "symbol": "NVDA",
+        "threshold": 0,
+        "trigger": "Legacy decision needs executable falsifier and review deadline; no threshold is invented"
+      }
+    },
+    "after": {
+      "thesis_summary": "NVDA is held because the latest reported quarter shows high growth, margins and free cash flow, while the price trades above both its fifty-day ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) and two-hundred-day ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) moving averages.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "NVDA-1",
+          "text": "The price trend is intact: price ([NVDA | price: 227.27 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25]) sits above the freshly calculated fifty-day average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) by [NVDA | above_sma50_pct: 4.744 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50). A move meaningfully below that moving average would mean the recovery trend has failed.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 3,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-09-30T00:32Z",
+          "trigger": null
+        },
+        {
+          "id": "NVDA-2",
+          "text": "Holding below entry is justified while price stays above its long-horizon floor near the two-hundred-day average ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]). The price currently exceeds that average by [NVDA | above_sma200_pct: 13.6862 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200). A break of the fixed floor refutes the reasoning and puts a trim on the table.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 200,
+              "severity": "thesis"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-09-30T00:32Z",
+          "trigger": null
+        },
+        {
+          "id": "NVDA-3",
+          "text": "The latest reported quarter supports AI accelerator leadership: revenue growth against the year-ago quarter ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), gross margin ([NVDA | gross_margin_pct: 74.975317 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), operating margin ([NVDA | operating_margin_pct: 66.2371 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) and free cash flow ([NVDA | quarter_free_cash_flow: 21400000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]). The drop in operating cash flow ([NVDA | quarter_operating_cash_flow: 24077000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]) versus the prior quarter and the higher total debt ([NVDA | total_debt: 38860000000 USD | as-of 2026-07-26 | FMP/balance-sheet-statement | snapshot 5480e2859f25]) are unexplained and are being watched.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 55,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "gross_margin_pct",
+              "value": 70,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 40,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 10000000000,
+              "unit": "USD",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-09-30T00:32Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "NVDA-1",
+            "text": "The price trend is intact: price ([NVDA | price: 227.27 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25]) sits above the freshly calculated fifty-day average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) by [NVDA | above_sma50_pct: 4.744 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50). A move meaningfully below that moving average would mean the recovery trend has failed.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 3,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "NVDA-2",
+            "text": "Holding below entry is justified while price stays above its long-horizon floor near the two-hundred-day average ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]). The price currently exceeds that average by [NVDA | above_sma200_pct: 13.6862 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200). A break of the fixed floor refutes the reasoning and puts a trim on the table.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below",
+                "value": 200,
+                "severity": "thesis"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              }
+            ]
+          },
+          {
+            "id": "NVDA-3",
+            "text": "The latest reported quarter supports AI accelerator leadership: revenue growth against the year-ago quarter ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), gross margin ([NVDA | gross_margin_pct: 74.975317 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), operating margin ([NVDA | operating_margin_pct: 66.2371 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) and free cash flow ([NVDA | quarter_free_cash_flow: 21400000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]). The drop in operating cash flow ([NVDA | quarter_operating_cash_flow: 24077000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]) versus the prior quarter and the higher total debt ([NVDA | total_debt: 38860000000 USD | as-of 2026-07-26 | FMP/balance-sheet-statement | snapshot 5480e2859f25]) are unexplained and are being watched.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 55,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "gross_margin_pct",
+                "value": 70,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 40,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 10000000000,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-06T20:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "NVDA-2",
+          "condition_index": 0
+        },
+        "change_reason": "Old NVDA-1 used a fixed price copied from an earlier fifty-day average. That value has gone stale, since the freshly measured average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) has moved. The protocol forbids freezing moving averages, so the old fixed price test is replaced by a percent-distance test against the live average. The threshold was not loosened to excuse a loss: price currently sits above the average. NVDA-1's other conditions are unchanged. NVDA-2's conditions are unchanged, and its fixed floor is kept as the thesis falsifier. NVDA-3 is new because measured fundamental metrics are now supplied and the protocol requires a fundamental condition. A review date inside one week was added to satisfy the migration trigger.",
+        "evidence_ids": [
+          "NVDA.price",
+          "NVDA.previous_close",
+          "NVDA.sma50",
+          "NVDA.sma200",
+          "NVDA.above_sma50_pct",
+          "NVDA.above_sma200_pct",
+          "NVDA.volume",
+          "NVDA.volume_avg_20d",
+          "NVDA.earnings_date",
+          "NVDA.revenue_yoy_pct",
+          "NVDA.gross_margin_pct",
+          "NVDA.operating_margin_pct",
+          "NVDA.quarter_free_cash_flow",
+          "NVDA.quarter_operating_cash_flow",
+          "NVDA.total_debt"
+        ],
+        "revision": "b113f77f81a9e873f0d60f6f",
+        "created_at": "2026-09-30T00:32:53+00:00",
+        "evidence_fingerprints": {
+          "NVDA.price": "94fe0df6935cb1adf3b1949e",
+          "NVDA.previous_close": "4a892ec8a7007a0dbda1e8b5",
+          "NVDA.sma50": "8595fae3d3130e09cce6607b",
+          "NVDA.sma200": "c881508735c6c6778cd2b58e",
+          "NVDA.above_sma50_pct": "7a11bb8f796cc0a0668a30db",
+          "NVDA.above_sma200_pct": "98a661ab1e64e425d0f2c33b",
+          "NVDA.volume": "586abb6a58e777246817f7ec",
+          "NVDA.volume_avg_20d": "cb8c96ad3ad32be53de8954c",
+          "NVDA.earnings_date": "607bbe851c241185a205fcd7",
+          "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
+          "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
+          "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
+          "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
+          "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
+          "NVDA.total_debt": "766abf93dd5a30920a515e86"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Consensus snapshots for the upcoming fiscal year are unchanged against the prior observed snapshot (EPS revision [NVDA | analyst_eps_20270125_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-30T00:30:22+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 5480e2859f25], revenue revision [NVDA | analyst_revenue_20270125_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-30T00:30:22+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 5480e2859f25]). The seven-, thirty- and ninety-day estimate windows lack enough same-period snapshots, so the trend in consensus revisions is unmeasured. Hypothesis, not an analyst-stated reason: the reported revenue growth ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) may underpin the target raises. No article attributes a raise to earnings.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "NVDA.analyst_eps_20270125_revision_pct",
+            "NVDA.analyst_revenue_20270125_revision_pct",
+            "NVDA.revenue_yoy_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "No supplied issuer news covers contracts, products, regulation or partnerships. The only documents are price-target observations with unknown reasons. This is an explicit evidence gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only: the semiconductor ETF trades above its fifty-day average by [SMH | above_sma50_pct: 6.9415 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50) and above its two-hundred-day average by [SMH | above_sma200_pct: 22.5039 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200), which suggests the sector backdrop is supportive. Price levels do not prove fund flows or investor attention, and no analyst attributes a target change to sector demand.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "SMH.above_sma50_pct",
+            "SMH.above_sma200_pct"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis, not a stated reason: in the ninety-day window, most matched firms raised targets in a cluster right after the latest quarterly report (for example Evercore ISI, Raymond James, Goldman Sachs and Morgan Stanley via TheFly and StreetInsider headlines). This may reflect a repricing of the growth story. DA Davidson's observed target fell, but its baseline headline names a different firm, so that comparison is unreliable. Two records whose headline firm differs from the provider firm are quarantined. Forecast horizons are unknown, and targets do not prescribe a trade.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:14854164aa5b06fe4f3ddd2c",
+            "analyst:ab413d9ac6cefbe9daaa508b",
+            "analyst:4b7be1dccafba97d7ae6e2e7",
+            "analyst:d663728c03eb924696143895",
+            "analyst:ab809dca89f8d4fdcd56725e"
+          ]
+        }
+      }
+    }
   }
 }
