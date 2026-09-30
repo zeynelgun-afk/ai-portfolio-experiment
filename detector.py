@@ -404,7 +404,8 @@ def in_cooldown(cooldown, key, moment):
         last = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
     except ValueError:
         return False
-    return moment - last < timedelta(hours=COOLDOWN_HOURS)
+    delay = timedelta(hours=24) if key.startswith('migration:') else timedelta(hours=COOLDOWN_HOURS)
+    return moment - last < delay
 
 
 # ---------------------------------------------------------------------------- run
@@ -434,20 +435,14 @@ an exact source excerpt. Choose relevant sources using their full source context
 All three explanation fields must be nonempty strings. Explain the causal connection;
 do not equate a price move with a broken business thesis. Use uncertain when evidence
 cannot support a conclusion. An invalidates verdict must identify at least one claim.
-Every completed verdict needs exact citations from the supplied source texts."""
+Every completed verdict needs exact citations from the supplied source texts. Example shape
+(N1 must be replaced by an actual supplied ID):
+{"impact":"uncertain","claim_ids":[],"citations":[{"source_id":"N1"}],
+ "reasoning":"The excerpt does not establish a thesis-level change.",
+ "counterevidence":"The source reports no customer or guidance change.",
+ "uncertainty":"One excerpt cannot establish persistence."}"""
     def validate(payload):
-        required = {'impact','claim_ids','citations','reasoning','counterevidence','uncertainty'}
-        if not isinstance(payload,dict) or not required <= set(payload):
-            raise ValueError('Invalid news assessment schema')
-        if payload['impact'] not in {'invalidates','supports','neutral','uncertain'}:
-            raise ValueError('Invalid news impact')
-        if not isinstance(payload['claim_ids'],list) or not set(payload['claim_ids']) <= claim_ids:
-            raise ValueError('Unknown affected claim')
-        if payload['impact'] in {'invalidates','supports'} and not payload['claim_ids']:
-            raise ValueError('Invalidation must name an affected claim')
-        if any(not isinstance(payload[k],str) or not payload[k].strip() for k in ('reasoning','counterevidence','uncertainty')):
-            raise ValueError('Missing news reasoning or uncertainty')
-        resolve_source_references(payload['citations'],model_sources)
+        validate_news_assessment(payload, claim_ids, model_sources)
     report,status=call_llm(env('OPENROUTER_MODEL_NEWS',env('OPENROUTER_MODEL_FAST','anthropic/claude-haiku-4.5')),
                            prompt,json.dumps({'thesis_summary':thesis_summary,'claims':claims or [],'sources':model_sources}),
                            api_key,response_validator=validate)
@@ -466,6 +461,27 @@ Every completed verdict needs exact citations from the supplied source texts."""
         # trigger a trade or keep the same packet in an endless 30-minute retry loop.
         return False, report
     return report['impact'] in {'invalidates','supports'}, report
+
+
+def validate_news_assessment(payload, allowed_claim_ids, sources):
+    """Strict, separately testable contract for the news model's structured output."""
+    from claim_evidence import resolve_source_references
+    required = {'impact','claim_ids','citations','reasoning','counterevidence','uncertainty'}
+    if not isinstance(payload, dict) or not required <= set(payload):
+        raise ValueError('Invalid news assessment schema')
+    if not isinstance(payload['impact'], str) or payload['impact'] not in {'invalidates','supports','neutral','uncertain'}:
+        raise ValueError('Invalid news impact')
+    claim_ids = payload['claim_ids']
+    if not isinstance(claim_ids, list) or any(not isinstance(item, str) for item in claim_ids):
+        raise ValueError('Affected claims must be a list of claim IDs')
+    if not set(claim_ids) <= set(allowed_claim_ids):
+        raise ValueError('Unknown affected claim')
+    if payload['impact'] in {'invalidates','supports'} and not claim_ids:
+        raise ValueError('Evidence impact must name an affected claim')
+    if any(not isinstance(payload[key], str) or not payload[key].strip()
+           for key in ('reasoning','counterevidence','uncertainty')):
+        raise ValueError('Missing news reasoning or uncertainty')
+    resolve_source_references(payload['citations'], sources)
 
 
 def run(theses, data, stops, previous_state, cooldown, moment, full_review=False, last_news=None, new_last_news=None, assess_news=True, initialize_monitors=False):
@@ -606,13 +622,18 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
     import decision_lifecycle as lifecycle
     for symbol,position in theses.items():
         if symbol.startswith('_'):continue
-        if initialize_monitors and not position.get('monitoring'):
+        pending = position.get('pending_review') or {}
+        migration_key = 'migration:' + symbol
+        migration_pending = pending.get('condition_type') == 'monitoring_migration'
+        if (initialize_monitors and not position.get('monitoring')
+                and not migration_pending and not in_cooldown(cooldown, migration_key, moment)):
             triggered.append({'symbol':symbol,'claim_id':'monitoring_migration','severity':'thesis',
                 'condition_type':'monitoring_migration','measured':1,'threshold':0,
                 'trigger':'Legacy decision needs executable falsifier and review deadline; no threshold is invented',
-                'cooldown_key':'migration:'+symbol})
-        if position.get('pending_review'):
-            triggered.append(position['pending_review'])
+                'cooldown_key':migration_key})
+        if pending and not (pending.get('condition_type') == 'monitoring_migration'
+                            and in_cooldown(cooldown, migration_key, moment)):
+            triggered.append(pending)
         monitoring=position.get('monitoring',{})
         due=monitoring.get('next_review_at')
         if due and moment >= datetime.fromisoformat(due.replace('Z','+00:00')):
@@ -751,7 +772,8 @@ def main():
                             for i in report["triggered"]) or "none"
         with open(gh_output, "a", encoding="utf-8") as handle:
             handle.write(f"code={report['code']}\n")
-            handle.write(f"news_error_count={len(report['news_errors']) + len(report['measurement_errors'])}\n")
+            handle.write(f"news_error_count={len(report['news_errors'])}\n")
+            handle.write(f"measurement_error_count={len(report['measurement_errors'])}\n")
             handle.write(f"market_open={'true' if report['market_open'] else 'false'}\n")
             handle.write(
                 f"state_changed={'true' if report['state_changed'] else 'false'}\n")

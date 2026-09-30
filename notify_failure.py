@@ -29,11 +29,21 @@ def notify(environ=None, opener=None, message=None):
                f"{environ.get('GITHUB_REPOSITORY', '')}/actions/runs/"
                f"{environ.get('GITHUB_RUN_ID', '')}")
     workflow = environ.get('SOURCE_WORKFLOW') or environ.get('GITHUB_WORKFLOW', 'unknown')
-    message = message or ("🚨 AI Portföy — otomasyon hatası\n"
-               f"İş akışı: {workflow}\n"
-               f"Başarısız adımlar: {', '.join(str(name) for name in failed)[:2500] or 'GitHub kaydına bakın'}\n"
-               "Bazı incelemeler eksik kalmış olabilir; önceki karar veya bildirim adımları tamamlanmış olabilir. "
-               "İşlem durumunu DECISION_LOG ve GitHub kaydından doğrulayın:\n" + run_url)
+    partial_assessment = any(name in {'Reassessment health', 'News assessment health'}
+                             for name in failed)
+    if message is None:
+        title = ('⚠️ AI Portföy — kısmi değerlendirme hatası' if partial_assessment
+                 else '🚨 AI Portföy — otomasyon hatası')
+        context = ("Bazı geçerli değerlendirme ve kayıtlar tamamlanmış olabilir; başarısız kalanlar "
+                   "eksik/pending durumunda ve yeniden denenebilir. Bu bildirim, tüm işlemlerin "
+                   "başarısız olduğu anlamına gelmez. Yeniden çalıştırmadan önce karar günlüğü ile "
+                   "çalışma özetini kontrol edin. " if partial_assessment else
+                   "Bazı incelemeler eksik kalmış olabilir; önceki karar veya bildirim adımları "
+                   "tamamlanmış olabilir. İşlem durumunu DECISION_LOG ve GitHub kaydından doğrulayın: ")
+        message = (f"{title}\n"
+                   f"İş akışı: {workflow}\n"
+                   f"Başarısız adımlar: {', '.join(str(name) for name in failed)[:2500] or 'GitHub kaydına bakın'}\n"
+                   + context + run_url)
     if environ.get("ALERT_TEST") == "true":
         message = ("✅ AI Portföy — hata bildirimi TESTİ\n"
                    "Bu bir test mesajıdır; yeni bir otomasyon hatası bildirmiyor.\n"

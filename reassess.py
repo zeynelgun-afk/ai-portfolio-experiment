@@ -105,6 +105,16 @@ def week_label(moment):
     return f"{year}-W{week:02d}"
 
 
+def record_failed_migration_retries(cooldown, violations, moment):
+    """Delay failed legacy-monitor migrations for a day; ordinary market retries stay unchanged."""
+    failed = set(violations.get('assessment_errors', []))
+    for item in violations.get('triggered', []):
+        symbol = item.get('symbol')
+        if item.get('condition_type') == 'monitoring_migration' and symbol in failed:
+            cooldown['migration:' + symbol] = iso(moment)
+    return cooldown
+
+
 def budget_state(counter_path, moment):
     counter = read_json(counter_path, {})
     if counter.get("week") != week_label(moment):
@@ -876,6 +886,10 @@ def main():
     if updated or decisions or violations.get("assessment_errors"):
         write_json(THESES_PATH, theses)
         cooldown = read_json(cooldown_path, {})
+        # This is a data-contract repair, not a market trigger. Give a failed
+        # migration one day before retrying so the same legacy schema does not
+        # consume an LLM call every 30-minute detector cycle.
+        record_failed_migration_retries(cooldown, violations, moment)
         for claim_id in updated:
             failed = any(c["id"] == claim_id and c.get("status") == "unassessed"
                          for p in theses.values() if isinstance(p, dict)
@@ -924,6 +938,7 @@ def main():
             handle.write(f"updated_claims={','.join(updated)}\n")
             handle.write(f"decision_count={len(decisions)}\n")
             handle.write(f"error_count={len(violations.get('assessment_errors', []))}\n")
+            handle.write(f"error_items={','.join(sorted(set(violations.get('assessment_errors', []))))}\n")
             handle.write(f"llm_calls={counter['calls']}/{limit}\n")
     print(f"Weekly LLM calls: {counter['calls']}/{limit}")
     return 0

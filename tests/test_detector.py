@@ -382,11 +382,11 @@ class CliTest(unittest.TestCase):
         self.assertTrue(any(item["severity"] == "thesis"
                             for item in state["triggered"]))
 
-    def test_the_full_review_flag_raises_the_code(self):
+    def test_full_review_runs_even_when_no_legacy_migration_is_needed(self):
         with tempfile.TemporaryDirectory() as temporary:
             process, _ = self.invoke("--full-review", state_dir=temporary)
         self.assertEqual(process.returncode, 20, process.stdout + process.stderr)
-        self.assertIn("monitoring_migration",process.stdout)
+        self.assertIn("[THESIS]",process.stdout)
 
 
 if __name__ == "__main__":

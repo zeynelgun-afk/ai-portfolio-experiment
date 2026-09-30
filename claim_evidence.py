@@ -109,6 +109,26 @@ def resolve_source_references(references, sources, *, quote_limit=240):
     return result
 
 
+def validate_semantic_review(payload, sources):
+    """Validate the reviewer contract before its verdict can authorize a draft."""
+    required = {'verdict','citations','issues','counterargument'}
+    if not isinstance(payload, dict) or not required <= set(payload):
+        raise ValueError('Invalid semantic review schema')
+    if not isinstance(payload['verdict'], str) or payload['verdict'] not in {'supported','uncertain','unsupported'}:
+        raise ValueError('Invalid semantic review verdict')
+    issues = payload['issues']
+    if not isinstance(issues, list) or any(not isinstance(issue, str) for issue in issues):
+        raise ValueError('Review issues must be a list of strings')
+    citations = payload['citations']
+    if not isinstance(citations, list) or len(citations) > 8 or len(issues) > 8:
+        raise ValueError('Select at most eight relevant sources and list at most eight material issues')
+    if payload['verdict'] == 'supported' and issues:
+        raise ValueError('Unresolved material issues cannot pass evidence review')
+    if not isinstance(payload['counterargument'], str) or not payload['counterargument'].strip():
+        raise ValueError('Missing counterargument')
+    resolve_source_references(citations, sources)
+
+
 def semantic_review(draft, data, facts, api_key, model):
     import reassess
     sources={key:{'text':f"{fact['symbol']} | {fact['metric']}: {fact['value']} {fact['unit']} | as-of {fact['as_of']} | {fact['source']}",
@@ -176,20 +196,13 @@ new assertion while reviewing prior thesis context. Challenge contradictions and
 A supported verdict means the material factual assertions are supported and causal uncertainty
 is disclosed. If evidence is missing or contradictory, use uncertain/unsupported and identify
 what is missing. Never let fluent writing substitute for evidence. Cite the evidence you checked.
-Do not treat a scenario or freely chosen trade size as a market fact.'''
+Do not treat a scenario or freely chosen trade size as a market fact.
+Example supported shape (S1 must be replaced by an actually supplied source ID):
+{"verdict":"supported","citations":[{"source_id":"S1"}],"issues":[],
+ "counterargument":"The source supports the stated fact, while future persistence remains uncertain."}
+If a material assertion is unresolved, do not use supported; list the issue and return uncertain.'''
     def validate(payload):
-        required = {'verdict','citations','issues','counterargument'}
-        if not isinstance(payload,dict) or not required <= set(payload):
-            raise ValueError('Invalid semantic review schema')
-        if payload['verdict'] not in {'supported','uncertain','unsupported'} or not isinstance(payload['issues'],list) or any(not isinstance(issue,str) for issue in payload['issues']):
-            raise ValueError('Invalid review verdict/issues')
-        if payload['verdict']=='supported' and payload['issues']:
-            raise ValueError('Unresolved material issues cannot pass evidence review')
-        if len(payload['citations']) > 8 or len(payload['issues']) > 8:
-            raise ValueError('Select at most eight relevant sources and list at most eight material issues')
-        if not isinstance(payload['counterargument'],str) or not payload['counterargument'].strip():
-            raise ValueError('Missing counterargument')
-        resolve_source_references(payload['citations'],model_sources)
+        validate_semantic_review(payload, model_sources)
     report,status=reassess.call_llm(model,instruction,json.dumps({'draft':draft,'sources':model_sources}),api_key,
                                     response_validator=validate)
     if report:

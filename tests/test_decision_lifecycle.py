@@ -107,6 +107,23 @@ class TriggerTransitions(unittest.TestCase):
         report=detector.run({'MU':old},data(),{}, {},{},NOW,assess_news=False,initialize_monitors=True)
         self.assertEqual(report['code'],20);self.assertEqual(old,before)
 
+    def test_failed_legacy_migration_is_deduplicated_and_retried_daily(self):
+        migration={'symbol':'MU','claim_id':'monitoring_migration','severity':'thesis',
+                   'condition_type':'monitoring_migration','cooldown_key':'migration:MU',
+                   'trigger':'Legacy decision needs an executable review.'}
+        old=thesis();old['pending_review']=copy.deepcopy(migration)
+        initial=detector.run({'MU':old},data(),{}, {},{},NOW,assess_news=False,initialize_monitors=True)
+        self.assertEqual([item['condition_type'] for item in initial['triggered']],['monitoring_migration'])
+
+        cooldown=reassess.record_failed_migration_retries({},
+            {'assessment_errors':['MU'],'triggered':[migration]},NOW)
+        retry=detector.run({'MU':old},data(),{}, {},cooldown,NOW+timedelta(hours=12),
+                           assess_news=False,initialize_monitors=True)
+        self.assertEqual(retry['triggered'],[])
+        daily=detector.run({'MU':old},data(),{}, {},cooldown,NOW+timedelta(hours=24),
+                           assess_news=False,initialize_monitors=True)
+        self.assertEqual([item['condition_type'] for item in daily['triggered']],['monitoring_migration'])
+
     def test_positive_price_signal_needs_confirmation(self):
         old=thesis();old['claims'][0]['conditions']=[{'type':'price_above','value':800,'severity':'thesis'}]
         first=detector.run({'MU':old},data(),{}, {},{},NOW,assess_news=False)

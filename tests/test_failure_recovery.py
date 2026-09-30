@@ -151,3 +151,15 @@ class TelegramFailureTest(unittest.TestCase):
         payload = parse_qs(opener.call_args.args[0].data.decode())
         self.assertIn('önceki karar veya bildirim adımları tamamlanmış olabilir', payload['text'][0])
         self.assertIn('DECISION_LOG', payload['text'][0])
+
+    def test_partial_assessment_failure_is_not_described_as_total_failure(self):
+        with tempfile.NamedTemporaryFile(mode='w+', encoding='utf-8') as handle:
+            json.dump(['Reassessment health', 'News assessment health'], handle)
+            handle.flush()
+            opener = MagicMock(return_value=self.response())
+            notify_failure.notify(dict(self.ENV, FAILED_STEPS_FILE=handle.name), opener)
+        from urllib.parse import parse_qs
+        payload = parse_qs(opener.call_args.args[0].data.decode())
+        self.assertIn('kısmi değerlendirme hatası', payload['text'][0])
+        self.assertIn('tüm işlemlerin başarısız olduğu anlamına gelmez', payload['text'][0])
+        self.assertIn('yeniden denenebilir', payload['text'][0])

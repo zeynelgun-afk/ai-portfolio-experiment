@@ -133,6 +133,13 @@ deterministic thresholds, confirmation checks, hysteresis and a four-hour cooldo
 Unseen news can require a separate model assessment; unsuccessful news assessments
 remain pending for retry.
 
+Legacy positions without executable monitoring are migrated through thesis review. A
+failed migration is retained as pending, deduplicated against the generated migration
+trigger, and retried no more than once per day rather than on every intraday poll. When a
+run has both successful and failed assessments, its GitHub summary identifies the pending
+work and the Telegram alert labels the run **partial**; successful independent records may already be
+saved, while failed evidence remains eligible for retry.
+
 - **Claim-level Update:** Refresh an affected claim when its measured condition changes.
 - **Thesis Reassessment:** Re-evaluate the full thesis and propose an action when a thesis-level trigger occurs.
 - **Freshness Metadata:** Retain update timestamps, triggers and supporting evidence with the resulting records.
@@ -239,8 +246,11 @@ to avoid repeatedly proposing the same amendment. The repository currently uses 
 artifact fallback. The permission to approve PRs was not enabled.
 
 `System Checks` runs regression tests, the isolated detector → model adapter → executor →
-report scenario, prompt evaluation and a dashboard build. Model responses in those tests
-are fixtures; live provider checks are documented separately in `SYSTEM_TEST_REPORT.md`.
+report scenario, prompt evaluation and a dashboard build. The regression suite includes
+the malformed citation, unknown source/claim ID, missing-field, and unresolved-review
+shapes seen in live runs. These tests exercise the real output validators with fixtures;
+they do not establish that a model will reason correctly on new evidence. Live provider
+checks are documented separately in `SYSTEM_TEST_REPORT.md`.
 Failures are routed through the Telegram alert workflow. Its notification drill deliberately
 fails **only the test workflow**, without modifying portfolio state.
 

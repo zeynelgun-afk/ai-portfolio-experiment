@@ -346,17 +346,48 @@ jobs:
             --data-urlencode "text@/tmp/summary.txt" \
             -o /dev/null -w "Summary HTTP status: %{http_code}\n"
 
+      - name: Summarize complete and partial assessment results
+        if: always() && steps.session.outputs.run == 'true'
+        env:
+          DETECTOR_OUTCOME: ${{ steps.detector.outcome }}
+          REASSESS_OUTCOME: ${{ steps.reassess.outcome }}
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import os
+          import json
+          from pathlib import Path
+          fresh = os.environ.get('DETECTOR_OUTCOME') == 'success'
+          state = json.loads(Path('state/violations.json').read_text()) if fresh and Path('state/violations.json').exists() else {}
+          reassess = sorted(set(state.get('assessment_errors', [])))
+          news = state.get('news_errors', [])
+          measurement = state.get('measurement_errors', [])
+          stopped = not fresh or os.environ.get('REASSESS_OUTCOME') == 'failure'
+          partial = bool(reassess or news or measurement)
+          print('## Assessment status')
+          if stopped: print('**INCOMPLETE — detector or reassessment stopped before a fresh result was completed**')
+          elif partial: print('**PARTIAL — some assessments remain pending**')
+          else: print('**COMPLETE — no assessment errors recorded**')
+          if reassess: print('- Reassessment errors: ' + ', '.join(reassess))
+          for label, items in (('News/research', news), ('Measurement', measurement)):
+              for item in items[:20]:
+                  if isinstance(item, dict):
+                      detail = str(item.get('symbol', 'unknown')) + ': ' + str(item.get('error', item.get('detail', 'incomplete evidence')))
+                  else: detail = str(item)
+                  print('- ' + label + ' issue: ' + detail[:240])
+          if partial or stopped: print('- Valid independent decisions and records may already have been saved. Check the decision log and run details before taking any follow-up action; failed assessments remain eligible for retry.')
+          PY
+
       - name: Reassessment health
         if: always() && steps.reassess.outputs.error_count != '' && steps.reassess.outputs.error_count != '0'
         run: |
-          echo "::error::One or more claims or theses could not be assessed. Failed claims remain eligible for retry."
+          echo "::error::PARTIAL RUN: some assessments were saved, but one or more claims or theses remain unassessed. Check the Assessment status summary; failed items remain eligible for retry."
           exit 1
 
       - name: News assessment health
         id: news_health
-        if: always() && steps.detector.outputs.news_error_count != '' && steps.detector.outputs.news_error_count != '0'
+        if: always() && (steps.detector.outputs.news_error_count != '' && steps.detector.outputs.news_error_count != '0' || steps.detector.outputs.measurement_error_count != '' && steps.detector.outputs.measurement_error_count != '0')
         run: |
-          echo "::error::Research evidence incomplete: inspect news, monitored metrics and analyst coverage in state/violations.json and ANALYST_REVISIONS.md."
+          echo "::error::PARTIAL RUN: news, provider coverage, or measurements were incomplete. See the Assessment status summary, state/violations.json, and ANALYST_REVISIONS.md."
           exit 1
 
       - name: Report automatic prompt rollback
