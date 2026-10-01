@@ -211,6 +211,59 @@
           "risk": null
         }
       ]
+    },
+    "90d5a2ce8b228f3da7f3e043": {
+      "symbol": "MU",
+      "observed_at": "2026-10-01T00:34:45+00:00",
+      "direction": "down",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-01:MU:v2",
+      "window_30d": {
+        "breadth": -0.3333333333333333,
+        "down_firms": 2,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 3,
+        "median_revision_pct": -8.1967,
+        "target_dispersion_pct": 6.42416074439621,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 1
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-10-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-12-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-02",
+          "end_date": "2027-03-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
     }
   },
   "revenue_consensus_revision_cohorts": {
@@ -343,6 +396,144 @@
           "horizon_sessions": 120,
           "baseline_date": "2026-09-30",
           "end_date": "2027-03-24",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "221a5bf149466b2f299b223e": {
+      "symbol": "AMD",
+      "fiscal_period": "2026-12-27",
+      "observed_at": "2026-10-01T00:34:45+00:00",
+      "previous_observed_at": "2026-09-30T00:30:22+00:00",
+      "previous_consensus_revenue": 50927903792.0,
+      "current_consensus_revenue": 50927895459.0,
+      "revision_pct": -1.6362346335780245e-05,
+      "analyst_count_previous": 38.0,
+      "analyst_count_current": 38.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-10-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-12-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-02",
+          "end_date": "2027-03-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "27dd98ec1404e0b1a1b4c538": {
+      "symbol": "AMD",
+      "fiscal_period": "2027-12-27",
+      "observed_at": "2026-10-01T00:34:45+00:00",
+      "previous_observed_at": "2026-09-30T00:30:22+00:00",
+      "previous_consensus_revenue": 89386465498.0,
+      "current_consensus_revenue": 89276818560.0,
+      "revision_pct": -0.12266615240811074,
+      "analyst_count_previous": 40.0,
+      "analyst_count_current": 40.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-10-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-12-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-02",
+          "end_date": "2027-03-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "9367698a1bc5849fe2ebdfdd": {
+      "symbol": "AMD",
+      "fiscal_period": "2028-12-27",
+      "observed_at": "2026-10-01T00:34:45+00:00",
+      "previous_observed_at": "2026-09-30T00:30:22+00:00",
+      "previous_consensus_revenue": 123068459007.0,
+      "current_consensus_revenue": 122778324721.0,
+      "revision_pct": -0.23575032005844607,
+      "analyst_count_previous": 37.0,
+      "analyst_count_current": 37.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-10-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-02",
+          "end_date": "2026-12-29",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-02",
+          "end_date": "2027-03-29",
           "status": "pending",
           "return_pct": null,
           "net_return_scenarios_pct": {},

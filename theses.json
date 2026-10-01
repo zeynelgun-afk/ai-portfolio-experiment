@@ -21,7 +21,7 @@
       {
         "id": "MU-1",
         "text": "Memory demand is reflected in [MU | price: 1065.44 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 9300ec758fb2] holding [MU | above_sma50_pct: 12.186 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 9300ec758fb2] above the medium-term moving average [MU | sma50: 949.7082000000003 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 9300ec758fb2] and well above the long-term average [MU | sma200: 669.11285 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 9300ec758fb2]. The latest reported quarter shows very high gross and operating margins at [MU | gross_margin_pct: 84.561945 % | as-of 2026-05-28 | FMP/income-statement | snapshot 9300ec758fb2] and [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot 9300ec758fb2] respectively, supported by [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot 9300ec758fb2] in free cash flow and a net cash position of [MU | net_debt: -18619000000 USD | as-of 2026-05-28 | FMP/balance-sheet-statement | snapshot 9300ec758fb2]. Recent analyst revisions show mixed direction: [MU | analyst_up_firms_30d: 1 firms | as-of 2026-09-30T00:30:22+00:00 | FMP price-target-news / same-firm matched observations | snapshot 9300ec758fb2] firm raised targets while [MU | analyst_down_firms_30d: 1 firms | as-of 2026-09-30T00:30:22+00:00 | FMP price-target-news / same-firm matched observations | snapshot 9300ec758fb2] firm lowered, with a median revision of [MU | analyst_median_revision_pct_30d: 5.2767 % | as-of 2026-09-30T00:30:22+00:00 | FMP price-target-news / same-firm matched observations | snapshot 9300ec758fb2] over the past month. The earlier claim that the gap was widening is withdrawn.",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "price_below_sma50_pct",
@@ -55,13 +55,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-09-30T00:32Z",
-        "trigger": "2026-09-30T00:32Z, trigger: daily bulk review (no threshold crossed)"
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
       },
       {
         "id": "MU-2",
         "text": "[MU | earnings_date: 2026-09-30 date | as-of 2026-09-30T00:30:22Z | detector/market_data / FMP | snapshot 9300ec758fb2] is the thesis's two-sided test. The thesis requires that the new quarter maintain strong profitability and cash generation compared against the most recent reported quarter, which showed [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot 9300ec758fb2] operating margin and [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot 9300ec758fb2] in free cash flow. The position also maintains a net cash position of [MU | net_debt: -18619000000 USD | as-of 2026-05-28 | FMP/balance-sheet-statement | snapshot 9300ec758fb2]. A post-report break below the fixed thesis floor of [MU | price: 1065.44 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 9300ec758fb2] refutes it.",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "earnings_approaching",
@@ -93,8 +93,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-09-30T00:32Z",
-        "trigger": "2026-09-30T00:32Z, trigger: daily bulk review (no threshold crossed)"
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
       }
     ],
     "monitoring": {
@@ -255,16 +255,30 @@
           "MU.analyst_median_revision_pct_30d"
         ]
       }
+    },
+    "pending_review": {
+      "analyst_event_keys": [
+        "analyst:MU:e47506d6cd877bd169a92d69",
+        "analyst:MU:6ef4d2b8514b3c55f9f69c83"
+      ],
+      "claim_id": "analyst_revision_review",
+      "condition_type": "analyst_revision",
+      "cooldown_key": "analyst:MU:e8a2a10c69476f63f0369eab",
+      "measured": 2,
+      "severity": "thesis",
+      "symbol": "MU",
+      "threshold": 1,
+      "trigger": "Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
     }
   },
   "AMD": {
-    "thesis_summary": "AMD's accelerator-and-server growth thesis is supported by strong year-over-year revenue growth, margins and positive free cash flow in the latest reported quarter, while the price sits well above its rising fifty-day average with light volume.",
+    "thesis_summary": "AMD's accelerator-and-server growth thesis rests on strong reported year-over-year revenue growth, solid margins, positive free cash flow and a net cash balance sheet. The price is extended well above its fifty-day average on light volume. Today's news is a rotation by one investor and a strategic deal, not a fundamental break.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
         "id": "AMD-1",
-        "text": "The growth thesis holds while the price stays above its freshly calculated fifty-day average and the latest reported quarter's profitability is sustained. Current evidence: price [AMD | price: 610.555 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] versus fifty-day average [AMD | sma50: 506.9552 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 26bf98813d64], operating margin [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64], revenue growth year over year [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64]. A close meaningfully below the moving average, or a margin collapse in the next report, would break it.",
-        "status": "unassessed",
+        "text": "The growth thesis holds while two things stay true. First, the price remains above its freshly calculated fifty-day average; it currently sits [AMD | above_sma50_pct: 19.8671 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0] above it. Second, the latest reported quarter's profitability is sustained in the next report. That quarter showed revenue growth of [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 9190099498d0] year over year, an operating margin of [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 9190099498d0], positive free cash flow of [AMD | quarter_free_cash_flow: 1558000000 USD | as-of 2026-06-27 | FMP/cash-flow-statement | snapshot 9190099498d0] and net debt of [AMD | net_debt: -810000000 USD | as-of 2026-06-27 | FMP/balance-sheet-statement | snapshot 9190099498d0]. Today's news on ARK selling, the HPE Helios order and the World Labs deal does not alter these measurements.",
+        "status": "valid",
         "conditions": [
           {
             "type": "price_below_sma50_pct",
@@ -286,6 +300,13 @@
             "severity": "claim"
           },
           {
+            "type": "fundamental_below",
+            "metric": "quarter_free_cash_flow",
+            "value": 0,
+            "unit": "USD",
+            "severity": "claim"
+          },
+          {
             "type": "stop_proximity_pct",
             "value": 5,
             "severity": "warning"
@@ -302,13 +323,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-09-30T19:01Z",
-        "trigger": "2026-09-30T19:01Z, trigger: The supplied sources support both claims through multiple independent observations. Claim AMD-1 rests on sustained profitability and growth; the latest reported data show 50.1% YoY revenue growth and 17.25% operating margin, both well above the thesis thresholds (20% YoY and 12% margin). Current price (610.555 USD) remains 20.4% above the fifty-day average (506.96 USD), validating the price-above-SMA50 condition. Excerpt E1ca5094207 confirms Data Center revenue is expected to more than double YoY next year, with management targeting 75% EPS CAGR through FY2028, reinforcing growth sustainability. Claim AMD-2 cautions against adding at current stretched valuations on light volume; the World Labs acquisition (E1ca5094207, Ebe7d598def) is framed as a strategic, long-term AI infrastructure bet rather than an immediate earnings driver, which is consistent with the thesis that near-term valuation is stretched. The all-stock deal structure (Ebe7d598def) does not alter the current price or volume dynamics that define the claim's conditions. No source contradicts the fifty-day average price relationship or the profitability metrics."
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": null
       },
       {
         "id": "AMD-2",
-        "text": "No adding while the price is stretched far above the fifty-day average ([AMD | above_sma50_pct: 20.4357 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] above it) on below-average volume. A pullback toward the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
-        "status": "unassessed",
+        "text": "No adding while the price is stretched far above the fifty-day average ([AMD | above_sma50_pct: 19.8671 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0]) on below-average volume ([AMD | volume: 14204599.032779997 shares | as-of 2026-09-30 | detector/market_data / FMP | snapshot 9190099498d0] against a twenty-day average of [AMD | volume_avg_20d: 22180840.55 shares | as-of 2026-09-30 | detector/market_data / FMP | snapshot 9190099498d0]). Consensus forecasts for the next two fiscal years edged down slightly between snapshots, and the World Labs dilution is unquantified, so valuation support is not improving. A pullback to the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
+        "status": "valid",
         "conditions": [
           {
             "type": "price_below",
@@ -326,15 +347,15 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-09-30T19:01Z",
-        "trigger": "2026-09-30T19:01Z, trigger: The supplied sources support both claims through multiple independent observations. Claim AMD-1 rests on sustained profitability and growth; the latest reported data show 50.1% YoY revenue growth and 17.25% operating margin, both well above the thesis thresholds (20% YoY and 12% margin). Current price (610.555 USD) remains 20.4% above the fifty-day average (506.96 USD), validating the price-above-SMA50 condition. Excerpt E1ca5094207 confirms Data Center revenue is expected to more than double YoY next year, with management targeting 75% EPS CAGR through FY2028, reinforcing growth sustainability. Claim AMD-2 cautions against adding at current stretched valuations on light volume; the World Labs acquisition (E1ca5094207, Ebe7d598def) is framed as a strategic, long-term AI infrastructure bet rather than an immediate earnings driver, which is consistent with the thesis that near-term valuation is stretched. The all-stock deal structure (Ebe7d598def) does not alter the current price or volume dynamics that define the claim's conditions. No source contradicts the fifty-day average price relationship or the profitability metrics."
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": null
       }
     ],
     "monitoring": {
       "claims": [
         {
           "id": "AMD-1",
-          "text": "The growth thesis holds while the price stays above its freshly calculated fifty-day average and the latest reported quarter's profitability is sustained. Current evidence: price [AMD | price: 610.555 USD | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] versus fifty-day average [AMD | sma50: 506.9552 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 26bf98813d64], operating margin [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64], revenue growth year over year [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64]. A close meaningfully below the moving average, or a margin collapse in the next report, would break it.",
+          "text": "The growth thesis holds while two things stay true. First, the price remains above its freshly calculated fifty-day average; it currently sits [AMD | above_sma50_pct: 19.8671 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0] above it. Second, the latest reported quarter's profitability is sustained in the next report. That quarter showed revenue growth of [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 9190099498d0] year over year, an operating margin of [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 9190099498d0], positive free cash flow of [AMD | quarter_free_cash_flow: 1558000000 USD | as-of 2026-06-27 | FMP/cash-flow-statement | snapshot 9190099498d0] and net debt of [AMD | net_debt: -810000000 USD | as-of 2026-06-27 | FMP/balance-sheet-statement | snapshot 9190099498d0]. Today's news on ARK selling, the HPE Helios order and the World Labs deal does not alter these measurements.",
           "status": "valid",
           "conditions": [
             {
@@ -357,6 +378,13 @@
               "severity": "claim"
             },
             {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 0,
+              "unit": "USD",
+              "severity": "claim"
+            },
+            {
               "type": "stop_proximity_pct",
               "value": 5,
               "severity": "warning"
@@ -376,7 +404,7 @@
         },
         {
           "id": "AMD-2",
-          "text": "No adding while the price is stretched far above the fifty-day average ([AMD | above_sma50_pct: 20.4357 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64] above it) on below-average volume. A pullback toward the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
+          "text": "No adding while the price is stretched far above the fifty-day average ([AMD | above_sma50_pct: 19.8671 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0]) on below-average volume ([AMD | volume: 14204599.032779997 shares | as-of 2026-09-30 | detector/market_data / FMP | snapshot 9190099498d0] against a twenty-day average of [AMD | volume_avg_20d: 22180840.55 shares | as-of 2026-09-30 | detector/market_data / FMP | snapshot 9190099498d0]). Consensus forecasts for the next two fiscal years edged down slightly between snapshots, and the World Labs dilution is unquantified, so valuation support is not improving. A pullback to the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
           "status": "valid",
           "conditions": [
             {
@@ -402,227 +430,97 @@
         "claim_id": "AMD-1",
         "condition_index": 0
       },
-      "change_reason": "Migration only, with no price-driven threshold move. The old AMD-1 thesis condition froze the fifty-day average as a fixed price. It is replaced with a moving-average distance condition, so the reference updates automatically, as the monitoring rules require. The fundamental conditions are new: dated fundamentals for the latest reported quarter are now supplied, and the rules require at least one fundamental falsifier. The warning and claim conditions from AMD-1 (stop proximity, daily drop, SMH drop) are kept unchanged. AMD-2 keeps its old pullback, volume and daily-drop conditions. Its RSI-based text was dropped because RSI is not in the current ledger.",
+      "change_reason": "No existing threshold is changed or removed, because the triggering news did not change any measured price, margin, growth or cash-flow evidence. One condition is added: a claim-severity check that quarterly free cash flow stays positive. The thesis summary already relies on positive free cash flow, but it previously had no executable check. Dated free-cash-flow evidence is now supplied, so the check can be monitored. The claim texts are rewritten with current ledger references. They now note the slight consensus forecast dips for the next two fiscal years, which my previous record described as unchanged. The review date stays within one week, ahead of the earnings catalyst.",
       "evidence_ids": [
         "AMD.price",
-        "AMD.previous_close",
+        "AMD.price_at",
         "AMD.sma50",
-        "AMD.sma200",
         "AMD.above_sma50_pct",
         "AMD.volume",
         "AMD.volume_avg_20d",
         "AMD.earnings_date",
         "AMD.revenue_yoy_pct",
-        "AMD.gross_margin_pct",
         "AMD.operating_margin_pct",
-        "AMD.quarter_operating_cash_flow",
+        "AMD.gross_margin_pct",
         "AMD.quarter_free_cash_flow",
+        "AMD.quarter_operating_cash_flow",
         "AMD.net_debt",
-        "analyst:ea561a3bfbc7a1d25d3c51b2",
-        "analyst:df0b966501accc97ae0cdcc3",
-        "analyst:648f4f7a0f4ad22845d7be42",
-        "analyst:33c996d393761f86bd26e7ab",
-        "analyst:ecd4c0dc17ea97d2da42ab7b",
-        "analyst:32975cf8a1f911fed099a1a9"
+        "AMD.analyst_eps_20271227_revision_pct",
+        "AMD.analyst_eps_20281227_revision_pct",
+        "news:1e31b045b776618bedfe140b",
+        "news:3dd91f6e39edf685e1e863fe",
+        "news:c38e71c833e381ed8952e13a",
+        "news:9641d3161c6813b8527bde82",
+        "news:ae4d1be32effba2dce40a63c",
+        "news:3a5d0ef4426c04f9488ee436"
       ],
-      "revision": "9b711423d8a0ca7702b35e93",
-      "created_at": "2026-09-29T18:53:03+00:00",
+      "revision": "2981df5ecf0d22d5c1a2e964",
+      "created_at": "2026-10-01T00:35:13+00:00",
       "evidence_fingerprints": {
-        "AMD.price": "90590e5627e0f878e1c2e600",
-        "AMD.previous_close": "ed3b53cad84bcfb8ee9cc3df",
-        "AMD.sma50": "0fb40a74fb1017b90c8ef91b",
-        "AMD.sma200": "f63cb32f205e5cc256db7f70",
-        "AMD.above_sma50_pct": "17736cdcfb39e58d51c1ea47",
-        "AMD.volume": "4f5d5b423e07cead53f5b41d",
-        "AMD.volume_avg_20d": "844c60e65468e0ab4668cb41",
-        "AMD.earnings_date": "3493ff753ad133b93e00e6ec",
+        "AMD.price": "a5e9394301aef0b0f1489c16",
+        "AMD.price_at": "b5ce47b4e0d4fb5f4c5ecd5e",
+        "AMD.sma50": "c685c890614c7fff2d7bf4c7",
+        "AMD.above_sma50_pct": "a060a6918a1916f3e81c2ec0",
+        "AMD.volume": "2d53c20d15a7bf58d6005e38",
+        "AMD.volume_avg_20d": "7cc9a56abe4e1ab381bf3acb",
+        "AMD.earnings_date": "9d8703555a4ecd366e22a1b5",
         "AMD.revenue_yoy_pct": "04cf69cf77b89fc4e5629054",
-        "AMD.gross_margin_pct": "0bdb221bfcc8b3329314c08b",
         "AMD.operating_margin_pct": "46188297bbcd2ddff0436542",
-        "AMD.quarter_operating_cash_flow": "864a50af0ed46477408cecbc",
+        "AMD.gross_margin_pct": "0bdb221bfcc8b3329314c08b",
         "AMD.quarter_free_cash_flow": "11d0a22b767ccbb5b591fda8",
+        "AMD.quarter_operating_cash_flow": "864a50af0ed46477408cecbc",
         "AMD.net_debt": "d75b1fbcbfb3269e81341a19",
-        "analyst:ea561a3bfbc7a1d25d3c51b2": "1b3dffe992d6590e31f31b8a",
-        "analyst:df0b966501accc97ae0cdcc3": "21f736d1320274d97a9984a6",
-        "analyst:648f4f7a0f4ad22845d7be42": "f16b4e6226c0113ccb7496c7",
-        "analyst:33c996d393761f86bd26e7ab": "305febe6585e04257094e09d",
-        "analyst:ecd4c0dc17ea97d2da42ab7b": "c501b7a65679acc7aa9d9ae6",
-        "analyst:32975cf8a1f911fed099a1a9": "e5c0afc12624d4c9f164a525"
+        "AMD.analyst_eps_20271227_revision_pct": "f1a0ac8eaa94466ada1dd76d",
+        "AMD.analyst_eps_20281227_revision_pct": "1edc48ee2791a92b2aa1d138",
+        "news:1e31b045b776618bedfe140b": "88716a79596f81f9f52a2031",
+        "news:3dd91f6e39edf685e1e863fe": "13583fb98fb359699c3fe6e2",
+        "news:c38e71c833e381ed8952e13a": "ca527c7395036a6fa428a623",
+        "news:9641d3161c6813b8527bde82": "e1105bdde4ca2add94ce8d36",
+        "news:ae4d1be32effba2dce40a63c": "4d265075f9e9f0f367758ac8",
+        "news:3a5d0ef4426c04f9488ee436": "3c7b63c71165b6bfa52aa205"
       }
     },
     "analyst_review": {
       "earnings": {
-        "assessment": "Consensus annual forecasts step up sharply from the current fiscal year, [AMD | analyst_eps_20261227: 7.62759 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] EPS, to the next, [AMD | analyst_eps_20271227: 15.9005 USD/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] EPS. Revenue forecasts are [AMD | analyst_revenue_20261227: 50927903792.0 USD | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] and [AMD | analyst_revenue_20271227: 89386465498.0 USD | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64] respectively. Between the two observed snapshots the forecasts are unchanged ([AMD | analyst_eps_20271227_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 26bf98813d64]). The seven-, thirty- and ninety-day revision windows lack enough same-period snapshots, so there is no measured evidence of fresh estimate upgrades. Hypothesis only: the target raises may reflect the strong growth of the latest reported quarter ([AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 26bf98813d64]). No analyst article in the data states this reason.",
+        "assessment": "Same-period consensus forecasts step up sharply from the current fiscal year ([AMD | analyst_eps_20261227: 7.62789 provider-reported currency/share | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9190099498d0] EPS) to the next ([AMD | analyst_eps_20271227: 15.88061 provider-reported currency/share | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9190099498d0] EPS). Between the two latest snapshots, the next two fiscal years edged down marginally: [AMD | analyst_eps_20271227_revision_pct: -0.12509040596206666 % vs prior observed consensus | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9190099498d0] and [AMD | analyst_eps_20281227_revision_pct: -0.251630395342996 % vs prior observed consensus | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9190099498d0] on EPS, and [AMD | analyst_revenue_20271227_revision_pct: -0.12266615240811074 % vs prior observed consensus | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9190099498d0] on revenue. The seven-, thirty- and ninety-day revision windows lack enough same-period snapshots, so there is no measured trend in either direction. Hypothesis only: the small dip may reflect modelling of the all-stock World Labs deal. No source states this reason.",
         "evidence_status": "context_only",
         "source_ids": [
           "AMD.analyst_eps_20261227",
           "AMD.analyst_eps_20271227",
-          "AMD.analyst_revenue_20261227",
-          "AMD.analyst_revenue_20271227",
           "AMD.analyst_eps_20271227_revision_pct",
-          "AMD.revenue_yoy_pct"
+          "AMD.analyst_eps_20281227_revision_pct",
+          "AMD.analyst_revenue_20271227_revision_pct"
         ]
       },
       "company_news": {
-        "assessment": "The supplied records are target observations with reasons marked unknown. One Stifel headline refers to the server-CPU franchise as an AI winner, but the provider record lists its reason as unknown, so I treat it as context rather than a verified stated rationale. No contract, product, regulatory or partnership news is supplied. One record attributing a target raise to a firm inconsistent with its headline is quarantined and excluded.",
+        "assessment": "Issuer events in the data are HPE's first order for AMD Helios AI rack systems and AMD's all-stock agreement to acquire World Labs. Hypothesis only: the Helios order is consistent with continued data-center traction, though its size and recurrence are unknown. The World Labs deal is strategic, and its dilution and earnings impact are not quantified. No analyst target record in the data cites either event as a stated reason.",
         "evidence_status": "context_only",
         "source_ids": [
-          "analyst:df0b966501accc97ae0cdcc3"
+          "news:9641d3161c6813b8527bde82",
+          "news:ae4d1be32effba2dce40a63c"
         ]
       },
       "sector_theme": {
-        "assessment": "Hypothesis only: most matched firms raised their targets over the ninety-day window, while the semiconductor ETF trades above its own fifty-day average ([SMH | above_sma50_pct: 7.3505 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64]). This is consistent with a sector-wide AI-compute theme lifting targets, but no analyst article in the data states that reason. Price strength alone does not prove fund flows or attention.",
+        "assessment": "Hypothesis only: the AI-compute theme remains broad, with the semiconductor ETF [SMH | above_sma50_pct: 7.0835 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0] above its fifty-day average. However, reports say ARK Invest trimmed AMD in favor of Nvidia and Broadcom, which suggests rotation within the AI-chip group rather than an exit from the theme. One investor's reallocation does not prove broader fund flows. Price strength alone does not prove attention or causation.",
         "evidence_status": "context_only",
         "source_ids": [
           "SMH.above_sma50_pct",
-          "analyst:ea561a3bfbc7a1d25d3c51b2",
-          "analyst:fecfa4702373f65c37c8de91",
-          "analyst:ecd4c0dc17ea97d2da42ab7b"
+          "news:1e31b045b776618bedfe140b",
+          "news:3dd91f6e39edf685e1e863fe",
+          "news:c38e71c833e381ed8952e13a"
         ]
       },
       "valuation": {
-        "assessment": "Hypothesis only: many target raises roughly tracked the price move between reports, which suggests analysts repriced the growth story rather than independently leading it. Counterevidence exists: KeyBanc lowered its target, and Morgan Stanley's target sat below the price when posted. Current price dispersion versus targets and forecast horizons are unknown. The stock is extended above its fifty-day average ([AMD | above_sma50_pct: 20.4357 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot 26bf98813d64]), and that extension is consistent with crowded positioning, though it does not prove it. None of this prescribes a trade.",
+        "assessment": "Hypothesis only: the price is extended [AMD | above_sma50_pct: 19.8671 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0] above its fifty-day average and [AMD | above_sma200_pct: 65.0929 % vs sma200 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot 9190099498d0] above its two-hundred-day average. A Motley Fool piece explicitly cautions investors to watch AMD's valuation after its gains. The target record shows counterevidence: KeyBanc lowered its target, and Morgan Stanley's target sat below the price when posted. Many raises roughly tracked prior price moves, which is consistent with analysts repricing the growth story rather than leading it. A quarantined record with conflicting firm attribution is excluded. Forecast horizons are unknown. None of this prescribes a trade.",
         "evidence_status": "context_only",
         "source_ids": [
+          "AMD.above_sma50_pct",
+          "AMD.above_sma200_pct",
+          "news:3a5d0ef4426c04f9488ee436",
           "analyst:648f4f7a0f4ad22845d7be42",
-          "analyst:33c996d393761f86bd26e7ab",
-          "analyst:65b8ad97aa27d9cc148b2460",
-          "AMD.above_sma50_pct"
+          "analyst:33c996d393761f86bd26e7ab"
         ]
       }
-    },
-    "pending_review": {
-      "claim_id": "news_shock",
-      "condition_type": "sentiment_support",
-      "cooldown_key": "thesis:AMD",
-      "material_event_id": "89dcabcbc73d05aab953aace",
-      "material_event_ids": [
-        "89dcabcbc73d05aab953aace",
-        "c995ffdecd935677a1707bec",
-        "e7c1e2f600546830502253e9"
-      ],
-      "measured": 1,
-      "news_evidence": {
-        "citation_selections": [
-          {
-            "excerpt_id": "Ebe21072575"
-          },
-          {
-            "excerpt_id": "E1ca5094207"
-          },
-          {
-            "excerpt_id": "Ebe7d598def"
-          }
-        ],
-        "citations": [
-          {
-            "quote": "Advanced Micro Devices, Inc. is experiencing rapid data center growth, with a 50% Y/Y increase in Q2 (107% Y/Y in data centers) and strong AI accelerator demand. I am upgrading AMD to Buy with a $1,000 share price by the end of 2028, due to the just-announced World Labs acquisition that is boosting AMD's AI intelligence. Strategic supply agreements with AI frontier labs and hyperscalers (like Meta), plus upcoming MI450x AI accelerator shipments, underpin AMD's growth thesis.",
-            "source_id": "news:a01e8a1b7743daf06901f690"
-          },
-          {
-            "quote": "Advanced Micro Devices, Inc. maintains a Buy rating despite an 80x forward P/E and a 30% rally last month because a higher terminal value can justify its near-term high valuation multiple. The Data Center segment is expected to more than double its revenue YoY next year, showing strong growth acceleration and sustainability. Management now expects to significantly exceed the $20 EPS target within the strategic timeframe, implying a 75% EPS CAGR through FY2028.",
-            "source_id": "news:effbecde0b006561ee935b85"
-          },
-          {
-            "quote": "Advanced Micro Devices Inc (NASDAQ:AMD, XETRA:AMD) agreed to acquire World Labs for approximately $8.2 billion, seeking to use AI model research to shape its future computing infrastructure. The all-stock agreement would bring researchers and model experts into the chipmaker to help develop hardware, software and systems for emerging AI applications.",
-            "source_id": "news:185ba38ed2958588c2a01a85"
-          }
-        ],
-        "claim_ids": [
-          "AMD-1",
-          "AMD-2"
-        ],
-        "counterevidence": "No direct counterevidence appears in the supplied sources. However, three material unknowns exist: (1) the World Labs acquisition's dilution impact on near-term EPS is not quantified in any excerpt; (2) the 80x forward P/E cited in E1ca5094207 is acknowledged as stretched, but no source provides a revised forward earnings estimate post-acquisition; (3) no source reports current trading volume or its ratio to the twenty-day average, so the 'light volume' assertion in AMD-2 cannot be verified against the supplied data. The sources do not dispute the thesis conditions; they simply do not measure all of them.",
-        "impact": "supports",
-        "reasoning": "The supplied sources support both claims through multiple independent observations. Claim AMD-1 rests on sustained profitability and growth; the latest reported data show 50.1% YoY revenue growth and 17.25% operating margin, both well above the thesis thresholds (20% YoY and 12% margin). Current price (610.555 USD) remains 20.4% above the fifty-day average (506.96 USD), validating the price-above-SMA50 condition. Excerpt E1ca5094207 confirms Data Center revenue is expected to more than double YoY next year, with management targeting 75% EPS CAGR through FY2028, reinforcing growth sustainability. Claim AMD-2 cautions against adding at current stretched valuations on light volume; the World Labs acquisition (E1ca5094207, Ebe7d598def) is framed as a strategic, long-term AI infrastructure bet rather than an immediate earnings driver, which is consistent with the thesis that near-term valuation is stretched. The all-stock deal structure (Ebe7d598def) does not alter the current price or volume dynamics that define the claim's conditions. No source contradicts the fifty-day average price relationship or the profitability metrics.",
-        "source_documents": {
-          "news:034918ccb34a31b1ccb5645b": {
-            "published_at": "2026-09-29 12:30:13",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "AMD just crossed into the trillion-dollar club on the back of one market that management believes will grow to $1.",
-            "title": "One Market Could Transform AMD's Growth Story",
-            "url": "https://247wallst.com/investing/2026/09/29/one-market-could-transform-amds-growth-story/"
-          },
-          "news:038fa991739bdd9883930fd4": {
-            "published_at": "2026-09-29 12:38:56",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "Lisa Su just committed billions in AMD stock to a startup that makes virtual worlds instead of chips, betting that understanding physical AI from the inside is the only way to outmaneuver NVIDIA where it matters most.",
-            "title": "AMD Pays $8.2 Billion in Stock for Non-Chipmaking Startup as CEO Bets on Physical AI",
-            "url": "https://247wallst.com/investing/2026/09/29/amd-pays-8-2-billion-in-stock-for-non-chipmaking-startup-as-ceo-bets-on-physical-ai/"
-          },
-          "news:0f41a46e2a5b39b410351dfa": {
-            "published_at": "2026-09-29 11:20:24",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "Chipmaker Advanced Micro Devices announced Monday that it has acquired World Labs, an artificial intelligence company founded by Fei-Fei Li, one of the field's most prominent researchers and sometimes referred to as \"The Godmother of AI.\"",
-            "title": "AMD buys firm founded by AI 'godmother' Fei-Fei Li",
-            "url": "https://techxplore.com/news/2026-09-amd-buys-firm-founded-ai.html"
-          },
-          "news:185ba38ed2958588c2a01a85": {
-            "published_at": "2026-09-29 15:06:07",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "Advanced Micro Devices Inc (NASDAQ:AMD, XETRA:AMD) agreed to acquire World Labs for approximately $8.2 billion, seeking to use AI model research to shape its future computing infrastructure. The all-stock agreement would bring researchers and model experts into the chipmaker to help develop hardware, software and systems for emerging AI applications.",
-            "title": "AMD to acquire World Labs for $8.2B in AI infrastructure push",
-            "url": "https://www.proactiveinvestors.com/companies/news/1099325"
-          },
-          "news:3044b098e57ea6f098912faa": {
-            "published_at": "2026-09-29 11:53:11",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "NVIDIA and AMD both posted massive data center numbers, but the real battle brewing between them has nothing to do with GPUs. A surprising new front is opening that could flip the competitive advantage neither company fully owns yet.",
-            "title": "The Big Chip Shift is Shaking The AMD Vs. Nvidia Narrative in Powerful Ways",
-            "url": "https://247wallst.com/investing/2026/09/29/the-big-chip-shift-is-shaking-the-amd-vs-nvidia-narrative-in-powerful-ways/"
-          },
-          "news:86b9efd41770004c5706430e": {
-            "published_at": "2026-09-29 11:39:00",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "AMD (AMD, Financials) is spending $8.2 billion on World Labs in a push to close one of the biggest gaps between itself and Nvidia.The all-stock deal brings Worl",
-            "title": "AMD's $8.2 Billion AI Deal Takes Aim at Nvidia's Biggest Advantage",
-            "url": "https://www.gurufocus.com/news/9101475/amds-82-billion-ai-deal-takes-aim-at-nvidias-biggest-advantage"
-          },
-          "news:a01e8a1b7743daf06901f690": {
-            "published_at": "2026-09-29 11:30:39",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "Advanced Micro Devices, Inc. is experiencing rapid data center growth, with a 50% Y/Y increase in Q2 (107% Y/Y in data centers) and strong AI accelerator demand. I am upgrading AMD to Buy with a $1,000 share price by the end of 2028, due to the just-announced World Labs acquisition that is boosting AMD's AI intelligence. Strategic supply agreements with AI frontier labs and hyperscalers (like Meta), plus upcoming MI450x AI accelerator shipments, underpin AMD's growth thesis.",
-            "title": "AMD: Path To $1,000 (Rating Upgrade)",
-            "url": "https://seekingalpha.com/article/4950700-amd-path-to-1000-rating-upgrade"
-          },
-          "news:e13ad19908178803f072da30": {
-            "published_at": "2026-09-29 11:32:35",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "NVIDIA NASDAQ: NVDA spent most of September arguing that AI safety is an engineering problem, not a legal one. On Sept. 28, the company shipped the product to prove it.",
-            "title": "NVIDIA Just Turned AI Safety Into a Spending Story and These 3 Stocks Benefit",
-            "url": "https://www.marketbeat.com/articles/nvidia-just-turned-ai-safety-into-a-spending-story-and-these-3-stocks-benefit/"
-          },
-          "news:effbecde0b006561ee935b85": {
-            "published_at": "2026-09-29 12:34:43",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "Advanced Micro Devices, Inc. maintains a Buy rating despite an 80x forward P/E and a 30% rally last month because a higher terminal value can justify its near-term high valuation multiple. The Data Center segment is expected to more than double its revenue YoY next year, showing strong growth acceleration and sustainability. Management now expects to significantly exceed the $20 EPS target within the strategic timeframe, implying a 75% EPS CAGR through FY2028.",
-            "title": "AMD: Why I Say 80x Forward P/E Doesn't Matter This Time",
-            "url": "https://seekingalpha.com/article/4950731-amd-why-i-say-80x-forward-pe-doesnt-matter-this-time"
-          },
-          "news:fb06ef49e9f8b36b89dd80b8": {
-            "published_at": "2026-09-29 14:08:17",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "AMD",
-            "text": "Bloomberg's Ed Ludlow breaks down President Trump's new AI-powered website America.gov, putting AI at the center of his agenda. Plus, Anthropic warns of \"existential risks to humanity\" in its prospectus ahead of its IPO according to reports, and AMD makes a big AI bet on the frontier by acquiring Fei-Fei Li's World Labs in an all-stock deal valued at $8.2 billion.",
-            "title": "AMD Goes Big on World Models as Anthropic Heads to IPO",
-            "url": "https://www.youtube.com/watch?v=2R0A25kK72I"
-          }
-        },
-        "uncertainty": "The World Labs acquisition is presented as strategically sound (E1ca5094207, Ebe7d598def) but its financial impact—dilution, integration costs, and timing of revenue contribution—remains unquantified. The claim that the deal 'closes one of the biggest gaps between itself and Nvidia' (E555f42f2f0) is a competitive assertion, not a financial measurement. Forward EPS guidance of 75% CAGR through FY2028 (E1ca5094207) is an analyst projection, not a management statement in the supplied excerpts, and no source provides a revised consensus estimate post-announcement. The thesis depends on sustained margin and growth in the next reported quarter; these sources confirm current performance but do not predict future quarters. Price momentum and valuation multiples are acknowledged as stretched (E1ca5094207), but no source quantifies the pullback level or volume threshold that would trigger a review of adding under AMD-2."
-      },
-      "severity": "thesis",
-      "symbol": "AMD",
-      "threshold": 0,
-      "trigger": "The supplied sources support both claims through multiple independent observations. Claim AMD-1 rests on sustained profitability and growth; the latest reported data show 50.1% YoY revenue growth and 17.25% operating margin, both well above the thesis thresholds (20% YoY and 12% margin). Current price (610.555 USD) remains 20.4% above the fifty-day average (506.96 USD), validating the price-above-SMA50 condition. Excerpt E1ca5094207 confirms Data Center revenue is expected to more than double YoY next year, with management targeting 75% EPS CAGR through FY2028, reinforcing growth sustainability. Claim AMD-2 cautions against adding at current stretched valuations on light volume; the World Labs acquisition (E1ca5094207, Ebe7d598def) is framed as a strategic, long-term AI infrastructure bet rather than an immediate earnings driver, which is consistent with the thesis that near-term valuation is stretched. The all-stock deal structure (Ebe7d598def) does not alter the current price or volume dynamics that define the claim's conditions. No source contradicts the fifty-day average price relationship or the profitability metrics."
     }
   },
   "ANET": {
@@ -631,7 +529,7 @@
     "claims": [
       {
         "id": "ANET-1",
-        "text": "Arista's latest reported quarter shows [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot e6801b4d9a6e] year over year revenue growth, [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot e6801b4d9a6e] operating margin, [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot e6801b4d9a6e] in quarterly free cash flow, and [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot e6801b4d9a6e] in total debt. The live price of [ANET | price: 202.86 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot e6801b4d9a6e] trades [ANET | above_sma50_pct: 5.8606 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot e6801b4d9a6e] above its fifty-day average of [ANET | sma50: 191.62939999999998 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot e6801b4d9a6e]. The thesis is questioned if the price loses the fifty-day average or if the next report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-30T00:30:22Z | detector/market_data / FMP | snapshot e6801b4d9a6e] shows revenue growth or operating margin below the chosen fundamental thresholds.",
+        "text": "Arista's most recent reported quarter (ended [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot ff3c32a09b22]) demonstrates [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot ff3c32a09b22] year-over-year revenue growth, [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot ff3c32a09b22] operating margin, [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot ff3c32a09b22] in quarterly free cash flow, and [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot ff3c32a09b22] in total debt. The stock currently trades at [ANET | price: 203.62 USD | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot ff3c32a09b22], positioned [ANET | above_sma50_pct: 5.9364 % vs sma50 | as-of 2026-09-30T19:55:00+00:00 | detector/market_data / FMP | snapshot ff3c32a09b22] above its fifty-day moving average of [ANET | sma50: 192.20960000000002 USD | as-of 2026-09-30 | detector/market_data / FMP | snapshot ff3c32a09b22]. The thesis remains valid if the next earnings report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-01T00:34:45Z | detector/market_data / FMP | snapshot ff3c32a09b22] sustains revenue growth and operating margin at or above the established thresholds; it is invalidated if the price closes below the fifty-day average or if reported results fall materially short of those benchmarks.",
         "status": "valid",
         "conditions": [
           {
@@ -680,8 +578,8 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-09-30T00:32Z",
-        "trigger": "2026-09-30T00:32Z, trigger: daily bulk review (no threshold crossed)"
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": "2026-10-01T00:35Z, trigger: daily bulk review (no threshold crossed)"
       }
     ],
     "monitoring": {
@@ -835,7 +733,7 @@
       {
         "id": "NVDA-1",
         "text": "The price trend is intact: price ([NVDA | price: 227.27 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25]) sits above the freshly calculated fifty-day average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) by [NVDA | above_sma50_pct: 4.744 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50). A move meaningfully below that moving average would mean the recovery trend has failed.",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "price_below_sma50_pct",
@@ -859,13 +757,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-09-30T00:32Z",
-        "trigger": null
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: its output did not match the schema. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       },
       {
         "id": "NVDA-2",
         "text": "Holding below entry is justified while price stays above its long-horizon floor near the two-hundred-day average ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]). The price currently exceeds that average by [NVDA | above_sma200_pct: 13.6862 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200). A break of the fixed floor refutes the reasoning and puts a trim on the table.",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "price_below",
@@ -883,13 +781,13 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-09-30T00:32Z",
-        "trigger": null
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: its output did not match the schema. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       },
       {
         "id": "NVDA-3",
         "text": "The latest reported quarter supports AI accelerator leadership: revenue growth against the year-ago quarter ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), gross margin ([NVDA | gross_margin_pct: 74.975317 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), operating margin ([NVDA | operating_margin_pct: 66.2371 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) and free cash flow ([NVDA | quarter_free_cash_flow: 21400000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]). The drop in operating cash flow ([NVDA | quarter_operating_cash_flow: 24077000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]) versus the prior quarter and the higher total debt ([NVDA | total_debt: 38860000000 USD | as-of 2026-07-26 | FMP/balance-sheet-statement | snapshot 5480e2859f25]) are unexplained and are being watched.",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "fundamental_below",
@@ -920,8 +818,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-09-30T00:32Z",
-        "trigger": null
+        "last_updated": "2026-10-01T00:35Z",
+        "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: its output did not match the schema. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       }
     ],
     "monitoring": {
@@ -1089,6 +987,100 @@
           "analyst:ab809dca89f8d4fdcd56725e"
         ]
       }
+    },
+    "pending_review": {
+      "claim_id": "news_shock",
+      "condition_type": "sentiment_support",
+      "cooldown_key": "thesis:NVDA",
+      "material_event_id": "2cf4d9ddffb69178c90e8d30",
+      "material_event_ids": [
+        "2cf4d9ddffb69178c90e8d30",
+        "e502b00854f7f606ceeebf43"
+      ],
+      "measured": 1,
+      "news_evidence": {
+        "citation_selections": [
+          {
+            "source_id": "news:972afb94ba5de772cd1ef1b1"
+          },
+          {
+            "source_id": "news:9d2473bd739424666a406e0b"
+          }
+        ],
+        "citations": [
+          {
+            "quote": "Nvidia remains a Buy, supported by robust Q2 FY27 results and bullish management guidance for continued AI-driven growth. Data center revenue surged 117% YoY to $89 billion, with strong gains across hyperscale and ACIE customers, reinforcin",
+            "source_id": "news:972afb94ba5de772cd1ef1b1"
+          },
+          {
+            "quote": "Nvidia Corporation remains a Buy, with a 12–16 month price target of $352, implying 55% upside as AI-driven growth and platform dominance persist. Full-stack architecture complexity increases revenue generation toward $40 billion per gigawa",
+            "source_id": "news:9d2473bd739424666a406e0b"
+          }
+        ],
+        "claim_ids": [
+          "NVDA-1",
+          "NVDA-2",
+          "NVDA-3"
+        ],
+        "counterevidence": "N3 presents a contrarian view: Michael Burry has purchased put options on NVDA, arguing AI stocks are overvalued and at risk of a market crash. However, N3 itself notes that Burry has a clear incentive to publish his trades, which weakens the evidential weight. N1 notes that Micron and SanDisk have outperformed NVDA in 2026 gains, suggesting relative underperformance, though this does not invalidate the thesis of holding NVDA at current levels. N6 raises a structural concern about AI competitive moats evaporating, but provides no specific evidence of NVDA's moat deterioration.",
+        "impact": "supports",
+        "reasoning": "Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2.",
+        "source_documents": {
+          "news:441b6f024a0ace117662038d": {
+            "published_at": "2026-09-30 12:30:53",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "NVDA",
+            "text": "NVIDIA is up 23% this year, but Micron and SanDisk have left it in the dust with gains that few analysts thought possible.",
+            "title": "After Massive 2026 Gains, Can NVIDIA, Micron, and SanDisk Keep Climbing in 2027?",
+            "url": "https://247wallst.com/investing/2026/09/30/after-massive-2026-gains-can-nvidia-micron-and-sandisk-keep-climbing-in-2027/"
+          },
+          "news:4c28a43107d861fd12ebc171": {
+            "published_at": "2026-09-30 13:00:12",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "NVDA",
+            "text": "High concentration in tech stocks isn't a bad thing for short-term traders, according to Tim Bohen (@Stockstotrade) who points to trading opportunities it presents across Wall Street. He names Nvidia (NVDA) as the long-standing AI giant with plenty of value, Bloom Energy (BE) as a tentative breakout candidate, and SpaceX (SPCX) as a company with strong potential in guidance.",
+            "title": "The Big 3: NVDA, BE, SPCX",
+            "url": "https://www.youtube.com/watch?v=kDFWSH3hd1o"
+          },
+          "news:61c1528c5ae8ebc3ef60ae1f": {
+            "published_at": "2026-09-30 13:30:00",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "NVDA",
+            "text": "Michael Burry thinks AI stocks are overvalued and at risk of fueling a widespread market crash. While some of Burry's arguments are valid, he has a clear incentive to publish his trades.",
+            "title": "Michael Burry Buys Put Options on Nvidia, Micron, and Palantir as \"The Big Short\" Investor Predicts a 1987-Style Market Crash",
+            "url": "https://www.fool.com/investing/2026/09/30/michael-burry-buys-put-options-on-nvidia-micron-an/"
+          },
+          "news:972afb94ba5de772cd1ef1b1": {
+            "published_at": "2026-09-30 16:18:43",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "NVDA",
+            "text": "Nvidia remains a Buy, supported by robust Q2 FY27 results and bullish management guidance for continued AI-driven growth. Data center revenue surged 117% YoY to $89 billion, with strong gains across hyperscale and ACIE customers, reinforcing NVDA's full-stack AI platform dominance. GAAP gross margins reached 75% in Q2, with management guiding for a temporary dip before stabilizing at 72–73% in fiscal 2028 as price resets offset rising costs.",
+            "title": "Nvidia's Demand Outlook Still Supports The Bull Case",
+            "url": "https://seekingalpha.com/article/4951149-nvidia-demand-outlook-still-supports-bull-case"
+          },
+          "news:9d2473bd739424666a406e0b": {
+            "published_at": "2026-09-30 12:01:39",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "NVDA",
+            "text": "Nvidia Corporation remains a Buy, with a 12–16 month price target of $352, implying 55% upside as AI-driven growth and platform dominance persist. Full-stack architecture complexity increases revenue generation toward $40 billion per gigawatt across new scale-up NVLink, CPU, and cooling topologies consistently. A massive $235 billion share buyback program executed through fiscal 2028 will dramatically enhance bottom-line per-share compound earnings growth sustainably.",
+            "title": "Nvidia Looks Criminally Cheap",
+            "url": "https://seekingalpha.com/article/4951069-nvidia-looks-criminally-cheap"
+          },
+          "news:c556bfe40efa0e46cdd695a0": {
+            "published_at": "2026-09-30 13:12:11",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "NVDA",
+            "text": "Artificial intelligence (AI) is dismantling the competitive advantages that entire market segments have relied on for decades. Understanding where competitive moats are disappearing versus where they are being reinforced due to AI may be one of the most important questions that investors can ask right now.",
+            "title": "Where AI Competitive Moats Are Evaporating & Being Built",
+            "url": "https://www.etftrends.com/artificial-intelligence-content-hub/where-ai-competitive-moats-are-evaporating-being-built/"
+          }
+        },
+        "uncertainty": "The sources do not address the unexplained drop in operating cash flow or the rise in total debt flagged in claim NVDA-3. N4 mentions a temporary margin dip before stabilization at 72–73% in fiscal 2028, but does not explain the debt increase or cash flow dynamics. The timing of earnings approaching (within 3 days per claim NVDA-2) means new quarterly data could materially alter the fundamental picture. N6's broad concern about AI moats evaporating lacks specificity regarding NVDA's competitive position. Burry's bearish stance (N3) represents a genuine alternative thesis, though not yet supported by operational deterioration in the reported quarter."
+      },
+      "severity": "thesis",
+      "symbol": "NVDA",
+      "threshold": 0,
+      "trigger": "Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2."
     }
   }
 }

@@ -22,5 +22,17 @@
   "2026-09-30:NVDA": {
     "reported_to_workflow_at": "2026-09-30T00:30:22+00:00",
     "status": "incomplete"
+  },
+  "2026-10-01:AMD": {
+    "reported_to_workflow_at": "2026-10-01T00:34:45+00:00",
+    "status": "incomplete"
+  },
+  "2026-10-01:ANET": {
+    "reported_to_workflow_at": "2026-10-01T00:34:45+00:00",
+    "status": "incomplete"
+  },
+  "2026-10-01:NVDA": {
+    "reported_to_workflow_at": "2026-10-01T00:34:45+00:00",
+    "status": "incomplete"
   }
 }
