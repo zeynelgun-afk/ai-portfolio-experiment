@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-01T18:59:52Z",
+  "checked_at": "2026-10-01T19:21:49Z",
   "code": 20,
   "conditions": {
     "AMD-1#0": {
@@ -7,9 +7,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +21.07%",
+      "detail": "price relative to current sma50: +20.56%",
       "first_seen": null,
-      "measured": 21.070147877530122,
+      "measured": 20.55764919517116,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -67,9 +67,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +40.4% (stop 440)",
+      "detail": "stop distance +39.8% (stop 440)",
       "first_seen": null,
-      "measured": 40.44,
+      "measured": 39.84,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -82,9 +82,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +1.0%",
+      "detail": "daily change +0.6%",
       "first_seen": null,
-      "measured": 1.01,
+      "measured": 0.58,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -97,9 +97,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +1.7%",
+      "detail": "SMH +1.5%",
       "first_seen": null,
-      "measured": 1.71,
+      "measured": 1.46,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -112,9 +112,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 617.92",
+      "detail": "price 615.30",
       "first_seen": null,
-      "measured": 617.92,
+      "measured": 615.3043,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -129,7 +129,7 @@
       "data_suspect": false,
       "detail": "volume 0.6x",
       "first_seen": null,
-      "measured": 0.56,
+      "measured": 0.59,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -142,9 +142,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +1.0%",
+      "detail": "daily change +0.6%",
       "first_seen": null,
-      "measured": 1.01,
+      "measured": 0.58,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -157,9 +157,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +7.13%",
+      "detail": "price relative to current sma50: +6.90%",
       "first_seen": null,
-      "measured": 7.125242443665658,
+      "measured": 6.904129658456171,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -202,9 +202,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +28.7% (stop 160)",
+      "detail": "stop distance +28.4% (stop 160)",
       "first_seen": null,
-      "measured": 28.69,
+      "measured": 28.42,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -217,9 +217,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +1.1%",
+      "detail": "daily change +0.9%",
       "first_seen": null,
-      "measured": 1.14,
+      "measured": 0.93,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -232,9 +232,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +1.7%",
+      "detail": "SMH +1.5%",
       "first_seen": null,
-      "measured": 1.71,
+      "measured": 1.46,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -262,9 +262,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +7.13%",
+      "detail": "price relative to current sma50: +6.90%",
       "first_seen": null,
-      "measured": 7.125242443665658,
+      "measured": 6.904129658456171,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -277,9 +277,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +14.32%",
+      "detail": "price relative to current sma50: +14.19%",
       "first_seen": null,
-      "measured": 14.315558946357365,
+      "measured": 14.19365821978702,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -292,9 +292,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +49.0% (stop 730)",
+      "detail": "stop distance +48.9% (stop 730)",
       "first_seen": null,
-      "measured": 49.02,
+      "measured": 48.86,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -309,7 +309,7 @@
       "data_suspect": false,
       "detail": "volume 1.5x",
       "first_seen": null,
-      "measured": 1.46,
+      "measured": 1.53,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -322,9 +322,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +2.1%",
+      "detail": "daily change +2.0%",
       "first_seen": null,
-      "measured": 2.13,
+      "measured": 2.02,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -337,9 +337,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +1.7%",
+      "detail": "SMH +1.5%",
       "first_seen": null,
-      "measured": 1.71,
+      "measured": 1.46,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -352,15 +352,30 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +2.1%",
+      "detail": "daily change +2.0%",
       "first_seen": null,
-      "measured": 2.13,
+      "measured": 2.02,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
       "symbol": "MU",
       "threshold": 10.0,
       "type": "daily_change_above_pct"
+    },
+    "MU-1#6": {
+      "breach": false,
+      "claim_id": "MU-1",
+      "confirmed": false,
+      "data_suspect": false,
+      "detail": "gross_margin_pct 86.756164 % (2026-09-03; FMP/income-statement)",
+      "first_seen": null,
+      "measured": 86.756164,
+      "required_streak": 2,
+      "severity": "claim",
+      "streak": 0,
+      "symbol": "MU",
+      "threshold": 65.0,
+      "type": "fundamental_below"
     },
     "MU-2#0": {
       "breach": false,
@@ -382,9 +397,9 @@
       "claim_id": "MU-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 1087.82",
+      "detail": "price 1086.66",
       "first_seen": null,
-      "measured": 1087.82,
+      "measured": 1086.66,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -397,9 +412,9 @@
       "claim_id": "MU-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +2.1%",
+      "detail": "daily change +2.0%",
       "first_seen": null,
-      "measured": 2.13,
+      "measured": 2.02,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -437,14 +452,29 @@
       "threshold": 0.0,
       "type": "fundamental_below"
     },
+    "MU-2#5": {
+      "breach": false,
+      "claim_id": "MU-2",
+      "confirmed": false,
+      "data_suspect": false,
+      "detail": "net_debt -33676000000 USD (2026-09-03; FMP/balance-sheet-statement)",
+      "first_seen": null,
+      "measured": -33676000000,
+      "required_streak": 2,
+      "severity": "claim",
+      "streak": 0,
+      "symbol": "MU",
+      "threshold": 0.0,
+      "type": "fundamental_above"
+    },
     "NVDA-1#0": {
       "breach": false,
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +6.80%",
+      "detail": "price relative to current sma50: +6.59%",
       "first_seen": null,
-      "measured": 6.799314070388762,
+      "measured": 6.587720976787348,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -457,9 +487,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +22.2% (stop 190)",
+      "detail": "stop distance +22.0% (stop 190)",
       "first_seen": null,
-      "measured": 22.2,
+      "measured": 21.96,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -472,9 +502,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +1.7%",
+      "detail": "daily change +1.5%",
       "first_seen": null,
-      "measured": 1.66,
+      "measured": 1.46,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -487,9 +517,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH +1.7%",
+      "detail": "SMH +1.5%",
       "first_seen": null,
-      "measured": 1.71,
+      "measured": 1.46,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -502,9 +532,9 @@
       "claim_id": "NVDA-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 232.18",
+      "detail": "price 231.72",
       "first_seen": null,
-      "measured": 232.18,
+      "measured": 231.72,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -519,7 +549,7 @@
       "data_suspect": false,
       "detail": "volume 0.6x",
       "first_seen": null,
-      "measured": 0.58,
+      "measured": 0.6,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -1772,11 +1802,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-11-03",
       "fundamental_research": {
-        "collected_at": "2026-10-01T18:59:52+00:00",
+        "collected_at": "2026-10-01T19:21:49+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -1787,7 +1817,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -1799,7 +1829,7 @@
           },
           "net_debt": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -1811,7 +1841,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -1823,7 +1853,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -1834,7 +1864,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -1845,7 +1875,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -1856,7 +1886,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "netIncome"
             ],
@@ -1867,7 +1897,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -1878,7 +1908,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -1889,7 +1919,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue"
             ],
@@ -1900,7 +1930,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue@2026-06-27",
               "revenue@2025-06-28"
@@ -1912,7 +1942,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -1923,7 +1953,7 @@
           },
           "total_debt": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -2174,103 +2204,27 @@
           ]
         }
       },
-      "news_assessments": [
-        {
-          "citation_selections": [
-            {
-              "source_id": "news:0207e179d46d186749f79e44"
-            },
-            {
-              "source_id": "news:a2a78775d992ae6a1fd07e18"
-            },
-            {
-              "source_id": "news:fa7930d68ce391add72dfc41"
-            }
-          ],
-          "citations": [
-            {
-              "quote": "AMD just posted its fifth straight record quarter for server CPUs, yet a quiet structural shift in the cloud threatens to cap how far that streak can run.",
-              "source_id": "news:0207e179d46d186749f79e44"
-            },
-            {
-              "quote": "Advanced Micro Devices continues to expand its data center footprint with high-performance AI accelerators and new multiyear infrastructure partnerships. Arm maintains a dominant market position by licensing its energy-efficient architectur",
-              "source_id": "news:a2a78775d992ae6a1fd07e18"
-            },
-            {
-              "quote": "Nvidia, AMD and Intel stocks moved higher before Thursday's opening bell after Micron Technology delivered an earnings beat, reinforcing confidence that the AI infrastructure boom remains intact. Micron itself moved the other way.",
-              "source_id": "news:fa7930d68ce391add72dfc41"
-            }
-          ],
-          "claim_ids": [
-            "AMD-1",
-            "AMD-2"
-          ],
-          "counterevidence": "N1 alludes to a structural threat ('quiet structural shift in the cloud') but provides no evidence of current customer loss, guidance reduction, margin compression, or cash flow deterioration. The excerpt does not specify which hyperscaler or which CPU threat, nor does it quantify impact. N4 acknowledges elevated valuation ('valuation that would make most investors flinch') but does not report a change in the underlying business metrics. No source reports a decline in the latest quarter's profitability or a breach of the price-to-fifty-day-average condition.",
-          "impact": "neutral",
-          "reasoning": "The supplied sources confirm AMD's reported strength in server CPUs (N1: 'fifth straight record quarter for server CPUs'), ongoing data center expansion with AI accelerators and multiyear partnerships (N5), and positive market sentiment around AI infrastructure durability (N6: 'AI infrastructure boom remains intact'). These observations align with the thesis's core claims about accelerator-and-server growth and reported profitability. N1 mentions a 'quiet structural shift in the cloud' that could cap future growth, but does not quantify a current break in revenue growth, margins, free cash flow, or net cash position. The sources do not contradict the measured financial metrics (50.1% YoY revenue growth, 17.25% operating margin, $1.56B quarterly FCF, -$810M net debt) cited in AMD-1, nor do they establish that the price has fallen below the fifty-day average or that volume has normalized to invalidate AMD-2's conditions. N4 and N3 discuss valuation and historical precedent but do not present new fundamental data that alters the thesis.",
-          "source_documents": {
-            "news:0207e179d46d186749f79e44": {
-              "published_at": "2026-10-01 07:15:41",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "AMD just posted its fifth straight record quarter for server CPUs, yet a quiet structural shift in the cloud threatens to cap how far that streak can run.",
-              "title": "The Hyperscaler CPU Threat to AMD No One Is Talking About",
-              "url": "https://247wallst.com/investing/2026/10/01/the-hyperscaler-cpu-threat-to-amd-no-one-is-talking-about/"
-            },
-            "news:132e809df035fb259383502f": {
-              "published_at": "2026-10-01 07:13:00",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "5 stocks rounded out September as the Nasdaq's biggest winners, led by Intel (INTC), Advanced Micro Devices (AMD), Meta (META), Marvell Technology (MRVL) and As",
-              "title": "Intel, AMD Lead 5 Biggest Stock Winners in September",
-              "url": "https://www.gurufocus.com/news/9105096/intel-amd-lead-5-biggest-stock-winners-in-september"
-            },
-            "news:6f553f93d6951c43480fc84c": {
-              "published_at": "2026-10-01 01:41:01",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "AMD closed with a market cap above $1 trillion for the first time on Sept. 21, 2026. Nvidia, Taiwan Semiconductor, and Broadcom each gained in the 12 months after their first $1 trillion closes, by between 43% and 216%.",
-              "title": "History Says AMD Stock's $1 Trillion Milestone Isn't a Ceiling",
-              "url": "https://www.fool.com/investing/2026/10/01/history-says-amd-stock-s-usd1-trillion-milestone-isn-t-a-ceiling/"
-            },
-            "news:863ff74941cef2c00ffccd12": {
-              "published_at": "2026-10-01 07:15:14",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "AMD sits near a trillion-dollar market cap with a valuation that would make most investors flinch, yet one investor keeps hitting the buy button every single month without checking the price first.",
-              "title": "I'm Dollar Cost Averaging AMD at Today's Price Without Fear",
-              "url": "https://247wallst.com/investing/2026/10/01/im-dollar-cost-averaging-amd-at-todays-price-without-fear/"
-            },
-            "news:a2a78775d992ae6a1fd07e18": {
-              "published_at": "2026-09-30 18:40:09",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "Advanced Micro Devices continues to expand its data center footprint with high-performance AI accelerators and new multiyear infrastructure partnerships. Arm maintains a dominant market position by licensing its energy-efficient architecture, which powers nearly all of the world's smartphones.",
-              "title": "Advanced Micro Devices vs. Arm: Which Tech Stock Is a Better Buy in 2026?",
-              "url": "https://www.fool.com/coverage/better-buy/2026/09/30/advanced-micro-devices-vs-arm-which-tech-stock-is-a-better-buy-in-2026/"
-            },
-            "news:fa7930d68ce391add72dfc41": {
-              "published_at": "2026-10-01 06:16:51",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "Nvidia, AMD and Intel stocks moved higher before Thursday's opening bell after Micron Technology delivered an earnings beat, reinforcing confidence that the AI infrastructure boom remains intact. Micron itself moved the other way.",
-              "title": "Nvidia, AMD and Intel rise on Micron earnings, so why is MU stock falling?",
-              "url": "https://invezz.com/news/2026/10/01/nvidia-amd-and-intel-rise-on-micron-earnings-so-why-is-mu-stock-falling/"
-            }
-          },
-          "uncertainty": "The structural cloud threat mentioned in N1 is vague and unquantified; it is unclear whether it affects current-quarter results or represents a forward-looking risk beyond the thesis's two-condition framework. The sources do not provide the next quarter's reported results, so the second condition of AMD-1 (sustained profitability in the next report) remains untested. N3 and N4 discuss valuation and historical precedent but do not establish whether consensus forecasts have changed materially or whether the World Labs dilution has been quantified since the thesis was written. One excerpt cannot establish persistence of the structural shift or its magnitude."
-        }
-      ],
       "news_provider": "FMP",
       "previous_close": 611.76,
-      "price": 617.92,
-      "price_at": "2026-10-01T18:55:00+00:00",
+      "price": 615.3043,
+      "price_at": "2026-10-01T19:15:00+00:00",
       "price_date": "2026-09-30",
       "price_provider": "FMP",
       "providers": {
         "earnings": "FMP"
       },
       "recent_news": [
+        {
+          "image": null,
+          "publishedDate": "2026-10-01 15:18:55",
+          "publisher": "ETF Trends",
+          "site": "etftrends.com",
+          "sourcePublishedDate": "2026-10-01 15:18:55",
+          "symbol": "AMD",
+          "text": "Advanced Micro Devices, Inc. (AMD) and Meta Platforms, Inc. (META) powered a September gain for the gaming index behind the Amplify Video Game Leaders ETF (GAMR). The VettaFi Video Game Leaders Index rose 2.8% for the month, while a quarterly rebalance added two Japanese game makers.",
+          "title": "AMD, Meta Power GAMR's Gaming Index as Capcom Joins",
+          "url": "https://www.etftrends.com/thematic-investing-content-hub/amd-meta-power-gamr-gaming-index-capcom-joins/"
+        },
         {
           "image": "https://images.financialmodelingprep.com/news/advanced-micro-devices-is-spending-82-billion-to-learn-20261001.jpg",
           "publishedDate": "2026-10-01 13:52:15",
@@ -2369,17 +2323,6 @@
           "text": "AMD closed with a market cap above $1 trillion for the first time on Sept. 21, 2026. Nvidia, Taiwan Semiconductor, and Broadcom each gained in the 12 months after their first $1 trillion closes, by between 43% and 216%.",
           "title": "History Says AMD Stock's $1 Trillion Milestone Isn't a Ceiling",
           "url": "https://www.fool.com/investing/2026/10/01/history-says-amd-stock-s-usd1-trillion-milestone-isn-t-a-ceiling/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/advanced-micro-devices-vs-arm-which-tech-stock-is-20260930.jpg",
-          "publishedDate": "2026-09-30 18:40:09",
-          "publisher": "The Motley Fool",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-09-30 18:40:09",
-          "symbol": "AMD",
-          "text": "Advanced Micro Devices continues to expand its data center footprint with high-performance AI accelerators and new multiyear infrastructure partnerships. Arm maintains a dominant market position by licensing its energy-efficient architecture, which powers nearly all of the world's smartphones.",
-          "title": "Advanced Micro Devices vs. Arm: Which Tech Stock Is a Better Buy in 2026?",
-          "url": "https://www.fool.com/coverage/better-buy/2026/09/30/advanced-micro-devices-vs-arm-which-tech-stock-is-a-better-buy-in-2026/"
         }
       ],
       "sma200": 370.5672,
@@ -2496,57 +2439,9 @@
           "symbol": "AMD",
           "text": "{\"at\": \"2026-07-24T10:31:48+00:00\", \"baseline_age_days\": 79, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Suji Desilva\", \"at\": \"2026-07-24T10:31:48+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"roth capital\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 539.69, \"reason\": \"unknown\", \"target_adjusted\": 650.0, \"target_raw\": 650.0, \"title\": \"AMD price target raised to $650 from $500 at Roth Capital\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4391672\"}, \"firm\": \"roth capital\", \"gap_when_posted_pct\": 20.4395, \"id\": \"fee2e94bfc4a2b6fb5d0ff58\", \"previous\": {\"analyst\": \"\", \"at\": \"2026-05-06T00:11:53+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"roth capital\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 355.26, \"reason\": \"unknown\", \"target_adjusted\": 500.0, \"target_raw\": 500.0, \"title\": \"AMD price target raised to $500 from $300 at Roth Capital\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4345971\"}, \"price_move_between_reports_pct\": 51.9141, \"revision_pct\": 30.0}",
           "url": "https://thefly.com/ajax/news_get.php?id=4391672"
-        },
-        "news:0207e179d46d186749f79e44": {
-          "published_at": "2026-10-01 07:15:41",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "AMD just posted its fifth straight record quarter for server CPUs, yet a quiet structural shift in the cloud threatens to cap how far that streak can run.",
-          "title": "The Hyperscaler CPU Threat to AMD No One Is Talking About",
-          "url": "https://247wallst.com/investing/2026/10/01/the-hyperscaler-cpu-threat-to-amd-no-one-is-talking-about/"
-        },
-        "news:132e809df035fb259383502f": {
-          "published_at": "2026-10-01 07:13:00",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "5 stocks rounded out September as the Nasdaq's biggest winners, led by Intel (INTC), Advanced Micro Devices (AMD), Meta (META), Marvell Technology (MRVL) and As",
-          "title": "Intel, AMD Lead 5 Biggest Stock Winners in September",
-          "url": "https://www.gurufocus.com/news/9105096/intel-amd-lead-5-biggest-stock-winners-in-september"
-        },
-        "news:6f553f93d6951c43480fc84c": {
-          "published_at": "2026-10-01 01:41:01",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "AMD closed with a market cap above $1 trillion for the first time on Sept. 21, 2026. Nvidia, Taiwan Semiconductor, and Broadcom each gained in the 12 months after their first $1 trillion closes, by between 43% and 216%.",
-          "title": "History Says AMD Stock's $1 Trillion Milestone Isn't a Ceiling",
-          "url": "https://www.fool.com/investing/2026/10/01/history-says-amd-stock-s-usd1-trillion-milestone-isn-t-a-ceiling/"
-        },
-        "news:863ff74941cef2c00ffccd12": {
-          "published_at": "2026-10-01 07:15:14",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "AMD sits near a trillion-dollar market cap with a valuation that would make most investors flinch, yet one investor keeps hitting the buy button every single month without checking the price first.",
-          "title": "I'm Dollar Cost Averaging AMD at Today's Price Without Fear",
-          "url": "https://247wallst.com/investing/2026/10/01/im-dollar-cost-averaging-amd-at-todays-price-without-fear/"
-        },
-        "news:a2a78775d992ae6a1fd07e18": {
-          "published_at": "2026-09-30 18:40:09",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "Advanced Micro Devices continues to expand its data center footprint with high-performance AI accelerators and new multiyear infrastructure partnerships. Arm maintains a dominant market position by licensing its energy-efficient architecture, which powers nearly all of the world's smartphones.",
-          "title": "Advanced Micro Devices vs. Arm: Which Tech Stock Is a Better Buy in 2026?",
-          "url": "https://www.fool.com/coverage/better-buy/2026/09/30/advanced-micro-devices-vs-arm-which-tech-stock-is-a-better-buy-in-2026/"
-        },
-        "news:fa7930d68ce391add72dfc41": {
-          "published_at": "2026-10-01 06:16:51",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "Nvidia, AMD and Intel stocks moved higher before Thursday's opening bell after Micron Technology delivered an earnings beat, reinforcing confidence that the AI infrastructure boom remains intact. Micron itself moved the other way.",
-          "title": "Nvidia, AMD and Intel rise on Micron earnings, so why is MU stock falling?",
-          "url": "https://invezz.com/news/2026/10/01/nvidia-amd-and-intel-rise-on-micron-earnings-so-why-is-mu-stock-falling/"
         }
       },
-      "volume": 12528058.838299999,
+      "volume": 12990765.838299999,
       "volume_avg_20d": 22194178.1
     },
     "ANET": {
@@ -3431,11 +3326,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-11-03",
       "fundamental_research": {
-        "collected_at": "2026-10-01T18:59:52+00:00",
+        "collected_at": "2026-10-01T19:21:49+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -3446,7 +3341,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -3458,7 +3353,7 @@
           },
           "net_debt": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -3470,7 +3365,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -3482,7 +3377,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -3493,7 +3388,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -3504,7 +3399,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -3515,7 +3410,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "netIncome"
             ],
@@ -3526,7 +3421,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -3537,7 +3432,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -3548,7 +3443,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue"
             ],
@@ -3559,7 +3454,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue@2026-06-30",
               "revenue@2025-06-30"
@@ -3571,7 +3466,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -3582,7 +3477,7 @@
           },
           "total_debt": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -3833,42 +3728,10 @@
           ]
         }
       },
-      "news_assessments": [
-        {
-          "citation_selections": [
-            {
-              "source_id": "news:e92d1e8c76256006cc56bbfc"
-            }
-          ],
-          "citations": [
-            {
-              "quote": "What happened Jayshree Ullal, CEO and Chairperson and a director, sold 62,622 shares of Arista Networks, Inc. (NYSE: ANET) on 2026-09-25. The filing puts the sale value at about $13.24 million, based on a weighted average price of $211.3957",
-              "source_id": "news:e92d1e8c76256006cc56bbfc"
-            }
-          ],
-          "claim_ids": [
-            "ANET-1"
-          ],
-          "counterevidence": "Insider selling can signal management's view of valuation or liquidity needs, but a single prearranged sale of 62,622 shares does not establish a material change in business performance or invalidate the thesis conditions. The sale price ($211.40) was above the current price in the thesis ($203.62 as of 2026-09-30), suggesting the stock has declined since the insider transaction.",
-          "impact": "neutral",
-          "reasoning": "The CEO share sale on 2026-09-25 at $211.40 (weighted average) is a corporate insider transaction executed under a prearranged Rule 10b5-1 plan. Such planned sales are routine capital management and do not directly contradict the thesis's financial metrics (revenue growth, operating margin, free cash flow, debt position) or price positioning relative to the fifty-day average. The transaction occurred before the as-of date of the thesis snapshot and does not alter reported fundamentals or current price relative to the SMA50.",
-          "source_documents": {
-            "news:e92d1e8c76256006cc56bbfc": {
-              "published_at": "2026-10-01 04:02:54",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "ANET",
-              "text": "What happened Jayshree Ullal, CEO and Chairperson and a director, sold 62,622 shares of Arista Networks, Inc. (NYSE: ANET) on 2026-09-25. The filing puts the sale value at about $13.24 million, based on a weighted average price of $211.3957, which rounds to $211.40. The shares were sold in multiple transactions at prices from $211.00 to",
-              "title": "Arista CEO sells shares in prearranged plan",
-              "url": "https://www.defenseworld.net/2026/10/01/arista-ceo-sells-shares-in-prearranged-plan.html"
-            }
-          },
-          "uncertainty": "The source does not disclose the reason for the sale, whether it was part of a broader divestment plan, or whether additional insider transactions are pending. Rule 10b5-1 plans are typically established months in advance and do not necessarily reflect current management sentiment. The impact on thesis validity depends on whether the upcoming earnings report (2026-11-03) sustains the claimed revenue growth and operating margin thresholds; this excerpt provides no forward guidance or operational data."
-        }
-      ],
       "news_provider": "FMP",
       "previous_close": 203.59,
-      "price": 205.905,
-      "price_at": "2026-10-01T18:55:00+00:00",
+      "price": 205.48,
+      "price_at": "2026-10-01T19:15:00+00:00",
       "price_date": "2026-09-30",
       "price_provider": "FMP",
       "providers": {
@@ -4037,17 +3900,9 @@
           "symbol": "ANET",
           "text": "{\"at\": \"2026-08-05T10:02:48+00:00\", \"baseline_age_days\": 90, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Tim Long\", \"at\": \"2026-08-05T10:02:48+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"barclays\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 190.51, \"reason\": \"unknown\", \"target_adjusted\": 289.0, \"target_raw\": 289.0, \"title\": \"Arista Networks price target raised to $289 from $195 at Barclays\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4401562\"}, \"firm\": \"barclays\", \"gap_when_posted_pct\": 51.6981, \"id\": \"f05c6aa44b5f373eac206aec\", \"previous\": {\"analyst\": \"\", \"at\": \"2026-05-07T09:24:27+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"barclays\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 147.06, \"reason\": \"unknown\", \"target_adjusted\": 195.0, \"target_raw\": 195.0, \"title\": \"Arista Networks price target raised to $195 from $184 at Barclays\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4347740\"}, \"price_move_between_reports_pct\": 29.5458, \"revision_pct\": 48.2051}",
           "url": "https://thefly.com/ajax/news_get.php?id=4401562"
-        },
-        "news:e92d1e8c76256006cc56bbfc": {
-          "published_at": "2026-10-01 04:02:54",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "ANET",
-          "text": "What happened Jayshree Ullal, CEO and Chairperson and a director, sold 62,622 shares of Arista Networks, Inc. (NYSE: ANET) on 2026-09-25. The filing puts the sale value at about $13.24 million, based on a weighted average price of $211.3957, which rounds to $211.40. The shares were sold in multiple transactions at prices from $211.00 to",
-          "title": "Arista CEO sells shares in prearranged plan",
-          "url": "https://www.defenseworld.net/2026/10/01/arista-ceo-sells-shares-in-prearranged-plan.html"
         }
       },
-      "volume": 2141199.0,
+      "volume": 2271244.0,
       "volume_avg_20d": 4797338.6
     },
     "MU": {
@@ -5069,11 +4924,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-12-23",
       "fundamental_research": {
-        "collected_at": "2026-10-01T18:59:52+00:00",
+        "collected_at": "2026-10-01T19:21:49+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -5084,7 +4939,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -5096,7 +4951,7 @@
           },
           "net_debt": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -5108,7 +4963,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -5120,7 +4975,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -5131,7 +4986,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -5142,7 +4997,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -5153,7 +5008,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "netIncome"
             ],
@@ -5164,7 +5019,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -5175,7 +5030,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -5186,7 +5041,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue"
             ],
@@ -5197,7 +5052,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue@2026-09-03",
               "revenue@2025-08-28"
@@ -5209,7 +5064,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -5220,7 +5075,7 @@
           },
           "total_debt": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -5475,93 +5330,70 @@
         {
           "citation_selections": [
             {
-              "source_id": "news:54bf5a8d383db691e3beeeab"
+              "source_id": "news:330952a562ba862480477f88"
             },
             {
-              "source_id": "news:77417694c90a7303cd1b57b9"
-            },
-            {
-              "source_id": "news:fdb3fc7cfbf50e7b19e3d77e"
+              "source_id": "news:6ad651e1e53df555e1c375a0"
             }
           ],
           "citations": [
             {
-              "quote": "Micron's Q4 results put the memory chip giant back in focus after the summer AI stock selloff. The company smashed records once again, with revenue up 379% year over year and an 87% gross margin that underscores the pricing power behind its",
-              "source_id": "news:54bf5a8d383db691e3beeeab"
+              "quote": "Micron just delivered a record-shattering quarter highlighted by explosive earnings growth, unmatched revenue visibility, and a compelling valuation.",
+              "source_id": "news:330952a562ba862480477f88"
             },
             {
-              "quote": "Micron Technology remains a buy in my books, as strong demand visibility and robust pricing power through 2027–2028 make the mid-term picture look clean. MU's Q4 revenue surged 379% YoY to $54.23B, with data center and cloud memory driving",
-              "source_id": "news:77417694c90a7303cd1b57b9"
-            },
-            {
-              "quote": "Micron Technology, Inc. (NASDAQ:MU) has reached a point where the value of memory its customers have already committed to buy is larger than everything the company sold in its entire latest financial year.",
-              "source_id": "news:fdb3fc7cfbf50e7b19e3d77e"
+              "quote": "\"There's no denying\" Micron (MU) earnings were \"fantastic,\" says Logan Gilland, who believes the company's report demonstrates long-standing need for AI memory. However, any subtle demand decline is something he sees hitting the stock alrea",
+              "source_id": "news:6ad651e1e53df555e1c375a0"
             }
           ],
           "claim_ids": [
             "MU-1",
             "MU-2"
           ],
-          "counterevidence": "N1 documents broad market pressure from rising treasury yields, which may constrain near-term price appreciation despite strong fundamentals. N5 notes stock slipped despite record results, suggesting sentiment headwinds. However, no source reports margin compression, cash flow deterioration, or loss of pricing power that would invalidate the thesis.",
-          "impact": "supports",
-          "reasoning": "The post-earnings sources confirm the thesis's core pillars: (1) MU-1's claim of very high margins is supported by N3 reporting 87% gross margin and N4 confirming strong pricing power and margin resilience through 2027–2028. (2) MU-2's requirement for maintained strong profitability and cash generation is supported by N3's 379% YoY revenue surge and N4's statement that 'EPS far exceeding consensus' and 'HBM volume largely sold out for 2027 at higher prices.' (3) N6 establishes a $150B contract book exceeding full-year revenue, indicating robust forward demand visibility and cash generation sustainability. The earnings call occurred on Sept. 30, 2026, validating the two-sided test timing. Price action (N5: −1.72% post-earnings to $1,046.79) remains above the thesis floor of $1,065.44 as of Sept. 29 close, and the decline reflects macro headwinds (N1: treasury yields at 24-year highs) rather than fundamental deterioration.",
+          "counterevidence": "The sources do not report any deterioration in the newly reported quarter's operating margin, free cash flow, or net cash position. N3's observation that the stock is 'priced for perfection' is a valuation opinion, not a contradiction of the business fundamentals reported in the quarter. No source disputes the reported metrics or the price holding above both moving averages.",
+          "impact": "neutral",
+          "reasoning": "The sources confirm that Micron delivered strong earnings with record revenue growth and explosive earnings growth (N2), and acknowledge fantastic earnings and long-standing AI memory demand (N3). These observations align with the thesis's reported metrics of high gross margin (86.76%), operating margin (80.68%), and 379% YoY revenue growth. However, the sources do not address the specific counterweights in the thesis: analyst target revisions tilting downward (2 down vs 1 up, median -8.2% over 30 days) or management's expectation of a gross-margin trough in an upcoming quarter. N3 introduces a forward-looking concern—that the stock is 'priced for perfection' and vulnerable to 'subtle demand decline'—which echoes the thesis's acknowledgment of downward analyst revisions and margin pressure ahead, but does not invalidate the current quarter's reported profitability or cash generation metrics.",
           "source_documents": {
-            "news:149f2cd18fdf02c9ef4394d5": {
-              "published_at": "2026-10-01 12:00:33",
+            "news:31c28c673598e0410b8af212": {
+              "published_at": "2026-10-01 13:34:01",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "MU",
-              "text": "Bond yields hit their highest level in two decades, pressuring blue chip dividend stocks and weighing on the broader market, today, Oct. 1, 2026.",
-              "title": "Stock Market Midday, Oct. 1: Stocks Edge Lower as Treasury Yields Surge to 24-Year High",
-              "url": "https://www.fool.com/coverage/stock-market-today/2026/10/01/stock-market-midday-oct-1-stocks-edge-lower-as-treasury-yields-surge-to-24-year-high/"
+              "text": "SanDisk shares SNDK rose in afternoon trading Thursday after Citi reiterated its Buy rating on the memory and storage company following Micron Technology's latest earnings report. The stock was up over 2% after staying under pressure in morning trading.",
+              "title": "SanDisk stock rises as Citi sees 20% upside after Micron earnings, tight NAND market",
+              "url": "https://invezz.com/news/2026/10/01/sandisk-stock-rises-as-citi-sees-20-upside-after-micron-earnings-tight-nand-market/"
             },
-            "news:3942d7195cb32349c96ca002": {
-              "published_at": "2026-10-01 12:06:39",
+            "news:330952a562ba862480477f88": {
+              "published_at": "2026-10-01 14:10:54",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "MU",
-              "text": "Micron's CEO noted, following the company's Sept. 30 earnings call, that robotics and physical AI could be a major driver of demand by the end of the decade.",
-              "title": "Micron's Next Big AI Opportunity Could Have 2 Legs",
-              "url": "https://www.fool.com/investing/2026/10/01/microns-next-big-ai-opportunity-could-have-2-legs/"
+              "text": "Micron just delivered a record-shattering quarter highlighted by explosive earnings growth, unmatched revenue visibility, and a compelling valuation.",
+              "title": "Crushing Expectations: Why Micron Remains Undervalued",
+              "url": "https://www.zacks.com/commentary/2999128/crushing-expectations-why-micron-remains-undervalued?cid=CS-STOCKNEWSAPI-FT-investment_ideas-2999128"
             },
-            "news:54bf5a8d383db691e3beeeab": {
-              "published_at": "2026-10-01 12:31:53",
+            "news:6ad651e1e53df555e1c375a0": {
+              "published_at": "2026-10-01 14:00:16",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "MU",
-              "text": "Micron's Q4 results put the memory chip giant back in focus after the summer AI stock selloff. The company smashed records once again, with revenue up 379% year over year and an 87% gross margin that underscores the pricing power behind its dominant position in memory. MU was flagged early by the Quant system and has delivered triple-digit returns for both Alpha Picks and the PRO Quant portfolio since its addition.",
-              "title": "Micron Revenue Surges 379%: 4 Top AI Chip Stocks",
-              "url": "https://seekingalpha.com/article/4951414-micron-revenue-surges-379-percent-4-top-ai-chip-stocks"
+              "text": "\"There's no denying\" Micron (MU) earnings were \"fantastic,\" says Logan Gilland, who believes the company's report demonstrates long-standing need for AI memory. However, any subtle demand decline is something he sees hitting the stock already \"priced for perfection.",
+              "title": "\"No Denying\" MU Earnings & Demand, \"Chinks in Armor\" Will Hit Stock",
+              "url": "https://www.youtube.com/watch?v=QVbUe7tFuDc"
             },
-            "news:77417694c90a7303cd1b57b9": {
-              "published_at": "2026-10-01 12:40:56",
+            "news:e96c6d73b5862a8c75f17461": {
+              "published_at": "2026-10-01 14:30:20",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "MU",
-              "text": "Micron Technology remains a buy in my books, as strong demand visibility and robust pricing power through 2027–2028 make the mid-term picture look clean. MU's Q4 revenue surged 379% YoY to $54.23B, with data center and cloud memory driving 63% of revenue and EPS far exceeding consensus. Management expects gross margins to bottom in Q1 2027, with HBM volume largely sold out for 2027 at higher prices, supporting margin resilience.",
-              "title": "Micron Is Keeping Shareholders Happy",
-              "url": "https://seekingalpha.com/article/4951411-micron-is-keeping-shareholders-happy"
-            },
-            "news:c3221e4b2f721eeed6f7301f": {
-              "published_at": "2026-10-01 12:32:43",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "MU",
-              "text": "Micron Technology (NASDAQ:MU | MU Price Prediction) stock fell 1.72% to $1,046.79 despite record fiscal Q4 results and analyst price target increases.",
-              "title": "Micron Stock Slips Despite Record Q4, Analyst Price Hikes. Here's Why MU Stock Is Still a Buy",
-              "url": "https://247wallst.com/investing/2026/10/01/micron-stock-slips-despite-record-q4-analyst-price-hikes-heres-why-mu-stock-is-still-a-buy/"
-            },
-            "news:fdb3fc7cfbf50e7b19e3d77e": {
-              "published_at": "2026-10-01 12:51:22",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "MU",
-              "text": "Micron Technology, Inc. (NASDAQ:MU) has reached a point where the value of memory its customers have already committed to buy is larger than everything the company sold in its entire latest financial year.",
-              "title": "Micron's $150 Billion Contract Book Is Bigger Than Its Full-Year Revenue",
-              "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62115548/micron-150-billion-contract-book"
+              "text": "Micron Technology (NASDAQ:MU) reported fourth-quarter financial results Wednesday that beat analyst estimates. The company highlighted strong growth and future results, which could be a victory for investor Ross Gerber.",
+              "title": "Ross Gerber Predicted Micron Would be a Trillion Dollar Company: He Was Right and Stock Could be Headed Higher",
+              "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62118887/ross-gerber-predicted-micron-would-be-a-trillion-dollar-company-he-was-right-and-stock-could-be-headed-higher"
             }
           },
-          "uncertainty": "The sources do not provide Q4 operating margin or free cash flow figures in absolute terms to directly compare against the Q3 2026 baseline (80.4% operating margin, $17.6B FCF). N4 states margins will 'bottom in Q1 2027,' implying Q4 margins may have declined sequentially, but the direction and magnitude are not quantified. Sustainability of the $150B backlog and pricing power through 2027–2028 depends on AI demand persistence, which is not independently verified in these excerpts. The thesis floor test ($1,065.44) has not yet been breached post-earnings, but continued macro pressure could test it."
+          "uncertainty": "The sources do not provide independent verification of the exact reported financial metrics (gross margin, operating margin, FCF, net cash) or current price levels relative to the moving averages. N3's forward-looking concern about demand decline is speculative and does not establish whether management's expected gross-margin trough will materialize or its magnitude. The reasons for the downward analyst revisions remain unknown from these sources. One source (N1) discusses SanDisk, not Micron directly, and does not address the thesis claims."
         }
       ],
       "news_provider": "FMP",
       "previous_close": 1065.11,
-      "price": 1087.82,
-      "price_at": "2026-10-01T18:55:00+00:00",
+      "price": 1086.66,
+      "price_at": "2026-10-01T19:15:00+00:00",
       "price_date": "2026-09-30",
       "price_provider": "FMP",
       "providers": {
@@ -5724,56 +5556,40 @@
           "text": "{\"at\": \"2026-09-23T09:44:00+00:00\", \"baseline_age_days\": 89, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Aaron Rakers\", \"at\": \"2026-09-23T09:44:00+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"wells fargo\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 1096.16, \"reason\": \"unknown\", \"target_adjusted\": 1400.0, \"target_raw\": 1400.0, \"title\": \"Micron Technology (MU) PT Lowered to $1,400 at Wells Fargo\", \"url\": \"https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html\"}, \"firm\": \"wells fargo\", \"gap_when_posted_pct\": 27.7186, \"id\": \"e47506d6cd877bd169a92d69\", \"previous\": {\"analyst\": \"\", \"at\": \"2026-06-25T09:50:08+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"wells fargo\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 1048.51, \"reason\": \"unknown\", \"target_adjusted\": 1525.0, \"target_raw\": 1525.0, \"title\": \"Micron price target raised to $1,525 from $1,220 at Wells Fargo\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4375124\"}, \"price_move_between_reports_pct\": 4.5445, \"revision_pct\": -8.1967}",
           "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html"
         },
-        "news:149f2cd18fdf02c9ef4394d5": {
-          "published_at": "2026-10-01 12:00:33",
+        "news:31c28c673598e0410b8af212": {
+          "published_at": "2026-10-01 13:34:01",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "MU",
-          "text": "Bond yields hit their highest level in two decades, pressuring blue chip dividend stocks and weighing on the broader market, today, Oct. 1, 2026.",
-          "title": "Stock Market Midday, Oct. 1: Stocks Edge Lower as Treasury Yields Surge to 24-Year High",
-          "url": "https://www.fool.com/coverage/stock-market-today/2026/10/01/stock-market-midday-oct-1-stocks-edge-lower-as-treasury-yields-surge-to-24-year-high/"
+          "text": "SanDisk shares SNDK rose in afternoon trading Thursday after Citi reiterated its Buy rating on the memory and storage company following Micron Technology's latest earnings report. The stock was up over 2% after staying under pressure in morning trading.",
+          "title": "SanDisk stock rises as Citi sees 20% upside after Micron earnings, tight NAND market",
+          "url": "https://invezz.com/news/2026/10/01/sandisk-stock-rises-as-citi-sees-20-upside-after-micron-earnings-tight-nand-market/"
         },
-        "news:3942d7195cb32349c96ca002": {
-          "published_at": "2026-10-01 12:06:39",
+        "news:330952a562ba862480477f88": {
+          "published_at": "2026-10-01 14:10:54",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "MU",
-          "text": "Micron's CEO noted, following the company's Sept. 30 earnings call, that robotics and physical AI could be a major driver of demand by the end of the decade.",
-          "title": "Micron's Next Big AI Opportunity Could Have 2 Legs",
-          "url": "https://www.fool.com/investing/2026/10/01/microns-next-big-ai-opportunity-could-have-2-legs/"
+          "text": "Micron just delivered a record-shattering quarter highlighted by explosive earnings growth, unmatched revenue visibility, and a compelling valuation.",
+          "title": "Crushing Expectations: Why Micron Remains Undervalued",
+          "url": "https://www.zacks.com/commentary/2999128/crushing-expectations-why-micron-remains-undervalued?cid=CS-STOCKNEWSAPI-FT-investment_ideas-2999128"
         },
-        "news:54bf5a8d383db691e3beeeab": {
-          "published_at": "2026-10-01 12:31:53",
+        "news:6ad651e1e53df555e1c375a0": {
+          "published_at": "2026-10-01 14:00:16",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "MU",
-          "text": "Micron's Q4 results put the memory chip giant back in focus after the summer AI stock selloff. The company smashed records once again, with revenue up 379% year over year and an 87% gross margin that underscores the pricing power behind its dominant position in memory. MU was flagged early by the Quant system and has delivered triple-digit returns for both Alpha Picks and the PRO Quant portfolio since its addition.",
-          "title": "Micron Revenue Surges 379%: 4 Top AI Chip Stocks",
-          "url": "https://seekingalpha.com/article/4951414-micron-revenue-surges-379-percent-4-top-ai-chip-stocks"
+          "text": "\"There's no denying\" Micron (MU) earnings were \"fantastic,\" says Logan Gilland, who believes the company's report demonstrates long-standing need for AI memory. However, any subtle demand decline is something he sees hitting the stock already \"priced for perfection.",
+          "title": "\"No Denying\" MU Earnings & Demand, \"Chinks in Armor\" Will Hit Stock",
+          "url": "https://www.youtube.com/watch?v=QVbUe7tFuDc"
         },
-        "news:77417694c90a7303cd1b57b9": {
-          "published_at": "2026-10-01 12:40:56",
+        "news:e96c6d73b5862a8c75f17461": {
+          "published_at": "2026-10-01 14:30:20",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "MU",
-          "text": "Micron Technology remains a buy in my books, as strong demand visibility and robust pricing power through 2027–2028 make the mid-term picture look clean. MU's Q4 revenue surged 379% YoY to $54.23B, with data center and cloud memory driving 63% of revenue and EPS far exceeding consensus. Management expects gross margins to bottom in Q1 2027, with HBM volume largely sold out for 2027 at higher prices, supporting margin resilience.",
-          "title": "Micron Is Keeping Shareholders Happy",
-          "url": "https://seekingalpha.com/article/4951411-micron-is-keeping-shareholders-happy"
-        },
-        "news:c3221e4b2f721eeed6f7301f": {
-          "published_at": "2026-10-01 12:32:43",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "MU",
-          "text": "Micron Technology (NASDAQ:MU | MU Price Prediction) stock fell 1.72% to $1,046.79 despite record fiscal Q4 results and analyst price target increases.",
-          "title": "Micron Stock Slips Despite Record Q4, Analyst Price Hikes. Here's Why MU Stock Is Still a Buy",
-          "url": "https://247wallst.com/investing/2026/10/01/micron-stock-slips-despite-record-q4-analyst-price-hikes-heres-why-mu-stock-is-still-a-buy/"
-        },
-        "news:fdb3fc7cfbf50e7b19e3d77e": {
-          "published_at": "2026-10-01 12:51:22",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "MU",
-          "text": "Micron Technology, Inc. (NASDAQ:MU) has reached a point where the value of memory its customers have already committed to buy is larger than everything the company sold in its entire latest financial year.",
-          "title": "Micron's $150 Billion Contract Book Is Bigger Than Its Full-Year Revenue",
-          "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62115548/micron-150-billion-contract-book"
+          "text": "Micron Technology (NASDAQ:MU) reported fourth-quarter financial results Wednesday that beat analyst estimates. The company highlighted strong growth and future results, which could be a victory for investor Ross Gerber.",
+          "title": "Ross Gerber Predicted Micron Would be a Trillion Dollar Company: He Was Right and Stock Could be Headed Higher",
+          "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62118887/ross-gerber-predicted-micron-would-be-a-trillion-dollar-company-he-was-right-and-stock-could-be-headed-higher"
         }
       },
-      "volume": 36529990.92913,
+      "volume": 38199086.92913,
       "volume_avg_20d": 24997325.6
     },
     "NVDA": {
@@ -6991,11 +6807,11 @@
       "data_source": "intraday_5m",
       "earnings_date": "2026-11-18",
       "fundamental_research": {
-        "collected_at": "2026-10-01T18:59:52+00:00",
+        "collected_at": "2026-10-01T19:21:49+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -7006,7 +6822,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -7018,7 +6834,7 @@
           },
           "net_debt": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -7030,7 +6846,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -7042,7 +6858,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -7053,7 +6869,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -7064,7 +6880,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -7075,7 +6891,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "netIncome"
             ],
@@ -7086,7 +6902,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -7097,7 +6913,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -7108,7 +6924,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue"
             ],
@@ -7119,7 +6935,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "revenue@2026-07-26",
               "revenue@2025-07-27"
@@ -7131,7 +6947,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -7142,7 +6958,7 @@
           },
           "total_debt": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-01T18:59:52+00:00",
+            "observed_at": "2026-10-01T19:21:49+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -7400,10 +7216,10 @@
               "source_id": "news:d92e3192c05924078d8a87a5"
             },
             {
-              "source_id": "news:ab95bd35513df8bf46d9392a"
+              "source_id": "news:236a7cc5d46a66ac5171d160"
             },
             {
-              "source_id": "news:236a7cc5d46a66ac5171d160"
+              "source_id": "news:ab95bd35513df8bf46d9392a"
             }
           ],
           "citations": [
@@ -7412,12 +7228,12 @@
               "source_id": "news:d92e3192c05924078d8a87a5"
             },
             {
-              "quote": "NVIDIA, Palantir and Dell are expanding AI infrastructure and data tools as Big Data demand grows across industries.",
-              "source_id": "news:ab95bd35513df8bf46d9392a"
-            },
-            {
               "quote": "NVIDIA just posted quarterly revenue that would have counted as a strong full year not long ago, yet the stock still trades at a fraction of what its earnings growth suggests it deserves.",
               "source_id": "news:236a7cc5d46a66ac5171d160"
+            },
+            {
+              "quote": "NVIDIA, Palantir and Dell are expanding AI infrastructure and data tools as Big Data demand grows across industries.",
+              "source_id": "news:ab95bd35513df8bf46d9392a"
             }
           ],
           "claim_ids": [
@@ -7425,9 +7241,9 @@
             "NVDA-2",
             "NVDA-3"
           ],
-          "counterevidence": "N5 reports that NVIDIA is encountering opposition from lenders to a $500 billion financing proposal, which introduces uncertainty about capital availability and execution risk not reflected in the current thesis. This does not directly contradict the reported quarter's strength but signals potential headwinds. N1 is truncated and provides no usable content. The excerpts collectively lack the granular financial data and forward guidance needed to confirm or refute the specific claims.",
+          "counterevidence": "N4's headline references 'a Wall Street reality check' on a $500 billion financing proposal, suggesting potential headwinds or skepticism, but the excerpt is truncated and does not clarify whether this affects the operational thesis or merely a financing initiative. The sources do not contradict the reported financial metrics or the price positioning relative to moving averages.",
           "impact": "uncertain",
-          "reasoning": "The supplied sources provide limited and fragmented data. N6 confirms strong Q2 growth and rising cash flow, supporting the thesis foundation. N2 notes that NVIDIA posted strong quarterly revenue and trades at a fraction of what earnings growth suggests it deserves, which is consistent with the growth narrative. N4 mentions NVIDIA is expanding AI infrastructure as demand grows. However, none of the excerpts provide the specific financial metrics (revenue YoY %, gross margin %, operating margin %, free cash flow amounts) needed to validate or invalidate claims NVDA-1, NVDA-2, or NVDA-3. The sources do not address the price-to-moving-average relationships, the debt increase, or the operating cash flow decline that are central to the thesis assessment.",
+          "reasoning": "The supplied sources contain only partial excerpts and lack the detailed financial data necessary to validate or invalidate the thesis claims. N5 mentions 'strong Q2 growth, rising cash flow and a still-reasonable valuation,' which aligns directionally with NVDA-3's reported metrics (105.8% revenue growth, 75% gross margin, $21.4B free cash flow), but the excerpt does not provide the specific quarterly figures to confirm the reported numbers. N2 references 'quarterly revenue that would have counted as a strong full year' and suggests the stock 'trades at a fraction of what its earnings growth suggests it deserves,' supporting the bull thesis but without quantitative detail. N3 confirms NVIDIA's role in AI infrastructure expansion. None of the sources directly address the price-to-moving-average relationships (NVDA-1, NVDA-2) or provide current market data to assess trend integrity.",
           "source_documents": {
             "news:07a8ed54442dd858e90aa14e": {
               "published_at": "2026-10-01 10:35:00",
@@ -7444,14 +7260,6 @@
               "text": "NVIDIA just posted quarterly revenue that would have counted as a strong full year not long ago, yet the stock still trades at a fraction of what its earnings growth suggests it deserves.",
               "title": "My Nvidia Price Target Looks Beyond the Next Few Quarters",
               "url": "https://247wallst.com/investing/2026/10/01/my-nvidia-price-target-looks-beyond-the-next-few-quarters/"
-            },
-            "news:77d7e7df0374d809a97bd89e": {
-              "published_at": "2026-10-01 09:00:00",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "NVDA",
-              "text": "Transaction Expected to Establish Recurring Revenue Stream Through Long-Term GPU Lease Arrangement Company to Evaluate Strategic Alternatives for Existing Real Estate Operations to Focus on New Strategy Chairman Nicholas Adler Appointed Chief Executive Officer to Lead Strategic Transformation Celebration, FL, Oct. 01, 2026 (GLOBE NEWSWIRE) -- La Rosa Holdings Corp. (NASDAQ: LRHC) (“La Rosa” or the “Company”), a real estate and PropTech enterprise, today announced a strategic transaction in which it acquired NVIDIA graphics processing units (“GPUs”) and its intent to evaluate strategic alternatives with respect to the Company's real estate operations, including a potential divestiture of its real estate assets, together advancing the Company's previously announced transition into the artificial intelligence (AI) infrastructure sector. Under the transaction, the Company acquired latest-generation NVIDIA B300 GPUs, the high-performance processor at the core of modern AI data centers, and leased those assets back under a long-term lease, which is expected to generate recurring, long-term cash flows for the Company.",
-              "title": "La Rosa Holdings Acquires Next-Generation NVIDIA GPUs, Advancing AI Infrastructure Strategy",
-              "url": "https://www.globenewswire.com/news-release/2026/10/01/3372955/0/en/la-rosa-holdings-acquires-next-generation-nvidia-gpus-advancing-ai-infrastructure-strategy.html"
             },
             "news:ab95bd35513df8bf46d9392a": {
               "published_at": "2026-10-01 10:26:18",
@@ -7476,21 +7284,40 @@
               "text": "NVIDIA's 17% three-month rally is backed by surging AI infrastructure demand, strong Q2 growth, rising cash flow and a still-reasonable valuation.",
               "title": "NVIDIA Soars 17% in Three Months: Should Investors Buy the Stock?",
               "url": "https://www.zacks.com/stock/news/2998702/nvidia-soars-17-in-three-months-should-investors-buy-the-stock?cid=CS-STOCKNEWSAPI-FT-analyst_blog|most_popular_stocks-2998702"
+            },
+            "news:e3e27d8c9051fac29fb30567": {
+              "published_at": "2026-10-01 11:01:10",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "NVDA",
+              "text": "Jacobs Solutions Inc. J is expanding its digital infrastructure work through a new three-year agreement with NVIDIA Corporation NVDA. Under the deal, Jacobs will deploy its Data Center Digital Twin at a major U.S. research and development facility.",
+              "title": "Will Jacobs' Digital Twin Strengthen NVIDIA's AI Infrastructure Reach?",
+              "url": "https://www.zacks.com/stock/news/2998923/will-jacobs-digital-twin-strengthen-nvidia-s-ai-infrastructure-reach?cid=CS-STOCKNEWSAPI-FT-analyst_blog|company_news_corporate_actions-2998923"
             }
           },
-          "uncertainty": "The source excerpts are incomplete or too general to establish whether the latest reported quarter's margins, revenue growth, and free cash flow remain intact or have deteriorated. No source provides the current or forward guidance that would validate management's confidence in continued AI-driven growth. The financing opposition in N5 raises questions about capital structure but does not directly address the operational thesis. A complete assessment requires full earnings reports, balance sheet detail, and management commentary, none of which are fully available in these excerpts."
+          "uncertainty": "The excerpts are incomplete and do not provide the full earnings report, guidance commentary, or detailed balance-sheet context needed to independently verify NVDA-3's reported operating cash flow decline, debt increase, or management's forward outlook. Price data as of 2026-09-29 cannot be validated against these October 1 news items. The thesis relies on both technical (moving average) and fundamental (growth, margins, FCF) pillars; the sources confirm directional support for fundamentals but offer no new data to assess whether conditions have changed since the last reported quarter or whether the technical setup remains intact."
         }
       ],
       "news_provider": "FMP",
       "previous_close": 228.38,
-      "price": 232.18,
-      "price_at": "2026-10-01T18:55:00+00:00",
+      "price": 231.72,
+      "price_at": "2026-10-01T19:15:00+00:00",
       "price_date": "2026-09-30",
       "price_provider": "FMP",
       "providers": {
         "earnings": "FMP"
       },
       "recent_news": [
+        {
+          "image": "https://images.financialmodelingprep.com/news/should-you-buy-nvidia-stock-in-october-what-its-20261001.jpg",
+          "publishedDate": "2026-10-01 14:30:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-01 14:30:00",
+          "symbol": "NVDA",
+          "text": "As the world's leading AI chip designer, Nvidia has seen earnings soar in the triple digits. The company's innovation is helping it maintain its market dominance.",
+          "title": "Should You Buy Nvidia Stock in October? What Its Decade-Low Valuation Signals",
+          "url": "https://www.fool.com/investing/2026/10/01/should-you-buy-nvidia-stock-in-october-what-its-de/"
+        },
         {
           "image": "https://images.financialmodelingprep.com/news/the-big-3-net-now-nvda-20261001.jpg",
           "publishedDate": "2026-10-01 13:00:07",
@@ -7589,17 +7416,6 @@
           "text": "NVIDIA's 17% three-month rally is backed by surging AI infrastructure demand, strong Q2 growth, rising cash flow and a still-reasonable valuation.",
           "title": "NVIDIA Soars 17% in Three Months: Should Investors Buy the Stock?",
           "url": "https://www.zacks.com/stock/news/2998702/nvidia-soars-17-in-three-months-should-investors-buy-the-stock?cid=CS-STOCKNEWSAPI-FT-analyst_blog|most_popular_stocks-2998702"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/la-rosa-holdings-acquires-nextgeneration-nvidia-gpus-advancing-ai-20261001.jpg",
-          "publishedDate": "2026-10-01 09:00:00",
-          "publisher": "GlobeNewsWire",
-          "site": "globenewswire.com",
-          "sourcePublishedDate": "2026-10-01 09:00:00",
-          "symbol": "NVDA",
-          "text": "Transaction Expected to Establish Recurring Revenue Stream Through Long-Term GPU Lease Arrangement Company to Evaluate Strategic Alternatives for Existing Real Estate Operations to Focus on New Strategy Chairman Nicholas Adler Appointed Chief Executive Officer to Lead Strategic Transformation Celebration, FL, Oct. 01, 2026 (GLOBE NEWSWIRE) -- La Rosa Holdings Corp. (NASDAQ: LRHC) (“La Rosa” or the “Company”), a real estate and PropTech enterprise, today announced a strategic transaction in which it acquired NVIDIA graphics processing units (“GPUs”) and its intent to evaluate strategic alternatives with respect to the Company's real estate operations, including a potential divestiture of its real estate assets, together advancing the Company's previously announced transition into the artificial intelligence (AI) infrastructure sector. Under the transaction, the Company acquired latest-generation NVIDIA B300 GPUs, the high-performance processor at the core of modern AI data centers, and leased those assets back under a long-term lease, which is expected to generate recurring, long-term cash flows for the Company.",
-          "title": "La Rosa Holdings Acquires Next-Generation NVIDIA GPUs, Advancing AI Infrastructure Strategy",
-          "url": "https://www.globenewswire.com/news-release/2026/10/01/3372955/0/en/la-rosa-holdings-acquires-next-generation-nvidia-gpus-advancing-ai-infrastructure-strategy.html"
         }
       ],
       "sma200": 200.1471,
@@ -7733,14 +7549,6 @@
           "title": "My Nvidia Price Target Looks Beyond the Next Few Quarters",
           "url": "https://247wallst.com/investing/2026/10/01/my-nvidia-price-target-looks-beyond-the-next-few-quarters/"
         },
-        "news:77d7e7df0374d809a97bd89e": {
-          "published_at": "2026-10-01 09:00:00",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "NVDA",
-          "text": "Transaction Expected to Establish Recurring Revenue Stream Through Long-Term GPU Lease Arrangement Company to Evaluate Strategic Alternatives for Existing Real Estate Operations to Focus on New Strategy Chairman Nicholas Adler Appointed Chief Executive Officer to Lead Strategic Transformation Celebration, FL, Oct. 01, 2026 (GLOBE NEWSWIRE) -- La Rosa Holdings Corp. (NASDAQ: LRHC) (“La Rosa” or the “Company”), a real estate and PropTech enterprise, today announced a strategic transaction in which it acquired NVIDIA graphics processing units (“GPUs”) and its intent to evaluate strategic alternatives with respect to the Company's real estate operations, including a potential divestiture of its real estate assets, together advancing the Company's previously announced transition into the artificial intelligence (AI) infrastructure sector. Under the transaction, the Company acquired latest-generation NVIDIA B300 GPUs, the high-performance processor at the core of modern AI data centers, and leased those assets back under a long-term lease, which is expected to generate recurring, long-term cash flows for the Company.",
-          "title": "La Rosa Holdings Acquires Next-Generation NVIDIA GPUs, Advancing AI Infrastructure Strategy",
-          "url": "https://www.globenewswire.com/news-release/2026/10/01/3372955/0/en/la-rosa-holdings-acquires-next-generation-nvidia-gpus-advancing-ai-infrastructure-strategy.html"
-        },
         "news:ab95bd35513df8bf46d9392a": {
           "published_at": "2026-10-01 10:26:18",
           "scope": "provider article/excerpt; not independently verified full text",
@@ -7764,9 +7572,17 @@
           "text": "NVIDIA's 17% three-month rally is backed by surging AI infrastructure demand, strong Q2 growth, rising cash flow and a still-reasonable valuation.",
           "title": "NVIDIA Soars 17% in Three Months: Should Investors Buy the Stock?",
           "url": "https://www.zacks.com/stock/news/2998702/nvidia-soars-17-in-three-months-should-investors-buy-the-stock?cid=CS-STOCKNEWSAPI-FT-analyst_blog|most_popular_stocks-2998702"
+        },
+        "news:e3e27d8c9051fac29fb30567": {
+          "published_at": "2026-10-01 11:01:10",
+          "scope": "provider article/excerpt; not independently verified full text",
+          "symbol": "NVDA",
+          "text": "Jacobs Solutions Inc. J is expanding its digital infrastructure work through a new three-year agreement with NVIDIA Corporation NVDA. Under the deal, Jacobs will deploy its Data Center Digital Twin at a major U.S. research and development facility.",
+          "title": "Will Jacobs' Digital Twin Strengthen NVIDIA's AI Infrastructure Reach?",
+          "url": "https://www.zacks.com/stock/news/2998923/will-jacobs-digital-twin-strengthen-nvidia-s-ai-infrastructure-reach?cid=CS-STOCKNEWSAPI-FT-analyst_blog|company_news_corporate_actions-2998923"
         }
       },
-      "volume": 65314815.2437,
+      "volume": 68169459.2437,
       "volume_avg_20d": 112867322.15
     },
     "SMH": {
@@ -7775,8 +7591,8 @@
       "earnings_date": null,
       "news_provider": "FMP",
       "previous_close": 609.0,
-      "price": 619.44,
-      "price_at": "2026-10-01T18:55:00+00:00",
+      "price": 617.87,
+      "price_at": "2026-10-01T19:15:00+00:00",
       "price_date": "2026-09-30",
       "price_provider": "FMP",
       "providers": {},
@@ -7894,7 +7710,7 @@
       ],
       "sma200": 496.79130000000004,
       "sma50": 568.22,
-      "volume": 3947695.70649,
+      "volume": 4114519.76632,
       "volume_avg_20d": 6394170.2
     },
     "SPY": {
@@ -7903,8 +7719,8 @@
       "earnings_date": null,
       "news_provider": "FMP",
       "previous_close": 762.63,
-      "price": 764.64,
-      "price_at": "2026-10-01T18:55:00+00:00",
+      "price": 764.54,
+      "price_at": "2026-10-01T19:15:00+00:00",
       "price_date": "2026-09-30",
       "price_provider": "FMP",
       "providers": {},
@@ -8022,7 +7838,7 @@
       ],
       "sma200": 719.6152999999999,
       "sma50": 762.7413999999999,
-      "volume": 33691069.0,
+      "volume": 34886084.0,
       "volume_avg_20d": 45000050.05
     }
   },
@@ -8031,152 +7847,19 @@
   "lifecycle_version": 1,
   "market_open": true,
   "measurement_errors": [],
-  "news_errors": [],
+  "news_errors": [
+    {
+      "error": "news source text or assessment prerequisites unavailable",
+      "symbol": "AMD"
+    }
+  ],
   "news_previous": {
-    "AMD": "2026-09-30 10:41:33",
-    "ANET": "2026-09-29 20:07:00"
+    "AMD": "2026-10-01 07:15:41",
+    "ANET": "2026-10-01 04:02:54",
+    "MU": "2026-10-01 12:51:22"
   },
   "state_changed": true,
   "triggered": [
-    {
-      "analyst_event_keys": [
-        "analyst:MU:e47506d6cd877bd169a92d69",
-        "analyst:MU:6ef4d2b8514b3c55f9f69c83"
-      ],
-      "claim_id": "analyst_revision_review",
-      "condition_type": "analyst_revision",
-      "cooldown_key": "analyst:MU:e8a2a10c69476f63f0369eab",
-      "measured": 2,
-      "severity": "thesis",
-      "symbol": "MU",
-      "threshold": 1,
-      "trigger": "Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
-    },
-    {
-      "claim_id": "news_shock",
-      "condition_type": "sentiment_support",
-      "cooldown_key": "thesis:MU",
-      "material_event_id": "1bdc8ab2844126f1511eb8e9",
-      "material_event_ids": [
-        "1bdc8ab2844126f1511eb8e9",
-        "3ffcd1250019eaf88ed2c719",
-        "a9c40b760b5f83faae872eae"
-      ],
-      "measured": 1,
-      "news_evidence": {
-        "citation_selections": [
-          {
-            "source_id": "news:54bf5a8d383db691e3beeeab"
-          },
-          {
-            "source_id": "news:77417694c90a7303cd1b57b9"
-          },
-          {
-            "source_id": "news:fdb3fc7cfbf50e7b19e3d77e"
-          }
-        ],
-        "citations": [
-          {
-            "quote": "Micron's Q4 results put the memory chip giant back in focus after the summer AI stock selloff. The company smashed records once again, with revenue up 379% year over year and an 87% gross margin that underscores the pricing power behind its",
-            "source_id": "news:54bf5a8d383db691e3beeeab"
-          },
-          {
-            "quote": "Micron Technology remains a buy in my books, as strong demand visibility and robust pricing power through 2027–2028 make the mid-term picture look clean. MU's Q4 revenue surged 379% YoY to $54.23B, with data center and cloud memory driving",
-            "source_id": "news:77417694c90a7303cd1b57b9"
-          },
-          {
-            "quote": "Micron Technology, Inc. (NASDAQ:MU) has reached a point where the value of memory its customers have already committed to buy is larger than everything the company sold in its entire latest financial year.",
-            "source_id": "news:fdb3fc7cfbf50e7b19e3d77e"
-          }
-        ],
-        "claim_ids": [
-          "MU-1",
-          "MU-2"
-        ],
-        "counterevidence": "N1 documents broad market pressure from rising treasury yields, which may constrain near-term price appreciation despite strong fundamentals. N5 notes stock slipped despite record results, suggesting sentiment headwinds. However, no source reports margin compression, cash flow deterioration, or loss of pricing power that would invalidate the thesis.",
-        "impact": "supports",
-        "reasoning": "The post-earnings sources confirm the thesis's core pillars: (1) MU-1's claim of very high margins is supported by N3 reporting 87% gross margin and N4 confirming strong pricing power and margin resilience through 2027–2028. (2) MU-2's requirement for maintained strong profitability and cash generation is supported by N3's 379% YoY revenue surge and N4's statement that 'EPS far exceeding consensus' and 'HBM volume largely sold out for 2027 at higher prices.' (3) N6 establishes a $150B contract book exceeding full-year revenue, indicating robust forward demand visibility and cash generation sustainability. The earnings call occurred on Sept. 30, 2026, validating the two-sided test timing. Price action (N5: −1.72% post-earnings to $1,046.79) remains above the thesis floor of $1,065.44 as of Sept. 29 close, and the decline reflects macro headwinds (N1: treasury yields at 24-year highs) rather than fundamental deterioration.",
-        "source_documents": {
-          "news:149f2cd18fdf02c9ef4394d5": {
-            "published_at": "2026-10-01 12:00:33",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Bond yields hit their highest level in two decades, pressuring blue chip dividend stocks and weighing on the broader market, today, Oct. 1, 2026.",
-            "title": "Stock Market Midday, Oct. 1: Stocks Edge Lower as Treasury Yields Surge to 24-Year High",
-            "url": "https://www.fool.com/coverage/stock-market-today/2026/10/01/stock-market-midday-oct-1-stocks-edge-lower-as-treasury-yields-surge-to-24-year-high/"
-          },
-          "news:3942d7195cb32349c96ca002": {
-            "published_at": "2026-10-01 12:06:39",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron's CEO noted, following the company's Sept. 30 earnings call, that robotics and physical AI could be a major driver of demand by the end of the decade.",
-            "title": "Micron's Next Big AI Opportunity Could Have 2 Legs",
-            "url": "https://www.fool.com/investing/2026/10/01/microns-next-big-ai-opportunity-could-have-2-legs/"
-          },
-          "news:54bf5a8d383db691e3beeeab": {
-            "published_at": "2026-10-01 12:31:53",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron's Q4 results put the memory chip giant back in focus after the summer AI stock selloff. The company smashed records once again, with revenue up 379% year over year and an 87% gross margin that underscores the pricing power behind its dominant position in memory. MU was flagged early by the Quant system and has delivered triple-digit returns for both Alpha Picks and the PRO Quant portfolio since its addition.",
-            "title": "Micron Revenue Surges 379%: 4 Top AI Chip Stocks",
-            "url": "https://seekingalpha.com/article/4951414-micron-revenue-surges-379-percent-4-top-ai-chip-stocks"
-          },
-          "news:77417694c90a7303cd1b57b9": {
-            "published_at": "2026-10-01 12:40:56",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron Technology remains a buy in my books, as strong demand visibility and robust pricing power through 2027–2028 make the mid-term picture look clean. MU's Q4 revenue surged 379% YoY to $54.23B, with data center and cloud memory driving 63% of revenue and EPS far exceeding consensus. Management expects gross margins to bottom in Q1 2027, with HBM volume largely sold out for 2027 at higher prices, supporting margin resilience.",
-            "title": "Micron Is Keeping Shareholders Happy",
-            "url": "https://seekingalpha.com/article/4951411-micron-is-keeping-shareholders-happy"
-          },
-          "news:c3221e4b2f721eeed6f7301f": {
-            "published_at": "2026-10-01 12:32:43",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron Technology (NASDAQ:MU | MU Price Prediction) stock fell 1.72% to $1,046.79 despite record fiscal Q4 results and analyst price target increases.",
-            "title": "Micron Stock Slips Despite Record Q4, Analyst Price Hikes. Here's Why MU Stock Is Still a Buy",
-            "url": "https://247wallst.com/investing/2026/10/01/micron-stock-slips-despite-record-q4-analyst-price-hikes-heres-why-mu-stock-is-still-a-buy/"
-          },
-          "news:fdb3fc7cfbf50e7b19e3d77e": {
-            "published_at": "2026-10-01 12:51:22",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron Technology, Inc. (NASDAQ:MU) has reached a point where the value of memory its customers have already committed to buy is larger than everything the company sold in its entire latest financial year.",
-            "title": "Micron's $150 Billion Contract Book Is Bigger Than Its Full-Year Revenue",
-            "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62115548/micron-150-billion-contract-book"
-          }
-        },
-        "uncertainty": "The sources do not provide Q4 operating margin or free cash flow figures in absolute terms to directly compare against the Q3 2026 baseline (80.4% operating margin, $17.6B FCF). N4 states margins will 'bottom in Q1 2027,' implying Q4 margins may have declined sequentially, but the direction and magnitude are not quantified. Sustainability of the $150B backlog and pricing power through 2027–2028 depends on AI demand persistence, which is not independently verified in these excerpts. The thesis floor test ($1,065.44) has not yet been breached post-earnings, but continued macro pressure could test it."
-      },
-      "severity": "thesis",
-      "symbol": "MU",
-      "threshold": 0,
-      "trigger": "The post-earnings sources confirm the thesis's core pillars: (1) MU-1's claim of very high margins is supported by N3 reporting 87% gross margin and N4 confirming strong pricing power and margin resilience through 2027–2028. (2) MU-2's requirement for maintained strong profitability and cash generation is supported by N3's 379% YoY revenue surge and N4's statement that 'EPS far exceeding consensus' and 'HBM volume largely sold out for 2027 at higher prices.' (3) N6 establishes a $150B contract book exceeding full-year revenue, indicating robust forward demand visibility and cash generation sustainability. The earnings call occurred on Sept. 30, 2026, validating the two-sided test timing. Price action (N5: −1.72% post-earnings to $1,046.79) remains above the thesis floor of $1,065.44 as of Sept. 29 close, and the decline reflects macro headwinds (N1: treasury yields at 24-year highs) rather than fundamental deterioration."
-    },
-    {
-      "analyst_event_keys": [
-        "analyst:MU:e47506d6cd877bd169a92d69",
-        "analyst:MU:6ef4d2b8514b3c55f9f69c83"
-      ],
-      "claim_id": "analyst_revision_review",
-      "condition_type": "analyst_revision",
-      "cooldown_key": "analyst:MU:e8a2a10c69476f63f0369eab",
-      "measured": 2,
-      "severity": "thesis",
-      "symbol": "MU",
-      "threshold": 1,
-      "trigger": "Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
-    },
-    {
-      "claim_id": "decision_expired",
-      "condition_type": "review_deadline",
-      "cooldown_key": "deadline:626047870b2c26073c769fb7",
-      "measured": 1,
-      "severity": "thesis",
-      "symbol": "MU",
-      "threshold": 0,
-      "trigger": "Decision review deadline reached: 2026-10-01T15:00:00+00:00"
-    },
     {
       "claim_id": "news_shock",
       "condition_type": "sentiment_support",
@@ -8270,642 +7953,6 @@
       "symbol": "NVDA",
       "threshold": 0,
       "trigger": "Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2."
-    }
-  ],
-  "semantic_reviews": [
-    {
-      "symbol": "MU",
-      "review": {
-        "verdict": "supported",
-        "citations": [
-          {
-            "source_id": "MU.gross_margin_pct",
-            "quote": "MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement"
-          },
-          {
-            "source_id": "MU.operating_margin_pct",
-            "quote": "MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement"
-          },
-          {
-            "source_id": "MU.quarter_free_cash_flow",
-            "quote": "MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement"
-          },
-          {
-            "source_id": "MU.net_debt",
-            "quote": "MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement"
-          },
-          {
-            "source_id": "MU.price",
-            "quote": "MU | price: 1087.82 USD | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "MU.previous_close",
-            "quote": "MU | previous_close: 1065.11 USD | as-of 2026-09-30 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "MU.analyst_median_revision_pct_30d",
-            "quote": "MU | analyst_median_revision_pct_30d: -8.1967 % | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations"
-          },
-          {
-            "source_id": "news:77417694c90a7303cd1b57b9",
-            "quote": "Micron Technology remains a buy in my books, as strong demand visibility and robust pricing power through 2027–2028 make the mid-term picture look clean. MU's Q4 revenue surged 379% YoY to $54.23B, with data center and cloud memory driving"
-          }
-        ],
-        "issues": [],
-        "counterargument": "The proposal's factual claims about Micron's financial performance and stock price are supported by the provided sources. The potential for a future gross margin decline is acknowledged as a management expectation, not a current measurement, and the analyst target revisions are noted without attributing specific reasons.",
-        "citation_selections": [
-          {
-            "source_id": "MU.gross_margin_pct"
-          },
-          {
-            "source_id": "MU.operating_margin_pct"
-          },
-          {
-            "source_id": "MU.quarter_free_cash_flow"
-          },
-          {
-            "source_id": "MU.net_debt"
-          },
-          {
-            "source_id": "MU.price"
-          },
-          {
-            "source_id": "MU.previous_close"
-          },
-          {
-            "source_id": "MU.analyst_median_revision_pct_30d"
-          },
-          {
-            "source_id": "news:77417694c90a7303cd1b57b9"
-          }
-        ],
-        "source_bundle_sha256": "8c2e91b9f2cc66bc63a6f3672269fd7c6b50ee1accb222f22cbc2a88048ad167"
-      }
-    }
-  ],
-  "decision_changes": [
-    {
-      "symbol": "MU",
-      "action": "HOLD",
-      "time": "2026-10-01T19:00Z",
-      "trigger": "Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade.; The post-earnings sources confirm the thesis's core pillars: (1) MU-1's claim of very high margins is supported by N3 reporting 87% gross margin and N4 confirming strong pricing power and margin resilience through 2027–2028. (2) MU-2's requirement for maintained strong profitability and cash generation is supported by N3's 379% YoY revenue surge and N4's statement that 'EPS far exceeding consensus' and 'HBM volume largely sold out for 2027 at higher prices.' (3) N6 establishes a $150B contract book exceeding full-year revenue, indicating robust forward demand visibility and cash generation sustainability. The earnings call occurred on Sept. 30, 2026, validating the two-sided test timing. Price action (N5: −1.72% post-earnings to $1,046.79) remains above the thesis floor of $1,065.44 as of Sept. 29 close, and the decline reflects macro headwinds (N1: treasury yields at 24-year highs) rather than fundamental deterioration.; Decision review deadline reached: 2026-10-01T15:00:00+00:00",
-      "reasoning": "The report delivered what the thesis required. Profitability held at or above the prior quarter ([MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567] operating margin) and cash generation grew ([MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567]). The balance sheet strengthened ([MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 6b74a901a567]). Price trades above both averages. These facts do not justify exiting. The analyst tilt is downward ([MU | analyst_median_revision_pct_30d: -8.1967 % | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567] median over the past month), reasons are unknown, and a margin trough is reportedly guided, so adding at this level is not warranted either. Holding keeps the existing exposure while the next measured evidence is gathered.",
-      "falsifier": "This decision is wrong if price falls below the fixed thesis floor in the referenced condition. That floor sits well below both the current price and the medium-term average, so a break would mean the market has rejected the reported fundamentals. The decision is also wrong if the next reported operating margin falls below the thesis-severity margin floor, or if further target cuts arrive with explicitly stated fundamental reasons such as weakening memory pricing.",
-      "before": {
-        "thesis_summary": "Micron's most recent reported quarter shows very high margins, strong cash generation and a net cash balance sheet, and the stock trades well above both moving averages into the report on [MU | earnings_date: 2026-09-30 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot b5371fcd4ca1], which is the thesis's primary two-sided test.",
-        "source": "DECISION_LOG.md #10",
-        "claims": [
-          {
-            "id": "MU-1",
-            "text": "Memory demand is reflected in [MU | price: 1065.44 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 9300ec758fb2] holding [MU | above_sma50_pct: 12.186 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 9300ec758fb2] above the medium-term moving average [MU | sma50: 949.7082000000003 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 9300ec758fb2] and well above the long-term average [MU | sma200: 669.11285 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 9300ec758fb2]. The latest reported quarter shows very high gross and operating margins at [MU | gross_margin_pct: 84.561945 % | as-of 2026-05-28 | FMP/income-statement | snapshot 9300ec758fb2] and [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot 9300ec758fb2] respectively, supported by [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot 9300ec758fb2] in free cash flow and a net cash position of [MU | net_debt: -18619000000 USD | as-of 2026-05-28 | FMP/balance-sheet-statement | snapshot 9300ec758fb2]. Recent analyst revisions show mixed direction: [MU | analyst_up_firms_30d: 1 firms | as-of 2026-09-30T00:30:22+00:00 | FMP price-target-news / same-firm matched observations | snapshot 9300ec758fb2] firm raised targets while [MU | analyst_down_firms_30d: 1 firms | as-of 2026-09-30T00:30:22+00:00 | FMP price-target-news / same-firm matched observations | snapshot 9300ec758fb2] firm lowered, with a median revision of [MU | analyst_median_revision_pct_30d: 5.2767 % | as-of 2026-09-30T00:30:22+00:00 | FMP price-target-news / same-firm matched observations | snapshot 9300ec758fb2] over the past month. The earlier claim that the gap was widening is withdrawn.",
-            "status": "unassessed",
-            "conditions": [
-              {
-                "type": "price_below_sma50_pct",
-                "value": 0,
-                "severity": "claim"
-              },
-              {
-                "type": "stop_proximity_pct",
-                "value": 5,
-                "severity": "warning"
-              },
-              {
-                "type": "volume_ratio_20d",
-                "value": 3.0,
-                "severity": "claim"
-              },
-              {
-                "type": "daily_change_pct",
-                "value": -7,
-                "severity": "thesis"
-              },
-              {
-                "type": "sector_etf_change_pct",
-                "symbol": "SMH",
-                "value": -4,
-                "severity": "claim"
-              },
-              {
-                "type": "daily_change_above_pct",
-                "value": 10,
-                "severity": "claim"
-              }
-            ],
-            "last_updated": "2026-10-01T00:35Z",
-            "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
-          },
-          {
-            "id": "MU-2",
-            "text": "[MU | earnings_date: 2026-09-30 date | as-of 2026-09-30T00:30:22Z | detector/market_data / FMP | snapshot 9300ec758fb2] is the thesis's two-sided test. The thesis requires that the new quarter maintain strong profitability and cash generation compared against the most recent reported quarter, which showed [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot 9300ec758fb2] operating margin and [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot 9300ec758fb2] in free cash flow. The position also maintains a net cash position of [MU | net_debt: -18619000000 USD | as-of 2026-05-28 | FMP/balance-sheet-statement | snapshot 9300ec758fb2]. A post-report break below the fixed thesis floor of [MU | price: 1065.44 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 9300ec758fb2] refutes it.",
-            "status": "unassessed",
-            "conditions": [
-              {
-                "type": "earnings_approaching",
-                "days": 3,
-                "severity": "warning"
-              },
-              {
-                "type": "price_below",
-                "value": 800,
-                "severity": "thesis"
-              },
-              {
-                "type": "daily_change_pct",
-                "value": -10,
-                "severity": "thesis"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "operating_margin_pct",
-                "value": 60,
-                "unit": "%",
-                "severity": "thesis"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "quarter_free_cash_flow",
-                "value": 0,
-                "unit": "USD",
-                "severity": "claim"
-              }
-            ],
-            "last_updated": "2026-10-01T00:35Z",
-            "trigger": "2026-10-01T00:35Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
-          }
-        ],
-        "monitoring": {
-          "claims": [
-            {
-              "id": "MU-1",
-              "text": "Memory demand is reflected in the price holding well above the freshly calculated medium-term average ([MU | above_sma50_pct: 13.2967 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot b5371fcd4ca1] above [MU | sma50: 945.7158000000001 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot b5371fcd4ca1]) and the long-term average. The latest reported quarter shows very high gross and operating margins ([MU | gross_margin_pct: 84.561945 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1], [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1]). The earlier claim that the gap was widening is withdrawn.",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "price_below_sma50_pct",
-                  "value": 0,
-                  "severity": "claim"
-                },
-                {
-                  "type": "stop_proximity_pct",
-                  "value": 5,
-                  "severity": "warning"
-                },
-                {
-                  "type": "volume_ratio_20d",
-                  "value": 3.0,
-                  "severity": "claim"
-                },
-                {
-                  "type": "daily_change_pct",
-                  "value": -7,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "sector_etf_change_pct",
-                  "symbol": "SMH",
-                  "value": -4,
-                  "severity": "claim"
-                },
-                {
-                  "type": "daily_change_above_pct",
-                  "value": 10,
-                  "severity": "claim"
-                }
-              ]
-            },
-            {
-              "id": "MU-2",
-              "text": "The report on [MU | earnings_date: 2026-09-30 date | as-of 2026-09-29T18:49:49Z | detector/market_data / FMP | snapshot b5371fcd4ca1] is the thesis's two-sided test. The thesis requires that the new quarter keep strong profitability and cash generation, compared against the dated operating margin [MU | operating_margin_pct: 80.369548 % | as-of 2026-05-28 | FMP/income-statement | snapshot b5371fcd4ca1] and free cash flow [MU | quarter_free_cash_flow: 17562000000 USD | as-of 2026-05-28 | FMP/cash-flow-statement | snapshot b5371fcd4ca1]. A post-report break below the fixed thesis floor refutes it.",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "earnings_approaching",
-                  "days": 3,
-                  "severity": "warning"
-                },
-                {
-                  "type": "price_below",
-                  "value": 800,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "daily_change_pct",
-                  "value": -10,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "operating_margin_pct",
-                  "value": 60,
-                  "unit": "%",
-                  "severity": "thesis"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "quarter_free_cash_flow",
-                  "value": 0,
-                  "unit": "USD",
-                  "severity": "claim"
-                }
-              ]
-            }
-          ],
-          "next_review_at": "2026-10-01T15:00:00+00:00",
-          "falsifier_condition": {
-            "claim_id": "MU-2",
-            "condition_index": 1
-          },
-          "change_reason": "Migration of legacy monitoring, with these changes. In MU-1, the old fixed price condition froze the medium-term average at a stale value. It is replaced by the moving-average distance condition at the equivalent zero-distance level, so no threshold moves; only the reference is now freshly calculated. MU-1 also gains a positive large-daily-move review trigger, which requests review only. MU-2 gains fundamental floors on operating margin and quarterly free cash flow because dated fundamentals are now supplied. All other old thresholds are unchanged. Review is set shortly after the report so the decision is revisited on the reported evidence.",
-          "evidence_ids": [
-            "MU.price",
-            "MU.previous_close",
-            "MU.sma50",
-            "MU.sma200",
-            "MU.above_sma50_pct",
-            "MU.volume",
-            "MU.volume_avg_20d",
-            "MU.earnings_date",
-            "MU.operating_margin_pct",
-            "MU.gross_margin_pct",
-            "MU.quarter_free_cash_flow",
-            "MU.net_debt",
-            "MU.revenue_yoy_pct",
-            "analyst:e47506d6cd877bd169a92d69",
-            "analyst:32c21a9640a4236b56cc3e41"
-          ],
-          "revision": "7a6731c87fcd6e6f367b07a1",
-          "created_at": "2026-09-29T18:53:03+00:00",
-          "evidence_fingerprints": {
-            "MU.price": "4f37040df87357e970315fbf",
-            "MU.previous_close": "52f2ed395adc1002dd2c6bac",
-            "MU.sma50": "1fd034df3728c66af773aa19",
-            "MU.sma200": "68d79063d0ba7ec309e0768a",
-            "MU.above_sma50_pct": "63799f4af67b1f4ace27e048",
-            "MU.volume": "ca88f13d43e22e5ce862df82",
-            "MU.volume_avg_20d": "c5125e7f884f2f4fa134f543",
-            "MU.earnings_date": "4b221f6d2ef2206bc364ce9e",
-            "MU.operating_margin_pct": "3beea901db718df37b058d62",
-            "MU.gross_margin_pct": "f469171370c3947126ea9b02",
-            "MU.quarter_free_cash_flow": "136939587f6715139997ee02",
-            "MU.net_debt": "4b31ac26bd45965d7f2f6d4f",
-            "MU.revenue_yoy_pct": "7decd3bccf5b9b8e3fb42b51",
-            "analyst:e47506d6cd877bd169a92d69": "5fd8ff89b5e17f9882e86452",
-            "analyst:32c21a9640a4236b56cc3e41": "4a9510d2e0cd6159a38a3dff"
-          }
-        },
-        "analyst_review": {
-          "earnings": {
-            "assessment": "Same-period consensus forecasts rose slightly against the prior observed snapshot. The current fiscal year moved by EPS [MU | analyst_eps_20260828_revision_pct: 0.11596077993318474 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] and revenue [MU | analyst_revenue_20260828_revision_pct: 0.08767118899062401 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1]. The next fiscal year moved by EPS [MU | analyst_eps_20270828_revision_pct: 1.0241930149073122 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1] and revenue [MU | analyst_revenue_20270828_revision_pct: 0.7936115415044304 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot b5371fcd4ca1]. These are consensus snapshots, not analyst-by-analyst revisions. Linking them to target changes is a hypothesis.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "MU.analyst_eps_20260828_revision_pct",
-              "MU.analyst_revenue_20260828_revision_pct",
-              "MU.analyst_eps_20270828_revision_pct",
-              "MU.analyst_revenue_20270828_revision_pct"
-            ]
-          },
-          "company_news": {
-            "assessment": "No issuer news covering contracts, products, regulation or partnerships was supplied. This is an explicit evidence gap.",
-            "evidence_status": "unknown",
-            "source_ids": []
-          },
-          "sector_theme": {
-            "assessment": "The semiconductor ETF is up today while SPY is roughly flat, and the ETF trades above its medium-term average ([SMH | above_sma50_pct: 7.3505 % vs sma50 | as-of 2026-09-29T18:45:00+00:00 | detector/market_data / FMP | snapshot b5371fcd4ca1]). As a hypothesis, this is consistent with continued sector demand attention. Price moves alone do not prove fund flows or cause.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "SMH.price",
-              "SMH.previous_close",
-              "SMH.above_sma50_pct",
-              "SPY.price",
-              "SPY.previous_close"
-            ]
-          },
-          "valuation": {
-            "assessment": "The recent revisions are split. Wells Fargo lowered its target and Baird raised its target, giving [MU | analyst_up_firms_30d: 1 firms | as-of 2026-09-29T18:49:49+00:00 | FMP price-target-news / same-firm matched observations | snapshot b5371fcd4ca1] up and [MU | analyst_down_firms_30d: 1 firms | as-of 2026-09-29T18:49:49+00:00 | FMP price-target-news / same-firm matched observations | snapshot b5371fcd4ca1] down over thirty days, with median revision [MU | analyst_median_revision_pct_30d: 5.2767 % | as-of 2026-09-29T18:49:49+00:00 | FMP price-target-news / same-firm matched observations | snapshot b5371fcd4ca1] versus each firm's prior target. Stated reasons and forecast horizons are unknown. One hypothesis is that some analysts are reassessing how much of the growth story is already priced in, but no article attributes that reason. Several provider records are quarantined for firm-attribution conflicts and were not used.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "analyst:e47506d6cd877bd169a92d69",
-              "analyst:32c21a9640a4236b56cc3e41",
-              "MU.analyst_up_firms_30d",
-              "MU.analyst_down_firms_30d",
-              "MU.analyst_median_revision_pct_30d"
-            ]
-          }
-        },
-        "pending_review": {
-          "analyst_event_keys": [
-            "analyst:MU:e47506d6cd877bd169a92d69",
-            "analyst:MU:6ef4d2b8514b3c55f9f69c83"
-          ],
-          "claim_id": "analyst_revision_review",
-          "condition_type": "analyst_revision",
-          "cooldown_key": "analyst:MU:e8a2a10c69476f63f0369eab",
-          "measured": 2,
-          "severity": "thesis",
-          "symbol": "MU",
-          "threshold": 1,
-          "trigger": "Independent analyst targets revised down; reassess supporting and opposing evidence. No automatic trade."
-        }
-      },
-      "after": {
-        "thesis_summary": "Micron's newly reported quarter shows operating margin, free cash flow and net cash all at or above the prior quarter's levels, and the stock holds above both moving averages, while downward-tilted analyst target revisions and management's reported expectation of a near-term gross-margin trough are the live counterweights.",
-        "source": "DECISION_LOG.md #10",
-        "claims": [
-          {
-            "id": "MU-1",
-            "text": "Memory demand and pricing power are reflected in the newly reported quarter's gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567], operating margin of [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567], and revenue growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567] versus the same quarter a year earlier. Price holds [MU | above_sma50_pct: 14.3156 % vs sma50 | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP | snapshot 6b74a901a567] above the freshly calculated medium-term average and [MU | above_sma200_pct: 61.6024 % vs sma200 | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP | snapshot 6b74a901a567] above the long-term average. Analyst target revisions over the past month tilt downward ([MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567] down, [MU | analyst_up_firms_30d: 1 firms | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567] up, median [MU | analyst_median_revision_pct_30d: -8.1967 % | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567]), with reasons unknown. A Seeking Alpha opinion article reports that management expects gross margins to bottom in an upcoming quarter, which is not yet measured.",
-            "status": "valid",
-            "conditions": [
-              {
-                "type": "price_below_sma50_pct",
-                "value": 0,
-                "severity": "claim"
-              },
-              {
-                "type": "stop_proximity_pct",
-                "value": 5,
-                "severity": "warning"
-              },
-              {
-                "type": "volume_ratio_20d",
-                "value": 3.0,
-                "severity": "claim"
-              },
-              {
-                "type": "daily_change_pct",
-                "value": -7,
-                "severity": "thesis"
-              },
-              {
-                "type": "sector_etf_change_pct",
-                "symbol": "SMH",
-                "value": -4,
-                "severity": "claim"
-              },
-              {
-                "type": "daily_change_above_pct",
-                "value": 10,
-                "severity": "claim"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "gross_margin_pct",
-                "value": 65,
-                "unit": "%",
-                "severity": "claim"
-              }
-            ],
-            "last_updated": "2026-10-01T19:00Z",
-            "trigger": null
-          },
-          {
-            "id": "MU-2",
-            "text": "The report passed the thesis's two-sided test. The reported quarter kept strong profitability and grew cash generation: operating margin was [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567], free cash flow [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567] and operating cash flow [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567], despite higher capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567]. Net debt is [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 6b74a901a567], a widened net cash position. The thesis is refuted if price breaks below the fixed thesis floor in the executable condition, or if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-01T18:59:52Z | detector/market_data / FMP | snapshot 6b74a901a567].",
-            "status": "valid",
-            "conditions": [
-              {
-                "type": "earnings_approaching",
-                "days": 3,
-                "severity": "warning"
-              },
-              {
-                "type": "price_below",
-                "value": 800,
-                "severity": "thesis"
-              },
-              {
-                "type": "daily_change_pct",
-                "value": -10,
-                "severity": "thesis"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "operating_margin_pct",
-                "value": 60,
-                "unit": "%",
-                "severity": "thesis"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "quarter_free_cash_flow",
-                "value": 0,
-                "unit": "USD",
-                "severity": "claim"
-              },
-              {
-                "type": "fundamental_above",
-                "metric": "net_debt",
-                "value": 0,
-                "unit": "USD",
-                "severity": "claim"
-              }
-            ],
-            "last_updated": "2026-10-01T19:00Z",
-            "trigger": null
-          }
-        ],
-        "monitoring": {
-          "claims": [
-            {
-              "id": "MU-1",
-              "text": "Memory demand and pricing power are reflected in the newly reported quarter's gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567], operating margin of [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567], and revenue growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567] versus the same quarter a year earlier. Price holds [MU | above_sma50_pct: 14.3156 % vs sma50 | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP | snapshot 6b74a901a567] above the freshly calculated medium-term average and [MU | above_sma200_pct: 61.6024 % vs sma200 | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP | snapshot 6b74a901a567] above the long-term average. Analyst target revisions over the past month tilt downward ([MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567] down, [MU | analyst_up_firms_30d: 1 firms | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567] up, median [MU | analyst_median_revision_pct_30d: -8.1967 % | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567]), with reasons unknown. A Seeking Alpha opinion article reports that management expects gross margins to bottom in an upcoming quarter, which is not yet measured.",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "price_below_sma50_pct",
-                  "value": 0,
-                  "severity": "claim"
-                },
-                {
-                  "type": "stop_proximity_pct",
-                  "value": 5,
-                  "severity": "warning"
-                },
-                {
-                  "type": "volume_ratio_20d",
-                  "value": 3.0,
-                  "severity": "claim"
-                },
-                {
-                  "type": "daily_change_pct",
-                  "value": -7,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "sector_etf_change_pct",
-                  "symbol": "SMH",
-                  "value": -4,
-                  "severity": "claim"
-                },
-                {
-                  "type": "daily_change_above_pct",
-                  "value": 10,
-                  "severity": "claim"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "gross_margin_pct",
-                  "value": 65,
-                  "unit": "%",
-                  "severity": "claim"
-                }
-              ]
-            },
-            {
-              "id": "MU-2",
-              "text": "The report passed the thesis's two-sided test. The reported quarter kept strong profitability and grew cash generation: operating margin was [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567], free cash flow [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567] and operating cash flow [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567], despite higher capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 6b74a901a567]. Net debt is [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 6b74a901a567], a widened net cash position. The thesis is refuted if price breaks below the fixed thesis floor in the executable condition, or if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-01T18:59:52Z | detector/market_data / FMP | snapshot 6b74a901a567].",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "earnings_approaching",
-                  "days": 3,
-                  "severity": "warning"
-                },
-                {
-                  "type": "price_below",
-                  "value": 800,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "daily_change_pct",
-                  "value": -10,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "operating_margin_pct",
-                  "value": 60,
-                  "unit": "%",
-                  "severity": "thesis"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "quarter_free_cash_flow",
-                  "value": 0,
-                  "unit": "USD",
-                  "severity": "claim"
-                },
-                {
-                  "type": "fundamental_above",
-                  "metric": "net_debt",
-                  "value": 0,
-                  "unit": "USD",
-                  "severity": "claim"
-                }
-              ]
-            }
-          ],
-          "next_review_at": "2026-10-07T20:00:00+00:00",
-          "falsifier_condition": {
-            "claim_id": "MU-2",
-            "condition_index": 1
-          },
-          "change_reason": "All old thresholds are unchanged, and no condition was removed or loosened. Two conditions were added because of new non-price evidence. First, a claim-severity gross-margin floor on the first claim: a Seeking Alpha opinion article reports that management expects gross margins to bottom in an upcoming quarter, so a measured decline should prompt review. Second, a claim-severity net-debt-above-zero check on the second claim: the newly reported balance sheet shows a widened net cash position, and losing it would weaken the thesis. The second claim's prose no longer calls the pre-report price a floor. That wording was misaligned with the executable fixed floor, which itself is unchanged. The departure and the marginal post-report close below the pre-report level are disclosed in the assessment. The next scheduled report falls beyond one week. The review is therefore set within a week to reassess analyst revisions and yield pressure.",
-          "evidence_ids": [
-            "MU.price",
-            "MU.previous_close",
-            "MU.sma50",
-            "MU.sma200",
-            "MU.above_sma50_pct",
-            "MU.above_sma200_pct",
-            "MU.volume",
-            "MU.volume_avg_20d",
-            "MU.earnings_date",
-            "MU.gross_margin_pct",
-            "MU.operating_margin_pct",
-            "MU.quarter_free_cash_flow",
-            "MU.quarter_operating_cash_flow",
-            "MU.quarter_capex",
-            "MU.net_debt",
-            "MU.revenue_yoy_pct",
-            "MU.analyst_down_firms_30d",
-            "MU.analyst_up_firms_30d",
-            "MU.analyst_median_revision_pct_30d",
-            "analyst:e47506d6cd877bd169a92d69",
-            "analyst:32c21a9640a4236b56cc3e41",
-            "analyst:6ef4d2b8514b3c55f9f69c83",
-            "news:54bf5a8d383db691e3beeeab",
-            "news:77417694c90a7303cd1b57b9",
-            "news:fdb3fc7cfbf50e7b19e3d77e",
-            "news:c3221e4b2f721eeed6f7301f",
-            "news:149f2cd18fdf02c9ef4394d5",
-            "news:3942d7195cb32349c96ca002"
-          ],
-          "revision": "41473e621317561e403504c7",
-          "created_at": "2026-10-01T19:00:24+00:00",
-          "evidence_fingerprints": {
-            "MU.price": "ddc0c7fbd42daa31c5c5d858",
-            "MU.previous_close": "25686e8939c4f6b18e4d9429",
-            "MU.sma50": "f1cd6a89aaa7665c5eb12fe1",
-            "MU.sma200": "25631f589446f7ef17ccdc44",
-            "MU.above_sma50_pct": "611d011df9f584fb1dc9ae53",
-            "MU.above_sma200_pct": "b7724da79036f68a856854c7",
-            "MU.volume": "91e6d0f64d7b9234e97c68fc",
-            "MU.volume_avg_20d": "4e4421b577c5e5c479f233b8",
-            "MU.earnings_date": "a940e0667609607fe47cb83d",
-            "MU.gross_margin_pct": "c0fbb2981177e66abab7fef9",
-            "MU.operating_margin_pct": "0581aa90242eaf3c65be8aaa",
-            "MU.quarter_free_cash_flow": "0e0595536a4f305bdfefe8af",
-            "MU.quarter_operating_cash_flow": "70f3737889b3eead2ea864ab",
-            "MU.quarter_capex": "b7ffcc21db4c9bb1698f6b98",
-            "MU.net_debt": "cae0ba8b6b6a28332b4c284b",
-            "MU.revenue_yoy_pct": "a79773f84bd07961d6363fd9",
-            "MU.analyst_down_firms_30d": "ea715a0b8db413663c50bc59",
-            "MU.analyst_up_firms_30d": "c648a934080bbd7d9e4dbfed",
-            "MU.analyst_median_revision_pct_30d": "cdbf6ca4f1207986dc92b503",
-            "analyst:e47506d6cd877bd169a92d69": "5fd8ff89b5e17f9882e86452",
-            "analyst:32c21a9640a4236b56cc3e41": "4a9510d2e0cd6159a38a3dff",
-            "analyst:6ef4d2b8514b3c55f9f69c83": "e78c1662038b49e155104149",
-            "news:54bf5a8d383db691e3beeeab": "e54c9cbd337efe372ffd8f08",
-            "news:77417694c90a7303cd1b57b9": "b94e547ea950ef237bc194de",
-            "news:fdb3fc7cfbf50e7b19e3d77e": "d9b13385e39d21bb9bf8f76b",
-            "news:c3221e4b2f721eeed6f7301f": "045a06664b9aa500ef82b98b",
-            "news:149f2cd18fdf02c9ef4394d5": "05a73164953267dd0218cb69",
-            "news:3942d7195cb32349c96ca002": "4a2db44a00d4a3f0741203ec"
-          }
-        },
-        "analyst_review": {
-          "earnings": {
-            "assessment": "Consensus forecasts for the next fiscal years were unchanged against the prior observed snapshot: next-year EPS revision [MU | analyst_eps_20270828_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 6b74a901a567] and revenue revision [MU | analyst_revenue_20270828_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-10-01T00:34:45+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 6b74a901a567]. The target cuts therefore did not coincide with any observed downward consensus earnings change. Note that the snapshot comparison is short and is not analyst-by-analyst. The reported quarter itself was strong (operating margin [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 6b74a901a567]). As a hypothesis, the cuts are not explained by weaker earnings forecasts, but no article states the analysts' reasons.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "MU.analyst_eps_20270828_revision_pct",
-              "MU.analyst_revenue_20270828_revision_pct",
-              "MU.operating_margin_pct"
-            ]
-          },
-          "company_news": {
-            "assessment": "Issuer news is supportive. Benzinga reports that Micron's committed contract book exceeds its latest full-year revenue. A Motley Fool article reports the CEO citing robotics and physical AI as a future demand driver. A Seeking Alpha article reports guided gross-margin trough expectations alongside largely sold-out HBM volume. These are provider excerpts, not verified filings. Linking any of them to the target revisions is a hypothesis, not a stated analyst reason.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "news:fdb3fc7cfbf50e7b19e3d77e",
-              "news:3942d7195cb32349c96ca002",
-              "news:77417694c90a7303cd1b57b9"
-            ]
-          },
-          "sector_theme": {
-            "assessment": "The semiconductor ETF trades above its previous close ([SMH | price: 619.44 USD | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP | snapshot 6b74a901a567] versus [SMH | previous_close: 609.0 USD | as-of 2026-09-30 | detector/market_data / FMP | snapshot 6b74a901a567]) and [SMH | above_sma50_pct: 9.0141 % vs sma50 | as-of 2026-10-01T18:55:00+00:00 | detector/market_data / FMP | snapshot 6b74a901a567] above its medium-term average. A Motley Fool market article describes broad pressure from Treasury yields at multi-decade highs. As a hypothesis, sector attention remains strong while rate pressure weighs on long-duration growth valuations. Price moves alone do not prove flows or causation.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "SMH.price",
-              "SMH.previous_close",
-              "SMH.above_sma50_pct",
-              "news:149f2cd18fdf02c9ef4394d5"
-            ]
-          },
-          "valuation": {
-            "assessment": "Wells Fargo and Wolfe Research lowered their targets, and Baird raised its target, giving a past-month median of [MU | analyst_median_revision_pct_30d: -8.1967 % | as-of 2026-10-01T00:34:45+00:00 | FMP price-target-news / same-firm matched observations | snapshot 6b74a901a567] versus each firm's prior observed target. The Wolfe record's headline describes analysts as bullish on the results amid favorable pricing, so its cut does not obviously reflect fundamental pessimism. Forecast horizons and reasons are unknown. As a hypothesis, the cuts may reflect a rising discount-rate backdrop or a reassessment of how much of the growth story is priced in, but no article attributes either reason. Quarantined provider records with firm-attribution conflicts were not used.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "analyst:e47506d6cd877bd169a92d69",
-              "analyst:6ef4d2b8514b3c55f9f69c83",
-              "analyst:32c21a9640a4236b56cc3e41",
-              "MU.analyst_median_revision_pct_30d"
-            ]
-          }
-        }
-      }
     }
   ],
   "assessment_errors": [

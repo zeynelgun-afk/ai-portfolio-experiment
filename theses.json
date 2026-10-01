@@ -798,8 +798,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-01T19:00Z",
-        "trigger": "2026-10-01T19:00Z, trigger: Assessment failed: its output did not match the schema. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-01T19:22Z",
+        "trigger": "2026-10-01T19:22Z, trigger: Assessment failed: its output missed required fields or violated the structured evidence contract. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       },
       {
         "id": "NVDA-2",
@@ -822,8 +822,8 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-10-01T19:00Z",
-        "trigger": "2026-10-01T19:00Z, trigger: Assessment failed: its output did not match the schema. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-01T19:22Z",
+        "trigger": "2026-10-01T19:22Z, trigger: Assessment failed: its output missed required fields or violated the structured evidence contract. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       },
       {
         "id": "NVDA-3",
@@ -859,8 +859,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-01T19:00Z",
-        "trigger": "2026-10-01T19:00Z, trigger: Assessment failed: its output did not match the schema. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-01T19:22Z",
+        "trigger": "2026-10-01T19:22Z, trigger: Assessment failed: its output missed required fields or violated the structured evidence contract. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       }
     ],
     "monitoring": {
