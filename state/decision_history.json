@@ -3573,5 +3573,1162 @@
         }
       }
     }
+  },
+  "6eb06a70677f134472e297f7": {
+    "symbol": "MU",
+    "action": "HOLD",
+    "time": "2026-10-02T18:40Z",
+    "trigger": "The sources directly corroborate the thesis's core measurements and forward-looking support. N5 confirms the reported gross margin of 87% (thesis states 86.76%), revenue of $54B with 380% YoY growth (thesis states 379.27%), and validates the strong profitability narrative. N3 reinforces the demand signal (379% YoY revenue surge to $54.2B), confirms strategic customer agreements with margin floors, and notes MU is set to reach its cash target by December 2026, supporting the net cash position claim (MU-2). Both sources acknowledge the blockbuster earnings and robust demand that underpin MU-1's margin and pricing-power thesis. N3 explicitly rates MU as Buy and highlights the forward commitment of over 75% of 2027 output with $32B in customer deposits, which provides structural support for the margin sustainability narrative.",
+    "reasoning": "The triggering news changes no measured fundamental.\n\nWhy not sell or trim:\n- Supportive and critical opinion articles largely offset each other.\n- Today's drop against the previous close, while the sector ETF rises, is a price-only signal.\n- That signal sits far from every fixed thesis floor and from the medium-term average condition.\n- The reported quarter's margins, cash generation and net cash position are unchanged.\n\nWhy not add, although cash is available:\n- The open valuation and margin-cycle debate is unresolved.\n- Relative weakness right after a strong report fits the post-earnings selling pattern described by 24/7 Wall St. That pattern is an opinion, not measured flow data.\n- Nothing new and measured strengthens the case beyond what was already held.",
+    "falsifier": "This HOLD was wrong if price falls below the fixed thesis price floor in the second claim's executable condition. It was also wrong if the next report, due on [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot 2bf4929aac0d], shows operating margin below the thesis margin floor. Either would show that the profitability and cash-generation thesis no longer supports the position, and that the margin-normalization critics were right.",
+    "before": {
+      "thesis_summary": "Micron's latest reported quarter shows very high margins, strong free cash flow and net cash, price holds above both moving averages, and same-firm analyst target revisions now tilt upward with unknown reasons, while an unmeasured gross-margin trough risk remains the main open counterweight.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "MU-1",
+          "text": "Memory demand and pricing power are reflected in the latest reported quarter's gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5], operating margin of [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5] and revenue growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5] versus the same quarter a year earlier. Price holds [MU | above_sma50_pct: 15.0162 % vs sma50 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8a6bddba9bd5] above the freshly calculated medium-term average and [MU | above_sma200_pct: 62.0336 % vs sma200 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8a6bddba9bd5] above the long-term average. Same-firm analyst target revisions over the past month now tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5] up, [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5] down, median [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5]. Their reasons and horizons are unknown, and they are forecasts, not results. A gross-margin trough reported by an earlier opinion article is not measured in current data, and management guidance is unavailable.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "thesis"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_above_pct",
+              "value": 10,
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "gross_margin_pct",
+              "value": 65,
+              "unit": "%",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-02T00:50Z",
+          "trigger": null
+        },
+        {
+          "id": "MU-2",
+          "text": "The latest reported quarter combines strong profitability with large cash generation. Operating margin is [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5], operating cash flow [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 8a6bddba9bd5] and free cash flow [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 8a6bddba9bd5], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 8a6bddba9bd5]. Net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 8a6bddba9bd5] indicates a net cash position. The thesis is refuted if price breaks below the fixed thesis floor in the executable condition, or if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T00:49:54Z | detector/market_data / FMP | snapshot 8a6bddba9bd5].",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_below",
+              "value": 800,
+              "severity": "thesis"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -10,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 60,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 0,
+              "unit": "USD",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_above",
+              "metric": "net_debt",
+              "value": 0,
+              "unit": "USD",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-02T00:50Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "MU-1",
+            "text": "Memory demand and pricing power are reflected in the latest reported quarter's gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5], operating margin of [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5] and revenue growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5] versus the same quarter a year earlier. Price holds [MU | above_sma50_pct: 15.0162 % vs sma50 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8a6bddba9bd5] above the freshly calculated medium-term average and [MU | above_sma200_pct: 62.0336 % vs sma200 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8a6bddba9bd5] above the long-term average. Same-firm analyst target revisions over the past month now tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5] up, [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5] down, median [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5]. Their reasons and horizons are unknown, and they are forecasts, not results. A gross-margin trough reported by an earlier opinion article is not measured in current data, and management guidance is unavailable.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "thesis"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_above_pct",
+                "value": 10,
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "gross_margin_pct",
+                "value": 65,
+                "unit": "%",
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "MU-2",
+            "text": "The latest reported quarter combines strong profitability with large cash generation. Operating margin is [MU | operating_margin_pct: 80.678235 % | as-of 2026-09-03 | FMP/income-statement | snapshot 8a6bddba9bd5], operating cash flow [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 8a6bddba9bd5] and free cash flow [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 8a6bddba9bd5], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 8a6bddba9bd5]. Net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 8a6bddba9bd5] indicates a net cash position. The thesis is refuted if price breaks below the fixed thesis floor in the executable condition, or if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T00:49:54Z | detector/market_data / FMP | snapshot 8a6bddba9bd5].",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_below",
+                "value": 800,
+                "severity": "thesis"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -10,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 60,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 0,
+                "unit": "USD",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_above",
+                "metric": "net_debt",
+                "value": 0,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-07T20:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "MU-2",
+          "condition_index": 1
+        },
+        "change_reason": "All conditions and thresholds are unchanged. The only new evidence is a change in analyst target-revision direction. That is non-price opinion data and does not touch any measured fundamental or price threshold. The first claim's text now replaces the old downward-tilt statement with the current upward tilt. The second claim's text is rewritten from current ledger references with no factual change. No new filing or guidance arrived, so the margin, cash-flow and net-debt conditions stay as set. The review date stays within one week to recheck analyst flow and price behaviour before the next report.",
+        "evidence_ids": [
+          "MU.price",
+          "MU.previous_close",
+          "MU.price_at",
+          "MU.above_sma50_pct",
+          "MU.above_sma200_pct",
+          "MU.earnings_date",
+          "MU.gross_margin_pct",
+          "MU.operating_margin_pct",
+          "MU.revenue_yoy_pct",
+          "MU.quarter_operating_cash_flow",
+          "MU.quarter_free_cash_flow",
+          "MU.quarter_capex",
+          "MU.net_debt",
+          "MU.analyst_up_firms_30d",
+          "MU.analyst_down_firms_30d",
+          "MU.analyst_matched_firms_30d",
+          "MU.analyst_median_revision_pct_30d",
+          "MU.analyst_up_firms_7d",
+          "MU.analyst_down_firms_7d",
+          "MU.analyst_median_revision_pct_7d",
+          "analyst:32c21a9640a4236b56cc3e41",
+          "analyst:423d67453d9507eaa0577702",
+          "analyst:afcd531bf472175c0dacd63f",
+          "analyst:9aea8f07e732fc2d3fb7d178",
+          "analyst:e47506d6cd877bd169a92d69",
+          "analyst:6ef4d2b8514b3c55f9f69c83"
+        ],
+        "revision": "0f13ef574755e97cc4fe8341",
+        "created_at": "2026-10-02T00:50:25+00:00",
+        "evidence_fingerprints": {
+          "MU.price": "bb100757696c31f34a8a7b31",
+          "MU.previous_close": "6f183e886487e24e379f2cb8",
+          "MU.price_at": "23f27673c9d3f997e8898400",
+          "MU.above_sma50_pct": "8c59b88ae8def92e649bfa84",
+          "MU.above_sma200_pct": "529ab9e3ee7088e700a588d9",
+          "MU.earnings_date": "3d0d9784e28b219c0e17d2a9",
+          "MU.gross_margin_pct": "c0fbb2981177e66abab7fef9",
+          "MU.operating_margin_pct": "0581aa90242eaf3c65be8aaa",
+          "MU.revenue_yoy_pct": "a79773f84bd07961d6363fd9",
+          "MU.quarter_operating_cash_flow": "70f3737889b3eead2ea864ab",
+          "MU.quarter_free_cash_flow": "0e0595536a4f305bdfefe8af",
+          "MU.quarter_capex": "b7ffcc21db4c9bb1698f6b98",
+          "MU.net_debt": "cae0ba8b6b6a28332b4c284b",
+          "MU.analyst_up_firms_30d": "09984665a021c4e9ae393e30",
+          "MU.analyst_down_firms_30d": "9a4989a02f6a257a91d18410",
+          "MU.analyst_matched_firms_30d": "3b7f5f7b62d19a7a9f2aab33",
+          "MU.analyst_median_revision_pct_30d": "a3733c5e4d308a36eeec60cc",
+          "MU.analyst_up_firms_7d": "71cf9b113695ce459e2db3da",
+          "MU.analyst_down_firms_7d": "d4ba0eccc0a6beb92c9161cf",
+          "MU.analyst_median_revision_pct_7d": "8db0ea706093bd52abb397a1",
+          "analyst:32c21a9640a4236b56cc3e41": "4a9510d2e0cd6159a38a3dff",
+          "analyst:423d67453d9507eaa0577702": "8ef3dba502738017562ffc0d",
+          "analyst:afcd531bf472175c0dacd63f": "7ba544af18fd9e5f2842350a",
+          "analyst:9aea8f07e732fc2d3fb7d178": "713d41dd66368a9f527bc27b",
+          "analyst:e47506d6cd877bd169a92d69": "5fd8ff89b5e17f9882e86452",
+          "analyst:6ef4d2b8514b3c55f9f69c83": "e78c1662038b49e155104149"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Same-period consensus change cannot be measured for the forward fiscal years. The snapshots for the next fiscal year have no prior observed value, and every estimate revision window reports insufficient same-period snapshots. Current next-year consensus EPS is [MU | analyst_eps_20270903: 167.20257 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 8a6bddba9bd5] and revenue is [MU | analyst_revenue_20270903: 266089462803.0 provider-reported currency | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 8a6bddba9bd5], but whether these rose alongside the target raises is unknown. As a hypothesis, the strong reported quarter may underlie higher targets. No article attributes the revisions to earnings changes.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "MU.analyst_eps_20270903",
+            "MU.analyst_revenue_20270903",
+            "MU.operating_margin_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "No issuer-specific news on contracts, products, regulation or partnerships was supplied this round. Whether issuer events drove the revisions is an evidence gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "The semiconductor ETF is flat against its previous close ([SMH | price: 617.83 USD | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8a6bddba9bd5] versus [SMH | previous_close: 617.81 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 8a6bddba9bd5]) and sits [SMH | above_sma50_pct: 8.6126 % vs sma50 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8a6bddba9bd5] above its medium-term average. The headline on the Wolfe Research record describes analysts as bullish on Micron's results amid favorable pricing conditions. As a hypothesis, favorable memory pricing is a shared theme behind the recent target activity. That headline accompanies a target cut, however, and does not state a reason for any specific revision. Price levels alone do not prove flows or causation.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "SMH.price",
+            "SMH.previous_close",
+            "SMH.above_sma50_pct",
+            "analyst:6ef4d2b8514b3c55f9f69c83"
+          ]
+        },
+        "valuation": {
+          "assessment": "Baird, Mizuho, Goldman Sachs and DA Davidson raised targets; Wells Fargo and Wolfe Research lowered theirs. Target dispersion across matched firms is [MU | analyst_target_dispersion_pct_30d: 19.38077210442346 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5], and the past-month median revision is [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 8a6bddba9bd5]. Goldman raised its target while reiterating Neutral, which suggests repricing of the growth story without stronger conviction. Forecast horizons are unknown, and most baselines are from the prior report cycle. As a hypothesis, the raises re-mark targets to the post-report earnings base rather than signal a changed view; no article states this. Upward target revisions do not prescribe a trade or prove future returns.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:32c21a9640a4236b56cc3e41",
+            "analyst:423d67453d9507eaa0577702",
+            "analyst:afcd531bf472175c0dacd63f",
+            "analyst:9aea8f07e732fc2d3fb7d178",
+            "analyst:e47506d6cd877bd169a92d69",
+            "analyst:6ef4d2b8514b3c55f9f69c83",
+            "MU.analyst_target_dispersion_pct_30d",
+            "MU.analyst_median_revision_pct_30d"
+          ]
+        }
+      },
+      "pending_review": {
+        "claim_id": "news_shock",
+        "condition_type": "sentiment_support",
+        "cooldown_key": "thesis:MU",
+        "material_event_id": "2078401e01922bda0f4423c8",
+        "material_event_ids": [
+          "2078401e01922bda0f4423c8",
+          "5b807413b36c665faa77952f"
+        ],
+        "measured": 1,
+        "news_evidence": {
+          "citation_selections": [
+            {
+              "source_id": "news:62851de35848ae2e88701dfd"
+            },
+            {
+              "source_id": "news:9fba7fbf9892538abcf73740"
+            }
+          ],
+          "citations": [
+            {
+              "quote": "Micron Technology is rated Buy, trading at just 6.8x forward earnings despite robust demand signals and a 379% YoY revenue surge to $54.2B. Over 75% of MU's 2027 output is already committed, with $32B in customer deposits and strategic take",
+              "source_id": "news:62851de35848ae2e88701dfd"
+            },
+            {
+              "quote": "Micron Technology, Inc. has surged over 500% in a year, driven by unprecedented AI-related memory demand and record earnings. MU reported blockbuster results: an 87% gross margin, $54B revenue (+380% YoY), and guided above consensus for bot",
+              "source_id": "news:9fba7fbf9892538abcf73740"
+            }
+          ],
+          "claim_ids": [
+            "MU-1",
+            "MU-2"
+          ],
+          "counterevidence": "N2 and N5 both articulate the thesis's stated counterweight explicitly: N2 warns that 'massive capex ramps by MU and competitors threaten future pricing power and margin compression post-2028,' and N5 states 'gross margins are unsustainably high for a cyclical hardware company; normalization and increased supply could trigger a sharp margin and valuation correction.' N2 also notes that MU's Strategic Customer Agreements 'remain untested in severe downturns,' introducing execution risk. N4 documents a pattern of post-earnings institutional selling, which could pressure price despite fundamental strength. N6 references an all-time high price target of $2,100 but does not provide the mathematical foundation, leaving valuation support incomplete.",
+          "impact": "supports",
+          "reasoning": "The sources directly corroborate the thesis's core measurements and forward-looking support. N5 confirms the reported gross margin of 87% (thesis states 86.76%), revenue of $54B with 380% YoY growth (thesis states 379.27%), and validates the strong profitability narrative. N3 reinforces the demand signal (379% YoY revenue surge to $54.2B), confirms strategic customer agreements with margin floors, and notes MU is set to reach its cash target by December 2026, supporting the net cash position claim (MU-2). Both sources acknowledge the blockbuster earnings and robust demand that underpin MU-1's margin and pricing-power thesis. N3 explicitly rates MU as Buy and highlights the forward commitment of over 75% of 2027 output with $32B in customer deposits, which provides structural support for the margin sustainability narrative.",
+          "source_documents": {
+            "news:0a4b6c288773c55d66569f92": {
+              "published_at": "2026-10-02 08:41:07",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "MU",
+              "text": "On CNBC's “Halftime Report Final Trades,” Joshua Brown, co-founder and CEO of Ritholtz Wealth Management, picked Snowflake Inc. (NYSE:SNOW).",
+              "title": "Micron, Snowflake, Chubb And A Big Bank On CNBC's ‘Final Trades'",
+              "url": "https://www.benzinga.com/trading-ideas/long-ideas/26/10/62131196/micron-snowflake-chubb-and-a-big-bank-on-cnbcs-final-trades"
+            },
+            "news:36a18b974429f6779802b46f": {
+              "published_at": "2026-10-02 10:19:18",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "MU",
+              "text": "Micron Technology, Inc. remains a tech megacap at ~$1.2T, but its current valuation offers only S&P 500-like returns despite blockbuster DRAM/NAND demand. MU's Strategic Customer Agreements secure >35% of revenue through 2030 with price floors/ceilings, but these contracts remain untested in severe downturns. Massive capex ramps by MU and competitors (Samsung, SK hynix, CXMT) threaten future pricing power and margin compression post-2028.",
+              "title": "Micron: More Great Earnings Don't Change Our Mind",
+              "url": "https://seekingalpha.com/article/4951608-micron-more-great-earnings-dont-change-our-mind"
+            },
+            "news:62851de35848ae2e88701dfd": {
+              "published_at": "2026-10-02 08:50:15",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "MU",
+              "text": "Micron Technology is rated Buy, trading at just 6.8x forward earnings despite robust demand signals and a 379% YoY revenue surge to $54.2B. Over 75% of MU's 2027 output is already committed, with $32B in customer deposits and strategic take-or-pay contracts providing margin floors above historical peaks. MU is set to reach its cash target by December 2026, enabling a substantial new buyback authorization as the CHIPS Act cap lifts, with potential for a 7–8% buyback yield.",
+              "title": "Micron: Slower Memory Content Growth, Faster Capital Return",
+              "url": "https://seekingalpha.com/article/4951586-micron-slower-memory-content-growth-faster-capital-return"
+            },
+            "news:9699922221eab3e51837d818": {
+              "published_at": "2026-10-02 08:45:58",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "MU",
+              "text": "Every time Micron beats earnings, institutions sell and the stock drops. That pattern has repeated itself enough times that I started treating the pullbacks as a buying opportunity, and the numbers behind my latest purchase surprised even me.",
+              "title": "Institutional Investors Just Did What They Always Do So I Keep Buying Micron",
+              "url": "https://247wallst.com/investing/2026/10/02/institutional-investors-just-did-what-they-always-do-so-i-keep-buying-micron/"
+            },
+            "news:9fba7fbf9892538abcf73740": {
+              "published_at": "2026-10-02 09:00:55",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "MU",
+              "text": "Micron Technology, Inc. has surged over 500% in a year, driven by unprecedented AI-related memory demand and record earnings. MU reported blockbuster results: an 87% gross margin, $54B revenue (+380% YoY), and guided above consensus for both EPS and revenue. However, gross margins are unsustainably high for a cyclical hardware company; normalization and increased supply could trigger a sharp margin and valuation correction.",
+              "title": "Micron: It May Get Worse, Not Better",
+              "url": "https://seekingalpha.com/article/4951593-micron-it-may-get-worse-not-better"
+            },
+            "news:e9f9fe43bee2c4a9820b49d2": {
+              "published_at": "2026-10-02 09:40:44",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "MU",
+              "text": "DA Davidson just issued the most bullish price target on Wall Street for Micron, and the math behind it hinges on something that has never lasted this long in any previous memory cycle.",
+              "title": "Micron's Highest Price Target on Wall Street Is Now $2,100",
+              "url": "https://247wallst.com/investing/2026/10/02/microns-highest-price-target-on-wall-street-is-now-2100/"
+            }
+          },
+          "uncertainty": "The sources do not explain the specific reasons behind the 4-firm upward analyst revisions (MU-1 notes reasons are unknown). N6 alludes to a structural factor ('something that has never lasted this long in any previous memory cycle') but does not name it, leaving the sustainability of current margins and the timing of normalization unquantified. The depth and duration of the gross-margin trough risk remain opinion-based; no source provides a probabilistic scenario or historical precedent for the magnitude of potential compression. Customer deposit stickiness and contract enforcement in a downturn are asserted but not stress-tested in the excerpts."
+        },
+        "severity": "thesis",
+        "symbol": "MU",
+        "threshold": 0,
+        "trigger": "The sources directly corroborate the thesis's core measurements and forward-looking support. N5 confirms the reported gross margin of 87% (thesis states 86.76%), revenue of $54B with 380% YoY growth (thesis states 379.27%), and validates the strong profitability narrative. N3 reinforces the demand signal (379% YoY revenue surge to $54.2B), confirms strategic customer agreements with margin floors, and notes MU is set to reach its cash target by December 2026, supporting the net cash position claim (MU-2). Both sources acknowledge the blockbuster earnings and robust demand that underpin MU-1's margin and pricing-power thesis. N3 explicitly rates MU as Buy and highlights the forward commitment of over 75% of 2027 output with $32B in customer deposits, which provides structural support for the margin sustainability narrative."
+      }
+    },
+    "after": {
+      "thesis_summary": "Micron's latest reported quarter shows very high margins, strong free cash flow and a net cash balance sheet, price remains above both moving averages, and target revisions tilt upward; whether margins are sustainable is now openly contested by opinion articles but remains unmeasured.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "MU-1",
+          "text": "Memory demand and pricing power show in the latest reported quarter:\n- gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- revenue of [MU | quarter_revenue: 54229000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], with growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] versus the same quarter a year earlier.\n\nPrice of [MU | price: 1073.79 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] sits [MU | above_sma50_pct: 12.5151 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the freshly calculated medium-term average and [MU | above_sma200_pct: 58.51 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the long-term average. It trades below the previous close of [MU | previous_close: 1097.39 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d] while the sector ETF rises.\n\nSame-firm target revisions over the past month tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] up and [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] down, with a median of [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Their reasons and horizons are unknown, and they are forecasts, not results.\n\nOpinion articles published today disagree:\n- one says customer contracts underpin margins;\n- others say current margins are unsustainably high and competitor capacity threatens pricing.\n\nNeither view is measured in current data, and management guidance is unavailable.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "thesis"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            },
+            {
+              "type": "daily_change_above_pct",
+              "value": 10,
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "gross_margin_pct",
+              "value": 65,
+              "unit": "%",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-02T18:40Z",
+          "trigger": null
+        },
+        {
+          "id": "MU-2",
+          "text": "The latest reported quarter combines strong profitability with large cash generation:\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] and operating income of [MU | quarter_operating_income: 44318000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating cash flow of [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d];\n- free cash flow of [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d].\n\nThe ledger's operating margin value for this quarter differs from the figure recorded in the previous claim; the current ledger value is used.\n\nCash of [MU | cash_equivalents: 38364000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] against total debt of [MU | total_debt: 4688000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] gives net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d], a net cash position.\n\nThe thesis is refuted if price breaks below the fixed thesis floor in the executable condition. It is also refuted if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot 2bf4929aac0d].",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_below",
+              "value": 800,
+              "severity": "thesis"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -10,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 60,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 0,
+              "unit": "USD",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_above",
+              "metric": "net_debt",
+              "value": 0,
+              "unit": "USD",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-02T18:40Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "MU-1",
+            "text": "Memory demand and pricing power show in the latest reported quarter:\n- gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- revenue of [MU | quarter_revenue: 54229000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], with growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] versus the same quarter a year earlier.\n\nPrice of [MU | price: 1073.79 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] sits [MU | above_sma50_pct: 12.5151 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the freshly calculated medium-term average and [MU | above_sma200_pct: 58.51 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the long-term average. It trades below the previous close of [MU | previous_close: 1097.39 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d] while the sector ETF rises.\n\nSame-firm target revisions over the past month tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] up and [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] down, with a median of [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Their reasons and horizons are unknown, and they are forecasts, not results.\n\nOpinion articles published today disagree:\n- one says customer contracts underpin margins;\n- others say current margins are unsustainably high and competitor capacity threatens pricing.\n\nNeither view is measured in current data, and management guidance is unavailable.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "thesis"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              },
+              {
+                "type": "daily_change_above_pct",
+                "value": 10,
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "gross_margin_pct",
+                "value": 65,
+                "unit": "%",
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "MU-2",
+            "text": "The latest reported quarter combines strong profitability with large cash generation:\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] and operating income of [MU | quarter_operating_income: 44318000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating cash flow of [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d];\n- free cash flow of [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d].\n\nThe ledger's operating margin value for this quarter differs from the figure recorded in the previous claim; the current ledger value is used.\n\nCash of [MU | cash_equivalents: 38364000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] against total debt of [MU | total_debt: 4688000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] gives net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d], a net cash position.\n\nThe thesis is refuted if price breaks below the fixed thesis floor in the executable condition. It is also refuted if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot 2bf4929aac0d].",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_below",
+                "value": 800,
+                "severity": "thesis"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -10,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 60,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 0,
+                "unit": "USD",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_above",
+                "metric": "net_debt",
+                "value": 0,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-07T20:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "MU-2",
+          "condition_index": 1
+        },
+        "change_reason": "All conditions and thresholds are unchanged. Today's evidence consists of opinion articles that both support and dispute margin sustainability, and none supplies a new measured fundamental. The intraday decline relative to the sector is price-only and does not justify moving any threshold.\n\nClaim texts were rewritten from current ledger references:\n- the first claim now records the contested margin-sustainability debate and today's relative weakness;\n- the second claim flags that the ledger's operating margin value for the same quarter changed versus the prior record, and adds cash and total debt behind the net cash figure.\n\nThe review date stays within one week to recheck relative price behaviour and analyst flow before the next report.",
+        "evidence_ids": [
+          "MU.price",
+          "MU.previous_close",
+          "MU.price_at",
+          "MU.above_sma50_pct",
+          "MU.above_sma200_pct",
+          "MU.earnings_date",
+          "MU.gross_margin_pct",
+          "MU.operating_margin_pct",
+          "MU.revenue_yoy_pct",
+          "MU.quarter_revenue",
+          "MU.quarter_operating_income",
+          "MU.quarter_operating_cash_flow",
+          "MU.quarter_free_cash_flow",
+          "MU.quarter_capex",
+          "MU.cash_equivalents",
+          "MU.total_debt",
+          "MU.net_debt",
+          "MU.analyst_up_firms_30d",
+          "MU.analyst_down_firms_30d",
+          "MU.analyst_median_revision_pct_30d",
+          "news:62851de35848ae2e88701dfd",
+          "news:9fba7fbf9892538abcf73740",
+          "news:36a18b974429f6779802b46f",
+          "news:9699922221eab3e51837d818",
+          "news:e9f9fe43bee2c4a9820b49d2"
+        ],
+        "revision": "b030d2a3a4942cfe174c5b3f",
+        "created_at": "2026-10-02T18:40:14+00:00",
+        "evidence_fingerprints": {
+          "MU.price": "168825c3804d5760efcca651",
+          "MU.previous_close": "6f183e886487e24e379f2cb8",
+          "MU.price_at": "0a2e3020da21bacdbbfdcafc",
+          "MU.above_sma50_pct": "b5b5a4ccc1864d5d320a0083",
+          "MU.above_sma200_pct": "194ad36cf05cf40256c4cb64",
+          "MU.earnings_date": "201de9df36a575a2855a6927",
+          "MU.gross_margin_pct": "c0fbb2981177e66abab7fef9",
+          "MU.operating_margin_pct": "63b34ee3d85c71f10bb01b31",
+          "MU.revenue_yoy_pct": "a79773f84bd07961d6363fd9",
+          "MU.quarter_revenue": "94686b3a3ec149afce7beac3",
+          "MU.quarter_operating_income": "f147891b2ee5e020332704b2",
+          "MU.quarter_operating_cash_flow": "70f3737889b3eead2ea864ab",
+          "MU.quarter_free_cash_flow": "0e0595536a4f305bdfefe8af",
+          "MU.quarter_capex": "b7ffcc21db4c9bb1698f6b98",
+          "MU.cash_equivalents": "5e1c657c1199c7a9a6f0fc2c",
+          "MU.total_debt": "dfbe032fc64864d7eb9c2996",
+          "MU.net_debt": "cae0ba8b6b6a28332b4c284b",
+          "MU.analyst_up_firms_30d": "09984665a021c4e9ae393e30",
+          "MU.analyst_down_firms_30d": "9a4989a02f6a257a91d18410",
+          "MU.analyst_median_revision_pct_30d": "a3733c5e4d308a36eeec60cc",
+          "news:62851de35848ae2e88701dfd": "d047c97e7025c725bdc90796",
+          "news:9fba7fbf9892538abcf73740": "f3e8fd0e1e16862ee635fd79",
+          "news:36a18b974429f6779802b46f": "c66186e2c7bb2dda36ef6e70",
+          "news:9699922221eab3e51837d818": "84aa18d9483760bb3531e695",
+          "news:e9f9fe43bee2c4a9820b49d2": "10a8743325f65958116a6eb4"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Same-period consensus change cannot be measured for the forward fiscal years. Those periods have no prior observed snapshot, and every estimate revision window reports insufficient same-period snapshots.\n\nCurrent next-fiscal-year consensus stands at EPS of [MU | analyst_eps_20270903: 167.20257 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 2bf4929aac0d] and revenue of [MU | analyst_revenue_20270903: 266089462803.0 provider-reported currency | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 2bf4929aac0d]. Whether these rose alongside the target raises is unknown.\n\nAs a hypothesis, the strong reported quarter, with operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], underlies higher targets. No article attributes any analyst's revision to earnings changes.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "MU.analyst_eps_20270903",
+            "MU.analyst_revenue_20270903",
+            "MU.operating_margin_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "A Seeking Alpha article, 'Slower Memory Content Growth, Faster Capital Return', describes the following:\n- committed future output;\n- customer deposits;\n- take-or-pay contracts with margin floors;\n- a possible new buyback once a cash target is reached.\n\nAnother Seeking Alpha piece, 'More Great Earnings Don't Change Our Mind', says those customer agreements are untested in severe downturns.\n\nAs a hypothesis, these contract and capital-return features may contribute to higher targets. No article attributes a specific analyst's revision to them, and the excerpts are unverified.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:62851de35848ae2e88701dfd",
+            "news:36a18b974429f6779802b46f"
+          ]
+        },
+        "sector_theme": {
+          "assessment": "The article 'It May Get Worse, Not Better' describes AI-related memory demand as the driver of the stock's rise. The same article warns that margin normalization and added supply could reverse it. The Wolfe Research record's headline cites favorable pricing conditions, yet that record accompanies a target cut.\n\nThe semiconductor ETF is rising today ([SMH | price: 629.95 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] versus [SMH | previous_close: 617.81 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d]) while MU falls. That gap suggests issuer-specific selling rather than sector weakness.\n\nThis is a hypothesis: price data alone does not prove flows or causation, and no revision states a sector reason.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:9fba7fbf9892538abcf73740",
+            "analyst:6ef4d2b8514b3c55f9f69c83",
+            "news:9699922221eab3e51837d818"
+          ]
+        },
+        "valuation": {
+          "assessment": "Revisions over the past month split by firm:\n- raised: Baird, Mizuho, Goldman Sachs and DA Davidson;\n- lowered: Wells Fargo and Wolfe Research.\n\nTarget dispersion is [MU | analyst_target_dispersion_pct_30d: 19.38077210442346 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] and the median revision is [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Goldman raised its target while reiterating Neutral.\n\nA 24/7 Wall St article says DA Davidson's highest target depends on an unusually long cycle, but it does not name the factor. One Seeking Alpha piece argues valuation offers only market-like returns.\n\nAs a hypothesis, the raises re-mark targets to the post-report earnings base rather than reflect a changed long-term view. Forecast horizons are unknown, and the revisions neither prescribe a trade nor prove future returns.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:32c21a9640a4236b56cc3e41",
+            "analyst:423d67453d9507eaa0577702",
+            "analyst:afcd531bf472175c0dacd63f",
+            "analyst:9aea8f07e732fc2d3fb7d178",
+            "analyst:e47506d6cd877bd169a92d69",
+            "analyst:6ef4d2b8514b3c55f9f69c83",
+            "MU.analyst_target_dispersion_pct_30d",
+            "MU.analyst_median_revision_pct_30d",
+            "news:e9f9fe43bee2c4a9820b49d2",
+            "news:36a18b974429f6779802b46f"
+          ]
+        }
+      }
+    }
+  },
+  "0189ec6bc08f9506a776c524": {
+    "symbol": "ANET",
+    "action": "HOLD",
+    "time": "2026-10-02T18:40Z",
+    "trigger": "Source N2 reports Arista Networks' revenue grew 38% year-over-year in the second quarter, which aligns with and supports the claimed 37.69% YoY revenue growth in ANET-1. The source also contextualizes the growth driver (AI data center networking demand) and affirms the company's market opportunity, consistent with the thesis of sustained strong revenue growth. The magnitude and direction of the reported growth metric directly corroborate the fundamental claim.",
+    "reasoning": "The trigger is sentiment that repeats an already-recorded growth figure, so it neither adds nor removes evidence. The fundamental picture from the latest filing remains strong. The price stays above the live fifty-day average, which is the thesis-level technical condition. The extension remains below the warning level I set for overextension. Adding here would mean buying on restated news with sub-average volume ahead of an unreported quarter, so I do not add. Nothing in the data argues for reducing the position. I keep the weekly-close stop unchanged because no new non-price evidence justifies moving it.",
+    "falsifier": "This HOLD is wrong if the price falls beneath the live fifty-day average, which is the referenced thesis condition. It is also wrong if the next report shows revenue growth or operating margin below my chosen fundamental thresholds. In either case the evidence for holding through the report would have broken.",
+    "before": {
+      "thesis_summary": "Arista's latest reported quarter shows strong revenue growth, high operating margins, strong free cash flow and no debt, and the price holds above its live fifty-day average ahead of the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-09-29T19:13:29Z | detector/market_data / FMP | snapshot 990f1469941a].",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "ANET-1",
+          "text": "Arista's most recent reported quarter ended [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot c05b77176d11] demonstrates [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot c05b77176d11] year-over-year revenue growth, [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot c05b77176d11] operating margin, [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot c05b77176d11] in quarterly free cash flow, and [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot c05b77176d11] in total debt. The stock currently trades at [ANET | price: 204.47 USD | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot c05b77176d11], positioned [ANET | above_sma50_pct: 6.0518 % vs sma50 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot c05b77176d11] above its fifty-day moving average. The thesis remains valid if the next earnings report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T00:49:54Z | detector/market_data / FMP | snapshot c05b77176d11] sustains revenue growth and operating margin at or above the established thresholds; it is invalidated if the price closes below the fifty-day average or if reported results fall materially short of those benchmarks.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 20,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 38,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "warning"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_above_sma50_pct",
+              "value": 15,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-10-02T00:50Z",
+          "trigger": "2026-10-02T00:50Z, trigger: daily bulk review (no threshold crossed)"
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "ANET-1",
+            "text": "Arista's latest reported quarter shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a] year over year, operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 990f1469941a] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 990f1469941a]. The live price of [ANET | price: 203.395 USD | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] trades [ANET | above_sma50_pct: 6.5123 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its fifty-day average of [ANET | sma50: 190.9592 USD | as-of 2026-09-28 | detector/market_data / FMP | snapshot 990f1469941a]. The thesis is questioned if the price loses the live fifty-day average, or if the next report shows revenue growth or operating margin below the chosen fundamental thresholds.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 20,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 38,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "warning"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_above_sma50_pct",
+                "value": 15,
+                "severity": "warning"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-06T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "ANET-1",
+          "condition_index": 0
+        },
+        "change_reason": "All conditions are unchanged. The trigger supplied only supportive news sentiment and no new non-price evidence: no new financial statements, guidance or company events. No threshold is justified to move. The live fifty-day condition, the fundamental thresholds on growth and margin, the warning conditions and the positive extension review flag are all kept as they were. The claim text is rewritten with the current price snapshot.",
+        "evidence_ids": [
+          "ANET.price",
+          "ANET.previous_close",
+          "ANET.sma50",
+          "ANET.above_sma50_pct",
+          "ANET.above_sma200_pct",
+          "ANET.revenue_yoy_pct",
+          "ANET.operating_margin_pct",
+          "ANET.gross_margin_pct",
+          "ANET.quarter_free_cash_flow",
+          "ANET.total_debt",
+          "ANET.net_debt",
+          "ANET.earnings_date",
+          "news:1121da6ce03df78c0d8aa405",
+          "news:5ab0584e3b26c84f5d31537d",
+          "news:45194ffc2d750f70e3bec13f",
+          "news:3be86170a3aa031a4011eb02"
+        ],
+        "revision": "8af75151bf96f8e78e4a99f6",
+        "created_at": "2026-09-29T19:15:13+00:00",
+        "evidence_fingerprints": {
+          "ANET.price": "41ddc6829b3f552760f728e0",
+          "ANET.previous_close": "137787e21277da890d89b5aa",
+          "ANET.sma50": "90a845c750595e7c2708b9d1",
+          "ANET.above_sma50_pct": "1e4bf680ec2052f20ad1ecf0",
+          "ANET.above_sma200_pct": "88407c2350a5fa299e4de75c",
+          "ANET.revenue_yoy_pct": "729c29de7d4dc17f225fa18b",
+          "ANET.operating_margin_pct": "a0a725026f0ba02cce51f12e",
+          "ANET.gross_margin_pct": "d162e9ccbd86c69a6a0ddfde",
+          "ANET.quarter_free_cash_flow": "2243fdc94e5592106b8a4cb6",
+          "ANET.total_debt": "8e9e3df8b3efac8ddb24a58e",
+          "ANET.net_debt": "700a11354b04b54f1043bdac",
+          "ANET.earnings_date": "30c9005d577c3738a31175bb",
+          "news:1121da6ce03df78c0d8aa405": "26a9419710c515f5f0c0b425",
+          "news:5ab0584e3b26c84f5d31537d": "d062245a91e81e012f1abb36",
+          "news:45194ffc2d750f70e3bec13f": "39e702e037543096a12e211d",
+          "news:3be86170a3aa031a4011eb02": "a9479ea72939b8f8ca0d2c0c"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Hypothesis, not the analysts' stated reason: the observed target raises cluster right after the latest quarterly filing. That filing shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a] and operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 990f1469941a]. Same-period consensus is unchanged versus the prior observed snapshot. Current-year EPS consensus is [ANET | analyst_eps_20261231: 4.10819 provider-reported currency/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a] with revision [ANET | analyst_eps_20261231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a]. Next-year EPS consensus is [ANET | analyst_eps_20271231: 5.22751 provider-reported currency/share | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a] with revision [ANET | analyst_eps_20271231_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-29T18:49:49+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 990f1469941a]. The estimate revision windows lack enough same-period snapshots to measure a trend.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "ANET.revenue_yoy_pct",
+            "ANET.operating_margin_pct",
+            "ANET.analyst_eps_20261231",
+            "ANET.analyst_eps_20261231_revision_pct",
+            "ANET.analyst_eps_20271231",
+            "ANET.analyst_eps_20271231_revision_pct",
+            "analyst:acd4102c7aef1c24cdb4b0f3",
+            "analyst:f05c6aa44b5f373eac206aec"
+          ]
+        },
+        "company_news": {
+          "assessment": "No contract, product, regulatory or partnership event is supplied. The target-revision records list their reasons as unknown. One headline is quarantined because the publisher's firm differs from the provider's firm, and it is not used. The company-event driver remains an explicit gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only. The Goldman Sachs spending commentary article and the Motley Fool networking pieces describe hyperscaler infrastructure demand that benefits networking suppliers. The semiconductor ETF trades [SMH | above_sma50_pct: 7.2588 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its fifty-day average, while SPY is only [SPY | above_sma50_pct: 0.3586 % vs sma50 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its own. This is consistent with AI-infrastructure theme strength. None of these sources states an analyst's reason for a revision. Price data does not prove fund flows.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:3be86170a3aa031a4011eb02",
+            "news:40decc6556e2e0c7d7017c67",
+            "news:5ab0584e3b26c84f5d31537d",
+            "SMH.above_sma50_pct",
+            "SPY.above_sma50_pct"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis: the price rose substantially between each firm's prior and current target, so part of the target increases may reflect repricing of the growth story rather than new forecasts. The Seeking Alpha article 'Arista: The Layer Beneath The Chips' notes that the current earnings multiple rests on a limited history of rapid growth. This is a counter-risk. The price is [ANET | above_sma200_pct: 29.2109 % vs sma200 | as-of 2026-09-29T19:10:00+00:00 | detector/market_data / FMP | snapshot 990f1469941a] above its two-hundred-day average, and crowded positioning is possible. Forecast horizons are unknown, and no verified multiple data is in the ledger.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:1121da6ce03df78c0d8aa405",
+            "analyst:9872f054b205b46e23e75f77",
+            "analyst:12974e24181d2030bae06a34",
+            "analyst:42fc10092baef6aeb1726f09",
+            "ANET.above_sma200_pct"
+          ]
+        }
+      },
+      "pending_review": {
+        "claim_id": "news_shock",
+        "condition_type": "sentiment_support",
+        "cooldown_key": "thesis:ANET",
+        "material_event_id": "5924fddfabe804023dd9a121",
+        "material_event_ids": [
+          "5924fddfabe804023dd9a121"
+        ],
+        "measured": 1,
+        "news_evidence": {
+          "citation_selections": [
+            {
+              "source_id": "news:dba01d82f8f57b350bc8723d"
+            }
+          ],
+          "citations": [
+            {
+              "quote": "For the high-end server clusters in AI data centers to perform optimally, they need copious amounts of networking equipment that supports rapid data transmission. Arista Networks' revenue grew 38% year over year in the second quarter, and i",
+              "source_id": "news:dba01d82f8f57b350bc8723d"
+            }
+          ],
+          "claim_ids": [
+            "ANET-1"
+          ],
+          "counterevidence": "Source N1 contains only a historical price appreciation statement (4,001% since 2015) and does not address current quarter fundamentals, margins, cash flow, or debt position. Neither source provides current operating margin, free cash flow, or debt figures to validate those specific components of ANET-1. The sources do not confirm whether the price remains above the fifty-day moving average as of the evaluation date.",
+          "impact": "supports",
+          "reasoning": "Source N2 reports Arista Networks' revenue grew 38% year-over-year in the second quarter, which aligns with and supports the claimed 37.69% YoY revenue growth in ANET-1. The source also contextualizes the growth driver (AI data center networking demand) and affirms the company's market opportunity, consistent with the thesis of sustained strong revenue growth. The magnitude and direction of the reported growth metric directly corroborate the fundamental claim.",
+          "source_documents": {
+            "news:28b1c787fee40dbcb7b712f3": {
+              "published_at": "2026-10-02 10:57:47",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Arista Networks, Inc. (ANET) rises 4,001% since 2015's first institutional outlier inflow.",
+              "title": "Outsized Earnings and Guidance Send Arista Networks Shares Upward",
+              "url": "https://www.fxempire.com/forecasts/article/outsized-earnings-and-guidance-send-arista-networks-shares-upward-1634810"
+            },
+            "news:dba01d82f8f57b350bc8723d": {
+              "published_at": "2026-10-02 08:07:00",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "For the high-end server clusters in AI data centers to perform optimally, they need copious amounts of networking equipment that supports rapid data transmission. Arista Networks' revenue grew 38% year over year in the second quarter, and it has a huge opportunity to gain market share.",
+              "title": "2 AI Networking Stocks That Could Help Make You a Fortune",
+              "url": "https://www.fool.com/investing/2026/10/02/2-ai-networking-stocks-make-fortune/"
+            }
+          },
+          "uncertainty": "The sources are dated 2026-10-02, which is one day after the as-of date in the thesis (2026-09-29). Source N2's 38% YoY figure may refer to a different reporting period or preliminary data; exact alignment with the Q2 2026 (ended 2026-06-30) metric cannot be confirmed from the excerpt alone. Operating margin, free cash flow, debt, and current price positioning relative to the fifty-day average remain unverified by the supplied sources. The earnings report scheduled for 2026-11-03 has not yet occurred, so forward validation of the thesis conditions is unknown."
+        },
+        "severity": "thesis",
+        "symbol": "ANET",
+        "threshold": 0,
+        "trigger": "Source N2 reports Arista Networks' revenue grew 38% year-over-year in the second quarter, which aligns with and supports the claimed 37.69% YoY revenue growth in ANET-1. The source also contextualizes the growth driver (AI data center networking demand) and affirms the company's market opportunity, consistent with the thesis of sustained strong revenue growth. The magnitude and direction of the reported growth metric directly corroborate the fundamental claim."
+      }
+    },
+    "after": {
+      "thesis_summary": "Arista's latest filed quarter shows strong revenue growth, high operating margin, strong free cash flow and no debt, and the price holds above its live fifty-day average ahead of the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot d7323cb4a60c].",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "ANET-1",
+          "text": "Arista's latest filed quarter shows revenue of [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], year-over-year revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot d7323cb4a60c] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot d7323cb4a60c]. The live price of [ANET | price: 206.775 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] sits [ANET | above_sma50_pct: 7.2473 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above the fifty-day average of [ANET | sma50: 192.80200000000002 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot d7323cb4a60c]. The claim is questioned if the price loses the live fifty-day average, or if the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot d7323cb4a60c] shows revenue growth or operating margin below the chosen fundamental thresholds.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 0,
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 20,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 38,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "warning"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            },
+            {
+              "type": "price_above_sma50_pct",
+              "value": 15,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-10-02T18:40Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "ANET-1",
+            "text": "Arista's latest filed quarter shows revenue of [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], year-over-year revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot d7323cb4a60c] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot d7323cb4a60c]. The live price of [ANET | price: 206.775 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] sits [ANET | above_sma50_pct: 7.2473 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above the fifty-day average of [ANET | sma50: 192.80200000000002 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot d7323cb4a60c]. The claim is questioned if the price loses the live fifty-day average, or if the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot d7323cb4a60c] shows revenue growth or operating margin below the chosen fundamental thresholds.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 0,
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 20,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 38,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "warning"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              },
+              {
+                "type": "price_above_sma50_pct",
+                "value": 15,
+                "severity": "warning"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-08T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "ANET-1",
+          "condition_index": 0
+        },
+        "change_reason": "All conditions are unchanged. The trigger was supportive news restating the already-recorded second-quarter revenue growth. It brought no new financial statements, guidance, contracts or company events, so no non-price evidence justifies moving any threshold. Only the claim text is refreshed with the current price and fifty-day snapshot. The earnings catalyst falls beyond the one-week review limit, so the review is set within a week and will be repeated until the report arrives.",
+        "evidence_ids": [
+          "ANET.price",
+          "ANET.previous_close",
+          "ANET.sma50",
+          "ANET.above_sma50_pct",
+          "ANET.above_sma200_pct",
+          "ANET.quarter_revenue",
+          "ANET.revenue_yoy_pct",
+          "ANET.operating_margin_pct",
+          "ANET.gross_margin_pct",
+          "ANET.quarter_free_cash_flow",
+          "ANET.total_debt",
+          "ANET.net_debt",
+          "ANET.earnings_date",
+          "ANET.volume",
+          "ANET.volume_avg_20d",
+          "news:dba01d82f8f57b350bc8723d",
+          "news:28b1c787fee40dbcb7b712f3"
+        ],
+        "revision": "a2064b319c810b3bc9d7ac04",
+        "created_at": "2026-10-02T18:40:14+00:00",
+        "evidence_fingerprints": {
+          "ANET.price": "37fb763cb98a9ad9be0c595b",
+          "ANET.previous_close": "fcd08575b74dabfc40016944",
+          "ANET.sma50": "90ff1008de17e57a05785595",
+          "ANET.above_sma50_pct": "539746ac6904f0a6e1e373d2",
+          "ANET.above_sma200_pct": "471a38a0e67ce097558a853f",
+          "ANET.quarter_revenue": "e370c0f75f7500b0e668507f",
+          "ANET.revenue_yoy_pct": "729c29de7d4dc17f225fa18b",
+          "ANET.operating_margin_pct": "a0a725026f0ba02cce51f12e",
+          "ANET.gross_margin_pct": "d162e9ccbd86c69a6a0ddfde",
+          "ANET.quarter_free_cash_flow": "2243fdc94e5592106b8a4cb6",
+          "ANET.total_debt": "8e9e3df8b3efac8ddb24a58e",
+          "ANET.net_debt": "700a11354b04b54f1043bdac",
+          "ANET.earnings_date": "b01ed5afb273d2d16e516766",
+          "ANET.volume": "e7fdaf04ce9208997f000f62",
+          "ANET.volume_avg_20d": "b89c20c196f09f641b11c51d",
+          "news:dba01d82f8f57b350bc8723d": "02af2613a7d09f1c2e5988c6",
+          "news:28b1c787fee40dbcb7b712f3": "04b43ec7b8cf8f0a721d8f2d"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Hypothesis, not the analysts' stated reason: the observed target raises cluster right after the latest quarterly filing. That filing shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c] and operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c]. Same-period consensus for the current fiscal year is essentially flat: EPS [ANET | analyst_eps_20261231: 4.10825 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c] with revision [ANET | analyst_eps_20261231_revision_pct: 0.0014604972019403456 % vs prior observed consensus | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c]. Next-year EPS is [ANET | analyst_eps_20271231: 5.24026 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c] with revision [ANET | analyst_eps_20271231_revision_pct: 0.24390197244960762 % vs prior observed consensus | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c], and next-year revenue revision is [ANET | analyst_revenue_20271231_revision_pct: 0.3171865205112711 % vs prior observed consensus | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c], both small upward moves. The multi-week revision windows lack enough same-period snapshots to establish a trend.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "ANET.revenue_yoy_pct",
+            "ANET.operating_margin_pct",
+            "ANET.analyst_eps_20261231",
+            "ANET.analyst_eps_20261231_revision_pct",
+            "ANET.analyst_eps_20271231",
+            "ANET.analyst_eps_20271231_revision_pct",
+            "ANET.analyst_revenue_20271231_revision_pct",
+            "analyst:acd4102c7aef1c24cdb4b0f3",
+            "analyst:f05c6aa44b5f373eac206aec"
+          ]
+        },
+        "company_news": {
+          "assessment": "No contract, product, regulatory or partnership event is supplied. The FXEmpire headline mentions earnings and guidance, but its excerpt contains only a historical price statement. All target-revision records list their reason as unknown. One headline is quarantined because the publisher's firm differs from the provider's firm, and it is not used. The company-event driver remains an explicit gap.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Hypothesis only. The Motley Fool AI networking article describes AI data-center demand for networking equipment. The semiconductor ETF trades [SMH | above_sma50_pct: 10.7433 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above its fifty-day average, while SPY is only [SPY | above_sma50_pct: 0.7754 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above its own. This is consistent with AI-infrastructure theme strength. No source states an analyst's reason for a revision, and price data does not prove fund flows.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:dba01d82f8f57b350bc8723d",
+            "SMH.above_sma50_pct",
+            "SPY.above_sma50_pct"
+          ]
+        },
+        "valuation": {
+          "assessment": "Hypothesis: the price rose substantially between each firm's prior and current target. Part of the target increases may therefore reflect repricing of the growth story rather than new forecasts. The price sits [ANET | above_sma200_pct: 30.4489 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above its two-hundred-day average, so crowded positioning is a possible counter-risk. Forecast horizons are unknown, and no verified multiple data is in the ledger.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "ANET.above_sma200_pct",
+            "analyst:9872f054b205b46e23e75f77",
+            "analyst:12974e24181d2030bae06a34",
+            "analyst:42fc10092baef6aeb1726f09"
+          ]
+        }
+      }
+    }
   }
 }

@@ -2083,3 +2083,30 @@ This is not a weekly round but an event-driven intraday one (`detector.py` -> `r
 - **Trigger:** Independent analyst targets revised up; reassess supporting and opposing evidence. No automatic trade.
 - **Why it was not executed:** the decision is HOLD — nothing to execute
 - **The model's reasoning (recorded, not acted on):** The triggering data is a change in analyst target direction. Target revisions are third-party forecasts with unknown reasons and horizons; they are not measured company performance. They support the existing position but do not justify adding capital. The price is flat against the previous close, the observation is stale, and the next measured fundamental evidence is the report scheduled for [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T00:49:54Z | detector/market_data / FMP | snapshot 8a6bddba9bd5]. Nothing in this round weakens the reported margins, cash generation or net cash, and price is well above both the fixed thesis floor and the weekly stop. Holding keeps the position aligned with the evidence without converting an opinion signal into a trade.
+
+## S#8 — 2026-10-02 18:43 UTC · INTRADAY DECISION
+
+This is not a weekly round but an event-driven intraday one (`detector.py` -> `reassess.py` -> `execute_trade.py`). The trigger and the resulting assessment are recorded below.
+
+### MU — HOLD (NOT EXECUTED)
+
+- **Trigger:** The sources directly corroborate the thesis's core measurements and forward-looking support. N5 confirms the reported gross margin of 87% (thesis states 86.76%), revenue of $54B with 380% YoY growth (thesis states 379.27%), and validates the strong profitability narrative. N3 reinforces the demand signal (379% YoY revenue surge to $54.2B), confirms strategic customer agreements with margin floors, and notes MU is set to reach its cash target by December 2026, supporting the net cash position claim (MU-2). Both sources acknowledge the blockbuster earnings and robust demand that underpin MU-1's margin and pricing-power thesis. N3 explicitly rates MU as Buy and highlights the forward commitment of over 75% of 2027 output with $32B in customer deposits, which provides structural support for the margin sustainability narrative.
+- **Why it was not executed:** the decision is HOLD — nothing to execute
+- **The model's reasoning (recorded, not acted on):** The triggering news changes no measured fundamental.
+
+Why not sell or trim:
+- Supportive and critical opinion articles largely offset each other.
+- Today's drop against the previous close, while the sector ETF rises, is a price-only signal.
+- That signal sits far from every fixed thesis floor and from the medium-term average condition.
+- The reported quarter's margins, cash generation and net cash position are unchanged.
+
+Why not add, although cash is available:
+- The open valuation and margin-cycle debate is unresolved.
+- Relative weakness right after a strong report fits the post-earnings selling pattern described by 24/7 Wall St. That pattern is an opinion, not measured flow data.
+- Nothing new and measured strengthens the case beyond what was already held.
+
+### ANET — HOLD (NOT EXECUTED)
+
+- **Trigger:** Source N2 reports Arista Networks' revenue grew 38% year-over-year in the second quarter, which aligns with and supports the claimed 37.69% YoY revenue growth in ANET-1. The source also contextualizes the growth driver (AI data center networking demand) and affirms the company's market opportunity, consistent with the thesis of sustained strong revenue growth. The magnitude and direction of the reported growth metric directly corroborate the fundamental claim.
+- **Why it was not executed:** the decision is HOLD — nothing to execute
+- **The model's reasoning (recorded, not acted on):** The trigger is sentiment that repeats an already-recorded growth figure, so it neither adds nor removes evidence. The fundamental picture from the latest filing remains strong. The price stays above the live fifty-day average, which is the thesis-level technical condition. The extension remains below the warning level I set for overextension. Adding here would mean buying on restated news with sub-average volume ahead of an unreported quarter, so I do not add. Nothing in the data argues for reducing the position. I keep the weekly-close stop unchanged because no new non-price evidence justifies moving it.

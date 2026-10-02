@@ -30,9 +30,3 @@ Revenue forecast changes compare the same fiscal-period FMP consensus between da
 Forward outcome records: [analyst_revision_performance.json](state/analyst_revision_performance.json).
 No baseline forecast history means unknown earnings support, not unchanged estimates.
 Earnings improvements are not required: reviews also examine company news, sector/theme attention and valuation. Attributed analyst reasons, contextual hypotheses and unknowns are stored separately.
-
-Prospective, selected-universe overlapping cohorts. Cost sensitivities subtract 0/25/50/100/250 bp round-trip from candidate returns; these are not measured execution costs. Net excess is compared with gross benchmark returns. Risk records path drawdown and annualized volatility. Consensus estimate events are not individual analyst votes, company guidance or causal proof. No predictive benefit is established. Baseline is next session close.
-
-Unique observed cohorts: 6
-Target-revision mature endpoints: 0
-Revenue-consensus revision events: 14; mature endpoints: 0
