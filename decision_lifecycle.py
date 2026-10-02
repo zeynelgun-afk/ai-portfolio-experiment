@@ -79,7 +79,9 @@ def validate_monitoring(monitoring, symbol, old, data, facts, moment, stop_befor
     available.update(data.get(symbol,{}).get('source_documents',{}))
     references=monitoring['evidence_ids']
     if not isinstance(references,list) or not references or any(not isinstance(k,str) or k not in available for k in references):
-        raise ValueError('Monitoring changes require supplied issuer-specific evidence IDs')
+        invalid = [k for k in references if not isinstance(k, str) or k not in available] if isinstance(references, list) else references
+        raise ValueError('Monitoring changes require supplied issuer-specific evidence IDs; '
+                         f'rejected: {invalid!r}; choose from: {sorted(available)}')
     fingerprints={key:digest({k:v for k,v in available[key].items() if k not in {'snapshot','observed_at'}}) for key in references}
     old_by_id={c['id']:c for c in old.get('claims',[])}
     relaxed=set(old_by_id)-set(ids)

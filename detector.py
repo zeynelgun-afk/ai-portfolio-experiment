@@ -423,7 +423,7 @@ def check_news_shock(symbol, thesis_summary, news_items, claims=None):
                              'text': sources[key]['text'][:2200]}
                      for alias, key in source_aliases.items()}
     claim_ids = {c['id'] for c in claims or []} | {'thesis_summary'}
-    if (not api_key or not sources or not thesis_summary or len(sources) != len(news_items)
+    if (not api_key or not sources or not thesis_summary or any(not documents(symbol, [item]) for item in news_items)
             or len(sources) > MAX_NEWS_PER_ASSESSMENT):
         return None, 'news source text or assessment prerequisites unavailable'
     prompt = """Evaluate these source excerpts against the investment thesis. Headlines alone
@@ -524,7 +524,16 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
             if analyst_trigger:
                 triggered.append(analyst_trigger)
             if data[symbol].get('analyst_refreshed') and (analyst_report.get('status') != 'ok' or analyst_report.get('estimates_status') != 'ok'):
-                news_errors.append({'symbol': symbol, 'error': 'Analyst revision/estimate coverage incomplete; see ANALYST_REVISIONS.md'})
+                coverage = analyst_report.get('coverage', {})
+                details = (f"targets={analyst_report.get('status')}, "
+                           f"estimates={analyst_report.get('estimates_status')}, "
+                           f"pagination_complete={coverage.get('pagination_complete')}, "
+                           f"rejected_rows={coverage.get('rejected_rows', 0)}, "
+                           f"recent_conflicts={len(coverage.get('recent_conflicts', []))}, "
+                           f"quarantined_records={len(analyst_report.get('quarantined_records', []))}")
+                news_errors.append({'symbol': symbol, 'error':
+                    'Analyst revision/estimate coverage incomplete (' + details +
+                    '); conflicting records remain excluded; see ANALYST_REVISIONS.md'})
 
         # News Sentiment Check
         recent_news = data.get(symbol, {}).get("recent_news", [])

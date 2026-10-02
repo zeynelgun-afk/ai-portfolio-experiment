@@ -129,8 +129,12 @@ def render(text, facts, claim_ids=()):
     # Indicator names are parameters, not asserted measured values.
     stripped = re.sub(r'\b(?:SMA(?:50|200)|RSI\(14\)|(?:50|200)(?:[- ]day|d))\b', '', stripped)
     stripped = re.sub(r'\bprice_(?:below|above)_sma(?:50|200)_pct\b', '', stripped)
+    # Digits in this publisher's proper name are not quantitative market claims.
+    stripped = re.sub(r'\b24/7 Wall (?:Street|St\.?)\b', '', stripped)
     if re.search(r'\d', stripped) or '{{' in stripped or '}}' in stripped:
-        raise ValueError('Raw numeric claim or malformed evidence reference')
+        match = re.search(r'\d|\{\{|\}\}', stripped)
+        excerpt = stripped[max(0, match.start() - 35):match.end() + 55]
+        raise ValueError('Raw numeric claim or malformed evidence reference near ' + repr(excerpt))
     def expand(match):
         key = match[1]
         if key not in facts:
@@ -162,7 +166,10 @@ def render_payload(payload, facts):
         if isinstance(value, dict):
             for key, child in list(value.items()):
                 if isinstance(child, str) and key not in {'symbol', 'id', 'status', 'action', 'severity', 'type', 'next_review_at', 'claim_id'}:
-                    value[key] = render(child, facts, claim_ids)
+                    try:
+                        value[key] = render(child, facts, claim_ids)
+                    except ValueError as error:
+                        raise ValueError(f'{key}: {error}; rejected prose: {child[:160]!r}') from error
                 elif key == 'sections':
                     value[key] = {k: render(v, facts, claim_ids) for k, v in child.items()}
                 else:

@@ -299,6 +299,7 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
                 last_status = 'invalid_schema'
                 detail = schema_error if isinstance(payload, dict) else "Output must be a JSON object."
                 print("  SCHEMA REJECTED: " + detail)
+                messages.append({'role': 'assistant', 'content': text})
                 messages.append({'role': 'user', 'content': detail + ' Return only the required JSON object. Do not replace the schema with your own.'})
                 continue
 
@@ -307,6 +308,8 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
                 payload = evidence.render_payload(payload, source_ledger)
             except (ValueError, TypeError, AttributeError) as error:
                 last_status = "invalid_evidence"
+                print("  EVIDENCE REJECTED: " + str(error)[:240])
+                messages.append({"role": "assistant", "content": text})
                 messages.append({"role": "user", "content": "Evidence validation failed: "+str(error)[:240]+". Use only existing SOURCE_LEDGER IDs. Describe chosen thresholds qualitatively in prose; keep their numbers in condition.value. Rewrite old numeric text rather than copying it."})
                 continue
 
@@ -338,6 +341,7 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
             except (ValueError, TypeError, KeyError, AttributeError) as error:
                 last_status = "invalid_schema"
                 print("  SCHEMA REJECTED: "+str(error)[:240])
+                messages.append({"role": "assistant", "content": text})
                 messages.append({"role": "user", "content": "Proposal validation failed: " + str(error)[:240] + ". Correct the JSON proposal; preserve evidence references."})
                 continue
         return payload, "ok"
@@ -574,6 +578,7 @@ def append_note(path, heading, body):
 REJECTION_REASON = {
     "unsourced_numbers": "it insisted on writing unsourced numbers",
     "unparseable": "its output could not be read as JSON",
+    "invalid_evidence": "its output contained invalid or unsourced evidence references",
     "invalid_schema": "its output missed required fields or violated the structured evidence contract",
 }
 
@@ -726,6 +731,10 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                               cash, moment)
         prompt += "\nCOMPLETE PREVIOUS THESIS AND CONDITIONS:\n"+json.dumps(position)
         prompt += "\n"+lifecycle.INSTRUCTION+"\nPut monitoring at the top level of the response."
+        issuer_facts = evidence_for(data, violations, symbol)
+        monitoring_ids = sorted({key for key, fact in issuer_facts.items() if fact.get('symbol') == symbol}
+            | set(data.get(symbol, {}).get('source_documents', {})))
+        prompt += "\nALLOWED MONITORING evidence_ids (issuer only; benchmarks cannot justify threshold changes):\n" + json.dumps(monitoring_ids)
         def validate_monitor(payload):
             if data.get(symbol, {}).get('analyst_revisions'):
                 from analyst_revisions import validate_review
