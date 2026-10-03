@@ -15,7 +15,7 @@ opinions. The renderer inserts company, metric, value, unit, as-of and source.
 Do not relabel a reference as another metric or company. If a fact has no ID, say
 it is unavailable. Numeric decision parameters (amount_usd, shares, new_stop,
 condition value/days) are your choices, not measured facts; keep those in JSON
-fields and explain them qualitatively. Never fabricate a reference. Do not put
+fields and explain them qualitatively. Never fabricate a reference. Do not append .as_of or any property suffix inside a reference; the renderer already prints the date. Do not put
 references in numeric decision fields. Research dossiers are opinions, not
 verified quantitative sources. This changes evidence handling, not investment
 strategy or decision autonomy.
@@ -129,6 +129,9 @@ def render(text, facts, claim_ids=()):
     # Indicator names are parameters, not asserted measured values.
     stripped = re.sub(r'\b(?:SMA(?:50|200)|RSI\(14\)|(?:50|200)(?:[- ]day|d))\b', '', stripped)
     stripped = re.sub(r'\bprice_(?:below|above)_sma(?:50|200)_pct\b', '', stripped)
+    # Exact supplied metric labels contain parameter digits, not measured values.
+    for metric in {fact['metric'] for fact in facts.values()}:
+        stripped = re.sub(r'(?<![A-Za-z0-9_])' + re.escape(metric) + r'(?![A-Za-z0-9_])', '', stripped)
     # Digits in this publisher's proper name are not quantitative market claims.
     stripped = re.sub(r'\b24/7 Wall (?:Street|St\.?)\b', '', stripped)
     if re.search(r'\d', stripped) or '{{' in stripped or '}}' in stripped:

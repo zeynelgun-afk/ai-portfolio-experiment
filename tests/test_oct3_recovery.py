@@ -2,10 +2,20 @@ import copy
 import json
 import unittest
 from unittest.mock import patch
+import evidence
 import reassess
 import scout
 
 class RecoveryTests(unittest.TestCase):
+    def test_supplied_metric_names_are_not_raw_market_numbers(self):
+        facts={'AMD.above_sma200_pct':{'symbol':'AMD','metric':'above_sma200_pct','value':12,
+               'unit':'%', 'as_of':'2026-10-03','source':'fixture','snapshot':'abc'}}
+        text='The above_sma200_pct reading is {{AMD.above_sma200_pct}}.'
+        self.assertIn('12',evidence.render(text,facts))
+        for bad in ('above_sma200_pct is 99 percent.', 'unknown_sma200_pct increased.', '{{AMD.above_sma200_pct.as_of}}'):
+            with self.assertRaises(ValueError):
+                evidence.render(bad,facts)
+
     def test_semantic_rejection_is_repaired_before_acceptance(self):
         seen=[]
         def call(model,messages,key):
