@@ -125,7 +125,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: weekly-source-evidence
-          path: output/weekly_evidence.json
+          path: |
+            output/weekly_evidence.json
+            weekly_data.json
+            state/theme_research_inbox.json
           if-no-files-found: ignore
           retention-days: 90
 
