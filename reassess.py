@@ -226,7 +226,7 @@ def call_llm(*args, **kwargs):
 
 def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
              sleep=None, source_ledger=None, response_validator=None,
-             response_schema=None):
+             response_schema=None, semantic_validator=None):
     """A JSON-returning LLM call that retries on transient errors and bad output.
 
     Three problems share one loop, because the remedy for all three is the same: ask
@@ -343,6 +343,19 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
                 print("  SCHEMA REJECTED: "+str(error)[:240])
                 messages.append({"role": "assistant", "content": text})
                 messages.append({"role": "user", "content": "Proposal validation failed: " + str(error)[:240] + ". Correct the JSON proposal; preserve evidence references."})
+                continue
+        if semantic_validator is not None:
+            try:
+                semantic_validator(payload)
+            except ValueError as error:
+                last_status = "invalid_semantic_evidence"
+                detail = str(error)
+                print("  SEMANTIC EVIDENCE REJECTED: " + detail[:500])
+                messages.append({"role": "assistant", "content": text})
+                messages.append({"role": "user", "content":
+                    "Independent evidence review rejected this draft: " + detail +
+                    ". Correct or remove unsupported assertions, attribute source opinions, and disclose unknowns. "
+                    "Preserve the required JSON schema and evidence references. Do not invent evidence or loosen thresholds to obtain approval."})
                 continue
         return payload, "ok"
 
@@ -579,6 +592,7 @@ REJECTION_REASON = {
     "unsourced_numbers": "it insisted on writing unsourced numbers",
     "unparseable": "its output could not be read as JSON",
     "invalid_evidence": "its output contained invalid or unsourced evidence references",
+    "invalid_semantic_evidence": "independent evidence review rejected unsupported assertions",
     "invalid_schema": "its output missed required fields or violated the structured evidence contract",
 }
 
@@ -655,11 +669,19 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
         counter["calls"] += 1
         # Audit sources: the prompt (all data given) plus the claim's previous text
         # (those numbers were already audited in an earlier round).
+        reviewed = []
+        def validate_claim_semantics(candidate):
+            from claim_evidence import semantic_review
+            counter['calls'] += 1
+            reviewed[:] = [semantic_review(candidate, {symbol: data.get(symbol, {})},
+                evidence_for(data, violations, symbol), api_key,
+                env('OPENROUTER_MODEL_REVIEW', 'openai/gpt-4o'))]
         payload, status = call_llm(model, SYSTEM_CLAIM, prompt, api_key,
                                    audit_sources=(prompt, claim.get("text", "")),
                                    audit_scope=claim_audit_scope,
                                    source_ledger=evidence_for(data, violations, symbol),
-                                   response_schema=CLAIM_RESPONSE_SCHEMA)
+                                   response_schema=CLAIM_RESPONSE_SCHEMA,
+                                   semantic_validator=validate_claim_semantics)
         if not payload or payload.get("status") not in VALID_STATUSES \
                 or not str(payload.get("text", "")).strip():
             reason = REJECTION_REASON.get(status, "its output did not match the schema")
@@ -671,8 +693,9 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             continue
         try:
             from claim_evidence import semantic_review
-            counter['calls'] += 1
-            review = semantic_review(payload, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
+            if not reviewed:
+                counter['calls'] += 1
+            review = reviewed[0] if reviewed else semantic_review(payload, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
                             api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'review':review})
         except ValueError as error:
@@ -752,11 +775,21 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
         # call is still counted.
         counter["calls"] += 1
         previous_texts = tuple(c.get("text", "") for c in position.get("claims", []))
+        reviewed = []
+        def validate_semantics(candidate):
+            from claim_evidence import semantic_review
+            counter['calls'] += 1
+            reviewed[:] = [semantic_review(
+                {'proposal': candidate, 'previous_thesis': position,
+                 'review_focus': 'Require new non-price evidence for threshold changes; compare before and after and verify the falsifier maps to the referenced condition.'},
+                {symbol: data.get(symbol, {})}, issuer_facts, api_key,
+                env('OPENROUTER_MODEL_REVIEW', 'openai/gpt-4o'))]
         payload, status = call_llm(
             model, SYSTEM_THESIS+"\n"+lifecycle.INSTRUCTION+"\nPut monitoring at the top level.", prompt, api_key,
             audit_sources=(prompt, position.get("thesis_summary", "")) + previous_texts,
             audit_scope=thesis_audit_scope,
-            source_ledger=evidence_for(data, violations, symbol), response_validator=validate_monitor)
+            source_ledger=evidence_for(data, violations, symbol), response_validator=validate_monitor,
+            semantic_validator=validate_semantics)
         trigger_text = "; ".join(dict.fromkeys(
             item.get("trigger", "") for item in triggers))
 
@@ -776,8 +809,9 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
 
         try:
             from claim_evidence import semantic_review
-            counter['calls'] += 1
-            review = semantic_review({'proposal':payload,'previous_thesis':position,'review_focus':'Require new non-price evidence for threshold changes; compare before and after and verify the falsifier maps to the referenced condition.'}, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
+            if not reviewed:
+                counter['calls'] += 1
+            review = reviewed[0] if reviewed else semantic_review({'proposal':payload,'previous_thesis':position,'review_focus':'Require new non-price evidence for threshold changes; compare before and after and verify the falsifier maps to the referenced condition.'}, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
                             api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'review':review})
         except ValueError as error:

@@ -202,7 +202,9 @@ class CascadeEndToEnd(unittest.TestCase):
                    {'thesis_assessment':'The supporting claim failed; review the position.','new_thesis_summary':'The original claim is invalid.',
                     'claim_statuses':{'MU-1':'invalid'},'monitoring':m,
                     'decision':{'action':'HOLD','reasoning':'Wait for fresh confirmation while monitoring the invalid thesis.','falsifier':'A breach of the monitored price condition requires review.'}}]
-        reviews=[{'verdict':'supported'}, ValueError('Insufficient evidence')] if fail_review else [{'verdict':'supported'}]*2
+        reviews=[{'verdict':'supported'}] + [ValueError('Insufficient evidence')]*reassess.MAX_ATTEMPTS if fail_review else [{'verdict':'supported'}]*2
+        if fail_review:
+            responses += [responses[-1]] * (reassess.MAX_ATTEMPTS - 1)
         with patch.object(reassess,'BASE',str(root)),patch.object(reassess,'THESES_PATH',str(root/'theses.json')),patch.object(reassess,'PORTFOLIO_PATH',str(root/'portfolio.json')),patch.object(reassess,'now_utc',return_value=NOW),patch.dict(os.environ,{'OPENROUTER_API_KEY':'test'}),patch('sys.argv',['reassess','--code','10','--state-dir',str(state)]),patch.object(reassess,'_single_call',side_effect=[(json.dumps(r),False) for r in responses]),patch('claim_evidence.semantic_review',side_effect=reviews):
             self.assertEqual(reassess.main(),0)
         return root,state

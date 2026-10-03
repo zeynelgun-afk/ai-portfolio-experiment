@@ -34,8 +34,15 @@ Do not present an article's analyst assertion as issuer-verified fact. Company e
 {{"themes":[{{"name":"short theme","stance":"tailwind|headwind|mixed|watch","article_ids":["exact supplied id"],"industries":["exact supplied industry"],"counterevidence_article_ids":["exact supplied id"]}}],"company_exposures":[{{"theme":"theme name","company_name":"exact company name from article","symbol":"ticker if the article explicitly gives one, otherwise empty","product":"product family","component":"component or constraint","role":"what the source says the company does","article_ids":["exact supplied id"],"article_evidence_quote":"verbatim quote of at least 35 characters from an extracted article body"}}]}}
 Only use exact supplied article IDs. A company name/ticker from the article is a lead, not proof. Never infer benefit from sector membership. No buy/sell, target, or flow claims.
 INPUT:\n{json.dumps(evidence,ensure_ascii=False)}'''
-    extracted = _theme_model_json(prompt, api_key, model)
-    validated = validate_theme_analysis(extracted, radar)
+    for attempt in range(3):
+        extracted = _theme_model_json(prompt, api_key, model)
+        try:
+            validated = validate_theme_analysis(extracted, radar)
+            break
+        except (ValueError, TypeError, KeyError) as error:
+            if attempt == 2:
+                raise
+            prompt += '\nREJECTED RESPONSE:\n' + json.dumps(extracted) + '\nVALIDATION ERROR: ' + str(error) + '\nCorrect the response using only supplied source IDs and exact source quotes. Return the same JSON schema.'
     if not validated['company_exposures']:
         return validated
     issuer_evidence = company_exposure.collect_issuer_evidence(validated['company_exposures'])
@@ -251,7 +258,8 @@ def refresh_theme_research_inbox():
         if any(row.get('verification_status') == 'sec_contact_unconfigured'
                for row in result['unverified_company_exposure_leads']):
             alerts.append('⚠️ AI Portföy — SEC tedarikçi doğrulaması yapılmadı; GitHub Actions içinde SEC_CONTACT_EMAIL ayarı gerekiyor. Doğrulanmamış iddia aday havuzuna alınmadı.')
-    except Exception:
+    except Exception as error:
+        result['theme_analysis_error'] = type(error).__name__ + ': ' + str(error)[:1000]
         result['themes'] = []
         result['theme_analysis_status'] = 'unavailable'
         result['price_leaders_without_news_link'] = result.get('candidates', [])
@@ -317,7 +325,7 @@ def get_fmp(endpoint, api_key, limit=20):
 
 def run_scout():
     or_key = env("OPENROUTER_API_KEY")
-    
+
     if not or_key:
         raise RuntimeError("Missing API keys for Scout")
 
@@ -356,9 +364,9 @@ DISCOVERY INPUTS:
             if answer.startswith("```json"): answer = answer[7:]
             if answer.startswith("```"): answer = answer[3:]
             if answer.endswith("```"): answer = answer[:-3]
-            
+
             new_symbols = validate_symbols(json.loads(answer.strip()))
-            
+
             if any(symbol not in discovery['membership'] for symbol in new_symbols):
                 raise ValueError('Scout selected a company without discovery evidence')
             selected = list(new_symbols)
@@ -370,7 +378,7 @@ DISCOVERY INPUTS:
                     for pos in port.get("positions", []):
                         if pos["symbol"] not in new_symbols:
                             new_symbols.append(pos["symbol"])
-            
+
             # Save to watchlist
             state_dir = os.path.join(BASE_DIR, "state")
             os.makedirs(state_dir, exist_ok=True)
@@ -383,7 +391,7 @@ DISCOVERY INPUTS:
             # Cross-sector thematic ideas live in their own review queue. They do not
             # enter the 15-20 symbol decision watchlist automatically.
             refresh_theme_research_inbox()
-            
+
             print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
             print(new_symbols)
     except Exception as e:

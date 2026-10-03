@@ -262,7 +262,7 @@ def build_targets(proposal, book, old_theses, data, moment, original_log, **exec
     watchlist = proposal.get('watchlist', [])
     expected = {s for s in data if not s.startswith('_')}
     if len(watchlist) != len(expected) or {r['symbol'] for r in watchlist} != expected:
-        raise ValueError('Every researched symbol needs a watchlist disposition')
+        raise ValueError('Every researched symbol needs exactly one watchlist disposition; missing=' + ','.join(sorted(expected - {r['symbol'] for r in watchlist})) + '; unexpected=' + ','.join(sorted({r['symbol'] for r in watchlist} - expected)))
     kept = []
     from counters import compute_counters, split_rounds
     counters = {s: row[1] for s, row in compute_counters(split_rounds(original_log),
@@ -352,6 +352,8 @@ def main():
         path = BASE/name
         context[name] = path.read_text()[-50000:] if path.exists() else 'unavailable'
     context['weekly_data.json'] = data
+    context['required_watchlist_symbols'] = sorted(symbols)
+    context['watchlist_contract'] = 'Exactly one KEEP/DROP/OPEN row for EVERY required_watchlist_symbols entry, including existing holdings. Do not omit a symbol because it is already held.'
     if quotes:
         from research_metrics import exposure
         context['current_exposure'] = exposure(book, quotes, data)
@@ -377,13 +379,20 @@ def main():
                       preview=not args.execute_pending, quotes=quotes)
     (BASE/'output').mkdir(exist_ok=True)
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data})
+    reviewed = []
+    def validate_semantics(candidate):
+        from claim_evidence import semantic_review
+        reviewed[:] = [semantic_review(
+            {'proposal': candidate, 'previous_theses': old_theses,
+             'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
+            data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')]
     proposal, status = call_llm(os.environ.get('OPENROUTER_MODEL_WEEKLY') or 'anthropic/claude-opus-5.5',
                                 SYSTEM+"\n"+lifecycle.INSTRUCTION+"\n"+REVIEW_INSTRUCTION+"\nPut monitoring and analyst_review inside EACH decision; monitoring claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
-                                response_validator=validate_proposal)
+                                response_validator=validate_proposal, semantic_validator=validate_semantics)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
     from claim_evidence import semantic_review
-    review = semantic_review({'proposal':proposal,'previous_theses':old_theses,'review_focus':'Compare old and new conditions; reject price-only excuses for changing thresholds.'}, data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')
+    review = reviewed[0] if reviewed else semantic_review({'proposal':proposal,'previous_theses':old_theses,'review_focus':'Compare old and new conditions; reject price-only excuses for changing thresholds.'}, data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data, 'proposal': proposal, 'semantic_review':review})
     if not args.execute_pending:
         build_targets(proposal, book, old_theses, data, moment, original_log, preview=True)
