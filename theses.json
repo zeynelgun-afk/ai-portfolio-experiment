@@ -21,7 +21,7 @@
       {
         "id": "MU-1",
         "text": "Memory demand and pricing power show in the latest reported quarter:\n- gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- revenue of [MU | quarter_revenue: 54229000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], with growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] versus the same quarter a year earlier.\n\nPrice of [MU | price: 1073.79 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] sits [MU | above_sma50_pct: 12.5151 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the freshly calculated medium-term average and [MU | above_sma200_pct: 58.51 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the long-term average. It trades below the previous close of [MU | previous_close: 1097.39 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d] while the sector ETF rises.\n\nSame-firm target revisions over the past month tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] up and [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] down, with a median of [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Their reasons and horizons are unknown, and they are forecasts, not results.\n\nOpinion articles published today disagree:\n- one says customer contracts underpin margins;\n- others say current margins are unsustainably high and competitor capacity threatens pricing.\n\nNeither view is measured in current data, and management guidance is unavailable.",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "price_below_sma50_pct",
@@ -62,13 +62,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-02T18:40Z",
-        "trigger": null
+        "last_updated": "2026-10-03T00:33Z",
+        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supp"
       },
       {
         "id": "MU-2",
         "text": "The latest reported quarter combines strong profitability with large cash generation:\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] and operating income of [MU | quarter_operating_income: 44318000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating cash flow of [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d];\n- free cash flow of [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d].\n\nThe ledger's operating margin value for this quarter differs from the figure recorded in the previous claim; the current ledger value is used.\n\nCash of [MU | cash_equivalents: 38364000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] against total debt of [MU | total_debt: 4688000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] gives net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d], a net cash position.\n\nThe thesis is refuted if price breaks below the fixed thesis floor in the executable condition. It is also refuted if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot 2bf4929aac0d].",
-        "status": "valid",
+        "status": "unassessed",
         "conditions": [
           {
             "type": "earnings_approaching",
@@ -107,8 +107,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-02T18:40Z",
-        "trigger": null
+        "last_updated": "2026-10-03T00:33Z",
+        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supp"
       }
     ],
     "monitoring": {
@@ -308,6 +308,99 @@
           "news:36a18b974429f6779802b46f"
         ]
       }
+    },
+    "pending_review": {
+      "claim_id": "news_shock",
+      "condition_type": "sentiment_support",
+      "cooldown_key": "thesis:MU",
+      "material_event_id": "966f44803224de0dad612e5d",
+      "material_event_ids": [
+        "966f44803224de0dad612e5d",
+        "a450cb0eddc0115bddaf0d73",
+        "c5d2ccc053e2b18f80ba9810"
+      ],
+      "measured": 1,
+      "news_evidence": {
+        "citation_selections": [
+          {
+            "source_id": "news:314554e1ff2c1ccda8a097c6"
+          },
+          {
+            "source_id": "news:d8e467ffa9b77645703af5b4"
+          },
+          {
+            "source_id": "news:eabde445d54e085f87f367e5"
+          }
+        ],
+        "citations": [
+          {
+            "quote": "Micron Technology, Inc. is upgraded to a Buy, driven by robust AI-related demand and a compelling 6x earnings multiple. MU's Q4 revenue soared 379% YoY to $54.2B, with gross margin at 87% and a $68.3B net cash position. Management anticipat",
+            "source_id": "news:314554e1ff2c1ccda8a097c6"
+          },
+          {
+            "quote": "Micron Technology, Inc. is upgraded to Buy, driven by accelerating Strategic Customer Agreements (SCAs) that enhance long-term revenue visibility and pricing power. Q4 FY26 results showed robust sequential growth, with DRAM and NAND prices",
+            "source_id": "news:d8e467ffa9b77645703af5b4"
+          },
+          {
+            "quote": "Micron Technology, Inc. delivered robust FQ4 results, with $54.23B in revenue, an 87% GAAP gross margin, and $33.42 EPS, highlighting exceptional memory market strength. MU's forward strategy leverages $50B+ annual capex for early cleanroom",
+            "source_id": "news:eabde445d54e085f87f367e5"
+          }
+        ],
+        "claim_ids": [
+          "MU-1",
+          "MU-2"
+        ],
+        "counterevidence": "N2 is sector-level commentary on AI and oil leadership but does not address Micron-specific margin sustainability or competitive threats. N3 reports capex expectations of $25B over two quarters but does not validate or challenge the margin or cash flow thesis. The sources do not directly address the opinion articles' claims that margins are unsustainably high or that competitor capacity threatens pricing; however, N4 and N5 provide contractual and commitment evidence (SCAs, customer deposits, RPO) that partially mitigates the sustainability concern by anchoring future revenue and pricing to customer agreements rather than spot market dynamics alone.",
+        "impact": "supports",
+        "reasoning": "The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supporting the cash generation and demand sustainability narrative. N4 emphasizes Strategic Customer Agreements (SCAs) covering over 35% of 2030 revenue with defined pricing bands and customer deposits, directly addressing the margin sustainability question raised in MU-1 by providing a contractual foundation for pricing power. N5 reinforces the same SCA metrics (>35% of 2030 revenue committed) and reports $150B in Remaining Performance Obligation plus $32B in customer financial commitments, which substantiate the strong cash flow and forward visibility claims in MU-2. The sources do not contradict the price positioning or analyst revision data in MU-1.",
+        "source_documents": {
+          "news:314554e1ff2c1ccda8a097c6": {
+            "published_at": "2026-10-02 15:40:21",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "MU",
+            "text": "Micron Technology, Inc. is upgraded to a Buy, driven by robust AI-related demand and a compelling 6x earnings multiple. MU's Q4 revenue soared 379% YoY to $54.2B, with gross margin at 87% and a $68.3B net cash position. Management anticipates tighter supply-demand through 2028, with over 75% of 2028 shipments already committed.",
+            "title": "Micron: It's Different This Time - Buy At 6x Earnings Before AI Agents Rerate It",
+            "url": "https://seekingalpha.com/article/4951674-micron-its-different-this-time-buy-at-6x-earnings-before-ai-agents-rerate-it"
+          },
+          "news:a4b97b09bdb75e9f5d748aa8": {
+            "published_at": "2026-10-02 16:01:03",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "MU",
+            "text": "AI investment and surging oil prices position Technology and Energy as key market leaders in 2026, despite higher yields and persistent inflation.",
+            "title": "AI and Oil Shape Market Leadership in the First Nine Months of 2026",
+            "url": "https://www.zacks.com/stock/news/2999647/ai-and-oil-shape-market-leadership-in-the-first-nine-months-of-2026?cid=CS-STOCKNEWSAPI-FT-analyst_blog|industry_focus-2999647"
+          },
+          "news:bd603723167a3530f942e500": {
+            "published_at": "2026-10-02 17:17:01",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "MU",
+            "text": "Micron's revenue was a record $54.2 billion for its fiscal fourth quarter. Micron expects to spend about $25 billion on new plants and equipment over its next two quarters.",
+            "title": "Micron's Last 5 Post-Earnings Dips Turned Into Gains. This Time, the Stock Rose Instead.",
+            "url": "https://www.fool.com/investing/2026/10/02/micron-s-last-5-post-earnings-dips-turned-into-gains-this-time-the-stock-rose-instead/"
+          },
+          "news:d8e467ffa9b77645703af5b4": {
+            "published_at": "2026-10-02 18:51:24",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "MU",
+            "text": "Micron Technology, Inc. is upgraded to Buy, driven by accelerating Strategic Customer Agreements (SCAs) that enhance long-term revenue visibility and pricing power. Q4 FY26 results showed robust sequential growth, with DRAM and NAND prices rising sharply and margins spiking due to tight supply-demand dynamics. Over 35% of estimated 2030 revenue is now secured via SCAs, many with defined pricing bands and significant customer cash deposits, extending longer-term visibility.",
+            "title": "Micron And MUU: The Structural Shift Thesis Is Strengthening",
+            "url": "https://seekingalpha.com/article/4951695-micron-and-muu-the-structural-shift-thesis-is-strengthening"
+          },
+          "news:eabde445d54e085f87f367e5": {
+            "published_at": "2026-10-02 15:06:48",
+            "scope": "provider article/excerpt; not independently verified full text",
+            "symbol": "MU",
+            "text": "Micron Technology, Inc. delivered robust FQ4 results, with $54.23B in revenue, an 87% GAAP gross margin, and $33.42 EPS, highlighting exceptional memory market strength. MU's forward strategy leverages $50B+ annual capex for early cleanroom construction, aligning future equipment deployment with rising Strategic Customer Agreements (SCAs) covering >35% of 2030 revenue. Over 75% of FY2027 output is already committed, with $150B in Remaining Performance Obligation and $32B in customer financial commitments, enhancing downside visibility.",
+            "title": "Micron: The $50 Billion CapEx Misconception (Why The Memory Floor Is Rising)",
+            "url": "https://seekingalpha.com/article/4951668-micron-the-50-billion-capex-misconception-why-the-memory-floor-is-rising"
+          }
+        },
+        "uncertainty": "The sources do not provide independent verification of whether the reported 87% gross margin and 81.7% operating margin are sustainable beyond the current quarter or whether competitor capacity will erode pricing. N1 cites management's forward guidance on supply tightness through 2028, but this is a forward statement, not a measured result. The sources confirm the existence of SCAs and customer commitments but do not quantify the pricing bands or discount rates embedded in those contracts, leaving the true margin floor uncertain. No source addresses the specific opinion articles' claims about unsustainability or competitive threats with measured data. The next earnings date (2026-12-23) will provide the first measured test of margin persistence."
+      },
+      "severity": "thesis",
+      "symbol": "MU",
+      "threshold": 0,
+      "trigger": "The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supporting the cash generation and demand sustainability narrative. N4 emphasizes Strategic Customer Agreements (SCAs) covering over 35% of 2030 revenue with defined pricing bands and customer deposits, directly addressing the margin sustainability question raised in MU-1 by providing a contractual foundation for pricing power. N5 reinforces the same SCA metrics (>35% of 2030 revenue committed) and reports $150B in Remaining Performance Obligation plus $32B in customer financial commitments, which substantiate the strong cash flow and forward visibility claims in MU-2. The sources do not contradict the price positioning or analyst revision data in MU-1."
     }
   },
   "AMD": {
@@ -796,8 +889,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-02T19:05Z",
-        "trigger": "2026-10-02T19:05Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-03T00:33Z",
+        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       },
       {
         "id": "NVDA-2",
@@ -820,8 +913,8 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-10-02T19:05Z",
-        "trigger": "2026-10-02T19:05Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-03T00:33Z",
+        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       },
       {
         "id": "NVDA-3",
@@ -857,8 +950,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-02T19:05Z",
-        "trigger": "2026-10-02T19:05Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-03T00:33Z",
+        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
       }
     ],
     "monitoring": {

@@ -317,6 +317,59 @@
           "risk": null
         }
       ]
+    },
+    "3f9fdd499224f8c5c7b59711": {
+      "symbol": "NVDA",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "direction": "down",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-10-03:NVDA:v2",
+      "window_30d": {
+        "breadth": -1.0,
+        "down_firms": 2,
+        "initiated_or_resumed_firms": 1,
+        "matched_firms": 2,
+        "median_revision_pct": -28.3333,
+        "target_dispersion_pct": 16.77657522143511,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
     }
   },
   "revenue_consensus_revision_cohorts": {
@@ -928,6 +981,282 @@
       "revision_pct": -0.4330211435545174,
       "analyst_count_previous": 30.0,
       "analyst_count_current": 30.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "6645f3221eb1a3c80df1f70b": {
+      "symbol": "MU",
+      "fiscal_period": "2027-09-03",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "previous_observed_at": "2026-10-02T00:49:54+00:00",
+      "previous_consensus_revenue": 266089462803.0,
+      "current_consensus_revenue": 270592826110.0,
+      "revision_pct": 1.6924245175142754,
+      "analyst_count_previous": 23.0,
+      "analyst_count_current": 27.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "be69d91a246420a905599b59": {
+      "symbol": "MU",
+      "fiscal_period": "2028-09-03",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "previous_observed_at": "2026-10-02T00:49:54+00:00",
+      "previous_consensus_revenue": 310614363042.0,
+      "current_consensus_revenue": 317895990186.0,
+      "revision_pct": 2.344266077295147,
+      "analyst_count_previous": 32.0,
+      "analyst_count_current": 27.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "a75adc8be6d47e2d79d195e7": {
+      "symbol": "MU",
+      "fiscal_period": "2029-09-03",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "previous_observed_at": "2026-10-02T00:49:54+00:00",
+      "previous_consensus_revenue": 325757057126.0,
+      "current_consensus_revenue": 334807070001.0,
+      "revision_pct": 2.7781479102383755,
+      "analyst_count_previous": 6.0,
+      "analyst_count_current": 13.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "42d4ff8501b51a758d5cd2bb": {
+      "symbol": "MU",
+      "fiscal_period": "2030-09-03",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "previous_observed_at": "2026-10-02T00:49:54+00:00",
+      "previous_consensus_revenue": 530072000000.0,
+      "current_consensus_revenue": 471862000000.0,
+      "revision_pct": -10.981527037836369,
+      "analyst_count_previous": 4.0,
+      "analyst_count_current": 11.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "76cd4f09289e6daabe2ba30d": {
+      "symbol": "NVDA",
+      "fiscal_period": "2028-01-25",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "previous_observed_at": "2026-10-02T00:49:54+00:00",
+      "previous_consensus_revenue": 691401973454.0,
+      "current_consensus_revenue": 691862290915.0,
+      "revision_pct": 0.06657740050992574,
+      "analyst_count_previous": 43.0,
+      "analyst_count_current": 43.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-11-02",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-05",
+          "end_date": "2026-12-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-05",
+          "end_date": "2027-03-30",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "94d775dfef6214015ef730d7": {
+      "symbol": "NVDA",
+      "fiscal_period": "2029-01-25",
+      "observed_at": "2026-10-03T00:32:30+00:00",
+      "previous_observed_at": "2026-10-02T00:49:54+00:00",
+      "previous_consensus_revenue": 922864668482.0,
+      "current_consensus_revenue": 924114668482.0,
+      "revision_pct": 0.13544781187214566,
+      "analyst_count_previous": 38.0,
+      "analyst_count_current": 38.0,
       "results": [
         {
           "horizon_sessions": 20,
