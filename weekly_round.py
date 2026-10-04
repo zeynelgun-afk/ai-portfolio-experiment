@@ -353,7 +353,8 @@ def main():
                  'state/audit_disagreements.json'):
         path = BASE/name
         context[name] = path.read_text()[-50000:] if path.exists() else 'unavailable'
-    context['weekly_data.json'] = data
+    from llm_context import research_view
+    context['weekly_data.json'] = research_view(data)
     context['required_watchlist_symbols'] = sorted(symbols)
     context['watchlist_contract'] = 'Exactly one KEEP/DROP/OPEN row for EVERY required_watchlist_symbols entry, including existing holdings. Do not omit a symbol because it is already held.'
     if quotes:

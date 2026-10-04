@@ -144,6 +144,10 @@ def budget_state(counter_path, moment):
 def _single_call(model, messages, api_key, response_schema=None):
     """One isolated subscription call; legacy model/key args are not credentials."""
     import llm_transport
+    if len(json.dumps(messages).encode("utf-8")) > 1_500_000:
+        print("ERROR: LLM request exceeds 1500000-byte input limit; no inference started")
+        return None, False
+
     try:
         return llm_transport.complete(messages, response_schema=response_schema), False
     except llm_transport.InferenceError:
@@ -207,16 +211,21 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
     Returns (payload, status) · status "ok" | "unparseable" | "unsourced_numbers".
     A None payload means the claim MUST NOT be changed.
     """
+    from llm_context import ledger_view
     sleep = sleep or SLEEP
     messages = [{"role": "system", "content": policy() + "\n\n" + system},
                 {"role": "user", "content": user}]
     if source_ledger is not None:
         import evidence
         messages[0]["content"] += "\n" + evidence.INSTRUCTION
-        messages[1]["content"] += "\nSOURCE_LEDGER:\n" + json.dumps(source_ledger)
+        messages[1]["content"] += "\nSOURCE_LEDGER:\n" + json.dumps(ledger_view(source_ledger), separators=(",", ":"))
     last_status = "unparseable"
 
+    initial_messages = copy.deepcopy(messages)
     for attempt in range(1, MAX_ATTEMPTS + 1):
+        if len(messages) > len(initial_messages):
+            messages = initial_messages + copy.deepcopy(messages[-2:])
+            messages[-2]["content"] = messages[-2]["content"][:32000]
         if response_schema:
             text, retryable = _single_call(model, messages, api_key,
                                            response_schema=response_schema)

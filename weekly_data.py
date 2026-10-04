@@ -329,7 +329,8 @@ def main():
         # Prepare stripped-down datasets for the other two agents
         fundamental_data = {}
         sentiment_data = {}
-        for sym, data in results.items():
+        from llm_context import research_view
+        for sym, data in research_view(results).items():
             if sym == '_meta': continue
             fundamental_data[sym] = {
                 "last_price": data.get("last_price"),
