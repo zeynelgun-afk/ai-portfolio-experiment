@@ -52,13 +52,11 @@ class ChangeStudyTests(unittest.TestCase):
               'previous':{'date':'2024-10-17','content':'Old demand.'},
               'current':{'date':'2025-01-17','content':'New demand.'},
               'outcomes':{'60':{'gross_return_pct':987654321}}}
-        response=Mock(status_code=200)
-        response.json.return_value={'choices':[{'message':{'content':json.dumps(self.label())}}]}
-        with patch('earnings_change_study.requests.post',return_value=response) as request:
+        with patch('llm_transport.complete', return_value=json.dumps(self.label())) as request:
             result=annotate(pair,'test-model','fake')
-            body=request.call_args.kwargs['json']
-            self.assertNotIn('987654321',json.dumps(body))
-            self.assertNotIn('outcomes',body['messages'][1]['content'])
+            messages=request.call_args.args[0]
+            self.assertNotIn('987654321',json.dumps(messages))
+            self.assertNotIn('outcomes',messages[1]['content'])
             self.assertEqual(result['group'],'limited_or_no_change')
 
     def test_flat_schema_normalization_preserves_strict_dimensions(self):

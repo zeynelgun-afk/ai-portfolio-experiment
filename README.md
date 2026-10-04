@@ -103,8 +103,9 @@ Each analyst receives a separate, focused input dataset:
 | **Fundamental Analyst** | Up to eight dated quarters of income, balance-sheet and cash-flow data, valuation and insider evidence | Summary, bull case, bear case, invalidation and data gaps |
 | **News & Sentiment Analyst** | News headlines, analyst targets and consensus grades | Per-company sentiment assessment |
 
-The configured defaults use GPT, Claude and Gemini respectively; environment settings
-can override the research models. Their outputs are assembled into each company's
+All roles use the existing OpenAI Codex subscription through local Hermes
+(`gpt-6-astra`), in separate tool-free contexts. There is no paid-provider fallback.
+Their outputs are assembled into each company's
 **research dossier**. These opinions supply context, not independent proof of numerical
 facts; measured fields and their provenance remain separate.
 
@@ -153,8 +154,9 @@ availability and model response time. A trigger can lead to HOLD; it does not re
 ### 5. Independent review and bounded improvement (`audit.py`, `reviewers.py`)
 
 A deterministic scorecard summarizes recorded decisions and outcomes. Two auditors
-from different model families independently review the same evidence; only matching
-pattern findings enter the consensus record. Unilateral objections remain visible in
+using independent contexts of the same model review the same evidence; only matching
+pattern findings enter the consensus record. This is not multi-provider review:
+correlated model blind spots remain. Unilateral objections remain visible in
 `state/audit_disagreements.json` and are reported to Telegram without becoming automatic rule changes.
 
 Recurring consensus findings can produce an instruction-change proposal through
@@ -165,6 +167,11 @@ path trains model weights or demonstrates improved investment performance. See t
 prompt-improvement sections below for the activation and review boundaries.
 
 ## Scheduled workflows (GitHub Actions)
+
+GitHub schedules weekly/intraday work, but execution now requires the dedicated
+local `portfolio-hermes` runner and `PORTFOLIO_EXECUTOR=local-hermes` ownership flag.
+When the machine/user session is off, execution is unavailable (jobs may queue);
+there is no hosted inference fallback. See [local execution and safe cutover](ops/LOCAL_HERMES.md).
 
 | Workflow | Schedule or trigger | Purpose |
 |---|---|---|

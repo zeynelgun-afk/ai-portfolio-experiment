@@ -38,32 +38,15 @@ class LiveNewsResponseRegressions(unittest.TestCase):
             with self.subTest(error=error), self.assertRaisesRegex(ValueError, error):
                 detector.validate_news_assessment(payload, {'MU-1', 'thesis_summary'}, self.sources)
 
-    def test_native_schema_request_requires_a_compatible_openrouter_provider(self):
+    def test_schema_is_forwarded_to_local_validation(self):
         schema = {'name': 'test_contract', 'schema': {
             'type': 'object', 'properties': {'ok': {'type': 'boolean'}},
             'required': ['ok'], 'additionalProperties': False}}
-
-        class Response:
-            def __enter__(self): return self
-            def __exit__(self, *args): return False
-            def read(self):
-                return b'{"choices":[{"message":{"content":"{\\"ok\\":true}"}}]}'
-
-        captured = {}
-        def urlopen(request, timeout):
-            captured['body'] = json.loads(request.data.decode())
-            return Response()
-
-        with patch.object(reassess.urllib.request, 'urlopen', side_effect=urlopen):
-            text, retryable = reassess._single_call('test-model', [], 'test-key', schema)
-
+        with patch('llm_transport.complete', return_value='{"ok":true}') as local:
+            text, retryable = reassess._single_call('test-model', [], '', schema)
         self.assertEqual(text, '{"ok":true}')
         self.assertFalse(retryable)
-        self.assertEqual(captured['body']['response_format'], {
-            'type': 'json_schema',
-            'json_schema': {'name': 'test_contract', 'strict': True, 'schema': schema['schema']},
-        })
-        self.assertEqual(captured['body']['provider'], {'require_parameters': True})
+        local.assert_called_once_with([], response_schema=schema)
 
 
 class SemanticReviewResponseRegressions(unittest.TestCase):

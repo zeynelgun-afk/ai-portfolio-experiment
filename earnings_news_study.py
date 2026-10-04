@@ -1,4 +1,6 @@
 """Compare paired-call labels with labels augmented by contemporaneous news only."""
+
+import llm_transport
 import argparse
 from datetime import date, timedelta, datetime, timezone
 import json
@@ -40,8 +42,8 @@ def main():
     p.add_argument('--baseline',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     args=p.parse_args()
-    key=os.environ.get('OPENROUTER_API_KEY','')
-    if not key:p.error('OPENROUTER_API_KEY missing')
+    key=llm_transport.credential()
+    if not key:p.error('local Hermes subscription missing')
     args.output.mkdir(parents=True,exist_ok=False)
     report=json.loads(args.baseline.read_text())
     labels, failures, coverage = [], [], []
@@ -65,7 +67,7 @@ def main():
                 failures.append({'symbol':symbol,'reason':'Incomplete or empty news window'});continue
             # Publication dates end on the event day, strictly before baseline next-session entry.
             pair['news']=news
-            label=annotate(pair,os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o',key)
+            label=annotate(pair,llm_transport.MODEL,key)
             (args.output/(symbol+'-label.json')).write_text(json.dumps(label,indent=2,ensure_ascii=False))
             labels.append(label)
             print(symbol,'news assessment completed',len(news),'articles',flush=True)

@@ -1,18 +1,17 @@
-import urllib.request
+"""Read-only real subscription smoke: no market fetch, no portfolio writes."""
 import json
-import os
+import llm_transport
 
-key = os.environ.get("OPENROUTER_API_KEY")
-req = urllib.request.Request(
-    "https://openrouter.ai/api/v1/chat/completions",
-    headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-    data=json.dumps({
-        "model": "google/gemini-flash-1.5-8b",
-        "messages": [{"role": "user", "content": "Hello, answer YES or NO: is the sky blue?"}]
-    }).encode("utf-8")
-)
-try:
-    with urllib.request.urlopen(req) as response:
-        print(json.loads(response.read().decode("utf-8"))["choices"][0]["message"]["content"])
-except Exception as e:
-    print(e)
+
+def main():
+    schema = {'name': 'local_smoke', 'schema': {'type': 'object',
+              'properties': {'status': {'const': 'valid'}, 'paper_only': {'const': True}},
+              'required': ['status', 'paper_only'], 'additionalProperties': False}}
+    result = llm_transport.complete([{'role': 'user', 'content':
+        'Return {"status":"valid","paper_only":true}. This is a transport test, not financial analysis.'}], schema)
+    print(json.dumps({'provider': 'openai-codex', 'model': llm_transport.MODEL,
+                      'validated': json.loads(result), 'paid_fallback': False}))
+
+
+if __name__ == '__main__':
+    main()

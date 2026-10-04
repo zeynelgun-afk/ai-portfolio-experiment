@@ -449,17 +449,13 @@ class AuditScopeTest(unittest.TestCase):
         self.assertEqual(extra, ())
 
 
-class ApiUrlTest(unittest.TestCase):
-    def tearDown(self):
-        os.environ.pop("LLM_BASE_URL", None)
+class SubscriptionRoutingTest(unittest.TestCase):
+    def test_no_http_endpoint_override_remains(self):
+        self.assertFalse(hasattr(ra, 'api_url'))
 
-    def test_the_default_is_openrouter(self):
-        self.assertEqual(ra.api_url(),
-                         "https://openrouter.ai/api/v1/chat/completions")
-
-    def test_the_env_overrides_it_and_is_stripped(self):
-        os.environ["LLM_BASE_URL"] = "  https://api.anthropic.com/v1/  \n"
-        self.assertEqual(ra.api_url(), "https://api.anthropic.com/v1/chat/completions")
+    def test_models_are_the_actual_subscription_model(self):
+        self.assertEqual(ra.DEFAULT_FAST_MODEL, 'gpt-6-astra')
+        self.assertEqual(ra.DEFAULT_DEEP_MODEL, 'gpt-6-astra')
 
 
 class PromptTest(unittest.TestCase):

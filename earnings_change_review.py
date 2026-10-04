@@ -1,4 +1,6 @@
 """Replay source-only annotation review before joining frozen price outcomes."""
+
+import llm_transport
 import argparse
 import hashlib
 import json
@@ -14,8 +16,8 @@ def main():
     p.add_argument('--baseline',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     a=p.parse_args()
-    key=os.environ.get('OPENROUTER_API_KEY','')
-    if not key:p.error('OPENROUTER_API_KEY missing')
+    key=llm_transport.credential()
+    if not key:p.error('local Hermes subscription missing')
     a.output.mkdir(parents=True,exist_ok=False)
     labels,failures=[],[]
     for path in sorted(a.labels_dir.glob('*-label.json')):
@@ -26,7 +28,7 @@ def main():
         news=a.labels_dir/(symbol+'-news.json')
         if news.exists():pair['news']=json.loads(news.read_text())['accepted']
         try:
-            label=annotate(pair,os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o',key,candidate)
+            label=annotate(pair,llm_transport.MODEL,key,candidate)
             label['previous_label_sha256']=hashlib.sha256(path.read_bytes()).hexdigest()
             (a.output/path.name).write_text(json.dumps(label,indent=2,ensure_ascii=False))
             labels.append(label)

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""The adversarial review layer — two auditors, two model families, consensus only.
+"""The adversarial review layer — two isolated auditors, one subscription model, consensus only.
 
 An auditor that reads the same data as the decision-maker produces a correlated second
 guess. Two things are done about that here:
 
   1. The auditors are fed the deterministic scorecard (`audit.py`) first. They argue from
      what happened, not from the same prose the decision-maker wrote.
-  2. They run on two different model families, and **a finding is recorded only when both
+  2. They run in two isolated contexts of the SAME model, and **a finding is recorded only when both
      report the same pattern**. One model's idiosyncratic reading is not a finding; the
      same fault seen from two directions is.
 
@@ -22,6 +22,8 @@ Usage (normally invoked by audit.py --review):
     python reviewers.py --dry-run     # print both prompts, make no calls
 """
 
+import llm_transport
+
 import argparse
 import json
 import hashlib
@@ -35,10 +37,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 LOG_PATH = os.path.join(BASE, "DECISION_LOG.md")
 AUDIT_LOG_PATH = os.path.join(BASE, "AUDIT_LOG.md")
 
-# Verified against OpenRouter's live catalogue and exercised with a real call against this
-# schema. Two families on purpose: the same family shares the same blind spots.
-DEFAULT_AUDITOR_A = "anthropic/claude-opus-5.5"
-DEFAULT_AUDITOR_B = "openai/gpt-5.6-sol"
+# Independent contexts, SAME model: correlated blind spots remain.
+DEFAULT_AUDITOR_A = llm_transport.MODEL
+DEFAULT_AUDITOR_B = llm_transport.MODEL
 
 # How many recent rounds of the decision log each auditor reads. Enough for the reasoning
 # to be judged in context, bounded so the call stays cheap and repeatable.
@@ -272,7 +273,7 @@ def append_audit_log(path, stamp, agreed, note, recurring, models):
         lines += [
             "# Audit log — adversarial review",
             "",
-            "Two independent auditors on two model families review each round's "
+            "Two isolated auditor contexts on the same model review each round's "
             "reasoning against the deterministic scorecard in `AUDIT.md`. **A finding is "
             "recorded here only when both auditors report the same pattern** — one "
             "model's idiosyncratic reading is not evidence.",
@@ -313,12 +314,12 @@ def append_audit_log(path, stamp, agreed, note, recurring, models):
 
 
 def review(scorecard, state_dir, dry_run=False):
-    api_key = env("OPENROUTER_API_KEY")
+    api_key = llm_transport.credential()
     if not api_key and not dry_run:
-        raise RuntimeError("OPENROUTER_API_KEY is required for the requested adversarial review")
+        raise RuntimeError("local Hermes subscription is required for the requested adversarial review")
 
-    model_a = env("OPENROUTER_MODEL_AUDIT_A", DEFAULT_AUDITOR_A)
-    model_b = env("OPENROUTER_MODEL_AUDIT_B", DEFAULT_AUDITOR_B)
+    model_a = llm_transport.MODEL
+    model_b = llm_transport.MODEL
     text = open(LOG_PATH, encoding="utf-8").read() if os.path.exists(LOG_PATH) else ""
     theses = reassess.read_json(os.path.join(BASE, "theses.json"), {})
     prompt = build_prompt(scorecard, recent_rounds(text), theses)

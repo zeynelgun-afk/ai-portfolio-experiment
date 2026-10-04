@@ -1,3 +1,5 @@
+
+import llm_transport
 #!/usr/bin/env python3
 import os
 import json
@@ -80,12 +82,8 @@ CLAIMS AND OFFICIAL FILINGS:\n{json.dumps(available,ensure_ascii=False)}'''
 
 
 def _theme_model_json(prompt, api_key, model):
-    request = urllib.request.Request('https://openrouter.ai/api/v1/chat/completions',
-        headers={'Authorization':f'Bearer {api_key}','Content-Type':'application/json'},
-        data=json.dumps({'model':model,'messages':[{'role':'system','content':policy()},
-            {'role':'user','content':prompt}],'temperature':0}).encode())
-    with urllib.request.urlopen(request,timeout=60) as response:
-        content=json.loads(response.read().decode())['choices'][0]['message']['content'].strip()
+    content = llm_transport.complete([{'role': 'system', 'content': policy()},
+                                      {'role': 'user', 'content': prompt}])
     if content.startswith('```json'):content=content[7:]
     elif content.startswith('```'):content=content[3:]
     if content.endswith('```'):content=content[:-3]
@@ -249,8 +247,8 @@ def refresh_theme_research_inbox():
 
     alerts=[]
     try:
-        analysis = annotate_theme_stories(result, env('OPENROUTER_API_KEY'),
-            os.environ.get('OPENROUTER_MODEL_THEME', 'openai/gpt-4o'))
+        analysis = annotate_theme_stories(result, llm_transport.credential(),
+            llm_transport.MODEL)
         analysis = analysis if isinstance(analysis, dict) else {'themes': analysis, 'company_exposures': []}
         result = attach_theme_links(result, analysis.get('themes', []))
         result = attach_company_exposures(result, analysis.get('company_exposures', []))
@@ -324,7 +322,7 @@ def get_fmp(endpoint, api_key, limit=20):
         raise RuntimeError(f"Scout could not fetch FMP endpoint {endpoint}") from None
 
 def run_scout():
-    or_key = env("OPENROUTER_API_KEY")
+    or_key = llm_transport.credential()
 
     if not or_key:
         raise RuntimeError("Missing API keys for Scout")
@@ -348,52 +346,37 @@ DISCOVERY INPUTS:
 
     print("Asking LLM to hunt for dynamic watchlist...")
     try:
-        req = urllib.request.Request(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={"Authorization": f"Bearer {or_key}", "Content-Type": "application/json"},
-            data=json.dumps({
-                "model": "openai/gpt-4o",
-                "messages": [{"role": "system", "content": policy()},
-                             {"role": "user", "content": prompt}],
-                "temperature": 0.5
-            }).encode("utf-8")
-        )
-        with urllib.request.urlopen(req, timeout=30) as res:
-            answer = json.loads(res.read().decode("utf-8"))["choices"][0]["message"]["content"].strip()
-            # Clean up markdown if any
-            if answer.startswith("```json"): answer = answer[7:]
-            if answer.startswith("```"): answer = answer[3:]
-            if answer.endswith("```"): answer = answer[:-3]
+        answer = llm_transport.complete([{'role': 'system', 'content': policy()},
+                                         {'role': 'user', 'content': prompt}])
+        new_symbols = validate_symbols(json.loads(answer.strip()))
 
-            new_symbols = validate_symbols(json.loads(answer.strip()))
+        if any(symbol not in discovery['membership'] for symbol in new_symbols):
+            raise ValueError('Scout selected a company without discovery evidence')
+        selected = list(new_symbols)
+        # Must always include current portfolio!
+        port_path = os.path.join(BASE_DIR, "portfolio.json")
+        if os.path.exists(port_path):
+            with open(port_path) as f:
+                port = json.load(f)
+                for pos in port.get("positions", []):
+                    if pos["symbol"] not in new_symbols:
+                        new_symbols.append(pos["symbol"])
 
-            if any(symbol not in discovery['membership'] for symbol in new_symbols):
-                raise ValueError('Scout selected a company without discovery evidence')
-            selected = list(new_symbols)
-            # Must always include current portfolio!
-            port_path = os.path.join(BASE_DIR, "portfolio.json")
-            if os.path.exists(port_path):
-                with open(port_path) as f:
-                    port = json.load(f)
-                    for pos in port.get("positions", []):
-                        if pos["symbol"] not in new_symbols:
-                            new_symbols.append(pos["symbol"])
+        # Save to watchlist
+        state_dir = os.path.join(BASE_DIR, "state")
+        os.makedirs(state_dir, exist_ok=True)
+        write_json(os.path.join(state_dir, "watchlist.json"), sorted(set(new_symbols)))
+        discovery['selected'] = selected
+        discovery['retained_holdings'] = sorted(set(new_symbols)-set(selected))
+        write_json(os.path.join(state_dir, 'discovery.json'), discovery)
+        deliver_watchlist_if_changed(new_symbols)
 
-            # Save to watchlist
-            state_dir = os.path.join(BASE_DIR, "state")
-            os.makedirs(state_dir, exist_ok=True)
-            write_json(os.path.join(state_dir, "watchlist.json"), sorted(set(new_symbols)))
-            discovery['selected'] = selected
-            discovery['retained_holdings'] = sorted(set(new_symbols)-set(selected))
-            write_json(os.path.join(state_dir, 'discovery.json'), discovery)
-            deliver_watchlist_if_changed(new_symbols)
+        # Cross-sector thematic ideas live in their own review queue. They do not
+        # enter the 15-20 symbol decision watchlist automatically.
+        refresh_theme_research_inbox()
 
-            # Cross-sector thematic ideas live in their own review queue. They do not
-            # enter the 15-20 symbol decision watchlist automatically.
-            refresh_theme_research_inbox()
-
-            print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
-            print(new_symbols)
+        print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
+        print(new_symbols)
     except Exception as e:
         raise RuntimeError("Scout Agent failed; watchlist generation did not complete") from None
 

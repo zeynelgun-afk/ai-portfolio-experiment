@@ -1,0 +1,45 @@
+name: Local Hermes Smoke
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-round
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    if: github.ref == 'refs/heads/main'
+    runs-on: [portfolio-hermes]
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Offline regression tests
+        run: python -m pytest -q
+      - name: Real structured subscription inference (no portfolio writes)
+        run: python smoke_llm.py
+      - name: Verify market credential presence without disclosing values
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+          SEC_CONTACT_EMAIL: ${{ secrets.SEC_CONTACT_EMAIL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python - <<'PY'
+          import os
+          names = ('FMP_API_KEY','FRED_API_KEY','EIA_API_KEY','SEC_CONTACT_EMAIL','TELEGRAM_BOT_TOKEN','TELEGRAM_CHAT_ID')
+          missing = [name for name in names if not os.environ.get(name, '').strip()]
+          if missing: raise SystemExit('Missing: ' + ', '.join(missing))
+          print('All required secret names are populated; no delivery or trade attempted.')
+          PY
+      - name: Preserve exact local attempt and release successful claim
+        if: always()
+        run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"

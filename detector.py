@@ -33,6 +33,8 @@ Usage:
     python detector.py --fixed-data tests/sample.json   # no network, data from a file
 """
 
+import llm_transport
+
 import argparse
 import json
 import math
@@ -415,7 +417,7 @@ def check_news_shock(symbol, thesis_summary, news_items, claims=None):
     """Require source text, exact citations, a mapped claim and explicit uncertainty."""
     from claim_evidence import documents, resolve_source_references
     from reassess import call_llm
-    api_key = env('OPENROUTER_API_KEY')
+    api_key = llm_transport.credential()
     sources = documents(symbol, news_items)
     source_aliases = {f'N{index}': key for index, key in enumerate(sorted(sources), 1)}
     model_sources = {alias: {**{k: sources[key].get(k) for k in
@@ -461,7 +463,7 @@ Every completed verdict needs exact citations from the supplied source texts. Ex
             'additionalProperties': False,
         },
     }
-    report,status=call_llm(env('OPENROUTER_MODEL_NEWS',env('OPENROUTER_MODEL_FAST','anthropic/claude-haiku-4.5')),
+    report,status=call_llm(llm_transport.MODEL,
                            prompt,json.dumps({'thesis_summary':thesis_summary,'claims':claims or [],'sources':model_sources}),
                            api_key,response_validator=validate,response_schema=news_schema)
     if not report:

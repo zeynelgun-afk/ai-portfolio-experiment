@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Structured weekly decisions, deterministic execution and crash-safe local replay."""
+
+import llm_transport
 import argparse
 import copy
 from datetime import datetime, timedelta, timezone
@@ -360,7 +362,7 @@ def main():
     context['mode'] = 'SESSION REASSESSMENT: reconsider the weekend plan; HOLD is valid' if args.execute_pending else 'WEEKEND RESEARCH ONLY: no trades until session reassessment'
     if args.execute_pending:
         context['weekend_plan'] = plan['proposal']
-    key = os.environ.get('OPENROUTER_API_KEY')
+    key = llm_transport.credential()
     if not key:
         raise ValueError('Weekly decision API key is missing')
     old_theses = read_json(str(BASE/'theses.json'), {})
@@ -385,14 +387,14 @@ def main():
         reviewed[:] = [semantic_review(
             {'proposal': candidate, 'previous_theses': old_theses,
              'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
-            data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')]
-    proposal, status = call_llm(os.environ.get('OPENROUTER_MODEL_WEEKLY') or 'anthropic/claude-opus-5.5',
+            data, facts, key, llm_transport.MODEL)]
+    proposal, status = call_llm(llm_transport.MODEL,
                                 SYSTEM+"\n"+lifecycle.INSTRUCTION+"\n"+REVIEW_INSTRUCTION+"\nPut monitoring and analyst_review inside EACH decision; monitoring claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
                                 response_validator=validate_proposal, semantic_validator=validate_semantics)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
     from claim_evidence import semantic_review
-    review = reviewed[0] if reviewed else semantic_review({'proposal':proposal,'previous_theses':old_theses,'review_focus':'Compare old and new conditions; reject price-only excuses for changing thresholds.'}, data, facts, key, os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o')
+    review = reviewed[0] if reviewed else semantic_review({'proposal':proposal,'previous_theses':old_theses,'review_focus':'Compare old and new conditions; reject price-only excuses for changing thresholds.'}, data, facts, key, llm_transport.MODEL)
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data, 'proposal': proposal, 'semantic_review':review})
     if not args.execute_pending:
         build_targets(proposal, book, old_theses, data, moment, original_log, preview=True)
