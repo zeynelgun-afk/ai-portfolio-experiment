@@ -370,12 +370,14 @@ Each assessment records exact source quotes, affected claim IDs, counterevidence
 uncertainty. Headline-only or partially missing packets stay pending and generate
 assessment errors. These are provider excerpts, not independently scraped full text.
 
-A separate model challenges factual and causal assertions before weekly proposals
+A separate inference context challenges factual and causal assertions before weekly proposals
 or intraday thesis edits can pass. Unsupported/uncertain drafts leave existing text
 unassessed and produce no associated decision. Attributed forecasts remain forecasts;
 quoting an analyst does not establish their prediction as fact. The reviewer is still
 a fallible model, not a proof engine. Its English prompt is included in `prompt_eval.py`.
-`OPENROUTER_MODEL_REVIEW` selects it (default `openai/gpt-4o`). Review calls count toward
+The reviewer uses `llm_transport.MODEL` through the local Hermes subscription.
+OpenRouter keys, model overrides and HTTP endpoint overrides are not used; inference
+failure stops the assessment without a paid-provider fallback. Review calls count toward
 the claim budget; existing thesis-level emergency budget exceptions remain unchanged.
 Evidence is retained in workflow artifacts and `state/violations.json` for intraday work.
 

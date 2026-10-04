@@ -306,7 +306,7 @@ def main():
     if api_key and reassess:
         print("\nDeploying Multi-Agent Research Team (Isolating Contexts)...")
 
-        # Dynamic Auto-Discovery: Find the absolute newest models available on OpenRouter
+        # Independent research contexts use the subscription-only transport.
         macro_model = (llm_transport.MODEL)
         fund_model = (llm_transport.MODEL)
         sent_model = (llm_transport.MODEL)

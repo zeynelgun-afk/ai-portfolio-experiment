@@ -19,7 +19,7 @@ from watchlist_telegram import change_message, delivered_state
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def annotate_theme_stories(radar, api_key, model='openai/gpt-4o'):
+def annotate_theme_stories(radar, api_key, model=llm_transport.MODEL):
     """Read extracted article bodies, map supply-chain claims, then check issuer filings."""
     evidence_articles=[]
     for item in radar.get('news', [])[:60]:

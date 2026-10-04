@@ -69,3 +69,32 @@ def test_schema_rejection_never_returns_unvalidated_text():
     with patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0, '\n'.join(map(json.dumps, events)), '')):
         with pytest.raises(llm.InferenceError):
             llm.complete([], {'name': 'x', 'schema': {'type': 'object', 'properties': {'status': {'const': 'valid'}}}})
+
+
+def test_retired_provider_environment_cannot_change_subscription_route(monkeypatch):
+    import llm_transport as llm
+    monkeypatch.setenv('OPENROUTER_API_KEY', 'unused-test-key')
+    monkeypatch.setenv('OPENROUTER_MODEL_REVIEW', 'retired-paid-model')
+    monkeypatch.setenv('LLM_BASE_URL', 'https://openrouter.ai/api/v1')
+    events = '\n'.join(json.dumps(event) for event in [
+        {'type': 'system', 'subtype': 'init', 'model': llm.MODEL},
+        {'type': 'result', 'exit_code': 0, 'text': '{}', 'session_id': 'fresh'}])
+    with patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0, events, '')) as run:
+        llm.complete([])
+    argv = run.call_args.args[0]
+    assert argv[argv.index('--provider') + 1] == 'openai-codex'
+    assert argv[argv.index('--model') + 1] == llm.MODEL
+    env = run.call_args.kwargs['env']
+    assert not any(key.startswith('OPENROUTER_') or key == 'LLM_BASE_URL' for key in env)
+
+
+def test_automation_cannot_restore_retired_provider_configuration():
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1]
+    paths = list((root / '.github/workflows').glob('*.yml'))
+    paths += list((root / 'ops').glob('*.py'))
+    paths += [root / 'llm_transport.py']
+    for path in paths:
+        text = path.read_text()
+        for forbidden in ('OPENROUTER_API_KEY', 'OPENROUTER_MODEL_', 'openrouter.ai', 'LLM_BASE_URL'):
+            assert forbidden not in text, (path.name, forbidden)
