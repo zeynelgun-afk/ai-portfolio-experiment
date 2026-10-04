@@ -21,9 +21,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements-dev.txt
       - name: Regression and isolated end-to-end tests
-        run: python -m unittest discover -s tests -t .
+        run: python -m pytest -q
       - name: Prompt contract and regression gate
         run: python prompt_eval.py > prompt-evaluation.json
       - name: Build dashboard

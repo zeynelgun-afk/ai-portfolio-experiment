@@ -71,6 +71,10 @@ def api(endpoint, method='GET', payload=None):
 def repair_plan(kind, run, jobs):
     if kind == 'missing':
         return 'dispatch'
+    # Re-running a historical Actions run reuses its OLD workflow SHA, which may
+    # still be hosted/paid. Local unresolved claims need operator reconciliation.
+    if os.environ.get('PORTFOLIO_EXECUTOR') == 'local-hermes':
+        return None
     if kind != 'failed' or not run or run.get('conclusion') != 'failure':
         return None
     failed_steps = [s['name'] for j in jobs for s in j.get('steps', []) if s.get('conclusion') == 'failure']

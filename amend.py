@@ -31,6 +31,8 @@ Usage:
     python amend.py               # write the branch and open the pull request
 """
 
+import llm_transport
+
 import argparse
 import json
 import os
@@ -245,7 +247,7 @@ def export_proposals(state_dir, counts, pending, api_key):
         prompt = build_prompt(pattern, item["count"], item.get("first_seen", "unknown"),
                               evidence_for(pattern, audit_log), instructions)
         proposal, status = reassess.call_llm(
-            env("OPENROUTER_MODEL_DEEP", reassess.DEFAULT_DEEP_MODEL), SYSTEM, prompt, api_key)
+            llm_transport.MODEL, SYSTEM, prompt, api_key)
         amended, problem = validate(proposal, instructions) if isinstance(proposal, dict) else (None, status)
         if amended is None:
             failures.append(pattern)
@@ -274,9 +276,9 @@ def propose(state_dir, dry_run=False, export_only=False):
               "proposed")
         return 0
 
-    api_key = env("OPENROUTER_API_KEY")
+    api_key = llm_transport.credential()
     if not api_key and not dry_run:
-        print("No OPENROUTER_API_KEY — the amendment text cannot be written; the "
+        print("No local Hermes subscription — the amendment text cannot be written; the "
               "recurring patterns stay flagged in AUDIT_LOG.md")
         return 1
 
@@ -289,7 +291,7 @@ def propose(state_dir, dry_run=False, export_only=False):
               "stash first.")
         return 1
 
-    model = env("OPENROUTER_MODEL_DEEP", reassess.DEFAULT_DEEP_MODEL)
+    model = llm_transport.MODEL
     audit_log = (open(AUDIT_LOG_PATH, encoding="utf-8").read()
                  if os.path.exists(AUDIT_LOG_PATH) else "")
     opened = 0

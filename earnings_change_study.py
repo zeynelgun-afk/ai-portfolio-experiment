@@ -1,4 +1,6 @@
 """Price-blind paired earnings-call pilot; evidence-linked model labels, not trade signals."""
+
+import llm_transport
 import argparse
 from datetime import datetime, timezone
 import hashlib
@@ -153,17 +155,12 @@ and rationales, preserve genuine counterevidence. Return JSON with a top-level d
 '''
         prompt += '\nFALLIBLE_PRELIMINARY_ANNOTATION: '+json.dumps(audit_candidate['dimensions'],ensure_ascii=False)
     try:
-        response = requests.post('https://openrouter.ai/api/v1/chat/completions',
-            headers={'Authorization':'Bearer '+key},
-            json={'model':model,'temperature':0,'max_tokens':4500,
-                  'response_format':{'type':'json_object'},
-                  'messages':[{'role':'system','content':system_prompt},{'role':'user','content':prompt}]},timeout=90)
-        if response.status_code!=200:
-            raise ValueError('LLM HTTP '+str(response.status_code))
-        response_data = response.json()
-        payload = json.loads(response_data['choices'][0]['message']['content'])
+        content = llm_transport.complete([{'role': 'system', 'content': system_prompt},
+                                          {'role': 'user', 'content': prompt}])
+        response_data = {'usage': None}  # CLI usage is not an OpenRouter billing record
+        payload = json.loads(content)
         label = validate_label(payload,old,new)
-    except (requests.RequestException, KeyError, IndexError, TypeError, ValueError) as exc:
+    except (llm_transport.InferenceError, requests.RequestException, KeyError, IndexError, TypeError, ValueError) as exc:
         # Never disclose HTTP payloads/URLs or authentication material.
         raise ValueError('Model response or evidence validation failed: '+type(exc).__name__) from None
     return {**label,'symbol':pair['symbol'],'event_date':pair['event_date'],'model':model,
@@ -203,15 +200,15 @@ def main():
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--annotate',action='store_true',help='Run up to six source-grounded model calls')
     args=parser.parse_args()
-    key=os.environ.get('OPENROUTER_API_KEY','')
+    key=llm_transport.credential()
     if args.annotate and not key:
-        parser.error('OPENROUTER_API_KEY missing')
+        parser.error('local Hermes subscription missing')
     args.output.mkdir(parents=True,exist_ok=False)
     report=json.loads(args.baseline.read_text())
     pairs, failures=collect_pairs(report,args.output)
     labels=[]
     if args.annotate:
-        model=os.environ.get('OPENROUTER_MODEL_REVIEW') or 'openai/gpt-4o'
+        model=llm_transport.MODEL
         for pair in pairs:
             try:
                 label=annotate(pair,model,key)

@@ -89,7 +89,7 @@ class NewsRecoveryTest(unittest.TestCase):
 
 class ReviewFailureTest(unittest.TestCase):
     def test_missing_key_fails_explicit_review(self):
-        with patch.object(reviewers, 'env', return_value=''):
+        with patch('llm_transport.credential', return_value=''):
             with self.assertRaisesRegex(RuntimeError, 'required'):
                 reviewers.review({}, '/unused')
 

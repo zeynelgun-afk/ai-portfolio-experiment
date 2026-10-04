@@ -27,6 +27,8 @@ Usage:
     python reassess.py --code 10 --dry-run  # no LLM calls; prints the prompts
 """
 
+import llm_transport
+
 import argparse
 import json
 import os
@@ -45,15 +47,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 THESES_PATH = os.path.join(BASE, "theses.json")
 PORTFOLIO_PATH = os.path.join(BASE, "portfolio.json")
 
-# The endpoint is not hardcoded: during an OpenRouter outage, pointing LLM_BASE_URL at
-# another OpenAI-compatible endpoint should not require a code change.
-DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
-API_PATH = "/chat/completions"
-# Model ids verified against OpenRouter's live catalogue and exercised with a real call
-# before being set as defaults — not taken from memory. Opus 5.5 is both newer and cheaper
-# than Opus 5 ($4/$20 vs $5/$25 per 1M) at the same 1M context, so the deep tier uses it.
-DEFAULT_FAST_MODEL = "anthropic/claude-haiku-4.5"
-DEFAULT_DEEP_MODEL = "anthropic/claude-opus-5.5"
+# One subscription model; independent calls have isolated contexts.
+DEFAULT_FAST_MODEL = llm_transport.MODEL
+DEFAULT_DEEP_MODEL = llm_transport.MODEL
 DEFAULT_BUDGET = 60
 REQUEST_TIMEOUT = 120
 
@@ -145,50 +141,14 @@ def budget_state(counter_path, moment):
 # ------------------------------------------------------------------------- the LLM
 
 
-def api_url():
-    base = env("LLM_BASE_URL", DEFAULT_BASE_URL).rstrip("/")
-    return base + API_PATH
-
-
 def _single_call(model, messages, api_key, response_schema=None):
-    """One HTTP call. Returns (text, retryable)."""
-    request_body = {
-        "model": model,
-        "messages": messages,
-        "temperature": 0.2,
-        "response_format": ({"type": "json_schema", "json_schema": {
-            "name": response_schema["name"], "strict": True,
-            "schema": response_schema["schema"]}}
-            if response_schema else {"type": "json_object"}),
-    }
-    if response_schema:
-        # Do not silently route a schema-constrained request to an endpoint that
-        # ignores response_format. OpenRouter will select compatible providers only.
-        request_body["provider"] = {"require_parameters": True}
-    body = json.dumps(request_body).encode("utf-8")
-    request = urllib.request.Request(api_url(), data=body, headers={
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-        "HTTP-Referer": "https://github.com/zeynelgun-afk/ai-portfolio-experiment",
-        "X-Title": "AI Portfolio Experiment - detector",
-    })
+    """One isolated subscription call; legacy model/key args are not credentials."""
+    import llm_transport
     try:
-        with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT) as response:
-            payload = json.loads(response.read().decode("utf-8"))
-        return payload["choices"][0]["message"]["content"], False
-    except urllib.error.HTTPError as error:
-        # A 4xx is a caller error — retrying returns the same result. 429 and 5xx are
-        # transient.
-        retryable = error.code == 429 or error.code >= 500
-        print(f"ERROR: LLM HTTP {error.code} ({model})"
-              + (" — will retry" if retryable else " — permanent failure"))
-        return None, retryable
-    except (urllib.error.URLError, TimeoutError) as error:
-        print(f"ERROR: LLM network failure ({model}): {error} — will retry")
-        return None, True
-    except (KeyError, IndexError, ValueError) as error:
-        print(f"ERROR: could not read the LLM response ({model}): {error} — will retry")
-        return None, True
+        return llm_transport.complete(messages, response_schema=response_schema), False
+    except llm_transport.InferenceError:
+        print("ERROR: local Hermes inference unavailable or invalid — no paid fallback")
+        return None, False
 
 
 def extract_json(text):
@@ -675,7 +635,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             counter['calls'] += 1
             reviewed[:] = [semantic_review(candidate, {symbol: data.get(symbol, {})},
                 evidence_for(data, violations, symbol), api_key,
-                env('OPENROUTER_MODEL_REVIEW', 'openai/gpt-4o'))]
+                llm_transport.MODEL)]
         payload, status = call_llm(model, SYSTEM_CLAIM, prompt, api_key,
                                    audit_sources=(prompt, claim.get("text", "")),
                                    audit_scope=claim_audit_scope,
@@ -696,7 +656,7 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
             if not reviewed:
                 counter['calls'] += 1
             review = reviewed[0] if reviewed else semantic_review(payload, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
-                            api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
+                            api_key, llm_transport.MODEL)
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'review':review})
         except ValueError as error:
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'claim_id':claim['id'],'error':str(error)})
@@ -783,7 +743,7 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                 {'proposal': candidate, 'previous_thesis': position,
                  'review_focus': 'Require new non-price evidence for threshold changes; compare before and after and verify the falsifier maps to the referenced condition.'},
                 {symbol: data.get(symbol, {})}, issuer_facts, api_key,
-                env('OPENROUTER_MODEL_REVIEW', 'openai/gpt-4o'))]
+                llm_transport.MODEL)]
         payload, status = call_llm(
             model, SYSTEM_THESIS+"\n"+lifecycle.INSTRUCTION+"\nPut monitoring at the top level.", prompt, api_key,
             audit_sources=(prompt, position.get("thesis_summary", "")) + previous_texts,
@@ -812,7 +772,7 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
             if not reviewed:
                 counter['calls'] += 1
             review = reviewed[0] if reviewed else semantic_review({'proposal':payload,'previous_thesis':position,'review_focus':'Require new non-price evidence for threshold changes; compare before and after and verify the falsifier maps to the referenced condition.'}, {symbol:data.get(symbol,{})}, evidence_for(data,violations,symbol),
-                            api_key, env('OPENROUTER_MODEL_REVIEW','openai/gpt-4o'))
+                            api_key, llm_transport.MODEL)
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'review':review})
         except ValueError as error:
             violations.setdefault('semantic_reviews', []).append({'symbol':symbol,'error':str(error)})
@@ -914,9 +874,9 @@ def main():
     parser.add_argument("--state-dir", default=os.path.join(BASE, "state"))
     args = parser.parse_args()
 
-    api_key = env("OPENROUTER_API_KEY")
+    api_key = llm_transport.credential()
     if not api_key and not args.dry_run:
-        print("No OPENROUTER_API_KEY — reassessment skipped (the detector keeps "
+        print("No local Hermes subscription — reassessment skipped (the detector keeps "
               "measuring; only the commentary is not refreshed)")
         return 1
 
@@ -943,8 +903,8 @@ def main():
         print(f"BUDGET SPENT: {counter['calls']}/{limit} calls used in "
               f"{week_label(moment)} — only code-20 calls will be made")
 
-    fast = env("OPENROUTER_MODEL_FAST", DEFAULT_FAST_MODEL)
-    deep = env("OPENROUTER_MODEL_DEEP", DEFAULT_DEEP_MODEL)
+    fast = llm_transport.MODEL
+    deep = llm_transport.MODEL
     updated, decisions = [], []
 
     # Claims handled at thesis level are not rewritten again by the fast model.

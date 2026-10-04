@@ -34,22 +34,14 @@ concurrency:
 
 jobs:
   detect:
-    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && vars.PORTFOLIO_EXECUTOR == 'local-hermes'
+    runs-on: [portfolio-hermes]
+    timeout-minutes: 60
     env:
       FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
-      OPENROUTER_MODEL_MACRO: ${{ vars.OPENROUTER_MODEL_MACRO }}
-      OPENROUTER_MODEL_FUNDAMENTAL: ${{ vars.OPENROUTER_MODEL_FUNDAMENTAL }}
-      OPENROUTER_MODEL_SENTIMENT: ${{ vars.OPENROUTER_MODEL_SENTIMENT }}
-      OPENROUTER_MODEL_REVIEW: ${{ vars.OPENROUTER_MODEL_REVIEW }}
-      OPENROUTER_MODEL_WEEKLY: ${{ vars.OPENROUTER_MODEL_WEEKLY }}
       PROMPT_METRICS_PATH: state/prompt_metrics.json
-      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-      OPENROUTER_MODEL_NEWS: ${{ vars.OPENROUTER_MODEL_NEWS }}
-      OPENROUTER_MODEL_FAST: ${{ vars.OPENROUTER_MODEL_FAST }}
-      OPENROUTER_MODEL_DEEP: ${{ vars.OPENROUTER_MODEL_DEEP }}
       MAX_LLM_CALLS_PER_WEEK: ${{ vars.MAX_LLM_CALLS_PER_WEEK }}
-      LLM_BASE_URL: ${{ vars.LLM_BASE_URL }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
@@ -58,12 +50,8 @@ jobs:
         with:
           ref: main
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
       - name: Dependencies
-        run: pip install -r requirements.txt
+        run: uv pip install --python "$(command -v python)" -r requirements.txt
 
       - name: Determine the mode
         id: mode
@@ -136,7 +124,6 @@ jobs:
         if: steps.session.outputs.run == 'true'
         id: detector
         run: |
-          : "${OPENROUTER_API_KEY:?OPENROUTER_API_KEY is required for news assessment}"
           set +e
           if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
             python detector.py --full-review
@@ -151,7 +138,7 @@ jobs:
           esac
 
       - name: 2) Reassessment (only when a threshold was crossed)
-        if: (steps.detector.outputs.code == '10' || steps.detector.outputs.code == '20') && env.OPENROUTER_API_KEY != ''
+        if: steps.detector.outputs.code == '10' || steps.detector.outputs.code == '20'
         id: reassess
         run: |
           if [ "${{ steps.mode.outputs.full }}" = "true" ]; then
@@ -406,3 +393,7 @@ jobs:
           path: output/provider-events.jsonl
           if-no-files-found: ignore
           retention-days: 90
+
+      - name: Preserve exact local attempt and release successful claim
+        if: always()
+        run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"

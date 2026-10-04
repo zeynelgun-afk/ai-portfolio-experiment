@@ -20,22 +20,15 @@ concurrency:
 
 jobs:
   round:
-    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && vars.PORTFOLIO_EXECUTOR == 'local-hermes'
+    runs-on: [portfolio-hermes]
+    timeout-minutes: 90
     env:
       PROMPT_METRICS_PATH: state/prompt_metrics.json
-      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
       FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
       SEC_CONTACT_EMAIL: ${{ secrets.SEC_CONTACT_EMAIL }}
       FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
       EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
-      OPENROUTER_MODEL_MACRO: ${{ vars.OPENROUTER_MODEL_MACRO }}
-      OPENROUTER_MODEL_FUNDAMENTAL: ${{ vars.OPENROUTER_MODEL_FUNDAMENTAL }}
-      OPENROUTER_MODEL_SENTIMENT: ${{ vars.OPENROUTER_MODEL_SENTIMENT }}
-      OPENROUTER_MODEL_REVIEW: ${{ vars.OPENROUTER_MODEL_REVIEW }}
-      OPENROUTER_MODEL_THEME: ${{ vars.OPENROUTER_MODEL_THEME }}
-      OPENROUTER_MODEL_WEEKLY: ${{ vars.OPENROUTER_MODEL_WEEKLY }}
-      OPENROUTER_MODEL_AUDIT_A: ${{ vars.OPENROUTER_MODEL_AUDIT_A }}
-      OPENROUTER_MODEL_AUDIT_B: ${{ vars.OPENROUTER_MODEL_AUDIT_B }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
@@ -44,12 +37,8 @@ jobs:
         with:
           ref: main
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
       - name: Dependencies
-        run: pip install -r requirements.txt
+        run: uv pip install --python "$(command -v python)" -r requirements.txt
 
       - name: Reconcile corporate actions
         id: corporate
@@ -154,7 +143,6 @@ jobs:
         # amend.py can only add text to WEEKLY_INSTRUCTIONS.md, only on a branch, and
         # only once per pattern — the guarantees are enforced in code, not asked for in
         # a prompt. Nothing here is ever merged: it proposes, the owner decides.
-        if: env.OPENROUTER_API_KEY != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -277,3 +265,7 @@ jobs:
           path: output/provider-events.jsonl
           if-no-files-found: ignore
           retention-days: 90
+
+      - name: Preserve exact local attempt and release successful claim
+        if: always()
+        run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"

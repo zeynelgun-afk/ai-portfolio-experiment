@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Collect market data for the weekly decision round."""
+
+import llm_transport
 import json
 import math
 import os
@@ -299,15 +301,15 @@ def main():
     source_facts = evidence.ledger(results, results['_meta']['collected_at'], 'weekly_data/market_data')
 
     # --- MULTI-AGENT RESEARCH TEAM (FinThink / TradingAgents Architecture) ---
-    api_key = os.environ.get("OPENROUTER_API_KEY")
+    api_key = llm_transport.credential()
 
     if api_key and reassess:
         print("\nDeploying Multi-Agent Research Team (Isolating Contexts)...")
 
         # Dynamic Auto-Discovery: Find the absolute newest models available on OpenRouter
-        macro_model = (os.environ.get("OPENROUTER_MODEL_MACRO") or "openai/gpt-4o")
-        fund_model = (os.environ.get("OPENROUTER_MODEL_FUNDAMENTAL") or "anthropic/claude-sonnet-5")
-        sent_model = (os.environ.get("OPENROUTER_MODEL_SENTIMENT") or "google/gemini-3.5-flash")
+        macro_model = (llm_transport.MODEL)
+        fund_model = (llm_transport.MODEL)
+        sent_model = (llm_transport.MODEL)
 
         results['_meta']['research_models'] = {'macro':macro_model, 'fundamental':fund_model, 'sentiment':sent_model}
 
@@ -404,7 +406,7 @@ def main():
         print("Research incomplete: " + ", ".join(failures) if failures else
               "Successfully compiled Multi-Agent Research Dossiers.")
     else:
-        print("No OPENROUTER_API_KEY found, skipping multi-agent research.")
+        print("No local Hermes subscription found, skipping multi-agent research.")
 
     with open(os.path.join(BASE, 'weekly_data.json'), 'w', encoding='utf-8') as handle:
         json.dump(results, handle, indent=2, ensure_ascii=False, allow_nan=False)
