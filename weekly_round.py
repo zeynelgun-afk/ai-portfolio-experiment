@@ -354,7 +354,8 @@ def main():
         path = BASE/name
         context[name] = path.read_text()[-50000:] if path.exists() else 'unavailable'
     from llm_context import research_view
-    context['weekly_data.json'] = research_view(data)
+    model_data = research_view(data)
+    context['weekly_data.json'] = model_data
     context['required_watchlist_symbols'] = sorted(symbols)
     context['watchlist_contract'] = 'Exactly one KEEP/DROP/OPEN row for EVERY required_watchlist_symbols entry, including existing holdings. Do not omit a symbol because it is already held.'
     if quotes:
@@ -376,8 +377,8 @@ def main():
         for decision in payload.get('decisions',[]):
             symbol=decision['symbol']
             if data.get(symbol, {}).get('analyst_revisions'):
-                validate_review(decision.get('analyst_review'), symbol, data, facts)
-            lifecycle.validate_monitoring(decision.get('monitoring'),symbol,old_theses.get(symbol,{}),data,facts,moment, next((p.get('stop_weekly_close') for p in book['positions'] if p['symbol']==symbol),None),decision.get('new_stop'))
+                validate_review(decision.get('analyst_review'), symbol, model_data, facts)
+            lifecycle.validate_monitoring(decision.get('monitoring'),symbol,old_theses.get(symbol,{}),model_data,facts,moment, next((p.get('stop_weekly_close') for p in book['positions'] if p['symbol']==symbol),None),decision.get('new_stop'))
         build_targets(payload, book, old_theses, data, moment, original_log,
                       preview=not args.execute_pending, quotes=quotes)
     (BASE/'output').mkdir(exist_ok=True)

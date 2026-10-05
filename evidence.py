@@ -132,8 +132,13 @@ def render(text, facts, claim_ids=()):
     # Exact supplied metric labels contain parameter digits, not measured values.
     for metric in {fact['metric'] for fact in facts.values()}:
         stripped = re.sub(r'(?<![A-Za-z0-9_])' + re.escape(metric) + r'(?![A-Za-z0-9_])', '', stripped)
+    # A lookback label is not a measured value. Permit this alias only when
+    # the prose actually references a supplied volume-average fact.
+    if any(facts.get(key, {}).get('metric') in {'volume_avg20', 'volume_avg_20d'}
+           for key in REFERENCE.findall(text)):
+        stripped = re.sub(r'\b20-day average\b', '', stripped)
     # Digits in this publisher's proper name are not quantitative market claims.
-    stripped = re.sub(r'\b24/7 Wall (?:Street|St\.?)\b', '', stripped)
+    stripped = re.sub(r'\b(?:24/7 Wall (?:Street|St\.?)|247 Wall ?(?:Street|St\.?))\b', '', stripped, flags=re.I)
     if re.search(r'\d', stripped) or '{{' in stripped or '}}' in stripped:
         match = re.search(r'\d|\{\{|\}\}', stripped)
         excerpt = stripped[max(0, match.start() - 35):match.end() + 55]

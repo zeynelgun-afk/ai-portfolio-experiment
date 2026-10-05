@@ -106,7 +106,7 @@ jobs:
         id: weekly_inputs
         run: python weekly_data.py
 
-      - name: 3b) Structured weekend research plan (no trades)
+      - name: 3b) Structured decision — weekend research plan (no trades)
         run: python weekly_round.py
 
       - name: Preserve weekly source evidence

@@ -439,7 +439,8 @@ share held). BUY = add to the position (amount_usd, at most the available cash).
 
 
 def claim_prompt(symbol, position, claim, trigger, data, holding, moment):
-    row = data.get(symbol, {})
+    from llm_context import research_view
+    row = research_view({symbol: data.get(symbol, {})})[symbol]
     lines = [
         f"Time (UTC): {iso(moment)}",
         f"Symbol: {symbol}",
@@ -484,7 +485,8 @@ def claim_prompt(symbol, position, claim, trigger, data, holding, moment):
 
 
 def thesis_prompt(symbol, position, triggers, data, holding, cash, moment):
-    row = data.get(symbol, {})
+    from llm_context import research_view
+    row = research_view({symbol: data.get(symbol, {})})[symbol]
     lines = [
         f"Time (UTC): {iso(moment)}",
         f"Symbol: {symbol}",
@@ -592,7 +594,8 @@ def claim_flow(theses, violations, portfolio, moment, model, api_key, counter, l
     would only narrow that context.
     """
     import decision_lifecycle as lifecycle
-    data = violations.get("data", {})
+    from llm_context import research_view
+    data = research_view(violations.get("data", {}))
     blocked = {item["symbol"] for item in violations.get("measurement_errors", [])}
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
     skip = set(skip or ())
@@ -690,7 +693,8 @@ def thesis_flow(theses, violations, portfolio, moment, model, api_key, counter, 
                 notes_path, decision_path):
     """Thesis level: re-evaluate the whole position, produce an executable decision."""
     import decision_lifecycle as lifecycle
-    data = violations.get("data", {})
+    from llm_context import research_view
+    data = research_view(violations.get("data", {}))
     blocked = {item["symbol"] for item in violations.get("measurement_errors", [])}
     holdings = {p["symbol"]: p for p in portfolio.get("positions", [])}
     cash = portfolio.get("cash_usd", 0)
