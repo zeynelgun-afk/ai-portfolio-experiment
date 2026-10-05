@@ -133,29 +133,31 @@ def semantic_review(draft, data, facts, api_key, model):
     import reassess
     sources={key:{'text':f"{fact['symbol']} | {fact['metric']}: {fact['value']} {fact['unit']} | as-of {fact['as_of']} | {fact['source']}",
                   'symbol':fact['symbol'], 'metadata':fact} for key,fact in facts.items()}
-    for symbol,row in data.items():
-        if isinstance(row,dict):
-            docs = row.get('source_documents', {})
-            preferred = []
-            for assessment in row.get('news_assessments', []):
-                preferred.extend(c.get('source_id') for c in assessment.get('citations', [])
-                                 if isinstance(c, dict) and c.get('source_id'))
-            preferred = list(dict.fromkeys(preferred))
-            news_ids = sorted((key for key in docs if key.startswith('news:')),
-                              key=lambda key: str(docs[key].get('published_at', '')), reverse=True)
-            analyst_ids = sorted(key for key in docs if key.startswith('analyst:'))
-            selected = preferred[:5]
-            selected += [key for key in news_ids if key not in selected][:3]
-            selected += [key for key in analyst_ids if key not in selected][:3]
-            for key in selected[:8]:
-                value = docs.get(key)
-                if not isinstance(value, dict) or not isinstance(value.get('text'), str):
-                    continue
-                bounded = dict(value)
-                bounded['text'] = bounded['text'][:1800]
-                if len(value['text']) > 1800:
-                    bounded['text_truncated'] = True
-                sources[key] = bounded
+    from llm_context import research_view
+    # Reuse the proposer's exact bounded selection and excerpts. Independently
+    # truncating again used to hide documents the proposal had actually seen.
+    for row in research_view(data).values():
+        if isinstance(row, dict):
+            sources.update(row.get('source_documents', {}))
+    def require_candidate_sources(value):
+        if isinstance(value, dict):
+            references = []
+            for field in ('source_ids', 'evidence_ids'):
+                items = value.get(field, [])
+                if not isinstance(items, list):
+                    raise ValueError(f'Candidate {field} must be a list')
+                references.extend(items)
+            if 'source_id' in value:
+                references = [*references, value['source_id']]
+            for key in references:
+                if not isinstance(key, str) or key not in sources:
+                    raise ValueError(f'Candidate source not in review bundle: {key}')
+            for child in value.values():
+                require_candidate_sources(child)
+        elif isinstance(value, list):
+            for child in value:
+                require_candidate_sources(child)
+    require_candidate_sources(draft.get('proposal', draft) if isinstance(draft, dict) else draft)
     if not sources:
         raise ValueError('No source evidence for semantic review')
     for source in sources.values():
