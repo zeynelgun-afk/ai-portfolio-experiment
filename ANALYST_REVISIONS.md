@@ -4,10 +4,10 @@ Provider observations, not verified analyst reports. Targets are forecasts; revi
 
 | Symbol | Observed | Target revisions up/down firms (30d) | Target median | Revenue consensus revision (FY, 30d) | Revenue analyst count |
 |---|---|---:|---:|---:|---:|
-| AMD | 2026-10-03T00:32:30+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
-| ANET | 2026-10-03T00:32:30+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
-| MU | 2026-10-03T00:32:30+00:00 | ok · 4 / 2 | 6.35% | unavailable | — |
-| NVDA | 2026-10-03T00:32:30+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
+| AMD | 2026-10-06T01:45:40+00:00 | incomplete · 1 / 0 | 10.24% | unavailable | — |
+| ANET | 2026-10-06T01:45:40+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
+| MU | 2026-10-06T01:45:40+00:00 | ok · 4 / 2 | 6.35% | unavailable | — |
+| NVDA | 2026-10-06T01:45:40+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
 
 ## Quarantined provider records
 
@@ -33,6 +33,6 @@ Earnings improvements are not required: reviews also examine company news, secto
 
 Prospective, selected-universe overlapping cohorts. Cost sensitivities subtract 0/25/50/100/250 bp round-trip from candidate returns; these are not measured execution costs. Net excess is compared with gross benchmark returns. Risk records path drawdown and annualized volatility. Consensus estimate events are not individual analyst votes, company guidance or causal proof. No predictive benefit is established. Baseline is next session close.
 
-Unique observed cohorts: 7
+Unique observed cohorts: 8
 Target-revision mature endpoints: 0
-Revenue-consensus revision events: 20; mature endpoints: 0
+Revenue-consensus revision events: 31; mature endpoints: 0

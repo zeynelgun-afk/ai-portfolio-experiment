@@ -15,13 +15,13 @@
     }
   },
   "MU": {
-    "thesis_summary": "Micron's latest reported quarter shows very high margins, strong free cash flow and a net cash balance sheet, price remains above both moving averages, and target revisions tilt upward; whether margins are sustainable is now openly contested by opinion articles but remains unmeasured.",
+    "thesis_summary": "Micron's dated reported margins, positive free cash flow and net cash support retaining the position, while favorable forecast revisions provide context rather than proof that exceptional memory profitability persists.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
         "id": "MU-1",
-        "text": "Memory demand and pricing power show in the latest reported quarter:\n- gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- revenue of [MU | quarter_revenue: 54229000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], with growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] versus the same quarter a year earlier.\n\nPrice of [MU | price: 1073.79 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] sits [MU | above_sma50_pct: 12.5151 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the freshly calculated medium-term average and [MU | above_sma200_pct: 58.51 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the long-term average. It trades below the previous close of [MU | previous_close: 1097.39 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d] while the sector ETF rises.\n\nSame-firm target revisions over the past month tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] up and [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] down, with a median of [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Their reasons and horizons are unknown, and they are forecasts, not results.\n\nOpinion articles published today disagree:\n- one says customer contracts underpin margins;\n- others say current margins are unsustainably high and competitor capacity threatens pricing.\n\nNeither view is measured in current data, and management guidance is unavailable.",
-        "status": "unassessed",
+        "text": "The dated FMP income statement shows strong revenue growth and high gross and operating margins, supporting an inference of favorable reported trading conditions but not proving persistent pricing power. The latest Motley Fool excerpt corroborates historical growth, and Nic Puckrin's commentary identifies unquantified cyclicality risk. Earlier customer-contract commentary remains independently unverified. The latest supplied stale price observation is above the medium- and long-term moving averages, and same-firm target revisions tilt upward; neither establishes future returns or a current executable price.",
+        "status": "weakened",
         "conditions": [
           {
             "type": "price_below_sma50_pct",
@@ -62,13 +62,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-03T00:33Z",
-        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supp"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": null
       },
       {
         "id": "MU-2",
-        "text": "The latest reported quarter combines strong profitability with large cash generation:\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] and operating income of [MU | quarter_operating_income: 44318000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating cash flow of [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d];\n- free cash flow of [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d].\n\nThe ledger's operating margin value for this quarter differs from the figure recorded in the previous claim; the current ledger value is used.\n\nCash of [MU | cash_equivalents: 38364000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] against total debt of [MU | total_debt: 4688000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] gives net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d], a net cash position.\n\nThe thesis is refuted if price breaks below the fixed thesis floor in the executable condition. It is also refuted if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot 2bf4929aac0d].",
-        "status": "unassessed",
+        "text": "The latest supplied dated financial statements report high operating profitability, positive operating cash flow and positive free cash flow after capital spending. Cash exceeds total debt under the current provider observations, although the same-period debt observation has increased and net cash has decreased relative to the previous record. These statements support financial resilience, not a guarantee of future margin persistence; management guidance and filing footnotes remain unavailable in the fundamental dataset. The fixed price floor and operating-margin floor remain independent thesis tests, with cash-flow deterioration and a transition to net debt requesting additional review.",
+        "status": "valid",
         "conditions": [
           {
             "type": "earnings_approaching",
@@ -107,16 +107,16 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-03T00:33Z",
-        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supp"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": null
       }
     ],
     "monitoring": {
       "claims": [
         {
           "id": "MU-1",
-          "text": "Memory demand and pricing power show in the latest reported quarter:\n- gross margin of [MU | gross_margin_pct: 86.756164 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- revenue of [MU | quarter_revenue: 54229000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], with growth of [MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] versus the same quarter a year earlier.\n\nPrice of [MU | price: 1073.79 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] sits [MU | above_sma50_pct: 12.5151 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the freshly calculated medium-term average and [MU | above_sma200_pct: 58.51 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] above the long-term average. It trades below the previous close of [MU | previous_close: 1097.39 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d] while the sector ETF rises.\n\nSame-firm target revisions over the past month tilt upward: [MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] up and [MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] down, with a median of [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Their reasons and horizons are unknown, and they are forecasts, not results.\n\nOpinion articles published today disagree:\n- one says customer contracts underpin margins;\n- others say current margins are unsustainably high and competitor capacity threatens pricing.\n\nNeither view is measured in current data, and management guidance is unavailable.",
-          "status": "valid",
+          "text": "The dated FMP income statement shows strong revenue growth and high gross and operating margins, supporting an inference of favorable reported trading conditions but not proving persistent pricing power. The latest Motley Fool excerpt corroborates historical growth, and Nic Puckrin's commentary identifies unquantified cyclicality risk. Earlier customer-contract commentary remains independently unverified. The latest supplied stale price observation is above the medium- and long-term moving averages, and same-firm target revisions tilt upward; neither establishes future returns or a current executable price.",
+          "status": "weakened",
           "conditions": [
             {
               "type": "price_below_sma50_pct",
@@ -160,7 +160,7 @@
         },
         {
           "id": "MU-2",
-          "text": "The latest reported quarter combines strong profitability with large cash generation:\n- operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d] and operating income of [MU | quarter_operating_income: 44318000000 USD | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d];\n- operating cash flow of [MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d];\n- free cash flow of [MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d], after capital spending of [MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement | snapshot 2bf4929aac0d].\n\nThe ledger's operating margin value for this quarter differs from the figure recorded in the previous claim; the current ledger value is used.\n\nCash of [MU | cash_equivalents: 38364000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] against total debt of [MU | total_debt: 4688000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d] gives net debt of [MU | net_debt: -33676000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement | snapshot 2bf4929aac0d], a net cash position.\n\nThe thesis is refuted if price breaks below the fixed thesis floor in the executable condition. It is also refuted if a future reported operating margin falls below the thesis margin floor. The next scheduled report is [MU | earnings_date: 2026-12-23 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot 2bf4929aac0d].",
+          "text": "The latest supplied dated financial statements report high operating profitability, positive operating cash flow and positive free cash flow after capital spending. Cash exceeds total debt under the current provider observations, although the same-period debt observation has increased and net cash has decreased relative to the previous record. These statements support financial resilience, not a guarantee of future margin persistence; management guidance and filing footnotes remain unavailable in the fundamental dataset. The fixed price floor and operating-margin floor remain independent thesis tests, with cash-flow deterioration and a transition to net debt requesting additional review.",
           "status": "valid",
           "conditions": [
             {
@@ -207,200 +207,93 @@
         "claim_id": "MU-2",
         "condition_index": 1
       },
-      "change_reason": "All conditions and thresholds are unchanged. Today's evidence consists of opinion articles that both support and dispute margin sustainability, and none supplies a new measured fundamental. The intraday decline relative to the sector is price-only and does not justify moving any threshold.\n\nClaim texts were rewritten from current ledger references:\n- the first claim now records the contested margin-sustainability debate and today's relative weakness;\n- the second claim flags that the ledger's operating margin value for the same quarter changed versus the prior record, and adds cash and total debt behind the net cash figure.\n\nThe review date stays within one week to recheck relative price behaviour and analyst flow before the next report.",
+      "change_reason": "All prior conditions, thresholds and the scheduled review are retained. Compared with the previous record, the claim texts distinguish historical profitability from unverified sustainability, acknowledge stale price evidence, and disclose the same-period balance-sheet revision. Neither the revised balance-sheet observations nor the latest commentary justifies changing the existing risk thresholds. The retained positive-price condition requests reassessment, not an automatic purchase. The scheduled review is a near-term post-earnings evidence checkpoint ahead of the later provider-listed earnings catalyst: refresh measured prices and seek primary-source clarification of contracts and the balance sheet. If clarification is still absent, explicitly reassess the HOLD and record the gap rather than silently extending the review. The evidence-review correction removes reliance on consensus coverage changes and does not alter any risk condition.",
       "evidence_ids": [
         "MU.price",
-        "MU.previous_close",
         "MU.price_at",
         "MU.above_sma50_pct",
         "MU.above_sma200_pct",
-        "MU.earnings_date",
         "MU.gross_margin_pct",
         "MU.operating_margin_pct",
         "MU.revenue_yoy_pct",
-        "MU.quarter_revenue",
-        "MU.quarter_operating_income",
         "MU.quarter_operating_cash_flow",
         "MU.quarter_free_cash_flow",
         "MU.quarter_capex",
         "MU.cash_equivalents",
         "MU.total_debt",
         "MU.net_debt",
+        "MU.earnings_date",
         "MU.analyst_up_firms_30d",
         "MU.analyst_down_firms_30d",
-        "MU.analyst_median_revision_pct_30d",
-        "news:62851de35848ae2e88701dfd",
-        "news:9fba7fbf9892538abcf73740",
-        "news:36a18b974429f6779802b46f",
-        "news:9699922221eab3e51837d818",
-        "news:e9f9fe43bee2c4a9820b49d2"
+        "news:5657da3ff7231572c7dbfbed",
+        "news:f9ad20b7e1b72c27e59814e1"
       ],
-      "revision": "b030d2a3a4942cfe174c5b3f",
-      "created_at": "2026-10-02T18:40:14+00:00",
+      "revision": "93a58b4516e5f210f0e18080",
+      "created_at": "2026-10-06T01:47:05+00:00",
       "evidence_fingerprints": {
-        "MU.price": "168825c3804d5760efcca651",
-        "MU.previous_close": "6f183e886487e24e379f2cb8",
-        "MU.price_at": "0a2e3020da21bacdbbfdcafc",
-        "MU.above_sma50_pct": "b5b5a4ccc1864d5d320a0083",
-        "MU.above_sma200_pct": "194ad36cf05cf40256c4cb64",
-        "MU.earnings_date": "201de9df36a575a2855a6927",
+        "MU.price": "148c36fd6c739fa248ff8b9e",
+        "MU.price_at": "a67eda76d7948cc840ed1531",
+        "MU.above_sma50_pct": "1cd910bfaaa455cc9433e508",
+        "MU.above_sma200_pct": "5731c59ec2db06931bac545d",
         "MU.gross_margin_pct": "c0fbb2981177e66abab7fef9",
         "MU.operating_margin_pct": "63b34ee3d85c71f10bb01b31",
         "MU.revenue_yoy_pct": "a79773f84bd07961d6363fd9",
-        "MU.quarter_revenue": "94686b3a3ec149afce7beac3",
-        "MU.quarter_operating_income": "f147891b2ee5e020332704b2",
         "MU.quarter_operating_cash_flow": "70f3737889b3eead2ea864ab",
         "MU.quarter_free_cash_flow": "0e0595536a4f305bdfefe8af",
         "MU.quarter_capex": "b7ffcc21db4c9bb1698f6b98",
         "MU.cash_equivalents": "5e1c657c1199c7a9a6f0fc2c",
-        "MU.total_debt": "dfbe032fc64864d7eb9c2996",
-        "MU.net_debt": "cae0ba8b6b6a28332b4c284b",
-        "MU.analyst_up_firms_30d": "09984665a021c4e9ae393e30",
-        "MU.analyst_down_firms_30d": "9a4989a02f6a257a91d18410",
-        "MU.analyst_median_revision_pct_30d": "a3733c5e4d308a36eeec60cc",
-        "news:62851de35848ae2e88701dfd": "d047c97e7025c725bdc90796",
-        "news:9fba7fbf9892538abcf73740": "f3e8fd0e1e16862ee635fd79",
-        "news:36a18b974429f6779802b46f": "c66186e2c7bb2dda36ef6e70",
-        "news:9699922221eab3e51837d818": "84aa18d9483760bb3531e695",
-        "news:e9f9fe43bee2c4a9820b49d2": "10a8743325f65958116a6eb4"
+        "MU.total_debt": "8172e6a6bdfe6d8fd0f1cedb",
+        "MU.net_debt": "7ccf0e2889a0fe681d5b0e06",
+        "MU.earnings_date": "1fa9443c26558b503fb45b67",
+        "MU.analyst_up_firms_30d": "ace167fca6dc4ca5a2508f77",
+        "MU.analyst_down_firms_30d": "f03d78065cbc80c4d3618c5e",
+        "news:5657da3ff7231572c7dbfbed": "0bd576aed3d26366151e2eb8",
+        "news:f9ad20b7e1b72c27e59814e1": "f92c518f2b716db58fef778a"
       }
     },
     "analyst_review": {
       "earnings": {
-        "assessment": "Same-period consensus change cannot be measured for the forward fiscal years. Those periods have no prior observed snapshot, and every estimate revision window reports insufficient same-period snapshots.\n\nCurrent next-fiscal-year consensus stands at EPS of [MU | analyst_eps_20270903: 167.20257 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 2bf4929aac0d] and revenue of [MU | analyst_revenue_20270903: 266089462803.0 provider-reported currency | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 2bf4929aac0d]. Whether these rose alongside the target raises is unknown.\n\nAs a hypothesis, the strong reported quarter, with operating margin of [MU | operating_margin_pct: 81.723801 % | as-of 2026-09-03 | FMP/income-statement | snapshot 2bf4929aac0d], underlies higher targets. No article attributes any analyst's revision to earnings changes.",
+        "assessment": "Unlike the previous review, same-period comparisons are now available. EPS and revenue consensus for the next fiscal year and the following fiscal year have risen against their respective prior observed snapshots. Farther out, a period shows lower revenue with unchanged EPS, while the latest forecast period shows higher revenue with unchanged EPS. As a hypothesis, stronger nearer-term forecasts support higher targets, but the observations do not identify individual analyst revisions or establish their reasons. Contributor composition and its effect on the aggregate changes are unknown; no coverage-change explanation is used. The standard revision windows remain insufficiently populated despite the available snapshot comparisons. Improving forecasts are supportive context, not a prerequisite for a valid target increase.",
         "evidence_status": "context_only",
         "source_ids": [
-          "MU.analyst_eps_20270903",
-          "MU.analyst_revenue_20270903",
-          "MU.operating_margin_pct"
+          "MU.analyst_eps_20270903_revision_pct",
+          "MU.analyst_revenue_20270903_revision_pct",
+          "MU.analyst_eps_20280903_revision_pct",
+          "MU.analyst_revenue_20280903_revision_pct",
+          "MU.analyst_eps_20290903_revision_pct",
+          "MU.analyst_revenue_20290903_revision_pct",
+          "MU.analyst_eps_20300903_revision_pct",
+          "MU.analyst_revenue_20300903_revision_pct"
         ]
       },
       "company_news": {
-        "assessment": "A Seeking Alpha article, 'Slower Memory Content Growth, Faster Capital Return', describes the following:\n- committed future output;\n- customer deposits;\n- take-or-pay contracts with margin floors;\n- a possible new buyback once a cash target is reached.\n\nAnother Seeking Alpha piece, 'More Great Earnings Don't Change Our Mind', says those customer agreements are untested in severe downturns.\n\nAs a hypothesis, these contract and capital-return features may contribute to higher targets. No article attributes a specific analyst's revision to them, and the excerpts are unverified.",
+        "assessment": "The latest Motley Fool excerpt supports historical revenue growth, not new customer commitments or a contractual margin floor. As a hypothesis, the strong reported quarter contributes to favorable target revisions, but no supplied current article attributes a named analyst's revision to that cause. Earlier contract commentary is not primary-source verification, and the current excerpts establish no new contract, product, regulatory or partnership event that explains the observed revisions.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:62851de35848ae2e88701dfd",
-          "news:36a18b974429f6779802b46f"
+          "news:5657da3ff7231572c7dbfbed",
+          "MU.quarter_revenue",
+          "MU.revenue_yoy_pct"
         ]
       },
       "sector_theme": {
-        "assessment": "The article 'It May Get Worse, Not Better' describes AI-related memory demand as the driver of the stock's rise. The same article warns that margin normalization and added supply could reverse it. The Wolfe Research record's headline cites favorable pricing conditions, yet that record accompanies a target cut.\n\nThe semiconductor ETF is rising today ([SMH | price: 629.95 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot 2bf4929aac0d] versus [SMH | previous_close: 617.81 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot 2bf4929aac0d]) while MU falls. That gap suggests issuer-specific selling rather than sector weakness.\n\nThis is a hypothesis: price data alone does not prove flows or causation, and no revision states a sector reason.",
+        "assessment": "GuruFocus frames Micron as benefiting from AI-related demand, while Nic Puckrin emphasizes memory cyclicality. As a hypothesis, AI demand supports the favorable target narrative while cyclical concerns limit confidence in its durability. The Samsung excerpt reports consolidated expectations without memory-unit detail and therefore does not establish added competing supply or pressure on Micron pricing. Zacks reports attention among its users, but that is not evidence of broad fund flows or a cause of analyst revisions.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:9fba7fbf9892538abcf73740",
-          "analyst:6ef4d2b8514b3c55f9f69c83",
-          "news:9699922221eab3e51837d818"
+          "news:7e9b8b9730a2e3eb83a4d1a1",
+          "news:f9ad20b7e1b72c27e59814e1",
+          "news:9436b3a4095a75364fcd4d28",
+          "news:73ac272f76c35c6999ff46b5"
         ]
       },
       "valuation": {
-        "assessment": "Revisions over the past month split by firm:\n- raised: Baird, Mizuho, Goldman Sachs and DA Davidson;\n- lowered: Wells Fargo and Wolfe Research.\n\nTarget dispersion is [MU | analyst_target_dispersion_pct_30d: 19.38077210442346 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d] and the median revision is [MU | analyst_median_revision_pct_30d: 6.3461 % | as-of 2026-10-02T00:49:54+00:00 | FMP price-target-news / same-firm matched observations | snapshot 2bf4929aac0d]. Goldman raised its target while reiterating Neutral.\n\nA 24/7 Wall St article says DA Davidson's highest target depends on an unusually long cycle, but it does not name the factor. One Seeking Alpha piece argues valuation offers only market-like returns.\n\nAs a hypothesis, the raises re-mark targets to the post-report earnings base rather than reflect a changed long-term view. Forecast horizons are unknown, and the revisions neither prescribe a trade nor prove future returns.",
+        "assessment": "DA Davidson and Goldman Sachs target observations show increases, while Goldman retains a Neutral rating. As a hypothesis, these changes reflect repricing of the earnings outlook rather than uniformly stronger investment conviction. The supplied records do not establish changed valuation multiples, discount rates, positioning or forecast horizons, and missing intermediate target observations limit interpretation. No stated current analyst rationale connects these alternatives to the increases; higher targets neither prescribe a trade nor establish prospective returns.",
         "evidence_status": "context_only",
         "source_ids": [
-          "analyst:32c21a9640a4236b56cc3e41",
-          "analyst:423d67453d9507eaa0577702",
-          "analyst:afcd531bf472175c0dacd63f",
           "analyst:9aea8f07e732fc2d3fb7d178",
-          "analyst:e47506d6cd877bd169a92d69",
-          "analyst:6ef4d2b8514b3c55f9f69c83",
-          "MU.analyst_target_dispersion_pct_30d",
-          "MU.analyst_median_revision_pct_30d",
-          "news:e9f9fe43bee2c4a9820b49d2",
-          "news:36a18b974429f6779802b46f"
+          "analyst:afcd531bf472175c0dacd63f",
+          "MU.analyst_target_dispersion_pct_30d"
         ]
       }
-    },
-    "pending_review": {
-      "claim_id": "news_shock",
-      "condition_type": "sentiment_support",
-      "cooldown_key": "thesis:MU",
-      "material_event_id": "966f44803224de0dad612e5d",
-      "material_event_ids": [
-        "966f44803224de0dad612e5d",
-        "a450cb0eddc0115bddaf0d73",
-        "c5d2ccc053e2b18f80ba9810"
-      ],
-      "measured": 1,
-      "news_evidence": {
-        "citation_selections": [
-          {
-            "source_id": "news:314554e1ff2c1ccda8a097c6"
-          },
-          {
-            "source_id": "news:d8e467ffa9b77645703af5b4"
-          },
-          {
-            "source_id": "news:eabde445d54e085f87f367e5"
-          }
-        ],
-        "citations": [
-          {
-            "quote": "Micron Technology, Inc. is upgraded to a Buy, driven by robust AI-related demand and a compelling 6x earnings multiple. MU's Q4 revenue soared 379% YoY to $54.2B, with gross margin at 87% and a $68.3B net cash position. Management anticipat",
-            "source_id": "news:314554e1ff2c1ccda8a097c6"
-          },
-          {
-            "quote": "Micron Technology, Inc. is upgraded to Buy, driven by accelerating Strategic Customer Agreements (SCAs) that enhance long-term revenue visibility and pricing power. Q4 FY26 results showed robust sequential growth, with DRAM and NAND prices",
-            "source_id": "news:d8e467ffa9b77645703af5b4"
-          },
-          {
-            "quote": "Micron Technology, Inc. delivered robust FQ4 results, with $54.23B in revenue, an 87% GAAP gross margin, and $33.42 EPS, highlighting exceptional memory market strength. MU's forward strategy leverages $50B+ annual capex for early cleanroom",
-            "source_id": "news:eabde445d54e085f87f367e5"
-          }
-        ],
-        "claim_ids": [
-          "MU-1",
-          "MU-2"
-        ],
-        "counterevidence": "N2 is sector-level commentary on AI and oil leadership but does not address Micron-specific margin sustainability or competitive threats. N3 reports capex expectations of $25B over two quarters but does not validate or challenge the margin or cash flow thesis. The sources do not directly address the opinion articles' claims that margins are unsustainably high or that competitor capacity threatens pricing; however, N4 and N5 provide contractual and commitment evidence (SCAs, customer deposits, RPO) that partially mitigates the sustainability concern by anchoring future revenue and pricing to customer agreements rather than spot market dynamics alone.",
-        "impact": "supports",
-        "reasoning": "The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supporting the cash generation and demand sustainability narrative. N4 emphasizes Strategic Customer Agreements (SCAs) covering over 35% of 2030 revenue with defined pricing bands and customer deposits, directly addressing the margin sustainability question raised in MU-1 by providing a contractual foundation for pricing power. N5 reinforces the same SCA metrics (>35% of 2030 revenue committed) and reports $150B in Remaining Performance Obligation plus $32B in customer financial commitments, which substantiate the strong cash flow and forward visibility claims in MU-2. The sources do not contradict the price positioning or analyst revision data in MU-1.",
-        "source_documents": {
-          "news:314554e1ff2c1ccda8a097c6": {
-            "published_at": "2026-10-02 15:40:21",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron Technology, Inc. is upgraded to a Buy, driven by robust AI-related demand and a compelling 6x earnings multiple. MU's Q4 revenue soared 379% YoY to $54.2B, with gross margin at 87% and a $68.3B net cash position. Management anticipates tighter supply-demand through 2028, with over 75% of 2028 shipments already committed.",
-            "title": "Micron: It's Different This Time - Buy At 6x Earnings Before AI Agents Rerate It",
-            "url": "https://seekingalpha.com/article/4951674-micron-its-different-this-time-buy-at-6x-earnings-before-ai-agents-rerate-it"
-          },
-          "news:a4b97b09bdb75e9f5d748aa8": {
-            "published_at": "2026-10-02 16:01:03",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "AI investment and surging oil prices position Technology and Energy as key market leaders in 2026, despite higher yields and persistent inflation.",
-            "title": "AI and Oil Shape Market Leadership in the First Nine Months of 2026",
-            "url": "https://www.zacks.com/stock/news/2999647/ai-and-oil-shape-market-leadership-in-the-first-nine-months-of-2026?cid=CS-STOCKNEWSAPI-FT-analyst_blog|industry_focus-2999647"
-          },
-          "news:bd603723167a3530f942e500": {
-            "published_at": "2026-10-02 17:17:01",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron's revenue was a record $54.2 billion for its fiscal fourth quarter. Micron expects to spend about $25 billion on new plants and equipment over its next two quarters.",
-            "title": "Micron's Last 5 Post-Earnings Dips Turned Into Gains. This Time, the Stock Rose Instead.",
-            "url": "https://www.fool.com/investing/2026/10/02/micron-s-last-5-post-earnings-dips-turned-into-gains-this-time-the-stock-rose-instead/"
-          },
-          "news:d8e467ffa9b77645703af5b4": {
-            "published_at": "2026-10-02 18:51:24",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron Technology, Inc. is upgraded to Buy, driven by accelerating Strategic Customer Agreements (SCAs) that enhance long-term revenue visibility and pricing power. Q4 FY26 results showed robust sequential growth, with DRAM and NAND prices rising sharply and margins spiking due to tight supply-demand dynamics. Over 35% of estimated 2030 revenue is now secured via SCAs, many with defined pricing bands and significant customer cash deposits, extending longer-term visibility.",
-            "title": "Micron And MUU: The Structural Shift Thesis Is Strengthening",
-            "url": "https://seekingalpha.com/article/4951695-micron-and-muu-the-structural-shift-thesis-is-strengthening"
-          },
-          "news:eabde445d54e085f87f367e5": {
-            "published_at": "2026-10-02 15:06:48",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "MU",
-            "text": "Micron Technology, Inc. delivered robust FQ4 results, with $54.23B in revenue, an 87% GAAP gross margin, and $33.42 EPS, highlighting exceptional memory market strength. MU's forward strategy leverages $50B+ annual capex for early cleanroom construction, aligning future equipment deployment with rising Strategic Customer Agreements (SCAs) covering >35% of 2030 revenue. Over 75% of FY2027 output is already committed, with $150B in Remaining Performance Obligation and $32B in customer financial commitments, enhancing downside visibility.",
-            "title": "Micron: The $50 Billion CapEx Misconception (Why The Memory Floor Is Rising)",
-            "url": "https://seekingalpha.com/article/4951668-micron-the-50-billion-capex-misconception-why-the-memory-floor-is-rising"
-          }
-        },
-        "uncertainty": "The sources do not provide independent verification of whether the reported 87% gross margin and 81.7% operating margin are sustainable beyond the current quarter or whether competitor capacity will erode pricing. N1 cites management's forward guidance on supply tightness through 2028, but this is a forward statement, not a measured result. The sources confirm the existence of SCAs and customer commitments but do not quantify the pricing bands or discount rates embedded in those contracts, leaving the true margin floor uncertain. No source addresses the specific opinion articles' claims about unsustainability or competitive threats with measured data. The next earnings date (2026-12-23) will provide the first measured test of margin persistence."
-      },
-      "severity": "thesis",
-      "symbol": "MU",
-      "threshold": 0,
-      "trigger": "The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supporting the cash generation and demand sustainability narrative. N4 emphasizes Strategic Customer Agreements (SCAs) covering over 35% of 2030 revenue with defined pricing bands and customer deposits, directly addressing the margin sustainability question raised in MU-1 by providing a contractual foundation for pricing power. N5 reinforces the same SCA metrics (>35% of 2030 revenue committed) and reports $150B in Remaining Performance Obligation plus $32B in customer financial commitments, which substantiate the strong cash flow and forward visibility claims in MU-2. The sources do not contradict the price positioning or analyst revision data in MU-1."
     }
   },
   "AMD": {
@@ -409,7 +302,7 @@
     "claims": [
       {
         "id": "AMD-1",
-        "text": "The growth thesis holds while two things stay true. First, the price remains above its fifty-day average; [AMD | price: 615.775 USD | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8db940ed0353] currently sits [AMD | above_sma50_pct: 20.3509 % vs sma50 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8db940ed0353] above it. Second, the latest reported quarter's profitability is sustained in the next report. That quarter showed [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 8db940ed0353] year-over-year revenue growth, an [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 8db940ed0353] operating margin, [AMD | quarter_free_cash_flow: 1558000000 USD | as-of 2026-06-27 | FMP/cash-flow-statement | snapshot 8db940ed0353] in positive free cash flow, and [AMD | net_debt: -810000000 USD | as-of 2026-06-27 | FMP/balance-sheet-statement | snapshot 8db940ed0353] in net debt position. Today's news on investor rotation and strategic partnerships does not alter these measurements. The next earnings report on [AMD | earnings_date: 2026-11-03 date | as-of 2026-10-02T00:49:54Z | detector/market_data / FMP | snapshot 8db940ed0353] will test whether profitability metrics hold at or near current levels.",
+        "text": "AMD's conditional growth thesis remains supported by the latest supplied reported revenue growth against the corresponding prior-year quarter [AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement | snapshot 9a3bb5cfa854], operating margin relative to revenue [AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement | snapshot 9a3bb5cfa854], positive free cash flow [AMD | quarter_free_cash_flow: 1558000000 USD | as-of 2026-06-27 | FMP/cash-flow-statement | snapshot 9a3bb5cfa854] and net cash indicated by negative net debt [AMD | net_debt: -810000000 USD | as-of 2026-06-27 | FMP/balance-sheet-statement | snapshot 9a3bb5cfa854], while the latest available price [AMD | price: 631.58 USD | as-of 2026-10-05T19:55:00+00:00 | detector/market_data / FMP | snapshot 9a3bb5cfa854] remains above its moving-average benchmark [AMD | sma50: 515.7302 USD | as-of 2026-10-05 | detector/market_data / FMP | snapshot 9a3bb5cfa854]. These financial measurements describe a historical quarter, and the price observation is stale intraday data rather than a live measurement. The supplied news excerpts report analyst target increases and a favorable earnings outlook; these are analyst opinions, not evidence that profitability has been sustained. This updates the earlier news characterization without changing the conditional growth thesis. Continued price support above the benchmark and profitability sustained at or near the reported levels remain conditions, not established future outcomes; a verified price below the benchmark or reported deterioration inconsistent with sustained profitability would challenge the claim. The next scheduled earnings report [AMD | earnings_date: 2026-11-03 date | as-of 2026-10-06T01:45:40Z | detector/market_data / FMP | snapshot 9a3bb5cfa854] provides a test of profitability, whose outcome remains unknown.",
         "status": "valid",
         "conditions": [
           {
@@ -455,13 +348,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-02T00:50Z",
-        "trigger": "2026-10-02T00:50Z, trigger: daily bulk review (no threshold crossed)"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": "2026-10-06T01:47Z, trigger: daily bulk review (no threshold crossed)"
       },
       {
         "id": "AMD-2",
-        "text": "Do not add to the position while [AMD | price: 615.775 USD | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8db940ed0353] remains [AMD | above_sma50_pct: 20.3509 % vs sma50 | as-of 2026-10-01T19:55:00+00:00 | detector/market_data / FMP | snapshot 8db940ed0353] above the fifty-day moving average on volume of [AMD | volume: 14710693.838299999 shares | as-of 2026-10-01 | detector/market_data / FMP | snapshot 8db940ed0353] shares, which is [AMD | volume_avg_20d: 22427521.65 shares | as-of 2026-10-01 | detector/market_data / FMP | snapshot 8db940ed0353] below the twenty-day average. Consensus forecasts for the next two fiscal years show no revision movement between the most recent snapshots, and the World Labs dilution remains unquantified, so valuation support is not improving. A pullback to the chosen review level, or a high-volume capitulation day, would prompt a review of adding, not an automatic buy.",
-        "status": "valid",
+        "text": "The caution against adding remains defensible as a technical judgment but is weakened: the latest supplied price [AMD | price: 631.58 USD | as-of 2026-10-05T19:55:00+00:00 | detector/market_data / FMP | snapshot 9a3bb5cfa854] is a stale intraday observation, its extension [AMD | above_sma50_pct: 22.4633 % vs sma50 | as-of 2026-10-05T19:55:00+00:00 | detector/market_data / FMP | snapshot 9a3bb5cfa854] is measured against the moving average [AMD | sma50: 515.7302 USD | as-of 2026-10-05 | detector/market_data / FMP | snapshot 9a3bb5cfa854], and observed volume [AMD | volume: 11300841.674570002 shares | as-of 2026-10-05 | detector/market_data / FMP | snapshot 9a3bb5cfa854] is below the average [AMD | volume_avg_20d: 22389486.65 shares | as-of 2026-10-05 | detector/market_data / FMP | snapshot 9a3bb5cfa854]. I withdraw the prior assertion that consensus forecasts show no revision movement: the supplied EPS revisions [AMD | analyst_eps_20261227_revision_pct: 0.02451529846392987 % vs prior observed consensus | as-of 2026-10-06T01:45:40+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9a3bb5cfa854] and [AMD | analyst_eps_20271227_revision_pct: 0.030855237928513062 % vs prior observed consensus | as-of 2026-10-06T01:45:40+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9a3bb5cfa854] and revenue revisions [AMD | analyst_revenue_20261227_revision_pct: 0.03464865932700076 % vs prior observed consensus | as-of 2026-10-06T01:45:40+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9a3bb5cfa854] and [AMD | analyst_revenue_20271227_revision_pct: 0.15740996853013306 % vs prior observed consensus | as-of 2026-10-06T01:45:40+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 9a3bb5cfa854] show modest increases against their respective prior observed consensus snapshots, not realized operating improvement. These changes undermine the categorical assertion that valuation support is not improving, but neither forecast revisions nor technical extension alone establishes whether valuation is attractive. The supplied news excerpts report analyst target increases and favorable earnings expectations; these are analyst opinions, not reported results or evidence of why targets changed. Quantified World Labs dilution is unavailable. A verified pullback to the previously chosen review level or a verified high-volume capitulation remains a reason to reassess this caution, not an automatic purchase; the review level and capitulation criteria are unavailable in the supplied evidence, so whether either condition is met is unknown.",
+        "status": "weakened",
         "conditions": [
           {
             "type": "price_below",
@@ -479,8 +372,8 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-02T00:50Z",
-        "trigger": "2026-10-02T00:50Z, trigger: daily bulk review (no threshold crossed)"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": "2026-10-06T01:47Z, trigger: daily bulk review (no threshold crossed)"
       }
     ],
     "monitoring": {
@@ -661,7 +554,7 @@
     "claims": [
       {
         "id": "ANET-1",
-        "text": "Arista's latest filed quarter shows revenue of [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], year-over-year revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot d7323cb4a60c] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot d7323cb4a60c]. The live price of [ANET | price: 206.775 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] sits [ANET | above_sma50_pct: 7.2473 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above the fifty-day average of [ANET | sma50: 192.80200000000002 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot d7323cb4a60c]. The claim is questioned if the price loses the live fifty-day average, or if the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot d7323cb4a60c] shows revenue growth or operating margin below the chosen fundamental thresholds.",
+        "text": "Arista's latest supplied filed quarter supports the fundamental claim through revenue [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot 72232577c6ad], strong revenue growth against the prior-year quarter [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 72232577c6ad], high operating margin [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 72232577c6ad], positive quarterly free cash flow [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 72232577c6ad] and no reported debt [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 72232577c6ad], while the latest supplied price [ANET | price: 207.01 USD | as-of 2026-10-05T19:55:00+00:00 | detector/market_data / FMP | snapshot 72232577c6ad] is above the moving-average reference [ANET | sma50: 194.075 USD | as-of 2026-10-05 | detector/market_data / FMP | snapshot 72232577c6ad]. I replace the old claim's description of the price as live with a dated observation: the supplied quote is stale intraday evidence and does not establish the price at reassessment. These observations preserve the claim on the supplied dated evidence ahead of the scheduled report [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-06T01:45:40Z | detector/market_data / FMP | snapshot 72232577c6ad], without establishing that all review thresholds have been checked. A fresh price observation below the corresponding moving average would contradict the technical component; subsequent reported revenue growth or operating margin below the previously chosen fundamental thresholds would challenge the fundamental component, but those threshold values are unavailable here.",
         "status": "valid",
         "conditions": [
           {
@@ -710,8 +603,8 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-10-02T18:40Z",
-        "trigger": null
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": "2026-10-06T01:47Z, trigger: daily bulk review (no threshold crossed)"
       }
     ],
     "monitoring": {
@@ -859,13 +752,13 @@
     }
   },
   "NVDA": {
-    "thesis_summary": "NVDA is held because the latest reported quarter shows high growth, margins and free cash flow, while the price trades above both its fifty-day ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) and two-hundred-day ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) moving averages.",
+    "thesis_summary": "NVDA remains a supported holding because the dated reported financial evidence shows strong revenue growth, high profitability and positive free cash flow, and the latest supplied market snapshot places price above its moving averages and the retained downside floor.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
         "id": "NVDA-1",
-        "text": "The price trend is intact: price ([NVDA | price: 227.27 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25]) sits above the freshly calculated fifty-day average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) by [NVDA | above_sma50_pct: 4.744 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50). A move meaningfully below that moving average would mean the recovery trend has failed.",
-        "status": "unassessed",
+        "text": "The latest dated market snapshot supports a positive intermediate trend because price exceeds the supplied intermediate moving average; the stale intraday quote and news descriptions of a rally do not establish live technical confirmation.",
+        "status": "valid",
         "conditions": [
           {
             "type": "price_below_sma50_pct",
@@ -889,13 +782,13 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-03T00:33Z",
-        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": null
       },
       {
         "id": "NVDA-2",
-        "text": "Holding below entry is justified while price stays above its long-horizon floor near the two-hundred-day average ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]). The price currently exceeds that average by [NVDA | above_sma200_pct: 13.6862 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200). A break of the fixed floor refutes the reasoning and puts a trim on the table.",
-        "status": "unassessed",
+        "text": "The supplied dated price remains above the retained fixed downside floor and the supplied long-horizon moving average, supporting continued exposure without relying on recovery to entry; the fixed floor is a risk parameter, not a current moving-average measurement.",
+        "status": "valid",
         "conditions": [
           {
             "type": "price_below",
@@ -913,13 +806,13 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-10-03T00:33Z",
-        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": null
       },
       {
         "id": "NVDA-3",
-        "text": "The latest reported quarter supports AI accelerator leadership: revenue growth against the year-ago quarter ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), gross margin ([NVDA | gross_margin_pct: 74.975317 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), operating margin ([NVDA | operating_margin_pct: 66.2371 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) and free cash flow ([NVDA | quarter_free_cash_flow: 21400000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]). The drop in operating cash flow ([NVDA | quarter_operating_cash_flow: 24077000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]) versus the prior quarter and the higher total debt ([NVDA | total_debt: 38860000000 USD | as-of 2026-07-26 | FMP/balance-sheet-statement | snapshot 5480e2859f25]) are unexplained and are being watched.",
-        "status": "unassessed",
+        "text": "The latest supplied reported quarter supports strong year-over-year revenue growth, high gross and operating margins and positive free cash flow; the cited current cash-flow and debt levels do not by themselves verify sequential deterioration or establish competitive leadership.",
+        "status": "valid",
         "conditions": [
           {
             "type": "fundamental_below",
@@ -950,15 +843,15 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-03T00:33Z",
-        "trigger": "2026-10-03T00:33Z, trigger: Assessment failed: semantic evidence review incomplete. Original trigger: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price targe"
+        "last_updated": "2026-10-06T01:47Z",
+        "trigger": null
       }
     ],
     "monitoring": {
       "claims": [
         {
           "id": "NVDA-1",
-          "text": "The price trend is intact: price ([NVDA | price: 227.27 USD | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25]) sits above the freshly calculated fifty-day average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) by [NVDA | above_sma50_pct: 4.744 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50). A move meaningfully below that moving average would mean the recovery trend has failed.",
+          "text": "The latest dated market snapshot supports a positive intermediate trend because price exceeds the supplied intermediate moving average; the stale intraday quote and news descriptions of a rally do not establish live technical confirmation.",
           "status": "valid",
           "conditions": [
             {
@@ -986,7 +879,7 @@
         },
         {
           "id": "NVDA-2",
-          "text": "Holding below entry is justified while price stays above its long-horizon floor near the two-hundred-day average ([NVDA | sma200: 199.90985 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]). The price currently exceeds that average by [NVDA | above_sma200_pct: 13.6862 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200). A break of the fixed floor refutes the reasoning and puts a trim on the table.",
+          "text": "The supplied dated price remains above the retained fixed downside floor and the supplied long-horizon moving average, supporting continued exposure without relying on recovery to entry; the fixed floor is a risk parameter, not a current moving-average measurement.",
           "status": "valid",
           "conditions": [
             {
@@ -1008,7 +901,7 @@
         },
         {
           "id": "NVDA-3",
-          "text": "The latest reported quarter supports AI accelerator leadership: revenue growth against the year-ago quarter ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), gross margin ([NVDA | gross_margin_pct: 74.975317 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]), operating margin ([NVDA | operating_margin_pct: 66.2371 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) and free cash flow ([NVDA | quarter_free_cash_flow: 21400000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]). The drop in operating cash flow ([NVDA | quarter_operating_cash_flow: 24077000000 USD | as-of 2026-07-26 | FMP/cash-flow-statement | snapshot 5480e2859f25]) versus the prior quarter and the higher total debt ([NVDA | total_debt: 38860000000 USD | as-of 2026-07-26 | FMP/balance-sheet-statement | snapshot 5480e2859f25]) are unexplained and are being watched.",
+          "text": "The latest supplied reported quarter supports strong year-over-year revenue growth, high gross and operating margins and positive free cash flow; the cited current cash-flow and debt levels do not by themselves verify sequential deterioration or establish competitive leadership.",
           "status": "valid",
           "conditions": [
             {
@@ -1047,172 +940,91 @@
         "claim_id": "NVDA-2",
         "condition_index": 0
       },
-      "change_reason": "Old NVDA-1 used a fixed price copied from an earlier fifty-day average. That value has gone stale, since the freshly measured average ([NVDA | sma50: 216.9766 USD | as-of 2026-09-29 | detector/market_data / FMP | snapshot 5480e2859f25]) has moved. The protocol forbids freezing moving averages, so the old fixed price test is replaced by a percent-distance test against the live average. The threshold was not loosened to excuse a loss: price currently sits above the average. NVDA-1's other conditions are unchanged. NVDA-2's conditions are unchanged, and its fixed floor is kept as the thesis falsifier. NVDA-3 is new because measured fundamental metrics are now supplied and the protocol requires a fundamental condition. A review date inside one week was added to satisfy the migration trigger.",
+      "change_reason": "All existing detector types, thresholds and severities remain unchanged. The correction removes unverified sequential financial comparisons from claim text and the investment rationale; it does not establish improvement or justify relaxing safeguards. The moving technical detector remains dynamic, and the fixed downside floor remains the previously retained risk parameter. The scheduled review is retained around the next regular-session close to refresh stale market evidence and revisit source discrepancies. If expected evidence is unavailable, reassess explicitly rather than silently extending the review.",
       "evidence_ids": [
         "NVDA.price",
-        "NVDA.previous_close",
+        "NVDA.price_at",
         "NVDA.sma50",
         "NVDA.sma200",
-        "NVDA.above_sma50_pct",
-        "NVDA.above_sma200_pct",
-        "NVDA.volume",
-        "NVDA.volume_avg_20d",
         "NVDA.earnings_date",
         "NVDA.revenue_yoy_pct",
         "NVDA.gross_margin_pct",
         "NVDA.operating_margin_pct",
         "NVDA.quarter_free_cash_flow",
         "NVDA.quarter_operating_cash_flow",
-        "NVDA.total_debt"
+        "NVDA.total_debt",
+        "NVDA.analyst_eps_20270125_revision_pct",
+        "NVDA.analyst_revenue_20270125_revision_pct",
+        "news:792cff7212e8ccd6eb7acca0",
+        "news:7e89f2a21ba9e7db11b14b14",
+        "news:ea28a2ceaf402e47e9df8c88",
+        "analyst:3bfc0aed53c359d047287add",
+        "analyst:7bf6884f7ca6c6e5deb2e88b"
       ],
-      "revision": "b113f77f81a9e873f0d60f6f",
-      "created_at": "2026-09-30T00:32:53+00:00",
+      "revision": "16cd1b454a5e5fb77197cb2a",
+      "created_at": "2026-10-06T01:47:05+00:00",
       "evidence_fingerprints": {
-        "NVDA.price": "94fe0df6935cb1adf3b1949e",
-        "NVDA.previous_close": "4a892ec8a7007a0dbda1e8b5",
-        "NVDA.sma50": "8595fae3d3130e09cce6607b",
-        "NVDA.sma200": "c881508735c6c6778cd2b58e",
-        "NVDA.above_sma50_pct": "7a11bb8f796cc0a0668a30db",
-        "NVDA.above_sma200_pct": "98a661ab1e64e425d0f2c33b",
-        "NVDA.volume": "586abb6a58e777246817f7ec",
-        "NVDA.volume_avg_20d": "cb8c96ad3ad32be53de8954c",
-        "NVDA.earnings_date": "607bbe851c241185a205fcd7",
+        "NVDA.price": "8cbea8858b92fca660624abd",
+        "NVDA.price_at": "feb8d2a9c97dd8c0cb946443",
+        "NVDA.sma50": "9f1c24c82ed016cc55be9cec",
+        "NVDA.sma200": "8f958be1e59dd3527d342236",
+        "NVDA.earnings_date": "b7f93bb6d692417d740d90c6",
         "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
         "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
         "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
         "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
         "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
-        "NVDA.total_debt": "766abf93dd5a30920a515e86"
+        "NVDA.total_debt": "766abf93dd5a30920a515e86",
+        "NVDA.analyst_eps_20270125_revision_pct": "6ac0f952e27303fcab0d5ea4",
+        "NVDA.analyst_revenue_20270125_revision_pct": "bd3ceb41f37f3f05867af932",
+        "news:792cff7212e8ccd6eb7acca0": "a1906eca2306ad1647ecd009",
+        "news:7e89f2a21ba9e7db11b14b14": "b6ab3fe406eeccb6d843634e",
+        "news:ea28a2ceaf402e47e9df8c88": "6ecc6366cfbd083cedb5ea61",
+        "analyst:3bfc0aed53c359d047287add": "01fc53123b2785a8b2fdf3e2",
+        "analyst:7bf6884f7ca6c6e5deb2e88b": "584bdcdf9836561dbc8a145e"
       }
     },
     "analyst_review": {
       "earnings": {
-        "assessment": "Consensus snapshots for the upcoming fiscal year are unchanged against the prior observed snapshot (EPS revision [NVDA | analyst_eps_20270125_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-30T00:30:22+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 5480e2859f25], revenue revision [NVDA | analyst_revenue_20270125_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-09-30T00:30:22+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot 5480e2859f25]). The seven-, thirty- and ninety-day estimate windows lack enough same-period snapshots, so the trend in consensus revisions is unmeasured. Hypothesis, not an analyst-stated reason: the reported revenue growth ([NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement | snapshot 5480e2859f25]) may underpin the target raises. No article attributes a raise to earnings.",
+        "assessment": "Same-period EPS and revenue forecasts for the nearer upcoming fiscal periods are slightly lower than their prior observed consensus snapshots, while more distant revisions are mixed. Longer-window revision trends lack sufficient matched snapshots, and consensus changes do not measure same-analyst revision breadth. Hypothesis only: estimate softness is relevant context for target reassessment, not an established explanation. No supplied article attributes the observed target changes to these estimate movements, and improving earnings are not a prerequisite for a valid positive revision.",
         "evidence_status": "context_only",
         "source_ids": [
           "NVDA.analyst_eps_20270125_revision_pct",
           "NVDA.analyst_revenue_20270125_revision_pct",
-          "NVDA.revenue_yoy_pct"
+          "NVDA.analyst_eps_20280125_revision_pct",
+          "NVDA.analyst_revenue_20280125_revision_pct",
+          "NVDA.analyst_eps_20290125_revision_pct",
+          "NVDA.analyst_revenue_20290125_revision_pct",
+          "NVDA.analyst_eps_20300125_revision_pct",
+          "NVDA.analyst_revenue_20300125_revision_pct"
         ]
       },
       "company_news": {
-        "assessment": "No supplied issuer news covers contracts, products, regulation or partnerships. The only documents are price-target observations with unknown reasons. This is an explicit evidence gap.",
-        "evidence_status": "unknown",
-        "source_ids": []
-      },
-      "sector_theme": {
-        "assessment": "Hypothesis only: the semiconductor ETF trades above its fifty-day average by [SMH | above_sma50_pct: 6.9415 % vs sma50 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA50) and above its two-hundred-day average by [SMH | above_sma200_pct: 22.5039 % vs sma200 | as-of 2026-09-29T19:55:00+00:00 | detector/market_data / FMP | snapshot 5480e2859f25] (base: SMA200), which suggests the sector backdrop is supportive. Price levels do not prove fund flows or investor attention, and no analyst attributes a target change to sector demand.",
+        "assessment": "Reuters reports a model launch by NVIDIA-backed Reflection AI. Hypothesis only: this provides ecosystem context, not evidence of NVIDIA orders, revenue or margin improvement and not an analyst-stated revision reason. The supplied current excerpts provide no verified contract economics or regulatory development explaining the target observations.",
         "evidence_status": "context_only",
         "source_ids": [
-          "SMH.above_sma50_pct",
-          "SMH.above_sma200_pct"
+          "news:ea28a2ceaf402e47e9df8c88"
+        ]
+      },
+      "sector_theme": {
+        "assessment": "The supplied 24/7 Wall St. excerpt characterizes a supplier's performance as an AI demand signal, while CNBC features commentary on NVIDIA's AI role and stock rally. Hypothesis only: these indicate a supportive demand narrative, not verified NVIDIA-specific orders or an explanation for analyst revisions. Supplier attribution, persistence and conversion into profitable sales remain unknown. The excerpts do not establish fund flows or sector rotation.",
+        "evidence_status": "context_only",
+        "source_ids": [
+          "news:7e89f2a21ba9e7db11b14b14",
+          "news:792cff7212e8ccd6eb7acca0"
         ]
       },
       "valuation": {
-        "assessment": "Hypothesis, not a stated reason: in the ninety-day window, most matched firms raised targets in a cluster right after the latest quarterly report (for example Evercore ISI, Raymond James, Goldman Sachs and Morgan Stanley via TheFly and StreetInsider headlines). This may reflect a repricing of the growth story. DA Davidson's observed target fell, but its baseline headline names a different firm, so that comparison is unreliable. Two records whose headline firm differs from the provider firm are quarantined. Forecast horizons are unknown, and targets do not prescribe a trade.",
+        "assessment": "Hypothesis only: growth-story repricing and discount-rate pressure are alternative contexts for target changes. The supplied relative-valuation commentary expresses an opinion comparing AMD with NVIDIA, and the Motley Fool excerpt reports rising Treasury yields; neither provides a measured NVIDIA valuation multiple or an analyst-attributed revision reason. The Wells Fargo target observation has a Morgan Stanley headline, missing intermediate coverage cannot be excluded, and forecast horizons are unknown. The supplied client-diversification commentary does not establish NVIDIA-specific crowding. A supportive AI theme can coexist with valuation risk, and targets neither prescribe trades nor establish future returns.",
         "evidence_status": "context_only",
         "source_ids": [
-          "analyst:14854164aa5b06fe4f3ddd2c",
-          "analyst:ab413d9ac6cefbe9daaa508b",
-          "analyst:4b7be1dccafba97d7ae6e2e7",
-          "analyst:d663728c03eb924696143895",
-          "analyst:ab809dca89f8d4fdcd56725e"
+          "news:4c5ad4d1d3bab51689be34e6",
+          "news:59609e9ff91154d817c061e4",
+          "news:681b3481ea905ff895d4e4cc",
+          "analyst:3bfc0aed53c359d047287add",
+          "analyst:7bf6884f7ca6c6e5deb2e88b"
         ]
       }
-    },
-    "pending_review": {
-      "claim_id": "news_shock",
-      "condition_type": "sentiment_support",
-      "cooldown_key": "thesis:NVDA",
-      "material_event_id": "2cf4d9ddffb69178c90e8d30",
-      "material_event_ids": [
-        "2cf4d9ddffb69178c90e8d30",
-        "e502b00854f7f606ceeebf43"
-      ],
-      "measured": 1,
-      "news_evidence": {
-        "citation_selections": [
-          {
-            "source_id": "news:972afb94ba5de772cd1ef1b1"
-          },
-          {
-            "source_id": "news:9d2473bd739424666a406e0b"
-          }
-        ],
-        "citations": [
-          {
-            "quote": "Nvidia remains a Buy, supported by robust Q2 FY27 results and bullish management guidance for continued AI-driven growth. Data center revenue surged 117% YoY to $89 billion, with strong gains across hyperscale and ACIE customers, reinforcin",
-            "source_id": "news:972afb94ba5de772cd1ef1b1"
-          },
-          {
-            "quote": "Nvidia Corporation remains a Buy, with a 12–16 month price target of $352, implying 55% upside as AI-driven growth and platform dominance persist. Full-stack architecture complexity increases revenue generation toward $40 billion per gigawa",
-            "source_id": "news:9d2473bd739424666a406e0b"
-          }
-        ],
-        "claim_ids": [
-          "NVDA-1",
-          "NVDA-2",
-          "NVDA-3"
-        ],
-        "counterevidence": "N3 presents a contrarian view: Michael Burry has purchased put options on NVDA, arguing AI stocks are overvalued and at risk of a market crash. However, N3 itself notes that Burry has a clear incentive to publish his trades, which weakens the evidential weight. N1 notes that Micron and SanDisk have outperformed NVDA in 2026 gains, suggesting relative underperformance, though this does not invalidate the thesis of holding NVDA at current levels. N6 raises a structural concern about AI competitive moats evaporating, but provides no specific evidence of NVDA's moat deterioration.",
-        "impact": "supports",
-        "reasoning": "Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2.",
-        "source_documents": {
-          "news:441b6f024a0ace117662038d": {
-            "published_at": "2026-09-30 12:30:53",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "NVDA",
-            "text": "NVIDIA is up 23% this year, but Micron and SanDisk have left it in the dust with gains that few analysts thought possible.",
-            "title": "After Massive 2026 Gains, Can NVIDIA, Micron, and SanDisk Keep Climbing in 2027?",
-            "url": "https://247wallst.com/investing/2026/09/30/after-massive-2026-gains-can-nvidia-micron-and-sandisk-keep-climbing-in-2027/"
-          },
-          "news:4c28a43107d861fd12ebc171": {
-            "published_at": "2026-09-30 13:00:12",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "NVDA",
-            "text": "High concentration in tech stocks isn't a bad thing for short-term traders, according to Tim Bohen (@Stockstotrade) who points to trading opportunities it presents across Wall Street. He names Nvidia (NVDA) as the long-standing AI giant with plenty of value, Bloom Energy (BE) as a tentative breakout candidate, and SpaceX (SPCX) as a company with strong potential in guidance.",
-            "title": "The Big 3: NVDA, BE, SPCX",
-            "url": "https://www.youtube.com/watch?v=kDFWSH3hd1o"
-          },
-          "news:61c1528c5ae8ebc3ef60ae1f": {
-            "published_at": "2026-09-30 13:30:00",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "NVDA",
-            "text": "Michael Burry thinks AI stocks are overvalued and at risk of fueling a widespread market crash. While some of Burry's arguments are valid, he has a clear incentive to publish his trades.",
-            "title": "Michael Burry Buys Put Options on Nvidia, Micron, and Palantir as \"The Big Short\" Investor Predicts a 1987-Style Market Crash",
-            "url": "https://www.fool.com/investing/2026/09/30/michael-burry-buys-put-options-on-nvidia-micron-an/"
-          },
-          "news:972afb94ba5de772cd1ef1b1": {
-            "published_at": "2026-09-30 16:18:43",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "NVDA",
-            "text": "Nvidia remains a Buy, supported by robust Q2 FY27 results and bullish management guidance for continued AI-driven growth. Data center revenue surged 117% YoY to $89 billion, with strong gains across hyperscale and ACIE customers, reinforcing NVDA's full-stack AI platform dominance. GAAP gross margins reached 75% in Q2, with management guiding for a temporary dip before stabilizing at 72–73% in fiscal 2028 as price resets offset rising costs.",
-            "title": "Nvidia's Demand Outlook Still Supports The Bull Case",
-            "url": "https://seekingalpha.com/article/4951149-nvidia-demand-outlook-still-supports-bull-case"
-          },
-          "news:9d2473bd739424666a406e0b": {
-            "published_at": "2026-09-30 12:01:39",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "NVDA",
-            "text": "Nvidia Corporation remains a Buy, with a 12–16 month price target of $352, implying 55% upside as AI-driven growth and platform dominance persist. Full-stack architecture complexity increases revenue generation toward $40 billion per gigawatt across new scale-up NVLink, CPU, and cooling topologies consistently. A massive $235 billion share buyback program executed through fiscal 2028 will dramatically enhance bottom-line per-share compound earnings growth sustainably.",
-            "title": "Nvidia Looks Criminally Cheap",
-            "url": "https://seekingalpha.com/article/4951069-nvidia-looks-criminally-cheap"
-          },
-          "news:c556bfe40efa0e46cdd695a0": {
-            "published_at": "2026-09-30 13:12:11",
-            "scope": "provider article/excerpt; not independently verified full text",
-            "symbol": "NVDA",
-            "text": "Artificial intelligence (AI) is dismantling the competitive advantages that entire market segments have relied on for decades. Understanding where competitive moats are disappearing versus where they are being reinforced due to AI may be one of the most important questions that investors can ask right now.",
-            "title": "Where AI Competitive Moats Are Evaporating & Being Built",
-            "url": "https://www.etftrends.com/artificial-intelligence-content-hub/where-ai-competitive-moats-are-evaporating-being-built/"
-          }
-        },
-        "uncertainty": "The sources do not address the unexplained drop in operating cash flow or the rise in total debt flagged in claim NVDA-3. N4 mentions a temporary margin dip before stabilization at 72–73% in fiscal 2028, but does not explain the debt increase or cash flow dynamics. The timing of earnings approaching (within 3 days per claim NVDA-2) means new quarterly data could materially alter the fundamental picture. N6's broad concern about AI moats evaporating lacks specificity regarding NVDA's competitive position. Burry's bearish stance (N3) represents a genuine alternative thesis, though not yet supported by operational deterioration in the reported quarter."
-      },
-      "severity": "thesis",
-      "symbol": "NVDA",
-      "threshold": 0,
-      "trigger": "Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2."
     }
   }
 }
