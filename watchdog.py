@@ -2,6 +2,7 @@
 """Independent heartbeat and bounded repairs. Never edits investment data or code."""
 import argparse
 import base64
+import copy
 from datetime import datetime, timedelta, timezone
 import fcntl
 import hashlib
@@ -176,12 +177,14 @@ def monitor(now, state, fetch=api, send=notify, apply=False, daily=False):
         current_since = since
         if old and not old.get('resolved'):
             since = min(since, stamp(old['since']))
-        runs = fetch(f'actions/workflows/{workflow}/runs?branch=main&per_page=100')['workflow_runs']
+        packet = fetch(f'actions/workflows/{workflow}/runs?branch=main&per_page=100')
+        runs = packet['workflow_runs']
+        complete_history = len(runs) < 100 and packet.get('total_count', len(runs)) <= len(runs)
         # A green calendar-only skip is not a measurement heartbeat.
         checked_runs = []
         for candidate in runs:
             if candidate.get('conclusion') == 'success' and candidate.get('head_branch') == 'main' and candidate.get('event') in {'schedule', 'workflow_dispatch'} and attempt_time(candidate) >= since:
-                jobs = fetch(f"actions/runs/{candidate['id']}/jobs")['jobs']
+                jobs = fetch(f"actions/runs/{candidate['id']}/attempts/{candidate.get('run_attempt', 1)}/jobs")['jobs']
                 required = '1) Detector' if workflow == 'detector.yml' else '3b) Structured decision'
                 if not any(step.get('conclusion') == 'success' and step.get('name', '').startswith(required)
                            for job in jobs for step in job.get('steps', [])):
@@ -194,6 +197,63 @@ def monitor(now, state, fetch=api, send=notify, apply=False, daily=False):
                     r.get('event') in {'schedule', 'workflow_dispatch'} and
                     r.get('status') == 'completed' and r.get('conclusion') != 'success' and
                     attempt_time(r) >= since]
+        # A previously recorded recovery bounds subsequent episodes only when
+        # this complete window still contains that exact verified attempt.
+        if old and old.get('resolved') and kind == 'failed' and complete_history:
+            recovery = old.get('recovery', {})
+            recovered_at = recovery.get('attempt_started_at')
+            recovered = next((r for r in checked_runs
+                if r.get('id') == recovery.get('run_id')
+                and r.get('run_attempt', 1) == recovery.get('run_attempt')
+                and r.get('head_branch') == 'main'
+                and r.get('event') in {'schedule', 'workflow_dispatch'}
+                and r.get('status') == 'completed' and r.get('conclusion') == 'success'
+                and attempt_time(r).isoformat() == recovered_at), None)
+            if recovered and not any(attempt_time(r) == attempt_time(recovered) for r in failures):
+                subsequent = [r for r in failures if attempt_time(r) > attempt_time(recovered)]
+                if subsequent:
+                    state.setdefault('incident_history', {}).setdefault(workflow, []).append(copy.deepcopy(old))
+                    first_failure = min(subsequent, key=attempt_order)
+                    since = attempt_time(first_failure)
+                    old = {'since': since.isoformat(), 'attempts': 0}
+                    state['incidents'][workflow] = old
+                    failures = subsequent
+        # Split only a fully bounded, completed episode. A skipped core, an
+        # omitted boundary or concurrent execution cannot prove recovery.
+        boundary = previous or min(failures, key=attempt_order, default=None)
+        if (old and not old.get('resolved') and kind == 'failed' and boundary
+                and complete_history and boundary in checked_runs
+                and attempt_time(run) > attempt_time(boundary)):
+            successes = [r for r in checked_runs if r.get('head_branch') == 'main'
+                         and r.get('event') in {'schedule', 'workflow_dispatch'}
+                         and r.get('status') == 'completed' and r.get('conclusion') == 'success'
+                         and attempt_time(boundary) < attempt_time(r) < attempt_time(run)]
+            for recovered in sorted(successes, key=attempt_order):
+                if attempt_time(recovered) <= attempt_time(boundary):
+                    continue  # Consecutive successes do not form another episode.
+                if any(attempt_time(r) == attempt_time(recovered) for r in failures):
+                    continue  # Equal timestamps cannot establish recovery ordering.
+                # Later failures belong to the fresh episode, starting at its
+                # first observed failed attempt, not the historical anchor.
+                new_failures = [r for r in failures if attempt_time(r) > attempt_time(recovered)]
+                first_failure = min(new_failures, key=attempt_order)
+                archived = copy.deepcopy(old)
+                archived['last_failure'] = dict(max(
+                    [r for r in failures if attempt_time(r) < attempt_time(recovered)] + [boundary],
+                    key=attempt_order))
+                archived['resolved'] = now.isoformat()
+                archived['recovery'] = {
+                    'workflow': workflow, 'status': 'healthy',
+                    'verification': 'verified_production', 'run_id': recovered['id'],
+                    'run_attempt': recovered.get('run_attempt', 1), 'head_sha': recovered.get('head_sha'),
+                    'attempt_started_at': attempt_time(recovered).isoformat(),
+                    'verified_at': now.isoformat(), 'historical': True}
+                state.setdefault('incident_history', {}).setdefault(workflow, []).append(archived)
+                old = {'since': attempt_time(first_failure).isoformat(), 'attempts': 0}
+                state['incidents'][workflow] = old
+                since = stamp(old['since'])
+                previous = None
+                boundary = first_failure
         observed_failure = max(failures, key=attempt_order, default=None)
         if observed_failure and (not previous or
                 attempt_order(observed_failure) > attempt_order(previous)):
@@ -221,6 +281,10 @@ def monitor(now, state, fetch=api, send=notify, apply=False, daily=False):
             observations.append(recovery)
             continue
         if not old or old.get('resolved'):
+            if old and old.get('resolved'):
+                state.setdefault('incident_history', {}).setdefault(workflow, []).append(copy.deepcopy(old))
+                if kind == 'failed' and run:
+                    since = attempt_time(run)
             old = {'since': since.isoformat(), 'attempts': 0}
             state['incidents'][workflow] = old
         if previous:
@@ -248,6 +312,8 @@ def monitor(now, state, fetch=api, send=notify, apply=False, daily=False):
             reason = 'repair_eligible'
         observation = {'workflow': workflow, 'status': kind, 'current_status': current_kind,
             'run_created_at': run.get('created_at') if run else None, 'run_id': run.get('id') if run else None, 'run_attempt': run.get('run_attempt', 1) if run else None,
+            'attempt_started_at': attempt_time(run).isoformat() if run else None,
+            'incident_started_at': old['since'],
             'since': old['since'], 'due_since': current_since.isoformat() if eligible else None,
             'repair_eligible': bool(can_repair), 'reason': reason, 'verification': 'pending_production'}
         if kind == 'stuck':
@@ -302,7 +368,7 @@ def monitor(now, state, fetch=api, send=notify, apply=False, daily=False):
                 link = '\n'.join(f"run:{r['run_id']}:attempt:{r['run_attempt']} "
                                  f"https://github.com/{REPO}/actions/runs/{r['run_id']}/attempts/{r['run_attempt']}"
                                  for r in observation['overdue_runs'])
-            send(message=f"🚨 AI Portföy — çalışma gözcüsü\n{workflow}: {kind}\n{scope}; başlangıç: {old['since']}.\nÜretim doğrulaması bekleniyor; çözülmüş sayılmadı.\n{explanation}\nOnarım kodu: {reason}; deneme sayısı: {old['attempts']}.\n{link}")
+            send(message=f"🚨 AI Portföy — çalışma gözcüsü\n{workflow}: {kind}\n{scope}.\nGeçmiş olay başlangıcı: {old['since']}\nÇalışma denemesi başlangıcı: {observation['attempt_started_at'] or 'henüz yok'}\nÜretim doğrulaması bekleniyor; çözülmüş sayılmadı.\n{explanation}\nOnarım kodu: {reason}; deneme sayısı: {old['attempts']}.\n{link}")
             old['alerted'] = now.isoformat()
             old['alerted_observation_id'] = observation_id
     state['last_check'] = now.isoformat()

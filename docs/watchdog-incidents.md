@@ -39,3 +39,30 @@ Current-code reproductions also found digit-check false positives for the known 
 A read-only FMP check on 2026-10-05 still found incomplete target history for AMD, ANET, AVAV, FANG, NVDA and PPL, plus no target records for ATOM; all seven had available annual estimates. Firm/target inconsistencies and AVAV's same-day Goldman Sachs conflict remain quarantined. Missing/contradictory target data is **not** normalized to healthy, and annual estimates do not substitute for target-revision history. A provider correction or independently sourced reconciliation is needed. No current portfolio production run was manufactured to clear the incident.
 
 Legacy deferral counting also lacks candidate-specific historical membership: it assumes participation in every parsed round. The rejected weekly draft is absent from its saved artifact, so the exact historical failing symbol cannot be reconstructed. Do not reset counters or invent past membership to unblock a proposal. Historical membership reconciliation remains separate; the documented REPORT-based threshold and financial guards are unchanged.
+
+## Recovery between failures
+
+Failure observations expose `incident_started_at` and `attempt_started_at`
+separately; alerts label the historical incident start and current attempt start.
+`run_created_at` remains audit metadata and is not the rerun execution time.
+
+When a verified successful core attempt lies strictly between the old failure and
+the latest failed attempt, the monitor archives a resolved incident in
+`incident_history[workflow]`, including recovery identity, counters, observation
+and acknowledgement. It starts a fresh incident at the first failed attempt after
+that recovery. This historical recovery produces no present-tense success alert:
+the latest failure still has `verification: pending_production`. Previously
+resolved incidents are also archived before replacement. Daily repair counters
+remain global and unchanged; historical repair counters remain in the archive.
+
+Splitting requires a complete returned run window (fewer than 100 entries and no
+larger reported total), the old failure boundary present, verified attempt-specific
+core jobs, and no concurrent active/stuck attempt. Missing boundaries, truncated
+lists, equal timestamps, older successes and skipped core steps cannot prove an
+intervening recovery. Repeated checks neither archive the same episode again nor
+repeat an unchanged failure alert. Failure watermarks still cannot regress.
+
+The saved runs 37399995693, 37398208638, 37375415792 and 37374209955 all skipped
+the detector core. They do not resolve the September 28 incident when the October
+6 failure 37400766198 appears. These are local artifact regressions, not fresh
+production executions or claims of production recovery.

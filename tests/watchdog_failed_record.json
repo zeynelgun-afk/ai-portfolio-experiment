@@ -1,0 +1,10 @@
+{
+  "id": 37400766198,
+  "run_attempt": 1,
+  "head_branch": "main",
+  "event": "schedule",
+  "created_at": "2026-10-06T01:45:23Z",
+  "run_started_at": "2026-10-06T01:45:23Z",
+  "status": "completed",
+  "conclusion": "failure"
+}

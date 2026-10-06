@@ -146,3 +146,19 @@ extra quote text are rejected. Old saved exact-quote outputs retain strict valid
 for read compatibility. The semantic reviewer still checks relevance, full context,
 contradictions and uncertainty. Valid excerpts do not override an uncertain/unsupported
 verdict. Reviews preserve selections, restored quotations and a source-bundle hash.
+
+### Quarantine continuity (integrity version 3)
+
+Quarantined rows are chronology barriers, not omissions. A headline/provider firm
+mismatch blocks both named firms on that UTC date; a numeric mismatch blocks the
+provider firm. Even a clean same-day row cannot disambiguate that day. Earlier
+segments no longer supply current votes or dispersion targets, and two later
+clean observations are required to measure a new same-firm revision. Raw payloads
+and quarantine reasons remain unchanged. The integrity version invalidates cached
+version-2 daily observations without editing them.
+
+Saved AMD (Truist/BofA), ANET (Jefferies/Evercore) and NVDA (Macquarie/JPMorgan)
+records demonstrate actual attribution mismatches. Historical target-value
+mismatches may involve provider-restated split bases; no ratio-based repair or
+provider correction is inferred. Recent quarantines continue to mark coverage
+incomplete and inhibit automatic review routing.
