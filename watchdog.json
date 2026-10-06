@@ -3,27 +3,27 @@
     "detector.yml": {
       "since": "2026-09-28T21:15:00+00:00",
       "attempts": 0,
-      "alerted": "2026-10-05T01:23:50.142559+00:00",
+      "alerted": "2026-10-06T02:35:37.866031+00:00",
       "last_failure": {
-        "id": 37082469299,
+        "id": 37400766198,
         "name": "Intraday Detector",
-        "node_id": "WFR_kwLOTuXhHs8AAAAIokmTsw",
+        "node_id": "WFR_kwLOTuXhHs8AAAAItUJm9g",
         "head_branch": "main",
-        "head_sha": "b9696bd9a2c5250c02f10adfe9da4399c14ac727",
+        "head_sha": "fe51d20dfcd069d9ef197fc349aa7bd7c6a6ab0c",
         "path": ".github/workflows/detector.yml",
         "display_title": "Intraday Detector",
-        "run_number": 30,
+        "run_number": 36,
         "event": "schedule",
         "status": "completed",
         "conclusion": "failure",
         "workflow_id": 368608046,
-        "check_suite_id": 100447474602,
-        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAXYyLTqg",
-        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299",
-        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299",
+        "check_suite_id": 101306614685,
+        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAXllhDnQ",
+        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198",
+        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198",
         "pull_requests": [],
-        "created_at": "2026-10-03T00:32:02Z",
-        "updated_at": "2026-10-03T00:37:27Z",
+        "created_at": "2026-10-06T01:45:23Z",
+        "updated_at": "2026-10-06T01:56:18Z",
         "actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -47,7 +47,7 @@
         },
         "run_attempt": 1,
         "referenced_workflows": [],
-        "run_started_at": "2026-10-03T00:32:02Z",
+        "run_started_at": "2026-10-06T01:45:23Z",
         "triggering_actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -69,26 +69,26 @@
           "user_view_type": "public",
           "site_admin": false
         },
-        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299/jobs",
-        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299/logs",
-        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/100447474602",
-        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299/artifacts",
-        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299/cancel",
-        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299/rerun",
+        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/jobs",
+        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/logs",
+        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/101306614685",
+        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/artifacts",
+        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/cancel",
+        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/rerun",
         "previous_attempt_url": null,
         "workflow_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/workflows/368608046",
         "head_commit": {
-          "id": "b9696bd9a2c5250c02f10adfe9da4399c14ac727",
-          "tree_id": "0abf03e2c5eb2d03484f2bdeb2bdec946e0cf936",
-          "message": "[bot/detector] intraday check (code 20)\n\nTrigger: NVDA news_shock: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2.",
-          "timestamp": "2026-10-02T19:07:42Z",
+          "id": "fe51d20dfcd069d9ef197fc349aa7bd7c6a6ab0c",
+          "tree_id": "73afd07c35c37f13dd2d74b7857f30d48b9f9116",
+          "message": "[verified] fix: repair historical watchdog and shared evidence validation (#4)\n\nCo-authored-by: Finzora AI <finzora-bot@users.noreply.github.com>",
+          "timestamp": "2026-10-05T06:27:33Z",
           "author": {
-            "name": "Finzora AI",
-            "email": "finzora-bot@users.noreply.github.com"
+            "name": "zeynelgun",
+            "email": "zeynelgun@gmail.com"
           },
           "committer": {
-            "name": "Finzora AI",
-            "email": "finzora-bot@users.noreply.github.com"
+            "name": "GitHub",
+            "email": "noreply@github.com"
           }
         },
         "repository": {
@@ -232,15 +232,15 @@
         "workflow": "detector.yml",
         "status": "failed",
         "current_status": "failed",
-        "run_created_at": "2026-10-03T00:32:02Z",
-        "run_id": 37082469299,
+        "run_created_at": "2026-10-06T01:45:23Z",
+        "run_id": 37400766198,
         "run_attempt": 1,
         "since": "2026-09-28T21:15:00+00:00",
         "due_since": null,
         "repair_eligible": false,
         "reason": "outside_due_window",
         "verification": "pending_production",
-        "observation_id": "658b083c218de98982980e7b83e2e6d9690d37c5c168abfadc7fb3510e448c0a"
+        "observation_id": "2fa53c15b26d233d3386c3de749a8dbb18870e2f2d94f83899c3797e362f2df7"
       },
       "acknowledgement": {
         "observation_id": "658b083c218de98982980e7b83e2e6d9690d37c5c168abfadc7fb3510e448c0a",
@@ -249,7 +249,8 @@
         "evidence": "run:37082469299:attempt:1; reviewed exact logs/artifacts at https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37082469299/attempts/1; detector partial assessments NVDA/MU and target integrity AMD/ANET/NVDA; calendar-only green is not recovery; code remediation https://github.com/zeynelgun-afk/ai-portfolio-experiment/pull/4; read-only FMP receipts 2026-10-05 under /home/zeynel/portfolio-watchdog-repair-evidence/provider-readonly; unresolved, pending normal scheduled production verification",
         "operator": "Hermes (user-authorized incident repair)",
         "acknowledged_at": "2026-10-05T06:28:39.390752+00:00"
-      }
+      },
+      "alerted_observation_id": "2fa53c15b26d233d3386c3de749a8dbb18870e2f2d94f83899c3797e362f2df7"
     },
     "weekly.yml": {
       "since": "2026-10-03T06:00:00+00:00",
@@ -504,6 +505,6 @@
     }
   },
   "daily_repairs": {},
-  "last_check": "2026-10-05T06:29:35.955137+00:00",
+  "last_check": "2026-10-06T02:35:37.866031+00:00",
   "monitoring_started_at": "2026-09-28T11:55:48.640293+00:00"
 }
