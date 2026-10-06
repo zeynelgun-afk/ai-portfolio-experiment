@@ -16,7 +16,7 @@ WINDOWS = (7, 30, 90)
 ESTIMATE_WINDOWS = (7, 30, 90)
 FORWARD_HORIZONS = (20, 60, 120)
 ROUND_TRIP_COST_SCENARIOS_BPS = (0, 25, 50, 100, 250)
-INTEGRITY_VERSION = 2
+INTEGRITY_VERSION = 3
 LIMITS = ('Provider observations, not verified analyst reports. Targets are forecasts; '
           'revision reasons and forecast horizon are unknown unless separately sourced. '
           'Two independent firms is a research routing heuristic, not a fitted investment rule. '
@@ -97,6 +97,7 @@ def firm_name(value):
 
 def analyze(symbol, rows, moment, complete):
     groups, rejected, conflicts, attribution_conflicts, quarantined = {}, 0, [], [], []
+    barriers = {}
     known_firms = {firm_name(r.get('analystCompany')) for r in rows if isinstance(r, dict)} | set(ALIASES.values())
     for row in rows:
         try:
@@ -117,6 +118,11 @@ def analyze(symbol, rows, moment, complete):
             if headline_target and not math.isclose(float(headline_target[1].replace(',', '')), raw, abs_tol=0.01, rel_tol=0):
                 reasons.append('headline_target_differs_from_raw_provider_target')
             if reasons:
+                implicated = {firm}
+                if 'headline_firm_differs_from_provider_firm' in reasons:
+                    implicated.add(firm_name(named[1]))
+                for blocked in implicated:
+                    barriers.setdefault(blocked, set()).add(when.date().isoformat())
                 quarantined.append({'id': identity([symbol,row]), 'symbol': symbol, 'firm': firm,
                     'at': when.isoformat(), 'title': title, 'url': row.get('newsURL'), 'raw_record': copy.deepcopy(row),
                     'reasons': reasons, 'resolution': 'Awaiting a consistent provider record or independently verified source; no inferred repair'})
@@ -129,12 +135,17 @@ def analyze(symbol, rows, moment, complete):
                     'reason': 'unknown', 'forecast_horizon': 'unknown'}
             groups.setdefault(firm, {}).setdefault(when.date().isoformat(), []).append(item)
         except (ValueError, TypeError, KeyError, AttributeError): rejected += 1
+    for firm, days in barriers.items():
+        for day in days:
+            groups.setdefault(firm, {}).setdefault(day, []).append(None)
     revisions, latest, segment_counts = [], [], {}
     unpaired = 0
     for firm, days in sorted(groups.items()):
         observations = []
         for day, entries in sorted(days.items()):
-            if len({r['target_adjusted'] for r in entries}) != 1:
+            if None in entries:
+                observations.append(None)
+            elif len({r['target_adjusted'] for r in entries}) != 1:
                 conflicts.append(firm + ':' + day)
                 # Do not bridge an ambiguous observation to invent a revision.
                 observations.append(None)
@@ -168,6 +179,9 @@ def analyze(symbol, rows, moment, complete):
             elif previous is None:
                 unpaired += 1
             previous = current
+        if barriers.get(firm):
+            boundary = max(barriers[firm])
+            revisions = [r for r in revisions if r['firm'] != firm or r['previous']['at'][:10] > boundary]
         if previous:
             latest.append(previous)
             segment_counts[firm] = segment_count

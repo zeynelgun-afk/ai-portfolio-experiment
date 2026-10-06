@@ -71,7 +71,7 @@ class Revisions(unittest.TestCase):
         rows[1]['newsTitle'] = 'MU target raised at Beta'
         report = self.report(rows)
         self.assertEqual(report['status'], 'incomplete')
-        self.assertEqual(report['windows']['30']['up_firms'], 1)
+        self.assertEqual(report['windows']['30']['up_firms'], 0)
         self.assertTrue(report['attribution_conflicts'])
         self.assertIsNone(ar.review_trigger('MU', report, {}, NOW))
 

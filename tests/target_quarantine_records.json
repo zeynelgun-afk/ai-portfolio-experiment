@@ -1,0 +1,41 @@
+{
+  "AMD": {
+    "adjPriceTarget": 720,
+    "analystCompany": "Truist Financial",
+    "analystName": "",
+    "newsBaseURL": "streetinsider.com",
+    "newsPublisher": "StreetInsider",
+    "newsTitle": "AMD (AMD) PT Raised to $720 at BofA Securities",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/AMD+%28AMD%29+PT+Raised+to+%24720+at+BofA+Securities/27104745.html",
+    "priceTarget": 720,
+    "priceWhenPosted": 629.31,
+    "publishedDate": "2026-09-25T13:51:00.000Z",
+    "symbol": "AMD"
+  },
+  "ANET": {
+    "adjPriceTarget": 250,
+    "analystCompany": "Jefferies",
+    "analystName": "",
+    "newsBaseURL": "streetinsider.com",
+    "newsPublisher": "StreetInsider",
+    "newsTitle": "Arista Networks (ANET) PT Raised to $250 at Evercore ISI",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/Arista+Networks+%28ANET%29+PT+Raised+to+%24250+at+Evercore+ISI/26868878.html",
+    "priceTarget": 250,
+    "priceWhenPosted": 190.51,
+    "publishedDate": "2026-08-05T07:09:00.000Z",
+    "symbol": "ANET"
+  },
+  "NVDA": {
+    "adjPriceTarget": 320,
+    "analystCompany": "Macquarie",
+    "analystName": "",
+    "newsBaseURL": "streetinsider.com",
+    "newsPublisher": "StreetInsider",
+    "newsTitle": "NVIDIA (NVDA) PT Raised to $320 at JPMorgan",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24320+at+JPMorgan/26983476.html",
+    "priceTarget": 320,
+    "priceWhenPosted": 209.66,
+    "publishedDate": "2026-08-27T06:25:00.000Z",
+    "symbol": "NVDA"
+  }
+}
