@@ -16,7 +16,7 @@ def env(run='101'):
     return {'GITHUB_REPOSITORY': 'zeynelgun-afk/ai-portfolio-experiment',
             'GITHUB_REF': 'refs/heads/main', 'GITHUB_EVENT_NAME': 'workflow_dispatch',
             'GITHUB_WORKFLOW': 'Local Hermes Smoke', 'GITHUB_RUN_ID': run,
-            'GITHUB_RUN_ATTEMPT': '1'}
+            'GITHUB_RUN_ATTEMPT': '1', 'LOCAL_RUNNER_CHECKOUT_OUTCOME': 'success'}
 
 
 def test_claim_survives_process_restart_and_rejects_overlap(tmp_path):
@@ -105,6 +105,128 @@ def test_archive_sync_failure_retains_unresolved_claim(tmp_path, monkeypatch):
         guard.finish(state, context, 'success')
     assert not (state/'101-artifacts.tar.gz').exists()
     assert (state/'active.json').exists()
+
+
+def test_blocked_non_owner_finish_does_not_archive_or_change_prior_claim(tmp_path):
+    guard = load_guard()
+    guard.start(tmp_path, env())
+    before = {p.name: p.read_bytes() for p in tmp_path.iterdir() if p.is_file()}
+    with pytest.raises(RuntimeError, match='Unresolved'):
+        guard.start(tmp_path, env('102'))
+    assert guard.finish(tmp_path, env('102'), 'failure') == 'not-owned'
+    assert before == {p.name: p.read_bytes() for p in tmp_path.iterdir() if p.is_file()}
+    with pytest.raises(RuntimeError, match='ownership'):
+        guard.finish(tmp_path, env('102'), 'success')
+
+
+@pytest.mark.parametrize('outcome', ['failure', 'cancelled'])
+def test_never_claimed_finish_without_active_is_noop(tmp_path, outcome):
+    assert load_guard().finish(tmp_path, env(), outcome) == 'not-owned'
+    assert not (tmp_path / '101.json').exists()
+
+
+@pytest.mark.parametrize('key,value', [('GITHUB_SHA', 'other'), ('GITHUB_WORKFLOW', 'Intraday Detector')])
+def test_finish_rejects_wrong_exact_identity(tmp_path, key, value):
+    guard = load_guard()
+    guard.start(tmp_path, env())
+    workspace = tmp_path / 'checkout'; workspace.mkdir()
+    with pytest.raises(RuntimeError, match='ownership'):
+        guard.finish(tmp_path, {**env(), key: value, 'GITHUB_WORKSPACE': str(workspace)}, 'success')
+    assert (tmp_path / 'active.json').exists()
+
+
+@pytest.mark.parametrize('outcome', ['success', 'failure', 'cancelled'])
+def test_terminal_claim_cannot_be_finalized_again(tmp_path, outcome):
+    guard = load_guard()
+    workspace = tmp_path / 'checkout'; workspace.mkdir()
+    (workspace / 'portfolio.json').write_text('original')
+    root = tmp_path / 'journal'
+    context = {**env(), 'GITHUB_WORKSPACE': str(workspace)}
+    guard.start(root, context)
+    guard.finish(root, context, 'failure')
+    before = {p.name: p.read_bytes() for p in root.iterdir()}
+    (workspace / 'portfolio.json').write_text('different later data')
+    with pytest.raises(RuntimeError, match='already finalized'):
+        guard.finish(root, context, outcome)
+    assert before == {p.name: p.read_bytes() for p in root.iterdir()}
+
+
+@pytest.mark.parametrize('outcome', ['success', 'failure', 'cancelled'])
+def test_terminal_claim_cannot_be_finished_again(tmp_path, outcome):
+    guard = load_guard()
+    workspace = tmp_path / 'checkout'; workspace.mkdir()
+    context = {**env(), 'GITHUB_WORKSPACE': str(workspace)}
+    guard.start(tmp_path / 'journal', context)
+    guard.finish(tmp_path / 'journal', context, 'failure')
+    root = tmp_path / 'journal'
+    before = {p.name: p.read_bytes() for p in root.iterdir()}
+    with pytest.raises(RuntimeError, match='already finalized'):
+        guard.finish(root, context, outcome)
+    assert before == {p.name: p.read_bytes() for p in root.iterdir()}
+
+
+@pytest.mark.parametrize('checkout', ['failure', 'cancelled', 'unknown'])
+def test_failed_checkout_snapshot_is_explicitly_unverified(tmp_path, checkout):
+    import json
+    guard = load_guard()
+    workspace = tmp_path / 'checkout'; workspace.mkdir()
+    (workspace / 'portfolio.json').write_text('prior checkout data')
+    root = tmp_path / 'journal'
+    context = {**env(), 'GITHUB_WORKSPACE': str(workspace), 'LOCAL_RUNNER_CHECKOUT_OUTCOME': checkout}
+    guard.start(root, context)
+    guard.finish(root, context, 'failure')
+    receipt = json.loads((root / '101.json').read_text())
+    assert receipt['checkout_outcome'] == checkout
+    assert receipt['workspace_provenance'] == 'unverified-checkout'
+    assert receipt['archive'] == '101-unverified-workspace.tar.gz'
+    assert (root / receipt['archive']).exists()
+    assert not (root / '101-artifacts.tar.gz').exists()
+
+
+@pytest.mark.parametrize('interrupted', ['receipt', 'archive'])
+def test_interrupted_finalization_never_overwrites_existing_evidence(tmp_path, interrupted):
+    import json
+    guard = load_guard()
+    root = tmp_path / 'journal'; workspace = tmp_path / 'checkout'; workspace.mkdir()
+    context = {**env(), 'GITHUB_WORKSPACE': str(workspace)}
+    guard.start(root, context)
+    if interrupted == 'receipt':
+        record = json.loads((root / '101.json').read_text()); record['status'] = 'success'
+        (root / '101.json').write_text(json.dumps(record))
+    else:
+        (root / '101-artifacts.tar.gz').write_bytes(b'original evidence')
+    before = {p.name: p.read_bytes() for p in root.iterdir()}
+    with pytest.raises(RuntimeError, match='reconciliation'):
+        guard.finish(root, context, 'success')
+    assert before == {p.name: p.read_bytes() for p in root.iterdir()}
+
+
+def test_success_release_syncs_directory_after_unlink(tmp_path, monkeypatch):
+    import os
+    import stat
+    guard = load_guard()
+    root = tmp_path / 'journal'; workspace = tmp_path / 'checkout'; workspace.mkdir()
+    context = {**env(), 'GITHUB_WORKSPACE': str(workspace)}
+    guard.start(root, context)
+    real_sync = guard.os.fsync
+    synced = []
+    def sync(fd):
+        if not (root / 'active.json').exists() and stat.S_ISDIR(os.fstat(fd).st_mode):
+            synced.append(True)
+        real_sync(fd)
+    monkeypatch.setattr(guard.os, 'fsync', sync)
+    guard.finish(root, context, 'success')
+    assert synced == [True]
+
+
+def test_success_requires_verified_checkout(tmp_path):
+    guard = load_guard()
+    workspace = tmp_path / 'checkout'; workspace.mkdir()
+    context = {**env(), 'GITHUB_WORKSPACE': str(workspace), 'LOCAL_RUNNER_CHECKOUT_OUTCOME': 'failure'}
+    guard.start(tmp_path / 'journal', context)
+    with pytest.raises(RuntimeError, match='checkout'):
+        guard.finish(tmp_path / 'journal', context, 'success')
+    assert (tmp_path / 'journal/active.json').exists()
 
 
 def test_finish_preserves_private_partial_artifacts(tmp_path):

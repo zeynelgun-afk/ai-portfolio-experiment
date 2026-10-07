@@ -30,7 +30,11 @@ All trading remains simulated accounting: no broker credentials or order APIs.
 - Managed runtime: `~/.local/share/ai-portfolio-runner/`
 - Actions checkout: `actions/_work/ai-portfolio-experiment/ai-portfolio-experiment`
   beneath that runtime; never the user's dirty development checkout.
-- Python 3.12 virtualenv: `venv/`; installed `requirements.txt` plus pytest for smoke.
+- Python 3.12 virtualenv: `venv/`; install the full `requirements-dev.txt`
+  (includes production dependencies, pytest and PyYAML) before any smoke dispatch:
+  `uv pip install --python ~/.local/share/ai-portfolio-runner/venv/bin/python -r requirements-dev.txt`.
+  Verify `venv/bin/python -c 'import pytest, yaml'` in the managed runtime.
+  The smoke intentionally does not install packages or invoke inference by default.
 - Existing `hermes` and `uv` executables must be on the service PATH.
 - Install `ops/local_runner_guard.py` OUTSIDE the Actions checkout as
   `~/.local/share/ai-portfolio-runner/local_runner_guard.py`.
@@ -58,9 +62,12 @@ may be used for pull-request jobs. The service does not expose an HTTP proxy.
 3. Pause `weekly.yml`, `detector.yml` and `watchdog.yml`; drain/cancel old queued or
    running jobs and verify none remain. Old hosted jobs do not share local locks.
 4. Merge reviewed migration, verify main SHA, start the single guarded listener.
-5. Dispatch `local-hermes-smoke.yml` on main. Require actual runner success,
+5. For initial inference cutover, dispatch `local-hermes-smoke.yml` on main with
+   explicit `offline_only=false`. Require actual runner success,
    structured subscription response, populated data/notification secret names,
    and persisted success receipt before enabling production ownership.
+   For incident lifecycle checks use `offline_only=true` instead; inference is
+   skipped and a successful smoke is not evidence of financial assessment recovery.
 6. Set `PORTFOLIO_EXECUTOR=local-hermes`, re-enable the three schedules, and read
    back runner, variable and workflow states. Do not trigger a portfolio run merely
    to prove installation. Normal future runs retain all validation and notifications.

@@ -34,6 +34,7 @@ jobs:
       TELEGRAM_CHAT_ID_DM: ${{ secrets.TELEGRAM_CHAT_ID_DM }}
     steps:
       - uses: actions/checkout@v4
+        id: checkout
         with:
           ref: main
 
@@ -110,7 +111,7 @@ jobs:
         run: python weekly_round.py
 
       - name: Preserve weekly source evidence
-        if: always()
+        if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: weekly-source-evidence
@@ -157,7 +158,7 @@ jobs:
           fi
 
       - name: Preserve prompt proposals for owner review
-        if: always()
+        if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: prompt-proposals
@@ -241,7 +242,7 @@ jobs:
           exit 1
 
       - name: Report provider failover
-        if: always()
+        if: always() && steps.checkout.outcome == 'success'
         run: python provider_health.py
 
       - name: Analyst revision evidence health
@@ -258,7 +259,7 @@ jobs:
           PY
 
       - name: Preserve provider routing evidence
-        if: always()
+        if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
           name: provider-routing
@@ -267,5 +268,7 @@ jobs:
           retention-days: 90
 
       - name: Preserve exact local attempt and release successful claim
-        if: always()
+        if: always() && contains(fromJSON('["success","failure","cancelled"]'), steps.checkout.outcome)
+        env:
+          LOCAL_RUNNER_CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
         run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"
