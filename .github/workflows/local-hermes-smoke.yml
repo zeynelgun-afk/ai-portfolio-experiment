@@ -2,6 +2,11 @@ name: Local Hermes Smoke
 
 on:
   workflow_dispatch:
+    inputs:
+      offline_only:
+        description: 'Skip inference; verify runner lifecycle and offline tests only'
+        type: boolean
+        default: true
 
 permissions:
   contents: read
@@ -17,12 +22,14 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        id: checkout
         with:
           ref: main
           persist-credentials: false
       - name: Offline regression tests
         run: python -m pytest -q
       - name: Real structured subscription inference (no portfolio writes)
+        if: '!inputs.offline_only'
         run: python smoke_llm.py
       - name: Verify market credential presence without disclosing values
         env:
@@ -41,5 +48,7 @@ jobs:
           print('All required secret names are populated; no delivery or trade attempted.')
           PY
       - name: Preserve exact local attempt and release successful claim
-        if: always()
+        if: always() && contains(fromJSON('["success","failure","cancelled"]'), steps.checkout.outcome)
+        env:
+          LOCAL_RUNNER_CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
         run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"

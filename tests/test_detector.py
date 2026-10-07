@@ -347,10 +347,21 @@ class CliTest(unittest.TestCase):
     """--dry-run and --fixed-data: no network, no file writes."""
 
     def invoke(self, *extra, state_dir=None):
-        with tempfile.TemporaryDirectory() as temporary:
+        with tempfile.TemporaryDirectory() as temporary, tempfile.TemporaryDirectory() as inputs:
             target = state_dir or temporary
+            # Do not couple deterministic CLI cases to the live portfolio snapshot.
+            theses_path = os.path.join(inputs, "theses.json")
+            portfolio_path = os.path.join(inputs, "portfolio.json")
+            with open(theses_path, "w") as handle:
+                json.dump(thesis([
+                    {"type": "price_below", "value": 941.62, "severity": "claim"},
+                    {"type": "price_change_pct", "value": -10, "severity": "thesis"}]), handle)
+            with open(portfolio_path, "w") as handle:
+                json.dump({"positions": [{"symbol": "MU", "stop_weekly_close": 730}]}, handle)
+            bootstrap = ("import detector,sys; detector.THESES_PATH=sys.argv.pop(1); "
+                         "detector.PORTFOLIO_PATH=sys.argv.pop(1); sys.exit(detector.main())")
             process = subprocess.run(
-                [sys.executable, os.path.join(BASE, "detector.py"),
+                [sys.executable, "-c", bootstrap, theses_path, portfolio_path,
                  "--fixed-data", os.path.join(BASE, "tests", "sample.json"),
                  "--state-dir", target, *extra],
                 capture_output=True, text=True, cwd=BASE)
