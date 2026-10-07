@@ -322,3 +322,66 @@ The Saturday round reassesses this decision.
 **The model's reasoning:** Retain the position without adding. Reported revenue growth, operating profitability and positive free cash flow support continued exposure, and the dated price snapshot supports the technical premise. The triggering news offers contextual support rather than verified incremental financial improvement. Nearer-period consensus forecasts are slightly lower against their prior same-period snapshots, but this does not establish an operating thesis failure. Target attribution problems and unknown revision reasons reduce their decision weight. Neither unverified sequential financial comparisons nor bullish target opinions justify changing exposure. The existing stop remains unchanged.
 
 The Saturday round reassesses this decision.
+
+## 2026-10-07T19:27Z · NVDA · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-06T20:00:00+00:00
+
+**Thesis assessment:** The expired review deadline prompts reassessment but does not itself contradict the thesis. The refreshed intraday quote remains above the supplied dated moving averages and retained downside floor despite being below the previous close. Reported revenue growth, profitability and positive free cash flow support continued ownership. I withdraw the rejected draft's sequential-deterioration premise and its resulting downgrade: the cited ledger facts establish current reported cash-flow and debt levels, not independently referenced preceding-quarter comparisons. Sequential deterioration is therefore unverified for this decision. Same-period consensus forecasts are modestly higher in the latest snapshots. Adoption reports provide favorable context without establishing completed orders or incremental profits, while attribution inconsistencies limit reliance on apparent analyst target reductions.
+
+**Intraday decision:** HOLD · reasoning: Retain the position without adding because the refreshed technical evidence and dated reported financial measurements support existing exposure, with no supplied measurement breaching the retained thesis conditions. The deadline trigger is not an investment contradiction. Adding is less compelling because prospective demand reports do not establish incremental profitability and the supplied evidence does not establish an attractive valuation. Apparent target reductions warrant verification rather than an automatic sale. This decision does not rely on sequential financial deterioration, an expected recovery to entry or assumed future earnings strength.
+**Falsifier:** A price breach below the retained fixed downside floor would contradict the price-support premise of this HOLD and require thesis reassessment; this executable review condition is separate from the unchanged weekly-close stop.
+
+**Note for the Saturday round:** Obtain independently referenceable comparable historical financial measurements before asserting sequential cash-flow or debt changes. Verify target observations against underlying analyst reports, especially the Wells Fargo record carrying a Morgan Stanley headline. Reconcile the portfolio and provider earnings calendars, and distinguish prospective financing and product adoption from committed purchases and profitable recognized revenue.
+
+## 2026-10-07T19:27Z · AMD · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-06T14:00:00+00:00
+
+**Thesis assessment:** The trigger is an expired review deadline, not confirmed operating deterioration. The latest supplied historical financial measurements support revenue growth, positive operating profitability, positive free cash flow and net cash; their recent collection does not make them a new reporting period. The supplied intraday price remains extended above its moving-average benchmark, while the volume observation describes the preceding session rather than current participation. Nearer-horizon same-period consensus forecasts increased, but the most distant forecasts declined. I retain the conditional growth thesis and the weakened caution against adding. I withdraw the draft's comparative cash-flow and capital-spending assertions because comparison-period ledger evidence is unavailable. I also replace the old summary's characterization of investor rotation and a strategic deal as current news: the current documents principally contain analyst target observations, not fresh verification of those issuer events.
+
+**Intraday decision:** HOLD · reasoning: The expired deadline requires reassessment, but the supplied evidence does not establish a fundamental break warranting a sale. Historical profitability and positive free cash flow support continued exposure, while rising nearer-horizon consensus forecasts provide contextual support rather than realized results. I do not add because the price remains extended against its moving-average benchmark and the target records do not establish attractive valuation or explain the latest revisions. Extension alone is insufficient reason to sell the supported growth position. The existing stop and all monitoring thresholds remain unchanged.
+**Falsifier:** A verified price decline through the retained downside buffer below the freshly calculated moving-average benchmark would contradict the technical support underlying this HOLD and require reassessment. Reported operating margin falling below the retained profitability floor would separately challenge its fundamental basis.
+
+**Note for the Saturday round:** Obtain comparison-period cash-flow and capital-spending evidence before drawing conclusions about cash-conversion trends; positive latest-quarter free cash flow does not establish improvement. Resolve missing current issuer-event documentation and analyst revision rationales. Reconcile the Mizuho headline's prior target with the provider's different last-observed baseline. Do not treat target increases or subsequent positive returns as proof that this decision was correct.
+
+## 2026-10-07T19:27Z · MU · THESIS LEVEL
+
+**Trigger:** Independent analyst targets revised up; reassess supporting and opposing evidence. No automatic trade.; Support is limited to MU-1's favorable analyst-revision context. N6 reports DA Davidson raising its Micron price target from $2,100 to $3,000, directly supporting the existence of an upward same-firm revision. This reflects more optimistic expectations associated with AI infrastructure demand, not measured future profitability or expected returns established as fact.
+
+**Thesis assessment:** The retention thesis remains supported by dated FMP profitability, positive free cash flow and net cash, while persistent pricing power remains unverified. Invezz reports a further DA Davidson target increase, strengthening the favorable expectations context without supplying new operating results. Same-period forward consensus EPS and revenue have edged higher, but these aggregate changes do not establish individual analysts' reasons. Unlike the prior review's stale price observation, the supplied intraday measurement provides newer technical context, not proof of business durability. I retain the prior investment stance and claim statuses; the current evidence does not independently establish the previously described same-period balance-sheet revision.
+
+**Intraday decision:** HOLD · reasoning: The triggering analyst and news evidence improves the expectations narrative but does not change measured profitability or financial resilience. Dated FMP statements support continued ownership, and the supplied intraday price remains above the existing downside review floor. I do not add because the target increase supplies neither verified contractual protection nor a valuation framework establishing attractive prospective returns. I do not reduce because the supplied operating and balance-sheet evidence does not contradict the retention thesis. Price strength alone does not validate this decision.
+**Falsifier:** A measured price breach below the retained fixed downside review floor would invalidate the price-risk premise of this HOLD and require immediate reassessment, even if the dated financial statements remain favorable.
+
+**Note for the Saturday round:** Reconcile the portfolio's outdated earnings entry with the provider-listed catalyst, obtain primary-source guidance and contract details, and verify the financial statements against filing footnotes. Do not carry forward the prior same-period balance-sheet revision narrative as independently verified: its comparative observations are absent here. Separate target optimism from evidence of sustainable profitability.
+
+## 2026-10-07T19:38Z · NVDA · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Retain the position without adding because the refreshed technical evidence and dated reported financial measurements support existing exposure, with no supplied measurement breaching the retained thesis conditions. The deadline trigger is not an investment contradiction. Adding is less compelling because prospective demand reports do not establish incremental profitability and the supplied evidence does not establish an attractive valuation. Apparent target reductions warrant verification rather than an automatic sale. This decision does not rely on sequential financial deterioration, an expected recovery to entry or assumed future earnings strength.
+
+The Saturday round reassesses this decision.
+
+## 2026-10-07T19:38Z · AMD · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** The expired deadline requires reassessment, but the supplied evidence does not establish a fundamental break warranting a sale. Historical profitability and positive free cash flow support continued exposure, while rising nearer-horizon consensus forecasts provide contextual support rather than realized results. I do not add because the price remains extended against its moving-average benchmark and the target records do not establish attractive valuation or explain the latest revisions. Extension alone is insufficient reason to sell the supported growth position. The existing stop and all monitoring thresholds remain unchanged.
+
+The Saturday round reassesses this decision.
+
+## 2026-10-07T19:38Z · MU · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** The triggering analyst and news evidence improves the expectations narrative but does not change measured profitability or financial resilience. Dated FMP statements support continued ownership, and the supplied intraday price remains above the existing downside review floor. I do not add because the target increase supplies neither verified contractual protection nor a valuation framework establishing attractive prospective returns. I do not reduce because the supplied operating and balance-sheet evidence does not contradict the retention thesis. Price strength alone does not validate this decision.
+
+The Saturday round reassesses this decision.

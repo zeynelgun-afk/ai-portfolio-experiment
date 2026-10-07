@@ -4,10 +4,10 @@ Provider observations, not verified analyst reports. Targets are forecasts; revi
 
 | Symbol | Observed | Target revisions up/down firms (30d) | Target median | Revenue consensus revision (FY, 30d) | Revenue analyst count |
 |---|---|---:|---:|---:|---:|
-| AMD | 2026-10-06T01:45:40+00:00 | incomplete · 1 / 0 | 10.24% | unavailable | — |
-| ANET | 2026-10-06T01:45:40+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
-| MU | 2026-10-06T01:45:40+00:00 | ok · 4 / 2 | 6.35% | unavailable | — |
-| NVDA | 2026-10-06T01:45:40+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
+| AMD | 2026-10-07T19:25:55+00:00 | incomplete · 2 / 0 | 11.52% | unavailable | — |
+| ANET | 2026-10-07T19:25:55+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
+| MU | 2026-10-07T19:25:55+00:00 | ok · 4 / 2 | 10.66% | unavailable | — |
+| NVDA | 2026-10-07T19:25:55+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
 
 ## Quarantined provider records
 
@@ -30,9 +30,3 @@ Revenue forecast changes compare the same fiscal-period FMP consensus between da
 Forward outcome records: [analyst_revision_performance.json](state/analyst_revision_performance.json).
 No baseline forecast history means unknown earnings support, not unchanged estimates.
 Earnings improvements are not required: reviews also examine company news, sector/theme attention and valuation. Attributed analyst reasons, contextual hypotheses and unknowns are stored separately.
-
-Prospective, selected-universe overlapping cohorts. Cost sensitivities subtract 0/25/50/100/250 bp round-trip from candidate returns; these are not measured execution costs. Net excess is compared with gross benchmark returns. Risk records path drawdown and annualized volatility. Consensus estimate events are not individual analyst votes, company guidance or causal proof. No predictive benefit is established. Baseline is next session close.
-
-Unique observed cohorts: 8
-Target-revision mature endpoints: 0
-Revenue-consensus revision events: 31; mature endpoints: 0
