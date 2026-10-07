@@ -3,27 +3,27 @@
     "detector.yml": {
       "since": "2026-09-28T21:15:00+00:00",
       "attempts": 0,
-      "alerted": "2026-10-06T02:35:37.866031+00:00",
+      "alerted": "2026-10-07T01:53:51.200193+00:00",
       "last_failure": {
-        "id": 37400766198,
+        "id": 37553257516,
         "name": "Intraday Detector",
-        "node_id": "WFR_kwLOTuXhHs8AAAAItUJm9g",
+        "node_id": "WFR_kwLOTuXhHs8AAAAIvlk8LA",
         "head_branch": "main",
-        "head_sha": "fe51d20dfcd069d9ef197fc349aa7bd7c6a6ab0c",
+        "head_sha": "a4da93dbbd783ec4f01a649696ad44f05dea3192",
         "path": ".github/workflows/detector.yml",
         "display_title": "Intraday Detector",
-        "run_number": 36,
+        "run_number": 42,
         "event": "schedule",
         "status": "completed",
         "conclusion": "failure",
         "workflow_id": 368608046,
-        "check_suite_id": 101306614685,
-        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAXllhDnQ",
-        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198",
-        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198",
+        "check_suite_id": 101727776938,
+        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAXr3Kwqg",
+        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516",
+        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516",
         "pull_requests": [],
-        "created_at": "2026-10-06T01:45:23Z",
-        "updated_at": "2026-10-06T01:56:18Z",
+        "created_at": "2026-10-07T00:41:09Z",
+        "updated_at": "2026-10-07T00:41:26Z",
         "actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -47,7 +47,7 @@
         },
         "run_attempt": 1,
         "referenced_workflows": [],
-        "run_started_at": "2026-10-06T01:45:23Z",
+        "run_started_at": "2026-10-07T00:41:09Z",
         "triggering_actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -69,26 +69,26 @@
           "user_view_type": "public",
           "site_admin": false
         },
-        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/jobs",
-        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/logs",
-        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/101306614685",
-        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/artifacts",
-        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/cancel",
-        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37400766198/rerun",
+        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516/jobs",
+        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516/logs",
+        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/101727776938",
+        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516/artifacts",
+        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516/cancel",
+        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37553257516/rerun",
         "previous_attempt_url": null,
         "workflow_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/workflows/368608046",
         "head_commit": {
-          "id": "fe51d20dfcd069d9ef197fc349aa7bd7c6a6ab0c",
-          "tree_id": "73afd07c35c37f13dd2d74b7857f30d48b9f9116",
-          "message": "[verified] fix: repair historical watchdog and shared evidence validation (#4)\n\nCo-authored-by: Finzora AI <finzora-bot@users.noreply.github.com>",
-          "timestamp": "2026-10-05T06:27:33Z",
+          "id": "a4da93dbbd783ec4f01a649696ad44f05dea3192",
+          "tree_id": "f77010610f83746e1338c6d222193e0b345c9cc7",
+          "message": "[bot/detector] intraday check (code 20)\n\nTrigger: MU news_shock: The supplied sources directly corroborate the reported financial metrics and forward visibility claims in both MU-1 and MU-2. N1 confirms Q4 revenue of $54.2B with 379% YoY growth and gross margin at 87%, matching the thesis data. N1 also reports a $68.3B net cash position and management's statement that over 75% of 2028 shipments are already committed, supporting the cash generation and demand sustainability narrative. N4 emphasizes Strategic Customer Agreements (SCAs) covering over 35% of 2030 revenue with defined pricing bands and customer deposits, directly addressing the margin sustainability question raised in MU-1 by providing a contractual foundation for pricing power. N5 reinforces the same SCA metrics (>35% of 2030 revenue committed) and reports $150B in Remaining Performance Obligation plus $32B in customer financial commitments, which substantiate the strong cash flow and forward visibility claims in MU-2. The sources do not contradict the price positioning or analyst revision data in MU-1.; NVDA news_shock: Sources N4 and N5 directly support the thesis. N4 confirms robust Q2 FY27 results with data center revenue surging 117% YoY and GAAP gross margins at 75%, aligning with claim NVDA-3's reported 105.8% revenue growth and 75.0% gross margin. N4 also validates management guidance for continued AI-driven growth. N5 reinforces the bull case with a $352 price target implying 55% upside, supporting the rationale for holding above moving averages (claims NVDA-1 and NVDA-2). Both sources affirm NVDA's AI platform dominance and strong demand outlook, which underpins the fundamental thesis. The current price of $227.27 remains above both the 50-day ($216.98) and 200-day ($199.91) moving averages as stated in claims NVDA-1 and NVDA-2.",
+          "timestamp": "2026-10-06T01:56:03Z",
           "author": {
-            "name": "zeynelgun",
-            "email": "zeynelgun@gmail.com"
+            "name": "Finzora AI",
+            "email": "finzora-bot@users.noreply.github.com"
           },
           "committer": {
-            "name": "GitHub",
-            "email": "noreply@github.com"
+            "name": "Finzora AI",
+            "email": "finzora-bot@users.noreply.github.com"
           }
         },
         "repository": {
@@ -232,15 +232,15 @@
         "workflow": "detector.yml",
         "status": "failed",
         "current_status": "failed",
-        "run_created_at": "2026-10-06T01:45:23Z",
-        "run_id": 37400766198,
+        "run_created_at": "2026-10-07T00:41:09Z",
+        "run_id": 37553257516,
         "run_attempt": 1,
         "since": "2026-09-28T21:15:00+00:00",
         "due_since": null,
         "repair_eligible": false,
         "reason": "outside_due_window",
         "verification": "pending_production",
-        "observation_id": "2fa53c15b26d233d3386c3de749a8dbb18870e2f2d94f83899c3797e362f2df7"
+        "observation_id": "e7c18d6697df26e9d937f423ea80d4d4c56f59e1bb1d067dfa5d65e7194a1fb7"
       },
       "acknowledgement": {
         "observation_id": "658b083c218de98982980e7b83e2e6d9690d37c5c168abfadc7fb3510e448c0a",
@@ -250,7 +250,7 @@
         "operator": "Hermes (user-authorized incident repair)",
         "acknowledged_at": "2026-10-05T06:28:39.390752+00:00"
       },
-      "alerted_observation_id": "2fa53c15b26d233d3386c3de749a8dbb18870e2f2d94f83899c3797e362f2df7"
+      "alerted_observation_id": "e7c18d6697df26e9d937f423ea80d4d4c56f59e1bb1d067dfa5d65e7194a1fb7"
     },
     "weekly.yml": {
       "since": "2026-10-03T06:00:00+00:00",
@@ -505,6 +505,6 @@
     }
   },
   "daily_repairs": {},
-  "last_check": "2026-10-06T02:35:37.866031+00:00",
+  "last_check": "2026-10-07T01:53:51.200193+00:00",
   "monitoring_started_at": "2026-09-28T11:55:48.640293+00:00"
 }
