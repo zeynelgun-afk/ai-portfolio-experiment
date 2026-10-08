@@ -26,7 +26,7 @@ def test_failed_setup_skips_workspace_consumers(workflow):
         for step in steps:
             if step.get('uses', '').startswith('actions/upload-artifact@') or step.get('name') == 'Report provider failover':
                 assert step['if'] == "always() && steps.checkout.outcome == 'success'", step
-        finish = next(s for s in steps if 'local_runner_guard.py' in s.get('run', ''))
+        finish = next(s for s in steps if 'local_runner_guard.py" finish' in s.get('run', ''))
         assert finish.get('env', {}).get('LOCAL_RUNNER_CHECKOUT_OUTCOME') == '${{ steps.checkout.outcome }}'
         # Failed checkout still needs an owned failure archive; rejected setup does not.
         assert finish['if'] == "always() && contains(fromJSON('[\"success\",\"failure\",\"cancelled\"]'), steps.checkout.outcome)"

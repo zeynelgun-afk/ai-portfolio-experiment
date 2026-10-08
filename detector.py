@@ -525,7 +525,9 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
             analyst_trigger = review_trigger(symbol, analyst_report, cooldown, moment)
             if analyst_trigger:
                 triggered.append(analyst_trigger)
-            if data[symbol].get('analyst_refreshed') and (analyst_report.get('status') != 'ok' or analyst_report.get('estimates_status') != 'ok'):
+            # Refresh/alert cadence is not evidence completeness. Cached quarantine
+            # must stay visible on every assessment until the provider recovers.
+            if analyst_report.get('status') != 'ok' or analyst_report.get('estimates_status') != 'ok':
                 coverage = analyst_report.get('coverage', {})
                 details = (f"targets={analyst_report.get('status')}, "
                            f"estimates={analyst_report.get('estimates_status')}, "
@@ -693,7 +695,7 @@ def run(theses, data, stops, previous_state, cooldown, moment, full_review=False
         "conditions": state,
         "triggered": triggered,
         "flags": flags,
-        "state_changed": state_changed or bool(triggered),
+        "state_changed": state_changed or bool(triggered or news_errors or measurement_errors),
         "news_errors": news_errors,
         "measurement_errors": measurement_errors,
     }

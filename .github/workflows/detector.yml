@@ -51,7 +51,14 @@ jobs:
         with:
           ref: main
 
+      - name: Bind actual checkout baseline before application work
+        id: baseline
+        env:
+          LOCAL_RUNNER_CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+        run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" checkout
+
       - name: Dependencies
+        id: dependencies
         run: uv pip install --python "$(command -v python)" -r requirements.txt
 
       - name: Determine the mode
@@ -78,6 +85,7 @@ jobs:
         run: python corporate_actions.py
 
       - name: Persist corporate-action accounting
+        id: corporate_commit
         if: steps.corporate.outputs.changed == 'true'
         run: |
           git config user.name "portfolio-bot"
@@ -87,6 +95,7 @@ jobs:
           git push
 
       - name: Notify persisted corporate actions
+        id: corporate_notify
         if: steps.corporate.outputs.changed == 'true'
         env:
           WATCHDOG_MESSAGE: 'AI Portföy: Bölünme/temettü muhasebe kaydı GitHub’a kaydedildi. Alım-satım kararı değildir. Ayrıntılar: CORPORATE_ACTIONS.md'
@@ -98,6 +107,7 @@ jobs:
         run: python weekly_round.py --execute-pending
 
       - name: Persist session execution before further analysis
+        id: weekly_commit
         if: steps.weekly_execution.outputs.executed == 'true'
         run: |
           git config user.name "portfolio-bot"
@@ -107,12 +117,14 @@ jobs:
           git push
 
       - name: Notify weekly session execution
+        id: weekly_notify
         if: steps.weekly_execution.outputs.executed == 'true'
         env:
           WATCHDOG_MESSAGE: 'AI Portföy: Cumartesi araştırması açık seansta güncel veriyle yeniden değerlendirildi. Kabul edilen işlemler ve HOLD kararları DECISION_LOG.md dosyasına kaydedildi.'
         run: python notify_failure.py
 
       - name: Preserve weekly session evidence
+        id: weekly_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -149,6 +161,7 @@ jobs:
           fi
 
       - name: Preserve intraday source evidence
+        id: intraday_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -163,6 +176,7 @@ jobs:
         run: python execute_trade.py
 
       - name: 4) Refresh the report after trades or corporate actions
+        id: refresh
         if: steps.trade.outputs.monitoring_changed == 'true' || steps.corporate.outputs.changed == 'true' || steps.weekly_execution.outputs.executed == 'true' || (steps.trade.outputs.trade_count != '' && steps.trade.outputs.trade_count != '0')
         run: python update.py
 
@@ -185,6 +199,7 @@ jobs:
           fi
 
       - name: Measure mature research cohorts
+        id: research_metrics
         if: steps.session.outputs.run == 'true' && steps.mode.outputs.full == 'true'
         run: python research_metrics.py
 
@@ -226,6 +241,7 @@ jobs:
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: 6) Telegram — thesis-level / trade notification (DM)
+        id: decision_notify
         # A thesis-level trigger means an entire thesis is in question; it wakes Zeynel's
         # DM rather than the group channel. Claim-level triggers go out in bulk in the
         # 21:15 summary.
@@ -305,6 +321,7 @@ jobs:
           echo "Thesis-level notification delivered."
 
       - name: 7) Telegram — the daily 21:15 summary (claim level, in bulk)
+        id: daily_notify
         if: steps.session.outputs.run == 'true' && steps.mode.outputs.full == 'true' && env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
           python - <<'PY' > /tmp/summary.txt
@@ -333,6 +350,7 @@ jobs:
             -o /dev/null -w "Summary HTTP status: %{http_code}\n"
 
       - name: Summarize complete and partial assessment results
+        id: assessment_summary
         if: always() && steps.session.outputs.run == 'true'
         env:
           DETECTOR_OUTCOME: ${{ steps.detector.outcome }}
@@ -364,6 +382,7 @@ jobs:
           PY
 
       - name: Reassessment health
+        id: reassessment_health
         if: always() && steps.reassess.outputs.error_count != '' && steps.reassess.outputs.error_count != '0'
         run: |
           echo "::error::PARTIAL RUN: some assessments were saved, but one or more claims or theses remain unassessed. Check the Assessment status summary; failed items remain eligible for retry."
@@ -377,16 +396,19 @@ jobs:
           exit 1
 
       - name: Report automatic prompt rollback
+        id: prompt_health
         if: always() && steps.prompt_adapt.outputs.code == '2'
         run: |
           echo "::error::Prompt reminder rolled back after the measured failure rate increased; previous policy restored."
           exit 1
 
       - name: Report provider failover
+        id: provider_health
         if: always() && steps.checkout.outcome == 'success'
         run: python provider_health.py
 
       - name: Preserve provider routing evidence
+        id: provider_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -399,4 +421,5 @@ jobs:
         if: always() && contains(fromJSON('["success","failure","cancelled"]'), steps.checkout.outcome)
         env:
           LOCAL_RUNNER_CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          LOCAL_RUNNER_STEPS: ${{ toJSON(steps) }}
         run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"
