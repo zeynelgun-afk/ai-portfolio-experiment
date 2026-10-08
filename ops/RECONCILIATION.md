@@ -1,8 +1,50 @@
 # Failed local attempt reconciliation
 
-A failed attempt is not a successful portfolio assessment. Never automatically
+A failed attempt is not a successful portfolio assessment. Never blindly
 release `active.json`, replay the old run, overwrite its receipt/archive, or
-reinterpret a skipped core step as recovery.
+reinterpret a skipped core step as recovery. Unknown failures require the operator
+procedure below; only the narrowly verified no-trade partial case is automatic.
+
+## Completed no-trade partial assessments
+
+The intraday finalizer receives **every explicitly identified step's** outcome and
+conclusion via `toJSON(steps)`. The installed guard may release a new run's claim
+when the only failures are the explicit news/reassessment health gates, all
+persistence/evidence steps succeeded, and all other steps succeeded or were skipped.
+It refuses continued-on-error, cancellation, unknown/missing step identities,
+corporate changes, weekly execution, any trades, pending decisions/transactions or
+pending weekly plans. It also checks that the working tree is clean, portfolio bytes
+have not changed from the journal-bound actual checkout SHA (not the queued event SHA),
+and a fresh read of remote main matches
+the exact local HEAD. Missing/ambiguous evidence or failed readback keeps the lock.
+
+The archive and **failure** receipt (with `release_reason=persisted-no-trade-partial`
+and exact step/readback evidence) are fsynced before releasing the active claim.
+The workflow stays red, incomplete source coverage stays partial, and the receipt
+still bans every replay attempt of the original run. Only a **new scheduled run ID**
+may collect fresh evidence. A crash during finalization still requires manual review.
+This path does not process old receipts or automatically reconcile financial changes.
+
+Cached analyst quarantine remains incomplete on every assessment, even after the
+first daily alert. Failed news cursors are not advanced and source standards are
+unchanged. Partial checks are persisted even when no investment threshold changed;
+otherwise the no-change commit optimization could discard the current blocker.
+Public provider failures can persist: this is graceful fail-closed operation, not a
+guarantee of complete market data or a promise that the strategy will trade.
+
+## Deployment order for the checkout-baseline contract
+
+Repository merge alone does not update the installed guard. Wait for the current
+worker to finish; verify idle, stop the listener and hold its listener flock.
+Back up journal, guard and hook. Merge only the independently reviewed exact-head
+CI-green change, then install `ops/local_runner_guard.py` from that merged SHA
+outside the checkout, verifying identical SHA256 bytes before restarting. Do not
+let the new workflow call `checkout` against an older installed guard. Existing
+failed claims still require the exact operator audit below; this release never
+reclassifies or retries them. Exercise the installed lifecycle only with a NEW
+explicit offline smoke and verify inference is skipped, archive/receipt persisted,
+active claim absent. Synthetic git/journal regression tests establish the partial
+release contract; they are not financial-data recovery evidence.
 
 ## Investigate before release
 

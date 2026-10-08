@@ -12,6 +12,7 @@ import fcntl
 import hashlib
 import json
 import os
+import subprocess
 from pathlib import Path
 import tarfile
 
@@ -65,6 +66,119 @@ def start(root, env):
                    'started_at': datetime.now(timezone.utc).isoformat(), 'status': 'started'}
         atomic_json(root / 'active.json', attempt)
         atomic_json(receipt, attempt)
+
+
+# A deliberately closed contract: unknown/new workflow steps cannot auto-release.
+PARTIAL_STEP_IDS = set('checkout baseline dependencies mode session corporate corporate_commit corporate_notify weekly_execution weekly_commit weekly_notify weekly_evidence detector reassess intraday_evidence trade refresh prompt_adapt research_metrics commit decision_notify daily_notify assessment_summary reassessment_health news_health prompt_health provider_health provider_evidence'.split())
+
+
+def checkout_git(workspace, *args):
+    return subprocess.check_output(['git', '-C', str(workspace), *args],
+        stderr=subprocess.DEVNULL, timeout=30,
+        env={**os.environ, 'GIT_TERMINAL_PROMPT': '0'})
+
+
+def checkpoint_checkout(root, env):
+    """Bind actual checkout baseline before application steps, never event SHA."""
+    validate_context(env)
+    with locked(root) as root:
+        active = root / 'active.json'
+        attempt = json.loads(active.read_text())
+        receipt = root / (env['GITHUB_RUN_ID'] + '.json')
+        expected = {'run_id': env['GITHUB_RUN_ID'], 'attempt': env['GITHUB_RUN_ATTEMPT'],
+                    'workflow': env['GITHUB_WORKFLOW'], 'sha': env.get('GITHUB_SHA')}
+        if (any(attempt.get(k) != v for k, v in expected.items())
+                or attempt.get('status') != 'started' or 'checkout_sha' in attempt
+                or json.loads(receipt.read_text()) != attempt
+                or env.get('LOCAL_RUNNER_CHECKOUT_OUTCOME') != 'success'):
+            raise RuntimeError('Exact uncheckpointed checkout owner required')
+        workspace = Path(env['GITHUB_WORKSPACE'])
+        if checkout_git(workspace, 'status', '--porcelain', '--untracked-files=all').strip():
+            raise RuntimeError('Clean checkout baseline required')
+        attempt['checkout_sha'] = checkout_git(workspace, 'rev-parse', 'HEAD').decode().strip()
+        atomic_json(receipt, attempt)
+        atomic_json(active, attempt)
+
+
+def persisted_no_trade_partial(env, outcome, workspace, attempt):
+    """Prove a known health-only failure has no unresolved financial side effect.
+
+    Never used for historical reconciliation. Any missing evidence/network error
+    leaves the ordinary failure claim locked for operator review.
+    """
+    if (outcome != 'failure' or env.get('GITHUB_WORKFLOW') != 'Intraday Detector'
+            or env.get('LOCAL_RUNNER_CHECKOUT_OUTCOME') != 'success'):
+        return None
+    try:
+        steps = json.loads(env.get('LOCAL_RUNNER_STEPS', '{}'))
+        if not isinstance(steps, dict) or set(steps) != PARTIAL_STEP_IDS:
+            return None
+        failed = set()
+        for key, step in steps.items():
+            if (not isinstance(step, dict) or step.get('outcome') != step.get('conclusion')
+                    or step.get('outcome') not in {'success', 'failure', 'skipped'}):
+                return None
+            if step['outcome'] == 'failure':
+                failed.add(key)
+        if not failed or not failed <= {'news_health', 'reassessment_health'}:
+            return None
+        for key in ('checkout', 'baseline', 'dependencies', 'mode', 'session', 'corporate',
+                    'weekly_execution', 'detector', 'commit', 'assessment_summary',
+                    'weekly_evidence', 'intraday_evidence', 'provider_health', 'provider_evidence'):
+            if steps[key]['outcome'] != 'success':
+                return None
+        def output(key, field):
+            return steps[key].get('outputs', {}).get(field)
+        if (output('session', 'run') != 'true'
+                or output('corporate', 'changed') != 'false'
+                or output('weekly_execution', 'executed') not in {None, '', 'false'}
+                or output('commit', 'changed') != 'true'
+                or output('detector', 'code') not in {'0', '10', '20'}):
+            return None
+        if steps['trade']['outcome'] == 'success':
+            if output('trade', 'trade_count') != '0':
+                return None
+        elif steps['trade']['outcome'] != 'skipped':
+            return None
+        if (workspace / 'state').is_symlink():
+            return None
+        for name in ('state/violations.json', 'portfolio.json'):
+            path = workspace / name
+            if (path.is_symlink() or not path.is_file()
+                    or path.read_bytes() != checkout_git(workspace, 'show', 'HEAD:' + name)):
+                return None
+        state = json.loads((workspace / 'state/violations.json').read_text())
+        if not isinstance(state, dict):
+            return None
+        if 'news_health' in failed and not (state.get('news_errors') or state.get('measurement_errors')):
+            return None
+        if 'reassessment_health' in failed and not state.get('assessment_errors'):
+            return None
+        if any((workspace / 'state' / name).exists() for name in
+               ('pending_decision.json', 'weekly_transaction.json')):
+            return None
+        plan_path = workspace / 'state/weekly_plan.json'
+        if plan_path.exists() and json.loads(plan_path.read_text()).get('status') == 'pending':
+            return None
+        # Successful git push alone is not readback. Compare exact remote HEAD,
+        # and ensure neither tracked nor untracked durable changes were lost.
+        def git(*args):
+            return checkout_git(workspace, *args).decode().strip()
+        if git('status', '--porcelain', '--untracked-files=all'):
+            return None
+        head = git('rev-parse', 'HEAD')
+        remote = git('ls-remote', '--exit-code', 'origin', 'refs/heads/main').split()
+        if remote != [head, 'refs/heads/main']:
+            return None
+        start_sha = attempt.get('checkout_sha', '')
+        if len(start_sha) != 40 or any(c not in '0123456789abcdef' for c in start_sha):
+            return None
+        # Even a misleading/missing execution output cannot hide portfolio changes.
+        if git('diff', start_sha, head, '--', 'portfolio.json'):
+            return None
+        return {'head': head, 'remote_head': remote[0], 'steps': steps}
+    except (ValueError, TypeError, AttributeError, OSError, subprocess.SubprocessError):
+        return None
 
 
 def finish(root, env, outcome):
@@ -121,9 +235,12 @@ def finish(root, env, outcome):
             os.fsync(fd)
         finally:
             os.close(fd)
+        partial = persisted_no_trade_partial(env, outcome, workspace, attempt)
+        if partial:
+            attempt.update(release_reason='persisted-no-trade-partial', partial_evidence=partial)
         attempt.update(status=outcome, finished_at=datetime.now(timezone.utc).isoformat())
         atomic_json(root / (env['GITHUB_RUN_ID'] + '.json'), attempt)
-        if outcome == 'success':
+        if outcome == 'success' or partial:
             active.unlink()
             fd = os.open(root, os.O_DIRECTORY)
             try:
@@ -186,7 +303,7 @@ def reconcile(root, expected, audit):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('command', choices=['start', 'finish', 'plan', 'reconcile'])
+    parser.add_argument('command', choices=['start', 'checkout', 'finish', 'plan', 'reconcile'])
     parser.add_argument('--expected', type=Path, help='Exact reviewed active record (operator only)')
     parser.add_argument('--audit', type=Path, help='Private evidence manifest (operator only)')
     parser.add_argument('--outcome', choices=['success', 'failure', 'cancelled'])
@@ -203,6 +320,8 @@ def main():
         return
     if args.command == 'start':
         start(args.state, os.environ)
+    elif args.command == 'checkout':
+        checkpoint_checkout(args.state, os.environ)
     else:
         finish(args.state, os.environ, args.outcome)
 
