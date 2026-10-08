@@ -385,3 +385,66 @@ The Saturday round reassesses this decision.
 **The model's reasoning:** The triggering analyst and news evidence improves the expectations narrative but does not change measured profitability or financial resilience. Dated FMP statements support continued ownership, and the supplied intraday price remains above the existing downside review floor. I do not add because the target increase supplies neither verified contractual protection nor a valuation framework establishing attractive prospective returns. I do not reduce because the supplied operating and balance-sheet evidence does not contradict the retention thesis. Price strength alone does not validate this decision.
 
 The Saturday round reassesses this decision.
+
+## 2026-10-08T19:41Z · NVDA · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-07T20:15:00+00:00
+
+**Thesis assessment:** The expired review deadline requires reassessment, not a trade by itself. The current intraday quote remains above the supplied dated moving averages and retained downside floor despite trading below the previous close. Dated revenue growth, margins and positive free cash flow continue to support ownership. I withdraw the rejected draft's sequential cash-flow and debt comparisons as decision premises because preceding-period measurements are not represented in the cited source ledger available to the independent review. Sequential financial quality therefore remains unresolved in this decision, rather than established as deteriorating. Restoring the financial claim to valid reflects supported reported levels, not evidence of improvement. Financing discussions and favorable demand commentary do not establish completed orders or incremental profits.
+
+**Intraday decision:** HOLD · reasoning: Maintain the position because current price support and dated profitability and cash generation remain intact under the retained monitoring conditions. The deadline trigger is addressed by this reassessment rather than treated as evidence of deterioration. Do not add because the prospective financing and favorable valuation commentary supply neither verified incremental earnings nor a measured valuation advantage. Apparent analyst target reductions warrant scrutiny, but attribution conflicts and unknown revision reasons prevent treating them as a reliable standalone sell signal. Neither entry cost nor an assumed recovery supports this decision.
+**Falsifier:** A measured price break below the retained fixed downside review floor would invalidate the price-support premise of this HOLD and require reassessment; the referenced condition is a price-level test, distinct from the unchanged weekly-close stop.
+
+**Note for the Saturday round:** Obtain reviewable preceding-period financial references before making sequential cash-flow or debt comparisons. Reconcile the earnings-calendar discrepancy and analyst firm/headline mismatch. Seek confirmation of binding SpaceX orders and corroboration of Seeking Alpha's acquisition, buyback and valuation assertions. Review the expired decision deadline as a monitoring lapse.
+
+## 2026-10-08T19:41Z · ANET · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-08T14:00:00+00:00
+
+**Thesis assessment:** The review deadline expired without establishing business deterioration. The latest supplied intraday quote is below the previous close but above the latest supplied moving-average reference, resolving the prior stale-quote gap without treating the average as an intraday measurement. The latest filed statements support strong revenue growth, high operating profitability, positive free cash flow and no reported debt; their recent collection does not constitute a new reporting period. Business Wire's rack-scale architecture announcement supports a product opportunity, not realized incremental sales or profitability. Zacks identifies customer concentration and margin pressure as risks rather than measured threshold breaches. I retain the thesis while replacing the old description of a live average with an explicitly dated comparison.
+
+**Intraday decision:** HOLD · reasoning: The deadline-triggered reassessment finds continued fundamental and technical support rather than a supported contradiction. The product announcement adds qualitative support, but Zacks' concentration and margin warnings, essentially unchanged near-term consensus and unavailable valuation evidence limit the case for adding exposure. The decline against the previous close alone does not justify selling. Retain the position and existing stop without relaxing monitoring thresholds.
+**Falsifier:** A fresh price observation below the freshly calculated medium-term moving average would falsify the technical support underlying this HOLD and require reassessment; subsequent reported revenue growth or operating margin below their retained fundamental floors would separately challenge the business thesis.
+
+**Note for the Saturday round:** Separate the announced Ethernet opportunity from realized revenue and cash generation. Investigate Zacks' customer-concentration and margin-pressure warnings using filings or management commentary when available. Valuation, analyst revision reasons and forecast horizons remain unknown. The revised analyst review does not rely on assertions of changed analyst coverage or conflicting attribution.
+
+## 2026-10-08T19:41Z · MU · THESIS LEVEL
+
+**Trigger:** The excerpts provide qualified support for the thesis rather than establish durable pricing power. N1 reports strong historical earnings and net cash, directionally supporting MU-2's financial-resilience rationale. N3 describes committed output and staged equipment deployment, which could improve demand visibility and reduce premature capacity expansion. N4 reports exceptional historical margins and attributes further growth expectations to management. Together with N1's reported customer agreements, these accounts support MU-1's profitability and expectations rationale, but remain secondary-source reports rather than independently verified financial statements or contracts.; Decision review deadline reached: 2026-10-07T20:00:00+00:00
+
+**Thesis assessment:** The financial-resilience thesis remains supported by dated FMP profitability, positive free cash flow and net cash, not by fresh intraday operating measurements. Seeking Alpha's supplied excerpts add qualified support for contracted demand and staged capacity deployment, but contract enforceability and pricing protections remain unavailable. The supplied strike-authorization report introduces contingent production risk rather than evidence of an actual stoppage. I explicitly replace the old claim of currently improving consensus forecasts: the latest same-period average EPS and revenue comparisons are unchanged. The expired review is reassessed here despite missing primary-source contract and guidance clarification; that gap limits conviction but does not itself invalidate the financial evidence. The article's net-cash account differs from the supplied FMP balance-sheet measure and is not treated as a reconciled measurement.
+
+**Intraday decision:** HOLD · reasoning: Retain the position without adding: dated FMP cash generation and balance-sheet strength remain affirmative evidence, while the new supportive excerpts do not establish durable contractual economics. Strike authorization warrants an early evidence checkpoint, but the packet reports neither an actual production stoppage nor measured financial deterioration. The intraday decline alongside semiconductor-sector weakness does not establish issuer-specific causation. Unchanged consensus averages and unresolved primary-source gaps weaken the case for adding; they do not independently justify selling. Existing downside tests and the weekly-close stop remain unchanged.
+**Falsifier:** A price decline through the retained fixed downside review floor would falsify the risk premise of this HOLD and require reassessment even if dated profitability remains strong; this review floor is distinct from the unchanged weekly-close stop.
+
+**Note for the Saturday round:** Reconcile the article's net-cash account with the FMP balance-sheet definition and period; obtain underlying customer-agreement terms, management guidance and labor-mediation updates. Verify the conflicting earnings-calendar metadata. Record that current same-period consensus averages are unchanged, rather than carrying forward the prior improvement claim. If primary evidence remains unavailable at the next checkpoint, explicitly reconsider exposure rather than treating missing evidence as reassurance.
+
+## 2026-10-08T19:49Z · NVDA · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Maintain the position because current price support and dated profitability and cash generation remain intact under the retained monitoring conditions. The deadline trigger is addressed by this reassessment rather than treated as evidence of deterioration. Do not add because the prospective financing and favorable valuation commentary supply neither verified incremental earnings nor a measured valuation advantage. Apparent analyst target reductions warrant scrutiny, but attribution conflicts and unknown revision reasons prevent treating them as a reliable standalone sell signal. Neither entry cost nor an assumed recovery supports this decision.
+
+The Saturday round reassesses this decision.
+
+## 2026-10-08T19:49Z · ANET · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** The deadline-triggered reassessment finds continued fundamental and technical support rather than a supported contradiction. The product announcement adds qualitative support, but Zacks' concentration and margin warnings, essentially unchanged near-term consensus and unavailable valuation evidence limit the case for adding exposure. The decline against the previous close alone does not justify selling. Retain the position and existing stop without relaxing monitoring thresholds.
+
+The Saturday round reassesses this decision.
+
+## 2026-10-08T19:49Z · MU · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Retain the position without adding: dated FMP cash generation and balance-sheet strength remain affirmative evidence, while the new supportive excerpts do not establish durable contractual economics. Strike authorization warrants an early evidence checkpoint, but the packet reports neither an actual production stoppage nor measured financial deterioration. The intraday decline alongside semiconductor-sector weakness does not establish issuer-specific causation. Unchanged consensus averages and unresolved primary-source gaps weaken the case for adding; they do not independently justify selling. Existing downside tests and the weekly-close stop remain unchanged.
+
+The Saturday round reassesses this decision.

@@ -15,12 +15,12 @@
     }
   },
   "MU": {
-    "thesis_summary": "Micron's dated FMP profitability, positive free cash flow and net cash support retaining the position, while upward target revisions and modestly improving consensus forecasts support expectations rather than establish durable memory pricing power.",
+    "thesis_summary": "Micron's dated FMP operating profitability, positive free cash flow and net cash support retaining the position, while reported customer commitments provide qualified demand support without resolving pricing durability, earnings normalization or contingent labor-disruption risk.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
         "id": "MU-1",
-        "text": "Current supplied FMP statements document strong historical revenue growth and exceptional reported margins, but sustained pricing power remains unproven. Invezz corroborates an upward DA Davidson target revision, and current same-period consensus comparisons show modest forward EPS and revenue increases. Advance-sales commentary from 24/7 Wall St. lacks Micron-specific contractual terms, while the Motley Fool excerpt supplies no fresh financial measurements. The newer intraday price is above the supplied moving averages, which supports technical context rather than business durability; technical, sector, volume and gross-margin alerts remain review signals, with upside alerts never mandating a purchase.",
+        "text": "Dated FMP revenue growth and gross profitability support the historical earnings case, while Seeking Alpha's customer-commitment and staged-capacity reports provide only qualified evidence of demand visibility. Current same-period consensus average EPS and revenue forecasts are unchanged, replacing the previous improvement characterization. Contract pricing and cancellation protections are unavailable, and the supplied labor report describes strike authorization rather than a confirmed stoppage. Current price remains above the supplied moving-average references, which is technical context rather than proof of durable pricing power; retained technical, sector, volume and gross-margin conditions request review, and upside signals do not mandate buying.",
         "status": "weakened",
         "conditions": [
           {
@@ -62,12 +62,12 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-07T19:27Z",
+        "last_updated": "2026-10-08T19:41Z",
         "trigger": null
       },
       {
         "id": "MU-2",
-        "text": "The supplied dated FMP financials show substantial operating profitability, operating cash generation exceeding capital spending, positive free cash flow and cash exceeding total debt. These observations support financial resilience but are not new intraday operating evidence, and neither management guidance nor filing footnotes is available. The earlier same-period balance-sheet revision cannot be independently reconstructed from this packet. The existing fixed price and operating-margin floors remain thesis tests, while negative free cash flow or a transition to net debt requests additional review.",
+        "text": "The supplied dated FMP statements show operating cash generation exceeding capital spending, positive free cash flow, substantial operating profitability and cash exceeding debt, supporting financial resilience without establishing current operating conditions. Seeking Alpha's net-cash account is not reconciled to the FMP measure, and its guidance account is secondary rather than an underlying management statement. Filing footnotes and the financial effects of any labor disruption remain unavailable. Retained price and operating-margin floors test the thesis, while negative free cash flow or a transition to net debt requests additional review.",
         "status": "valid",
         "conditions": [
           {
@@ -107,7 +107,7 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-07T19:27Z",
+        "last_updated": "2026-10-08T19:41Z",
         "trigger": null
       }
     ],
@@ -115,7 +115,7 @@
       "claims": [
         {
           "id": "MU-1",
-          "text": "Current supplied FMP statements document strong historical revenue growth and exceptional reported margins, but sustained pricing power remains unproven. Invezz corroborates an upward DA Davidson target revision, and current same-period consensus comparisons show modest forward EPS and revenue increases. Advance-sales commentary from 24/7 Wall St. lacks Micron-specific contractual terms, while the Motley Fool excerpt supplies no fresh financial measurements. The newer intraday price is above the supplied moving averages, which supports technical context rather than business durability; technical, sector, volume and gross-margin alerts remain review signals, with upside alerts never mandating a purchase.",
+          "text": "Dated FMP revenue growth and gross profitability support the historical earnings case, while Seeking Alpha's customer-commitment and staged-capacity reports provide only qualified evidence of demand visibility. Current same-period consensus average EPS and revenue forecasts are unchanged, replacing the previous improvement characterization. Contract pricing and cancellation protections are unavailable, and the supplied labor report describes strike authorization rather than a confirmed stoppage. Current price remains above the supplied moving-average references, which is technical context rather than proof of durable pricing power; retained technical, sector, volume and gross-margin conditions request review, and upside signals do not mandate buying.",
           "status": "weakened",
           "conditions": [
             {
@@ -160,7 +160,7 @@
         },
         {
           "id": "MU-2",
-          "text": "The supplied dated FMP financials show substantial operating profitability, operating cash generation exceeding capital spending, positive free cash flow and cash exceeding total debt. These observations support financial resilience but are not new intraday operating evidence, and neither management guidance nor filing footnotes is available. The earlier same-period balance-sheet revision cannot be independently reconstructed from this packet. The existing fixed price and operating-margin floors remain thesis tests, while negative free cash flow or a transition to net debt requests additional review.",
+          "text": "The supplied dated FMP statements show operating cash generation exceeding capital spending, positive free cash flow, substantial operating profitability and cash exceeding debt, supporting financial resilience without establishing current operating conditions. Seeking Alpha's net-cash account is not reconciled to the FMP measure, and its guidance account is secondary rather than an underlying management statement. Filing footnotes and the financial effects of any labor disruption remain unavailable. Retained price and operating-margin floors test the thesis, while negative free cash flow or a transition to net debt requests additional review.",
           "status": "valid",
           "conditions": [
             {
@@ -202,23 +202,23 @@
           ]
         }
       ],
-      "next_review_at": "2026-10-07T20:00:00+00:00",
+      "next_review_at": "2026-10-09T19:30:00+00:00",
       "falsifier_condition": {
         "claim_id": "MU-2",
         "condition_index": 1
       },
-      "change_reason": "All previous conditions and thresholds remain unchanged, as does the imminent scheduled post-earnings evidence checkpoint. New target commentary and modest consensus changes do not justify relaxing risk tests. Claim texts now distinguish the newer intraday observation from dated fundamentals and withdraw reliance on an unreconstructable prior balance-sheet revision comparison. At the retained checkpoint, reassess the HOLD explicitly if primary-source contract, guidance and financial clarification remains unavailable; do not silently postpone it until the later provider-listed earnings catalyst. The positive-price alert continues to request review only.",
+      "change_reason": "All old detector conditions and thresholds are retained without relaxation. New contract commentary and contingent labor risk change the claim texts and justify a near-term review, not different financial or price floors. The expired checkpoint is replaced only after this explicit reassessment of the still-missing primary evidence. The next checkpoint targets labor-mediation and contract clarification; the actual mediation schedule is unavailable, so this is a chosen review time rather than an asserted catalyst date. Reassess the decision at that checkpoint even if clarification remains missing, rather than deferring to the later provider earnings date.",
       "evidence_ids": [
         "MU.price",
-        "MU.price_at",
+        "MU.previous_close",
         "MU.above_sma50_pct",
         "MU.above_sma200_pct",
         "MU.revenue_yoy_pct",
         "MU.gross_margin_pct",
         "MU.operating_margin_pct",
         "MU.quarter_operating_cash_flow",
-        "MU.quarter_free_cash_flow",
         "MU.quarter_capex",
+        "MU.quarter_free_cash_flow",
         "MU.cash_equivalents",
         "MU.total_debt",
         "MU.net_debt",
@@ -227,77 +227,78 @@
         "MU.analyst_revenue_20270903_revision_pct",
         "MU.analyst_eps_20280903_revision_pct",
         "MU.analyst_revenue_20280903_revision_pct",
-        "news:f3a21eb0217b1d75ca28f05a",
-        "news:212723001103fdf84a7c9b4c",
-        "news:4ad8c3e677d02a2a37a72786"
+        "news:01852caa6da14b84398abe75",
+        "news:3e3e255425e471933f49d1e0",
+        "news:4c60ae19e1027990e29d532d",
+        "news:70a7ae2a26bbbe660c220ba4"
       ],
-      "revision": "926388da1771ad16553d3143",
-      "created_at": "2026-10-07T19:27:25+00:00",
+      "revision": "c08672e5bc2bcd16c6f7a4a2",
+      "created_at": "2026-10-08T19:41:55+00:00",
       "evidence_fingerprints": {
-        "MU.price": "bf483fbb040d1f245d249bb4",
-        "MU.price_at": "2d588a8810443a34cf2435ed",
-        "MU.above_sma50_pct": "e588dbb75f5d2c7eb15f9e77",
-        "MU.above_sma200_pct": "5fe2bba05e073ce6ccf755c9",
+        "MU.price": "f1c0d8ba0623eb9b28257b2e",
+        "MU.previous_close": "e3210379d6d69b26e147ce00",
+        "MU.above_sma50_pct": "49c6c7089b8f1d6cd557eb44",
+        "MU.above_sma200_pct": "287be22f98b59e49e64884ae",
         "MU.revenue_yoy_pct": "a79773f84bd07961d6363fd9",
         "MU.gross_margin_pct": "c0fbb2981177e66abab7fef9",
         "MU.operating_margin_pct": "63b34ee3d85c71f10bb01b31",
         "MU.quarter_operating_cash_flow": "70f3737889b3eead2ea864ab",
-        "MU.quarter_free_cash_flow": "0e0595536a4f305bdfefe8af",
         "MU.quarter_capex": "b7ffcc21db4c9bb1698f6b98",
+        "MU.quarter_free_cash_flow": "0e0595536a4f305bdfefe8af",
         "MU.cash_equivalents": "5e1c657c1199c7a9a6f0fc2c",
         "MU.total_debt": "8172e6a6bdfe6d8fd0f1cedb",
         "MU.net_debt": "7ccf0e2889a0fe681d5b0e06",
-        "MU.earnings_date": "52fa62fe609493b363c80f3f",
-        "MU.analyst_eps_20270903_revision_pct": "e34e81ded9af560563c6bf99",
-        "MU.analyst_revenue_20270903_revision_pct": "518cdc3eb880baa29142893f",
-        "MU.analyst_eps_20280903_revision_pct": "a3a12c7321ebb277807ba7e5",
-        "MU.analyst_revenue_20280903_revision_pct": "64f47373eb3d18dd13c331cb",
-        "news:f3a21eb0217b1d75ca28f05a": "4a131c249eba2e1075d8aab6",
-        "news:212723001103fdf84a7c9b4c": "23a397fa8a5d5b8edc6b5543",
-        "news:4ad8c3e677d02a2a37a72786": "505215b680b9fad08ffd7d44"
+        "MU.earnings_date": "6ec398bc89cf0d8b880d46b7",
+        "MU.analyst_eps_20270903_revision_pct": "ece2fb62c5eb8abdc108f022",
+        "MU.analyst_revenue_20270903_revision_pct": "e555b5a99eb4e99ab62ff43e",
+        "MU.analyst_eps_20280903_revision_pct": "b297d4524119a2ccf7b613b3",
+        "MU.analyst_revenue_20280903_revision_pct": "578600aeb86080fa73422351",
+        "news:01852caa6da14b84398abe75": "ceb0699e336a3d62f8b813ab",
+        "news:3e3e255425e471933f49d1e0": "462e10f5ec44eb532bf51f9c",
+        "news:4c60ae19e1027990e29d532d": "915e371734ad0ef8343b1115",
+        "news:70a7ae2a26bbbe660c220ba4": "cdc01455256421b704744a68"
       }
     },
     "analyst_review": {
       "earnings": {
-        "assessment": "The next fiscal year's EPS and revenue consensus and the following fiscal year's corresponding forecasts have edged higher against their respective prior observed snapshots; farther-out average EPS and revenue forecasts are unchanged. As a hypothesis, improved forward expectations support higher targets, but the supplied comparisons do not establish same-analyst breadth or a causal explanation. The populated weekly comparison covers historical fiscal periods rather than demonstrating current forward revision breadth. Improving earnings forecasts are supportive context, not a prerequisite for a valid positive target revision.",
+        "assessment": "Latest same-period average EPS and revenue forecasts are unchanged against their prior observed snapshots, so the previous description of fresh improvement no longer applies. As a hypothesis, confidence in the existing earnings outlook can support higher targets without new forecast increases, but the supplied documents do not identify that as an analyst's stated reason. The populated weekly revenue comparison covers historical fiscal periods rather than establishing forward revision breadth. Unchanged earnings estimates neither invalidate a positive target revision nor demonstrate earnings durability.",
         "evidence_status": "context_only",
         "source_ids": [
           "MU.analyst_eps_20270903_revision_pct",
           "MU.analyst_revenue_20270903_revision_pct",
           "MU.analyst_eps_20280903_revision_pct",
           "MU.analyst_revenue_20280903_revision_pct",
-          "MU.analyst_eps_20290903_revision_pct",
-          "MU.analyst_revenue_20290903_revision_pct",
-          "MU.analyst_eps_20300903_revision_pct",
-          "MU.analyst_revenue_20300903_revision_pct",
-          "MU.analyst_revenue_20250828_revision_7d_pct"
+          "MU.analyst_revenue_20250828_revision_7d_pct",
+          "analyst:6723cd4dfaad0ba1a6dc2ede"
         ]
       },
       "company_news": {
-        "assessment": "As a hypothesis, the advance-sales narrative in 24/7 Wall St. supports confidence in demand visibility. Its excerpt provides no Micron-specific customer commitments, pricing terms or cancellation protections. The Motley Fool earnings-video excerpt supplies no new reported results. The supplied material establishes no new product, regulatory or partnership event as the analyst's stated reason for revising the target.",
+        "assessment": "As a hypothesis, Seeking Alpha's reported customer agreements and staged equipment deployment support demand visibility and capacity discipline. These excerpts do not establish contractual pricing, enforceability or cancellation protections, and they are not an analyst-attributed explanation of target changes. The supplied strike-authorization report is counterevidence because production disruption could impair delivery and cash generation, although an actual stoppage is not established. No supplied document identifies a product, regulatory or partnership development as the target revision's stated cause.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:212723001103fdf84a7c9b4c",
-          "news:4ad8c3e677d02a2a37a72786"
+          "news:01852caa6da14b84398abe75",
+          "news:4c60ae19e1027990e29d532d",
+          "news:3e3e255425e471933f49d1e0"
         ]
       },
       "sector_theme": {
-        "assessment": "Invezz connects the target increase with the AI infrastructure narrative, while 24/7 Wall St. describes tight memory supply and advance sales. As a hypothesis, these themes support more optimistic expectations. The Invezz excerpt presents its interpretation rather than an explicit analyst explanation, so I do not classify the theme as a reported analyst reason. Neither excerpt verifies durable scarcity or rules out cyclical normalization, and relative price strength does not establish fund flows.",
+        "assessment": "Seeking Alpha's AI-demand and committed-supply narratives support the hypothesis that confidence in memory demand contributes to optimistic target expectations, not a verified analyst explanation. Its discussion of future earnings normalization is counterevidence to extrapolating exceptional margins indefinitely. The supplied price weakness does not prove sector rotation, investor attention or fund flows, and a strong demand narrative can coexist with cyclical profitability risk.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:f3a21eb0217b1d75ca28f05a",
-          "news:212723001103fdf84a7c9b4c"
+          "news:70a7ae2a26bbbe660c220ba4",
+          "news:4c60ae19e1027990e29d532d"
         ]
       },
       "valuation": {
-        "assessment": "As a hypothesis, the observed DA Davidson and Goldman Sachs target increases reflect repricing of expected growth, but Goldman Sachs retaining a Neutral rating shows that higher targets need not mean stronger purchase conviction. Broader matched observations include downward revisions as well as upward revisions. Analyst valuation multiples, discount-rate assumptions, positioning and changed forecast horizons are unavailable. The Zacks comparison excerpt supplies no usable valuation calculation. Higher targets therefore neither establish undervaluation nor prescribe a trade.",
+        "assessment": "Seeking Alpha argues for a higher multiple and more durable earnings; as a hypothesis, repricing earnings durability is an alternative explanation for higher targets when consensus averages are unchanged. These are contributor opinions, not verified analyst valuation models. Goldman Sachs retaining a Neutral rating and the presence of downward revisions in the broader matched sample counter a uniformly bullish interpretation. Analyst discount rates, normalized multiples, positioning and changes in forecast horizon remain unavailable. Higher targets do not establish undervaluation or prescribe a trade.",
         "evidence_status": "context_only",
         "source_ids": [
+          "news:01852caa6da14b84398abe75",
+          "news:4c60ae19e1027990e29d532d",
           "analyst:6723cd4dfaad0ba1a6dc2ede",
           "analyst:afcd531bf472175c0dacd63f",
           "MU.analyst_up_firms_30d",
-          "MU.analyst_down_firms_30d",
-          "news:351b7ce6e12492596b236a41"
+          "MU.analyst_down_firms_30d"
         ]
       }
     }
@@ -564,12 +565,12 @@
     }
   },
   "ANET": {
-    "thesis_summary": "Arista's latest filed quarter shows strong revenue growth, high operating margin, strong free cash flow and no debt, and the price holds above its live fifty-day average ahead of the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot d7323cb4a60c].",
+    "thesis_summary": "Arista's latest filed growth, operating profitability, positive free cash flow and debt-free balance sheet, together with an intraday price above the latest supplied moving-average reference, support retaining the position while the announced Ethernet expansion remains an opportunity rather than proven incremental earnings.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
         "id": "ANET-1",
-        "text": "Arista's latest supplied filed quarter supports the fundamental claim through revenue [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot 72232577c6ad], strong revenue growth against the prior-year quarter [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot 72232577c6ad], high operating margin [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot 72232577c6ad], positive quarterly free cash flow [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot 72232577c6ad] and no reported debt [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot 72232577c6ad], while the latest supplied price [ANET | price: 207.01 USD | as-of 2026-10-05T19:55:00+00:00 | detector/market_data / FMP | snapshot 72232577c6ad] is above the moving-average reference [ANET | sma50: 194.075 USD | as-of 2026-10-05 | detector/market_data / FMP | snapshot 72232577c6ad]. I replace the old claim's description of the price as live with a dated observation: the supplied quote is stale intraday evidence and does not establish the price at reassessment. These observations preserve the claim on the supplied dated evidence ahead of the scheduled report [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-06T01:45:40Z | detector/market_data / FMP | snapshot 72232577c6ad], without establishing that all review thresholds have been checked. A fresh price observation below the corresponding moving average would contradict the technical component; subsequent reported revenue growth or operating margin below the previously chosen fundamental thresholds would challenge the fundamental component, but those threshold values are unavailable here.",
+        "text": "The latest supplied filed statements support strong revenue growth against the prior-year quarter, high operating profitability, positive free cash flow and no reported debt. The latest supplied intraday price remains above the latest supplied medium-term moving-average reference; that comparison does not turn the dated average or financial statements into intraday measurements. Business Wire reports an Ethernet rack-scale product expansion, but its excerpt does not demonstrate incremental sales or earnings. Zacks identifies customer concentration and margin pressure as risks without measuring a breach of the retained fundamental floors. Continued technical support and reported growth and operating profitability above those floors remain the claim's tests.",
         "status": "valid",
         "conditions": [
           {
@@ -618,15 +619,15 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-10-06T01:47Z",
-        "trigger": "2026-10-06T01:47Z, trigger: daily bulk review (no threshold crossed)"
+        "last_updated": "2026-10-08T19:41Z",
+        "trigger": null
       }
     ],
     "monitoring": {
       "claims": [
         {
           "id": "ANET-1",
-          "text": "Arista's latest filed quarter shows revenue of [ANET | quarter_revenue: 3035700000 USD | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], year-over-year revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c], quarterly free cash flow of [ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement | snapshot d7323cb4a60c] and total debt of [ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement | snapshot d7323cb4a60c]. The live price of [ANET | price: 206.775 USD | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] sits [ANET | above_sma50_pct: 7.2473 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above the fifty-day average of [ANET | sma50: 192.80200000000002 USD | as-of 2026-10-01 | detector/market_data / FMP | snapshot d7323cb4a60c]. The claim is questioned if the price loses the live fifty-day average, or if the report on [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-02T18:39:29Z | detector/market_data / FMP | snapshot d7323cb4a60c] shows revenue growth or operating margin below the chosen fundamental thresholds.",
+          "text": "The latest supplied filed statements support strong revenue growth against the prior-year quarter, high operating profitability, positive free cash flow and no reported debt. The latest supplied intraday price remains above the latest supplied medium-term moving-average reference; that comparison does not turn the dated average or financial statements into intraday measurements. Business Wire reports an Ethernet rack-scale product expansion, but its excerpt does not demonstrate incremental sales or earnings. Zacks identifies customer concentration and margin pressure as risks without measuring a breach of the retained fundamental floors. Continued technical support and reported growth and operating profitability above those floors remain the claim's tests.",
           "status": "valid",
           "conditions": [
             {
@@ -677,102 +678,94 @@
           ]
         }
       ],
-      "next_review_at": "2026-10-08T14:00:00+00:00",
+      "next_review_at": "2026-10-15T19:00:00+00:00",
       "falsifier_condition": {
         "claim_id": "ANET-1",
         "condition_index": 0
       },
-      "change_reason": "All conditions are unchanged. The trigger was supportive news restating the already-recorded second-quarter revenue growth. It brought no new financial statements, guidance, contracts or company events, so no non-price evidence justifies moving any threshold. Only the claim text is refreshed with the current price and fifty-day snapshot. The earnings catalyst falls beyond the one-week review limit, so the review is set within a week and will be repeated until the report arrives.",
+      "change_reason": "All previous conditions, thresholds and severities remain unchanged. The complete previous conditions supply the fundamental floors that the old claim prose described as unavailable. The product announcement and qualitative risk commentary do not establish a changed financial regime warranting threshold changes. The refreshed text distinguishes the intraday quote from the dated average and filed financials. Earnings at [ANET | earnings_date: 2026-11-03 date | as-of 2026-10-08T19:40:32Z | detector/market_data / FMP | snapshot 2172ffdab45c] remain beyond the permitted review interval, so the next checkpoint precedes that catalyst; absent new evidence, that checkpoint still requires explicit reassessment rather than silent extension. The retained positive technical condition requests review, not an automatic purchase. Evidence-review corrections remove unsupported premises from the analyst discussion without changing the action or its tests.",
       "evidence_ids": [
         "ANET.price",
         "ANET.previous_close",
         "ANET.sma50",
         "ANET.above_sma50_pct",
-        "ANET.above_sma200_pct",
-        "ANET.quarter_revenue",
         "ANET.revenue_yoy_pct",
         "ANET.operating_margin_pct",
-        "ANET.gross_margin_pct",
         "ANET.quarter_free_cash_flow",
         "ANET.total_debt",
-        "ANET.net_debt",
         "ANET.earnings_date",
-        "ANET.volume",
-        "ANET.volume_avg_20d",
-        "news:dba01d82f8f57b350bc8723d",
-        "news:28b1c787fee40dbcb7b712f3"
+        "news:a4c283595778fbef55e6a677",
+        "news:13a3f1ff6a63eed3fdf08a07"
       ],
-      "revision": "a2064b319c810b3bc9d7ac04",
-      "created_at": "2026-10-02T18:40:14+00:00",
+      "revision": "aa9487dbd559e7ad1da67e35",
+      "created_at": "2026-10-08T19:41:55+00:00",
       "evidence_fingerprints": {
-        "ANET.price": "37fb763cb98a9ad9be0c595b",
-        "ANET.previous_close": "fcd08575b74dabfc40016944",
-        "ANET.sma50": "90ff1008de17e57a05785595",
-        "ANET.above_sma50_pct": "539746ac6904f0a6e1e373d2",
-        "ANET.above_sma200_pct": "471a38a0e67ce097558a853f",
-        "ANET.quarter_revenue": "e370c0f75f7500b0e668507f",
+        "ANET.price": "7cfbd4228a447c5483ce046b",
+        "ANET.previous_close": "0c4df360c5bef3fdc18cd2ec",
+        "ANET.sma50": "b2cc3b39348bd7d859ae11da",
+        "ANET.above_sma50_pct": "043f35246c2390f035677fa7",
         "ANET.revenue_yoy_pct": "729c29de7d4dc17f225fa18b",
         "ANET.operating_margin_pct": "a0a725026f0ba02cce51f12e",
-        "ANET.gross_margin_pct": "d162e9ccbd86c69a6a0ddfde",
         "ANET.quarter_free_cash_flow": "2243fdc94e5592106b8a4cb6",
         "ANET.total_debt": "8e9e3df8b3efac8ddb24a58e",
-        "ANET.net_debt": "700a11354b04b54f1043bdac",
-        "ANET.earnings_date": "b01ed5afb273d2d16e516766",
-        "ANET.volume": "e7fdaf04ce9208997f000f62",
-        "ANET.volume_avg_20d": "b89c20c196f09f641b11c51d",
-        "news:dba01d82f8f57b350bc8723d": "02af2613a7d09f1c2e5988c6",
-        "news:28b1c787fee40dbcb7b712f3": "04b43ec7b8cf8f0a721d8f2d"
+        "ANET.earnings_date": "e70df2f30dd45b54fcdc3129",
+        "news:a4c283595778fbef55e6a677": "4713ef9aae7d747784fdc588",
+        "news:13a3f1ff6a63eed3fdf08a07": "d8c600b28f3ad277054231f2"
       }
     },
     "analyst_review": {
       "earnings": {
-        "assessment": "Hypothesis, not the analysts' stated reason: the observed target raises cluster right after the latest quarterly filing. That filing shows revenue growth of [ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c] and operating margin of [ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement | snapshot d7323cb4a60c]. Same-period consensus for the current fiscal year is essentially flat: EPS [ANET | analyst_eps_20261231: 4.10825 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c] with revision [ANET | analyst_eps_20261231_revision_pct: 0.0014604972019403456 % vs prior observed consensus | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c]. Next-year EPS is [ANET | analyst_eps_20271231: 5.24026 provider-reported currency/share | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c] with revision [ANET | analyst_eps_20271231_revision_pct: 0.24390197244960762 % vs prior observed consensus | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c], and next-year revenue revision is [ANET | analyst_revenue_20271231_revision_pct: 0.3171865205112711 % vs prior observed consensus | as-of 2026-10-02T00:49:54+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result | snapshot d7323cb4a60c], both small upward moves. The multi-week revision windows lack enough same-period snapshots to establish a trend.",
+        "assessment": "Hypothesis, not an analyst's stated reason: strong filed growth and profitability provide supportive earnings context. Against the prior observed same-period consensus, current-year EPS is marginally higher and revenue unchanged, while next-year EPS is marginally lower and revenue unchanged. The available longer comparison shows a modest upward revision to next-year revenue consensus. These are aggregate same-period snapshot comparisons, not individual-analyst revision breadth; they do not establish changes in consensus constituents or explain historical target raises. Improving earnings are not a prerequisite for a defensible positive target revision.",
         "evidence_status": "context_only",
         "source_ids": [
           "ANET.revenue_yoy_pct",
           "ANET.operating_margin_pct",
-          "ANET.analyst_eps_20261231",
           "ANET.analyst_eps_20261231_revision_pct",
-          "ANET.analyst_eps_20271231",
+          "ANET.analyst_revenue_20261231_revision_pct",
           "ANET.analyst_eps_20271231_revision_pct",
           "ANET.analyst_revenue_20271231_revision_pct",
-          "analyst:acd4102c7aef1c24cdb4b0f3",
-          "analyst:f05c6aa44b5f373eac206aec"
+          "ANET.analyst_revenue_20271231_revision_7d_pct"
         ]
       },
       "company_news": {
-        "assessment": "No contract, product, regulatory or partnership event is supplied. The FXEmpire headline mentions earnings and guidance, but its excerpt contains only a historical price statement. All target-revision records list their reason as unknown. One headline is quarantined because the publisher's firm differs from the provider's firm, and it is not used. The company-event driver remains an explicit gap.",
-        "evidence_status": "unknown",
-        "source_ids": []
-      },
-      "sector_theme": {
-        "assessment": "Hypothesis only. The Motley Fool AI networking article describes AI data-center demand for networking equipment. The semiconductor ETF trades [SMH | above_sma50_pct: 10.7433 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above its fifty-day average, while SPY is only [SPY | above_sma50_pct: 0.7754 % vs sma50 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above its own. This is consistent with AI-infrastructure theme strength. No source states an analyst's reason for a revision, and price data does not prove fund flows.",
+        "assessment": "Hypothesis, not an analyst's stated reason: Business Wire's rack-scale architecture announcement supplies a product and partnership event supporting Arista's Ethernet opportunity. It postdates the supplied historical target raises and therefore does not explain those earlier revisions. The excerpt does not establish contract revenue, customer adoption or incremental profitability. Zacks' customer-concentration and margin-pressure warnings counterbalance the opportunity. No supplied article explicitly attributes an analyst revision to these events; a regulatory driver is also unestablished.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:dba01d82f8f57b350bc8723d",
-          "SMH.above_sma50_pct",
-          "SPY.above_sma50_pct"
+          "news:a4c283595778fbef55e6a677",
+          "news:13a3f1ff6a63eed3fdf08a07",
+          "analyst:42fc10092baef6aeb1726f09",
+          "analyst:9872f054b205b46e23e75f77"
+        ]
+      },
+      "sector_theme": {
+        "assessment": "Hypothesis, not an analyst's stated reason: the Business Wire announcement and Zacks commentary support AI networking and Ethernet expansion as relevant industry themes. The supplied benchmark declines provide countervailing market context, not proof of sustained sector rotation. Product expansion does not measure realized industry demand. Price movements do not establish current fund flows, investor attention or the cause of a target revision.",
+        "evidence_status": "context_only",
+        "source_ids": [
+          "news:a4c283595778fbef55e6a677",
+          "news:13a3f1ff6a63eed3fdf08a07",
+          "SMH.price",
+          "SMH.previous_close",
+          "SPY.price",
+          "SPY.previous_close"
         ]
       },
       "valuation": {
-        "assessment": "Hypothesis: the price rose substantially between each firm's prior and current target. Part of the target increases may therefore reflect repricing of the growth story rather than new forecasts. The price sits [ANET | above_sma200_pct: 30.4489 % vs sma200 | as-of 2026-10-02T18:35:00+00:00 | detector/market_data / FMP | snapshot d7323cb4a60c] above its two-hundred-day average, so crowded positioning is a possible counter-risk. Forecast horizons are unknown, and no verified multiple data is in the ledger.",
+        "assessment": "Hypothesis, not an analyst's stated reason: the supplied historical target increases alongside intervening share-price appreciation are consistent with repricing of the growth story, but do not distinguish a changed multiple from changed earnings expectations or forecast horizon. Verified valuation multiples, discount-rate assumptions and current positioning are unavailable. The target records explicitly leave reasons and horizons unknown and warn that intermediate provider observations may be missing. No attribution conflict is asserted. Neither target increases nor distance above a moving average establishes fair value, crowded positioning or future returns.",
         "evidence_status": "context_only",
         "source_ids": [
-          "ANET.above_sma200_pct",
-          "analyst:9872f054b205b46e23e75f77",
-          "analyst:12974e24181d2030bae06a34",
-          "analyst:42fc10092baef6aeb1726f09"
+          "analyst:42fc10092baef6aeb1726f09",
+          "analyst:9872f054b205b46e23e75f77"
         ]
       }
     }
   },
   "NVDA": {
-    "thesis_summary": "NVDA remains a supported holding because dated reported growth, high margins and positive free cash flow accompany an intraday price above the supplied moving averages and retained downside floor, while incremental order economics and valuation support remain unverified.",
+    "thesis_summary": "NVDA remains a supported holding because dated strong revenue growth, high margins and positive free cash flow accompany an intraday quote above the supplied dated moving averages and retained downside floor, while sequential financial trends, incremental order economics and valuation support remain unverified.",
     "source": "DECISION_LOG.md #10",
     "claims": [
       {
         "id": "NVDA-1",
-        "text": "The supplied intraday quote exceeds the dated intermediate moving average despite trading below the previous close, supporting the intermediate trend without treating older volume observations as current intraday confirmation.",
+        "text": "The refreshed intraday quote is above the supplied dated intermediate trend reference but below the previous close, while the older volume measurements provide no current-session confirmation.",
         "status": "valid",
         "conditions": [
           {
@@ -797,12 +790,12 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-07T19:27Z",
+        "last_updated": "2026-10-08T19:41Z",
         "trigger": null
       },
       {
         "id": "NVDA-2",
-        "text": "The supplied intraday quote remains above the retained fixed downside floor and dated long-horizon moving average, supporting continued exposure independently of entry cost while the earnings-calendar discrepancy remains unresolved.",
+        "text": "The latest quote clears the retained fixed downside review floor and supplied dated long-horizon trend reference, supporting continued exposure without resolving the conflicting earnings calendars.",
         "status": "valid",
         "conditions": [
           {
@@ -821,12 +814,12 @@
             "severity": "warning"
           }
         ],
-        "last_updated": "2026-10-07T19:27Z",
+        "last_updated": "2026-10-08T19:41Z",
         "trigger": null
       },
       {
         "id": "NVDA-3",
-        "text": "The cited dated financial measurements show strong year-over-year revenue growth, high gross and operating margins and positive free cash flow; they do not independently establish sequential cash-flow or debt trends, and the adoption excerpts do not establish incremental profits.",
+        "text": "The cited dated financial levels establish strong annual revenue growth, high gross and operating margins and positive free cash flow, but do not establish sequential cash-flow or debt direction, and reported financing discussions do not establish realized order profitability.",
         "status": "valid",
         "conditions": [
           {
@@ -858,7 +851,7 @@
             "severity": "claim"
           }
         ],
-        "last_updated": "2026-10-07T19:27Z",
+        "last_updated": "2026-10-08T19:41Z",
         "trigger": null
       }
     ],
@@ -866,7 +859,7 @@
       "claims": [
         {
           "id": "NVDA-1",
-          "text": "The supplied intraday quote exceeds the dated intermediate moving average despite trading below the previous close, supporting the intermediate trend without treating older volume observations as current intraday confirmation.",
+          "text": "The refreshed intraday quote is above the supplied dated intermediate trend reference but below the previous close, while the older volume measurements provide no current-session confirmation.",
           "status": "valid",
           "conditions": [
             {
@@ -894,7 +887,7 @@
         },
         {
           "id": "NVDA-2",
-          "text": "The supplied intraday quote remains above the retained fixed downside floor and dated long-horizon moving average, supporting continued exposure independently of entry cost while the earnings-calendar discrepancy remains unresolved.",
+          "text": "The latest quote clears the retained fixed downside review floor and supplied dated long-horizon trend reference, supporting continued exposure without resolving the conflicting earnings calendars.",
           "status": "valid",
           "conditions": [
             {
@@ -916,7 +909,7 @@
         },
         {
           "id": "NVDA-3",
-          "text": "The cited dated financial measurements show strong year-over-year revenue growth, high gross and operating margins and positive free cash flow; they do not independently establish sequential cash-flow or debt trends, and the adoption excerpts do not establish incremental profits.",
+          "text": "The cited dated financial levels establish strong annual revenue growth, high gross and operating margins and positive free cash flow, but do not establish sequential cash-flow or debt direction, and reported financing discussions do not establish realized order profitability.",
           "status": "valid",
           "conditions": [
             {
@@ -950,12 +943,12 @@
           ]
         }
       ],
-      "next_review_at": "2026-10-07T20:15:00+00:00",
+      "next_review_at": "2026-10-08T20:15:00+00:00",
       "falsifier_condition": {
         "claim_id": "NVDA-2",
         "condition_index": 0
       },
-      "change_reason": "All prior detector types, thresholds and severities remain unchanged. The rewritten claims incorporate the refreshed quote and current news while removing the rejected draft's unsupported sequential-comparison premise. Restoring the financial claim to valid reflects the supported reported levels, not evidence of sequential improvement. No safeguard is relaxed. Review around the approaching session close to obtain closing measurements and revisit source discrepancies; if expected evidence is absent, explicitly reassess that gap rather than silently extending the decision.",
+      "change_reason": "All previous detector types, thresholds and severities remain unchanged. The rejected draft's sequential-deterioration premise is removed because the cited ledger levels do not independently establish that comparison; this correction restores the financial claim to valid without asserting improvement. Updated text distinguishes current intraday pricing from dated technical and financial evidence. No threshold is relaxed to accommodate a loss or obtain approval. Reassess around the approaching session close for closing measurements and source reconciliation; if expected evidence is absent, explicitly record and reconsider the gaps rather than silently extending the decision.",
       "evidence_ids": [
         "NVDA.price",
         "NVDA.price_at",
@@ -971,43 +964,35 @@
         "NVDA.quarter_free_cash_flow",
         "NVDA.quarter_operating_cash_flow",
         "NVDA.total_debt",
-        "NVDA.analyst_eps_20270125_revision_pct",
-        "NVDA.analyst_revenue_20270125_revision_pct",
-        "news:bdd9b6c0fd07b4c84e7b7fb1",
-        "news:d63cb67a3d10e7e8b2c9d671",
-        "news:6b460d2e6f99d434081d044e",
-        "analyst:3bfc0aed53c359d047287add",
-        "analyst:7bf6884f7ca6c6e5deb2e88b"
+        "news:10e78e76846df83cf6692343",
+        "news:cf0c907f2e54196f89c53dbf",
+        "news:f78b15ef0d62ed96c663f765"
       ],
-      "revision": "9b0982378e73e0877508e53e",
-      "created_at": "2026-10-07T19:27:25+00:00",
+      "revision": "0898c9618b1c74c9ea3a33f3",
+      "created_at": "2026-10-08T19:41:55+00:00",
       "evidence_fingerprints": {
-        "NVDA.price": "f0df0462cfcfee5922705483",
-        "NVDA.price_at": "7f31ef1830c6dd2f492ee655",
-        "NVDA.previous_close": "e6e49bc1e4ca53f22b3297d3",
-        "NVDA.sma50": "ef5fe7f99966a02728d66f56",
-        "NVDA.sma200": "47eb870af3f5b21627d45d68",
-        "NVDA.volume": "1e3b3d2cb75c85097da7dcc5",
-        "NVDA.volume_avg_20d": "3ba5e41fea6f5cf9a520ed4b",
-        "NVDA.earnings_date": "78a6b98e6f2460912876ea61",
+        "NVDA.price": "388635ecc8e00b4ea7388685",
+        "NVDA.price_at": "9cd15bbb400712797be13b3c",
+        "NVDA.previous_close": "ce745c134d624e72a7683c1e",
+        "NVDA.sma50": "5637c54b8867f9f7cae91566",
+        "NVDA.sma200": "08c0900bf6b306301a08536b",
+        "NVDA.volume": "b48fb2e043297fc9ed933c87",
+        "NVDA.volume_avg_20d": "cbac4bc5c6fb626bb797dad7",
+        "NVDA.earnings_date": "9a353574bcd21224d7fc468a",
         "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
         "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
         "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
         "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
         "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
         "NVDA.total_debt": "766abf93dd5a30920a515e86",
-        "NVDA.analyst_eps_20270125_revision_pct": "718a3430a127e8cab4e68397",
-        "NVDA.analyst_revenue_20270125_revision_pct": "8cc78783f3f5a88b7c5e0688",
-        "news:bdd9b6c0fd07b4c84e7b7fb1": "6eab4bef485b4563bef51b73",
-        "news:d63cb67a3d10e7e8b2c9d671": "7a0041ab3d26fa949e5f6d65",
-        "news:6b460d2e6f99d434081d044e": "b263caf6e24a6386e9525638",
-        "analyst:3bfc0aed53c359d047287add": "01fc53123b2785a8b2fdf3e2",
-        "analyst:7bf6884f7ca6c6e5deb2e88b": "584bdcdf9836561dbc8a145e"
+        "news:10e78e76846df83cf6692343": "9f5c1767757576439f8d6e1f",
+        "news:cf0c907f2e54196f89c53dbf": "492341bcc3206e0f5ecd10e9",
+        "news:f78b15ef0d62ed96c663f765": "5de3415bacbe7a7431bde3f7"
       }
     },
     "analyst_review": {
       "earnings": {
-        "assessment": "The latest same-period EPS and revenue consensus forecasts for the nearer upcoming fiscal periods are modestly higher than their prior observed snapshots, replacing the previous review's description of estimate softness. The available weekly revenue comparisons also increase, while longer-window comparisons are insufficient. Hypothesis only: firmer consensus estimates provide countercontext to apparent target reductions, not an analyst-stated explanation. These observations do not establish same-analyst revision breadth or company guidance; improving earnings are not required for a valid positive target revision.",
+        "assessment": "The latest same-period consensus comparisons show unchanged EPS forecasts and modestly higher revenue forecasts for the nearer upcoming fiscal periods, correcting the previous review's description of rising EPS. Available weekly revenue comparisons also rise; longer-window comparisons lack sufficient snapshots. Hypothesis only: firmer revenue expectations provide countercontext to apparent target reductions, not an analyst-stated explanation. These observations are neither individual-analyst revision breadth nor company guidance, and improving earnings are not required for a valid positive target revision.",
         "evidence_status": "context_only",
         "source_ids": [
           "NVDA.analyst_eps_20270125_revision_pct",
@@ -1019,28 +1004,30 @@
         ]
       },
       "company_news": {
-        "assessment": "Benzinga reports prospective SpaceX financing for Nvidia chip purchases, CNBC reports Nvidia chip inclusion in a Microsoft laptop, and 'Sequoia, Nvidia Back Mecka AI's Robotics Push' describes investment backing. Hypothesis only: these reports support adoption and ecosystem relevance, not the analysts' stated revision reasons. The provider excerpts do not establish completed financing, enforceable orders, incremental profitability or a regulatory explanation for the target observations.",
+        "assessment": "The supplied SpaceX video excerpt reports financing discussions for Nvidia chip purchases, not secured financing or binding orders. GlobeNewswire describes scientific commitments, and Seeking Alpha asserts software-ecosystem expansion and an acquisition without independent corroboration here. Hypothesis only: these reports provide demand and ecosystem context, not the analysts' stated revision reasons. Verified incremental profitability, material contract terms and a regulatory explanation are unavailable.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:bdd9b6c0fd07b4c84e7b7fb1",
-          "news:d63cb67a3d10e7e8b2c9d671",
-          "news:45eeeb5d41b544269e62c84a"
+          "news:f78b15ef0d62ed96c663f765",
+          "news:7e636015a08ef2a6c4c2f71b",
+          "news:cf0c907f2e54196f89c53dbf"
         ]
       },
       "sector_theme": {
-        "assessment": "MarketBeat's 'Penguin Solutions Is Soaring as AI Memory Demand Explodes' describes Nvidia networking technology in AI infrastructure, and the Motley Fool excerpt discusses prospective financing for GPU spending without naming the supplier in its text. Hypothesis only: these provide supportive AI-infrastructure demand context, not realized Nvidia revenue or analyst-attributed revision causes. Financing uncertainty and unmeasured profitability remain counterweights; price and volume alone do not establish fund flows, investor attention or sector rotation.",
+        "assessment": "GuruFocus attributes chip-sector weakness to higher yields and oil prices, while Seeking Alpha presents favorable AI-demand commentary. Hypothesis only: macro pressure can coexist with supportive infrastructure demand, offering an alternative to issuer-specific deterioration. These later excerpts do not establish the cause of earlier analyst revisions, realized Nvidia sales, fund flows, sector rotation or changes in investor attention.",
         "evidence_status": "context_only",
         "source_ids": [
-          "news:6b460d2e6f99d434081d044e",
-          "news:5c192bda58c76670420273f3"
+          "news:10e78e76846df83cf6692343",
+          "news:cf0c907f2e54196f89c53dbf"
         ]
       },
       "valuation": {
-        "assessment": "The provider's matched target observations indicate reductions, but the Wells Fargo record carries a Morgan Stanley headline, intermediate coverage may be missing, and revision reasons and forecast horizons are unknown. Hypothesis only: growth-story repricing is a possible explanation, with provider attribution error an alternative. Supplied evidence does not establish a measured Nvidia valuation multiple, discount-rate change, crowded positioning or changed analyst horizon. A favorable demand theme does not eliminate valuation risk, and target revisions neither prescribe trades nor establish future returns.",
+        "assessment": "Provider target observations indicate reductions, but the Wells Fargo record carries a Morgan Stanley headline, intermediate coverage may be missing, and revision reasons and forecast horizons remain unknown. Seeking Alpha offers a favorable valuation opinion rather than an independently corroborated valuation measurement. Hypothesis only: growth-story repricing or discount-rate sensitivity are possible explanations, with provider attribution error an alternative. Changed analyst horizons and crowded positioning are unmeasured. Supportive demand does not establish cheapness, and target revisions neither prescribe a trade nor prove future returns.",
         "evidence_status": "context_only",
         "source_ids": [
           "analyst:3bfc0aed53c359d047287add",
-          "analyst:7bf6884f7ca6c6e5deb2e88b"
+          "analyst:7bf6884f7ca6c6e5deb2e88b",
+          "news:cf0c907f2e54196f89c53dbf",
+          "news:10e78e76846df83cf6692343"
         ]
       }
     }

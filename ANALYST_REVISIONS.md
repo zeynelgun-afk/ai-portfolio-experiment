@@ -4,10 +4,10 @@ Provider observations, not verified analyst reports. Targets are forecasts; revi
 
 | Symbol | Observed | Target revisions up/down firms (30d) | Target median | Revenue consensus revision (FY, 30d) | Revenue analyst count |
 |---|---|---:|---:|---:|---:|
-| AMD | 2026-10-07T19:25:55+00:00 | incomplete · 2 / 0 | 11.52% | unavailable | — |
-| ANET | 2026-10-07T19:25:55+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
-| MU | 2026-10-07T19:25:55+00:00 | ok · 4 / 2 | 10.66% | unavailable | — |
-| NVDA | 2026-10-07T19:25:55+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
+| AMD | 2026-10-08T19:40:32+00:00 | incomplete · 2 / 0 | 11.52% | unavailable | — |
+| ANET | 2026-10-08T19:40:32+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
+| MU | 2026-10-08T19:40:32+00:00 | ok · 4 / 2 | 10.66% | unavailable | — |
+| NVDA | 2026-10-08T19:40:32+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
 
 ## Quarantined provider records
 
