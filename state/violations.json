@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-09T01:13:24Z",
+  "checked_at": "2026-10-09T18:54:14Z",
   "code": 20,
   "conditions": {
     "AMD-1#0": {
@@ -7,9 +7,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +17.94%",
+      "detail": "price relative to current sma50: +16.39%",
       "first_seen": null,
-      "measured": 17.937161469631114,
+      "measured": 16.389105637810395,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -67,9 +67,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +41.1% (stop 440)",
+      "detail": "stop distance +39.3% (stop 440)",
       "first_seen": null,
-      "measured": 41.11,
+      "measured": 39.26,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -82,9 +82,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.0%",
+      "detail": "daily change -1.3%",
       "first_seen": null,
-      "measured": 0.04,
+      "measured": -1.28,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -97,9 +97,9 @@
       "claim_id": "AMD-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH -0.1%",
+      "detail": "SMH -0.5%",
       "first_seen": null,
-      "measured": -0.05,
+      "measured": -0.48,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -112,9 +112,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 620.90",
+      "detail": "price 612.75",
       "first_seen": null,
-      "measured": 620.9,
+      "measured": 612.75,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -127,9 +127,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "volume 0.9x",
+      "detail": "volume 0.4x",
       "first_seen": null,
-      "measured": 0.88,
+      "measured": 0.45,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -142,9 +142,9 @@
       "claim_id": "AMD-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.0%",
+      "detail": "daily change -1.3%",
       "first_seen": null,
-      "measured": 0.04,
+      "measured": -1.28,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -157,9 +157,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +7.06%",
+      "detail": "price relative to current sma50: +10.12%",
       "first_seen": null,
-      "measured": 7.057954987423187,
+      "measured": 10.119655099228563,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -202,9 +202,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +31.8% (stop 160)",
+      "detail": "stop distance +35.5% (stop 160)",
       "first_seen": null,
-      "measured": 31.78,
+      "measured": 35.55,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -217,9 +217,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change -0.1%",
+      "detail": "daily change +2.8%",
       "first_seen": null,
-      "measured": -0.06,
+      "measured": 2.8,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -232,9 +232,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH -0.1%",
+      "detail": "SMH -0.5%",
       "first_seen": null,
-      "measured": -0.05,
+      "measured": -0.48,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -262,9 +262,9 @@
       "claim_id": "ANET-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +7.06%",
+      "detail": "price relative to current sma50: +10.12%",
       "first_seen": null,
-      "measured": 7.057954987423187,
+      "measured": 10.119655099228563,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -277,9 +277,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +6.45%",
+      "detail": "price relative to current sma50: +6.04%",
       "first_seen": null,
-      "measured": 6.448529307489026,
+      "measured": 6.044665118486359,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -292,9 +292,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +41.9% (stop 730)",
+      "detail": "stop distance +41.4% (stop 730)",
       "first_seen": null,
-      "measured": 41.9,
+      "measured": 41.36,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -307,9 +307,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "volume 1.0x",
+      "detail": "volume 0.6x",
       "first_seen": null,
-      "measured": 0.99,
+      "measured": 0.57,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -322,9 +322,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.0%",
+      "detail": "daily change -0.4%",
       "first_seen": null,
-      "measured": 0.0,
+      "measured": -0.38,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -337,9 +337,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH -0.1%",
+      "detail": "SMH -0.5%",
       "first_seen": null,
-      "measured": -0.05,
+      "measured": -0.48,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -352,9 +352,9 @@
       "claim_id": "MU-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.0%",
+      "detail": "daily change -0.4%",
       "first_seen": null,
-      "measured": 0.0,
+      "measured": -0.38,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -397,9 +397,9 @@
       "claim_id": "MU-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 1035.85",
+      "detail": "price 1031.92",
       "first_seen": null,
-      "measured": 1035.85,
+      "measured": 1031.92,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -412,9 +412,9 @@
       "claim_id": "MU-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.0%",
+      "detail": "daily change -0.4%",
       "first_seen": null,
-      "measured": 0.0,
+      "measured": -0.38,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -472,9 +472,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price relative to current sma50: +4.14%",
+      "detail": "price relative to current sma50: +3.82%",
       "first_seen": null,
-      "measured": 4.1362719440487306,
+      "measured": 3.8246084105792333,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -487,9 +487,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "stop distance +21.3% (stop 190)",
+      "detail": "stop distance +21.0% (stop 190)",
       "first_seen": null,
-      "measured": 21.34,
+      "measured": 20.98,
       "required_streak": 2,
       "severity": "warning",
       "streak": 0,
@@ -502,9 +502,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "daily change +0.0%",
+      "detail": "daily change -0.3%",
       "first_seen": null,
-      "measured": 0.03,
+      "measured": -0.27,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -517,9 +517,9 @@
       "claim_id": "NVDA-1",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "SMH -0.1%",
+      "detail": "SMH -0.5%",
       "first_seen": null,
-      "measured": -0.05,
+      "measured": -0.48,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -532,9 +532,9 @@
       "claim_id": "NVDA-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "price 230.55",
+      "detail": "price 229.86",
       "first_seen": null,
-      "measured": 230.55,
+      "measured": 229.86,
       "required_streak": 2,
       "severity": "thesis",
       "streak": 0,
@@ -547,9 +547,9 @@
       "claim_id": "NVDA-2",
       "confirmed": false,
       "data_suspect": false,
-      "detail": "volume 0.9x",
+      "detail": "volume 0.5x",
       "first_seen": null,
-      "measured": 0.89,
+      "measured": 0.47,
       "required_streak": 2,
       "severity": "claim",
       "streak": 0,
@@ -635,7 +635,7 @@
   },
   "data": {
     "AMD": {
-      "analyst_refreshed": true,
+      "analyst_refreshed": false,
       "analyst_revisions": {
         "attribution_conflicts": [
           {
@@ -1991,14 +1991,14 @@
         }
       },
       "daily_provider": "FMP",
-      "data_source": "stale_intraday_5m",
+      "data_source": "intraday_5m",
       "earnings_date": "2026-11-03",
       "fundamental_research": {
-        "collected_at": "2026-10-09T01:13:24+00:00",
+        "collected_at": "2026-10-09T18:54:14+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -2009,7 +2009,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -2021,7 +2021,7 @@
           },
           "net_debt": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -2033,7 +2033,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -2045,7 +2045,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -2056,7 +2056,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -2067,7 +2067,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -2078,7 +2078,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "netIncome"
             ],
@@ -2089,7 +2089,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -2100,7 +2100,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -2111,7 +2111,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue"
             ],
@@ -2122,7 +2122,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue@2026-06-27",
               "revenue@2025-06-28"
@@ -2134,7 +2134,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -2145,7 +2145,7 @@
           },
           "total_debt": {
             "as_of": "2026-06-27",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -2396,90 +2396,10 @@
           ]
         }
       },
-      "news_assessments": [
-        {
-          "citation_selections": [
-            {
-              "source_id": "news:1cceb7b6b3ecc8599b4bcafe"
-            },
-            {
-              "source_id": "news:aac5f8d18a58fc9a367a4bcc"
-            }
-          ],
-          "citations": [
-            {
-              "quote": "Intel and AMD shares traded lower on Thursday as a broader selloff in US equities intensified, with surging oil prices and Treasury yields raising concerns about inflation and interest rates. Intel stock INTC fell about 6%, while AMD declin",
-              "source_id": "news:1cceb7b6b3ecc8599b4bcafe"
-            },
-            {
-              "quote": "BNP Paribas just slapped a price target on AMD that towers over Wall Street consensus, but reaching it would demand a sequence of wins that our model says the stock has not yet earned.",
-              "source_id": "news:aac5f8d18a58fc9a367a4bcc"
-            }
-          ],
-          "claim_ids": [
-            "AMD-1",
-            "AMD-2"
-          ],
-          "counterevidence": "N3 describes broad market pressure rather than an AMD-specific operating setback, which weighs against interpreting the decline as fundamental invalidation. N5's discussion of a high analyst target provides a potential upside perspective, although neither the target nor the commentary demonstrates realized business performance.",
-          "impact": "uncertain",
-          "reasoning": "N3 reports AMD declining over 4% amid a broader equity selloff associated with higher oil prices and Treasury yields. This makes the price-related review conditions relevant, but does not establish deteriorating AMD operating performance or a broken growth thesis. N5 presents a high analyst target as dependent on future wins, consistent with caution about unverified forecast realization, but its model commentary does not establish valuation or forecast changes.",
-          "source_documents": {
-            "news:07434f8e66465ca2b25aadaa": {
-              "published_at": "2026-10-08 11:58:00",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "Chip stocks slipped in morning trading Thursday as higher Treasury yields and a jump in oil prices weighed on technology shares. Intel (INTC) fell about 3%, whi",
-              "title": "Intel, AMD, Nvidia Lead Chip Selloff as Oil Soars After Tanker Attack",
-              "url": "https://www.gurufocus.com/news/9115562/intel-amd-nvidia-lead-chip-selloff-as-oil-soars-after-tanker-attack"
-            },
-            "news:10455c423a6532839f761da5": {
-              "published_at": "2026-10-08 12:30:00",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "They are both profiting from the AI boom, but one of them looks more attractive right now.",
-              "title": "AMD vs. Intel: Which Chip Stock Has More Upside From Here?",
-              "url": "https://www.fool.com/investing/2026/10/08/amd-vs-intel-which-chip-stock-has-more-upside-from/"
-            },
-            "news:1cceb7b6b3ecc8599b4bcafe": {
-              "published_at": "2026-10-08 13:39:42",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "Intel and AMD shares traded lower on Thursday as a broader selloff in US equities intensified, with surging oil prices and Treasury yields raising concerns about inflation and interest rates. Intel stock INTC fell about 6%, while AMD declined over 4%.",
-              "title": "Why are Intel and AMD stocks plunging on Thursday?",
-              "url": "https://invezz.com/news/2026/10/08/why-are-intel-and-amd-stocks-plunging-on-thursday/"
-            },
-            "news:6b6c0ab0de2016b3e5cd0f60": {
-              "published_at": "2026-10-08 11:47:00",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "/PRNewswire/ -- Wall Street Investor News Commentary - Worldwide spending on artificial intelligence is forecast to reach $2.59 trillion in 2026, up 47% from",
-              "title": "$2.6 Trillion and Climbing: Where the AI Spending Is Going",
-              "url": "https://www.prnewswire.com/news-releases/2-6-trillion-and-climbing-where-the-ai-spending-is-going-302902217.html"
-            },
-            "news:aac5f8d18a58fc9a367a4bcc": {
-              "published_at": "2026-10-08 08:45:43",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "BNP Paribas just slapped a price target on AMD that towers over Wall Street consensus, but reaching it would demand a sequence of wins that our model says the stock has not yet earned.",
-              "title": "AMD's Biggest Analyst Price Target Is Eye-Opening. Here's What It Would Take to Reach It",
-              "url": "https://247wallst.com/investing/2026/10/08/amds-biggest-analyst-price-target-is-eye-opening-heres-what-it-would-take-to-reach-it/"
-            },
-            "news:bf85e0b943213402ec7c3ac2": {
-              "published_at": "2026-10-08 10:05:43",
-              "scope": "provider article/excerpt; not independently verified full text",
-              "symbol": "AMD",
-              "text": "Rising Treasury yields and surging oil prices are hammering chip stocks, but Intel is falling harder than NVIDIA and AMD combined, and a looming question about its role in Elon Musk's Terafab project may be making things worse.",
-              "title": "Intel Slides 3% as Chip Stocks Sell Off With Yields and Oil Higher; NVIDIA and AMD Slip",
-              "url": "https://247wallst.com/investing/2026/10/08/intel-slides-3-as-chip-stocks-sell-off-with-yields-and-oil-higher-nvidia-and-amd-slip/"
-            }
-          },
-          "uncertainty": "The supplied excerpts are limited and not independently verified full texts. They provide no updated AMD revenue growth, operating margin, free cash flow, net cash, same-period forecast comparisons, absolute share price, moving-average measurement, stop distance, volume ratio or SMH return. The description of a decline over 4% does not establish whether the 7% decline condition was met. Neither a threshold breach nor persistence of the historical fundamentals can be determined."
-        }
-      ],
       "news_provider": "FMP",
       "previous_close": 620.68,
-      "price": 620.9,
-      "price_at": "2026-10-08T19:55:00+00:00",
+      "price": 612.75,
+      "price_at": "2026-10-09T18:50:00+00:00",
       "price_date": "2026-10-08",
       "price_provider": "FMP",
       "providers": {
@@ -2487,114 +2407,114 @@
       },
       "recent_news": [
         {
-          "image": "https://images.financialmodelingprep.com/news/advanced-micro-devices-vs-asml-which-semiconductor-stock-is-20261008.jpg",
-          "publishedDate": "2026-10-08 19:22:51",
-          "publisher": "Fool - Investing News",
+          "image": "https://images.financialmodelingprep.com/news/prediction-this-will-be-amds-stock-price-in-1-20261009.jpg",
+          "publishedDate": "2026-10-09 12:32:00",
+          "publisher": "The Motley Fool",
           "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 19:22:51",
+          "sourcePublishedDate": "2026-10-09 12:32:00",
           "symbol": "AMD",
-          "text": "Both are essential to the AI chip build-out, but they carry very different risk profiles depending on where they sit in the supply chain.",
-          "title": "Advanced Micro Devices vs. ASML: Which Semiconductor Stock Is a Better Buy in 2026?",
-          "url": "https://www.fool.com/coverage/better-buy/2026/10/08/advanced-micro-devices-vs-asml-which-semiconductor-stock-is-a-better-buy-in-2026/"
+          "text": "AMD has made its growth expectations for 2027 clear, yet the market still prices it at a huge premium. AMD's stock price could decline in 2027 if its valuation returns to a level more in line with those of its peers.",
+          "title": "Prediction: This Will Be AMD's Stock Price in 1 Year",
+          "url": "https://www.fool.com/investing/2026/10/09/prediction-this-will-be-amds-stock-price-in-one-ye/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/ways-ai-data-center-capacity-will-reach-90gw-by-20261008.jpg",
-          "publishedDate": "2026-10-08 18:00:26",
-          "publisher": "Schwab Network",
-          "site": "youtube.com",
-          "sourcePublishedDate": "2026-10-08 18:00:26",
+          "image": "https://images.financialmodelingprep.com/news/nvidia-and-amd-lead-the-ai-market-1-chip-20261009.jpg",
+          "publishedDate": "2026-10-09 11:17:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 11:17:00",
           "symbol": "AMD",
-          "text": "Goldman Sachs raised its 2026 U.S. data center capacity by 5 gigawatts to 64GW in 2026 while lowering its 2027 forecast by 5GW to 90GW. As Lisa Martin explains, the data center boom is broadening and becoming more physical.",
-          "title": "Ways AI Data Center Capacity Will Reach 90GW by 2027 & How AMD, WDC Benefit",
-          "url": "https://www.youtube.com/watch?v=22fZ8Aq0e50"
+          "text": "AMD's valuation has gotten a bit out of hand. Nvidia's growth is set to continue and outpace AMD's.",
+          "title": "Nvidia and AMD Lead the AI Market. 1 Chip Stock Has Far Greater Upside.",
+          "url": "https://www.fool.com/investing/2026/10/09/1-chip-stock-with-upside-in-the-ai-market/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/cathie-wood-says-follow-the-ai-agents-her-own-20261008.jpg",
-          "publishedDate": "2026-10-08 18:00:07",
+          "image": "https://images.financialmodelingprep.com/news/record-profits-at-samsung-and-tsmc-say-the-ai-20261009.jpg",
+          "publishedDate": "2026-10-09 10:25:52",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 10:25:52",
+          "symbol": "AMD",
+          "text": "Recent news from Samsung, TSMC, and SpaceX suggests record CAPEX spending will continue.",
+          "title": "Record Profits at Samsung and TSMC Say the AI Trade is Intact",
+          "url": "https://www.zacks.com/commentary/3003165/record-profits-at-samsung-and-tsmc-say-the-ai-trade-is-intact?cid=CS-STOCKNEWSAPI-FT-investment_ideas-3003165"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/how-to-play-ai-theme-with-etfs-amid-overvaluation-20261009.jpg",
+          "publishedDate": "2026-10-09 10:01:30",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 10:01:30",
+          "symbol": "AMD",
+          "text": "CNBC's Cramer favors established AI winners despite valuation concerns. Here are ETFs offering diversified exposure to his top stock picks.",
+          "title": "How to Play AI Theme With ETFs Amid Overvaluation Concerns?",
+          "url": "https://www.zacks.com/stock/news/3003533/how-to-play-ai-theme-with-etfs-amid-overvaluation-concerns?cid=CS-STOCKNEWSAPI-FT-etf_news_and_commentary-3003533"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/amd-turned-10000-into-more-than-12-million-can-20261009.jpg",
+          "publishedDate": "2026-10-09 08:45:26",
           "publisher": "24/7 Wall Street",
           "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 18:00:07",
+          "sourcePublishedDate": "2026-10-09 08:45:26",
           "symbol": "AMD",
-          "text": "Cathie Wood told investors to follow the AI agents, but her own fund's most recent SEC filings tell a more complicated story about where ARK actually placed its bets and which agent-economy names it quietly walked away from.",
-          "title": "Cathie Wood Says Follow the AI Agents. Her Own Filings Show Where ARK Was Looking",
-          "url": "https://247wallst.com/investing/2026/10/08/cathie-wood-says-follow-the-ai-agents-her-own-filings-show-where-ark-was-looking/"
+          "text": "A $10,000 bet on AMD in 2011 grew into more than $1.",
+          "title": "AMD Turned $10,000 Into More Than $1.2 Million. Can It Happen Again?",
+          "url": "https://247wallst.com/investing/2026/10/09/amd-turned-10000-into-more-than-1-2-million-can-it-happen-again/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/amd-stocks-fall-15-despite-tsmcs-record-ai-demand-20261008.jpg",
-          "publishedDate": "2026-10-08 15:46:00",
-          "publisher": "GuruFocus",
-          "site": "gurufocus.com",
-          "sourcePublishedDate": "2026-10-08 15:46:00",
+          "image": "https://images.financialmodelingprep.com/news/amd-the-market-is-not-ready-for-the-huge-20261009.jpg",
+          "publishedDate": "2026-10-09 08:31:09",
+          "publisher": "Seeking Alpha",
+          "site": "seekingalpha.com",
+          "sourcePublishedDate": "2026-10-09 08:31:09",
           "symbol": "AMD",
-          "text": "Advanced Micro Devices (AMD), the CPU and AI-accelerator designer, slipped about 1.5% to $636.15 around 10:31 a.m. ET on Thursday, as chip shares retreated desp",
-          "title": "AMD Stocks Fall 1.5% Despite TSMC's Record AI Demand Signal",
-          "url": "https://www.gurufocus.com/news/9115527/amd-stocks-fall-15-despite-tsmcs-record-ai-demand-signal"
+          "text": "AMD remains a buy after a 30% rally, with significant runway for revenue and margin expansion driven by strong CPU demand and agentic AI trends. Q2 revenue surged 50% to $11.5bn, led by 107% Data Center growth; gross margin expanded to 54%, and net income rose 163% to $2.3bn. Strategic moves like the World Labs acquisition position AMD to challenge Nvidia as AI shifts toward agentic computing and robotics, potentially narrowing the margin gap.",
+          "title": "AMD: The Market Is Not Ready For The Huge Margin Upside",
+          "url": "https://seekingalpha.com/article/4953053-amd-the-market-is-not-ready-for-the-huge-margin-upside"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/why-are-intel-and-amd-stocks-plunging-on-thursday-20261008.jpg",
-          "publishedDate": "2026-10-08 13:39:42",
-          "publisher": "Invezz",
-          "site": "invezz.com",
-          "sourcePublishedDate": "2026-10-08 13:39:42",
-          "symbol": "AMD",
-          "text": "Intel and AMD shares traded lower on Thursday as a broader selloff in US equities intensified, with surging oil prices and Treasury yields raising concerns about inflation and interest rates. Intel stock INTC fell about 6%, while AMD declined over 4%.",
-          "title": "Why are Intel and AMD stocks plunging on Thursday?",
-          "url": "https://invezz.com/news/2026/10/08/why-are-intel-and-amd-stocks-plunging-on-thursday/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/amd-vs-intel-which-chip-stock-has-more-upside-from-20261008.jpg",
-          "publishedDate": "2026-10-08 12:30:00",
+          "image": "https://images.financialmodelingprep.com/news/breakfast-news-week-in-review-20261009.jpg",
+          "publishedDate": "2026-10-09 07:30:01",
           "publisher": "Fool - Investing News",
           "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 12:30:00",
+          "sourcePublishedDate": "2026-10-09 07:30:01",
           "symbol": "AMD",
-          "text": "They are both profiting from the AI boom, but one of them looks more attractive right now.",
-          "title": "AMD vs. Intel: Which Chip Stock Has More Upside From Here?",
-          "url": "https://www.fool.com/investing/2026/10/08/amd-vs-intel-which-chip-stock-has-more-upside-from/"
+          "text": "Yields hit a 24-year high as SpaceX borrows $40 billion for Nvidia chips, and more…",
+          "title": "Breakfast News: Week in Review",
+          "url": "https://www.fool.com/investing/breakfast-news/2026/10/09/breakfast-news/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/intel-amd-nvidia-lead-chip-selloff-as-oil-soars-20261008.jpg",
-          "publishedDate": "2026-10-08 11:58:00",
-          "publisher": "GuruFocus",
-          "site": "gurufocus.com",
-          "sourcePublishedDate": "2026-10-08 11:58:00",
+          "image": "https://images.financialmodelingprep.com/news/prediction-2-stocks-that-will-be-worth-more-than-20261009.jpg",
+          "publishedDate": "2026-10-09 07:15:00",
+          "publisher": "Fool - Investing News",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 07:15:00",
           "symbol": "AMD",
-          "text": "Chip stocks slipped in morning trading Thursday as higher Treasury yields and a jump in oil prices weighed on technology shares. Intel (INTC) fell about 3%, whi",
-          "title": "Intel, AMD, Nvidia Lead Chip Selloff as Oil Soars After Tanker Attack",
-          "url": "https://www.gurufocus.com/news/9115562/intel-amd-nvidia-lead-chip-selloff-as-oil-soars-after-tanker-attack"
+          "text": "Broadcom is worth $1.7 trillion today, but I think these two faster-growing AI stocks will catch up within five years.",
+          "title": "Prediction: 2 Stocks That Will Be Worth More Than Broadcom 5 Years From Now",
+          "url": "https://www.fool.com/investing/2026/10/09/predict-stocks-worth-more-broadcom-pltr-amd/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/26-trillion-and-climbing-where-the-ai-spending-is-20261008.jpg",
-          "publishedDate": "2026-10-08 11:47:00",
-          "publisher": "PRNewsWire",
-          "site": "prnewswire.com",
-          "sourcePublishedDate": "2026-10-08 11:47:00",
+          "image": "https://images.financialmodelingprep.com/news/should-you-forget-nvidia-and-buy-these-2-artificial-20261009.jpg",
+          "publishedDate": "2026-10-09 06:15:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 06:15:00",
           "symbol": "AMD",
-          "text": "/PRNewswire/ -- Wall Street Investor News Commentary - Worldwide spending on artificial intelligence is forecast to reach $2.59 trillion in 2026, up 47% from",
-          "title": "$2.6 Trillion and Climbing: Where the AI Spending Is Going",
-          "url": "https://www.prnewswire.com/news-releases/2-6-trillion-and-climbing-where-the-ai-spending-is-going-302902217.html"
+          "text": "Nvidia remains a great stock, but smaller semiconductor stocks could outperform over the next decade. AMD has tailwinds from some powerful trends and is less than a fifth the size of Nvidia.",
+          "title": "Should You Forget Nvidia and Buy These 2 Artificial Intelligence (AI) Chip Stocks Instead?",
+          "url": "https://www.fool.com/investing/2026/10/09/nvidia-buy-artificial-intelligence-chip-stock/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/intel-slides-3-as-chip-stocks-sell-off-with-20261008.avif",
-          "publishedDate": "2026-10-08 10:05:43",
-          "publisher": "247 Wallst",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 10:05:43",
+          "image": "https://images.financialmodelingprep.com/news/gamma-investing-llc-purchases-5002-shares-of-advanced-micro-20261009.png",
+          "publishedDate": "2026-10-09 04:50:52",
+          "publisher": "Defense World",
+          "site": "defenseworld.net",
+          "sourcePublishedDate": "2026-10-09 04:50:52",
           "symbol": "AMD",
-          "text": "Rising Treasury yields and surging oil prices are hammering chip stocks, but Intel is falling harder than NVIDIA and AMD combined, and a looming question about its role in Elon Musk's Terafab project may be making things worse.",
-          "title": "Intel Slides 3% as Chip Stocks Sell Off With Yields and Oil Higher; NVIDIA and AMD Slip",
-          "url": "https://247wallst.com/investing/2026/10/08/intel-slides-3-as-chip-stocks-sell-off-with-yields-and-oil-higher-nvidia-and-amd-slip/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/amds-biggest-analyst-price-target-is-eyeopening-heres-what-20261008.jpg",
-          "publishedDate": "2026-10-08 08:45:43",
-          "publisher": "24/7 Wall Street",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 08:45:43",
-          "symbol": "AMD",
-          "text": "BNP Paribas just slapped a price target on AMD that towers over Wall Street consensus, but reaching it would demand a sequence of wins that our model says the stock has not yet earned.",
-          "title": "AMD's Biggest Analyst Price Target Is Eye-Opening. Here's What It Would Take to Reach It",
-          "url": "https://247wallst.com/investing/2026/10/08/amds-biggest-analyst-price-target-is-eye-opening-heres-what-it-would-take-to-reach-it/"
+          "text": "GAMMA Investing LLC raised its position in Advanced Micro Devices, Inc. (NASDAQ: AMD) by 12.0% in the third quarter, according to the company in its most recent filing with the Securities and Exchange Commission (SEC). The fund owned 46,704 shares of the semiconductor manufacturer's stock after buying an additional 5,002 shares during the",
+          "title": "GAMMA Investing LLC Purchases 5,002 Shares of Advanced Micro Devices, Inc. $AMD",
+          "url": "https://www.defenseworld.net/2026/10/09/gamma-investing-llc-purchases-5002-shares-of-advanced-micro-devices-inc-amd.html"
         }
       ],
       "sma200": 383.3533,
@@ -2704,61 +2624,13 @@
           "symbol": "AMD",
           "text": "{\"at\": \"2026-07-24T10:31:48+00:00\", \"baseline_age_days\": 79, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Suji Desilva\", \"at\": \"2026-07-24T10:31:48+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"roth capital\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 539.69, \"reason\": \"unknown\", \"target_adjusted\": 650.0, \"target_raw\": 650.0, \"title\": \"AMD price target raised to $650 from $500 at Roth Capital\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4391672\"}, \"firm\": \"roth capital\", \"gap_when_posted_pct\": 20.4395, \"id\": \"fee2e94bfc4a2b6fb5d0ff58\", \"previous\": {\"analyst\": \"\", \"at\": \"2026-05-06T00:11:53+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"roth capital\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 355.26, \"reason\": \"unknown\", \"target_adjusted\": 500.0, \"target_raw\": 500.0, \"title\": \"AMD price target raised to $500 from $300 at Roth Capital\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4345971\"}, \"price_move_between_reports_pct\": 51.9141, \"revision_pct\": 30.0}",
           "url": "https://thefly.com/ajax/news_get.php?id=4391672"
-        },
-        "news:07434f8e66465ca2b25aadaa": {
-          "published_at": "2026-10-08 11:58:00",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "Chip stocks slipped in morning trading Thursday as higher Treasury yields and a jump in oil prices weighed on technology shares. Intel (INTC) fell about 3%, whi",
-          "title": "Intel, AMD, Nvidia Lead Chip Selloff as Oil Soars After Tanker Attack",
-          "url": "https://www.gurufocus.com/news/9115562/intel-amd-nvidia-lead-chip-selloff-as-oil-soars-after-tanker-attack"
-        },
-        "news:10455c423a6532839f761da5": {
-          "published_at": "2026-10-08 12:30:00",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "They are both profiting from the AI boom, but one of them looks more attractive right now.",
-          "title": "AMD vs. Intel: Which Chip Stock Has More Upside From Here?",
-          "url": "https://www.fool.com/investing/2026/10/08/amd-vs-intel-which-chip-stock-has-more-upside-from/"
-        },
-        "news:1cceb7b6b3ecc8599b4bcafe": {
-          "published_at": "2026-10-08 13:39:42",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "Intel and AMD shares traded lower on Thursday as a broader selloff in US equities intensified, with surging oil prices and Treasury yields raising concerns about inflation and interest rates. Intel stock INTC fell about 6%, while AMD declined over 4%.",
-          "title": "Why are Intel and AMD stocks plunging on Thursday?",
-          "url": "https://invezz.com/news/2026/10/08/why-are-intel-and-amd-stocks-plunging-on-thursday/"
-        },
-        "news:6b6c0ab0de2016b3e5cd0f60": {
-          "published_at": "2026-10-08 11:47:00",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "/PRNewswire/ -- Wall Street Investor News Commentary - Worldwide spending on artificial intelligence is forecast to reach $2.59 trillion in 2026, up 47% from",
-          "title": "$2.6 Trillion and Climbing: Where the AI Spending Is Going",
-          "url": "https://www.prnewswire.com/news-releases/2-6-trillion-and-climbing-where-the-ai-spending-is-going-302902217.html"
-        },
-        "news:aac5f8d18a58fc9a367a4bcc": {
-          "published_at": "2026-10-08 08:45:43",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "BNP Paribas just slapped a price target on AMD that towers over Wall Street consensus, but reaching it would demand a sequence of wins that our model says the stock has not yet earned.",
-          "title": "AMD's Biggest Analyst Price Target Is Eye-Opening. Here's What It Would Take to Reach It",
-          "url": "https://247wallst.com/investing/2026/10/08/amds-biggest-analyst-price-target-is-eye-opening-heres-what-it-would-take-to-reach-it/"
-        },
-        "news:bf85e0b943213402ec7c3ac2": {
-          "published_at": "2026-10-08 10:05:43",
-          "scope": "provider article/excerpt; not independently verified full text",
-          "symbol": "AMD",
-          "text": "Rising Treasury yields and surging oil prices are hammering chip stocks, but Intel is falling harder than NVIDIA and AMD combined, and a looming question about its role in Elon Musk's Terafab project may be making things worse.",
-          "title": "Intel Slides 3% as Chip Stocks Sell Off With Yields and Oil Higher; NVIDIA and AMD Slip",
-          "url": "https://247wallst.com/investing/2026/10/08/intel-slides-3-as-chip-stocks-sell-off-with-yields-and-oil-higher-nvidia-and-amd-slip/"
         }
       },
-      "volume": 19739372.06494,
-      "volume_avg_20d": 22392918.2
+      "volume": 10043373.08034,
+      "volume_avg_20d": 22404302.55
     },
     "ANET": {
-      "analyst_refreshed": true,
+      "analyst_refreshed": false,
       "analyst_revisions": {
         "attribution_conflicts": [
           {
@@ -3727,14 +3599,14 @@
         }
       },
       "daily_provider": "FMP",
-      "data_source": "stale_intraday_5m",
+      "data_source": "intraday_5m",
       "earnings_date": "2026-11-03",
       "fundamental_research": {
-        "collected_at": "2026-10-09T01:13:24+00:00",
+        "collected_at": "2026-10-09T18:54:14+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -3745,7 +3617,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -3757,7 +3629,7 @@
           },
           "net_debt": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -3769,7 +3641,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -3781,7 +3653,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -3792,7 +3664,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -3803,7 +3675,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -3814,7 +3686,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "netIncome"
             ],
@@ -3825,7 +3697,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -3836,7 +3708,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -3847,7 +3719,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue"
             ],
@@ -3858,7 +3730,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue@2026-06-30",
               "revenue@2025-06-30"
@@ -3870,7 +3742,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -3881,7 +3753,7 @@
           },
           "total_debt": {
             "as_of": "2026-06-30",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -4132,16 +4004,59 @@
           ]
         }
       },
+      "news_assessments": [
+        {
+          "citation_selections": [
+            {
+              "source_id": "news:3a3dfbd0af1b25574101ad2d"
+            }
+          ],
+          "citations": [
+            {
+              "quote": "Investors looking for the next phase of artificial intelligence (AI) infrastructure growth may want to look beyond semiconductor sector designers and examine the networking backbone tying the compute together. Arista Networks NYSE: ANET rec",
+              "source_id": "news:3a3dfbd0af1b25574101ad2d"
+            }
+          ],
+          "claim_ids": [
+            "ANET-1"
+          ],
+          "counterevidence": "N1 contains no reported deterioration in growth, operating profitability, free cash flow or debt, and no evidence that the specified thesis thresholds were breached. The reported price strength is consistent with historical market momentum, but is not proof of business performance.",
+          "impact": "uncertain",
+          "reasoning": "N1 reports a recent share-price high and frames networking as an AI infrastructure opportunity, but provides no operating results or evidence of incremental Ethernet sales or earnings. Its price commentary cannot establish current price relative to the moving average or validate the fundamental basis for retaining the position.",
+          "source_documents": {
+            "news:3a3dfbd0af1b25574101ad2d": {
+              "published_at": "2026-10-09 10:51:48",
+              "scope": "provider article/excerpt; not independently verified full text",
+              "symbol": "ANET",
+              "text": "Investors looking for the next phase of artificial intelligence (AI) infrastructure growth may want to look beyond semiconductor sector designers and examine the networking backbone tying the compute together. Arista Networks NYSE: ANET recently hit an all-time high of about $217, capping a year-to-date climb of around 61%.",
+              "title": "Arista Networks Plugs Into All-Time Highs",
+              "url": "https://www.marketbeat.com/articles/arista-networks-plugs-into-all-time-highs/"
+            }
+          },
+          "uncertainty": "Only a provider excerpt is supplied, without independently verified full text or a precise measurement time for the reported price high. Current technical conditions, subsequent financial performance and monetization of the Ethernet opportunity remain unestablished."
+        }
+      ],
       "news_provider": "FMP",
       "previous_close": 210.97,
-      "price": 210.85,
-      "price_at": "2026-10-08T19:55:00+00:00",
+      "price": 216.88,
+      "price_at": "2026-10-09T18:50:00+00:00",
       "price_date": "2026-10-08",
       "price_provider": "FMP",
       "providers": {
         "earnings": "FMP"
       },
       "recent_news": [
+        {
+          "image": "https://images.financialmodelingprep.com/news/arista-networks-plugs-into-alltime-highs-20261009.jpg",
+          "publishedDate": "2026-10-09 10:51:48",
+          "publisher": "MarketBeat",
+          "site": "marketbeat.com",
+          "sourcePublishedDate": "2026-10-09 10:51:48",
+          "symbol": "ANET",
+          "text": "Investors looking for the next phase of artificial intelligence (AI) infrastructure growth may want to look beyond semiconductor sector designers and examine the networking backbone tying the compute together. Arista Networks NYSE: ANET recently hit an all-time high of about $217, capping a year-to-date climb of around 61%.",
+          "title": "Arista Networks Plugs Into All-Time Highs",
+          "url": "https://www.marketbeat.com/articles/arista-networks-plugs-into-all-time-highs/"
+        },
         {
           "image": "https://images.financialmodelingprep.com/news/arista-stock-rises-647-ytd-is-there-more-upside-20261008.jpg",
           "publishedDate": "2026-10-08 13:11:10",
@@ -4240,17 +4155,6 @@
           "text": "Crisper Therapeutics (CSPR), Arista Networks (ANET), and Nebius (NBIS) are all seeing outsized intraday moves today",
           "title": "3 Trending Names Overtaking Wall Street Today",
           "url": "https://www.schaeffersresearch.com/content/news/2026/10/06/3-trending-names-overtaking-wall-street-today"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/wall-street-analysts-see-arista-networks-anet-as-a-20261006.jpg",
-          "publishedDate": "2026-10-06 10:31:02",
-          "publisher": "Zacks Investment Research",
-          "site": "zacks.com",
-          "sourcePublishedDate": "2026-10-06 10:31:02",
-          "symbol": "ANET",
-          "text": "When deciding whether to buy, sell, or hold a stock, investors often rely on analyst recommendations. Media reports about rating changes by these brokerage-firm-employed (or sell-side) analysts often influence a stock's price, but are they really important?",
-          "title": "Wall Street Analysts See Arista Networks (ANET) as a Buy: Should You Invest?",
-          "url": "https://www.zacks.com/stock/news/3000846/wall-street-analysts-see-arista-networks-anet-as-a-buy-should-you-invest?cid=CS-STOCKNEWSAPI-FT-fundamental_analysis|average_broker_rating-3000846"
         }
       ],
       "sma200": 160.64184999999998,
@@ -4304,10 +4208,18 @@
           "symbol": "ANET",
           "text": "{\"at\": \"2026-08-05T10:02:48+00:00\", \"baseline_age_days\": 90, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Tim Long\", \"at\": \"2026-08-05T10:02:48+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"barclays\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 190.51, \"reason\": \"unknown\", \"target_adjusted\": 289.0, \"target_raw\": 289.0, \"title\": \"Arista Networks price target raised to $289 from $195 at Barclays\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4401562\"}, \"firm\": \"barclays\", \"gap_when_posted_pct\": 51.6981, \"id\": \"f05c6aa44b5f373eac206aec\", \"previous\": {\"analyst\": \"\", \"at\": \"2026-05-07T09:24:27+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"barclays\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 147.06, \"reason\": \"unknown\", \"target_adjusted\": 195.0, \"target_raw\": 195.0, \"title\": \"Arista Networks price target raised to $195 from $184 at Barclays\", \"url\": \"https://thefly.com/ajax/news_get.php?id=4347740\"}, \"price_move_between_reports_pct\": 29.5458, \"revision_pct\": 48.2051}",
           "url": "https://thefly.com/ajax/news_get.php?id=4401562"
+        },
+        "news:3a3dfbd0af1b25574101ad2d": {
+          "published_at": "2026-10-09 10:51:48",
+          "scope": "provider article/excerpt; not independently verified full text",
+          "symbol": "ANET",
+          "text": "Investors looking for the next phase of artificial intelligence (AI) infrastructure growth may want to look beyond semiconductor sector designers and examine the networking backbone tying the compute together. Arista Networks NYSE: ANET recently hit an all-time high of about $217, capping a year-to-date climb of around 61%.",
+          "title": "Arista Networks Plugs Into All-Time Highs",
+          "url": "https://www.marketbeat.com/articles/arista-networks-plugs-into-all-time-highs/"
         }
       },
-      "volume": 4120542.87863,
-      "volume_avg_20d": 5033876.65
+      "volume": 2449753.08052,
+      "volume_avg_20d": 5034870.95
     },
     "MU": {
       "analyst_refreshed": false,
@@ -5560,165 +5472,165 @@
         }
       },
       "daily_provider": "FMP",
-      "data_source": "stale_intraday_5m",
+      "data_source": "intraday_5m",
       "earnings_date": "2026-12-23",
       "fundamental_research": {
-        "collected_at": "2026-10-09T01:13:24+00:00",
+        "collected_at": "2026-10-09T18:54:14+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/balance-sheet-statement",
             "unit": "USD",
             "value": 38364000000
           },
           "gross_margin_pct": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit",
               "revenue"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "%",
             "value": 86.756164
           },
           "net_debt": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/balance-sheet-statement",
             "unit": "USD",
             "value": -33185000000
           },
           "operating_margin_pct": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "%",
             "value": 81.723801
           },
           "quarter_capex": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "capitalExpenditure"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/cash-flow-statement",
             "unit": "USD",
             "value": -17165000000
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "freeCashFlow"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/cash-flow-statement",
             "unit": "USD",
             "value": 26808000000
           },
           "quarter_gross_profit": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "USD",
             "value": 47047000000
           },
           "quarter_net_income": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "netIncome"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "USD",
             "value": 37701000000
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingCashFlow"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/cash-flow-statement",
             "unit": "USD",
             "value": 43973000000
           },
           "quarter_operating_income": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "USD",
             "value": 44318000000
           },
           "quarter_revenue": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "USD",
             "value": 54229000000
           },
           "revenue_yoy_pct": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue@2026-09-03",
               "revenue@2025-08-28"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/income-statement",
             "unit": "%",
             "value": 379.26646
           },
           "shareholders_equity": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/balance-sheet-statement",
             "unit": "USD",
             "value": 138378000000
           },
           "total_debt": {
             "as_of": "2026-09-03",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt"
             ],
-            "published_at": "2026-09-30 16:02:22",
+            "published_at": "2026-10-09 08:21:00",
             "source": "FMP/balance-sheet-statement",
             "unit": "USD",
             "value": 5179000000
@@ -5739,7 +5651,7 @@
               "currency": "USD",
               "date": "2026-09-03",
               "period": "Q4",
-              "published_at": "2026-09-30 16:02:22",
+              "published_at": "2026-10-09 08:21:00",
               "totalDebt": 5179000000,
               "totalStockholdersEquity": 138378000000
             },
@@ -5815,7 +5727,7 @@
               "freeCashFlow": 26808000000,
               "operatingCashFlow": 43973000000,
               "period": "Q4",
-              "published_at": "2026-09-30 16:02:22"
+              "published_at": "2026-10-09 08:21:00"
             },
             {
               "capitalExpenditure": -7826000000,
@@ -5889,7 +5801,7 @@
               "netIncome": 37701000000,
               "operatingIncome": 44318000000,
               "period": "Q4",
-              "published_at": "2026-09-30 16:02:22",
+              "published_at": "2026-10-09 08:21:00",
               "revenue": 54229000000
             },
             {
@@ -5967,8 +5879,8 @@
       },
       "news_provider": "FMP",
       "previous_close": 1035.84,
-      "price": 1035.85,
-      "price_at": "2026-10-08T19:55:00+00:00",
+      "price": 1031.92,
+      "price_at": "2026-10-09T18:50:00+00:00",
       "price_date": "2026-10-08",
       "price_provider": "FMP",
       "providers": {
@@ -5976,114 +5888,114 @@
       },
       "recent_news": [
         {
-          "image": "https://images.financialmodelingprep.com/news/micron-nvidia-and-ai-chip-stocks-fall-as-report-20261008.jpg",
-          "publishedDate": "2026-10-08 18:08:00",
-          "publisher": "Market Watch",
-          "site": "marketwatch.com",
-          "sourcePublishedDate": "2026-10-08 18:08:00",
+          "image": "https://images.financialmodelingprep.com/news/two-massive-trades-just-happened-in-micron-and-nvidia-20261009.jpg",
+          "publishedDate": "2026-10-09 14:50:21",
+          "publisher": "CNBC",
+          "site": "cnbc.com",
+          "sourcePublishedDate": "2026-10-09 14:50:21",
           "symbol": "MU",
-          "text": "OpenAI's annualized revenue reportedly fell short of expectations — but analysts say that reflects differences in how the figure is reported, not weakness in AI demand.",
-          "title": "Micron, Nvidia and AI chip stocks fall as report on OpenAI's revenue causes ‘undue concern'",
-          "url": "https://www.marketwatch.com/story/micron-nvidia-and-ai-chip-stocks-fall-as-report-on-openais-revenue-causes-undue-concern-2a2bcf53"
+          "text": "More than 180,000 puts traded in SMH by midday, compared to 50,000 calls, with $46 million of premium tied to puts versus $26 million in calls, according to ThinkOrSwim and SpotGamma data. By volume, 129,000 put contracts look like they were bought, according to SpotGamma.",
+          "title": "Two massive trades just happened in Micron and Nvidia. What they could mean for chips",
+          "url": "https://www.cnbc.com/2026/10/09/two-massive-trades-just-happened-in-micron-and-nvidia-what-they-could-mean-for-chips.html"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/samsungs-operating-profit-hit-a-record-80-billion-like-20261008.jpg",
-          "publishedDate": "2026-10-08 16:46:02",
-          "publisher": "Fool - Investing News",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 16:46:02",
-          "symbol": "MU",
-          "text": "The Korean chipmaker's profit is still rising, just more slowly. Does this change anything for Micron stock?",
-          "title": "Samsung's Operating Profit Hit a Record $80 Billion. Like Micron's Memory Prices, Its Growth Is Slowing.",
-          "url": "https://www.fool.com/investing/2026/10/08/samsung-s-operating-profit-hit-a-record-usd80-billion-like-micron-s-memory-prices-its-growth-is-slowing/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/why-micronstock-dropped-on-thursday-20261008.jpg",
-          "publishedDate": "2026-10-08 16:41:00",
-          "publisher": "Fool - Investing News",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 16:41:00",
-          "symbol": "MU",
-          "text": "An OpenAI revenue announcement sparked panic among memory stock investors today.",
-          "title": "Why MicronStock Dropped on Thursday",
-          "url": "https://www.fool.com/investing/2026/10/08/why-micronstock-dropped-on-thursday/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-2-profitable-stocks-to-buy-in-october-for-20261008.jpg",
-          "publishedDate": "2026-10-08 16:01:06",
-          "publisher": "Zacks Investment Research",
-          "site": "zacks.com",
-          "sourcePublishedDate": "2026-10-08 16:01:06",
-          "symbol": "MU",
-          "text": "Micron Technology, NVIDIA and Par Pacific Holdings stand out for strong net profit margins and earnings growth in a screen of profitable stocks.",
-          "title": "Micron & 2 Profitable Stocks to Buy in October for Big Upside",
-          "url": "https://www.zacks.com/stock/news/3003190/micron-2-profitable-stocks-to-buy-in-october-for-big-upside?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003190"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-stocks-fall-over-2-despite-samsungs-783-profit-20261008.png",
-          "publishedDate": "2026-10-08 15:46:00",
-          "publisher": "GuruFocus",
-          "site": "gurufocus.com",
-          "sourcePublishedDate": "2026-10-08 15:46:00",
-          "symbol": "MU",
-          "text": "Micron Technology (MU), the AI-memory and storage producer, fell over 2% to $1,065.92 at approximately 10:29 a.m. ET on Oct. 8, despite another strong signal fr",
-          "title": "Micron Stocks Fall Over 2% Despite Samsung's 783% Profit Surge",
-          "url": "https://www.gurufocus.com/news/9115521/micron-stocks-fall-over-2-despite-samsungs-783-profit-surge"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/why-micron-mu-might-be-well-poised-for-a-20261008.jpg",
-          "publishedDate": "2026-10-08 13:20:50",
-          "publisher": "Zacks Investment Research",
-          "site": "zacks.com",
-          "sourcePublishedDate": "2026-10-08 13:20:50",
-          "symbol": "MU",
-          "text": "Micron (MU) shares have started gaining and might continue moving higher in the near term, as indicated by solid earnings estimate revisions.",
-          "title": "Why Micron (MU) Might be Well Poised for a Surge",
-          "url": "https://www.zacks.com/stock/news/3003082/why-micron-mu-might-be-well-poised-for-a-surge?cid=CS-STOCKNEWSAPI-FT-fundamental_analysis|yseop_template_8-3003082"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/the-memory-trade-cools-after-samsungs-preliminary-results-disappoint-20261008.jpg",
-          "publishedDate": "2026-10-08 12:12:04",
-          "publisher": "Investopedia",
-          "site": "investopedia.com",
-          "sourcePublishedDate": "2026-10-08 12:12:04",
-          "symbol": "MU",
-          "text": "One of the year's hottest AI trades is taking a hit Thursday.",
-          "title": "The Memory Trade Cools After Samsung's Preliminary Results Disappoint",
-          "url": "https://www.investopedia.com/market-update-the-memory-trade-cools-after-samsung-preliminary-results-disappoint-12164457"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/microns-dram-sales-reach-40b-can-ai-demand-drive-20261008.jpg",
-          "publishedDate": "2026-10-08 11:01:09",
-          "publisher": "Zacks Investment Research",
-          "site": "zacks.com",
-          "sourcePublishedDate": "2026-10-08 11:01:09",
-          "symbol": "MU",
-          "text": "Micron Technology, Inc.'s MU DRAM business is emerging as one of the biggest beneficiaries of the AI infrastructure boom. The company's DRAM revenues reached a record $39.8 billion in the fourth quarter of fiscal 2026, accounting for 73% of the total revenues.",
-          "title": "Micron's DRAM Sales Reach $40B: Can AI Demand Drive Growth?",
-          "url": "https://www.zacks.com/stock/news/3002927/micron-s-dram-sales-reach-40b-can-ai-demand-drive-growth?cid=CS-STOCKNEWSAPI-FT-analyst_blog|quick_take-3002927"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-could-be-poised-for-a-major-breakout-late-20261008.jpg",
-          "publishedDate": "2026-10-08 11:00:00",
-          "publisher": "Fool - Investing News",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 11:00:00",
-          "symbol": "MU",
-          "text": "Micron's latest quarterly report was a winner, and there's another big catalyst on the horizon.",
-          "title": "Micron Could Be Poised for a Major Breakout Late in 2026",
-          "url": "https://www.fool.com/investing/2026/10/08/micron-could-be-poised-for-a-major-breakout-late-i/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-this-memory-cycle-could-end-differently-20261008.jpg",
-          "publishedDate": "2026-10-08 10:46:33",
+          "image": "https://images.financialmodelingprep.com/news/micron-even-if-memory-prices-fall-15-it-may-20261009.jpg",
+          "publishedDate": "2026-10-09 14:31:42",
           "publisher": "Seeking Alpha",
           "site": "seekingalpha.com",
-          "sourcePublishedDate": "2026-10-08 10:46:33",
+          "sourcePublishedDate": "2026-10-09 14:31:42",
           "symbol": "MU",
-          "text": "Micron is separating cleanroom construction from equipment deployment, creating flexibility to expand capacity gradually as contracted demand becomes clearer. More than 75% of FY2027 output is already committed, giving MU substantially better information for long-term capacity allocation decisions. At roughly $1,064, MU trades near 6x FY2027 EPS, while consensus already assumes a severe future earnings normalization.",
-          "title": "Micron: This Memory Cycle Could End Differently",
-          "url": "https://seekingalpha.com/article/4952802-micron-this-memory-cycle-could-end-differently"
+          "text": "Micron Technology receives a Buy rating, with a base-case target price of $1,307, representing approximately 25% upside from current levels. MU's strong earnings growth is supported by AI infrastructure demand and industry-wide supply constraints, which have driven significant revenue and margin expansion. The investment thesis assumes continued shipment growth and a manageable decline in memory pricing as industry supply eventually expands.",
+          "title": "Micron: Even If Memory Prices Fall 15%, It May Still Be Undervalued",
+          "url": "https://seekingalpha.com/article/4953146-micron-even-if-memory-prices-fall-15-percent-it-may-still-be-undervalued"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/3-topranked-stocks-breaking-records-on-airelated-demand-20261009.jpg",
+          "publishedDate": "2026-10-09 12:16:02",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 12:16:02",
+          "symbol": "MU",
+          "text": "Micron, NVIDIA, and Hewlett Packard Enterprise have all continued to post robust quarterly results, with bullish earnings estimate revisions helping keep the near-term momentum picture intact.",
+          "title": "3 Top-Ranked Stocks Breaking Records on AI-Related Demand",
+          "url": "https://www.zacks.com/commentary/3003311/3-top-ranked-stocks-breaking-records-on-ai-related-demand?cid=CS-STOCKNEWSAPI-FT-investment_ideas-3003311"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/5-stocks-with-high-roe-to-buy-amid-erratic-20261009.jpg",
+          "publishedDate": "2026-10-09 11:51:13",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 11:51:13",
+          "symbol": "MU",
+          "text": "MU, BBVA, ROST, VICI and PCAR stand out as high-ROE stocks with strong cash flow amid market volatility and rate concerns.",
+          "title": "5 Stocks With High ROE to Buy Amid Erratic Market Behavior",
+          "url": "https://www.zacks.com/stock/news/3003824/5-stocks-with-high-roe-to-buy-amid-erratic-market-behavior?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003824"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/not-micron-not-sandisk-this-memory-stock-is-quietly-gaining-20261009.jpg",
+          "publishedDate": "2026-10-09 11:40:00",
+          "publisher": "Fool - Investing News",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 11:40:00",
+          "symbol": "MU",
+          "text": "SK Hynix, one of the top South Korean chipmakers, could outperform its U.S. rivals.",
+          "title": "Not Micron. Not Sandisk. This Memory Stock Is Quietly Gaining Share.",
+          "url": "https://www.fool.com/investing/2026/10/09/not-micron-not-sandisk-this-memory-stock-is-quietl/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/micron-has-evolved-into-a-next-gen-player-so-20261009.jpg",
+          "publishedDate": "2026-10-09 10:45:30",
+          "publisher": "24/7 Wall Street",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 10:45:30",
+          "symbol": "MU",
+          "text": "Every time Micron dips, one investor keeps buying more shares, and the reasoning has nothing to do with short-term momentum.",
+          "title": "Micron Has Evolved Into a Next Gen Player So I Keep Adding",
+          "url": "https://247wallst.com/investing/2026/10/09/micron-has-evolved-into-a-next-gen-player-so-i-keep-adding/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/micron-bears-are-fighting-physics-with-spreadsheets-20261009.jpg",
+          "publishedDate": "2026-10-09 10:32:57",
+          "publisher": "Seeking Alpha",
+          "site": "seekingalpha.com",
+          "sourcePublishedDate": "2026-10-09 10:32:57",
+          "symbol": "MU",
+          "text": "Micron is positioned as an AI infrastructure toll-collector, benefiting from surging agentic AI memory demand and strategic customer agreements (SCAs). MU's $32 billion in zero-interest client deposits and long-term SCAs de-risk capital spending, supporting robust margins even in downturns. Rising HBM complexity and wafer trade ratios constrain physical memory supply, countering oversupply fears despite $50B+ annual CapEx.",
+          "title": "Micron: Bears Are Fighting Physics With Spreadsheets",
+          "url": "https://seekingalpha.com/article/4953084-micron-bears-are-fighting-physics-with-spreadsheets"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/nvidia-and-micron-shares-bounce-as-investors-get-clarity-20261009.jpg",
+          "publishedDate": "2026-10-09 09:21:00",
+          "publisher": "Market Watch",
+          "site": "marketwatch.com",
+          "sourcePublishedDate": "2026-10-09 09:21:00",
+          "symbol": "MU",
+          "text": "A new report paints OpenAI's financial picture in a more optimistic light.",
+          "title": "Nvidia and Micron shares bounce as investors get clarity on a key OpenAI matter",
+          "url": "https://www.marketwatch.com/story/nvidia-and-micron-shares-bounce-as-investors-get-clarity-on-a-key-openai-matter-ba76ed20"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/a-wall-street-analyst-just-placed-a-3000-price-20261009.jpg",
+          "publishedDate": "2026-10-09 09:10:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 09:10:00",
+          "symbol": "MU",
+          "text": "Micron is riding the updraft of a powerful memory supercycle that looks more structural in nature than cyclical. While demand for high-bandwidth memory is driving the memory market, Micron only gets a small percentage of its revenue from this type of advanced memory.",
+          "title": "A Wall Street Analyst Just Placed a $3,000 Price Target on Micron: Here Are the Cases For and Against a 200% Surge in the Stock.",
+          "url": "https://www.fool.com/investing/2026/10/09/a-wall-street-analyst-just-placed-a-3000-price-tar/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/wall-street-may-not-be-ready-for-whats-coming-20261009.jpg",
+          "publishedDate": "2026-10-09 09:00:40",
+          "publisher": "24/7 Wall Street",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 09:00:40",
+          "symbol": "MU",
+          "text": "Jensen Huang says NVIDIA could sell far more chips if only the supply existed, and that single constraint ripples through every memory and storage stock in the AI chain.",
+          "title": "Wall Street May Not Be Ready for What's Coming Next for NVIDIA, Micron, and SanDisk",
+          "url": "https://247wallst.com/investing/2026/10/09/wall-street-may-not-be-ready-for-whats-coming-next-for-nvidia-micron-and-sandisk/"
         }
       ],
       "sma200": 697.9186,
@@ -6146,11 +6058,11 @@
           "url": "https://www.streetinsider.com/Analyst+Comments/Micron+Technology+%28MU%29+PT+Lowered+to+%241%2C400+at+Wells+Fargo/27092706.html"
         }
       },
-      "volume": 25508132.540329996,
-      "volume_avg_20d": 25764822.95
+      "volume": 14700727.669890001,
+      "volume_avg_20d": 25815969.55
     },
     "NVDA": {
-      "analyst_refreshed": true,
+      "analyst_refreshed": false,
       "analyst_revisions": {
         "attribution_conflicts": [
           {
@@ -7634,14 +7546,14 @@
         }
       },
       "daily_provider": "FMP",
-      "data_source": "stale_intraday_5m",
+      "data_source": "intraday_5m",
       "earnings_date": "2026-11-18",
       "fundamental_research": {
-        "collected_at": "2026-10-09T01:13:24+00:00",
+        "collected_at": "2026-10-09T18:54:14+00:00",
         "facts": {
           "cash_equivalents": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "cashAndCashEquivalents"
             ],
@@ -7652,7 +7564,7 @@
           },
           "gross_margin_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit",
               "revenue"
@@ -7664,7 +7576,7 @@
           },
           "net_debt": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt",
               "cashAndCashEquivalents"
@@ -7676,7 +7588,7 @@
           },
           "operating_margin_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome",
               "revenue"
@@ -7688,7 +7600,7 @@
           },
           "quarter_capex": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "capitalExpenditure"
             ],
@@ -7699,7 +7611,7 @@
           },
           "quarter_free_cash_flow": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "freeCashFlow"
             ],
@@ -7710,7 +7622,7 @@
           },
           "quarter_gross_profit": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "grossProfit"
             ],
@@ -7721,7 +7633,7 @@
           },
           "quarter_net_income": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "netIncome"
             ],
@@ -7732,7 +7644,7 @@
           },
           "quarter_operating_cash_flow": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingCashFlow"
             ],
@@ -7743,7 +7655,7 @@
           },
           "quarter_operating_income": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "operatingIncome"
             ],
@@ -7754,7 +7666,7 @@
           },
           "quarter_revenue": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue"
             ],
@@ -7765,7 +7677,7 @@
           },
           "revenue_yoy_pct": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "revenue@2026-07-26",
               "revenue@2025-07-27"
@@ -7777,7 +7689,7 @@
           },
           "shareholders_equity": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalStockholdersEquity"
             ],
@@ -7788,7 +7700,7 @@
           },
           "total_debt": {
             "as_of": "2026-07-26",
-            "observed_at": "2026-10-09T01:13:24+00:00",
+            "observed_at": "2026-10-09T18:54:14+00:00",
             "operands": [
               "totalDebt"
             ],
@@ -8043,99 +7955,92 @@
         {
           "citation_selections": [
             {
-              "source_id": "news:27b88c2dcd82a83cf2d92de2"
+              "source_id": "news:7df323a2430b35a804ac951d"
             },
             {
-              "source_id": "news:0535337a19606fb63147f8d5"
+              "source_id": "news:c19fd1d64ebeba720b827c97"
             },
             {
-              "source_id": "news:d189db05f964bcfd180fdc52"
-            },
-            {
-              "source_id": "news:ffce76bb2fbdd61d3ea808a7"
+              "source_id": "news:d50e8540b34dc594bf7fcb99"
             }
           ],
           "citations": [
             {
-              "quote": "AI stocks, including Nvidia, Oracle and CoreWeave, sank after the market learned more details about OpenAI's revenue. OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of September, CNBC confirmed, lower",
-              "source_id": "news:27b88c2dcd82a83cf2d92de2"
+              "quote": "The GARP strategy helps investors gain exposure to stocks that have solid prospects and are trading at a discount. NVDA, MPC, RL and LECO are some such stocks.",
+              "source_id": "news:7df323a2430b35a804ac951d"
             },
             {
-              "quote": "President Trump on Thursday announced a $2.4 billion commitment from major tech giants including Nvidia, OpenAI and Anthropic to support federal agencies' AI-driven scientific research.",
-              "source_id": "news:0535337a19606fb63147f8d5"
+              "quote": "AMD's valuation has gotten a bit out of hand. Nvidia's growth is set to continue and outpace AMD's.",
+              "source_id": "news:c19fd1d64ebeba720b827c97"
             },
             {
-              "quote": "Broadcom expects its AI semiconductor revenue to quadruple over the next two years. Nvidia has released strong guidance for 2027.",
-              "source_id": "news:d189db05f964bcfd180fdc52"
-            },
-            {
-              "quote": "Micron Technology, NVIDIA and Par Pacific Holdings stand out for strong net profit margins and earnings growth in a screen of profitable stocks.",
-              "source_id": "news:ffce76bb2fbdd61d3ea808a7"
+              "quote": "Both Broadcom and Nvidia are forecasting monster revenue growth over the next few years. Neither stock is highly valued by the market right now.",
+              "source_id": "news:d50e8540b34dc594bf7fcb99"
             }
           ],
           "claim_ids": [
             "NVDA-3"
           ],
-          "counterevidence": "N5 describes Nvidia's 2027 guidance as strong, and N6 identifies Nvidia in a screen for strong net profit margins and earnings growth, offering qualitative support for business strength without verifying the claim's specific financial metrics. N1 reports a collective commitment to federal AI research that includes Nvidia, but does not establish Nvidia revenue or profitable orders.",
+          "counterevidence": "The relevant excerpts express favorable growth and valuation views rather than reporting order impairment or financial deterioration. This weighs against interpreting them as a supported contradiction, but those views do not independently verify the dated financial evidence.",
           "impact": "uncertain",
-          "reasoning": "N3 reports OpenAI annualized revenue below a previously widely reported figure, not an established sequential revenue decline. This raises a question about customer spending capacity and expectations that could affect Nvidia's future demand and order economics, but the excerpt establishes no change in Nvidia orders, realized profitability or financial thresholds. The reported stock decline alone does not invalidate the business thesis.",
+          "reasoning": "N5 predicts continued Nvidia growth, and N6 reports expectations of strong future revenue growth. These are directionally consistent with the growth premise in NVDA-3, but neither excerpt supplies financial measurements or realized order economics that establish continued growth, margins or free cash flow. N4 and N6 offer favorable valuation assessments without supporting calculations, so they do not resolve the thesis's valuation uncertainty.",
           "source_documents": {
-            "news:0535337a19606fb63147f8d5": {
-              "published_at": "2026-10-08 15:01:37",
+            "news:3bd063fe8da018d1e8d9c914": {
+              "published_at": "2026-10-09 11:40:00",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "NVDA",
-              "text": "President Trump on Thursday announced a $2.4 billion commitment from major tech giants including Nvidia, OpenAI and Anthropic to support federal agencies' AI-driven scientific research.",
-              "title": "Trump unveils $2.4B investment from tech giants including Nvidia, OpenAI to fund federal AI mission",
-              "url": "https://nypost.com/2026/10/08/business/trump-unveils-2-4b-investment-from-tech-giants-including-nvidia-openai-to-fund-federal-ai-mission/"
+              "text": "SK Hynix, one of the top South Korean chipmakers, could outperform its U.S. rivals.",
+              "title": "Not Micron. Not Sandisk. This Memory Stock Is Quietly Gaining Share.",
+              "url": "https://www.fool.com/investing/2026/10/09/not-micron-not-sandisk-this-memory-stock-is-quietl/"
             },
-            "news:0631cc6d35708f9cce10f94a": {
-              "published_at": "2026-10-08 15:46:00",
+            "news:58be09221d84ef0476a320e5": {
+              "published_at": "2026-10-09 11:31:08",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "NVDA",
-              "text": "Nvidia (NVDA), the AI accelerator and networking giant, faced a fresh test of its ecosystem advantage as Reuters reported that Nvidia-backed Upscale AI launched",
-              "title": "Nvidia Stocks Fall as Upscale Opens Networks to Rival Chips",
-              "url": "https://www.gurufocus.com/news/9115513/nvidia-stocks-fall-as-upscale-opens-networks-to-rival-chips"
+              "text": "The constant labeling of AI as a \"bubble\" shouldn't deter investors from participating in one of history's most transformative technological shifts.",
+              "title": "Navigating the AI Boom: Bubble is NOT a Four-Letter Word",
+              "url": "https://www.zacks.com/commentary/3003798/navigating-the-ai-boom-bubble-is-not-a-four-letter-word?cid=CS-STOCKNEWSAPI-FT-investment_ideas-3003798"
             },
-            "news:27b88c2dcd82a83cf2d92de2": {
-              "published_at": "2026-10-08 14:18:31",
+            "news:7920851471f5e5d4a125a01a": {
+              "published_at": "2026-10-09 11:44:55",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "NVDA",
-              "text": "AI stocks, including Nvidia, Oracle and CoreWeave, sank after the market learned more details about OpenAI's revenue. OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of September, CNBC confirmed, lower than the the $68 billion figure widely reported late last month.",
-              "title": "Nvidia, Oracle, CoreWeave and other AI stocks sink on OpenAI revenue report",
-              "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html"
+              "text": "A Nobel Prize-winning economist once ranked a single investing product alongside the wheel and the printing press, and his reasoning reveals why the timing of your first dollar matters far more than its size.",
+              "title": "A Nobel Economist Compared This Fund to the Invention of the Wheel. $100 a Month Could Top $544,000",
+              "url": "https://247wallst.com/personal-finance/2026/10/09/a-nobel-economist-compared-this-fund-to-the-invention-of-the-wheel-100-a-month-could-top-544000/"
             },
-            "news:5693ba15990c78a552bb8af1": {
-              "published_at": "2026-10-08 17:20:56",
+            "news:7df323a2430b35a804ac951d": {
+              "published_at": "2026-10-09 12:11:06",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "NVDA",
-              "text": "We've seen on-screen AI and what it can do. In this age of robotics, physical AI is when intelligence and the physical world intersect.",
-              "title": "Key Robotics Stocks for 2026 and Beyond",
-              "url": "https://www.fxempire.com/forecasts/article/key-robotics-stocks-for-2026-and-beyond-1636923"
+              "text": "The GARP strategy helps investors gain exposure to stocks that have solid prospects and are trading at a discount. NVDA, MPC, RL and LECO are some such stocks.",
+              "title": "4 GARP Stocks That Investors Can Scoop Up for Maximum Returns",
+              "url": "https://www.zacks.com/stock/news/3003855/4-garp-stocks-that-investors-can-scoop-up-for-maximum-returns?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003855"
             },
-            "news:d189db05f964bcfd180fdc52": {
-              "published_at": "2026-10-08 17:29:00",
+            "news:c19fd1d64ebeba720b827c97": {
+              "published_at": "2026-10-09 11:17:00",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "NVDA",
-              "text": "Broadcom expects its AI semiconductor revenue to quadruple over the next two years. Nvidia has released strong guidance for 2027.",
-              "title": "Nvidia vs. Broadcom: Which AI Chip Stock Is the Better Buy for the Next 5 Years?",
-              "url": "https://www.fool.com/investing/2026/10/08/nvidia-vs-broadcom-which-ai-chip-stock-is-the-bett/"
+              "text": "AMD's valuation has gotten a bit out of hand. Nvidia's growth is set to continue and outpace AMD's.",
+              "title": "Nvidia and AMD Lead the AI Market. 1 Chip Stock Has Far Greater Upside.",
+              "url": "https://www.fool.com/investing/2026/10/09/1-chip-stock-with-upside-in-the-ai-market/"
             },
-            "news:ffce76bb2fbdd61d3ea808a7": {
-              "published_at": "2026-10-08 16:01:06",
+            "news:d50e8540b34dc594bf7fcb99": {
+              "published_at": "2026-10-09 11:21:00",
               "scope": "provider article/excerpt; not independently verified full text",
               "symbol": "NVDA",
-              "text": "Micron Technology, NVIDIA and Par Pacific Holdings stand out for strong net profit margins and earnings growth in a screen of profitable stocks.",
-              "title": "Micron & 2 Profitable Stocks to Buy in October for Big Upside",
-              "url": "https://www.zacks.com/stock/news/3003190/micron-2-profitable-stocks-to-buy-in-october-for-big-upside?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003190"
+              "text": "Both Broadcom and Nvidia are forecasting monster revenue growth over the next few years. Neither stock is highly valued by the market right now.",
+              "title": "Prediction: A $5,000 Investment Split Between Nvidia and Broadcom Will Triple by 2028",
+              "url": "https://www.fool.com/investing/2026/10/09/prediction-a-5000-investment-split-between-nvidia/"
             }
           },
-          "uncertainty": "The supplied excerpts are not independently verified full texts. They provide no updated Nvidia revenue growth, gross or operating margins, free cash flow, sequential debt data or realized order economics. They also provide no measured quote, moving averages, current-session volume or resolved earnings calendar with which to reassess NVDA-1 or NVDA-2. The scale and persistence of any demand effect from the OpenAI revenue report remain unknown."
+          "uncertainty": "Only provider excerpts are supplied, not independently verified full articles. They contain no current price, moving-average or volume measurements to reassess NVDA-1 or NVDA-2, and no comparable financial entries, quantified guidance or valuation methodology sufficient to confirm or invalidate NVDA-3."
         }
       ],
       "news_provider": "FMP",
       "previous_close": 230.48,
-      "price": 230.55,
-      "price_at": "2026-10-08T19:55:00+00:00",
+      "price": 229.86,
+      "price_at": "2026-10-09T18:50:00+00:00",
       "price_date": "2026-10-08",
       "price_provider": "FMP",
       "providers": {
@@ -8143,114 +8048,114 @@
       },
       "recent_news": [
         {
-          "image": "https://images.financialmodelingprep.com/news/advanced-micro-devices-vs-asml-which-semiconductor-stock-is-20261008.jpg",
-          "publishedDate": "2026-10-08 19:22:51",
-          "publisher": "Fool - Investing News",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 19:22:51",
-          "symbol": "NVDA",
-          "text": "Both are essential to the AI chip build-out, but they carry very different risk profiles depending on where they sit in the supply chain.",
-          "title": "Advanced Micro Devices vs. ASML: Which Semiconductor Stock Is a Better Buy in 2026?",
-          "url": "https://www.fool.com/coverage/better-buy/2026/10/08/advanced-micro-devices-vs-asml-which-semiconductor-stock-is-a-better-buy-in-2026/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/nvidiabacked-firmus-scraps-australian-ipo-citing-market-conditions-20261008.jpg",
-          "publishedDate": "2026-10-08 18:44:00",
-          "publisher": "WSJ",
-          "site": "wsj.com",
-          "sourcePublishedDate": "2026-10-08 18:44:00",
-          "symbol": "NVDA",
-          "text": "The cloud-computing company scrapped plans for what would have been Australia's largest initial public offering in almost 30 years.",
-          "title": "Nvidia-Backed Firmus Scraps Australian IPO, Citing Market Conditions",
-          "url": "https://www.wsj.com/tech/nvidia-backed-firmus-scraps-australian-ipo-citing-market-conditions-4793fe60"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/hyperliquid-won-perpetuals-after-536-million-of-options-traded-20261008.jpg",
-          "publishedDate": "2026-10-08 18:30:27",
-          "publisher": "247 Wallst",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 18:30:27",
-          "symbol": "NVDA",
-          "text": "Hypercall just posted a massive month trading options on Hyperliquid's infrastructure, but the platform's explosive growth hides a critical detail that every HYPE holder needs to understand before getting excited.",
-          "title": "Hyperliquid Won Perpetuals. After $536 Million of Options Traded in September, Can It Win Options Too?",
-          "url": "https://247wallst.com/investing/cryptocurrency/2026/10/08/hyperliquid-won-perpetuals-after-536-million-of-options-traded-in-september-can-it-win-options-too/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-nvidia-and-ai-chip-stocks-fall-as-report-20261008.jpg",
-          "publishedDate": "2026-10-08 18:08:00",
-          "publisher": "Market Watch",
-          "site": "marketwatch.com",
-          "sourcePublishedDate": "2026-10-08 18:08:00",
-          "symbol": "NVDA",
-          "text": "OpenAI's annualized revenue reportedly fell short of expectations — but analysts say that reflects differences in how the figure is reported, not weakness in AI demand.",
-          "title": "Micron, Nvidia and AI chip stocks fall as report on OpenAI's revenue causes ‘undue concern'",
-          "url": "https://www.marketwatch.com/story/micron-nvidia-and-ai-chip-stocks-fall-as-report-on-openais-revenue-causes-undue-concern-2a2bcf53"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/nvidia-vs-broadcom-which-ai-chip-stock-is-the-20261008.jpg",
-          "publishedDate": "2026-10-08 17:29:00",
-          "publisher": "The Motley Fool",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 17:29:00",
-          "symbol": "NVDA",
-          "text": "Broadcom expects its AI semiconductor revenue to quadruple over the next two years. Nvidia has released strong guidance for 2027.",
-          "title": "Nvidia vs. Broadcom: Which AI Chip Stock Is the Better Buy for the Next 5 Years?",
-          "url": "https://www.fool.com/investing/2026/10/08/nvidia-vs-broadcom-which-ai-chip-stock-is-the-bett/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/key-robotics-stocks-for-2026-and-beyond-20261008.jpg",
-          "publishedDate": "2026-10-08 17:20:56",
-          "publisher": "FXEmpire",
-          "site": "fxempire.com",
-          "sourcePublishedDate": "2026-10-08 17:20:56",
-          "symbol": "NVDA",
-          "text": "We've seen on-screen AI and what it can do. In this age of robotics, physical AI is when intelligence and the physical world intersect.",
-          "title": "Key Robotics Stocks for 2026 and Beyond",
-          "url": "https://www.fxempire.com/forecasts/article/key-robotics-stocks-for-2026-and-beyond-1636923"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/micron-2-profitable-stocks-to-buy-in-october-for-20261008.jpg",
-          "publishedDate": "2026-10-08 16:01:06",
-          "publisher": "Zacks Investment Research",
-          "site": "zacks.com",
-          "sourcePublishedDate": "2026-10-08 16:01:06",
-          "symbol": "NVDA",
-          "text": "Micron Technology, NVIDIA and Par Pacific Holdings stand out for strong net profit margins and earnings growth in a screen of profitable stocks.",
-          "title": "Micron & 2 Profitable Stocks to Buy in October for Big Upside",
-          "url": "https://www.zacks.com/stock/news/3003190/micron-2-profitable-stocks-to-buy-in-october-for-big-upside?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003190"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/nvidia-stocks-fall-as-upscale-opens-networks-to-rival-20261008.png",
-          "publishedDate": "2026-10-08 15:46:00",
-          "publisher": "GuruFocus",
-          "site": "gurufocus.com",
-          "sourcePublishedDate": "2026-10-08 15:46:00",
-          "symbol": "NVDA",
-          "text": "Nvidia (NVDA), the AI accelerator and networking giant, faced a fresh test of its ecosystem advantage as Reuters reported that Nvidia-backed Upscale AI launched",
-          "title": "Nvidia Stocks Fall as Upscale Opens Networks to Rival Chips",
-          "url": "https://www.gurufocus.com/news/9115513/nvidia-stocks-fall-as-upscale-opens-networks-to-rival-chips"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/trump-unveils-24b-investment-from-tech-giants-including-nvidia-20261008.jpg",
-          "publishedDate": "2026-10-08 15:01:37",
-          "publisher": "New York Post",
-          "site": "nypost.com",
-          "sourcePublishedDate": "2026-10-08 15:01:37",
-          "symbol": "NVDA",
-          "text": "President Trump on Thursday announced a $2.4 billion commitment from major tech giants including Nvidia, OpenAI and Anthropic to support federal agencies' AI-driven scientific research.",
-          "title": "Trump unveils $2.4B investment from tech giants including Nvidia, OpenAI to fund federal AI mission",
-          "url": "https://nypost.com/2026/10/08/business/trump-unveils-2-4b-investment-from-tech-giants-including-nvidia-openai-to-fund-federal-ai-mission/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/nvidia-oracle-coreweave-and-other-ai-stocks-sink-on-20261008.jpg",
-          "publishedDate": "2026-10-08 14:18:31",
+          "image": "https://images.financialmodelingprep.com/news/two-massive-trades-just-happened-in-micron-and-nvidia-20261009.jpg",
+          "publishedDate": "2026-10-09 14:50:21",
           "publisher": "CNBC",
           "site": "cnbc.com",
-          "sourcePublishedDate": "2026-10-08 14:18:31",
+          "sourcePublishedDate": "2026-10-09 14:50:21",
           "symbol": "NVDA",
-          "text": "AI stocks, including Nvidia, Oracle and CoreWeave, sank after the market learned more details about OpenAI's revenue. OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of September, CNBC confirmed, lower than the the $68 billion figure widely reported late last month.",
-          "title": "Nvidia, Oracle, CoreWeave and other AI stocks sink on OpenAI revenue report",
-          "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html"
+          "text": "More than 180,000 puts traded in SMH by midday, compared to 50,000 calls, with $46 million of premium tied to puts versus $26 million in calls, according to ThinkOrSwim and SpotGamma data. By volume, 129,000 put contracts look like they were bought, according to SpotGamma.",
+          "title": "Two massive trades just happened in Micron and Nvidia. What they could mean for chips",
+          "url": "https://www.cnbc.com/2026/10/09/two-massive-trades-just-happened-in-micron-and-nvidia-what-they-could-mean-for-chips.html"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/nvidias-rally-in-trouble-analyst-warns-of-bull-trap-20261009.jpg",
+          "publishedDate": "2026-10-09 14:10:18",
+          "publisher": "Benzinga",
+          "site": "benzinga.com",
+          "sourcePublishedDate": "2026-10-09 14:10:18",
+          "symbol": "NVDA",
+          "text": "NVIDIA Corporation (NASDAQ:NVDA) stock is trading lower on Friday, trailing broader market gains as a failed technical breakout raises concerns about near-term selling pressure.",
+          "title": "NVIDIA's Rally in Trouble? Analyst Warns of Bull Trap",
+          "url": "https://www.benzinga.com/markets/tech/26/10/62281306/nvidias-rally-in-trouble-analyst-warns-of-bull-trap"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/nvidia-has-already-made-investors-rich-heres-where-the-20261009.jpg",
+          "publishedDate": "2026-10-09 12:30:20",
+          "publisher": "24/7 Wall Street",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 12:30:20",
+          "symbol": "NVDA",
+          "text": "Nvidia stock has already handed investors gains most people only dream about, yet Wall Street analysts keep raising their targets and the company's newest chips are just hitting the market.",
+          "title": "Nvidia Has Already Made Investors Rich. Here's Where the Stock Could Be Headed Next",
+          "url": "https://247wallst.com/investing/2026/10/09/nvidia-has-already-made-investors-rich-heres-where-the-stock-could-be-headed-next/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/3-topranked-stocks-breaking-records-on-airelated-demand-20261009.jpg",
+          "publishedDate": "2026-10-09 12:16:02",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 12:16:02",
+          "symbol": "NVDA",
+          "text": "Micron, NVIDIA, and Hewlett Packard Enterprise have all continued to post robust quarterly results, with bullish earnings estimate revisions helping keep the near-term momentum picture intact.",
+          "title": "3 Top-Ranked Stocks Breaking Records on AI-Related Demand",
+          "url": "https://www.zacks.com/commentary/3003311/3-top-ranked-stocks-breaking-records-on-ai-related-demand?cid=CS-STOCKNEWSAPI-FT-investment_ideas-3003311"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/4-garp-stocks-that-investors-can-scoop-up-for-20261009.jpg",
+          "publishedDate": "2026-10-09 12:11:06",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 12:11:06",
+          "symbol": "NVDA",
+          "text": "The GARP strategy helps investors gain exposure to stocks that have solid prospects and are trading at a discount. NVDA, MPC, RL and LECO are some such stocks.",
+          "title": "4 GARP Stocks That Investors Can Scoop Up for Maximum Returns",
+          "url": "https://www.zacks.com/stock/news/3003855/4-garp-stocks-that-investors-can-scoop-up-for-maximum-returns?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003855"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/a-nobel-economist-compared-this-fund-to-the-invention-20261009.jpg",
+          "publishedDate": "2026-10-09 11:44:55",
+          "publisher": "247 Wallst",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 11:44:55",
+          "symbol": "NVDA",
+          "text": "A Nobel Prize-winning economist once ranked a single investing product alongside the wheel and the printing press, and his reasoning reveals why the timing of your first dollar matters far more than its size.",
+          "title": "A Nobel Economist Compared This Fund to the Invention of the Wheel. $100 a Month Could Top $544,000",
+          "url": "https://247wallst.com/personal-finance/2026/10/09/a-nobel-economist-compared-this-fund-to-the-invention-of-the-wheel-100-a-month-could-top-544000/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/not-micron-not-sandisk-this-memory-stock-is-quietly-gaining-20261009.jpg",
+          "publishedDate": "2026-10-09 11:40:00",
+          "publisher": "Fool - Investing News",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 11:40:00",
+          "symbol": "NVDA",
+          "text": "SK Hynix, one of the top South Korean chipmakers, could outperform its U.S. rivals.",
+          "title": "Not Micron. Not Sandisk. This Memory Stock Is Quietly Gaining Share.",
+          "url": "https://www.fool.com/investing/2026/10/09/not-micron-not-sandisk-this-memory-stock-is-quietl/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/navigating-the-ai-boom-bubble-is-not-a-fourletter-20261009.jpg",
+          "publishedDate": "2026-10-09 11:31:08",
+          "publisher": "Zacks Investment Research",
+          "site": "zacks.com",
+          "sourcePublishedDate": "2026-10-09 11:31:08",
+          "symbol": "NVDA",
+          "text": "The constant labeling of AI as a \"bubble\" shouldn't deter investors from participating in one of history's most transformative technological shifts.",
+          "title": "Navigating the AI Boom: Bubble is NOT a Four-Letter Word",
+          "url": "https://www.zacks.com/commentary/3003798/navigating-the-ai-boom-bubble-is-not-a-four-letter-word?cid=CS-STOCKNEWSAPI-FT-investment_ideas-3003798"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/prediction-a-5000-investment-split-between-nvidia-and-broadcom-20261009.jpg",
+          "publishedDate": "2026-10-09 11:21:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 11:21:00",
+          "symbol": "NVDA",
+          "text": "Both Broadcom and Nvidia are forecasting monster revenue growth over the next few years. Neither stock is highly valued by the market right now.",
+          "title": "Prediction: A $5,000 Investment Split Between Nvidia and Broadcom Will Triple by 2028",
+          "url": "https://www.fool.com/investing/2026/10/09/prediction-a-5000-investment-split-between-nvidia/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/nvidia-and-amd-lead-the-ai-market-1-chip-20261009.jpg",
+          "publishedDate": "2026-10-09 11:17:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 11:17:00",
+          "symbol": "NVDA",
+          "text": "AMD's valuation has gotten a bit out of hand. Nvidia's growth is set to continue and outpace AMD's.",
+          "title": "Nvidia and AMD Lead the AI Market. 1 Chip Stock Has Far Greater Upside.",
+          "url": "https://www.fool.com/investing/2026/10/09/1-chip-stock-with-upside-in-the-ai-market/"
         }
       ],
       "sma200": 201.92610000000002,
@@ -8375,70 +8280,92 @@
           "text": "{\"at\": \"2026-08-27T06:32:00+00:00\", \"baseline_age_days\": 97, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Ben Reitzes\", \"at\": \"2026-08-27T06:32:00+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"melius research\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 209.66, \"reason\": \"unknown\", \"target_adjusted\": 420.0, \"target_raw\": 420.0, \"title\": \"NVIDIA (NVDA) PT Raised to $420 at Melius\", \"url\": \"https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24420+at+Melius/26983487.html\"}, \"firm\": \"melius research\", \"gap_when_posted_pct\": 100.3243, \"id\": \"f4c864523a7ce1ca5d7d04fc\", \"previous\": {\"analyst\": \"Ben Reitzes\", \"at\": \"2026-05-21T06:43:00+00:00\", \"coverage_action\": \"update_or_unknown\", \"firm\": \"melius research\", \"forecast_horizon\": \"unknown\", \"price_when_posted\": 223.47, \"reason\": \"unknown\", \"target_adjusted\": 400.0, \"target_raw\": 400.0, \"title\": \"NVIDIA (NVDA) PT Raised to $400 at Melius\", \"url\": \"https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24400+at+Melius/26530344.html\"}, \"price_move_between_reports_pct\": -6.1798, \"revision_pct\": 5.0}",
           "url": "https://www.streetinsider.com/Analyst+Comments/NVIDIA+%28NVDA%29+PT+Raised+to+%24420+at+Melius/26983487.html"
         },
-        "news:0535337a19606fb63147f8d5": {
-          "published_at": "2026-10-08 15:01:37",
+        "news:3bd063fe8da018d1e8d9c914": {
+          "published_at": "2026-10-09 11:40:00",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "NVDA",
-          "text": "President Trump on Thursday announced a $2.4 billion commitment from major tech giants including Nvidia, OpenAI and Anthropic to support federal agencies' AI-driven scientific research.",
-          "title": "Trump unveils $2.4B investment from tech giants including Nvidia, OpenAI to fund federal AI mission",
-          "url": "https://nypost.com/2026/10/08/business/trump-unveils-2-4b-investment-from-tech-giants-including-nvidia-openai-to-fund-federal-ai-mission/"
+          "text": "SK Hynix, one of the top South Korean chipmakers, could outperform its U.S. rivals.",
+          "title": "Not Micron. Not Sandisk. This Memory Stock Is Quietly Gaining Share.",
+          "url": "https://www.fool.com/investing/2026/10/09/not-micron-not-sandisk-this-memory-stock-is-quietl/"
         },
-        "news:0631cc6d35708f9cce10f94a": {
-          "published_at": "2026-10-08 15:46:00",
+        "news:58be09221d84ef0476a320e5": {
+          "published_at": "2026-10-09 11:31:08",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "NVDA",
-          "text": "Nvidia (NVDA), the AI accelerator and networking giant, faced a fresh test of its ecosystem advantage as Reuters reported that Nvidia-backed Upscale AI launched",
-          "title": "Nvidia Stocks Fall as Upscale Opens Networks to Rival Chips",
-          "url": "https://www.gurufocus.com/news/9115513/nvidia-stocks-fall-as-upscale-opens-networks-to-rival-chips"
+          "text": "The constant labeling of AI as a \"bubble\" shouldn't deter investors from participating in one of history's most transformative technological shifts.",
+          "title": "Navigating the AI Boom: Bubble is NOT a Four-Letter Word",
+          "url": "https://www.zacks.com/commentary/3003798/navigating-the-ai-boom-bubble-is-not-a-four-letter-word?cid=CS-STOCKNEWSAPI-FT-investment_ideas-3003798"
         },
-        "news:27b88c2dcd82a83cf2d92de2": {
-          "published_at": "2026-10-08 14:18:31",
+        "news:7920851471f5e5d4a125a01a": {
+          "published_at": "2026-10-09 11:44:55",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "NVDA",
-          "text": "AI stocks, including Nvidia, Oracle and CoreWeave, sank after the market learned more details about OpenAI's revenue. OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of September, CNBC confirmed, lower than the the $68 billion figure widely reported late last month.",
-          "title": "Nvidia, Oracle, CoreWeave and other AI stocks sink on OpenAI revenue report",
-          "url": "https://www.cnbc.com/2026/10/08/open-ai-revenue-nvidia-oracle-coreweave.html"
+          "text": "A Nobel Prize-winning economist once ranked a single investing product alongside the wheel and the printing press, and his reasoning reveals why the timing of your first dollar matters far more than its size.",
+          "title": "A Nobel Economist Compared This Fund to the Invention of the Wheel. $100 a Month Could Top $544,000",
+          "url": "https://247wallst.com/personal-finance/2026/10/09/a-nobel-economist-compared-this-fund-to-the-invention-of-the-wheel-100-a-month-could-top-544000/"
         },
-        "news:5693ba15990c78a552bb8af1": {
-          "published_at": "2026-10-08 17:20:56",
+        "news:7df323a2430b35a804ac951d": {
+          "published_at": "2026-10-09 12:11:06",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "NVDA",
-          "text": "We've seen on-screen AI and what it can do. In this age of robotics, physical AI is when intelligence and the physical world intersect.",
-          "title": "Key Robotics Stocks for 2026 and Beyond",
-          "url": "https://www.fxempire.com/forecasts/article/key-robotics-stocks-for-2026-and-beyond-1636923"
+          "text": "The GARP strategy helps investors gain exposure to stocks that have solid prospects and are trading at a discount. NVDA, MPC, RL and LECO are some such stocks.",
+          "title": "4 GARP Stocks That Investors Can Scoop Up for Maximum Returns",
+          "url": "https://www.zacks.com/stock/news/3003855/4-garp-stocks-that-investors-can-scoop-up-for-maximum-returns?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003855"
         },
-        "news:d189db05f964bcfd180fdc52": {
-          "published_at": "2026-10-08 17:29:00",
+        "news:c19fd1d64ebeba720b827c97": {
+          "published_at": "2026-10-09 11:17:00",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "NVDA",
-          "text": "Broadcom expects its AI semiconductor revenue to quadruple over the next two years. Nvidia has released strong guidance for 2027.",
-          "title": "Nvidia vs. Broadcom: Which AI Chip Stock Is the Better Buy for the Next 5 Years?",
-          "url": "https://www.fool.com/investing/2026/10/08/nvidia-vs-broadcom-which-ai-chip-stock-is-the-bett/"
+          "text": "AMD's valuation has gotten a bit out of hand. Nvidia's growth is set to continue and outpace AMD's.",
+          "title": "Nvidia and AMD Lead the AI Market. 1 Chip Stock Has Far Greater Upside.",
+          "url": "https://www.fool.com/investing/2026/10/09/1-chip-stock-with-upside-in-the-ai-market/"
         },
-        "news:ffce76bb2fbdd61d3ea808a7": {
-          "published_at": "2026-10-08 16:01:06",
+        "news:d50e8540b34dc594bf7fcb99": {
+          "published_at": "2026-10-09 11:21:00",
           "scope": "provider article/excerpt; not independently verified full text",
           "symbol": "NVDA",
-          "text": "Micron Technology, NVIDIA and Par Pacific Holdings stand out for strong net profit margins and earnings growth in a screen of profitable stocks.",
-          "title": "Micron & 2 Profitable Stocks to Buy in October for Big Upside",
-          "url": "https://www.zacks.com/stock/news/3003190/micron-2-profitable-stocks-to-buy-in-october-for-big-upside?cid=CS-STOCKNEWSAPI-FT-analyst_blog|rw-3003190"
+          "text": "Both Broadcom and Nvidia are forecasting monster revenue growth over the next few years. Neither stock is highly valued by the market right now.",
+          "title": "Prediction: A $5,000 Investment Split Between Nvidia and Broadcom Will Triple by 2028",
+          "url": "https://www.fool.com/investing/2026/10/09/prediction-a-5000-investment-split-between-nvidia/"
         }
       },
-      "volume": 97091647.30186,
-      "volume_avg_20d": 108840170.6
+      "volume": 51138915.738639995,
+      "volume_avg_20d": 109081055.6
     },
     "SMH": {
       "daily_provider": "FMP",
-      "data_source": "stale_intraday_5m",
+      "data_source": "intraday_5m",
       "earnings_date": null,
       "news_provider": "FMP",
       "previous_close": 607.27,
-      "price": 606.95,
-      "price_at": "2026-10-08T19:55:00+00:00",
+      "price": 604.36,
+      "price_at": "2026-10-09T18:50:00+00:00",
       "price_date": "2026-10-08",
       "price_provider": "FMP",
       "providers": {},
       "recent_news": [
+        {
+          "image": "https://images.financialmodelingprep.com/news/2-semiconductor-stocks-to-buy-and-hold-through-2032-20261009.jpg",
+          "publishedDate": "2026-10-09 07:03:00",
+          "publisher": "Fool - Investing News",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 07:03:00",
+          "symbol": "SMH",
+          "text": "The semiconductor industry has consistently outperformed the S&P 500 for many years, and these two stocks look like winners.",
+          "title": "2 Semiconductor Stocks to Buy and Hold Through 2032",
+          "url": "https://www.fool.com/investing/2026/10/09/2-semiconductor-stocks-to-buy-and-hold-through-203/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/first-heartland-consultants-inc-acquires-new-position-in-vaneck-20261009.png",
+          "publishedDate": "2026-10-09 05:29:22",
+          "publisher": "Defense World",
+          "site": "defenseworld.net",
+          "sourcePublishedDate": "2026-10-09 05:29:22",
+          "symbol": "SMH",
+          "text": "First Heartland Consultants Inc. acquired a new stake in shares of VanEck Semiconductor ETF (NASDAQ: SMH) in the third quarter, according to the company in its most recent Form 13F filing with the Securities and Exchange Commission (SEC). The institutional investor acquired 5,684 shares of the company's stock, valued at approximately $3,461,000. Other",
+          "title": "First Heartland Consultants Inc. Acquires New Position in VanEck Semiconductor ETF $SMH",
+          "url": "https://www.defenseworld.net/2026/10/09/first-heartland-consultants-inc-acquires-new-position-in-vaneck-semiconductor-etf-smh.html"
+        },
         {
           "image": "https://images.financialmodelingprep.com/news/etfs-to-benefit-as-nasdaqs-breakthrough-still-matters-20261008.jpg",
           "publishedDate": "2026-10-08 11:05:52",
@@ -8526,168 +8453,146 @@
           "text": "The chip fund needs gains of around 14% a year to get there. What might stop it?",
           "title": "Prediction: The VanEck Semiconductor ETF Will Double Again Before 2032",
           "url": "https://www.fool.com/investing/2026/10/06/prediction-the-vaneck-semiconductor-etf-will-double-again-before-2032/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/chip-stocks-roar-higher-led-by-these-lesserknown-names-20261002.jpg",
-          "publishedDate": "2026-10-02 13:55:16",
-          "publisher": "Investors Business Daily",
-          "site": "investors.com",
-          "sourcePublishedDate": "2026-10-02 13:55:16",
-          "symbol": "SMH",
-          "text": "The Philadelphia semiconductor index, known as SOX, on Friday rose to its highest level in three months.",
-          "title": "Chip Stocks Roar Higher, Led By These Lesser-Known Names",
-          "url": "https://www.investors.com/news/technology/chip-stocks-sox-index-roars-higher-teradyne/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/the-semiconductor-etfs-2026-return-is-about-3-times-20261001.jpg",
-          "publishedDate": "2026-10-01 20:26:01",
-          "publisher": "The Motley Fool",
-          "site": "fool.com",
-          "sourcePublishedDate": "2026-10-01 20:26:01",
-          "symbol": "SMH",
-          "text": "The VanEck Semiconductor ETF was up around 69% in 2026 as of midday Sept. 30, but Nvidia shares were up about 23%.",
-          "title": "The Semiconductor ETF's 2026 Return Is About 3 Times Nvidia's",
-          "url": "https://www.fool.com/investing/2026/10/01/the-semiconductor-etf-s-2026-return-is-about-3-times-nvidia-s/"
         }
       ],
       "sma200": 505.01845000000003,
       "sma50": 576.9494,
-      "volume": 8137757.5680599995,
-      "volume_avg_20d": 6423256.75
+      "volume": 4064880.8692800007,
+      "volume_avg_20d": 6439090.0
     },
     "SPY": {
       "daily_provider": "FMP",
-      "data_source": "stale_intraday_5m",
+      "data_source": "intraday_5m",
       "earnings_date": null,
       "news_provider": "FMP",
       "previous_close": 773.93,
-      "price": 773.83,
-      "price_at": "2026-10-08T19:55:00+00:00",
+      "price": 779.23,
+      "price_at": "2026-10-09T18:50:00+00:00",
       "price_date": "2026-10-08",
       "price_provider": "FMP",
       "providers": {},
       "recent_news": [
         {
-          "image": "https://images.financialmodelingprep.com/news/history-says-every-sp-500-bull-market-that-reached-20261008.jpg",
-          "publishedDate": "2026-10-08 18:37:01",
+          "image": "https://images.financialmodelingprep.com/news/sp-500-dividend-yield-hits-historic-lows-5-dividend-20261009.jpg",
+          "publishedDate": "2026-10-09 14:14:00",
+          "publisher": "Barrons",
+          "site": "barrons.com",
+          "sourcePublishedDate": "2026-10-09 14:14:00",
+          "symbol": "SPY",
+          "text": "Dividend ETFs from SPDR, iShares, and Schwab offer yields at least three times the S&P 500's current level.",
+          "title": "S&P 500 Dividend Yield Hits Historic Lows: 5 Dividend ETFs to Consider",
+          "url": "https://www.barrons.com/articles/sp-500-dividend-yield-income-etfs-113528f7"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/frank-talk-gold-miners-beat-every-sp-500-sector-20261009.jpg",
+          "publishedDate": "2026-10-09 13:23:52",
+          "publisher": "Proactive Investors",
+          "site": "proactiveinvestors.com",
+          "sourcePublishedDate": "2026-10-09 13:23:52",
+          "symbol": "SPY",
+          "text": "Gold prices took a hit in September, but gold mining stocks tell a different story. The sector delivered a 17.4% return in the third quarter, outperforming every S&P 500 sector and leaving the broader index well behind.",
+          "title": "Frank Talk: Gold miners beat every S&P 500 sector in Q3 despite September selloff",
+          "url": "https://www.proactiveinvestors.com/companies/news/1099919"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/a-nobel-economist-compared-this-fund-to-the-invention-20261009.jpg",
+          "publishedDate": "2026-10-09 11:44:55",
+          "publisher": "247 Wallst",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 11:44:55",
+          "symbol": "SPY",
+          "text": "A Nobel Prize-winning economist once ranked a single investing product alongside the wheel and the printing press, and his reasoning reveals why the timing of your first dollar matters far more than its size.",
+          "title": "A Nobel Economist Compared This Fund to the Invention of the Wheel. $100 a Month Could Top $544,000",
+          "url": "https://247wallst.com/personal-finance/2026/10/09/a-nobel-economist-compared-this-fund-to-the-invention-of-the-wheel-100-a-month-could-top-544000/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/stock-market-today-tech-leads-stocks-toward-a-higher-20261009.jpg",
+          "publishedDate": "2026-10-09 09:30:51",
+          "publisher": "247 Wallst",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 09:30:51",
+          "symbol": "SPY",
+          "text": "The S&P 500 is set for a slightly higher open Friday, with the SPDR S&P 500 ETF (NYSEARCA:SPY) up 0.3% premarket near $776. Treasury yields pulling back from multiyear highs are helping. Tech leads: the Invesco QQQ Trust (NASDAQ: QQQ) is up 0.7%, while the SPDR Dow Jones Industrial Average ETF (NYSEARCA:DIA) is just moving at",
+          "title": "Stock Market Today: Tech Leads Stocks Toward a Higher Open as Treasury Yields Ease",
+          "url": "https://247wallst.com/investing/2026/10/09/stock-market-today-dow-sp-500-and-nasdaq-in-focus-at-the-opening-bell/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/peter-lynch-beat-the-market-for-13-years-then-20261009.jpeg",
+          "publishedDate": "2026-10-09 08:15:25",
+          "publisher": "247 Wallst",
+          "site": "247wallst.com",
+          "sourcePublishedDate": "2026-10-09 08:15:25",
+          "symbol": "SPY",
+          "text": "The greatest stock picker of his generation handed ordinary investors a confession that cost him nothing and could save them six figures. What he said, and why the math behind it is harder to argue with than his own record.",
+          "title": "Peter Lynch Beat the Market for 13 Years, Then Said Most Investors Should Just Buy an Index Fund",
+          "url": "https://247wallst.com/personal-finance/2026/10/09/peter-lynch-beat-the-market-for-13-years-then-said-most-investors-should-just-buy-an-index-fund/"
+        },
+        {
+          "image": "https://images.financialmodelingprep.com/news/the-sp-500s-safety-net-is-disappearing-history-says-20261009.jpg",
+          "publishedDate": "2026-10-09 08:15:00",
           "publisher": "The Motley Fool",
           "site": "fool.com",
-          "sourcePublishedDate": "2026-10-08 18:37:01",
+          "sourcePublishedDate": "2026-10-09 08:15:00",
           "symbol": "SPY",
-          "text": "The S&P 500's current bull market started on Oct. 12, 2022, so it turns 4 years old on Monday. Every S&P 500 bull market since 1957 that reached its fourth birthday kept going past it.",
-          "title": "History Says Every S&P 500 Bull Market That Reached Its 4th Birthday Kept Going",
-          "url": "https://www.fool.com/investing/2026/10/08/history-says-every-s-and-p-500-bull-market-that-reached-its-4th-birthday-kept-going/"
+          "text": "Long-term Treasury yields are at multidecade highs. But that's not necessarily a bad thing for the S&P 500.",
+          "title": "The S&P 500's Safety Net Is Disappearing. History Says Investors Shouldn't Ignore It.",
+          "url": "https://www.fool.com/investing/2026/10/09/sp-500-safety-net-disappearing-history-says/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/the-sp-500-etf-you-know-charges-00945-these-20261008.jpg",
-          "publishedDate": "2026-10-08 18:03:10",
-          "publisher": "24/7 Wall Street",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 18:03:10",
-          "symbol": "SPY",
-          "text": "Most investors default to the most famous S&P 500 ETF without realizing its fee structure puts them at a silent disadvantage compared to two funds holding the exact same 500 companies.",
-          "title": "The S&P 500 ETF You Know Charges 0.0945%. These 2 Charge 0.03%",
-          "url": "https://247wallst.com/investing/etf/2026/10/08/the-sp-500-etf-you-know-charges-0-0945-these-2-charge-0-03/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/xlg-cuts-the-sp-500-down-to-50-stocks-20261008.jpg",
-          "publishedDate": "2026-10-08 17:03:42",
-          "publisher": "24/7 Wall Street",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 17:03:42",
-          "symbol": "SPY",
-          "text": "Trimming the S&P 500 to just 50 stocks sounds like a shortcut to blue-chip stability, but the sector concentration hiding inside XLG tells a very different story about what investors actually own.",
-          "title": "XLG Cuts the S&P 500 Down to 50 Stocks. The Result Is an Index Fund Built Entirely Around Mega-Caps",
-          "url": "https://247wallst.com/investing/etf/2026/10/08/xlg-cuts-the-sp-500-down-to-50-stocks-the-result-is-an-index-fund-built-entirely-around-mega-caps/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/dave-ramsey-tells-people-to-stop-their-401k-to-20261008.jpg",
-          "publishedDate": "2026-10-08 16:00:34",
+          "image": "https://images.financialmodelingprep.com/news/ray-dalio-warns-against-timing-the-market-steady-investing-20261009.jpg",
+          "publishedDate": "2026-10-09 07:45:39",
           "publisher": "247 Wallst",
           "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 16:00:34",
+          "sourcePublishedDate": "2026-10-09 07:45:39",
           "symbol": "SPY",
-          "text": "Pausing a 401(k) to wipe out debt sounds like a clean, temporary fix, but for workers over 50 the costs are permanent and the math depends on three numbers most people never check.",
-          "title": "Dave Ramsey Tells People to Stop Their 401(k) to Kill Debt. Here’s What You Give Up",
-          "url": "https://247wallst.com/personal-finance/2026/10/08/dave-ramsey-tells-people-to-stop-their-401k-to-kill-debt-heres-what-you-give-up/"
+          "text": "Ray Dalio says beating the market requires Olympic-level skill most investors simply don't have, yet millions keep trying anyway. Here's what the math says happens when you stop guessing and just show up every month instead.",
+          "title": "Ray Dalio Warns Against Timing the Market. Steady Investing Could Turn $1,000 a Month Into $712,000",
+          "url": "https://247wallst.com/personal-finance/2026/10/09/ray-dalio-warns-against-timing-the-market-steady-investing-could-turn-1000-a-month-into-712000/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/buffett-bet-1-million-that-an-sp-500-fund-would-20261008.webp",
-          "publishedDate": "2026-10-08 13:26:33",
+          "image": "https://images.financialmodelingprep.com/news/the-big-shorts-michael-berry-called-index-funds-a-20261009.jpg",
+          "publishedDate": "2026-10-09 07:30:47",
           "publisher": "247 Wallst",
           "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 13:26:33",
+          "sourcePublishedDate": "2026-10-09 07:30:47",
           "symbol": "SPY",
-          "text": "Warren Buffett once staked $1 million on a bet that shook the entire hedge fund industry, and the way he won exposes a hidden cost that most retirement investors are paying right now without realizing it.",
-          "title": "Buffett Bet $1 Million That an S&P 500 Fund Would Beat Hedge Funds. He Won by Nearly 5 Points a Year",
-          "url": "https://247wallst.com/personal-finance/2026/10/08/buffett-bet-1-million-that-an-sp-500-fund-would-beat-hedge-funds-he-won-by-nearly-5-points-a-year/"
+          "text": "Michael Burry called index funds a bubble and predicted an ugly crash. Seven years later, the money that stayed invested tells a complicated story, and the part of his warning that still stands is sitting inside your retirement account right now.",
+          "title": "The Big Short’s Michael Berry Called Index Funds a Bubble. Here’s What the Record Shows",
+          "url": "https://247wallst.com/personal-finance/2026/10/09/the-big-shorts-michael-berry-called-index-funds-a-bubble-heres-what-the-record-shows/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/sp-500-hits-new-highs-ahead-of-fouryear-bull-20261008.jpg",
-          "publishedDate": "2026-10-08 13:01:45",
-          "publisher": "Benzinga",
-          "site": "benzinga.com",
-          "sourcePublishedDate": "2026-10-08 13:01:45",
+          "image": "https://images.financialmodelingprep.com/news/the-us-economy-just-delivered-bad-news-history-says-20261009.jpg",
+          "publishedDate": "2026-10-09 05:15:00",
+          "publisher": "The Motley Fool",
+          "site": "fool.com",
+          "sourcePublishedDate": "2026-10-09 05:15:00",
           "symbol": "SPY",
-          "text": "The SPDR S&P 500 ETF Trust (NYSE:SPY) hit new all-time highs this week and many investors are likely celebrating. One market expert says the party won't stop anytime soon.",
-          "title": "S&P 500 Hits New Highs Ahead of Four-Year Bull Market Anniversary: Market Expert Says ‘Party Isn't Over Yet'",
-          "url": "https://www.benzinga.com/etfs/sector-etfs/26/10/62254246/sp-500-hits-new-highs-ahead-of-four-year-bull-market-anniversary-market-expert-says-party-isnt-over-yet"
+          "text": "The September non-farm payroll badly missed expectations and continued a trend of slow to stagnant growth. However, the markets viewed it as lowering the odds of further rate hikes.",
+          "title": "The U.S. Economy Just Delivered Bad News. History Says It Could Be Good News for the S&P 500.",
+          "url": "https://www.fool.com/investing/2026/10/09/us-economy-bad-news-history-says-good-news-sp-500/"
         },
         {
-          "image": "https://images.financialmodelingprep.com/news/dow-tumbles-oil-surges-and-yields-rise-to-new-20261008.avif",
-          "publishedDate": "2026-10-08 12:37:51",
-          "publisher": "247 Wallst",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 12:37:51",
+          "image": "https://images.financialmodelingprep.com/news/fdvv-still-the-best-of-the-bunch-but-high-20261009.jpg",
+          "publishedDate": "2026-10-09 04:59:18",
+          "publisher": "Seeking Alpha",
+          "site": "seekingalpha.com",
+          "sourcePublishedDate": "2026-10-09 04:59:18",
           "symbol": "SPY",
-          "text": "Rising oil prices and surging Treasury yields are hitting stocks from two directions at once, and renewed Pentagon preparations for potential action against Iran could tighten that squeeze further before markets find any relief.",
-          "title": "Dow Tumbles, Oil Surges, and Yields Rise to New 24-Year Highs as Trump Considers Ramping Up Iran Attacks",
-          "url": "https://247wallst.com/investing/2026/10/08/dow-tumbles-oil-surges-and-yields-rise-to-new-24-year-highs-as-trump-considers-ramping-up-iran-attacks/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/michael-burry-has-called-12-of-the-last-3-20261008.avif",
-          "publishedDate": "2026-10-08 11:39:28",
-          "publisher": "247 Wallst",
-          "site": "247wallst.com",
-          "sourcePublishedDate": "2026-10-08 11:39:28",
-          "symbol": "SPY",
-          "text": "Rising stocks can make caution feel expensive. Sell because trouble looks inevitable, and every subsequent gain becomes a reminder that protecting your money has an opportunity cost. Stay invested, however, and a sudden downturn can erase years of progress. The challenge is separating evidence that stocks are expensive from evidence that they are about to",
-          "title": "Michael Burry Has Called 12 of the Last 3 Market Crashes — Now He Says Stocks Are in ‘Denial’",
-          "url": "https://247wallst.com/investing/2026/10/08/michael-burry-has-called-12-of-the-last-3-market-crashes-now-he-says-stocks-are-in-denial/"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/sp-500-and-nasdaq-rising-yields-and-oil-test-20261008.jpg",
-          "publishedDate": "2026-10-08 10:49:48",
-          "publisher": "FXEmpire",
-          "site": "fxempire.com",
-          "sourcePublishedDate": "2026-10-08 10:49:48",
-          "symbol": "SPY",
-          "text": "Treasury yields and crude oil pressure the S&P 500 and Nasdaq as a short-term correction tests buyers ahead of next week's earnings.",
-          "title": "S&P 500 and Nasdaq: Rising Yields and Oil Test Buyers Ahead of Earnings",
-          "url": "https://www.fxempire.com/forecasts/article/sp-500-and-nasdaq-rising-yields-and-oil-test-buyers-ahead-of-earnings-1636846"
-        },
-        {
-          "image": "https://images.financialmodelingprep.com/news/ai-bubble-could-burst-in-2027-sending-sp-500-20261008.jpg",
-          "publishedDate": "2026-10-08 06:41:12",
-          "publisher": "Invezz",
-          "site": "invezz.com",
-          "sourcePublishedDate": "2026-10-08 06:41:12",
-          "symbol": "SPY",
-          "text": "The global stock market's powerful rally could face a sharp reversal if the artificial intelligence investment boom loses momentum, according to Panmure Liberum's head of market strategy Joachim Klement. Klement expects the AI trade to unravel as soon as 2027, potentially triggering one of the most severe market downturns since the global financial crisis.",
-          "title": "AI bubble could burst in 2027, sending S&P 500 down to 5,000, strategist warns",
-          "url": "https://invezz.com/news/2026/10/08/ai-bubble-could-burst-in-2027-sending-sp-500-down-to-5000-strategist-warns/"
+          "text": "Rising bond yields are posing some challenging questions for income investors. The issue for FDVV holders is not whether they should swap for alternative dividend ETFs, but whether they should swap for SPY as its outperformance becomes pronounced. The current backdrop favors SPY, and FDVV's 2.8% dividend yield (only 1.8% above SPY's dividend yield) is not enough to compensate for inferior total return.",
+          "title": "FDVV: Still The Best Of The Bunch, But High Yields Make SPY A Better Alternative",
+          "url": "https://seekingalpha.com/article/4952996-fdvv-still-the-best-of-the-bunch-but-high-yields-make-spy-a-better-alternative"
         }
       ],
       "sma200": 722.4597,
       "sma50": 766.8368,
-      "volume": 31888455.0,
-      "volume_avg_20d": 45869850.6
+      "volume": 12931704.0,
+      "volume_avg_20d": 45945412.5
     }
   },
   "flags": [],
-  "full_review": true,
+  "full_review": false,
   "lifecycle_version": 1,
-  "market_open": false,
+  "market_open": true,
   "measurement_errors": [],
   "news_errors": [
     {
@@ -8696,6 +8601,10 @@
     },
     {
       "error": "Analyst revision/estimate coverage incomplete (targets=incomplete, estimates=ok, pagination_complete=True, rejected_rows=0, recent_conflicts=0, quarantined_records=2); conflicting records remain excluded; see ANALYST_REVISIONS.md",
+      "symbol": "AMD"
+    },
+    {
+      "error": "news source text or assessment prerequisites unavailable",
       "symbol": "AMD"
     },
     {
@@ -8708,375 +8617,25 @@
     }
   ],
   "news_previous": {
-    "AMD": "2026-10-05 13:14:39",
+    "AMD": "2026-10-08 13:39:42",
     "ANET": "2026-10-08 13:11:10",
     "MU": "2026-10-08 10:46:33",
-    "NVDA": "2026-10-08 12:32:16"
+    "NVDA": "2026-10-08 17:29:00"
   },
   "state_changed": true,
   "triggered": [
     {
       "claim_id": "decision_expired",
       "condition_type": "review_deadline",
-      "cooldown_key": "deadline:fba2c27c246cb533c0c62b7f",
+      "cooldown_key": "deadline:d8088d352a9578d72eafd377",
       "measured": 1,
       "severity": "thesis",
       "symbol": "NVDA",
       "threshold": 0,
-      "trigger": "Decision review deadline reached: 2026-10-08T20:15:00+00:00"
+      "trigger": "Decision review deadline reached: 2026-10-09T14:00:00+00:00"
     }
   ],
   "semantic_reviews": [
-    {
-      "symbol": "MU",
-      "claim_id": "MU-1",
-      "review": {
-        "verdict": "supported",
-        "citations": [
-          {
-            "source_id": "MU.revenue_yoy_pct",
-            "quote": "MU | revenue_yoy_pct: 379.26646 % | as-of 2026-09-03 | FMP/income-statement"
-          },
-          {
-            "source_id": "MU.quarter_gross_profit",
-            "quote": "MU | quarter_gross_profit: 47047000000 USD | as-of 2026-09-03 | FMP/income-statement"
-          },
-          {
-            "source_id": "MU.analyst_eps_20270903_revision_pct",
-            "quote": "MU | analyst_eps_20270903_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result"
-          },
-          {
-            "source_id": "MU.analyst_revenue_20270903_revision_pct",
-            "quote": "MU | analyst_revenue_20270903_revision_pct: 0.0 % vs prior observed consensus | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / annual consensus forecast, not reported result"
-          },
-          {
-            "source_id": "MU.analyst_revenue_20270903_revision_7d_pct",
-            "quote": "MU | analyst_revenue_20270903_revision_7d_pct: 3.8493948764830677 % vs same-period consensus snapshot | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / same-fiscal-period consensus snapshots; not individual analyst breadth"
-          },
-          {
-            "source_id": "MU.analyst_revenue_20300903_revision_7d_pct",
-            "quote": "MU | analyst_revenue_20300903_revision_7d_pct: -6.075872711631628 % vs same-period consensus snapshot | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / same-fiscal-period consensus snapshots; not individual analyst breadth"
-          },
-          {
-            "source_id": "MU.analyst_up_firms_30d",
-            "quote": "MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-09T01:13:24+00:00 | FMP price-target-news / same-firm matched observations"
-          },
-          {
-            "source_id": "MU.analyst_down_firms_30d",
-            "quote": "MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-09T01:13:24+00:00 | FMP price-target-news / same-firm matched observations"
-          }
-        ],
-        "issues": [],
-        "counterargument": "The supplied evidence supports the dated financial figures, unchanged latest consensus comparisons, mixed weekly revenue revisions and greater number of matched target increases than decreases. These observations do not establish durable pricing power or forward demand visibility. The draft discloses those limits and treats cancellations or pricing deterioration as conditional falsifiers, not observed events. Its weakened characterization is defensible as reduced evidentiary confidence, but unavailable commitment and labor documents do not establish that business conditions have deteriorated.",
-        "citation_selections": [
-          {
-            "source_id": "MU.revenue_yoy_pct"
-          },
-          {
-            "source_id": "MU.quarter_gross_profit"
-          },
-          {
-            "source_id": "MU.analyst_eps_20270903_revision_pct"
-          },
-          {
-            "source_id": "MU.analyst_revenue_20270903_revision_pct"
-          },
-          {
-            "source_id": "MU.analyst_revenue_20270903_revision_7d_pct"
-          },
-          {
-            "source_id": "MU.analyst_revenue_20300903_revision_7d_pct"
-          },
-          {
-            "source_id": "MU.analyst_up_firms_30d"
-          },
-          {
-            "source_id": "MU.analyst_down_firms_30d"
-          }
-        ],
-        "source_bundle_sha256": "68d54348713ddfe55a2df1bdcda8353e5bff4365f71ccfc15c70d95adddceec4"
-      }
-    },
-    {
-      "symbol": "MU",
-      "claim_id": "MU-2",
-      "review": {
-        "verdict": "supported",
-        "citations": [
-          {
-            "source_id": "MU.quarter_operating_cash_flow",
-            "quote": "MU | quarter_operating_cash_flow: 43973000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement"
-          },
-          {
-            "source_id": "MU.quarter_capex",
-            "quote": "MU | quarter_capex: -17165000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement"
-          },
-          {
-            "source_id": "MU.quarter_free_cash_flow",
-            "quote": "MU | quarter_free_cash_flow: 26808000000 USD | as-of 2026-09-03 | FMP/cash-flow-statement"
-          },
-          {
-            "source_id": "MU.quarter_operating_income",
-            "quote": "MU | quarter_operating_income: 44318000000 USD | as-of 2026-09-03 | FMP/income-statement"
-          },
-          {
-            "source_id": "MU.net_debt",
-            "quote": "MU | net_debt: -33185000000 USD | as-of 2026-09-03 | FMP/balance-sheet-statement"
-          },
-          {
-            "source_id": "MU.analyst_up_firms_30d",
-            "quote": "MU | analyst_up_firms_30d: 4 firms | as-of 2026-10-09T01:13:24+00:00 | FMP price-target-news / same-firm matched observations"
-          },
-          {
-            "source_id": "MU.analyst_down_firms_30d",
-            "quote": "MU | analyst_down_firms_30d: 2 firms | as-of 2026-10-09T01:13:24+00:00 | FMP price-target-news / same-firm matched observations"
-          },
-          {
-            "source_id": "analyst:32c21a9640a4236b56cc3e41",
-            "quote": "{\"at\": \"2026-09-28T09:20:00+00:00\", \"baseline_age_days\": 94, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"Tristan Gerra\", \"at\": \"2026-09-28T09:20:"
-          }
-        ],
-        "issues": [],
-        "counterargument": "The dated financial measurements support the limited resilience inference: operating cash flow exceeds capital-spending outflows, their difference matches positive free cash flow, operating income is positive, and net debt is negative. They do not establish current operating conditions or earnings durability, as the draft acknowledges. Analyst target increases coexist with cuts but do not independently verify cash generation; revision reasons remain unknown and price-following is explicitly a hypothesis. Negative free cash flow or a transition to net debt would challenge the financial rationale. The retained price and operating-margin criteria are not presented as evidence of resilience.",
-        "citation_selections": [
-          {
-            "source_id": "MU.quarter_operating_cash_flow"
-          },
-          {
-            "source_id": "MU.quarter_capex"
-          },
-          {
-            "source_id": "MU.quarter_free_cash_flow"
-          },
-          {
-            "source_id": "MU.quarter_operating_income"
-          },
-          {
-            "source_id": "MU.net_debt"
-          },
-          {
-            "source_id": "MU.analyst_up_firms_30d"
-          },
-          {
-            "source_id": "MU.analyst_down_firms_30d"
-          },
-          {
-            "source_id": "analyst:32c21a9640a4236b56cc3e41"
-          }
-        ],
-        "source_bundle_sha256": "68d54348713ddfe55a2df1bdcda8353e5bff4365f71ccfc15c70d95adddceec4"
-      }
-    },
-    {
-      "symbol": "AMD",
-      "claim_id": "AMD-1",
-      "review": {
-        "verdict": "supported",
-        "citations": [
-          {
-            "source_id": "AMD.revenue_yoy_pct",
-            "quote": "AMD | revenue_yoy_pct: 50.110605 % | as-of 2026-06-27 | FMP/income-statement"
-          },
-          {
-            "source_id": "AMD.operating_margin_pct",
-            "quote": "AMD | operating_margin_pct: 17.250347 % | as-of 2026-06-27 | FMP/income-statement"
-          },
-          {
-            "source_id": "AMD.quarter_free_cash_flow",
-            "quote": "AMD | quarter_free_cash_flow: 1558000000 USD | as-of 2026-06-27 | FMP/cash-flow-statement"
-          },
-          {
-            "source_id": "AMD.net_debt",
-            "quote": "AMD | net_debt: -810000000 USD | as-of 2026-06-27 | FMP/balance-sheet-statement"
-          },
-          {
-            "source_id": "AMD.price",
-            "quote": "AMD | price: 620.9 USD | as-of 2026-10-08T19:55:00+00:00 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "AMD.sma50",
-            "quote": "AMD | sma50: 526.4668 USD | as-of 2026-10-08 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "news:1cceb7b6b3ecc8599b4bcafe",
-            "quote": "Intel and AMD shares traded lower on Thursday as a broader selloff in US equities intensified, with surging oil prices and Treasury yields raising concerns about inflation and interest rates. Intel stock INTC fell about 6%, while AMD declin"
-          },
-          {
-            "source_id": "analyst:7e54c891a4f3576f76b0ac00",
-            "quote": "{\"at\": \"2026-10-06T10:55:39+00:00\", \"baseline_age_days\": 70, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-10-06T10:55:39+00:00\", \"c"
-          }
-        ],
-        "issues": [],
-        "counterargument": "The supplied measurements support the historical revenue growth, positive operating margin, positive free cash flow, negative net debt and dated price-above-SMA50 comparison. They do not establish future growth persistence or a cash-conversion trend, as the draft acknowledges. Invezz's explanation is an attributed interpretation, not independently established causation or proof that AMD-specific problems are absent. Analyst targets are forecasts rather than realized outcomes. The downside-buffer and margin-floor values and any confirmed breach remain explicitly unknown; this review therefore does not verify an executable threshold test.",
-        "citation_selections": [
-          {
-            "source_id": "AMD.revenue_yoy_pct"
-          },
-          {
-            "source_id": "AMD.operating_margin_pct"
-          },
-          {
-            "source_id": "AMD.quarter_free_cash_flow"
-          },
-          {
-            "source_id": "AMD.net_debt"
-          },
-          {
-            "source_id": "AMD.price"
-          },
-          {
-            "source_id": "AMD.sma50"
-          },
-          {
-            "source_id": "news:1cceb7b6b3ecc8599b4bcafe"
-          },
-          {
-            "source_id": "analyst:7e54c891a4f3576f76b0ac00"
-          }
-        ],
-        "source_bundle_sha256": "4d4a96cdaa892aa93bab7bb8428e10186202540f86223b00e3845d72d882eb36"
-      }
-    },
-    {
-      "symbol": "AMD",
-      "claim_id": "AMD-2",
-      "review": {
-        "verdict": "supported",
-        "citations": [
-          {
-            "source_id": "AMD.above_sma50_pct",
-            "quote": "AMD | above_sma50_pct: 17.9372 % vs sma50 | as-of 2026-10-08T19:55:00+00:00 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "AMD.analyst_revenue_20261227_revision_7d_pct",
-            "quote": "AMD | analyst_revenue_20261227_revision_7d_pct: 0.24741059269067645 % vs same-period consensus snapshot | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / same-fiscal-period consensus snapshots; not individual analyst breadth"
-          },
-          {
-            "source_id": "AMD.analyst_revenue_20291227_revision_7d_pct",
-            "quote": "AMD | analyst_revenue_20291227_revision_7d_pct: -0.1262852658516266 % vs same-period consensus snapshot | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / same-fiscal-period consensus snapshots; not individual analyst breadth"
-          },
-          {
-            "source_id": "AMD.analyst_revenue_20301227_revision_7d_pct",
-            "quote": "AMD | analyst_revenue_20301227_revision_7d_pct: -3.2745119751804728 % vs same-period consensus snapshot | as-of 2026-10-09T01:13:24+00:00 | FMP analyst-estimates / same-fiscal-period consensus snapshots; not individual analyst breadth"
-          },
-          {
-            "source_id": "analyst:7e54c891a4f3576f76b0ac00",
-            "quote": "{\"at\": \"2026-10-06T10:55:39+00:00\", \"baseline_age_days\": 70, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-10-06T10:55:39+00:00\", \"c"
-          },
-          {
-            "source_id": "analyst:8cd9f1b5bb47f784584e0dbe",
-            "quote": "{\"at\": \"2026-10-05T10:34:33+00:00\", \"baseline_age_days\": 86, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-10-05T10:34:33+00:00\", \"c"
-          },
-          {
-            "source_id": "news:1cceb7b6b3ecc8599b4bcafe",
-            "quote": "Intel and AMD shares traded lower on Thursday as a broader selloff in US equities intensified, with surging oil prices and Treasury yields raising concerns about inflation and interest rates. Intel stock INTC fell about 6%, while AMD declin"
-          },
-          {
-            "source_id": "news:aac5f8d18a58fc9a367a4bcc",
-            "quote": "BNP Paribas just slapped a price target on AMD that towers over Wall Street consensus, but reaching it would demand a sequence of wins that our model says the stock has not yet earned."
-          }
-        ],
-        "issues": [],
-        "counterargument": "The supplied evidence supports the material factual assertions, but does not establish that adding would be unattractive. Moving-average extension is not proof of overvaluation, mixed consensus revisions are not realized operating outcomes, and upward analyst targets alongside price appreciation do not establish analyst motives. The draft appropriately labels caution as discretionary and price-following as a hypothesis, attributes commentary, and acknowledges stale measurements and unavailable review thresholds. Dissipation of price extension would remove its stated technical basis for caution without independently establishing a reason to buy.",
-        "citation_selections": [
-          {
-            "source_id": "AMD.above_sma50_pct"
-          },
-          {
-            "source_id": "AMD.analyst_revenue_20261227_revision_7d_pct"
-          },
-          {
-            "source_id": "AMD.analyst_revenue_20291227_revision_7d_pct"
-          },
-          {
-            "source_id": "AMD.analyst_revenue_20301227_revision_7d_pct"
-          },
-          {
-            "source_id": "analyst:7e54c891a4f3576f76b0ac00"
-          },
-          {
-            "source_id": "analyst:8cd9f1b5bb47f784584e0dbe"
-          },
-          {
-            "source_id": "news:1cceb7b6b3ecc8599b4bcafe"
-          },
-          {
-            "source_id": "news:aac5f8d18a58fc9a367a4bcc"
-          }
-        ],
-        "source_bundle_sha256": "4d4a96cdaa892aa93bab7bb8428e10186202540f86223b00e3845d72d882eb36"
-      }
-    },
-    {
-      "symbol": "ANET",
-      "claim_id": "ANET-1",
-      "review": {
-        "verdict": "supported",
-        "citations": [
-          {
-            "source_id": "ANET.operating_margin_pct",
-            "quote": "ANET | operating_margin_pct: 45.393155 % | as-of 2026-06-30 | FMP/income-statement"
-          },
-          {
-            "source_id": "ANET.quarter_free_cash_flow",
-            "quote": "ANET | quarter_free_cash_flow: 1053300000 USD | as-of 2026-06-30 | FMP/cash-flow-statement"
-          },
-          {
-            "source_id": "ANET.revenue_yoy_pct",
-            "quote": "ANET | revenue_yoy_pct: 37.685958 % | as-of 2026-06-30 | FMP/income-statement"
-          },
-          {
-            "source_id": "ANET.total_debt",
-            "quote": "ANET | total_debt: 0 USD | as-of 2026-06-30 | FMP/balance-sheet-statement"
-          },
-          {
-            "source_id": "ANET.price",
-            "quote": "ANET | price: 210.85 USD | as-of 2026-10-08T19:55:00+00:00 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "ANET.sma50",
-            "quote": "ANET | sma50: 196.94939999999994 USD | as-of 2026-10-08 | detector/market_data / FMP"
-          },
-          {
-            "source_id": "analyst:12974e24181d2030bae06a34",
-            "quote": "{\"at\": \"2026-08-05T12:26:06+00:00\", \"baseline_age_days\": 54, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-08-05T12:26:06+00:00\", \"c"
-          },
-          {
-            "source_id": "analyst:546e9746972d9dd02bb1fb00",
-            "quote": "{\"at\": \"2026-08-05T10:12:39+00:00\", \"baseline_age_days\": 47, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-08-05T10:12:39+00:00\", \"c"
-          }
-        ],
-        "issues": [],
-        "counterargument": "The supplied dated measurements support the reported growth, operating profitability, positive free cash flow, zero reported debt and price above the 50-day moving average, but do not establish persistence or conditions at review time. Matched target increases alongside share-price gains do not establish analyst motivation or future returns; price-following remains explicitly hypothetical. Small mixed consensus revenue revisions do not establish broad earnings deterioration. The draft acknowledges unavailable news excerpts, valuation evidence, incremental Ethernet outcomes and fundamental-floor definitions rather than treating these gaps as confirmation.",
-        "citation_selections": [
-          {
-            "source_id": "ANET.operating_margin_pct"
-          },
-          {
-            "source_id": "ANET.quarter_free_cash_flow"
-          },
-          {
-            "source_id": "ANET.revenue_yoy_pct"
-          },
-          {
-            "source_id": "ANET.total_debt"
-          },
-          {
-            "source_id": "ANET.price"
-          },
-          {
-            "source_id": "ANET.sma50"
-          },
-          {
-            "source_id": "analyst:12974e24181d2030bae06a34"
-          },
-          {
-            "source_id": "analyst:546e9746972d9dd02bb1fb00"
-          }
-        ],
-        "source_bundle_sha256": "984b55542aafd934224a5cba47cf05d1eb3fc913632b5120487e502269ee372d"
-      }
-    },
     {
       "symbol": "NVDA",
       "review": {
@@ -9091,8 +8650,12 @@
             "quote": "NVDA | operating_margin_pct: 66.2371 % | as-of 2026-07-26 | FMP/income-statement"
           },
           {
+            "source_id": "NVDA.previous_close",
+            "quote": "NVDA | previous_close: 230.48 USD | as-of 2026-10-08 | detector/market_data / FMP"
+          },
+          {
             "source_id": "NVDA.price",
-            "quote": "NVDA | price: 230.55 USD | as-of 2026-10-08T19:55:00+00:00 | detector/market_data / FMP"
+            "quote": "NVDA | price: 229.86 USD | as-of 2026-10-09T18:50:00+00:00 | detector/market_data / FMP"
           },
           {
             "source_id": "NVDA.quarter_free_cash_flow",
@@ -9103,26 +8666,25 @@
             "quote": "NVDA | revenue_yoy_pct: 105.851143 % | as-of 2026-07-26 | FMP/income-statement"
           },
           {
-            "source_id": "analyst:3bfc0aed53c359d047287add",
-            "quote": "{\"at\": \"2026-10-02T09:25:00+00:00\", \"baseline_age_days\": 142, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-10-02T09:25:00+00:00\", \""
+            "source_id": "NVDA.sma200",
+            "quote": "NVDA | sma200: 201.92610000000002 USD | as-of 2026-10-08 | detector/market_data / FMP"
           },
           {
-            "source_id": "analyst:7bf6884f7ca6c6e5deb2e88b",
-            "quote": "{\"at\": \"2026-10-02T09:25:00+00:00\", \"baseline_age_days\": 35, \"comparison_scope\": \"Last observed same-firm target; missing intermediate provider coverage cannot be ruled out.\", \"current\": {\"analyst\": \"\", \"at\": \"2026-10-02T09:25:00+00:00\", \"c"
-          },
-          {
-            "source_id": "news:27b88c2dcd82a83cf2d92de2",
-            "quote": "AI stocks, including Nvidia, Oracle and CoreWeave, sank after the market learned more details about OpenAI's revenue. OpenAI told investors that it hit roughly $50 billion in annualized revenue at the end of September, CNBC confirmed, lower"
+            "source_id": "NVDA.sma50",
+            "quote": "NVDA | sma50: 221.3926 USD | as-of 2026-10-08 | detector/market_data / FMP"
           }
         ],
         "issues": [],
-        "counterargument": "The dated financial measurements support strong annual revenue growth, high margins and positive free cash flow above the unchanged review floors. The stale quote clears the retained $200 downside floor. Monitoring thresholds and severities are unchanged from the supplied previous state, and the executable falsifier correctly maps to NVDA-2 condition 0, price below $200. Analyst target observations carry acknowledged attribution and horizon limitations, and CNBC's report does not establish Nvidia order impairment. Historical business strength and stale pricing nevertheless do not establish current price support, attractive valuation or future order profitability. The proposal discloses these uncertainties and labels causal hypotheses rather than presenting them as established outcomes; a supported evidence assessment does not establish that HOLD will outperform.",
+        "counterargument": "The supplied intraday price of $229.86 is below the $230.48 previous close but above both dated moving averages and the retained $200 review floor. Dated financial measurements support strong year-over-year revenue growth, high margins and positive free cash flow, not established sequential improvement or deterioration. Comparison with the previous thesis confirms that detector thresholds and severities are unchanged, and the executable falsifier correctly references NVDA-2 condition 0, price_below $200. The analyst discussion distinguishes attributed opinions and conditional hypotheses from realized outcomes and established causes. Nevertheless, a quote above historical references does not establish durable price support, and dated profitability does not establish attractive valuation or future order economics. These limitations are disclosed; support for the factual premises does not prove that HOLD will outperform.",
         "citation_selections": [
           {
             "source_id": "NVDA.gross_margin_pct"
           },
           {
             "source_id": "NVDA.operating_margin_pct"
+          },
+          {
+            "source_id": "NVDA.previous_close"
           },
           {
             "source_id": "NVDA.price"
@@ -9134,16 +8696,13 @@
             "source_id": "NVDA.revenue_yoy_pct"
           },
           {
-            "source_id": "analyst:3bfc0aed53c359d047287add"
+            "source_id": "NVDA.sma200"
           },
           {
-            "source_id": "analyst:7bf6884f7ca6c6e5deb2e88b"
-          },
-          {
-            "source_id": "news:27b88c2dcd82a83cf2d92de2"
+            "source_id": "NVDA.sma50"
           }
         ],
-        "source_bundle_sha256": "492444697a8f0039e8b70383628237b3ea7824c600b09a98697747c914d6a389"
+        "source_bundle_sha256": "ef4e4ea076338552eb26b64cdf956874bc83c6d6a26f30ea3f1a0933d96c6d62"
       }
     }
   ],
@@ -9151,294 +8710,11 @@
     {
       "symbol": "NVDA",
       "action": "HOLD",
-      "time": "2026-10-09T01:14Z",
-      "trigger": "Decision review deadline reached: 2026-10-08T20:15:00+00:00",
-      "reasoning": "Retain existing exposure without adding. The dated financial measurements remain above the unchanged fundamental review floors, and the available stale quote clears the fixed downside review floor. These observations support continued ownership but do not establish current execution prices or attractive valuation. CNBC's customer-revenue report raises a demand question rather than proving canceled orders or impaired profitability. Favorable guidance and profitability commentary offer countercontext, not independently verified forward results. Apparent analyst target reductions have attribution and horizon limitations. The expected closing measurement is still absent; I explicitly reconsider that gap and retain the position on the dated business evidence, with another review around the next session opening.",
-      "falsifier": "A fresh measured price below the retained fixed downside review floor would falsify the price-support premise for this HOLD and require whole-thesis reassessment rather than lowering the threshold.",
+      "time": "2026-10-09T18:55Z",
+      "trigger": "Decision review deadline reached: 2026-10-09T14:00:00+00:00",
+      "reasoning": "The deadline-triggered reassessment finds supported dated operating strength and current intraday price support, not a demonstrated thesis break. The quote is below the previous close, but remains above the retained review floor and dated trend references. These observations support retaining exposure; they do not guarantee persistent support. Unverified valuation and realized order economics limit the case for adding, while favorable commentary and uncertain target observations are insufficient grounds for a trade. Sequential financial deterioration is not an established premise of this decision.",
+      "falsifier": "A measured price break below the retained fixed downside review floor would contradict the price-support premise behind this HOLD and require reassessment; this executable review condition is distinct from the unchanged weekly-close stop.",
       "before": {
-        "thesis_summary": "NVDA remains a supported holding because dated strong revenue growth, high margins and positive free cash flow accompany an intraday quote above the supplied dated moving averages and retained downside floor, while sequential financial trends, incremental order economics and valuation support remain unverified.",
-        "source": "DECISION_LOG.md #10",
-        "claims": [
-          {
-            "id": "NVDA-1",
-            "text": "The refreshed intraday quote is above the supplied dated intermediate trend reference but below the previous close, while the older volume measurements provide no current-session confirmation.",
-            "status": "valid",
-            "conditions": [
-              {
-                "type": "price_below_sma50_pct",
-                "value": 3,
-                "severity": "claim"
-              },
-              {
-                "type": "stop_proximity_pct",
-                "value": 5,
-                "severity": "warning"
-              },
-              {
-                "type": "daily_change_pct",
-                "value": -7,
-                "severity": "claim"
-              },
-              {
-                "type": "sector_etf_change_pct",
-                "symbol": "SMH",
-                "value": -4,
-                "severity": "claim"
-              }
-            ],
-            "last_updated": "2026-10-08T19:41Z",
-            "trigger": null
-          },
-          {
-            "id": "NVDA-2",
-            "text": "The latest quote clears the retained fixed downside review floor and supplied dated long-horizon trend reference, supporting continued exposure without resolving the conflicting earnings calendars.",
-            "status": "valid",
-            "conditions": [
-              {
-                "type": "price_below",
-                "value": 200,
-                "severity": "thesis"
-              },
-              {
-                "type": "volume_ratio_20d",
-                "value": 3.0,
-                "severity": "claim"
-              },
-              {
-                "type": "earnings_approaching",
-                "days": 3,
-                "severity": "warning"
-              }
-            ],
-            "last_updated": "2026-10-08T19:41Z",
-            "trigger": null
-          },
-          {
-            "id": "NVDA-3",
-            "text": "The cited dated financial levels establish strong annual revenue growth, high gross and operating margins and positive free cash flow, but do not establish sequential cash-flow or debt direction, and reported financing discussions do not establish realized order profitability.",
-            "status": "valid",
-            "conditions": [
-              {
-                "type": "fundamental_below",
-                "metric": "operating_margin_pct",
-                "value": 55,
-                "unit": "%",
-                "severity": "thesis"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "gross_margin_pct",
-                "value": 70,
-                "unit": "%",
-                "severity": "claim"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "revenue_yoy_pct",
-                "value": 40,
-                "unit": "%",
-                "severity": "claim"
-              },
-              {
-                "type": "fundamental_below",
-                "metric": "quarter_free_cash_flow",
-                "value": 10000000000,
-                "unit": "USD",
-                "severity": "claim"
-              }
-            ],
-            "last_updated": "2026-10-08T19:41Z",
-            "trigger": null
-          }
-        ],
-        "monitoring": {
-          "claims": [
-            {
-              "id": "NVDA-1",
-              "text": "The refreshed intraday quote is above the supplied dated intermediate trend reference but below the previous close, while the older volume measurements provide no current-session confirmation.",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "price_below_sma50_pct",
-                  "value": 3,
-                  "severity": "claim"
-                },
-                {
-                  "type": "stop_proximity_pct",
-                  "value": 5,
-                  "severity": "warning"
-                },
-                {
-                  "type": "daily_change_pct",
-                  "value": -7,
-                  "severity": "claim"
-                },
-                {
-                  "type": "sector_etf_change_pct",
-                  "symbol": "SMH",
-                  "value": -4,
-                  "severity": "claim"
-                }
-              ]
-            },
-            {
-              "id": "NVDA-2",
-              "text": "The latest quote clears the retained fixed downside review floor and supplied dated long-horizon trend reference, supporting continued exposure without resolving the conflicting earnings calendars.",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "price_below",
-                  "value": 200,
-                  "severity": "thesis"
-                },
-                {
-                  "type": "volume_ratio_20d",
-                  "value": 3.0,
-                  "severity": "claim"
-                },
-                {
-                  "type": "earnings_approaching",
-                  "days": 3,
-                  "severity": "warning"
-                }
-              ]
-            },
-            {
-              "id": "NVDA-3",
-              "text": "The cited dated financial levels establish strong annual revenue growth, high gross and operating margins and positive free cash flow, but do not establish sequential cash-flow or debt direction, and reported financing discussions do not establish realized order profitability.",
-              "status": "valid",
-              "conditions": [
-                {
-                  "type": "fundamental_below",
-                  "metric": "operating_margin_pct",
-                  "value": 55,
-                  "unit": "%",
-                  "severity": "thesis"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "gross_margin_pct",
-                  "value": 70,
-                  "unit": "%",
-                  "severity": "claim"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "revenue_yoy_pct",
-                  "value": 40,
-                  "unit": "%",
-                  "severity": "claim"
-                },
-                {
-                  "type": "fundamental_below",
-                  "metric": "quarter_free_cash_flow",
-                  "value": 10000000000,
-                  "unit": "USD",
-                  "severity": "claim"
-                }
-              ]
-            }
-          ],
-          "next_review_at": "2026-10-08T20:15:00+00:00",
-          "falsifier_condition": {
-            "claim_id": "NVDA-2",
-            "condition_index": 0
-          },
-          "change_reason": "All previous detector types, thresholds and severities remain unchanged. The rejected draft's sequential-deterioration premise is removed because the cited ledger levels do not independently establish that comparison; this correction restores the financial claim to valid without asserting improvement. Updated text distinguishes current intraday pricing from dated technical and financial evidence. No threshold is relaxed to accommodate a loss or obtain approval. Reassess around the approaching session close for closing measurements and source reconciliation; if expected evidence is absent, explicitly record and reconsider the gaps rather than silently extending the decision.",
-          "evidence_ids": [
-            "NVDA.price",
-            "NVDA.price_at",
-            "NVDA.previous_close",
-            "NVDA.sma50",
-            "NVDA.sma200",
-            "NVDA.volume",
-            "NVDA.volume_avg_20d",
-            "NVDA.earnings_date",
-            "NVDA.revenue_yoy_pct",
-            "NVDA.gross_margin_pct",
-            "NVDA.operating_margin_pct",
-            "NVDA.quarter_free_cash_flow",
-            "NVDA.quarter_operating_cash_flow",
-            "NVDA.total_debt",
-            "news:10e78e76846df83cf6692343",
-            "news:cf0c907f2e54196f89c53dbf",
-            "news:f78b15ef0d62ed96c663f765"
-          ],
-          "revision": "0898c9618b1c74c9ea3a33f3",
-          "created_at": "2026-10-08T19:41:55+00:00",
-          "evidence_fingerprints": {
-            "NVDA.price": "388635ecc8e00b4ea7388685",
-            "NVDA.price_at": "9cd15bbb400712797be13b3c",
-            "NVDA.previous_close": "ce745c134d624e72a7683c1e",
-            "NVDA.sma50": "5637c54b8867f9f7cae91566",
-            "NVDA.sma200": "08c0900bf6b306301a08536b",
-            "NVDA.volume": "b48fb2e043297fc9ed933c87",
-            "NVDA.volume_avg_20d": "cbac4bc5c6fb626bb797dad7",
-            "NVDA.earnings_date": "9a353574bcd21224d7fc468a",
-            "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
-            "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
-            "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
-            "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
-            "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
-            "NVDA.total_debt": "766abf93dd5a30920a515e86",
-            "news:10e78e76846df83cf6692343": "9f5c1767757576439f8d6e1f",
-            "news:cf0c907f2e54196f89c53dbf": "492341bcc3206e0f5ecd10e9",
-            "news:f78b15ef0d62ed96c663f765": "5de3415bacbe7a7431bde3f7"
-          }
-        },
-        "analyst_review": {
-          "earnings": {
-            "assessment": "The latest same-period consensus comparisons show unchanged EPS forecasts and modestly higher revenue forecasts for the nearer upcoming fiscal periods, correcting the previous review's description of rising EPS. Available weekly revenue comparisons also rise; longer-window comparisons lack sufficient snapshots. Hypothesis only: firmer revenue expectations provide countercontext to apparent target reductions, not an analyst-stated explanation. These observations are neither individual-analyst revision breadth nor company guidance, and improving earnings are not required for a valid positive target revision.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "NVDA.analyst_eps_20270125_revision_pct",
-              "NVDA.analyst_revenue_20270125_revision_pct",
-              "NVDA.analyst_eps_20280125_revision_pct",
-              "NVDA.analyst_revenue_20280125_revision_pct",
-              "NVDA.analyst_revenue_20270125_revision_7d_pct",
-              "NVDA.analyst_revenue_20280125_revision_7d_pct"
-            ]
-          },
-          "company_news": {
-            "assessment": "The supplied SpaceX video excerpt reports financing discussions for Nvidia chip purchases, not secured financing or binding orders. GlobeNewswire describes scientific commitments, and Seeking Alpha asserts software-ecosystem expansion and an acquisition without independent corroboration here. Hypothesis only: these reports provide demand and ecosystem context, not the analysts' stated revision reasons. Verified incremental profitability, material contract terms and a regulatory explanation are unavailable.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "news:f78b15ef0d62ed96c663f765",
-              "news:7e636015a08ef2a6c4c2f71b",
-              "news:cf0c907f2e54196f89c53dbf"
-            ]
-          },
-          "sector_theme": {
-            "assessment": "GuruFocus attributes chip-sector weakness to higher yields and oil prices, while Seeking Alpha presents favorable AI-demand commentary. Hypothesis only: macro pressure can coexist with supportive infrastructure demand, offering an alternative to issuer-specific deterioration. These later excerpts do not establish the cause of earlier analyst revisions, realized Nvidia sales, fund flows, sector rotation or changes in investor attention.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "news:10e78e76846df83cf6692343",
-              "news:cf0c907f2e54196f89c53dbf"
-            ]
-          },
-          "valuation": {
-            "assessment": "Provider target observations indicate reductions, but the Wells Fargo record carries a Morgan Stanley headline, intermediate coverage may be missing, and revision reasons and forecast horizons remain unknown. Seeking Alpha offers a favorable valuation opinion rather than an independently corroborated valuation measurement. Hypothesis only: growth-story repricing or discount-rate sensitivity are possible explanations, with provider attribution error an alternative. Changed analyst horizons and crowded positioning are unmeasured. Supportive demand does not establish cheapness, and target revisions neither prescribe a trade nor prove future returns.",
-            "evidence_status": "context_only",
-            "source_ids": [
-              "analyst:3bfc0aed53c359d047287add",
-              "analyst:7bf6884f7ca6c6e5deb2e88b",
-              "news:cf0c907f2e54196f89c53dbf",
-              "news:10e78e76846df83cf6692343"
-            ]
-          }
-        },
-        "pending_review": {
-          "claim_id": "decision_expired",
-          "condition_type": "review_deadline",
-          "cooldown_key": "deadline:fba2c27c246cb533c0c62b7f",
-          "measured": 1,
-          "severity": "thesis",
-          "symbol": "NVDA",
-          "threshold": 0,
-          "trigger": "Decision review deadline reached: 2026-10-08T20:15:00+00:00"
-        }
-      },
-      "after": {
         "thesis_summary": "NVDA remains a supported holding because dated strong annual revenue growth, high margins and positive free cash flow accompany a stale quote above the retained downside floor and dated moving averages, while current technical confirmation, sequential financial directions, realized order economics and valuation support remain unverified.",
         "source": "DECISION_LOG.md #10",
         "claims": [
@@ -9709,6 +8985,288 @@
               "analyst:3bfc0aed53c359d047287add",
               "analyst:7bf6884f7ca6c6e5deb2e88b",
               "news:27b88c2dcd82a83cf2d92de2"
+            ]
+          }
+        },
+        "pending_review": {
+          "claim_id": "decision_expired",
+          "condition_type": "review_deadline",
+          "cooldown_key": "deadline:d8088d352a9578d72eafd377",
+          "measured": 1,
+          "severity": "thesis",
+          "symbol": "NVDA",
+          "threshold": 0,
+          "trigger": "Decision review deadline reached: 2026-10-09T14:00:00+00:00"
+        }
+      },
+      "after": {
+        "thesis_summary": "NVDA remains a supported holding because dated strong annual revenue growth, high margins and positive free cash flow accompany an intraday quote above the retained downside review floor and dated moving averages, while sequential financial trends, closing confirmation, realized order economics and valuation support remain unverified.",
+        "source": "DECISION_LOG.md #10",
+        "claims": [
+          {
+            "id": "NVDA-1",
+            "text": "The current intraday quote sits below the supplied previous close and above the dated intermediate moving average, while the supplied below-average volume is dated and does not establish current-session participation or closing confirmation.",
+            "status": "weakened",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 3,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              }
+            ],
+            "last_updated": "2026-10-09T18:55Z",
+            "trigger": null
+          },
+          {
+            "id": "NVDA-2",
+            "text": "The fresh intraday measurement supports the retained downside-floor premise and exceeds the dated long-horizon moving average, but neither a closing observation nor reconciliation of the conflicting earnings calendars is supplied.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below",
+                "value": 200,
+                "severity": "thesis"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              }
+            ],
+            "last_updated": "2026-10-09T18:55Z",
+            "trigger": null
+          },
+          {
+            "id": "NVDA-3",
+            "text": "The dated financial ledger supports strong annual revenue growth, high gross and operating margins and positive free cash flow; comparable preceding-period ledger measurements are unavailable for sequential cash-flow and debt conclusions, and favorable publisher opinions do not verify order economics or valuation support.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 55,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "gross_margin_pct",
+                "value": 70,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 40,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 10000000000,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ],
+            "last_updated": "2026-10-09T18:55Z",
+            "trigger": null
+          }
+        ],
+        "monitoring": {
+          "claims": [
+            {
+              "id": "NVDA-1",
+              "text": "The current intraday quote sits below the supplied previous close and above the dated intermediate moving average, while the supplied below-average volume is dated and does not establish current-session participation or closing confirmation.",
+              "status": "weakened",
+              "conditions": [
+                {
+                  "type": "price_below_sma50_pct",
+                  "value": 3,
+                  "severity": "claim"
+                },
+                {
+                  "type": "stop_proximity_pct",
+                  "value": 5,
+                  "severity": "warning"
+                },
+                {
+                  "type": "daily_change_pct",
+                  "value": -7,
+                  "severity": "claim"
+                },
+                {
+                  "type": "sector_etf_change_pct",
+                  "symbol": "SMH",
+                  "value": -4,
+                  "severity": "claim"
+                }
+              ]
+            },
+            {
+              "id": "NVDA-2",
+              "text": "The fresh intraday measurement supports the retained downside-floor premise and exceeds the dated long-horizon moving average, but neither a closing observation nor reconciliation of the conflicting earnings calendars is supplied.",
+              "status": "valid",
+              "conditions": [
+                {
+                  "type": "price_below",
+                  "value": 200,
+                  "severity": "thesis"
+                },
+                {
+                  "type": "volume_ratio_20d",
+                  "value": 3.0,
+                  "severity": "claim"
+                },
+                {
+                  "type": "earnings_approaching",
+                  "days": 3,
+                  "severity": "warning"
+                }
+              ]
+            },
+            {
+              "id": "NVDA-3",
+              "text": "The dated financial ledger supports strong annual revenue growth, high gross and operating margins and positive free cash flow; comparable preceding-period ledger measurements are unavailable for sequential cash-flow and debt conclusions, and favorable publisher opinions do not verify order economics or valuation support.",
+              "status": "valid",
+              "conditions": [
+                {
+                  "type": "fundamental_below",
+                  "metric": "operating_margin_pct",
+                  "value": 55,
+                  "unit": "%",
+                  "severity": "thesis"
+                },
+                {
+                  "type": "fundamental_below",
+                  "metric": "gross_margin_pct",
+                  "value": 70,
+                  "unit": "%",
+                  "severity": "claim"
+                },
+                {
+                  "type": "fundamental_below",
+                  "metric": "revenue_yoy_pct",
+                  "value": 40,
+                  "unit": "%",
+                  "severity": "claim"
+                },
+                {
+                  "type": "fundamental_below",
+                  "metric": "quarter_free_cash_flow",
+                  "value": 10000000000,
+                  "unit": "USD",
+                  "severity": "claim"
+                }
+              ]
+            }
+          ],
+          "next_review_at": "2026-10-09T20:15:00+00:00",
+          "falsifier_condition": {
+            "claim_id": "NVDA-2",
+            "condition_index": 0
+          },
+          "change_reason": "All prior detector types, thresholds and severities remain unchanged, and every claim is retained. Fresh intraday evidence replaces the stale-quote description and changes the comparison with the previous close. The rejected draft's unsupported sequential deterioration assertions are removed; the narrower dated financial-level claim retains its prior valid status without implying financial improvement. No threshold is loosened. Review after the session close for closing and refreshed volume measurements, and explicitly reconsider any remaining evidence gaps rather than silently extending the decision.",
+          "evidence_ids": [
+            "NVDA.price",
+            "NVDA.price_at",
+            "NVDA.previous_close",
+            "NVDA.sma50",
+            "NVDA.sma200",
+            "NVDA.volume",
+            "NVDA.volume_avg_20d",
+            "NVDA.earnings_date",
+            "NVDA.revenue_yoy_pct",
+            "NVDA.gross_margin_pct",
+            "NVDA.operating_margin_pct",
+            "NVDA.quarter_free_cash_flow",
+            "NVDA.quarter_operating_cash_flow",
+            "NVDA.total_debt",
+            "NVDA.net_debt",
+            "news:7df323a2430b35a804ac951d",
+            "news:c19fd1d64ebeba720b827c97",
+            "news:d50e8540b34dc594bf7fcb99"
+          ],
+          "revision": "00b60bd4988511b6da098402",
+          "created_at": "2026-10-09T18:55:03+00:00",
+          "evidence_fingerprints": {
+            "NVDA.price": "8e1f9a6b0df871d344c89f2d",
+            "NVDA.price_at": "1475aeb4480635641cb70dd7",
+            "NVDA.previous_close": "b17ceaf34d7e4af634c593b2",
+            "NVDA.sma50": "4bf5706a4e8b0a8d30d13c93",
+            "NVDA.sma200": "1fcca8c6d5e1265b44ffc96f",
+            "NVDA.volume": "19e64e2aa24be22e554402c4",
+            "NVDA.volume_avg_20d": "b4dfddb1dd06e902ed980f36",
+            "NVDA.earnings_date": "674d1d7ba30cedd1a072f98d",
+            "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
+            "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
+            "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
+            "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
+            "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
+            "NVDA.total_debt": "766abf93dd5a30920a515e86",
+            "NVDA.net_debt": "e6c57c0e7c77b062389730df",
+            "news:7df323a2430b35a804ac951d": "e4de85335f9f6886f4771dde",
+            "news:c19fd1d64ebeba720b827c97": "3de5c4c94150104c03e73167",
+            "news:d50e8540b34dc594bf7fcb99": "c725bee1287f7002dc70c71c"
+          }
+        },
+        "analyst_review": {
+          "earnings": {
+            "assessment": "Latest same-period EPS and revenue consensus forecasts are unchanged against the immediately preceding observed snapshot, while available weekly forward revenue comparisons rise. Hypothesis only: stable latest forecasts and firmer weekly revenue expectations provide countercontext to apparent target reductions, not the analysts' stated explanation. These are consensus snapshots rather than individual-analyst breadth or company guidance. Longer-window comparisons and analyst-specific reasons remain unavailable. Improving earnings are not required for a valid positive target revision.",
+            "evidence_status": "context_only",
+            "source_ids": [
+              "NVDA.analyst_eps_20270125_revision_pct",
+              "NVDA.analyst_revenue_20270125_revision_pct",
+              "NVDA.analyst_eps_20280125_revision_pct",
+              "NVDA.analyst_revenue_20280125_revision_pct",
+              "NVDA.analyst_revenue_20270125_revision_7d_pct",
+              "NVDA.analyst_revenue_20280125_revision_7d_pct"
+            ]
+          },
+          "company_news": {
+            "assessment": "The supplied current excerpts do not establish new issuer contracts, product economics, regulatory developments or partnership terms, nor attribute target revisions to those events. Favorable growth opinions are not evidence of realized orders. An issuer-event explanation for the analyst changes remains unknown.",
+            "evidence_status": "unknown",
+            "source_ids": []
+          },
+          "sector_theme": {
+            "assessment": "Zacks's AI-boom commentary advocates participation despite bubble concerns, while Motley Fool expresses favorable Nvidia growth expectations relative to AMD. Hypothesis only: supportive AI narratives can coexist with valuation concerns and contribute to divergent views. These excerpts do not establish measured industry demand, persistent sector rotation, fund flows, changes in investor attention or the analysts' stated revision reasons; price and volume alone cannot establish those causes.",
+            "evidence_status": "context_only",
+            "source_ids": [
+              "news:58be09221d84ef0476a320e5",
+              "news:c19fd1d64ebeba720b827c97"
+            ]
+          },
+          "valuation": {
+            "assessment": "Zacks and Motley Fool express favorable valuation views without supporting calculations in the supplied excerpts. Hypothesis only: growth-story repricing is a possible explanation for apparent target reductions, with provider attribution error and missing intermediate observations as alternatives. The Wells Fargo observation carries a Morgan Stanley headline. Measured multiples, discount-rate changes, positioning and changed forecast horizons are unavailable, and no supplied article explicitly reports the analysts' valuation rationale. A strong theme does not establish cheapness or exclude crowding; target revisions neither prescribe a trade nor prove future returns.",
+            "evidence_status": "context_only",
+            "source_ids": [
+              "news:7df323a2430b35a804ac951d",
+              "news:c19fd1d64ebeba720b827c97",
+              "news:d50e8540b34dc594bf7fcb99",
+              "analyst:3bfc0aed53c359d047287add",
+              "analyst:7bf6884f7ca6c6e5deb2e88b"
             ]
           }
         }

@@ -9994,5 +9994,570 @@
         }
       }
     }
+  },
+  "913e640bbab5c5e84542b57e": {
+    "symbol": "NVDA",
+    "action": "HOLD",
+    "time": "2026-10-09T18:55Z",
+    "trigger": "Decision review deadline reached: 2026-10-09T14:00:00+00:00",
+    "reasoning": "The deadline-triggered reassessment finds supported dated operating strength and current intraday price support, not a demonstrated thesis break. The quote is below the previous close, but remains above the retained review floor and dated trend references. These observations support retaining exposure; they do not guarantee persistent support. Unverified valuation and realized order economics limit the case for adding, while favorable commentary and uncertain target observations are insufficient grounds for a trade. Sequential financial deterioration is not an established premise of this decision.",
+    "falsifier": "A measured price break below the retained fixed downside review floor would contradict the price-support premise behind this HOLD and require reassessment; this executable review condition is distinct from the unchanged weekly-close stop.",
+    "before": {
+      "thesis_summary": "NVDA remains a supported holding because dated strong annual revenue growth, high margins and positive free cash flow accompany a stale quote above the retained downside floor and dated moving averages, while current technical confirmation, sequential financial directions, realized order economics and valuation support remain unverified.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "NVDA-1",
+          "text": "The available quote is stale and slightly above the supplied previous close and dated intermediate moving average, while below-average dated volume and the missing closing measurement limit technical confirmation.",
+          "status": "weakened",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 3,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-09T01:14Z",
+          "trigger": null
+        },
+        {
+          "id": "NVDA-2",
+          "text": "The stale measured quote clears the retained fixed downside review floor and dated long-horizon moving average, supporting the historical price-support premise without confirming current-session conditions or resolving the conflicting earnings calendars.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 200,
+              "severity": "thesis"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-10-09T01:14Z",
+          "trigger": null
+        },
+        {
+          "id": "NVDA-3",
+          "text": "The cited dated financial measurements support strong annual revenue growth, high gross and operating margins and positive free cash flow, while sequential cash-flow and debt directions remain unverified by comparable ledger entries and CNBC's customer-revenue report does not establish Nvidia order impairment.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 55,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "gross_margin_pct",
+              "value": 70,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 40,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 10000000000,
+              "unit": "USD",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-09T01:14Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "NVDA-1",
+            "text": "The available quote is stale and slightly above the supplied previous close and dated intermediate moving average, while below-average dated volume and the missing closing measurement limit technical confirmation.",
+            "status": "weakened",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 3,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "NVDA-2",
+            "text": "The stale measured quote clears the retained fixed downside review floor and dated long-horizon moving average, supporting the historical price-support premise without confirming current-session conditions or resolving the conflicting earnings calendars.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below",
+                "value": 200,
+                "severity": "thesis"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              }
+            ]
+          },
+          {
+            "id": "NVDA-3",
+            "text": "The cited dated financial measurements support strong annual revenue growth, high gross and operating margins and positive free cash flow, while sequential cash-flow and debt directions remain unverified by comparable ledger entries and CNBC's customer-revenue report does not establish Nvidia order impairment.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 55,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "gross_margin_pct",
+                "value": 70,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 40,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 10000000000,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-09T14:00:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "NVDA-2",
+          "condition_index": 0
+        },
+        "change_reason": "All previous detector types, thresholds and severities remain unchanged, and no claims are removed. The financial text removes the rejected draft's unsupported ledger-based sequential comparisons and restores valid status for the narrower dated-level claim; this does not assert financial improvement. Technical text corrects the quote's relation to the previous close and explicitly acknowledges staleness and the absent closing measurement. No threshold is loosened to obtain approval. Review around the next session opening for fresh measurements and source reconciliation; if expected evidence remains absent, explicitly reconsider the gaps rather than silently extend the decision.",
+        "evidence_ids": [
+          "NVDA.price",
+          "NVDA.price_at",
+          "NVDA.previous_close",
+          "NVDA.sma50",
+          "NVDA.sma200",
+          "NVDA.volume",
+          "NVDA.volume_avg_20d",
+          "NVDA.earnings_date",
+          "NVDA.revenue_yoy_pct",
+          "NVDA.gross_margin_pct",
+          "NVDA.operating_margin_pct",
+          "NVDA.quarter_free_cash_flow",
+          "NVDA.quarter_operating_cash_flow",
+          "NVDA.total_debt",
+          "news:27b88c2dcd82a83cf2d92de2",
+          "news:0631cc6d35708f9cce10f94a",
+          "news:d189db05f964bcfd180fdc52",
+          "news:ffce76bb2fbdd61d3ea808a7"
+        ],
+        "revision": "d97933b7ac7324e8e2019af4",
+        "created_at": "2026-10-09T01:14:31+00:00",
+        "evidence_fingerprints": {
+          "NVDA.price": "f502bfda0fd178ffc80374b6",
+          "NVDA.price_at": "0f06a50cd4b36fbd73634a34",
+          "NVDA.previous_close": "b17ceaf34d7e4af634c593b2",
+          "NVDA.sma50": "4bf5706a4e8b0a8d30d13c93",
+          "NVDA.sma200": "1fcca8c6d5e1265b44ffc96f",
+          "NVDA.volume": "5578fe6ce53ccc878af81e7d",
+          "NVDA.volume_avg_20d": "a26b69fd0c247f8fc3235726",
+          "NVDA.earnings_date": "60e7ac2a8a6b1759d4805836",
+          "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
+          "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
+          "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
+          "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
+          "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
+          "NVDA.total_debt": "766abf93dd5a30920a515e86",
+          "news:27b88c2dcd82a83cf2d92de2": "037ad540a330dcb9c56668df",
+          "news:0631cc6d35708f9cce10f94a": "5dc063d84f69f8f4a55b9e5e",
+          "news:d189db05f964bcfd180fdc52": "0ecdc586839b60c620f946e4",
+          "news:ffce76bb2fbdd61d3ea808a7": "6f1dab9ae673251a2b5fdb08"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Latest same-period consensus EPS and revenue forecasts are unchanged against the immediately preceding observed snapshot. Available weekly same-period revenue comparisons increase for forward periods, but these observations are not individual-analyst revision breadth or company guidance. Hypothesis only: stable latest forecasts and firmer weekly revenue expectations provide countercontext to apparent target reductions, not an analyst-stated explanation. Longer-window comparisons lack sufficient snapshots, and analyst-specific revision reasons are unavailable. Improving earnings are not required for a valid positive target revision.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "NVDA.analyst_eps_20270125_revision_pct",
+            "NVDA.analyst_revenue_20270125_revision_pct",
+            "NVDA.analyst_eps_20280125_revision_pct",
+            "NVDA.analyst_revenue_20280125_revision_pct",
+            "NVDA.analyst_revenue_20270125_revision_7d_pct",
+            "NVDA.analyst_revenue_20280125_revision_7d_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "The New York Post reports a collective federal AI research commitment involving Nvidia, not issuer-specific profitable orders. GuruFocus's rival-networking headline raises an ecosystem question, but its truncated excerpt does not establish commercial impact. Motley Fool describes guidance favorably, and Zacks identifies profitability strength; these are source characterizations rather than newly verified issuer measurements. Hypothesis only: scientific demand and ecosystem competition affect the investment narrative, but none of these excerpts attributes an analyst revision to those factors. Binding contract economics, regulatory effects and verified product implications remain unavailable.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:0535337a19606fb63147f8d5",
+            "news:0631cc6d35708f9cce10f94a",
+            "news:d189db05f964bcfd180fdc52",
+            "news:ffce76bb2fbdd61d3ea808a7"
+          ]
+        },
+        "sector_theme": {
+          "assessment": "CNBC associates AI-stock weakness with OpenAI revenue below a previously reported figure, not an established sequential customer revenue decline. Motley Fool offers favorable AI semiconductor demand commentary. Hypothesis only: customer monetization concerns can challenge the infrastructure narrative while chip-demand expectations remain favorable. These later reports do not establish the causes of earlier target changes, actual Nvidia order losses, fund flows, persistent sector rotation or changes in investor attention.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:27b88c2dcd82a83cf2d92de2",
+            "news:d189db05f964bcfd180fdc52"
+          ]
+        },
+        "valuation": {
+          "assessment": "Provider observations indicate apparent target reductions, but the Wells Fargo record carries a Morgan Stanley headline, intermediate coverage may be missing, and analyst reasons and forecast horizons remain unknown. Hypothesis only: growth-story repricing is a possible explanation, with provider attribution error an alternative. CNBC's later customer-revenue report provides present narrative context rather than proof of historical causation. Measured valuation multiples, discount-rate changes, crowded positioning and changed analyst horizons are unavailable. Supportive demand does not establish cheapness, and target changes neither prescribe trades nor prove future returns.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "analyst:3bfc0aed53c359d047287add",
+            "analyst:7bf6884f7ca6c6e5deb2e88b",
+            "news:27b88c2dcd82a83cf2d92de2"
+          ]
+        }
+      },
+      "pending_review": {
+        "claim_id": "decision_expired",
+        "condition_type": "review_deadline",
+        "cooldown_key": "deadline:d8088d352a9578d72eafd377",
+        "measured": 1,
+        "severity": "thesis",
+        "symbol": "NVDA",
+        "threshold": 0,
+        "trigger": "Decision review deadline reached: 2026-10-09T14:00:00+00:00"
+      }
+    },
+    "after": {
+      "thesis_summary": "NVDA remains a supported holding because dated strong annual revenue growth, high margins and positive free cash flow accompany an intraday quote above the retained downside review floor and dated moving averages, while sequential financial trends, closing confirmation, realized order economics and valuation support remain unverified.",
+      "source": "DECISION_LOG.md #10",
+      "claims": [
+        {
+          "id": "NVDA-1",
+          "text": "The current intraday quote sits below the supplied previous close and above the dated intermediate moving average, while the supplied below-average volume is dated and does not establish current-session participation or closing confirmation.",
+          "status": "weakened",
+          "conditions": [
+            {
+              "type": "price_below_sma50_pct",
+              "value": 3,
+              "severity": "claim"
+            },
+            {
+              "type": "stop_proximity_pct",
+              "value": 5,
+              "severity": "warning"
+            },
+            {
+              "type": "daily_change_pct",
+              "value": -7,
+              "severity": "claim"
+            },
+            {
+              "type": "sector_etf_change_pct",
+              "symbol": "SMH",
+              "value": -4,
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-09T18:55Z",
+          "trigger": null
+        },
+        {
+          "id": "NVDA-2",
+          "text": "The fresh intraday measurement supports the retained downside-floor premise and exceeds the dated long-horizon moving average, but neither a closing observation nor reconciliation of the conflicting earnings calendars is supplied.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "price_below",
+              "value": 200,
+              "severity": "thesis"
+            },
+            {
+              "type": "volume_ratio_20d",
+              "value": 3.0,
+              "severity": "claim"
+            },
+            {
+              "type": "earnings_approaching",
+              "days": 3,
+              "severity": "warning"
+            }
+          ],
+          "last_updated": "2026-10-09T18:55Z",
+          "trigger": null
+        },
+        {
+          "id": "NVDA-3",
+          "text": "The dated financial ledger supports strong annual revenue growth, high gross and operating margins and positive free cash flow; comparable preceding-period ledger measurements are unavailable for sequential cash-flow and debt conclusions, and favorable publisher opinions do not verify order economics or valuation support.",
+          "status": "valid",
+          "conditions": [
+            {
+              "type": "fundamental_below",
+              "metric": "operating_margin_pct",
+              "value": 55,
+              "unit": "%",
+              "severity": "thesis"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "gross_margin_pct",
+              "value": 70,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "revenue_yoy_pct",
+              "value": 40,
+              "unit": "%",
+              "severity": "claim"
+            },
+            {
+              "type": "fundamental_below",
+              "metric": "quarter_free_cash_flow",
+              "value": 10000000000,
+              "unit": "USD",
+              "severity": "claim"
+            }
+          ],
+          "last_updated": "2026-10-09T18:55Z",
+          "trigger": null
+        }
+      ],
+      "monitoring": {
+        "claims": [
+          {
+            "id": "NVDA-1",
+            "text": "The current intraday quote sits below the supplied previous close and above the dated intermediate moving average, while the supplied below-average volume is dated and does not establish current-session participation or closing confirmation.",
+            "status": "weakened",
+            "conditions": [
+              {
+                "type": "price_below_sma50_pct",
+                "value": 3,
+                "severity": "claim"
+              },
+              {
+                "type": "stop_proximity_pct",
+                "value": 5,
+                "severity": "warning"
+              },
+              {
+                "type": "daily_change_pct",
+                "value": -7,
+                "severity": "claim"
+              },
+              {
+                "type": "sector_etf_change_pct",
+                "symbol": "SMH",
+                "value": -4,
+                "severity": "claim"
+              }
+            ]
+          },
+          {
+            "id": "NVDA-2",
+            "text": "The fresh intraday measurement supports the retained downside-floor premise and exceeds the dated long-horizon moving average, but neither a closing observation nor reconciliation of the conflicting earnings calendars is supplied.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "price_below",
+                "value": 200,
+                "severity": "thesis"
+              },
+              {
+                "type": "volume_ratio_20d",
+                "value": 3.0,
+                "severity": "claim"
+              },
+              {
+                "type": "earnings_approaching",
+                "days": 3,
+                "severity": "warning"
+              }
+            ]
+          },
+          {
+            "id": "NVDA-3",
+            "text": "The dated financial ledger supports strong annual revenue growth, high gross and operating margins and positive free cash flow; comparable preceding-period ledger measurements are unavailable for sequential cash-flow and debt conclusions, and favorable publisher opinions do not verify order economics or valuation support.",
+            "status": "valid",
+            "conditions": [
+              {
+                "type": "fundamental_below",
+                "metric": "operating_margin_pct",
+                "value": 55,
+                "unit": "%",
+                "severity": "thesis"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "gross_margin_pct",
+                "value": 70,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "revenue_yoy_pct",
+                "value": 40,
+                "unit": "%",
+                "severity": "claim"
+              },
+              {
+                "type": "fundamental_below",
+                "metric": "quarter_free_cash_flow",
+                "value": 10000000000,
+                "unit": "USD",
+                "severity": "claim"
+              }
+            ]
+          }
+        ],
+        "next_review_at": "2026-10-09T20:15:00+00:00",
+        "falsifier_condition": {
+          "claim_id": "NVDA-2",
+          "condition_index": 0
+        },
+        "change_reason": "All prior detector types, thresholds and severities remain unchanged, and every claim is retained. Fresh intraday evidence replaces the stale-quote description and changes the comparison with the previous close. The rejected draft's unsupported sequential deterioration assertions are removed; the narrower dated financial-level claim retains its prior valid status without implying financial improvement. No threshold is loosened. Review after the session close for closing and refreshed volume measurements, and explicitly reconsider any remaining evidence gaps rather than silently extending the decision.",
+        "evidence_ids": [
+          "NVDA.price",
+          "NVDA.price_at",
+          "NVDA.previous_close",
+          "NVDA.sma50",
+          "NVDA.sma200",
+          "NVDA.volume",
+          "NVDA.volume_avg_20d",
+          "NVDA.earnings_date",
+          "NVDA.revenue_yoy_pct",
+          "NVDA.gross_margin_pct",
+          "NVDA.operating_margin_pct",
+          "NVDA.quarter_free_cash_flow",
+          "NVDA.quarter_operating_cash_flow",
+          "NVDA.total_debt",
+          "NVDA.net_debt",
+          "news:7df323a2430b35a804ac951d",
+          "news:c19fd1d64ebeba720b827c97",
+          "news:d50e8540b34dc594bf7fcb99"
+        ],
+        "revision": "00b60bd4988511b6da098402",
+        "created_at": "2026-10-09T18:55:03+00:00",
+        "evidence_fingerprints": {
+          "NVDA.price": "8e1f9a6b0df871d344c89f2d",
+          "NVDA.price_at": "1475aeb4480635641cb70dd7",
+          "NVDA.previous_close": "b17ceaf34d7e4af634c593b2",
+          "NVDA.sma50": "4bf5706a4e8b0a8d30d13c93",
+          "NVDA.sma200": "1fcca8c6d5e1265b44ffc96f",
+          "NVDA.volume": "19e64e2aa24be22e554402c4",
+          "NVDA.volume_avg_20d": "b4dfddb1dd06e902ed980f36",
+          "NVDA.earnings_date": "674d1d7ba30cedd1a072f98d",
+          "NVDA.revenue_yoy_pct": "978f535ec372fdac513d5b46",
+          "NVDA.gross_margin_pct": "8e75b308d5b683acc1ff3422",
+          "NVDA.operating_margin_pct": "46b2920917d823054b71c66d",
+          "NVDA.quarter_free_cash_flow": "4e087d083cc87d0457c7abbe",
+          "NVDA.quarter_operating_cash_flow": "6f80c1a2e9803be98f7ef514",
+          "NVDA.total_debt": "766abf93dd5a30920a515e86",
+          "NVDA.net_debt": "e6c57c0e7c77b062389730df",
+          "news:7df323a2430b35a804ac951d": "e4de85335f9f6886f4771dde",
+          "news:c19fd1d64ebeba720b827c97": "3de5c4c94150104c03e73167",
+          "news:d50e8540b34dc594bf7fcb99": "c725bee1287f7002dc70c71c"
+        }
+      },
+      "analyst_review": {
+        "earnings": {
+          "assessment": "Latest same-period EPS and revenue consensus forecasts are unchanged against the immediately preceding observed snapshot, while available weekly forward revenue comparisons rise. Hypothesis only: stable latest forecasts and firmer weekly revenue expectations provide countercontext to apparent target reductions, not the analysts' stated explanation. These are consensus snapshots rather than individual-analyst breadth or company guidance. Longer-window comparisons and analyst-specific reasons remain unavailable. Improving earnings are not required for a valid positive target revision.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "NVDA.analyst_eps_20270125_revision_pct",
+            "NVDA.analyst_revenue_20270125_revision_pct",
+            "NVDA.analyst_eps_20280125_revision_pct",
+            "NVDA.analyst_revenue_20280125_revision_pct",
+            "NVDA.analyst_revenue_20270125_revision_7d_pct",
+            "NVDA.analyst_revenue_20280125_revision_7d_pct"
+          ]
+        },
+        "company_news": {
+          "assessment": "The supplied current excerpts do not establish new issuer contracts, product economics, regulatory developments or partnership terms, nor attribute target revisions to those events. Favorable growth opinions are not evidence of realized orders. An issuer-event explanation for the analyst changes remains unknown.",
+          "evidence_status": "unknown",
+          "source_ids": []
+        },
+        "sector_theme": {
+          "assessment": "Zacks's AI-boom commentary advocates participation despite bubble concerns, while Motley Fool expresses favorable Nvidia growth expectations relative to AMD. Hypothesis only: supportive AI narratives can coexist with valuation concerns and contribute to divergent views. These excerpts do not establish measured industry demand, persistent sector rotation, fund flows, changes in investor attention or the analysts' stated revision reasons; price and volume alone cannot establish those causes.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:58be09221d84ef0476a320e5",
+            "news:c19fd1d64ebeba720b827c97"
+          ]
+        },
+        "valuation": {
+          "assessment": "Zacks and Motley Fool express favorable valuation views without supporting calculations in the supplied excerpts. Hypothesis only: growth-story repricing is a possible explanation for apparent target reductions, with provider attribution error and missing intermediate observations as alternatives. The Wells Fargo observation carries a Morgan Stanley headline. Measured multiples, discount-rate changes, positioning and changed forecast horizons are unavailable, and no supplied article explicitly reports the analysts' valuation rationale. A strong theme does not establish cheapness or exclude crowding; target revisions neither prescribe a trade nor prove future returns.",
+          "evidence_status": "context_only",
+          "source_ids": [
+            "news:7df323a2430b35a804ac951d",
+            "news:c19fd1d64ebeba720b827c97",
+            "news:d50e8540b34dc594bf7fcb99",
+            "analyst:3bfc0aed53c359d047287add",
+            "analyst:7bf6884f7ca6c6e5deb2e88b"
+          ]
+        }
+      }
+    }
   }
 }

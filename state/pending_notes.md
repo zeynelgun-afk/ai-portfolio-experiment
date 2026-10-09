@@ -469,3 +469,24 @@ The Saturday round reassesses this decision.
 **The model's reasoning:** Retain existing exposure without adding. The dated financial measurements remain above the unchanged fundamental review floors, and the available stale quote clears the fixed downside review floor. These observations support continued ownership but do not establish current execution prices or attractive valuation. CNBC's customer-revenue report raises a demand question rather than proving canceled orders or impaired profitability. Favorable guidance and profitability commentary offer countercontext, not independently verified forward results. Apparent analyst target reductions have attribution and horizon limitations. The expected closing measurement is still absent; I explicitly reconsider that gap and retain the position on the dated business evidence, with another review around the next session opening.
 
 The Saturday round reassesses this decision.
+
+## 2026-10-09T18:55Z · NVDA · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-09T14:00:00+00:00
+
+**Thesis assessment:** The expired deadline prompts a fresh assessment, not an automatic trade. The current intraday quote is below the supplied previous close but above the dated moving averages and retained downside review floor. Current-session volume and closing confirmation remain unavailable. Dated revenue growth, margins and positive free cash flow support the narrower operating-strength premise. I withdraw the rejected draft's assertion of established sequential financial deterioration: comparable preceding-period ledger measurements are unavailable, so sequential cash-flow and debt directions remain unverified and do not justify weakening the financial claim. Favorable publisher opinions do not establish cheapness, while attribution and coverage gaps limit interpretation of apparent analyst target reductions.
+
+**Intraday decision:** HOLD · reasoning: The deadline-triggered reassessment finds supported dated operating strength and current intraday price support, not a demonstrated thesis break. The quote is below the previous close, but remains above the retained review floor and dated trend references. These observations support retaining exposure; they do not guarantee persistent support. Unverified valuation and realized order economics limit the case for adding, while favorable commentary and uncertain target observations are insufficient grounds for a trade. Sequential financial deterioration is not an established premise of this decision.
+**Falsifier:** A measured price break below the retained fixed downside review floor would contradict the price-support premise behind this HOLD and require reassessment; this executable review condition is distinct from the unchanged weekly-close stop.
+
+**Note for the Saturday round:** Obtain comparable historical ledger measurements before asserting cash-flow or debt trends. Reconcile the earnings calendars and analyst firm/headline mismatch, seek valuation methodology and realized order economics, and distinguish closing measurements and current-session volume from dated technical evidence.
+
+## 2026-10-09T18:58Z · NVDA · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** The deadline-triggered reassessment finds supported dated operating strength and current intraday price support, not a demonstrated thesis break. The quote is below the previous close, but remains above the retained review floor and dated trend references. These observations support retaining exposure; they do not guarantee persistent support. Unverified valuation and realized order economics limit the case for adding, while favorable commentary and uncertain target observations are insufficient grounds for a trade. Sequential financial deterioration is not an established premise of this decision.
+
+The Saturday round reassesses this decision.
