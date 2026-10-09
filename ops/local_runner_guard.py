@@ -13,6 +13,7 @@ import hashlib
 import json
 import os
 import subprocess
+import secrets
 from pathlib import Path
 import tarfile
 
@@ -64,8 +65,18 @@ def start(root, env):
         attempt = {'run_id': env['GITHUB_RUN_ID'], 'attempt': env['GITHUB_RUN_ATTEMPT'],
                    'workflow': env['GITHUB_WORKFLOW'], 'sha': env.get('GITHUB_SHA'),
                    'started_at': datetime.now(timezone.utc).isoformat(), 'status': 'started'}
+        # Bind only this installed pre-job hook's file-command output to its
+        # private owner record. Runner-generated context names are random GUIDs;
+        # their shape alone is not evidence that an unknown step is this hook.
+        if env.get('GITHUB_OUTPUT'):
+            attempt['hook_claim'] = secrets.token_hex(32)
         atomic_json(root / 'active.json', attempt)
         atomic_json(receipt, attempt)
+        if 'hook_claim' in attempt:
+            with open(env['GITHUB_OUTPUT'], 'a') as handle:
+                handle.write('local_runner_claim=' + attempt['hook_claim'] + '\n')
+                handle.flush()
+                os.fsync(handle.fileno())
 
 
 # A deliberately closed contract: unknown/new workflow steps cannot auto-release.
@@ -111,7 +122,24 @@ def persisted_no_trade_partial(env, outcome, workspace, attempt):
         return None
     try:
         steps = json.loads(env.get('LOCAL_RUNNER_STEPS', '{}'))
-        if not isinstance(steps, dict) or set(steps) != PARTIAL_STEP_IDS:
+        if not isinstance(steps, dict):
+            return None
+        allowed = PARTIAL_STEP_IDS.copy()
+        claim = attempt.get('hook_claim')
+        if (not isinstance(claim, str) or len(claim) != 64
+                or any(c not in '0123456789abcdef' for c in claim)):
+            return None
+        hooks = [key for key, step in steps.items()
+                 if key not in PARTIAL_STEP_IDS and step == {
+                     'outputs': {'local_runner_claim': claim},
+                     'outcome': 'success', 'conclusion': 'success'}]
+        if len(hooks) != 1:
+            return None
+        hook = hooks[0]
+        if len(hook) != 32 or any(c not in '0123456789abcdef' for c in hook):
+            return None
+        allowed.add(hook)
+        if set(steps) != allowed:
             return None
         failed = set()
         for key, step in steps.items():

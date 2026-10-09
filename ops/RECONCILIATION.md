@@ -7,8 +7,20 @@ procedure below; only the narrowly verified no-trade partial case is automatic.
 
 ## Completed no-trade partial assessments
 
-The intraday finalizer receives **every explicitly identified step's** outcome and
-conclusion via `toJSON(steps)`. The installed guard may release a new run's claim
+The intraday finalizer receives **every step's** outcome and conclusion via
+`toJSON(steps)`, including the runner's synthetic pre-job hook. Runner 2.337.0
+creates its context from a random GUID (`JobExtension.cs`, pre-job CreateChild),
+and `JobHookProvider.cs` processes its `GITHUB_OUTPUT` file commands. The installed
+start guard durably records a per-attempt random `hook_claim` before emitting
+`local_runner_claim` through that file. Finalization accepts exactly one extra
+successful GUID-context step with exactly that output and journal binding; GUID
+shape alone, empty outputs, duplicate bindings and all other extras are rejected.
+The original complete step context is retained in partial evidence. This is an
+identity binding within the trusted runner/workflow boundary, not a sandbox
+against malicious code running as the same OS user. Legacy receipts without a
+binding are never retroactively upgraded; this incident needs operator audit.
+
+The workflow's explicit step set remains closed. The installed guard may release a new run's claim
 when the only failures are the explicit news/reassessment health gates, all
 persistence/evidence steps succeeded, and all other steps succeeded or were skipped.
 It refuses continued-on-error, cancellation, unknown/missing step identities,

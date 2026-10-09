@@ -13,7 +13,7 @@ def git(path, *args):
     return subprocess.check_output(['git', '-C', str(path), *args], text=True).strip()
 
 
-def fixture(tmp_path, event_sha=None, workflow='Intraday Detector'):
+def fixture(tmp_path, event_sha=None, workflow='Intraday Detector', hook=True):
     workspace = tmp_path / 'checkout'; workspace.mkdir()
     remote = tmp_path / 'remote.git'
     subprocess.run(['git', 'init', '--bare', str(remote)], check=True, capture_output=True)
@@ -29,6 +29,9 @@ def fixture(tmp_path, event_sha=None, workflow='Intraday Detector'):
     guard, root = load_guard(), tmp_path / 'journal'
     context = {**env(), 'GITHUB_WORKFLOW': workflow, 'GITHUB_SHA': event_sha or sha,
                'GITHUB_WORKSPACE': str(workspace)}
+    if hook:
+        context['GITHUB_OUTPUT'] = str(tmp_path / 'hook-output')
+        Path(context['GITHUB_OUTPUT']).touch()
     guard.start(root, context)
     guard.checkpoint_checkout(root, context)
     (workspace / 'state/violations.json').write_text('{"news_errors":[{"symbol":"AMD","error":"source unavailable"}]}')
@@ -45,6 +48,11 @@ def fixture(tmp_path, event_sha=None, workflow='Intraday Detector'):
     steps['weekly_execution']['outputs'] = {'executed': 'false'}
     steps['trade']['outputs'] = {'trade_count': '0'}
     steps['commit']['outputs'] = {'changed': 'true'}
+    if hook:
+        claim = Path(context['GITHUB_OUTPUT']).read_text().strip().split('=', 1)[1]
+        steps['a26c83da3a754645a5cf6f506cd1caa3'] = {
+            'outputs': {'local_runner_claim': claim},
+            'outcome': 'success', 'conclusion': 'success'}
     context['LOCAL_RUNNER_STEPS'] = json.dumps(steps)
     return guard, root, context, steps, workspace
 
