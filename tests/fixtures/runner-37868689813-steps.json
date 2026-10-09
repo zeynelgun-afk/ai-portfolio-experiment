@@ -1,0 +1,187 @@
+{
+  "a26c83da3a754645a5cf6f506cd1caa3": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "checkout": {
+    "outputs": {
+      "commit": "db6b34cef13c65eba7e90d880918e98ce8e35937",
+      "ref": "main"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "baseline": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "dependencies": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "mode": {
+    "outputs": {
+      "full": "true"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "session": {
+    "outputs": {
+      "run": "true"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "corporate": {
+    "outputs": {
+      "changed": "false"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "corporate_commit": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "corporate_notify": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "weekly_execution": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "weekly_commit": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "weekly_notify": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "weekly_evidence": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "detector": {
+    "outputs": {
+      "code": "20",
+      "news_error_count": "4",
+      "measurement_error_count": "0",
+      "market_open": "false",
+      "state_changed": "true",
+      "thesis_symbols": "NVDA",
+      "trigger_summary": "NVDA decision_expired: Decision review deadline reached: 2026-10-08T20:15:00+00:00"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "reassess": {
+    "outputs": {
+      "updated_claims": "MU-1,MU-2,AMD-1,AMD-2,ANET-1",
+      "decision_count": "1",
+      "error_count": "0",
+      "error_items": "",
+      "llm_calls": "50/60"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "intraday_evidence": {
+    "outputs": {
+      "artifact-id": "11589518725",
+      "artifact-digest": "42e5f1e32836dd60222b26b7a1517eb9c49483b3cac0d8b2a4798c569ec52aa7",
+      "artifact-url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37868689813/artifacts/11589518725"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "trade": {
+    "outputs": {
+      "monitoring_changed": "false",
+      "trade_count": "0",
+      "trade_summary": "none",
+      "rejected_count": "1"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "refresh": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "prompt_adapt": {
+    "outputs": {
+      "code": "0"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "research_metrics": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "commit": {
+    "outputs": {
+      "changed": "true"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "decision_notify": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "daily_notify": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "assessment_summary": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "reassessment_health": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "news_health": {
+    "outputs": {},
+    "outcome": "failure",
+    "conclusion": "failure"
+  },
+  "prompt_health": {
+    "outputs": {},
+    "outcome": "skipped",
+    "conclusion": "skipped"
+  },
+  "provider_health": {
+    "outputs": {},
+    "outcome": "success",
+    "conclusion": "success"
+  },
+  "provider_evidence": {
+    "outputs": {
+      "artifact-id": "11589797310",
+      "artifact-digest": "567024d21f0fc0a82ea5d67420f31f1bcd9d5122553c79091ae5b89bd5bf8daa",
+      "artifact-url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/37868689813/artifacts/11589797310"
+    },
+    "outcome": "success",
+    "conclusion": "success"
+  }
+}
