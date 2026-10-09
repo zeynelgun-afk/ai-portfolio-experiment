@@ -448,3 +448,24 @@ The Saturday round reassesses this decision.
 **The model's reasoning:** Retain the position without adding: dated FMP cash generation and balance-sheet strength remain affirmative evidence, while the new supportive excerpts do not establish durable contractual economics. Strike authorization warrants an early evidence checkpoint, but the packet reports neither an actual production stoppage nor measured financial deterioration. The intraday decline alongside semiconductor-sector weakness does not establish issuer-specific causation. Unchanged consensus averages and unresolved primary-source gaps weaken the case for adding; they do not independently justify selling. Existing downside tests and the weekly-close stop remain unchanged.
 
 The Saturday round reassesses this decision.
+
+## 2026-10-09T01:14Z · NVDA · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-08T20:15:00+00:00
+
+**Thesis assessment:** The review deadline requires a fresh decision, not an automatic trade. Dated financial measurements support strong annual revenue growth, high margins and positive free cash flow. I remove the rejected draft's sequential-deterioration premise: the cited ledger entries establish financial levels, not comparable prior-period directions, which remain unverified under the supplied citation protocol. The financial claim returns to valid on that narrower basis. The stale intraday quote remains above the dated moving averages and retained downside floor and is slightly above the supplied previous close, correcting the old below-close description. A closing measurement is unavailable. CNBC's OpenAI revenue report raises customer-demand uncertainty without establishing Nvidia order impairment, while the earnings-calendar conflict and valuation gap remain unresolved.
+
+**Intraday decision:** HOLD · reasoning: Retain existing exposure without adding. The dated financial measurements remain above the unchanged fundamental review floors, and the available stale quote clears the fixed downside review floor. These observations support continued ownership but do not establish current execution prices or attractive valuation. CNBC's customer-revenue report raises a demand question rather than proving canceled orders or impaired profitability. Favorable guidance and profitability commentary offer countercontext, not independently verified forward results. Apparent analyst target reductions have attribution and horizon limitations. The expected closing measurement is still absent; I explicitly reconsider that gap and retain the position on the dated business evidence, with another review around the next session opening.
+**Falsifier:** A fresh measured price below the retained fixed downside review floor would falsify the price-support premise for this HOLD and require whole-thesis reassessment rather than lowering the threshold.
+
+**Note for the Saturday round:** Obtain citation-addressable comparable financial statements before asserting sequential cash-flow or debt trends. Reconcile the earnings calendars and analyst attribution, obtain fresh market measurements, and investigate whether customer monetization concerns or rival-networking developments affect Nvidia orders, collections or margins.
+
+## 2026-10-09T01:23Z · NVDA · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Retain existing exposure without adding. The dated financial measurements remain above the unchanged fundamental review floors, and the available stale quote clears the fixed downside review floor. These observations support continued ownership but do not establish current execution prices or attractive valuation. CNBC's customer-revenue report raises a demand question rather than proving canceled orders or impaired profitability. Favorable guidance and profitability commentary offer countercontext, not independently verified forward results. Apparent analyst target reductions have attribution and horizon limitations. The expected closing measurement is still absent; I explicitly reconsider that gap and retain the position on the dated business evidence, with another review around the next session opening.
+
+The Saturday round reassesses this decision.
