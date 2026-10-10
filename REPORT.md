@@ -31,4 +31,28 @@ Gap vs SPY: **+5.51 pp** · vs SMH: **+1.65 pp**
 
 No warnings — every position is above its exit level.
 
+## Deferral counters
+
+Computed from DECISION_LOG.md (counters.py) — these numbers are not re-derived during the
+round, they are read from here. Resetting one requires either a position being opened or
+the symbol being dropped from the list.
+
+| Symbol | Deferred | Note |
+|---|---|---|
+| AXON | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| AYI | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BAH | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BDC | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BELFB | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BHE | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BILL | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BOX | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BR | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| BRZE | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| CCI | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| FSLY | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| SO | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| SRE | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+| TLN | 10/3 | **THRESHOLD REACHED — this round: open a position or DROP FROM LIST** |
+
 *Automated report (update.py). Decisions and theses: DECISION_LOG.md*

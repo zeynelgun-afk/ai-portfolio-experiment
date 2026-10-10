@@ -1,0 +1,1790 @@
+{
+  "observed_at": "2026-10-10T19:02:37.179611+00:00",
+  "channels": {
+    "momentum": {
+      "provider": "FMP",
+      "rows": [
+        {
+          "symbol": "WFF",
+          "price": 12.29,
+          "name": "WF Holding Limited",
+          "changesPercentage": 499.5122
+        },
+        {
+          "symbol": "JZ",
+          "price": 1.28,
+          "name": "Jianzhi Education Technology Group Company Limited",
+          "changesPercentage": 53.55086
+        },
+        {
+          "symbol": "ZYBT",
+          "price": 1.73,
+          "name": "Zhengye Biotechnology Holding Limited",
+          "changesPercentage": 50.44787
+        },
+        {
+          "symbol": "VEEA",
+          "price": 5.7,
+          "name": "Veea Inc.",
+          "changesPercentage": 47.28682
+        },
+        {
+          "symbol": "QETA",
+          "price": 16.41,
+          "name": "Quetta Acquisition Corporation",
+          "changesPercentage": 41.46552
+        },
+        {
+          "symbol": "PDSB",
+          "price": 1.38,
+          "name": "PDS Biotechnology Corporation",
+          "changesPercentage": 35.29412
+        },
+        {
+          "symbol": "OFAL",
+          "price": 0.55,
+          "name": "OFA Group",
+          "changesPercentage": 33.59242
+        },
+        {
+          "symbol": "NXGL",
+          "price": 0.2003,
+          "name": "NEXGEL, Inc.",
+          "changesPercentage": 33.53333
+        },
+        {
+          "symbol": "MRNX",
+          "price": 183.82,
+          "name": "Daily Target 2X Long MRNA ETF",
+          "changesPercentage": 27.64391
+        },
+        {
+          "symbol": "QSI",
+          "price": 1.53,
+          "name": "Quantum-Si incorporated",
+          "changesPercentage": 25.40984
+        },
+        {
+          "symbol": "CCM",
+          "price": 3.88,
+          "name": "Concord Medical Services Holdings Limited",
+          "changesPercentage": 25.16129
+        },
+        {
+          "symbol": "CUE",
+          "price": 27.66,
+          "name": "Cue Biopharma, Inc.",
+          "changesPercentage": 23.86923
+        },
+        {
+          "symbol": "NAUT",
+          "price": 2.25,
+          "name": "Nautilus Biotechnolgy, Inc.",
+          "changesPercentage": 23.62637
+        },
+        {
+          "symbol": "SMJF",
+          "price": 1.53,
+          "name": "SMJ International Holdings Inc.",
+          "changesPercentage": 23.3871
+        },
+        {
+          "symbol": "AGRZ",
+          "price": 4.42,
+          "name": "Agroz Inc. Ordinary Shares",
+          "changesPercentage": 22.09945
+        },
+        {
+          "symbol": "SLSN",
+          "price": 1.02,
+          "name": "Solesence, Inc. Common Stock",
+          "changesPercentage": 21.98039
+        },
+        {
+          "symbol": "HIMZ",
+          "price": 29.08,
+          "name": "Daily Target 2X Long HIMS ETF",
+          "changesPercentage": 20.32041
+        },
+        {
+          "symbol": "MOGU",
+          "price": 2.24,
+          "name": "MOGU Inc.",
+          "changesPercentage": 20.10724
+        },
+        {
+          "symbol": "KCHVR",
+          "price": 0.1199,
+          "name": "Kochav Defense Acquisition Corp. Right",
+          "changesPercentage": 19.9
+        },
+        {
+          "symbol": "BIDWR",
+          "price": 0.11,
+          "name": "Tribeca Strategic Acquisition Corp.",
+          "changesPercentage": 18.09091
+        },
+        {
+          "symbol": "YDES",
+          "price": 6.73,
+          "name": "YD Bio Limited Ordinary Shares",
+          "changesPercentage": 16.23489
+        },
+        {
+          "symbol": "KLRA",
+          "price": 11.61,
+          "name": "Kailera Therapeutics, Inc.",
+          "changesPercentage": 16.1
+        },
+        {
+          "symbol": "FSLY",
+          "price": 29.3,
+          "name": "Fastly, Inc.",
+          "changesPercentage": 15.85607
+        },
+        {
+          "symbol": "NVAX",
+          "price": 12.75,
+          "name": "Novavax, Inc.",
+          "changesPercentage": 15.80381
+        },
+        {
+          "symbol": "IFBD",
+          "price": 0.9714,
+          "name": "Infobird Co., Ltd",
+          "changesPercentage": 15.64286
+        },
+        {
+          "symbol": "CCI",
+          "price": 79.64,
+          "name": "Crown Castle Inc.",
+          "changesPercentage": 15.60459
+        },
+        {
+          "symbol": "VRXA",
+          "price": 1.26,
+          "name": "Veraxa Biotech Holding AG",
+          "changesPercentage": 15.59633
+        },
+        {
+          "symbol": "RDGT",
+          "price": 1.01,
+          "name": "Ridgetech, Inc.",
+          "changesPercentage": 15.45496
+        },
+        {
+          "symbol": "TDOT",
+          "price": 14.461,
+          "name": "21shares Polkadot ETF Shares of Beneficial Interest",
+          "changesPercentage": 15.2225
+        },
+        {
+          "symbol": "ENSC",
+          "price": 0.527,
+          "name": "Ensysce Biosciences, Inc.",
+          "changesPercentage": 15.0655
+        }
+      ],
+      "observed_at": "2026-10-10T19:02:37.179611+00:00"
+    },
+    "dislocation": {
+      "provider": "FMP",
+      "rows": [
+        {
+          "symbol": "SEQUX",
+          "price": 51.45,
+          "name": "Sequoia Fund",
+          "changesPercentage": -74.78065
+        },
+        {
+          "symbol": "SXTC",
+          "price": 0.1487,
+          "name": "China SXT Pharmaceuticals, Inc.",
+          "changesPercentage": -56.71033
+        },
+        {
+          "symbol": "DKI",
+          "price": 0.3424,
+          "name": "DarkIris Inc. Class A Ordinary Shares",
+          "changesPercentage": -54.08341
+        },
+        {
+          "symbol": "MLEC",
+          "price": 2.2,
+          "name": "Moolec Science S.A.",
+          "changesPercentage": -47.49403
+        },
+        {
+          "symbol": "AMPGZ",
+          "price": 0.103,
+          "name": "Amplitech Group, Inc. Series B Right",
+          "changesPercentage": -45.76093
+        },
+        {
+          "symbol": "ALISU",
+          "price": 23.1,
+          "name": "Calisa Acquisition Corp Units",
+          "changesPercentage": -42.25
+        },
+        {
+          "symbol": "XRPN",
+          "price": 17.09,
+          "name": "Armada Acquisition Corp. II",
+          "changesPercentage": -29.38017
+        },
+        {
+          "symbol": "PFAI",
+          "price": 3.05,
+          "name": "Pinnacle Food Group Limited Class A Common Shares",
+          "changesPercentage": -27.89598
+        },
+        {
+          "symbol": "CABO",
+          "price": 11.14,
+          "name": "Cable One, Inc.",
+          "changesPercentage": -27.56827
+        },
+        {
+          "symbol": "TRUG",
+          "price": 1.89,
+          "name": "TruGolf Holdings, Inc.",
+          "changesPercentage": -26.17188
+        },
+        {
+          "symbol": "PLCE",
+          "price": 1.42,
+          "name": "The Children's Place, Inc.",
+          "changesPercentage": -26.04167
+        },
+        {
+          "symbol": "XRTX",
+          "price": 1.41,
+          "name": "XORTX Therapeutics Inc.",
+          "changesPercentage": -23.78378
+        },
+        {
+          "symbol": "SDEV",
+          "price": 1.54,
+          "name": "NovaBay Pharmaceuticals, Inc.",
+          "changesPercentage": -22.61307
+        },
+        {
+          "symbol": "SBFM",
+          "price": 0.3378,
+          "name": "Sunshine Biopharma, Inc.",
+          "changesPercentage": -21.44186
+        },
+        {
+          "symbol": "CD",
+          "price": 8.66,
+          "name": "Chaince Digital Holdings Inc.",
+          "changesPercentage": -20.62328
+        },
+        {
+          "symbol": "NSTR",
+          "price": 3.28,
+          "name": "NorthStar Earth & Space Enterprises, Inc.",
+          "changesPercentage": -20.38835
+        },
+        {
+          "symbol": "MOBX",
+          "price": 0.8999,
+          "name": "Mobix Labs, Inc.",
+          "changesPercentage": -20.36283
+        },
+        {
+          "symbol": "BAFN",
+          "price": 5.38,
+          "name": "BayFirst Financial Corp.",
+          "changesPercentage": -19.94048
+        },
+        {
+          "symbol": "TORO",
+          "price": 4.41,
+          "name": "Toro Corp.",
+          "changesPercentage": -19.52555
+        },
+        {
+          "symbol": "BHR",
+          "price": 1.21,
+          "name": "Braemar Hotels & Resorts Inc.",
+          "changesPercentage": -18.79195
+        },
+        {
+          "symbol": "AIOK",
+          "price": 8.7,
+          "name": "AI OKTO Corp.",
+          "changesPercentage": -18.61553
+        },
+        {
+          "symbol": "WHLR",
+          "price": 0.5721,
+          "name": "Wheeler Real Estate Investment Trust, Inc.",
+          "changesPercentage": -18.02551
+        },
+        {
+          "symbol": "RZAI",
+          "price": 10.15,
+          "name": "Roze AI Inc.",
+          "changesPercentage": -17.41253
+        },
+        {
+          "symbol": "TWLVR",
+          "price": 0.0753,
+          "name": "Twelve Seas Investment Company III",
+          "changesPercentage": -17.25275
+        },
+        {
+          "symbol": "DTSQR",
+          "price": 0.1001,
+          "name": "DT Cloud Star Acquisition Corporation",
+          "changesPercentage": -16.58333
+        },
+        {
+          "symbol": "NTCL",
+          "price": 1.5,
+          "name": "NetClass Technology Inc",
+          "changesPercentage": -16.43454
+        },
+        {
+          "symbol": "BIAF",
+          "price": 4.725,
+          "name": "bioAffinity Technologies, Inc.",
+          "changesPercentage": -16.2234
+        },
+        {
+          "symbol": "IPDN",
+          "price": 3.53,
+          "name": "Professional Diversity Network, Inc.",
+          "changesPercentage": -16.15202
+        },
+        {
+          "symbol": "ZENA",
+          "price": 1.11,
+          "name": "ZenaTech, Inc.",
+          "changesPercentage": -15.90909
+        },
+        {
+          "symbol": "MCRP",
+          "price": 0.4592,
+          "name": "Micropolis AI Robotics",
+          "changesPercentage": -15.82035
+        }
+      ],
+      "observed_at": "2026-10-10T19:02:37.179611+00:00"
+    },
+    "structural_universe": {
+      "provider": "FMP",
+      "rows": [
+        {
+          "symbol": "BBAI",
+          "companyName": "BigBear.ai Holdings, Inc.",
+          "marketCap": 1145991779,
+          "sector": "Technology",
+          "industry": "Information Technology Services",
+          "price": 2.39
+        },
+        {
+          "symbol": "BBLC",
+          "companyName": "Blockchain Loyalty Corp.",
+          "marketCap": 4713742,
+          "sector": "Technology",
+          "industry": "Information Technology Services",
+          "price": 0.055
+        },
+        {
+          "symbol": "BCBC",
+          "companyName": "Bitcoin Bancorp",
+          "marketCap": 19341962,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 0.049
+        },
+        {
+          "symbol": "BCDS",
+          "companyName": "BlaqClouds Inc.",
+          "marketCap": 21842126,
+          "sector": "Technology",
+          "industry": "Information Technology Services",
+          "price": 0.02385
+        },
+        {
+          "symbol": "BCRD",
+          "companyName": "Blueone Card Inc.",
+          "marketCap": 79119816,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 5.52
+        },
+        {
+          "symbol": "BDC",
+          "companyName": "Belden Inc.",
+          "marketCap": 4265384548,
+          "sector": "Technology",
+          "industry": "Communication Equipment",
+          "price": 109.15
+        },
+        {
+          "symbol": "BELFB",
+          "companyName": "Bel Fuse Inc.",
+          "marketCap": 2960270058,
+          "sector": "Technology",
+          "industry": "Hardware, Equipment & Parts",
+          "price": 244.5
+        },
+        {
+          "symbol": "BGDE",
+          "companyName": "Big Digital Energy, Inc.",
+          "marketCap": 28324013,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 5.13
+        },
+        {
+          "symbol": "BHE",
+          "companyName": "Benchmark Electronics, Inc.",
+          "marketCap": 2926394253,
+          "sector": "Technology",
+          "industry": "Hardware, Equipment & Parts",
+          "price": 81.47
+        },
+        {
+          "symbol": "BILL",
+          "companyName": "Bill.com Holdings, Inc.",
+          "marketCap": 4464920061,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 44.83
+        },
+        {
+          "symbol": "BKKT",
+          "companyName": "Bakkt Holdings, Inc.",
+          "marketCap": 306932624,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 6.88
+        },
+        {
+          "symbol": "BKSY",
+          "companyName": "BlackSky Technology Inc.",
+          "marketCap": 856079872,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 20.92
+        },
+        {
+          "symbol": "BKTI",
+          "companyName": "BK Technologies Corporation",
+          "marketCap": 275273437,
+          "sector": "Technology",
+          "industry": "Communication Equipment",
+          "price": 73.52
+        },
+        {
+          "symbol": "BKYI",
+          "companyName": "BIO-key International, Inc.",
+          "marketCap": 1812551,
+          "sector": "Technology",
+          "industry": "Information Technology Services",
+          "price": 1.67
+        },
+        {
+          "symbol": "BL",
+          "companyName": "BlackLine, Inc.",
+          "marketCap": 1746335499,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 29.77
+        },
+        {
+          "symbol": "BLIN",
+          "companyName": "Bridgeline Digital, Inc.",
+          "marketCap": 9325170,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 0.7401
+        },
+        {
+          "symbol": "BLKB",
+          "companyName": "Blackbaud, Inc.",
+          "marketCap": 2064341748,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 45.48
+        },
+        {
+          "symbol": "BLND",
+          "companyName": "Blend Labs, Inc.",
+          "marketCap": 241172393,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 0.9961
+        },
+        {
+          "symbol": "BLZE",
+          "companyName": "Backblaze, Inc.",
+          "marketCap": 761586936,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 12.69
+        },
+        {
+          "symbol": "BNAI",
+          "companyName": "Brand Engagement Network, Inc.",
+          "marketCap": 35142118,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 5.19
+        },
+        {
+          "symbol": "BOX",
+          "companyName": "Box, Inc.",
+          "marketCap": 5041215870,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 36.39
+        },
+        {
+          "symbol": "BOXL",
+          "companyName": "Boxlight Corporation",
+          "marketCap": 2221300,
+          "sector": "Technology",
+          "industry": "Consumer Electronics",
+          "price": 3.33
+        },
+        {
+          "symbol": "BR",
+          "companyName": "Broadridge Financial Solutions, Inc.",
+          "marketCap": 19135616100,
+          "sector": "Technology",
+          "industry": "Information Technology Services",
+          "price": 165.45
+        },
+        {
+          "symbol": "BRUN",
+          "companyName": "Boost Run Inc. Class A Common Stock",
+          "marketCap": 1064606539,
+          "sector": "Technology",
+          "industry": "Software - Infrastructure",
+          "price": 13.18
+        },
+        {
+          "symbol": "BRZE",
+          "companyName": "Braze, Inc.",
+          "marketCap": 3273076301,
+          "sector": "Technology",
+          "industry": "Software - Application",
+          "price": 29.06
+        },
+        {
+          "symbol": "AVEX",
+          "companyName": "Aevex Corp.",
+          "marketCap": 826160972,
+          "sector": "Industrials",
+          "industry": "Aerospace & Defense",
+          "price": 14.63
+        },
+        {
+          "symbol": "AVX",
+          "companyName": "Avax One Technology Ltd",
+          "marketCap": 35778364,
+          "sector": "Industrials",
+          "industry": "Specialty Business Services",
+          "price": 4.79
+        },
+        {
+          "symbol": "AWAW",
+          "companyName": "White Fox Ventures, Inc.",
+          "marketCap": 24546267,
+          "sector": "Industrials",
+          "industry": "Specialty Business Services",
+          "price": 0.0212
+        },
+        {
+          "symbol": "AWON",
+          "companyName": "A1 Group, Inc.",
+          "marketCap": 65046,
+          "sector": "Industrials",
+          "industry": "Conglomerates",
+          "price": 0.0019
+        },
+        {
+          "symbol": "AWRY",
+          "companyName": "Allegheny & Western Railway Co.",
+          "marketCap": 2304000,
+          "sector": "Industrials",
+          "industry": "Railroads",
+          "price": 72
+        },
+        {
+          "symbol": "AWX",
+          "companyName": "Avalon Holdings Corporation",
+          "marketCap": 9630567,
+          "sector": "Industrials",
+          "industry": "Waste Management",
+          "price": 2.47
+        },
+        {
+          "symbol": "AXCG",
+          "companyName": "Eyes on the Go, Inc.",
+          "marketCap": 31542,
+          "sector": "Industrials",
+          "industry": "Specialty Business Services",
+          "price": 1e-05
+        },
+        {
+          "symbol": "AXON",
+          "companyName": "Axon Enterprise, Inc.",
+          "marketCap": 34085812343,
+          "sector": "Industrials",
+          "industry": "Aerospace & Defense",
+          "price": 422.89
+        },
+        {
+          "symbol": "AXPWQ",
+          "companyName": "Axion Power International, Inc.",
+          "marketCap": 9595,
+          "sector": "Industrials",
+          "industry": "Electrical Equipment & Parts",
+          "price": 0.0001
+        },
+        {
+          "symbol": "AXXA",
+          "companyName": "Exxe Group Inc.",
+          "marketCap": 774788,
+          "sector": "Industrials",
+          "industry": "Conglomerates",
+          "price": 0.0004
+        },
+        {
+          "symbol": "AYI",
+          "companyName": "Acuity Brands, Inc.",
+          "marketCap": 8930971092,
+          "sector": "Industrials",
+          "industry": "Electrical Equipment & Parts",
+          "price": 298.34
+        },
+        {
+          "symbol": "AZZ",
+          "companyName": "AZZ Inc.",
+          "marketCap": 4112547775,
+          "sector": "Industrials",
+          "industry": "Industrial - Specialties",
+          "price": 136.85
+        },
+        {
+          "symbol": "BA",
+          "companyName": "The Boeing Company",
+          "marketCap": 150462736900,
+          "sector": "Industrials",
+          "industry": "Aerospace & Defense",
+          "price": 190.37
+        },
+        {
+          "symbol": "BA.TO",
+          "companyName": "The Boeing Company",
+          "marketCap": 195769667559,
+          "sector": "Industrials",
+          "industry": "Aerospace & Defense",
+          "price": 31.42
+        },
+        {
+          "symbol": "BAC.BA",
+          "companyName": "Boeing Co. Cedear Each 6 Rep 1",
+          "marketCap": 150980206376,
+          "sector": "Industrials",
+          "industry": "Aerospace & Defense",
+          "price": 7.96
+        },
+        {
+          "symbol": "BAER",
+          "companyName": "Bridger Aerospace Group Holdings, Inc. Common Stock",
+          "marketCap": 34893828,
+          "sector": "Industrials",
+          "industry": "Security & Protection Services",
+          "price": 0.6054
+        },
+        {
+          "symbol": "BAH",
+          "companyName": "Booz Allen Hamilton Holding Corporation",
+          "marketCap": 8893870904,
+          "sector": "Industrials",
+          "industry": "Consulting Services",
+          "price": 73.94
+        },
+        {
+          "symbol": "BBCP",
+          "companyName": "Concrete Pumping Holdings, Inc.",
+          "marketCap": 471682411,
+          "sector": "Industrials",
+          "industry": "Engineering & Construction",
+          "price": 9.36
+        },
+        {
+          "symbol": "BBIG",
+          "companyName": "Vinco Ventures, Inc.",
+          "marketCap": 17551,
+          "sector": "Industrials",
+          "industry": "Conglomerates",
+          "price": 0.0008
+        },
+        {
+          "symbol": "BBOE",
+          "companyName": "Black Box Entertainment Ltd.",
+          "marketCap": 8155275,
+          "sector": "Industrials",
+          "industry": "Specialty Business Services",
+          "price": 0.59
+        },
+        {
+          "symbol": "BBRW",
+          "companyName": "BrewBilt Manufacturing Inc.",
+          "marketCap": 158475,
+          "sector": "Industrials",
+          "industry": "Industrial - Machinery",
+          "price": 0.0001
+        },
+        {
+          "symbol": "BBSI",
+          "companyName": "Barrett Business Services, Inc.",
+          "marketCap": 779032066,
+          "sector": "Industrials",
+          "industry": "Staffing & Employment Services",
+          "price": 31.72
+        },
+        {
+          "symbol": "BBXIA",
+          "companyName": "BBX Capital, Inc.",
+          "marketCap": 49103376,
+          "sector": "Industrials",
+          "industry": "Conglomerates",
+          "price": 3.55
+        },
+        {
+          "symbol": "BCHT",
+          "companyName": "Birchtech Corp.",
+          "marketCap": 36565293,
+          "sector": "Industrials",
+          "industry": "Industrial - Pollution & Treatment Controls",
+          "price": 1.39
+        },
+        {
+          "symbol": "BCHT.TO",
+          "companyName": "Birchtech Corp.",
+          "marketCap": 53401180,
+          "sector": "Industrials",
+          "industry": "Industrial - Pollution & Treatment Controls",
+          "price": 2.03
+        },
+        {
+          "symbol": "FTW",
+          "companyName": "Presidio Production Company",
+          "marketCap": 307962959,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 9.83
+        },
+        {
+          "symbol": "FTXP",
+          "companyName": "Foothills Exploration, Inc.",
+          "marketCap": 1386260,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 0.0001
+        },
+        {
+          "symbol": "GAPJ",
+          "companyName": "Golden Apple Oil & Gas Inc.",
+          "marketCap": 5000,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 0.0002
+        },
+        {
+          "symbol": "GEL",
+          "companyName": "Genesis Energy, L.P.",
+          "marketCap": 1767807195,
+          "sector": "Energy",
+          "industry": "Oil & Gas Midstream",
+          "price": 14.44
+        },
+        {
+          "symbol": "GEOS",
+          "companyName": "Geospace Technologies Corporation",
+          "marketCap": 60538608,
+          "sector": "Energy",
+          "industry": "Oil & Gas Equipment & Services",
+          "price": 4.68
+        },
+        {
+          "symbol": "GFGY",
+          "companyName": "Granite Falls Energy, LLC",
+          "marketCap": 173842080,
+          "sector": "Energy",
+          "industry": "Oil & Gas Refining & Marketing",
+          "price": 5680
+        },
+        {
+          "symbol": "GLND",
+          "companyName": "Greenland Energy Company Common Stock",
+          "marketCap": 109762779,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 2.51
+        },
+        {
+          "symbol": "GLP",
+          "companyName": "Global Partners LP",
+          "marketCap": 1677168512,
+          "sector": "Energy",
+          "industry": "Oil & Gas Midstream",
+          "price": 49.37
+        },
+        {
+          "symbol": "GPOR",
+          "companyName": "Gulfport Energy Corp",
+          "marketCap": 2922935136,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 162.66
+        },
+        {
+          "symbol": "GPTC",
+          "companyName": "Golden Patriot, Corp.",
+          "marketCap": 67658,
+          "sector": "Energy",
+          "industry": "Oil & Gas Equipment & Services",
+          "price": 0.0006
+        },
+        {
+          "symbol": "GRNT",
+          "companyName": "Granite Ridge Resources, Inc",
+          "marketCap": 629143915,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 4.77
+        },
+        {
+          "symbol": "GRYG",
+          "companyName": "Green Energy Group, Inc.",
+          "marketCap": 3041,
+          "sector": "Energy",
+          "industry": "Solar",
+          "price": 1e-05
+        },
+        {
+          "symbol": "GSFI",
+          "companyName": "Green Stream Holdings Inc.",
+          "marketCap": 654176,
+          "sector": "Energy",
+          "industry": "Oil & Gas Integrated",
+          "price": 0.0001
+        },
+        {
+          "symbol": "GSLO",
+          "companyName": "Go Solar USA, Inc.",
+          "marketCap": 6543,
+          "sector": "Energy",
+          "industry": "Solar",
+          "price": 0.0001
+        },
+        {
+          "symbol": "GSLR",
+          "companyName": "Geosolar Technologies, Inc.",
+          "marketCap": 13110,
+          "sector": "Energy",
+          "industry": "Solar",
+          "price": 0.0002
+        },
+        {
+          "symbol": "GSPE",
+          "companyName": "GulfSlope Energy, Inc",
+          "marketCap": 136048,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 0.0001
+        },
+        {
+          "symbol": "GSVI",
+          "companyName": "GSV, Inc.",
+          "marketCap": 753,
+          "sector": "Energy",
+          "industry": "Oil & Gas Drilling",
+          "price": 0.0001
+        },
+        {
+          "symbol": "GULTU",
+          "companyName": "Gulf Coast Ultra Deep Royalty Trust",
+          "marketCap": 9437081,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 0.041
+        },
+        {
+          "symbol": "GWTI",
+          "companyName": "Greenway Technologies, Inc.",
+          "marketCap": 6380582,
+          "sector": "Energy",
+          "industry": "Oil & Gas Equipment & Services",
+          "price": 0.0138
+        },
+        {
+          "symbol": "HAL",
+          "companyName": "Halliburton Company",
+          "marketCap": 27192196274,
+          "sector": "Energy",
+          "industry": "Oil & Gas Equipment & Services",
+          "price": 32.55
+        },
+        {
+          "symbol": "HAL.DE",
+          "companyName": "Halliburton Company",
+          "marketCap": 24335136021,
+          "sector": "Energy",
+          "industry": "Oil & Gas Equipment & Services",
+          "price": 29.13
+        },
+        {
+          "symbol": "HCC",
+          "companyName": "Warrior Met Coal, Inc.",
+          "marketCap": 4914278789,
+          "sector": "Energy",
+          "industry": "Coal",
+          "price": 93.07
+        },
+        {
+          "symbol": "HDYNQ",
+          "companyName": "Hyperdynamics Corporation",
+          "marketCap": 3557,
+          "sector": "Energy",
+          "industry": "Oil & Gas Exploration & Production",
+          "price": 0.0001
+        },
+        {
+          "symbol": "HENI",
+          "companyName": "HINTO Energy, Inc.",
+          "marketCap": 341844,
+          "sector": "Energy",
+          "industry": "Oil & Gas Integrated",
+          "price": 0.0156
+        },
+        {
+          "symbol": "HESM",
+          "companyName": "Hess Midstream LP",
+          "marketCap": 6666018131,
+          "sector": "Energy",
+          "industry": "Oil & Gas Midstream",
+          "price": 32.26
+        },
+        {
+          "symbol": "RGCO",
+          "companyName": "RGC Resources, Inc.",
+          "marketCap": 231975507,
+          "sector": "Utilities",
+          "industry": "Regulated Gas",
+          "price": 22.29
+        },
+        {
+          "symbol": "RIGH",
+          "companyName": "RightSmile, Inc.",
+          "marketCap": 158566,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 0.0001
+        },
+        {
+          "symbol": "SO",
+          "companyName": "The Southern Company",
+          "marketCap": 99126521200,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 86.17
+        },
+        {
+          "symbol": "SOJC",
+          "companyName": "The Southern Company JR 2017B NT 77",
+          "marketCap": 18430300154,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 18.44
+        },
+        {
+          "symbol": "SOJD",
+          "companyName": "Southern Company (The) Series 2",
+          "marketCap": 19510967700,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 17.43
+        },
+        {
+          "symbol": "SOJE",
+          "companyName": "Southern Company (The) Series 2",
+          "marketCap": 102446585271,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 15.59
+        },
+        {
+          "symbol": "SOJF",
+          "companyName": "Southern Company 6.5 % Notes 2025-15.03.85",
+          "marketCap": 517992000,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 22.92
+        },
+        {
+          "symbol": "SOMN",
+          "companyName": "The Southern Company",
+          "marketCap": 100847568653,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 46.04
+        },
+        {
+          "symbol": "SOPV",
+          "companyName": "Solar Park Initiatives, Inc.",
+          "marketCap": 608,
+          "sector": "Utilities",
+          "industry": "Independent Power Producers",
+          "price": 1e-05
+        },
+        {
+          "symbol": "SOT.DE",
+          "companyName": "The Southern Company",
+          "marketCap": 88382158800,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 76.83
+        },
+        {
+          "symbol": "SR",
+          "companyName": "Spire Inc.",
+          "marketCap": 4635939456,
+          "sector": "Utilities",
+          "industry": "Regulated Gas",
+          "price": 78.42
+        },
+        {
+          "symbol": "SRE",
+          "companyName": "Sempra",
+          "marketCap": 53172527380,
+          "sector": "Utilities",
+          "industry": "Diversified Utilities",
+          "price": 81.34
+        },
+        {
+          "symbol": "SREA",
+          "companyName": "Sempra",
+          "marketCap": 12275206360,
+          "sector": "Utilities",
+          "industry": "Diversified Utilities",
+          "price": 18.79
+        },
+        {
+          "symbol": "SRJN",
+          "companyName": "Spire Inc. 6.375% Junior Subord",
+          "marketCap": 168240000,
+          "sector": "Utilities",
+          "industry": "Regulated Gas",
+          "price": 21.03
+        },
+        {
+          "symbol": "STEM",
+          "companyName": "Stem, Inc.",
+          "marketCap": 37260924,
+          "sector": "Utilities",
+          "industry": "Renewable Utilities",
+          "price": 4.16
+        },
+        {
+          "symbol": "SUME",
+          "companyName": "Summer Energy Holdings, Inc.",
+          "marketCap": 1490347,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 0.04
+        },
+        {
+          "symbol": "SWX",
+          "companyName": "Southwest Gas Holdings, Inc.",
+          "marketCap": 6089621814,
+          "sector": "Utilities",
+          "industry": "Regulated Gas",
+          "price": 84.14
+        },
+        {
+          "symbol": "TLN",
+          "companyName": "Talen Energy Corporation",
+          "marketCap": 17185188179,
+          "sector": "Utilities",
+          "industry": "Independent Power Producers",
+          "price": 378.57
+        },
+        {
+          "symbol": "TPII",
+          "companyName": "Triad Pro Innovators, Inc.",
+          "marketCap": 37043,
+          "sector": "Utilities",
+          "industry": "Renewable Utilities",
+          "price": 0.0001
+        },
+        {
+          "symbol": "TRTI",
+          "companyName": "Transtech Industries, Inc.",
+          "marketCap": 9533408,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 3.2
+        },
+        {
+          "symbol": "TVC",
+          "companyName": "Tennessee Valley Authority",
+          "marketCap": 12516000,
+          "sector": "Utilities",
+          "industry": "Diversified Utilities",
+          "price": 23.84
+        },
+        {
+          "symbol": "TVE",
+          "companyName": "Tennessee Valley Authority PARRS A 2029",
+          "marketCap": 12117000,
+          "sector": "Utilities",
+          "industry": "Independent Power Producers",
+          "price": 23.08
+        },
+        {
+          "symbol": "TXNM",
+          "companyName": "TXNM Energy, Inc.",
+          "marketCap": 6488537270,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 58.61
+        },
+        {
+          "symbol": "UEPCN",
+          "companyName": "Union Electric Company",
+          "marketCap": 7761424000,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 76
+        },
+        {
+          "symbol": "UEPCO",
+          "companyName": "Union Electric Company",
+          "marketCap": 30588404831,
+          "sector": "Utilities",
+          "industry": "Regulated Electric",
+          "price": 89.25
+        }
+      ],
+      "observed_at": "2026-10-10T19:02:37.179611+00:00"
+    },
+    "insider_purchase": {
+      "provider": "FMP",
+      "rows": [
+        {
+          "symbol": "REF",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 15
+        },
+        {
+          "symbol": "REF",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 15
+        },
+        {
+          "symbol": "REF",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 15
+        },
+        {
+          "symbol": "BPRE",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 13.0231
+        },
+        {
+          "symbol": "BPRE",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 12.9904
+        },
+        {
+          "symbol": "BPRE",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 13.0481
+        },
+        {
+          "symbol": "BPRE",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 13.1692
+        },
+        {
+          "symbol": "NEOG",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 11.95
+        },
+        {
+          "symbol": "LCU",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 4.17
+        },
+        {
+          "symbol": "LCU",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 3.99
+        },
+        {
+          "symbol": "LCU",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 4.18
+        },
+        {
+          "symbol": "SKYA",
+          "filingDate": "2026-10-09",
+          "transactionType": "P-Purchase",
+          "price": 1.7787
+        }
+      ],
+      "observed_at": "2026-10-10T19:02:37.179611+00:00"
+    }
+  },
+  "membership": {
+    "WFF": [
+      "momentum"
+    ],
+    "JZ": [
+      "momentum"
+    ],
+    "ZYBT": [
+      "momentum"
+    ],
+    "VEEA": [
+      "momentum"
+    ],
+    "QETA": [
+      "momentum"
+    ],
+    "PDSB": [
+      "momentum"
+    ],
+    "OFAL": [
+      "momentum"
+    ],
+    "NXGL": [
+      "momentum"
+    ],
+    "MRNX": [
+      "momentum"
+    ],
+    "QSI": [
+      "momentum"
+    ],
+    "CCM": [
+      "momentum"
+    ],
+    "CUE": [
+      "momentum"
+    ],
+    "NAUT": [
+      "momentum"
+    ],
+    "SMJF": [
+      "momentum"
+    ],
+    "AGRZ": [
+      "momentum"
+    ],
+    "SLSN": [
+      "momentum"
+    ],
+    "HIMZ": [
+      "momentum"
+    ],
+    "MOGU": [
+      "momentum"
+    ],
+    "KCHVR": [
+      "momentum"
+    ],
+    "BIDWR": [
+      "momentum"
+    ],
+    "YDES": [
+      "momentum"
+    ],
+    "KLRA": [
+      "momentum"
+    ],
+    "FSLY": [
+      "momentum"
+    ],
+    "NVAX": [
+      "momentum"
+    ],
+    "IFBD": [
+      "momentum"
+    ],
+    "CCI": [
+      "momentum"
+    ],
+    "VRXA": [
+      "momentum"
+    ],
+    "RDGT": [
+      "momentum"
+    ],
+    "TDOT": [
+      "momentum"
+    ],
+    "ENSC": [
+      "momentum"
+    ],
+    "SEQUX": [
+      "dislocation"
+    ],
+    "SXTC": [
+      "dislocation"
+    ],
+    "DKI": [
+      "dislocation"
+    ],
+    "MLEC": [
+      "dislocation"
+    ],
+    "AMPGZ": [
+      "dislocation"
+    ],
+    "ALISU": [
+      "dislocation"
+    ],
+    "XRPN": [
+      "dislocation"
+    ],
+    "PFAI": [
+      "dislocation"
+    ],
+    "CABO": [
+      "dislocation"
+    ],
+    "TRUG": [
+      "dislocation"
+    ],
+    "PLCE": [
+      "dislocation"
+    ],
+    "XRTX": [
+      "dislocation"
+    ],
+    "SDEV": [
+      "dislocation"
+    ],
+    "SBFM": [
+      "dislocation"
+    ],
+    "CD": [
+      "dislocation"
+    ],
+    "NSTR": [
+      "dislocation"
+    ],
+    "MOBX": [
+      "dislocation"
+    ],
+    "BAFN": [
+      "dislocation"
+    ],
+    "TORO": [
+      "dislocation"
+    ],
+    "BHR": [
+      "dislocation"
+    ],
+    "AIOK": [
+      "dislocation"
+    ],
+    "WHLR": [
+      "dislocation"
+    ],
+    "RZAI": [
+      "dislocation"
+    ],
+    "TWLVR": [
+      "dislocation"
+    ],
+    "DTSQR": [
+      "dislocation"
+    ],
+    "NTCL": [
+      "dislocation"
+    ],
+    "BIAF": [
+      "dislocation"
+    ],
+    "IPDN": [
+      "dislocation"
+    ],
+    "ZENA": [
+      "dislocation"
+    ],
+    "MCRP": [
+      "dislocation"
+    ],
+    "BBAI": [
+      "structural_universe"
+    ],
+    "BBLC": [
+      "structural_universe"
+    ],
+    "BCBC": [
+      "structural_universe"
+    ],
+    "BCDS": [
+      "structural_universe"
+    ],
+    "BCRD": [
+      "structural_universe"
+    ],
+    "BDC": [
+      "structural_universe"
+    ],
+    "BELFB": [
+      "structural_universe"
+    ],
+    "BGDE": [
+      "structural_universe"
+    ],
+    "BHE": [
+      "structural_universe"
+    ],
+    "BILL": [
+      "structural_universe"
+    ],
+    "BKKT": [
+      "structural_universe"
+    ],
+    "BKSY": [
+      "structural_universe"
+    ],
+    "BKTI": [
+      "structural_universe"
+    ],
+    "BKYI": [
+      "structural_universe"
+    ],
+    "BL": [
+      "structural_universe"
+    ],
+    "BLIN": [
+      "structural_universe"
+    ],
+    "BLKB": [
+      "structural_universe"
+    ],
+    "BLND": [
+      "structural_universe"
+    ],
+    "BLZE": [
+      "structural_universe"
+    ],
+    "BNAI": [
+      "structural_universe"
+    ],
+    "BOX": [
+      "structural_universe"
+    ],
+    "BOXL": [
+      "structural_universe"
+    ],
+    "BR": [
+      "structural_universe"
+    ],
+    "BRUN": [
+      "structural_universe"
+    ],
+    "BRZE": [
+      "structural_universe"
+    ],
+    "AVEX": [
+      "structural_universe"
+    ],
+    "AVX": [
+      "structural_universe"
+    ],
+    "AWAW": [
+      "structural_universe"
+    ],
+    "AWON": [
+      "structural_universe"
+    ],
+    "AWRY": [
+      "structural_universe"
+    ],
+    "AWX": [
+      "structural_universe"
+    ],
+    "AXCG": [
+      "structural_universe"
+    ],
+    "AXON": [
+      "structural_universe"
+    ],
+    "AXPWQ": [
+      "structural_universe"
+    ],
+    "AXXA": [
+      "structural_universe"
+    ],
+    "AYI": [
+      "structural_universe"
+    ],
+    "AZZ": [
+      "structural_universe"
+    ],
+    "BA": [
+      "structural_universe"
+    ],
+    "BA.TO": [
+      "structural_universe"
+    ],
+    "BAC.BA": [
+      "structural_universe"
+    ],
+    "BAER": [
+      "structural_universe"
+    ],
+    "BAH": [
+      "structural_universe"
+    ],
+    "BBCP": [
+      "structural_universe"
+    ],
+    "BBIG": [
+      "structural_universe"
+    ],
+    "BBOE": [
+      "structural_universe"
+    ],
+    "BBRW": [
+      "structural_universe"
+    ],
+    "BBSI": [
+      "structural_universe"
+    ],
+    "BBXIA": [
+      "structural_universe"
+    ],
+    "BCHT": [
+      "structural_universe"
+    ],
+    "BCHT.TO": [
+      "structural_universe"
+    ],
+    "FTW": [
+      "structural_universe"
+    ],
+    "FTXP": [
+      "structural_universe"
+    ],
+    "GAPJ": [
+      "structural_universe"
+    ],
+    "GEL": [
+      "structural_universe"
+    ],
+    "GEOS": [
+      "structural_universe"
+    ],
+    "GFGY": [
+      "structural_universe"
+    ],
+    "GLND": [
+      "structural_universe"
+    ],
+    "GLP": [
+      "structural_universe"
+    ],
+    "GPOR": [
+      "structural_universe"
+    ],
+    "GPTC": [
+      "structural_universe"
+    ],
+    "GRNT": [
+      "structural_universe"
+    ],
+    "GRYG": [
+      "structural_universe"
+    ],
+    "GSFI": [
+      "structural_universe"
+    ],
+    "GSLO": [
+      "structural_universe"
+    ],
+    "GSLR": [
+      "structural_universe"
+    ],
+    "GSPE": [
+      "structural_universe"
+    ],
+    "GSVI": [
+      "structural_universe"
+    ],
+    "GULTU": [
+      "structural_universe"
+    ],
+    "GWTI": [
+      "structural_universe"
+    ],
+    "HAL": [
+      "structural_universe"
+    ],
+    "HAL.DE": [
+      "structural_universe"
+    ],
+    "HCC": [
+      "structural_universe"
+    ],
+    "HDYNQ": [
+      "structural_universe"
+    ],
+    "HENI": [
+      "structural_universe"
+    ],
+    "HESM": [
+      "structural_universe"
+    ],
+    "RGCO": [
+      "structural_universe"
+    ],
+    "RIGH": [
+      "structural_universe"
+    ],
+    "SO": [
+      "structural_universe"
+    ],
+    "SOJC": [
+      "structural_universe"
+    ],
+    "SOJD": [
+      "structural_universe"
+    ],
+    "SOJE": [
+      "structural_universe"
+    ],
+    "SOJF": [
+      "structural_universe"
+    ],
+    "SOMN": [
+      "structural_universe"
+    ],
+    "SOPV": [
+      "structural_universe"
+    ],
+    "SOT.DE": [
+      "structural_universe"
+    ],
+    "SR": [
+      "structural_universe"
+    ],
+    "SRE": [
+      "structural_universe"
+    ],
+    "SREA": [
+      "structural_universe"
+    ],
+    "SRJN": [
+      "structural_universe"
+    ],
+    "STEM": [
+      "structural_universe"
+    ],
+    "SUME": [
+      "structural_universe"
+    ],
+    "SWX": [
+      "structural_universe"
+    ],
+    "TLN": [
+      "structural_universe"
+    ],
+    "TPII": [
+      "structural_universe"
+    ],
+    "TRTI": [
+      "structural_universe"
+    ],
+    "TVC": [
+      "structural_universe"
+    ],
+    "TVE": [
+      "structural_universe"
+    ],
+    "TXNM": [
+      "structural_universe"
+    ],
+    "UEPCN": [
+      "structural_universe"
+    ],
+    "UEPCO": [
+      "structural_universe"
+    ],
+    "REF": [
+      "insider_purchase",
+      "insider_purchase",
+      "insider_purchase"
+    ],
+    "BPRE": [
+      "insider_purchase",
+      "insider_purchase",
+      "insider_purchase",
+      "insider_purchase"
+    ],
+    "NEOG": [
+      "insider_purchase"
+    ],
+    "LCU": [
+      "insider_purchase",
+      "insider_purchase",
+      "insider_purchase"
+    ],
+    "SKYA": [
+      "insider_purchase"
+    ]
+  },
+  "unavailable_channels": [],
+  "limits": "Feed membership is a candidate signal, not proof of undervaluation, a bottleneck or future returns.",
+  "selected": [
+    "BR",
+    "TLN",
+    "SO",
+    "SRE",
+    "AYI",
+    "BDC",
+    "BELFB",
+    "BHE",
+    "BOX",
+    "BILL",
+    "BRZE",
+    "BAH",
+    "AXON",
+    "CCI",
+    "FSLY"
+  ],
+  "retained_holdings": [
+    "AMD",
+    "ANET",
+    "MU",
+    "NVDA"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "active": [
+    "source_labels"
+  ],
+  "history": [
+    {
+      "action": "activate",
+      "at": "2026-10-10T19:02:36.892126+00:00",
+      "baseline_rate": 0.1631578947368421,
+      "recipe": "source_labels"
+    }
+  ],
+  "quarantined": [],
+  "trial": {
+    "baseline_rate": 0.1631578947368421,
+    "recipe": "source_labels",
+    "start_failures": 31,
+    "start_total": 190
+  }
+}
