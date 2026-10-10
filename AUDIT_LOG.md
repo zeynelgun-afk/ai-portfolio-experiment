@@ -252,3 +252,47 @@ Consensus: 4 agreed; 1 reported by one auditor only and therefore not recorded
 - `unsourced_reasoning` has survived consensus 6 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
 - `commentary_stale` has survived consensus 6 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
 
+
+## 2026-10-10T18:33Z
+
+Auditors: gpt-6-astra · gpt-6-astra
+Consensus: 4 agreed; 2 reported by one auditor only and therefore not recorded
+
+### outcome_fitted_rationale (high)
+
+*the rationale was bent to fit the outcome*
+
+- **gpt-6-astra** at Round 8, AMD retrospective: "**The AMD thesis:** last round (#7) "WEAKENING — the last chance; next round it either regains the 50d or I act." → **IT TURNED OUT RIGHT.** AMD regained the 50d (477.57 $ < 499.27 → 516.13 $ > 496.55 $), +13.1% on the week, positive news from the CFO. **I was not wrong — I set the "last chance" condition correctly last round and it was met this round.** The thesis was upgraded from WEAKENING to VALID. **The lesson: the "last chance" warning worked — giving AMD one more round was right (to avoid closing two positions in the same round as AVGO). AMD's fundamentals were strong (2027 EPS growth) and only the technical momentum was weak — this round the technicals recovered too.**" — The retrospective treats the subsequent technical recovery as proof that granting another review period was correct, rather than evaluating whether the original decision was justified under an adverse outcome.
+- **gpt-6-astra** at Round #8, AMD retrospective: "**The AMD thesis:** last round (#7) "WEAKENING — the last chance; next round it either regains the 50d or I act." → **IT TURNED OUT RIGHT.** AMD regained the 50d (477.57 $ < 499.27 → 516.13 $ > 496.55 $), +13.1% on the week, positive news from the CFO. **I was not wrong — I set the "last chance" condition correctly last round and it was met this round.** The thesis was upgraded from WEAKENING to VALID. **The lesson: the "last chance" warning worked — giving AMD one more round was right (to avoid closing two positions in the same round as AVGO). AMD's fundamentals were strong (2027 EPS growth) and only the technical momentum was weak — this round the technicals recovered too.**" — The subsequent technical recovery is treated as proof that the earlier decision to wait was correct, rather than evaluating whether its original justification would withstand an unfavorable outcome.
+
+### concentration_unexamined (high)
+
+*the theme concentration asserted as accepted, not examined*
+
+- **gpt-6-astra** at Round 10, theme risk: "**Diversification:** the three main fronts of AI infrastructure (memory, processors, networking) are covered. But ALL THREE depend on the AI spending cycle — a break in the theme hits them together. **I accept the risk: an aggressive target (3-5x) requires aggressive concentration.** Over the last three rounds (#8, #9, #10) TSM/MRVL/MSFT/GOOGL were dropped and no new symbol screen was run — a strategy of theme depth (an opportunity to add to the existing positions) was chosen over theme breadth. This round the existing portfolio produced a momentum burst (+7.11% on the week) and the strategy was vindicated." — The shared spending-cycle exposure is acknowledged but accepted through an asserted necessity for aggressive concentration and favorable recent performance rather than an examination of whether the common downside remains justified.
+- **gpt-6-astra** at Round #10, theme risk: "**Diversification:** the three main fronts of AI infrastructure (memory, processors, networking) are covered. But ALL THREE depend on the AI spending cycle — a break in the theme hits them together. **I accept the risk: an aggressive target (3-5x) requires aggressive concentration.** Over the last three rounds (#8, #9, #10) TSM/MRVL/MSFT/GOOGL were dropped and no new symbol screen was run — a strategy of theme depth (an opportunity to add to the existing positions) was chosen over theme breadth. This round the existing portfolio produced a momentum burst (+7.11% on the week) and the strategy was vindicated." — The shared spending-cycle exposure is acknowledged but accepted through the aggressive return aspiration and recent gains rather than examined through a portfolio-level downside assessment.
+
+### unsourced_reasoning (high)
+
+*a factual claim with no source in the data provided*
+
+- **gpt-6-astra** at Round 10, AMD thesis assessment: " Trump-Xi technology summit (a signal of AI cooperation), Meta Muse (a turn toward AMD), the semiconductor sector rally. **Last round (#9) I kept the thesis label at VALID (it had regained the 50d) and said it was confirmed. This round is a MOMENTUM BURST — +32.3% on the month, +12.6% on the week, +24.9% above the 50d. RSI 73.0 is in overbought territory — technically there is high short-term pullback risk (with RSI >70, a healthy correction back to 60-65 is possible). But the thesis is VERY STRONG — the Trump-Xi summit and Meta Muse confirm AMD's "NVDA alternative" thesis. The portfolio's most dynamic and strongest-performing position.**" — The assessment promotes summit and Meta headlines into confirmation of AMD adoption and business-thesis strength without supplied evidence establishing that commercial connection.
+- **gpt-6-astra** at Round #10, AMD move attribution: "The reasons for AMD's strong performance:
+1. **The Trump-Xi technology summit (the week of 25 Sep):** "Trump says China's Xi 'seemed to like' renaming AI as super intelligence" — a signal of US-China AI cooperation and reduced geopolitical risk. AMD is an important player in the Chinese market (data-center GPUs), so a softening trade war is positive.
+2. **Meta's Muse AI platform:** "These are stocks getting lifted up by Meta's Muse" — Meta's new AI platform may be using AMD's accelerators (diversification away from NVDA). Mega-caps turning toward AMD strengthens the "NVDA alternative" thesis.
+3. **The semiconductor sector rally:** "Chip Stocks Break Through Ceiling As Sector Rebounds" (last" — The cited headlines do not establish reduced trade risk or Meta adoption of AMD accelerators, yet those interpretations are used to explain the move and strengthen the business thesis.
+
+### commentary_stale (medium)
+
+*commentary that no longer matches the data it describes*
+
+- **gpt-6-astra** at Round 10, cash assessment: "**Cash:** 16,421 $ (16.4% of the portfolio, per REPORT.md)." — The decision section repeats an older cash weight despite the same round's portfolio accounting reporting a different current weight, leaving the allocation rationale tied to stale commentary.
+- **gpt-6-astra** at Round #10, cash allocation commentary: "**Cash:** 16,421 $ (16.4% of the portfolio, per REPORT.md)." — The cash allocation repeats an earlier portfolio weight even though the same round reports a different current weight, leaving the allocation rationale inconsistent with its own accounting.
+
+### Instruction amendment warranted
+
+- `outcome_fitted_rationale` has survived consensus 7 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `concentration_unexamined` has survived consensus 6 times since 2026-10-10T13:39Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `unsourced_reasoning` has survived consensus 7 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `commentary_stale` has survived consensus 7 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+
