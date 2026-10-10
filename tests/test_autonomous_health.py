@@ -23,6 +23,21 @@ def test_large_pending_note_queue_is_not_silently_cut_off(tmp_path):
     assert context['AUDIT.md'] == 'unavailable'
 
 
+def test_rejected_weekly_draft_keeps_full_reason_without_creating_a_plan(tmp_path):
+    from weekly_round import review_weekly_proposal
+    (tmp_path/'output').mkdir()
+    proposal = {'decisions': [{'symbol': 'MU', 'action': 'HOLD'}]}
+    reason = 'unsupported causal assertion: ' + 'measured counterevidence '*50
+    with patch('claim_evidence.semantic_review', side_effect=ValueError(reason)):
+        with pytest.raises(ValueError):
+            review_weekly_proposal(tmp_path, proposal, {}, {}, {}, 'local')
+    snapshot = json.loads((tmp_path/'output/weekly_evidence.json').read_text())
+    assert snapshot['proposal'] == proposal
+    assert snapshot['semantic_status'] == 'rejected'
+    assert snapshot['semantic_error'] == reason
+    assert not (tmp_path/'state/weekly_plan.json').exists()
+
+
 def test_invalid_structured_response_retries_same_subscription_bounded():
     error = llm_transport.InferenceError('Invalid structured response', retryable=True)
     with patch('llm_transport.complete', side_effect=[error, '{"findings":[],"clean":true}']) as call:

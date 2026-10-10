@@ -72,6 +72,27 @@ def read_weekly_context(root):
     return context
 
 
+def review_weekly_proposal(root, proposal, old_theses, data, facts, key):
+    """Retain a rejected draft as evidence, never as an executable plan."""
+    from claim_evidence import semantic_review
+    snapshot = {'ledger': facts, 'input_data': data, 'proposal': proposal,
+                'semantic_status': 'pending'}
+    path = str(root/'output/weekly_evidence.json')
+    write_json(path, snapshot)
+    try:
+        report = semantic_review(
+            {'proposal': proposal, 'previous_theses': old_theses,
+             'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
+            data, facts, key, llm_transport.MODEL)
+    except ValueError as error:
+        snapshot.update(semantic_status='rejected', semantic_error=str(error))
+        write_json(path, snapshot)
+        raise
+    snapshot.update(semantic_status='supported', semantic_review=report)
+    write_json(path, snapshot)
+    return report
+
+
 def closing_day(round_time):
     day = round_time.date() - timedelta(days=1)
     for _ in range(10):
@@ -400,11 +421,7 @@ def main():
     write_json(str(BASE/'output/weekly_evidence.json'), {'ledger': facts, 'input_data': data})
     reviewed = []
     def validate_semantics(candidate):
-        from claim_evidence import semantic_review
-        reviewed[:] = [semantic_review(
-            {'proposal': candidate, 'previous_theses': old_theses,
-             'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
-            data, facts, key, llm_transport.MODEL)]
+        reviewed[:] = [review_weekly_proposal(BASE, candidate, old_theses, data, facts, key)]
     proposal, status = call_llm(llm_transport.MODEL,
                                 SYSTEM+"\n"+lifecycle.INSTRUCTION+"\n"+REVIEW_INSTRUCTION+"\nPut monitoring and analyst_review inside EACH decision; monitoring claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
                                 response_validator=validate_proposal, semantic_validator=validate_semantics)
