@@ -2831,6 +2831,98 @@
           "risk": null
         }
       ]
+    },
+    "4dff5ce0013d33b7f6056c64": {
+      "symbol": "MU",
+      "fiscal_period": "2027-09-03",
+      "observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_observed_at": "2026-10-09T01:13:24+00:00",
+      "previous_consensus_revenue": 276332296951.0,
+      "current_consensus_revenue": 276332299005.0,
+      "revision_pct": 7.433079747331239e-07,
+      "analyst_count_previous": 31.0,
+      "analyst_count_current": 31.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "b25dc8ce0bf720b869cef6c2": {
+      "symbol": "MU",
+      "fiscal_period": "2028-09-03",
+      "observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_observed_at": "2026-10-09T01:13:24+00:00",
+      "previous_consensus_revenue": 325388528396.0,
+      "current_consensus_revenue": 325388531858.0,
+      "revision_pct": 1.0639588362459795e-06,
+      "analyst_count_previous": 29.0,
+      "analyst_count_current": 29.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
     }
   },
   "limits": "Prospective, selected-universe overlapping cohorts. Cost sensitivities subtract 0/25/50/100/250 bp round-trip from candidate returns; these are not measured execution costs. Net excess is compared with gross benchmark returns. Risk records path drawdown and annualized volatility. Consensus estimate events are not individual analyst votes, company guidance or causal proof. No predictive benefit is established. Baseline is next session close."

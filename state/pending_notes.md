@@ -490,3 +490,45 @@ The Saturday round reassesses this decision.
 **The model's reasoning:** The deadline-triggered reassessment finds supported dated operating strength and current intraday price support, not a demonstrated thesis break. The quote is below the previous close, but remains above the retained review floor and dated trend references. These observations support retaining exposure; they do not guarantee persistent support. Unverified valuation and realized order economics limit the case for adding, while favorable commentary and uncertain target observations are insufficient grounds for a trade. Sequential financial deterioration is not an established premise of this decision.
 
 The Saturday round reassesses this decision.
+
+## 2026-10-10T00:50Z · MU · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-09T19:30:00+00:00
+
+**Thesis assessment:** The confirmed trigger is an expired review deadline, not demonstrated business deterioration. Dated FMP statements support historical operating profitability, positive free cash flow and net cash, but do not establish current operating conditions. I remove customer commitments as affirmative support from the summary because the underlying documents are unavailable, not because cancellations are established. The previous characterization of unchanged consensus forecasts is replaced by negligible mixed EPS adjustments and marginal revenue increases against the preceding same-period snapshots. Weekly forward revenue revisions are mixed with a positive tilt; these aggregate comparisons do not establish individual-analyst revision breadth. Pricing durability and valuation attractiveness remain unverified.
+
+**Intraday decision:** HOLD · reasoning: Retain the position because the supplied dated financial evidence supports cash generation and balance-sheet resilience, while the deadline trigger supplies no new business contradiction. Do not add because marginal consensus changes and higher analyst targets do not resolve normalized earnings, valuation or contract durability. Missing contract and labor documents are evidence gaps rather than established adverse events. The stale intraday quote supplies technical context, not an executable current measurement. This rationale does not establish that HOLD will outperform alternatives.
+**Falsifier:** A freshly measured price below the retained thesis-review floor would breach this HOLD decision's downside tolerance and require reassessment, without by itself proving fundamental impairment. Separate profitability, free-cash-flow and net-debt conditions test the financial rationale.
+
+**Note for the Saturday round:** Verify the next earnings catalyst against issuer evidence and check the portfolio calendar for consistency; no calendar discrepancy is assumed here. Obtain underlying filings, management guidance, customer-commitment terms and current labor-status documents. Assess normalized earnings and valuation independently of analyst target changes.
+
+## 2026-10-10T00:50Z · NVDA · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-09T20:15:00+00:00
+
+**Thesis assessment:** The deadline expired without a supplied closing observation; the available price remains stale intraday evidence above the retained downside review floor and dated moving averages. I withdraw the rejected draft's sequential financial deterioration conclusions because comparable preceding-period SOURCE_LEDGER measurements are unavailable. I also remove the assertion of independently verified conflicting earnings calendars: the current ledger supplies a provider earnings date, not independent calendar reconciliation. Dated annual revenue growth, high margins and positive free cash flow support the financial claim without establishing sequential improvement, order economics or valuation support. Reuters reports contractor export misconduct without establishing Nvidia wrongdoing or financial loss, while Motley Fool reports customer spending that provides demand context rather than verified issuer profitability.
+
+**Intraday decision:** HOLD · reasoning: The review deadline requires reassessment, not an automatic trade. The dated financial measurements support profitable growth and positive cash generation, and the last supplied price is above the retained downside review floor. These observations support retaining exposure, but neither establish current closing support nor justify adding without valuation and financial-trend verification. Contractor misconduct is a distribution-risk consideration, not demonstrated issuer loss. Apparent analyst target reductions have incomplete coverage and attribution concerns and do not independently establish a sell thesis. The unsupported sequential deterioration rationale is removed; the position and existing stop remain unchanged.
+**Falsifier:** A fresh measured price below the retained downside review floor would contradict the price-support premise of this HOLD and require thesis-level reassessment; the stale intraday observation does not establish that this premise remains satisfied now.
+
+**Note for the Saturday round:** Obtain a closing observation and finalized volume, independently verify the provider earnings calendar, and obtain comparable preceding-period ledger evidence before asserting financial trends. Investigate actual Nvidia exposure from the contractor export case and verify original analyst reports, especially the Wells Fargo observation carrying a Morgan Stanley headline. Reconsider remaining evidence gaps explicitly at the next checkpoint.
+
+## 2026-10-10T00:57Z · MU · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Retain the position because the supplied dated financial evidence supports cash generation and balance-sheet resilience, while the deadline trigger supplies no new business contradiction. Do not add because marginal consensus changes and higher analyst targets do not resolve normalized earnings, valuation or contract durability. Missing contract and labor documents are evidence gaps rather than established adverse events. The stale intraday quote supplies technical context, not an executable current measurement. This rationale does not establish that HOLD will outperform alternatives.
+
+The Saturday round reassesses this decision.
+
+## 2026-10-10T00:57Z · NVDA · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** The review deadline requires reassessment, not an automatic trade. The dated financial measurements support profitable growth and positive cash generation, and the last supplied price is above the retained downside review floor. These observations support retaining exposure, but neither establish current closing support nor justify adding without valuation and financial-trend verification. Contractor misconduct is a distribution-risk consideration, not demonstrated issuer loss. Apparent analyst target reductions have incomplete coverage and attribution concerns and do not independently establish a sell thesis. The unsupported sequential deterioration rationale is removed; the position and existing stop remain unchanged.
+
+The Saturday round reassesses this decision.
