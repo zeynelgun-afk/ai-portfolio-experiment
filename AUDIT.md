@@ -1,4 +1,4 @@
-# Audit scorecard — 2026-10-10T14:32Z
+# Audit scorecard — 2026-10-10T15:05Z
 
 Computed from the repository's own record: the decision log, the trade history, the thesis file and the permanent trigger log. No model produced any number on this page.
 
