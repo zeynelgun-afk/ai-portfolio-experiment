@@ -190,7 +190,8 @@ def call_llm(*args, **kwargs):
 
 def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
              sleep=None, source_ledger=None, response_validator=None,
-             response_schema=None, semantic_validator=None, accountability_times=()):
+             response_schema=None, semantic_validator=None, accountability_times=(),
+             max_attempts=MAX_ATTEMPTS):
     """A JSON-returning LLM call that retries on transient errors and bad output.
 
     Three problems share one loop, because the remedy for all three is the same: ask
@@ -228,7 +229,9 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
     last_status = "unparseable"
 
     initial_messages = copy.deepcopy(messages)
-    for attempt in range(1, MAX_ATTEMPTS + 1):
+    if not isinstance(max_attempts, int) or not 1 <= max_attempts <= 5:
+        raise ValueError('Invalid inference attempt limit')
+    for attempt in range(1, max_attempts + 1):
         if len(messages) > len(initial_messages):
             messages = initial_messages + copy.deepcopy(messages[-2:])
             messages[-2]["content"] = messages[-2]["content"][:32000]
@@ -238,7 +241,7 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
         else:
             text, retryable = _single_call(model, messages, api_key)
         if text is None:
-            if not retryable or attempt == MAX_ATTEMPTS:
+            if not retryable or attempt == max_attempts:
                 return None, "unparseable"
             messages += [
                 {"role": "assistant", "content": "[Previous inference returned no usable structured response.]"},
@@ -249,17 +252,17 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
                  "Keep the supplied evidence and all validation requirements unchanged."},
             ]
             delay = BACKOFF_BASE * (2 ** (attempt - 1))
-            print(f"  waiting {delay:.0f}s before retrying ({attempt}/{MAX_ATTEMPTS})")
+            print(f"  waiting {delay:.0f}s before retrying ({attempt}/{max_attempts})")
             sleep(delay)
             continue
 
         payload = extract_json(text)
         if payload is None:
             last_status = "unparseable"
-            if attempt == MAX_ATTEMPTS:
+            if attempt == max_attempts:
                 break
             print(f"  could not extract JSON — asking again with a reminder "
-                  f"({attempt}/{MAX_ATTEMPTS})")
+                  f"({attempt}/{max_attempts})")
             messages += [
                 {"role": "assistant", "content": text[:2000]},
                 {"role": "user", "content":
@@ -305,12 +308,12 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
             if unsourced:
                 listed = ", ".join(raw for raw, _ in unsourced)
                 last_status = "unsourced_numbers"
-                if attempt == MAX_ATTEMPTS:
+                if attempt == max_attempts:
                     print(f"  UNSOURCED NUMBERS (final attempt): {listed} — "
                           "output rejected")
                     break
                 print(f"  UNSOURCED NUMBERS: {listed} — asking for a correction "
-                      f"({attempt}/{MAX_ATTEMPTS})")
+                      f"({attempt}/{max_attempts})")
                 messages += [
                     {"role": "assistant", "content": text[:2000]},
                     {"role": "user",

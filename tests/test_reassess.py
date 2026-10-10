@@ -397,6 +397,20 @@ class RetryTest(unittest.TestCase):
         self.assertEqual(status, "unparseable")
         self.assertEqual(record["calls"], 3)
 
+    def test_weekly_semantic_correction_can_use_one_bounded_extra_attempt(self):
+        stub, record = stub_http('{"draft": "corrected"}')
+        ra._single_call = stub
+        reviews = []
+        def review(payload):
+            reviews.append(payload)
+            if len(reviews) < 4:
+                raise ValueError('Remove unsupported historical claim')
+        payload, status = ra.call_llm('m', 'system', 'user', 'key',
+                                      semantic_validator=review, max_attempts=4)
+        self.assertEqual((payload, status), ({'draft': 'corrected'}, 'ok'))
+        self.assertEqual(record['calls'], 4)
+        self.assertIn('Remove unsupported historical claim', record['prompts'][3])
+
     def test_unsourced_numbers_are_fixed_after_feedback(self):
         payload, status, record = self.call(
             '{"text": "The analyst target is 1350 $."}',

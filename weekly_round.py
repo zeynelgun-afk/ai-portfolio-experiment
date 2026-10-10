@@ -53,6 +53,9 @@ Addressed means answered, not that every uncertainty has been resolved or that a
 weekend trade occurred. If there are no notes, say so in F and set the flag true.
 No model-written prices, balances or fills.
 Use source references for numeric factual prose; numeric choice fields remain numbers.
+For every watchlist rationale, do not claim a trend, discontinuity, seasonal pattern
+or balance-sheet change from a single-period snapshot or an unspecified dossier.
+Name the dated comparative sources or explicitly label the pattern unverified.
 """
 
 
@@ -430,7 +433,7 @@ def main():
     proposal, status = call_llm(llm_transport.MODEL,
                                 SYSTEM+"\n"+lifecycle.INSTRUCTION+"\n"+REVIEW_INSTRUCTION+"\nPut monitoring and analyst_review inside EACH decision; monitoring claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
                                 response_validator=validate_proposal, semantic_validator=validate_semantics,
-                                accountability_times=accountability_times)
+                                accountability_times=accountability_times, max_attempts=4)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
     from claim_evidence import semantic_review
