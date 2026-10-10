@@ -101,6 +101,15 @@ jobs:
         # portfolio.json or theses.json; it only produces AUDIT.md and AUDIT_LOG.md.
         run: python audit.py --review
 
+      - name: Persist completed audit before further research
+        id: audit_commit
+        run: |
+          git config user.name "portfolio-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add AUDIT.md AUDIT_LOG.md state/audit_disagreements.json state/audit_patterns.json
+          git diff --cached --quiet || git commit -m "Persist completed reasoning audit before weekly research"
+          git push
+
       - name: Notify independent audit objections
         id: audit_notify
         run: |

@@ -81,7 +81,7 @@ def start(root, env):
 
 # A deliberately closed contract: unknown/new workflow steps cannot auto-release.
 PARTIAL_STEP_IDS = set('checkout baseline dependencies mode session corporate corporate_commit corporate_notify weekly_execution weekly_commit weekly_notify weekly_evidence detector reassess intraday_evidence trade refresh prompt_adapt research_metrics commit decision_notify daily_notify assessment_summary reassessment_health news_health prompt_health provider_health provider_evidence'.split())
-WEEKLY_PARTIAL_STEP_IDS = set('checkout baseline dependencies corporate corporate_commit corporate_notify valuation valuation_commit valuation_evidence audit audit_notify research_metrics prompt_adapt scout weekly_inputs weekly_decision weekly_evidence refresh commit plan_notify amend proposal_evidence amend_commit exit_notify report_notify audit_reminder prompt_health provider_health analyst_health provider_evidence'.split())
+WEEKLY_PARTIAL_STEP_IDS = set('checkout baseline dependencies corporate corporate_commit corporate_notify valuation valuation_commit valuation_evidence audit audit_commit audit_notify research_metrics prompt_adapt scout weekly_inputs weekly_decision weekly_evidence refresh commit plan_notify amend proposal_evidence amend_commit exit_notify report_notify audit_reminder prompt_health provider_health analyst_health provider_evidence'.split())
 
 
 def checkout_git(workspace, *args):
