@@ -82,3 +82,49 @@ Consensus: 4 agreed; 1 reported by one auditor only and therefore not recorded
 - **(b) An AMD correction (within one or two rounds):** RSI 73.0 is overbought and the pullback risk is high. If it corrects 10-15% (around 550 $ — near the 50d at 504, a support test), an opportunity to add.
 -" — The cash strategy reuses an older portfolio cash weight despite the same round reporting an updated weight, leaving allocation reasoning tied to stale data.
 
+
+## 2026-10-10T14:03Z
+
+Auditors: gpt-6-astra · gpt-6-astra
+Consensus: 4 agreed; 1 reported by one auditor only and therefore not recorded
+
+### outcome_fitted_rationale (high)
+
+*the rationale was bent to fit the outcome*
+
+- **gpt-6-astra** at Round 8, AMD retrospective: "**The AMD thesis:** last round (#7) "WEAKENING — the last chance; next round it either regains the 50d or I act." → **IT TURNED OUT RIGHT.** AMD regained the 50d (477.57 $ < 499.27 → 516.13 $ > 496.55 $), +13.1% on the week, positive news from the CFO. **I was not wrong — I set the "last chance" condition correctly last round and it was met this round.** The thesis was upgraded from WEAKENING to VALID. **The lesson: the "last chance" warning worked — giving AMD one more round was right (to avoid closing two positions in the same round as AVGO). AMD's fundamentals were strong (2027 EPS growth) and only the technical momentum was weak — this round the technicals recovered too.**" — The retrospective treats the subsequent technical recovery as proof that granting another review period was correct, rather than assessing whether that decision was justified before the recovery.
+- **gpt-6-astra** at Round #8, AMD: "**The AMD thesis:** last round (#7) "WEAKENING — the last chance; next round it either regains the 50d or I act." → **IT TURNED OUT RIGHT.** AMD regained the 50d (477.57 $ < 499.27 → 516.13 $ > 496.55 $), +13.1% on the week, positive news from the CFO. **I was not wrong — I set the "last chance" condition correctly last round and it was met this round.** The thesis was upgraded from WEAKENING to VALID. **The lesson: the "last chance" warning worked — giving AMD one more round was right (to avoid closing two positions in the same round as AVGO). AMD's fundamentals were strong (2027 EPS growth) and only the technical momentum was weak — this round the technicals recovered too.**" — The subsequent technical recovery is treated as proof that granting another round was correct, rather than evaluating whether the original decision was justified before the recovery occurred.
+
+### concentration_unexamined (medium)
+
+*the theme concentration asserted as accepted, not examined*
+
+- **gpt-6-astra** at Round 9, theme risk: "**Diversification:** the three main fronts of AI infrastructure (memory, processors, networking) are covered. But ALL THREE depend on the AI spending cycle — a break in the theme hits them together. **I accept the risk: an aggressive target (3-5x) requires aggressive concentration.** Last round TSM/MRVL/MSFT/GOOGL were dropped — a strategy of theme depth (adding to the existing positions) was chosen over theme breadth. This round the existing portfolio gained momentum and the strategy was vindicated." — The shared spending-cycle exposure is acknowledged but accepted through the return ambition and recent momentum rather than examined for whether the correlated downside remains justified.
+- **gpt-6-astra** at Round #10, theme risk: "**Diversification:** the three main fronts of AI infrastructure (memory, processors, networking) are covered. But ALL THREE depend on the AI spending cycle — a break in the theme hits them together. **I accept the risk: an aggressive target (3-5x) requires aggressive concentration.** Over the last three rounds (#8, #9, #10) TSM/MRVL/MSFT/GOOGL were dropped and no new symbol screen was run — a strategy of theme depth (an opportunity to add to the existing positions) was chosen over theme breadth. This round the existing portfolio produced a momentum burst (+7.11% on the week) and the strategy was vindicated." — Shared dependence on the AI spending cycle is acknowledged but accepted through the aggressive return aspiration and recent momentum rather than an examination of whether the joint downside remains tolerable.
+
+### unsourced_reasoning (high)
+
+*a factual claim with no source in the data provided*
+
+- **gpt-6-astra** at Round 10, AMD move attribution: "**Conclusion:** AMD's +12.6% move rests not on a single event but on a combination of four factors — reduced geopolitical risk (Trump-Xi), mega-cap diversification (Meta Muse), the sector rally and technical momentum. The "AI accelerator / NVDA alternative" thesis is strengthening." — The conclusion promotes headline-based geopolitical and customer-diversification hypotheses into established causes of the price move without supplied evidence verifying those causal links.
+- **gpt-6-astra** at Round #10, AMD causal investigation: "**Conclusion:** AMD's +12.6% move rests not on a single event but on a combination of four factors — reduced geopolitical risk (Trump-Xi), mega-cap diversification (Meta Muse), the sector rally and technical momentum. The "AI accelerator / NVDA alternative" thesis is strengthening." — The conclusion promotes speculative geopolitical and Meta-related explanations into established causes of the rally and fundamental thesis support without supplied evidence establishing those causal links.
+
+### commentary_stale (medium)
+
+*commentary that no longer matches the data it describes*
+
+- **gpt-6-astra** at Round 10, cash strategy: "**Cash strategy (instruction section E: "the cash will not be held passively"):** the 16.4% cash does not protect the portfolio (an unleveraged virtual portfolio); it is powder for a decline. **What I am waiting for:**
+- **(a) After MU's earnings (the next round, 3 October):** if the report is weak and it falls 10-15% (around 900 $ — a test of the 50d), an opportunity to add. If the report is strong and it gains 10-15%, I will not add (it is already the largest weight at 33.7%).
+- **(b) An AMD correction (within one or two rounds):** RSI 73.0 is overbought and the pullback risk is high. If it corrects 10-15% (around 550 $ — near the 50d at 504, a support test), an opportunity to add.
+-" — The cash strategy repeats an obsolete portfolio cash weight despite the same round reporting a different current weight, leaving the allocation rationale inconsistent with its own portfolio data.
+- **gpt-6-astra** at Round #10, cash strategy: "**Cash strategy (instruction section E: "the cash will not be held passively"):** the 16.4% cash does not protect the portfolio (an unleveraged virtual portfolio); it is powder for a decline. **What I am waiting for:**
+- **(a) After MU's earnings (the next round, 3 October):** if the report is weak and it falls 10-15% (around 900 $ — a test of the 50d), an opportunity to add. If the report is strong and it gains 10-15%, I will not add (it is already the largest weight at 33.7%).
+- **(b) An AMD correction (within one or two rounds):** RSI 73.0 is overbought and the pullback risk is high. If it corrects 10-15% (around 550 $ — near the 50d at 504, a support test), an opportunity to add.
+-" — The cash strategy continues using the old cash weight despite the same round recording a lower current weight, leaving an allocation premise inconsistent with the portfolio data.
+
+### Instruction amendment warranted
+
+- `outcome_fitted_rationale` has survived consensus 3 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `unsourced_reasoning` has survived consensus 3 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `commentary_stale` has survived consensus 3 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+
