@@ -26,7 +26,8 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    # Publish the latest persisted record even if later research reports a gap.
+    # A Pages deployment is publication evidence, not assessment-health evidence.
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
