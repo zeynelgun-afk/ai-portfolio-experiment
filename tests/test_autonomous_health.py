@@ -81,3 +81,18 @@ def test_valuation_checkpoint_commits_before_model_failure_with_ignored_telegram
     assert git('show', 'HEAD:REPORT.md').stdout == 'current\n'
     assert git('ls-remote', 'origin', 'refs/heads/main').stdout.split()[0] == git('rev-parse', 'HEAD').stdout.strip()
     assert not git('ls-files', 'telegram.txt').stdout
+
+
+def test_auditor_selects_code_owned_quote_without_transcribing_quotes():
+    prompt='The source states "a quoted claim" with a conflicting account.'
+    spans, annotated=reviewers.evidence_spans(prompt)
+    assert spans['E1']==prompt and '[E1]' in annotated
+    payload={'findings':[{'pattern':'unsourced_reasoning','where':'round',
+        'evidence_id':'E1','severity':'medium','why':'The claim lacks supporting evidence.'}], 'clean':False}
+    with patch('reviewers.reassess.call_llm',return_value=(payload,'ok')) as call:
+        result=reviewers.run_auditor('local',prompt,'local')
+    assert result[0]['evidence']==prompt
+    assert call.call_args.kwargs['response_schema']['schema']['properties']['findings']['items']['properties']['evidence_id']['enum']==['E1']
+    payload['findings'][0]['evidence_id']='invented'
+    with patch('reviewers.reassess.call_llm',return_value=(payload,'ok')):
+        assert reviewers.run_auditor('local',prompt,'local') is None

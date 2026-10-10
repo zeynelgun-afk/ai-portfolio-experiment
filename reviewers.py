@@ -27,6 +27,7 @@ import llm_transport
 import argparse
 import json
 import hashlib
+import copy
 import os
 import sys
 from datetime import datetime, timezone
@@ -81,7 +82,9 @@ WHAT YOU MAY NOT DO:
 - Do not propose a trade, a position size, or a price target. That is the decision-maker's
   job. An auditor that starts trading has stopped auditing.
 - Do not invent numbers. Every figure you cite must appear in the material you were given.
-- Do not report a finding you cannot quote evidence for.
+- Do not report a finding without selecting an exact supplied evidence_id.
+- Do not copy source quotations into JSON strings. Code attaches the exact quotation
+  for your evidence_id. Keep where and why qualitative, without quoted source text.
 - Do not soften. If the record is clean, say it is clean and report nothing.
 
 FINDINGS use this closed taxonomy — use the exact key, never invent one:
@@ -91,11 +94,13 @@ Answer with VALID JSON ONLY:
 {{"findings": [
   {{"pattern": "<one key from the taxonomy>",
     "where": "<round number, claim id, or symbol>",
-    "evidence": "<a short quote from the material>",
-    "severity": "low" | "medium" | "high",
+    "evidence_id": "<one supplied E-prefixed source span ID>",
+    "severity": "medium",
     "why": "<one sentence: why this is a reasoning fault, not a bad outcome>"}}
  ],
- "clean": <true if you found nothing worth reporting>}}"""
+ "clean": false}}
+Severity must be low, medium, or high. When there are no findings return exactly
+{{"findings": [], "clean": true}}."""
 
 
 def env(name, default=""):
@@ -151,10 +156,10 @@ AUDITOR_RESPONSE_SCHEMA = {
                 'properties': {
                     'pattern': {'type': 'string', 'enum': list(PATTERNS)},
                     **{key: {'type': 'string', 'minLength': 1}
-                       for key in ('where', 'evidence', 'why')},
+                       for key in ('where', 'evidence_id', 'why')},
                     'severity': {'type': 'string', 'enum': list(SEVERITIES)},
                 },
-                'required': ['pattern', 'where', 'evidence', 'why', 'severity'],
+                'required': ['pattern', 'where', 'evidence_id', 'why', 'severity'],
                 'additionalProperties': False,
             }},
             'clean': {'type': 'boolean'},
@@ -171,6 +176,25 @@ def validate_audit(payload):
         raise ValueError('clean must be true exactly when findings is empty')
 
 
+def evidence_spans(prompt):
+    """Label bounded exact source spans; the model selects instead of transcribing."""
+    spans, annotated = {}, []
+    for paragraph in prompt.split('\n\n'):
+        start = 0
+        while start < len(paragraph):
+            end = min(start + 700, len(paragraph))
+            if end < len(paragraph):
+                boundary = paragraph.rfind(' ', start + 350, end)
+                if boundary > start:
+                    end = boundary
+            text = paragraph[start:end]
+            ident = 'E' + str(len(spans) + 1)
+            spans[ident] = text
+            annotated.append('[' + ident + ']\n' + text)
+            start = end
+    return spans, '\n\n'.join(annotated)
+
+
 def run_auditor(model, prompt, api_key, dry_run=False):
     """One auditor. Returns a list of findings, or None when the call was unusable."""
     system = SYSTEM.format(patterns="\n".join(
@@ -178,9 +202,14 @@ def run_auditor(model, prompt, api_key, dry_run=False):
     if dry_run:
         print(f"--- auditor prompt ({model}) ---\n{system}\n\n{prompt[:1500]}…\n")
         return []
+    spans, annotated = evidence_spans(prompt)
+    if not spans:
+        return None
+    schema = copy.deepcopy(AUDITOR_RESPONSE_SCHEMA)
+    schema['schema']['properties']['findings']['items']['properties']['evidence_id']['enum'] = list(spans)
     payload, status = reassess.call_llm(
-        model, system, prompt, api_key,
-        response_schema=AUDITOR_RESPONSE_SCHEMA, response_validator=validate_audit)
+        model, system, annotated, api_key,
+        response_schema=schema, response_validator=validate_audit)
     if not payload or not isinstance(payload.get("findings"), list):
         print(f"WARNING auditor {model}: unusable output ({status}) — its findings are "
               "dropped, which means no consensus can form from this run")
@@ -195,10 +224,15 @@ def run_auditor(model, prompt, api_key, dry_run=False):
                   f"({pattern!r}) — the taxonomy is closed so consensus stays computable")
             continue
         severity = str(item.get("severity", "")).strip().lower()
+        evidence_id = item.get('evidence_id')
+        if evidence_id is not None and evidence_id not in spans:
+            return None
         findings.append({
             "pattern": pattern,
             "where": str(item.get("where", "")).strip(),
-            "evidence": str(item.get("evidence", "")).strip(),
+            # Compatibility for historical fixtures; live responses must pass the
+            # evidence_id schema above and can never invent their own quote.
+            "evidence": spans[evidence_id] if evidence_id is not None else str(item.get("evidence", "")).strip(),
             "severity": severity if severity in SEVERITIES else DEFAULT_SEVERITY,
             "why": str(item.get("why", "")).strip(),
             "model": model,
