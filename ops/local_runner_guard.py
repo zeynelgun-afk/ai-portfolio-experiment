@@ -81,6 +81,7 @@ def start(root, env):
 
 # A deliberately closed contract: unknown/new workflow steps cannot auto-release.
 PARTIAL_STEP_IDS = set('checkout baseline dependencies mode session corporate corporate_commit corporate_notify weekly_execution weekly_commit weekly_notify weekly_evidence detector reassess intraday_evidence trade refresh prompt_adapt research_metrics commit decision_notify daily_notify assessment_summary reassessment_health news_health prompt_health provider_health provider_evidence'.split())
+WEEKLY_PARTIAL_STEP_IDS = set('checkout baseline dependencies corporate corporate_commit corporate_notify valuation valuation_commit valuation_evidence audit audit_notify research_metrics prompt_adapt scout weekly_inputs weekly_decision weekly_evidence refresh commit plan_notify amend proposal_evidence amend_commit exit_notify report_notify audit_reminder prompt_health provider_health analyst_health provider_evidence'.split())
 
 
 def checkout_git(workspace, *args):
@@ -209,6 +210,82 @@ def persisted_no_trade_partial(env, outcome, workspace, attempt):
         return None
 
 
+def persisted_weekly_research_partial(env, outcome, workspace, attempt):
+    """A fully persisted weekend plan with data gaps must not freeze next session.
+
+    Only a source-health failure qualifies. Failed models, persistence/delivery,
+    changed accounting/live theses or ambiguous execution still require review.
+    The job stays failed and its original run can never be replayed.
+    """
+    if (outcome != 'failure' or env.get('GITHUB_WORKFLOW') != 'Weekly Portfolio Round'
+            or env.get('LOCAL_RUNNER_CHECKOUT_OUTCOME') != 'success'):
+        return None
+    try:
+        steps = json.loads(env.get('LOCAL_RUNNER_STEPS', '{}'))
+        claim = attempt.get('hook_claim')
+        if not isinstance(steps, dict) or not isinstance(claim, str) or len(claim) != 64:
+            return None
+        hooks = [key for key, value in steps.items() if key not in WEEKLY_PARTIAL_STEP_IDS
+                 and value == {'outputs': {'local_runner_claim': claim},
+                               'outcome': 'success', 'conclusion': 'success'}]
+        if (len(hooks) != 1 or len(hooks[0]) != 32
+                or any(c not in '0123456789abcdef' for c in hooks[0] + claim)
+                or set(steps) != WEEKLY_PARTIAL_STEP_IDS | set(hooks)):
+            return None
+        optional = {'corporate_commit', 'corporate_notify', 'exit_notify', 'prompt_health'}
+        for key, step in steps.items():
+            expected = 'failure' if key == 'analyst_health' else 'success'
+            if key in optional:
+                expected = 'skipped'
+            if (not isinstance(step, dict) or step.get('outcome') != expected
+                    or step.get('conclusion') != expected):
+                return None
+        if steps['corporate'].get('outputs', {}).get('changed') != 'false':
+            return None
+        def git(*args):
+            return checkout_git(workspace, *args).decode().strip()
+        if (workspace / 'state').is_symlink() or git('status', '--porcelain', '--untracked-files=all'):
+            return None
+        start_sha = attempt.get('checkout_sha', '')
+        if len(start_sha) != 40 or any(c not in '0123456789abcdef' for c in start_sha):
+            return None
+        head = git('rev-parse', 'HEAD')
+        remote = git('ls-remote', '--exit-code', 'origin', 'refs/heads/main').split()
+        if remote != [head, 'refs/heads/main']:
+            return None
+        for name in ('portfolio.json', 'theses.json', 'weekly_data.json', 'state/weekly_plan.json'):
+            path = workspace / name
+            if (path.is_symlink() or not path.is_file()
+                    or path.read_bytes() != checkout_git(workspace, 'show', 'HEAD:' + name)):
+                return None
+        before = json.loads(git('show', start_sha + ':portfolio.json'))
+        after = json.loads((workspace / 'portfolio.json').read_text())
+        if not isinstance(before, dict) or not isinstance(after, dict):
+            return None
+        before.pop('last_updated', None)
+        after.pop('last_updated', None)
+        if before != after or git('diff', start_sha, head, '--', 'theses.json', 'DECISION_LOG.md'):
+            return None
+        if any((workspace / 'state' / name).exists() for name in
+               ('pending_decision.json', 'weekly_transaction.json')):
+            return None
+        plan = json.loads((workspace / 'state/weekly_plan.json').read_text())
+        if (not isinstance(plan, dict) or plan.get('status') != 'pending'
+                or not isinstance(plan.get('proposal'), dict)
+                or datetime.fromisoformat(plan['created_at']) < datetime.fromisoformat(attempt['started_at'])):
+            return None
+        data = json.loads((workspace / 'weekly_data.json').read_text())
+        gaps = [symbol for symbol, row in data.items() if not symbol.startswith('_')
+                and (row.get('analyst_revisions', {}).get('status') != 'ok'
+                     or row.get('analyst_revisions', {}).get('estimates_status') != 'ok')]
+        if not gaps:
+            return None
+        return {'head': head, 'remote_head': remote[0], 'steps': steps,
+                'pending_plan': plan.get('round_id'), 'source_gaps': gaps}
+    except (ValueError, TypeError, AttributeError, KeyError, OSError, subprocess.SubprocessError):
+        return None
+
+
 def finish(root, env, outcome):
     validate_context(env)
     if outcome not in {'success', 'failure', 'cancelled'}:
@@ -264,11 +341,14 @@ def finish(root, env, outcome):
         finally:
             os.close(fd)
         partial = persisted_no_trade_partial(env, outcome, workspace, attempt)
+        weekly_partial = persisted_weekly_research_partial(env, outcome, workspace, attempt)
         if partial:
             attempt.update(release_reason='persisted-no-trade-partial', partial_evidence=partial)
+        elif weekly_partial:
+            attempt.update(release_reason='persisted-weekly-research-partial', partial_evidence=weekly_partial)
         attempt.update(status=outcome, finished_at=datetime.now(timezone.utc).isoformat())
         atomic_json(root / (env['GITHUB_RUN_ID'] + '.json'), attempt)
-        if outcome == 'success' or partial:
+        if outcome == 'success' or partial or weekly_partial:
             active.unlink()
             fd = os.open(root, os.O_DIRECTORY)
             try:

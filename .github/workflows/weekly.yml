@@ -38,7 +38,14 @@ jobs:
         with:
           ref: main
 
+      - name: Bind actual checkout baseline before application work
+        id: baseline
+        env:
+          LOCAL_RUNNER_CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+        run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" checkout
+
       - name: Dependencies
+        id: dependencies
         run: uv pip install --python "$(command -v python)" -r requirements.txt
 
       - name: Reconcile corporate actions
@@ -46,6 +53,7 @@ jobs:
         run: python corporate_actions.py
 
       - name: Persist corporate-action accounting
+        id: corporate_commit
         if: steps.corporate.outputs.changed == 'true'
         run: |
           git config user.name "portfolio-bot"
@@ -55,23 +63,27 @@ jobs:
           git push
 
       - name: Notify persisted corporate actions
+        id: corporate_notify
         if: steps.corporate.outputs.changed == 'true'
         env:
           WATCHDOG_MESSAGE: 'AI Portföy: Bölünme/temettü muhasebe kaydı GitHub’a kaydedildi. Alım-satım kararı değildir. Ayrıntılar: CORPORATE_ACTIONS.md'
         run: python notify_failure.py
 
       - name: 1) Valuation + exit-level warning (makes no decisions)
+        id: valuation
         run: python update.py
 
       - name: Persist valuation before model-dependent research
+        id: valuation_commit
         run: |
           git config user.name "portfolio-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add REPORT.md history.csv portfolio.json telegram.txt
+          git add REPORT.md history.csv portfolio.json
           git diff --cached --quiet || git commit -m "Refresh measured valuation before weekly research"
           git push
 
       - name: Preserve valuation evidence
+        id: valuation_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -82,6 +94,7 @@ jobs:
           retention-days: 90
 
       - name: 2) Audit the previous rounds — BEFORE this round decides
+        id: audit
         # The scorecard and the review read the record as it stood before this round, so
         # the decision-maker walks into the round with its own failure patterns in front
         # of it rather than discovering them a week later. The audit never writes to
@@ -89,6 +102,7 @@ jobs:
         run: python audit.py --review
 
       - name: Notify independent audit objections
+        id: audit_notify
         run: |
           python - <<'PYTHON'
           import json
@@ -99,6 +113,7 @@ jobs:
           PYTHON
 
       - name: Measure mature research cohorts
+        id: research_metrics
         run: python research_metrics.py
 
       - name: Adapt evidence reminders
@@ -119,6 +134,7 @@ jobs:
           fi
 
       - name: 2.5) Run Scout Agent (Dynamic Watchlist)
+        id: scout
         run: python scout.py
 
       - name: 3a) Collect measured weekly inputs
@@ -126,9 +142,11 @@ jobs:
         run: python weekly_data.py
 
       - name: 3b) Structured decision — weekend research plan (no trades)
+        id: weekly_decision
         run: python weekly_round.py
 
       - name: Preserve weekly source evidence
+        id: weekly_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -141,9 +159,11 @@ jobs:
           retention-days: 90
 
       - name: 4) Refresh the report
+        id: refresh
         run: python update.py
 
       - name: 5) Commit + push
+        id: commit
         run: |
           git config user.name "portfolio-bot"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -153,11 +173,13 @@ jobs:
           git push
 
       - name: Notify queued weekend research
+        id: plan_notify
         env:
           WATCHDOG_MESSAGE: 'AI Portföy: Cumartesi araştırması tamamlandı. Seans dışında alım-satım yapılmadı; plan açık seansta güncel veri ve fiyatla yeniden değerlendirilecek.'
         run: python notify_failure.py
 
       - name: 6) Propose an instruction amendment for a recurring fault
+        id: amend
         # Runs after the push so the branch is cut from the updated default branch.
         # amend.py can only add text to WEEKLY_INSTRUCTIONS.md, only on a branch, and
         # only once per pattern — the guarantees are enforced in code, not asked for in
@@ -176,6 +198,7 @@ jobs:
           fi
 
       - name: Preserve prompt proposals for owner review
+        id: proposal_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -185,6 +208,7 @@ jobs:
           retention-days: 90
 
       - name: Persist amendment tracking and request proposal tests
+        id: amend_commit
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -205,6 +229,7 @@ jobs:
           PY
 
       - name: 7) Exit-level notification (Issue)
+        id: exit_notify
         if: hashFiles('STOP_BREACH.md') != ''
         env:
           GH_TOKEN: ${{ github.token }}
@@ -214,6 +239,7 @@ jobs:
             --body-file STOP_BREACH.md
 
       - name: 8) Telegram report
+        id: report_notify
         # The send must not fail silently: a weekly report that never arrives inside a
         # green run looks identical to one that did. A non-200 makes the step red.
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
@@ -230,6 +256,7 @@ jobs:
           fi
 
       - name: 9) Audit reminder
+        id: audit_reminder
         if: env.TELEGRAM_BOT_TOKEN != '' && env.TELEGRAM_CHAT_ID != ''
         run: |
           WEEK=$(( ( $(date +%s) - $(date -d 2026-08-05 +%s) ) / 604800 + 1 ))
@@ -254,16 +281,19 @@ jobs:
           fi
 
       - name: Report automatic prompt rollback
+        id: prompt_health
         if: always() && steps.prompt_adapt.outputs.code == '2'
         run: |
           echo "::error::Prompt reminder rolled back after the measured failure rate increased; previous policy restored."
           exit 1
 
       - name: Report provider failover
+        id: provider_health
         if: always() && steps.checkout.outcome == 'success'
         run: python provider_health.py
 
       - name: Analyst revision evidence health
+        id: analyst_health
         if: always() && steps.weekly_inputs.outcome == 'success'
         run: |
           python - <<'PY'
@@ -277,6 +307,7 @@ jobs:
           PY
 
       - name: Preserve provider routing evidence
+        id: provider_evidence
         if: always() && steps.checkout.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
@@ -286,7 +317,9 @@ jobs:
           retention-days: 90
 
       - name: Preserve exact local attempt and release successful claim
+        id: finalize
         if: always() && contains(fromJSON('["success","failure","cancelled"]'), steps.checkout.outcome)
         env:
           LOCAL_RUNNER_CHECKOUT_OUTCOME: ${{ steps.checkout.outcome }}
+          LOCAL_RUNNER_STEPS: ${{ toJSON(steps) }}
         run: python "$HOME/.local/share/ai-portfolio-runner/local_runner_guard.py" finish --outcome "${{ job.status }}"

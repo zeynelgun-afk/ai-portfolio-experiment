@@ -117,3 +117,15 @@ current-attempt outputs. A success release requires successful checkout. Termina
 receipts or existing archives cannot be finalized again, including interrupted
 finalization with divergent active/receipt records. Successful claim removal is
 directory-fsynced before returning.
+
+## Completed weekend research with analyst source gaps
+
+The weekly finalizer may release a **new** failed run when its only failed step
+is analyst evidence health and every research, persistence, artifact and delivery
+step completed. It checks the journal-bound checkout, the closed step contract,
+remote HEAD readback, unchanged accounting (only last_updated may differ), unchanged
+live theses/decision log, no executable pending transaction, and a newly created
+research plan persisted byte-for-byte to main. The failure receipt and private
+archive remain durable; same-run replay is forbidden. The plan is still research,
+not a fill, and the next open session must reassess it with fresh inputs. Model,
+notification, accounting or unknown failures still require reconciliation.

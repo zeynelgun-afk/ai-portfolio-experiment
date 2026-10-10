@@ -55,3 +55,27 @@ def test_missing_article_remains_unassessed_not_clean():
     assert outcome is None and 'unavailable' in detail
     model.assert_not_called()
     recover.assert_called_once()
+
+
+def test_valuation_checkpoint_commits_before_model_failure_with_ignored_telegram(tmp_path):
+    from pathlib import Path
+    import yaml
+    workflow = yaml.safe_load((Path(__file__).resolve().parents[1]/'.github/workflows/weekly.yml').read_text())
+    steps = workflow['jobs']['round']['steps']
+    checkpoint = next(s['run'] for s in steps if s.get('name') == 'Persist valuation before model-dependent research')
+    remote = tmp_path/'remote.git'
+    subprocess.run(['git', 'init', '--bare', str(remote)], check=True, capture_output=True)
+    work = tmp_path/'work'; work.mkdir()
+    def git(*args):
+        return subprocess.run(['git', *args], cwd=work, check=True, capture_output=True, text=True)
+    git('init', '-b', 'main');git('config', 'user.name', 'test');git('config', 'user.email', 'test@example.org')
+    (work/'.gitignore').write_text('telegram.txt\n')
+    for file in ('REPORT.md', 'history.csv', 'portfolio.json'):
+        (work/file).write_text('previous\n')
+    git('add', '.');git('commit', '-m', 'initial');git('remote', 'add', 'origin', str(remote));git('push', '-u', 'origin', 'main')
+    for file in ('REPORT.md', 'history.csv', 'portfolio.json', 'telegram.txt'):
+        (work/file).write_text('current\n')
+    subprocess.run(['bash', '-e', '-c', checkpoint], cwd=work, check=True, capture_output=True)
+    assert git('show', 'HEAD:REPORT.md').stdout == 'current\n'
+    assert git('ls-remote', 'origin', 'refs/heads/main').stdout.split()[0] == git('rev-parse', 'HEAD').stdout.strip()
+    assert not git('ls-files', 'telegram.txt').stdout
