@@ -89,11 +89,34 @@ def review_weekly_proposal(root, proposal, old_theses, data, facts, key):
     write_json(path, snapshot)
     try:
         context = read_weekly_context(root)
+        input_fields = {symbol: {field: row.get(field) for field in
+                         ('forward_pe', 'return_1w_pct', 'return_1m_pct',
+                          'price_date', 'earnings_date')}
+                        for symbol, row in data.items() if not symbol.startswith('_')
+                        and isinstance(row, dict)}
+        fundamental_coverage = {}
+        for symbol, row in data.items():
+            if symbol.startswith('_') or not isinstance(row, dict):
+                continue
+            fundamental = row.get('fundamental_research', {})
+            if not isinstance(fundamental, dict):
+                continue
+            statements = fundamental.get('statements', {})
+            fundamental_coverage[symbol] = {
+                'management_guidance': fundamental.get('management_guidance'),
+                'filing_footnotes': fundamental.get('filing_footnotes'),
+                'gaps': fundamental.get('gaps'),
+                'statement_periods': {kind: [item.get('date') for item in rows if isinstance(item, dict)]
+                                      for kind, rows in statements.items() if isinstance(rows, list)}
+            }
         report = semantic_review(
             {'proposal': proposal, 'previous_theses': old_theses,
              'current_portfolio': read_json(str(root/'portfolio.json'), {}),
+             'weekly_input_fields': input_fields,
+             'fundamental_coverage': fundamental_coverage,
              'previous_accountability_records': {name: context[name] for name in
-                  ('state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md')},
+                  ('state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md',
+                   'state/audit_disagreements.json')},
              'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
             data, facts, key, llm_transport.MODEL)
     except ValueError as error:

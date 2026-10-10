@@ -222,7 +222,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          git add state/audit_patterns.json
+          # amend.py also records model-call metrics after the weekly commit.
+          # Leaving them unstaged makes the subsequent pull --rebase fail.
+          git add state/audit_patterns.json state/prompt_metrics.json
           if ! git diff --cached --quiet; then
             git commit -m "Record proposed prompt amendments"
             git pull --rebase

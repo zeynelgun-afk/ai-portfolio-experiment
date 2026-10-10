@@ -66,9 +66,20 @@ def test_weekly_reviewer_receives_current_portfolio_metadata(tmp_path):
     from weekly_round import review_weekly_proposal
     (tmp_path/'output').mkdir()
     (tmp_path/'portfolio.json').write_text('{"positions":[{"symbol":"NVDA","next_earnings":"2026-11-01"}]}')
+    (tmp_path/'state').mkdir()
+    (tmp_path/'state/audit_disagreements.json').write_text('{"new_count":1,"items":[{"reason":"Recorded objection"}]}')
     with patch('claim_evidence.semantic_review', return_value={'verdict': 'supported'}) as review:
-        review_weekly_proposal(tmp_path, {'decisions': []}, {}, {}, {}, 'local')
+        review_weekly_proposal(tmp_path, {'decisions': []}, {},
+                               {'NVDA': {'forward_pe': None, 'return_1w_pct': -2.0,
+                                         'fundamental_research': {'management_guidance': 'unavailable',
+                                                                  'filing_footnotes': 'not ingested',
+                                                                  'gaps': [], 'statements': {'income': [{'date': '2026-06-30'}]}}}},
+                               {}, 'local')
     assert review.call_args.args[0]['current_portfolio']['positions'][0]['next_earnings'] == '2026-11-01'
+    assert review.call_args.args[0]['weekly_input_fields']['NVDA']['forward_pe'] is None
+    assert review.call_args.args[0]['weekly_input_fields']['NVDA']['return_1w_pct'] == -2.0
+    assert review.call_args.args[0]['fundamental_coverage']['NVDA']['statement_periods']['income'] == ['2026-06-30']
+    assert 'Recorded objection' in review.call_args.args[0]['previous_accountability_records']['state/audit_disagreements.json']
 
 
 def test_rejected_weekly_draft_keeps_full_reason_without_creating_a_plan(tmp_path):

@@ -217,6 +217,11 @@ def semantic_review(draft, data, facts, api_key, model):
 Challenge material factual and causal claims, including qualitative statements without numbers.
 If draft wraps a proposal and previous thesis state, review assertions in the PROPOSAL.
 Previous state is comparison context, not a set of new assertions to endorse.
+weekly_input_fields, when supplied, are the collected provider snapshot for field
+presence, null values and cross-symbol numeric comparisons. They do not prove
+causality, future results or that the provider itself is correct.
+fundamental_coverage, when supplied, records ingestion status and statement dates
+from the same collected snapshot. It does not independently verify the statements.
 Supplied previous accountability records establish only prior notes/audit entries and
 what needs a response; they do not prove current financial facts or future outcomes.
 Check whether new conditions and the executable falsifier match the new rationale; do not accept moving
