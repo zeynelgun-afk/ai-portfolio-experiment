@@ -90,8 +90,21 @@
       "status": "open",
       "first_seen": "2026-10-10T18:33Z",
       "last_seen": "2026-10-10T18:33Z"
+    },
+    {
+      "id": "082dfe22eeea4191de9dba6413ea70de5d69abe6cd27986a730ffa58ba11bc62",
+      "auditor": "a",
+      "pattern": "label_action_mismatch",
+      "where": "Round 6, AVGO",
+      "evidence": "=== DETERMINISTIC SCORECARD (computed from the record; no model wrote these) ===\n{\n  \"generated_at\": \"2026-10-10T19:01Z\",\n  \"weekly_rounds\": 10,\n  \"intraday_rounds\": 13,\n  \"labels\": {\n    \"broken_but_held\": [\n      {\n        \"round\": 6,\n        \"symbol\": \"AVGO\",\n        \"label\": \"BROKEN\"\n      }\n    ],\n    \"label_streaks\": [\n      {\n        \"symbol\": \"AMD\",\n        \"label\": \"WEAKENING\",\n        \"rounds\": 3,\n        \"through_round\": 7\n      }\n    ],\n    \"labels_seen\": {\n      \"MU\": 7,\n      \"AMD\": 7,\n      \"ANET\": 7,\n      \"AVGO\": 4,\n      \"NVDA\": 3\n    }\n  },\n  \"exits\": [\n    {\n      \"date\": \"2026-08-08\",\n      \"symbol\": \"SNDK\",\n      \"action\": \"SELL\",\n      \"exit_price\": 1212.21,\n     ",
+      "severity": "medium",
+      "why": "The scorecard records continued ownership alongside a broken thesis label, leaving the action inconsistent with the stated thesis assessment.",
+      "model": "gpt-6-astra",
+      "status": "open",
+      "first_seen": "2026-10-10T19:02Z",
+      "last_seen": "2026-10-10T19:02Z"
     }
   ],
-  "observed_at": "2026-10-10T18:33Z",
-  "new_count": 2
+  "observed_at": "2026-10-10T19:02Z",
+  "new_count": 1
 }
