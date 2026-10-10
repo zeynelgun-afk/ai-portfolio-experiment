@@ -1,15 +1,15 @@
-# Portfolio Report — 2026-09-29
+# Portfolio Report — 2026-10-10
 
-Data: closes as of 2026-09-28 · Starting capital: 100,000 $ (2026-08-05)
+Data: closes as of 2026-10-09 · Starting capital: 100,000 $ (2026-08-05)
 
 ## Positions
 
 | Ticker | Entry | Last | Return | Value $ | Weight | Stop (distance) |
 |---|---|---|---|---|---|---|
-| MU | 892.67 | 1053.98 | +18.1% | 35,421 | 33.3% | 730 (+44.4%) |
-| AMD | 518.58 | 607.87 | +17.2% | 23,444 | 22.0% | 440 (+38.2%) |
-| ANET | 190.51 | 204.92 | +7.6% | 16,135 | 15.2% | 160 (+28.1%) |
-| NVDA | 230.36 | 228.86 | -0.7% | 14,901 | 14.0% | 190 (+20.5%) |
+| MU | 892.67 | 1029.00 | +15.3% | 34,582 | 32.5% | 730 (+41.0%) |
+| AMD | 518.58 | 608.10 | +17.3% | 23,452 | 22.0% | 440 (+38.2%) |
+| ANET | 190.51 | 216.74 | +13.8% | 17,065 | 16.0% | 160 (+35.5%) |
+| NVDA | 230.36 | 229.28 | -0.5% | 14,928 | 14.0% | 190 (+20.7%) |
 
 **Cash:** 16,421.00 $
 
@@ -21,11 +21,11 @@ Benchmark returns include split/dividend adjustment prospectively from the recor
 
 | | Value | Return |
 |---|---|---|
-| **AI Portfolio** | 106,322 $ | **+6.32%** |
-| SPY (100k on the same day) | 99,258 $ | -0.74% |
-| SMH (100k on the same day) | 104,221 $ | +4.22% |
+| **AI Portfolio** | 106,449 $ | **+6.45%** |
+| SPY (100k on the same day) | 100,939 $ | +0.94% |
+| SMH (100k on the same day) | 104,798 $ | +4.80% |
 
-Gap vs SPY: **+7.06 pp** · vs SMH: **+2.10 pp**
+Gap vs SPY: **+5.51 pp** · vs SMH: **+1.65 pp**
 
 ## Stop check
 
