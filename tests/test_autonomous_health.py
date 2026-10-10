@@ -10,6 +10,19 @@ import detector
 from claim_evidence import documents
 
 
+def test_large_pending_note_queue_is_not_silently_cut_off(tmp_path):
+    from weekly_round import read_weekly_context
+    (tmp_path/'state').mkdir()
+    notes = '## EARLIEST UNANSWERED NOTE\n' + 'recorded evidence\n'*7000 + '\n## LATEST NOTE\n'
+    (tmp_path/'state/pending_notes.md').write_text(notes)
+    (tmp_path/'DECISION_LOG.md').write_text('historical event\n'*7000)
+    context = read_weekly_context(tmp_path)
+    assert context['state/pending_notes.md'] == notes
+    assert 'EARLIEST UNANSWERED NOTE' in context['state/pending_notes.md']
+    assert len(context['DECISION_LOG.md']) == 50000
+    assert context['AUDIT.md'] == 'unavailable'
+
+
 def test_invalid_structured_response_retries_same_subscription_bounded():
     error = llm_transport.InferenceError('Invalid structured response', retryable=True)
     with patch('llm_transport.complete', side_effect=[error, '{"findings":[],"clean":true}']) as call:

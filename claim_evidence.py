@@ -195,7 +195,9 @@ for company-news, sector/theme or valuation context. Still reject invented premi
 misstated forecasts, false attribution or hypotheses presented as established causes.
 Return JSON with verdict (supported|uncertain|unsupported), citations (list of objects with
 ONLY source_id, selected exactly from the supplied source documents), issues (list of strings),
-and counterargument (nonempty string). Copy a short ID such as S1 exactly; do not invent IDs. Code verifies the source IDs and
+and counterargument (nonempty string). Select at most eight relevant source IDs and
+list at most eight material issues. Do not enumerate every source in the bundle.
+Copy a short ID such as S1 exactly; do not invent IDs. Code verifies the source IDs and
 attaches exact source excerpts. Select only sources that directly bear on the proposal; citation
 does not by itself prove an assertion. An issue must identify a material assertion in the
 proposal that is unsupported or contradicted. Do not list missing information as a blocker when

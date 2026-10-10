@@ -119,6 +119,9 @@ an otherwise valid measured valuation. Completed audits are checkpointed before
 dependent research. Missing news bodies are fetched with bounded
 article extraction; unavailable text and contradictory analyst records remain gaps,
 never fabricated evidence or silently successful assessments.
+The pending-note queue is supplied in full rather than losing older unanswered notes
+to a history-tail limit. Section F must explicitly adopt, reject or defer each note;
+an honest unresolved-data explanation is an answer, not a claim the gap is resolved.
 
 For a weekly run whose only failure is analyst-source completeness, the installed
 guard may release the next NEW run after proving that the pending research plan,

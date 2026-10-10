@@ -47,9 +47,29 @@ Supported metrics: revenue_yoy_pct, gross_margin_pct, operating_margin_pct,
 quarter_operating_cash_flow, quarter_free_cash_flow, net_debt, total_debt. Use the source
 unit exactly. Do not substitute a price threshold for an economic falsifier. Include
 all watchlist symbols. Explain every pending note in F; set pending_notes_addressed
-true only when all have been answered. No model-written prices, balances or fills.
+true only when all have been answered. Answer each note with its date and symbol,
+and adopt, reject with reasons, or defer with an explicit unresolved-data explanation.
+Addressed means answered, not that every uncertainty has been resolved or that a
+weekend trade occurred. If there are no notes, say so in F and set the flag true.
+No model-written prices, balances or fills.
 Use source references for numeric factual prose; numeric choice fields remain numbers.
 """
+
+
+def read_weekly_context(root):
+    context = {}
+    for name in ('RULES.md', 'WEEKLY_INSTRUCTIONS.md', 'portfolio.json', 'REPORT.md',
+                 'DECISION_LOG.md', 'theses.json', 'state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md',
+                 'state/audit_disagreements.json'):
+        path = root/name
+        if not path.exists():
+            context[name] = 'unavailable'
+            continue
+        text = path.read_text()
+        # Pending work is a queue, not historical narrative: trimming its prefix
+        # hid unacknowledged notes while requiring the model to answer all of them.
+        context[name] = text if name == 'state/pending_notes.md' else text[-50000:]
+    return context
 
 
 def closing_day(round_time):
@@ -132,7 +152,7 @@ def prepare(proposal, book, old_theses, data, moment, existing_log, *, preview=F
     if set(proposal.get('sections', {})) != set('ABCDEF') or any(not t.strip() for t in proposal['sections'].values()):
         raise ValueError('Every accountability section A-F is mandatory')
     if proposal.get('pending_notes_addressed') is not True:
-        raise ValueError('Pending notes must be answered explicitly')
+        raise ValueError('Pending notes must be answered explicitly in F: adopt, reject with reasons, or defer with the data gap. After answering every note, set pending_notes_addressed=true; this does not assert uncertainty is resolved or a weekend trade executed.')
     result = copy.deepcopy(book)
     decisions = proposal.get('decisions')
     if not isinstance(decisions, list) or not decisions:
@@ -347,12 +367,7 @@ def main():
             data[symbol].update(price=quote['price'], last_price=quote['price'], price_at=quote['price_at'],
                                 price_provider=quote['price_provider'])
     facts = evidence.ledger(data, data['_meta'].get('collected_at', moment.isoformat()), 'weekly_data/market_data')
-    context = {}
-    for name in ('RULES.md', 'WEEKLY_INSTRUCTIONS.md', 'portfolio.json', 'REPORT.md',
-                 'DECISION_LOG.md', 'theses.json', 'state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md',
-                 'state/audit_disagreements.json'):
-        path = BASE/name
-        context[name] = path.read_text()[-50000:] if path.exists() else 'unavailable'
+    context = read_weekly_context(BASE)
     from llm_context import research_view
     model_data = research_view(data)
     context['weekly_data.json'] = model_data
