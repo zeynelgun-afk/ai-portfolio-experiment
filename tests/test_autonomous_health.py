@@ -55,6 +55,22 @@ def test_large_pending_note_queue_is_not_silently_cut_off(tmp_path):
     assert context['AUDIT.md'] == 'unavailable'
 
 
+def test_current_thesis_head_survives_large_weekly_context(tmp_path):
+    from weekly_round import read_weekly_context
+    theses = '{"MU":{"claims":["prior executable falsifier"]},"padding":"' + 'x'*60000 + '"}'
+    (tmp_path/'theses.json').write_text(theses)
+    assert read_weekly_context(tmp_path)['theses.json'] == theses
+
+
+def test_weekly_reviewer_receives_current_portfolio_metadata(tmp_path):
+    from weekly_round import review_weekly_proposal
+    (tmp_path/'output').mkdir()
+    (tmp_path/'portfolio.json').write_text('{"positions":[{"symbol":"NVDA","next_earnings":"2026-11-01"}]}')
+    with patch('claim_evidence.semantic_review', return_value={'verdict': 'supported'}) as review:
+        review_weekly_proposal(tmp_path, {'decisions': []}, {}, {}, {}, 'local')
+    assert review.call_args.args[0]['current_portfolio']['positions'][0]['next_earnings'] == '2026-11-01'
+
+
 def test_rejected_weekly_draft_keeps_full_reason_without_creating_a_plan(tmp_path):
     from weekly_round import review_weekly_proposal
     (tmp_path/'output').mkdir()

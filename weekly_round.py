@@ -56,6 +56,9 @@ Use source references for numeric factual prose; numeric choice fields remain nu
 For every watchlist rationale, do not claim a trend, discontinuity, seasonal pattern
 or balance-sheet change from a single-period snapshot or an unspecified dossier.
 Name the dated comparative sources or explicitly label the pattern unverified.
+Audit counts and timestamps identify records, not the contents of omitted findings.
+Do not attribute a specific objection to an audit timestamp unless its full text is
+supplied; describe missing details as unknown.
 """
 
 
@@ -69,9 +72,11 @@ def read_weekly_context(root):
             context[name] = 'unavailable'
             continue
         text = path.read_text()
-        # Pending work is a queue, not historical narrative: trimming its prefix
-        # hid unacknowledged notes while requiring the model to answer all of them.
-        context[name] = text if name == 'state/pending_notes.md' else text[-50000:]
+        # The current thesis is structured state, not a narrative tail. Trimming
+        # its prefix hid MU's existing conditions while the independent reviewer
+        # still saw them, making the proposer repeatedly claim they were missing.
+        # Pending notes likewise form a complete queue.
+        context[name] = text if name in {'state/pending_notes.md', 'theses.json'} else text[-50000:]
     return context
 
 
@@ -86,6 +91,7 @@ def review_weekly_proposal(root, proposal, old_theses, data, facts, key):
         context = read_weekly_context(root)
         report = semantic_review(
             {'proposal': proposal, 'previous_theses': old_theses,
+             'current_portfolio': read_json(str(root/'portfolio.json'), {}),
              'previous_accountability_records': {name: context[name] for name in
                   ('state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md')},
              'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
