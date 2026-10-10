@@ -8,6 +8,37 @@ import reassess
 import reviewers
 import detector
 from claim_evidence import documents
+import evidence
+
+
+def test_actual_log_timestamp_is_allowed_only_in_accountability_section():
+    stamp = '2026-09-29T18:53Z'
+    payload = {'sections': {'F': 'ADOPT the ANET note at ' + stamp + '; the gap remains unknown.'}}
+    assert evidence.render_payload(payload, {}, [stamp]) == payload
+    with patch('llm_transport.complete', return_value=json.dumps(payload)) as call:
+        result, status = reassess._call_llm('local', 'system', 'records', 'local',
+                                          source_ledger={}, accountability_times=[stamp])
+    assert status == 'ok' and result == payload and call.call_count == 1
+    assert 'record identifiers' in call.call_args.args[0][0]['content']
+
+
+@pytest.mark.parametrize('payload,times', [
+    ({'sections': {'A': 'Market event at 2026-09-29T18:53Z'}}, ['2026-09-29T18:53Z']),
+    ({'reasoning': 'Earnings at 2026-09-29T18:53Z'}, ['2026-09-29T18:53Z']),
+    ({'sections': {'F': 'Answer note at 2026-09-29T18:54Z'}}, ['2026-09-29T18:53Z']),
+    ({'sections': {'F': 'Price was 123 USD at 2026-09-29T18:53Z'}}, ['2026-09-29T18:53Z']),
+    ({'sections': {'F': 'Earnings on 2026-11-03'}}, ['2026-11-03']),
+    ({'sections': {'F': 'Price was 123 USD'}}, ['123']),
+    ({'sections': {'F': 'Answer at 2026-13-29T18:53Z'}}, ['2026-13-29T18:53Z']),
+])
+def test_timestamp_exception_cannot_bypass_financial_evidence(payload, times):
+    with pytest.raises(ValueError, match='Raw numeric'):
+        evidence.render_payload(payload, {}, times)
+
+
+def test_log_timestamp_whitelist_is_exact_and_calendar_valid():
+    assert evidence.record_timestamps(['## 2026-09-29T18:53Z · note\nprice 123; '
+                                      '2026-13-29T18:53Z; earnings 2026-11-03']) == ['2026-09-29T18:53Z']
 
 
 def test_large_pending_note_queue_is_not_silently_cut_off(tmp_path):

@@ -190,7 +190,7 @@ def call_llm(*args, **kwargs):
 
 def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None,
              sleep=None, source_ledger=None, response_validator=None,
-             response_schema=None, semantic_validator=None):
+             response_schema=None, semantic_validator=None, accountability_times=()):
     """A JSON-returning LLM call that retries on transient errors and bad output.
 
     Three problems share one loop, because the remedy for all three is the same: ask
@@ -219,6 +219,12 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
         import evidence
         messages[0]["content"] += "\n" + evidence.INSTRUCTION
         messages[1]["content"] += "\nSOURCE_LEDGER:\n" + json.dumps(ledger_view(source_ledger), separators=(",", ":"))
+    if accountability_times:
+        messages[0]['content'] += ('\nOnly in accountability section F, exact ISO log timestamps from '
+            'the following supplied records may identify prior notes/audit entries. They are '
+            'record identifiers, not evidence of financial facts. Use the full timestamp, not '
+            'a bare date. All market dates, prices, percentages and thresholds in prose still '
+            'require SOURCE_LEDGER references. Allowed record timestamps: ' + json.dumps(accountability_times))
     last_status = "unparseable"
 
     initial_messages = copy.deepcopy(messages)
@@ -282,7 +288,7 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
 
         if source_ledger is not None:
             try:
-                payload = evidence.render_payload(payload, source_ledger)
+                payload = evidence.render_payload(payload, source_ledger, accountability_times)
             except (ValueError, TypeError, AttributeError) as error:
                 last_status = "invalid_evidence"
                 print("  EVIDENCE REJECTED: " + str(error)[:240])

@@ -4,8 +4,24 @@ import hashlib
 import json
 import math
 import re
+from datetime import datetime
 
 REFERENCE = re.compile(r"\{\{([A-Z][A-Z0-9.-]*\.[a-z][a-z0-9_]*)\}\}")
+RECORD_TIME = re.compile(r'(?<![A-Za-z0-9_])\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,6})?)?(?:Z|[+-]\d{2}:\d{2})(?![A-Za-z0-9_])')
+
+
+def record_timestamps(records):
+    """Extract exact, valid ISO identifiers from supplied accountability records."""
+    result = set()
+    for text in records:
+        for match in RECORD_TIME.finditer(text):
+            stamp = match.group()
+            try:
+                datetime.fromisoformat(stamp.replace('Z', '+00:00'))
+            except ValueError:
+                continue
+            result.add(stamp)
+    return sorted(result)
 PROSE = {'text', 'thesis_summary', 'thesis_assessment', 'new_thesis_summary',
          'reasoning', 'falsifier', 'saturday_note', 'risk', 'exit_plan'}
 INSTRUCTION = """Evidence protocol: Write qualitative prose. For EVERY numeric market
@@ -120,10 +136,14 @@ def ledger(data, observed_at, origin):
     return facts
 
 
-def render(text, facts, claim_ids=()):
+def render(text, facts, claim_ids=(), accountability_times=()):
     if not isinstance(text, str):
         raise ValueError('Evidence prose must be text')
     stripped = REFERENCE.sub('', text)
+    # Only callers holding the actual records can supply this whitelist. This
+    # removes exact log identifiers, never arbitrary dates or financial numbers.
+    allowed = set(record_timestamps(accountability_times)) & set(accountability_times)
+    stripped = RECORD_TIME.sub(lambda match: '' if match.group() in allowed else match.group(), stripped)
     for ident in claim_ids:
         stripped=re.sub(r'(?<![A-Za-z0-9_-])'+re.escape(ident)+r'(?![A-Za-z0-9_-])','',stripped)
     # Indicator names are parameters, not asserted measured values.
@@ -155,7 +175,7 @@ def render(text, facts, claim_ids=()):
     return REFERENCE.sub(expand, text)
 
 
-def render_payload(payload, facts):
+def render_payload(payload, facts, accountability_times=()):
     """Render only prose fields; decision parameters stay numeric and executable."""
     result = copy.deepcopy(payload)
     issuers={fact['symbol'] for fact in facts.values()}
@@ -179,7 +199,9 @@ def render_payload(payload, facts):
                     except ValueError as error:
                         raise ValueError(f'{key}: {error}; rejected prose: {child[:160]!r}') from error
                 elif key == 'sections':
-                    value[key] = {k: render(v, facts, claim_ids) for k, v in child.items()}
+                    value[key] = {k: render(v, facts, claim_ids,
+                                           accountability_times if k == 'F' else ())
+                                  for k, v in child.items()}
                 else:
                     visit(child)
         elif isinstance(value, list):

@@ -80,8 +80,11 @@ def review_weekly_proposal(root, proposal, old_theses, data, facts, key):
     path = str(root/'output/weekly_evidence.json')
     write_json(path, snapshot)
     try:
+        context = read_weekly_context(root)
         report = semantic_review(
             {'proposal': proposal, 'previous_theses': old_theses,
+             'previous_accountability_records': {name: context[name] for name in
+                  ('state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md')},
              'review_focus': 'Compare old and new conditions; reject price-only excuses for changing thresholds.'},
             data, facts, key, llm_transport.MODEL)
     except ValueError as error:
@@ -389,6 +392,8 @@ def main():
                                 price_provider=quote['price_provider'])
     facts = evidence.ledger(data, data['_meta'].get('collected_at', moment.isoformat()), 'weekly_data/market_data')
     context = read_weekly_context(BASE)
+    accountability_times = evidence.record_timestamps(context[name] for name in
+        ('state/pending_notes.md', 'AUDIT.md', 'AUDIT_LOG.md'))
     from llm_context import research_view
     model_data = research_view(data)
     context['weekly_data.json'] = model_data
@@ -424,7 +429,8 @@ def main():
         reviewed[:] = [review_weekly_proposal(BASE, candidate, old_theses, data, facts, key)]
     proposal, status = call_llm(llm_transport.MODEL,
                                 SYSTEM+"\n"+lifecycle.INSTRUCTION+"\n"+REVIEW_INSTRUCTION+"\nPut monitoring and analyst_review inside EACH decision; monitoring claims must exactly match the supplied final thesis claims.", json.dumps(context), key, source_ledger=facts,
-                                response_validator=validate_proposal, semantic_validator=validate_semantics)
+                                response_validator=validate_proposal, semantic_validator=validate_semantics,
+                                accountability_times=accountability_times)
     if not proposal:
         raise ValueError('Weekly proposal rejected: ' + status)
     from claim_evidence import semantic_review

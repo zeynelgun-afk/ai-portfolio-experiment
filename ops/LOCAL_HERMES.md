@@ -122,6 +122,10 @@ never fabricated evidence or silently successful assessments.
 The pending-note queue is supplied in full rather than losing older unanswered notes
 to a history-tail limit. Section F must explicitly adopt, reject or defer each note;
 an honest unresolved-data explanation is an answer, not a claim the gap is resolved.
+Only section F may reproduce exact valid ISO timestamps found in those supplied
+accountability records. These identify old notes/audit entries; all other raw dates
+and financial figures still require ledger references. The independent reviewer sees
+the prior records as accountability context, not proof of current business facts.
 
 For a weekly run whose only failure is analyst-source completeness, the installed
 guard may release the next NEW run after proving that the pending research plan,
