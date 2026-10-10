@@ -51,8 +51,21 @@
       "status": "open",
       "first_seen": "2026-10-10T14:33Z",
       "last_seen": "2026-10-10T14:33Z"
+    },
+    {
+      "id": "00cc9b01fc6039246e298fe7ef1fe2ea38ddb02eea7c11291a35052cf216c09b",
+      "auditor": "a",
+      "pattern": "wish_as_thesis",
+      "where": "Round #10, NVDA addition review",
+      "evidence": " but the tightest of MU/AMD/ANET) — watching is more disciplined than adding. (3) The cash is being held for MU's earnings and an AMD correction — both are more strategic opportunities. **I accept the risk: if NVDA's recovery continues I miss the chance to add. But it has not reached its entry price yet and the first month is not complete — one or two more weeks of recovery would take it to the entry price, and I will assess adding then.**",
+      "severity": "medium",
+      "why": "An assumed recovery to the entry price becomes the basis for timing reassessment without evidence supporting that recovery or explaining why entry cost determines prospective investment merit.",
+      "model": "gpt-6-astra",
+      "status": "open",
+      "first_seen": "2026-10-10T18:06Z",
+      "last_seen": "2026-10-10T18:06Z"
     }
   ],
-  "observed_at": "2026-10-10T15:05Z",
-  "new_count": 0
+  "observed_at": "2026-10-10T18:06Z",
+  "new_count": 1
 }
