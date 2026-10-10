@@ -128,3 +128,44 @@ Consensus: 4 agreed; 1 reported by one auditor only and therefore not recorded
 - `unsourced_reasoning` has survived consensus 3 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
 - `commentary_stale` has survived consensus 3 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
 
+
+## 2026-10-10T14:33Z
+
+Auditors: gpt-6-astra · gpt-6-astra
+Consensus: 4 agreed; 2 reported by one auditor only and therefore not recorded
+
+### outcome_fitted_rationale (high)
+
+*the rationale was bent to fit the outcome*
+
+- **gpt-6-astra** at Round #8, AMD retrospective: "**The AMD thesis:** last round (#7) "WEAKENING — the last chance; next round it either regains the 50d or I act." → **IT TURNED OUT RIGHT.** AMD regained the 50d (477.57 $ < 499.27 → 516.13 $ > 496.55 $), +13.1% on the week, positive news from the CFO. **I was not wrong — I set the "last chance" condition correctly last round and it was met this round.** The thesis was upgraded from WEAKENING to VALID. **The lesson: the "last chance" warning worked — giving AMD one more round was right (to avoid closing two positions in the same round as AVGO). AMD's fundamentals were strong (2027 EPS growth) and only the technical momentum was weak — this round the technicals recovered too.**" — The subsequent technical recovery is treated as proof that the earlier decision to wait was correct, rather than evaluating its justification independently of the outcome.
+- **gpt-6-astra** at Round #8, AMD retrospective: "**The AMD thesis:** last round (#7) "WEAKENING — the last chance; next round it either regains the 50d or I act." → **IT TURNED OUT RIGHT.** AMD regained the 50d (477.57 $ < 499.27 → 516.13 $ > 496.55 $), +13.1% on the week, positive news from the CFO. **I was not wrong — I set the "last chance" condition correctly last round and it was met this round.** The thesis was upgraded from WEAKENING to VALID. **The lesson: the "last chance" warning worked — giving AMD one more round was right (to avoid closing two positions in the same round as AVGO). AMD's fundamentals were strong (2027 EPS growth) and only the technical momentum was weak — this round the technicals recovered too.**" — The retrospective treats the subsequent technical recovery as proof that waiting was correct, rather than assessing whether the original reasoning was justified independently of the outcome.
+
+### concentration_unexamined (medium)
+
+*the theme concentration asserted as accepted, not examined*
+
+- **gpt-6-astra** at Round #10, theme risk: "**Diversification:** the three main fronts of AI infrastructure (memory, processors, networking) are covered. But ALL THREE depend on the AI spending cycle — a break in the theme hits them together. **I accept the risk: an aggressive target (3-5x) requires aggressive concentration.** Over the last three rounds (#8, #9, #10) TSM/MRVL/MSFT/GOOGL were dropped and no new symbol screen was run — a strategy of theme depth (an opportunity to add to the existing positions) was chosen over theme breadth. This round the existing portfolio produced a momentum burst (+7.11% on the week) and the strategy was vindicated." — Shared exposure is acknowledged but justified by the desired return and recent gains rather than an examination of whether the common downside remains acceptable.
+- **gpt-6-astra** at Round #9, theme risk: "**Diversification:** the three main fronts of AI infrastructure (memory, processors, networking) are covered. But ALL THREE depend on the AI spending cycle — a break in the theme hits them together. **I accept the risk: an aggressive target (3-5x) requires aggressive concentration.** Last round TSM/MRVL/MSFT/GOOGL were dropped — a strategy of theme depth (adding to the existing positions) was chosen over theme breadth. This round the existing portfolio gained momentum and the strategy was vindicated." — The shared spending-cycle exposure is acknowledged but accepted as necessary for the return ambition, with recent momentum substituted for an examination of whether that concentration remains justified.
+
+### unsourced_reasoning (high)
+
+*a factual claim with no source in the data provided*
+
+- **gpt-6-astra** at Round #10, AMD move attribution: "**Conclusion:** AMD's +12.6% move rests not on a single event but on a combination of four factors — reduced geopolitical risk (Trump-Xi), mega-cap diversification (Meta Muse), the sector rally and technical momentum. The "AI accelerator / NVDA alternative" thesis is strengthening." — The conclusion presents geopolitical improvement, customer diversification and investor behavior as established causes of the move even though the supplied headlines and technical observations do not verify those causal links.
+- **gpt-6-astra** at Round #10, AMD cause investigation: "**Conclusion:** AMD's +12.6% move rests not on a single event but on a combination of four factors — reduced geopolitical risk (Trump-Xi), mega-cap diversification (Meta Muse), the sector rally and technical momentum. The "AI accelerator / NVDA alternative" thesis is strengthening." — The conclusion presents geopolitical easing, customer diversification and investor flows as established causes of the rally even though the supplied discussion offers headlines and speculation rather than evidence establishing those causal links.
+
+### commentary_stale (medium)
+
+*commentary that no longer matches the data it describes*
+
+- **gpt-6-astra** at Round #10, cash assessment: "**Cash:** 16,421 $ (16.4% of the portfolio, per REPORT.md)." — The cash allocation repeats an earlier portfolio weight despite the same round reporting a different current weight, making the decision context inconsistent with its own valuation record.
+- **gpt-6-astra** at Round #10, cash assessment: "**Cash:** 16,421 $ (16.4% of the portfolio, per REPORT.md)." — The cash assessment repeats an earlier allocation weight despite the same round reporting a different current cash weight, leaving the decision discussion inconsistent with its own portfolio data.
+
+### Instruction amendment warranted
+
+- `outcome_fitted_rationale` has survived consensus 4 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `concentration_unexamined` has survived consensus 3 times since 2026-10-10T13:39Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `unsourced_reasoning` has survived consensus 4 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+- `commentary_stale` has survived consensus 4 times since 2026-09-28T07:28Z. Writing the rule down again has not worked; it belongs in `WEEKLY_INSTRUCTIONS.md` as a check, or in `theses.json` as a condition. **The owner decides — this proposes only.**
+
