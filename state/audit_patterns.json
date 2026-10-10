@@ -1,8 +1,13 @@
 {
   "commentary_stale": {
-    "count": 1,
+    "count": 2,
     "first_seen": "2026-09-28T07:28Z",
-    "last_seen": "2026-09-28T07:28Z"
+    "last_seen": "2026-10-10T13:39Z"
+  },
+  "concentration_unexamined": {
+    "count": 1,
+    "first_seen": "2026-10-10T13:39Z",
+    "last_seen": "2026-10-10T13:39Z"
   },
   "label_action_mismatch": {
     "count": 1,
@@ -10,9 +15,9 @@
     "last_seen": "2026-09-28T07:28Z"
   },
   "outcome_fitted_rationale": {
-    "count": 1,
+    "count": 2,
     "first_seen": "2026-09-28T07:28Z",
-    "last_seen": "2026-09-28T07:28Z"
+    "last_seen": "2026-10-10T13:39Z"
   },
   "threshold_miscalibrated": {
     "count": 1,
@@ -20,8 +25,8 @@
     "last_seen": "2026-09-28T07:28Z"
   },
   "unsourced_reasoning": {
-    "count": 1,
+    "count": 2,
     "first_seen": "2026-09-28T07:28Z",
-    "last_seen": "2026-09-28T07:28Z"
+    "last_seen": "2026-10-10T13:39Z"
   }
 }
