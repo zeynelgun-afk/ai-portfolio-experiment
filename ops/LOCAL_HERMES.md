@@ -13,8 +13,11 @@ Every inference call launches Hermes with `--safe-mode --provider openai-codex
 --model gpt-6-astra --toolsets none --max-turns 1 --source tool`. It uses the existing
 local subscription connection; no OAuth tokens are copied to GitHub or this repo.
 Safe mode ignores configured provider fallback, plugins, MCP, memory and project
-rules. Each invocation has a new context, a 180-second run budget and a 195-second
-parent timeout. Provider/CLI errors stop rather than invoking a paid provider.
+rules. Each invocation has a new context. Requests below 100,000 UTF-8 prompt bytes
+have a 180-second run budget and a 195-second parent timeout; larger research
+requests have a 600-second run budget and a 615-second parent timeout. This retains
+the complete research evidence without repeatedly cutting off the weekly decision.
+Provider/CLI errors stop rather than invoking a paid provider.
 Existing semantic correction loops remain bounded at their existing limits.
 JSON is parsed strictly; supplied JSON Schema is validated locally, NOT claimed to
 be provider-enforced structured decoding. Existing citation, number, semantic,
@@ -45,8 +48,10 @@ All trading remains simulated accounting: no broker credentials or order APIs.
 - Run the listener under a systemd user service and `flock` held for its entire
   lifetime. Exactly one listener is allowed. Do not run a second copy manually.
 - Persistent private receipts and exact root JSON/Markdown, `state/`, `output/`
-  snapshots: `~/.local/state/ai-portfolio-runner/`. Failure retains `active.json`;
-  later jobs are refused, including watchdog retry requests. No automatic cleanup.
+  snapshots: `~/.local/state/ai-portfolio-runner/`. Unresolved failure retains
+  `active.json`; later jobs are refused, including watchdog retry requests.
+  Only the guard's narrowly verified persisted source-gap cases release the claim
+  automatically; the failed receipt and exact archive remain intact.
 - A success receipt prevents re-executing the same GitHub run ID. This is not a
   global business-event deduper; existing domain execution/recovery gates remain.
 
@@ -106,7 +111,19 @@ Invalid JSON/schema output and parent timeouts retry the same subscription at mo
 three times through the existing assessment loop. Protocol violations, tool activity,
 wrong models and process failures stop immediately. No paid fallback is enabled.
 Auditors receive an explicit JSON schema and a clean/findings consistency check.
+Auditors select code-owned source-span IDs; code attaches the original quotations,
+so literal source quotes cannot corrupt the model's JSON. Scout choices use the
+measured discovery universe, unique-symbol/schema checks and bounded corrections.
 The weekly valuation is committed before inference, so a failed review cannot hide
-an otherwise valid measured valuation. Missing news bodies are fetched with bounded
+an otherwise valid measured valuation. Completed audits are checkpointed before
+dependent research. Missing news bodies are fetched with bounded
 article extraction; unavailable text and contradictory analyst records remain gaps,
 never fabricated evidence or silently successful assessments.
+
+For a weekly run whose only failure is analyst-source completeness, the installed
+guard may release the next NEW run after proving that the pending research plan,
+input checksum, notifications and evidence were persisted remotely. It also requires
+unchanged portfolio accounting, live theses and decision log, no executable pending
+transaction, and a clean checkout. Model, execution, push and notification failures
+remain blockers. This release is not workflow success or permission to replay an
+old run; the next session must collect fresh evidence and reconsider the plan.
