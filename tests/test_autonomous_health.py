@@ -25,6 +25,7 @@ def test_actual_log_timestamp_is_allowed_only_in_accountability_section():
 @pytest.mark.parametrize('payload,times', [
     ({'sections': {'A': 'Market event at 2026-09-29T18:53Z'}}, ['2026-09-29T18:53Z']),
     ({'reasoning': 'Earnings at 2026-09-29T18:53Z'}, ['2026-09-29T18:53Z']),
+    ({'theses': {'MU': {'sections': {'F': '2026-09-29T18:53Z'}}}}, ['2026-09-29T18:53Z']),
     ({'sections': {'F': 'Answer note at 2026-09-29T18:54Z'}}, ['2026-09-29T18:53Z']),
     ({'sections': {'F': 'Price was 123 USD at 2026-09-29T18:53Z'}}, ['2026-09-29T18:53Z']),
     ({'sections': {'F': 'Earnings on 2026-11-03'}}, ['2026-11-03']),

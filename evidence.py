@@ -190,7 +190,7 @@ def render_payload(payload, facts, accountability_times=()):
         elif isinstance(value,list):
             for child in value:identifiers(child)
     identifiers(result)
-    def visit(value):
+    def visit(value, top_level=False):
         if isinstance(value, dict):
             for key, child in list(value.items()):
                 if isinstance(child, str) and key not in {'symbol', 'id', 'status', 'action', 'severity', 'type', 'next_review_at', 'claim_id'}:
@@ -200,12 +200,12 @@ def render_payload(payload, facts, accountability_times=()):
                         raise ValueError(f'{key}: {error}; rejected prose: {child[:160]!r}') from error
                 elif key == 'sections':
                     value[key] = {k: render(v, facts, claim_ids,
-                                           accountability_times if k == 'F' else ())
+                                           accountability_times if top_level and k == 'F' else ())
                                   for k, v in child.items()}
                 else:
                     visit(child)
         elif isinstance(value, list):
             for child in value:
                 visit(child)
-    visit(result)
+    visit(result, top_level=True)
     return result
