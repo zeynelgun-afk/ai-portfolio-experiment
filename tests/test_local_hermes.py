@@ -98,3 +98,15 @@ def test_automation_cannot_restore_retired_provider_configuration():
         text = path.read_text()
         for forbidden in ('OPENROUTER_API_KEY', 'OPENROUTER_MODEL_', 'openrouter.ai', 'LLM_BASE_URL'):
             assert forbidden not in text, (path.name, forbidden)
+
+
+def test_protocol_and_tool_errors_are_not_retryable():
+    import llm_transport
+    events = [{'type': 'system', 'subtype': 'init', 'model': llm_transport.MODEL},
+              {'type': 'tool_use', 'name': 'terminal'},
+              {'type': 'result', 'text': '{}', 'exit_code': 0, 'session_id': 'x'}]
+    with patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0, '\n'.join(map(json.dumps, events)), 'PRIVATE')):
+        with pytest.raises(llm_transport.InferenceError) as caught:
+            llm_transport.complete([])
+    assert not caught.value.retryable
+    assert 'PRIVATE' not in str(caught.value)

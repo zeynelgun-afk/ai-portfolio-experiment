@@ -141,6 +141,36 @@ def build_prompt(scorecard, log_text, theses):
     ])
 
 
+AUDITOR_RESPONSE_SCHEMA = {
+    'name': 'reasoning_audit',
+    'schema': {
+        'type': 'object',
+        'properties': {
+            'findings': {'type': 'array', 'items': {
+                'type': 'object',
+                'properties': {
+                    'pattern': {'type': 'string', 'enum': list(PATTERNS)},
+                    **{key: {'type': 'string', 'minLength': 1}
+                       for key in ('where', 'evidence', 'why')},
+                    'severity': {'type': 'string', 'enum': list(SEVERITIES)},
+                },
+                'required': ['pattern', 'where', 'evidence', 'why', 'severity'],
+                'additionalProperties': False,
+            }},
+            'clean': {'type': 'boolean'},
+        },
+        'required': ['findings', 'clean'], 'additionalProperties': False,
+    },
+}
+
+
+def validate_audit(payload):
+    if (not isinstance(payload, dict) or not isinstance(payload.get('findings'), list)
+            or not isinstance(payload.get('clean'), bool)
+            or payload['clean'] != (not payload['findings'])):
+        raise ValueError('clean must be true exactly when findings is empty')
+
+
 def run_auditor(model, prompt, api_key, dry_run=False):
     """One auditor. Returns a list of findings, or None when the call was unusable."""
     system = SYSTEM.format(patterns="\n".join(
@@ -148,13 +178,17 @@ def run_auditor(model, prompt, api_key, dry_run=False):
     if dry_run:
         print(f"--- auditor prompt ({model}) ---\n{system}\n\n{prompt[:1500]}…\n")
         return []
-    payload, status = reassess.call_llm(model, system, prompt, api_key)
+    payload, status = reassess.call_llm(
+        model, system, prompt, api_key,
+        response_schema=AUDITOR_RESPONSE_SCHEMA, response_validator=validate_audit)
     if not payload or not isinstance(payload.get("findings"), list):
         print(f"WARNING auditor {model}: unusable output ({status}) — its findings are "
               "dropped, which means no consensus can form from this run")
         return None
     findings = []
     for item in payload["findings"]:
+        if not isinstance(item, dict):
+            return None
         pattern = str(item.get("pattern", "")).strip()
         if pattern not in PATTERNS:
             print(f"  {model}: discarding a finding with an unknown pattern "

@@ -63,6 +63,24 @@ jobs:
       - name: 1) Valuation + exit-level warning (makes no decisions)
         run: python update.py
 
+      - name: Persist valuation before model-dependent research
+        run: |
+          git config user.name "portfolio-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add REPORT.md history.csv portfolio.json telegram.txt
+          git diff --cached --quiet || git commit -m "Refresh measured valuation before weekly research"
+          git push
+
+      - name: Preserve valuation evidence
+        if: always() && steps.checkout.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-valuation
+          path: |
+            REPORT.md
+            history.csv
+          retention-days: 90
+
       - name: 2) Audit the previous rounds — BEFORE this round decides
         # The scorecard and the review read the record as it stood before this round, so
         # the decision-maker walks into the round with its own failure patterns in front

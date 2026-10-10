@@ -418,6 +418,14 @@ def check_news_shock(symbol, thesis_summary, news_items, claims=None):
     from claim_evidence import documents, resolve_source_references
     from reassess import call_llm
     api_key = llm_transport.credential()
+    # FMP/yfinance sometimes supply only a headline. Attempt a bounded article
+    # extraction before rejecting it; a headline never becomes source evidence.
+    if any(not documents(symbol, [item]) for item in news_items):
+        from article_reader import enrich_news
+        missing = [item for item in news_items if not documents(symbol, [item])]
+        recovered = iter(enrich_news(missing, max_articles=MAX_NEWS_PER_ASSESSMENT))
+        news_items = [item if documents(symbol, [item]) else next(recovered)
+                      for item in news_items]
     sources = documents(symbol, news_items)
     source_aliases = {f'N{index}': key for index, key in enumerate(sorted(sources), 1)}
     model_sources = {alias: {**{k: sources[key].get(k) for k in

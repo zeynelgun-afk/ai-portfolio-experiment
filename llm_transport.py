@@ -18,6 +18,10 @@ TIMEOUT = 180
 class InferenceError(RuntimeError):
     """Sanitized failure: raw provider diagnostics may contain sensitive data."""
 
+    def __init__(self, message, *, retryable=False):
+        super().__init__(message)
+        self.retryable = retryable
+
 
 def credential():
     """Compatibility truth value for callers; never an API credential."""
@@ -65,9 +69,14 @@ def complete(messages, response_schema=None):
         final = finals[0]
         if final.get('exit_code') != 0 or final.get('error') or not final.get('session_id'):
             raise InferenceError('Hermes inference failed')
-        payload = json.loads(final['text'])
-        if response_schema:
-            validate(payload, response_schema['schema'])
+        try:
+            payload = json.loads(final['text'])
+            if response_schema:
+                validate(payload, response_schema['schema'])
+        except (ValueError, TypeError, ValidationError):
+            raise InferenceError('Invalid structured response', retryable=True) from None
         return json.dumps(payload, ensure_ascii=False)
-    except (OSError, subprocess.TimeoutExpired, ValueError, KeyError, TypeError, ValidationError):
+    except subprocess.TimeoutExpired:
+        raise InferenceError('Inference timeout', retryable=True) from None
+    except (OSError, ValueError, KeyError, TypeError, ValidationError):
         raise InferenceError('Hermes unavailable or invalid structured output') from None

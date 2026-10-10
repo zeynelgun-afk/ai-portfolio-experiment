@@ -99,3 +99,14 @@ checkout. Missing successful finalization is a blocker, never implicit success.
 `python ops/local_runner_guard.py plan` needs no secrets and touches no portfolio.
 Runner tests include real simultaneous subprocess claims and private artifact
 readback. Tests do not place broker orders or invoke paid OpenRouter inference.
+
+## Recovery behavior
+
+Invalid JSON/schema output and parent timeouts retry the same subscription at most
+three times through the existing assessment loop. Protocol violations, tool activity,
+wrong models and process failures stop immediately. No paid fallback is enabled.
+Auditors receive an explicit JSON schema and a clean/findings consistency check.
+The weekly valuation is committed before inference, so a failed review cannot hide
+an otherwise valid measured valuation. Missing news bodies are fetched with bounded
+article extraction; unavailable text and contradictory analyst records remain gaps,
+never fabricated evidence or silently successful assessments.

@@ -16,6 +16,11 @@ def documents(symbol, news):
         if item.get('symbol',symbol) != symbol:
             continue
         body=item.get('text') or item.get('summary') or item.get('content') or ''
+        article = item.get('article_body_text')
+        full_body = (isinstance(article, str) and len(article.strip()) >= 80
+                     and item.get('content_read_status') == 'article_body_extracted')
+        if full_body:
+            body = article
         url=item.get('url') or ''
         published=item.get('sourcePublishedDate') or item.get('publishedDate')
         if not isinstance(body,str) or len(body.strip())<80 or not published or urlsplit(url).scheme not in {'https','http'}:
@@ -24,7 +29,8 @@ def documents(symbol, news):
         identity=hashlib.sha256(json.dumps([symbol,url,published,body]).encode()).hexdigest()[:24]
         result['news:'+identity]={'symbol':symbol,'url':url,'published_at':published,
                                   'title':item.get('title',''),'text':citation_text(body),
-                                  'scope':'provider article/excerpt; not independently verified full text'}
+                                  'scope': ('extracted article body; extraction is not independent verification'
+                                            if full_body else 'provider article/excerpt; not independently verified full text')}
         if citation_text(body) != body:
             result['news:'+identity]['raw_text'] = body
             result['news:'+identity]['text_normalization'] = 'Invisible formatting removed; original preserved in raw_text'

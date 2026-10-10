@@ -150,9 +150,9 @@ def _single_call(model, messages, api_key, response_schema=None):
 
     try:
         return llm_transport.complete(messages, response_schema=response_schema), False
-    except llm_transport.InferenceError:
-        print("ERROR: local Hermes inference unavailable or invalid — no paid fallback")
-        return None, False
+    except llm_transport.InferenceError as error:
+        print("ERROR: local Hermes inference: " + str(error) + " — no paid fallback")
+        return None, error.retryable
 
 
 def extract_json(text):
