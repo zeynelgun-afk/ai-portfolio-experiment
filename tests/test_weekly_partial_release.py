@@ -1,5 +1,6 @@
 """Persisted research with source gaps may continue next session, never replay."""
 import json
+import hashlib
 from datetime import datetime, timezone
 from pathlib import Path
 import subprocess
@@ -14,6 +15,7 @@ def fixture(tmp_path):
     subprocess.run(['git','init','--bare',str(remote)],check=True,capture_output=True)
     git(workspace,'init','-b','main');git(workspace,'config','user.name','Test');git(workspace,'config','user.email','test@example.invalid')
     (workspace/'state').mkdir()
+    (workspace/'.gitignore').write_text('weekly_data.json\n')
     book={'last_updated':'old','cash_usd':10,'positions':[],'trade_history':[]}
     (workspace/'portfolio.json').write_text(json.dumps(book))
     (workspace/'theses.json').write_text('{}');(workspace/'DECISION_LOG.md').write_text('# Record\n')
@@ -23,7 +25,8 @@ def fixture(tmp_path):
     guard.start(root,context);guard.checkpoint_checkout(root,context)
     book['last_updated']='current';(workspace/'portfolio.json').write_text(json.dumps(book))
     (workspace/'weekly_data.json').write_text(json.dumps({'AMD':{'analyst_revisions':{'status':'incomplete','estimates_status':'ok'}}}))
-    (workspace/'state/weekly_plan.json').write_text(json.dumps({'round_id':'research','status':'pending','created_at':datetime.now(timezone.utc).isoformat(),'proposal':{'decisions':[]}}))
+    snapshot = hashlib.sha256(json.dumps(json.loads((workspace/'weekly_data.json').read_text()),sort_keys=True).encode()).hexdigest()
+    (workspace/'state/weekly_plan.json').write_text(json.dumps({'round_id':'research','status':'pending','created_at':datetime.now(timezone.utc).isoformat(),'proposal':{'decisions':[]},'research_snapshot':snapshot}))
     git(workspace,'add','.');git(workspace,'commit','-m','persist research');git(workspace,'push','origin','main')
     steps={key:{'outcome':'success','conclusion':'success','outputs':{}} for key in guard.WEEKLY_PARTIAL_STEP_IDS}
     for key in ('corporate_commit','corporate_notify','exit_notify','prompt_health'):
@@ -49,7 +52,7 @@ def test_persisted_weekend_research_preserves_failure_and_permits_new_run(tmp_pa
     guard.start(root,{**context,'GITHUB_RUN_ID':'102'})
 
 
-@pytest.mark.parametrize('mutation',['model','notification','unknown_step','corporate','portfolio','thesis','pending_execution','dirty','unpublished','empty_gaps','missing_baseline','missing_hook','cancelled'])
+@pytest.mark.parametrize('mutation',['model','notification','unknown_step','corporate','portfolio','thesis','pending_execution','dirty','unpublished','empty_gaps','missing_baseline','missing_hook','cancelled','input_symlink'])
 def test_ambiguous_weekly_effects_keep_lock(tmp_path,mutation):
     guard,root,context,steps,workspace=fixture(tmp_path);outcome='failure'
     if mutation in ('model','notification'):
@@ -61,7 +64,13 @@ def test_ambiguous_weekly_effects_keep_lock(tmp_path,mutation):
     elif mutation=='pending_execution':(workspace/'state/pending_decision.json').write_text('{"action":"BUY"}')
     elif mutation=='dirty':(workspace/'unknown.txt').write_text('unresolved')
     elif mutation=='unpublished':git(workspace,'remote','set-url','origin',str(tmp_path/'missing'))
-    elif mutation=='empty_gaps':(workspace/'weekly_data.json').write_text('{}')
+    elif mutation=='empty_gaps':
+        (workspace/'weekly_data.json').write_text('{}')
+        path=workspace/'state/weekly_plan.json';plan=json.loads(path.read_text())
+        plan['research_snapshot']=hashlib.sha256(b'{}').hexdigest()
+        path.write_text(json.dumps(plan))
+    elif mutation=='input_symlink':
+        inputs=workspace/'weekly_data.json'; saved=tmp_path/'inputs.json';inputs.rename(saved);inputs.symlink_to(saved)
     elif mutation=='missing_baseline':steps.pop('baseline')
     elif mutation=='missing_hook':steps.pop('a26c83da3a754645a5cf6f506cd1caa3')
     elif mutation=='cancelled':outcome='cancelled'

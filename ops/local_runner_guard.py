@@ -253,7 +253,7 @@ def persisted_weekly_research_partial(env, outcome, workspace, attempt):
         remote = git('ls-remote', '--exit-code', 'origin', 'refs/heads/main').split()
         if remote != [head, 'refs/heads/main']:
             return None
-        for name in ('portfolio.json', 'theses.json', 'weekly_data.json', 'state/weekly_plan.json'):
+        for name in ('portfolio.json', 'theses.json', 'state/weekly_plan.json'):
             path = workspace / name
             if (path.is_symlink() or not path.is_file()
                     or path.read_bytes() != checkout_git(workspace, 'show', 'HEAD:' + name)):
@@ -274,7 +274,15 @@ def persisted_weekly_research_partial(env, outcome, workspace, attempt):
                 or not isinstance(plan.get('proposal'), dict)
                 or datetime.fromisoformat(plan['created_at']) < datetime.fromisoformat(attempt['started_at'])):
             return None
-        data = json.loads((workspace / 'weekly_data.json').read_text())
+        inputs = workspace / 'weekly_data.json'
+        if inputs.is_symlink() or not inputs.is_file():
+            return None
+        data = json.loads(inputs.read_text())
+        # Raw inputs are deliberately gitignored and saved in the private archive.
+        # Bind their exact canonical content to the plan persisted on remote main.
+        snapshot = hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
+        if plan.get('research_snapshot') != snapshot:
+            return None
         gaps = [symbol for symbol, row in data.items() if not symbol.startswith('_')
                 and (row.get('analyst_revisions', {}).get('status') != 'ok'
                      or row.get('analyst_revisions', {}).get('estimates_status') != 'ok')]
