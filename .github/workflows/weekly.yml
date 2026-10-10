@@ -305,16 +305,7 @@ jobs:
       - name: Analyst revision evidence health
         id: analyst_health
         if: always() && steps.weekly_inputs.outcome == 'success'
-        run: |
-          python - <<'PY'
-          import json
-          data = json.load(open('weekly_data.json'))
-          missing = [s for s, row in data.items() if not s.startswith('_') and
-                     (row.get('analyst_revisions', {}).get('status') != 'ok' or
-                      row.get('analyst_revisions', {}).get('estimates_status') != 'ok')]
-          if missing:
-              raise SystemExit('Analyst revision evidence incomplete: ' + ', '.join(missing))
-          PY
+        run: python analyst_health.py
 
       - name: Preserve provider routing evidence
         id: provider_evidence

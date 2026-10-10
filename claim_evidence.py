@@ -171,7 +171,44 @@ def semantic_review(draft, data, facts, api_key, model):
         if canonical != source['text']:
             source.setdefault('raw_text', source['text'])
             source['text'] = canonical
-    source_aliases = {f'S{index}': key for index, key in enumerate(sorted(sources), 1)}
+    # The proposer sees a bounded document selection, while the persisted ledger
+    # can contain thousands of facts. Re-sending every fact to the independent
+    # reviewer exhausted the local inference budget on weekly rounds. Keep every
+    # bounded document the proposer saw, while projecting the large numeric
+    # ledger to the facts needed for the decisions and watchlist review.
+    proposal = draft.get('proposal', draft) if isinstance(draft, dict) else draft
+    cited = set()
+    def collect_references(value):
+        if isinstance(value, dict):
+            for field in ('source_ids', 'evidence_ids'):
+                cited.update(value.get(field, []))
+            if 'source_id' in value:
+                cited.add(value['source_id'])
+            for child in value.values():
+                collect_references(child)
+        elif isinstance(value, list):
+            for child in value:
+                collect_references(child)
+    collect_references(proposal)
+    decision_symbols = {item.get('symbol') for item in proposal.get('decisions', [])
+                        if isinstance(item, dict)} if isinstance(proposal, dict) else set()
+    selected = set(cited)
+    # Common price, calendar and financial figures underpin prose across the
+    # entire watchlist, even where the draft omitted an explicit citation. Give
+    # the reviewer those facts so it can distinguish omission from invention.
+    for key, fact in facts.items():
+        if fact.get('symbol') in decision_symbols or not str(fact.get('metric', '')).startswith('analyst_'):
+            selected.add(key)
+    for row in research_view(data).values():
+        if not isinstance(row, dict):
+            continue
+        documents = row.get('source_documents', {})
+        if not isinstance(documents, dict):
+            continue
+        selected.update(documents)
+    if not decision_symbols:
+        selected = set(sources)  # Standalone claim and thesis reviews retain full evidence.
+    source_aliases = {f'S{index}': key for index, key in enumerate(sorted(selected), 1)}
     model_sources = {alias: {'source_id': alias, 'title': sources[key].get('title', ''),
                              'url': sources[key].get('url', ''), 'text': sources[key]['text'][:1800],
                              'scope': sources[key].get('scope', sources[key].get('source', ''))}
@@ -221,12 +258,14 @@ If a material assertion is unresolved, do not use supported; list the issue and 
         validate(report)
         report = copy.deepcopy(report)
         report = {key: report[key] for key in ('verdict', 'citations', 'issues', 'counterargument')}
-        selected = resolve_source_references(report['citations'],model_sources)
+        selected_citations = resolve_source_references(report['citations'],model_sources)
         report['citation_selections'] = [{'source_id': source_aliases[item['source_id']]}
-                                         for item in selected]
+                                         for item in selected_citations]
         report['citations'] = [{'source_id': source_aliases[item['source_id']], 'quote': item['quote']}
-                               for item in selected]
-        report['source_bundle_sha256'] = hashlib.sha256(json.dumps(sources,sort_keys=True).encode()).hexdigest()
+                               for item in selected_citations]
+        report['source_bundle_sha256'] = hashlib.sha256(json.dumps(
+            {key: sources[key] for key in selected}, sort_keys=True).encode()).hexdigest()
+        report['source_coverage'] = {'reviewed': len(selected), 'available': len(sources)}
     if not report or report['verdict']!='supported':
         raise ValueError('Semantic evidence review did not support the draft: '+(status if not report else json.dumps(report,ensure_ascii=False)))
     return report

@@ -28,6 +28,30 @@ def test_proposer_and_reviewer_have_identical_article_excerpts():
             claim_evidence.semantic_review({'reasoning': 'Fixture'}, rows, {}, '', '')
 
 
+def test_large_weekly_ledger_reviews_cited_facts_and_all_supplied_documents():
+    rows = {'MU': {'source_documents': {
+        'news:mu': {'symbol': 'MU', 'published_at': '2026-10-10', 'text': 'MU update', 'scope': 'news'}}},
+        'AMD': {'source_documents': {
+            f'news:amd:{day}': {'symbol': 'AMD', 'published_at': f'2026-10-{day:02}',
+                                'text': f'AMD update {day}', 'scope': 'news'}
+            for day in range(1, 10)}}}
+    facts = {f'fact:{index}': {'symbol': 'AMD', 'metric': f'analyst_metric-{index}',
+             'value': index, 'unit': 'USD', 'as_of': '2026-10-10', 'source': 'fixture'}
+             for index in range(1000)}
+    draft = {'proposal': {'decisions': [{'symbol': 'MU', 'source_ids': ['fact:5']}]}}
+    def inspect(*args, **kwargs):
+        supplied = json.loads(args[2])['sources']
+        values = [item['text'] for item in supplied.values()]
+        assert any('analyst_metric-5:' in value for value in values)
+        assert any('MU update' in value for value in values)
+        assert sum('AMD update' in value for value in values) == 8
+        assert len(supplied) == 10
+        return None, 'offline_stop'
+    with patch.object(reassess, 'call_llm', side_effect=inspect):
+        with pytest.raises(ValueError, match='offline_stop'):
+            claim_evidence.semantic_review(draft, rows, facts, '', '')
+
+
 def test_candidate_citation_outside_bounded_bundle_fails_before_inference():
     draft = {'proposal': {'analyst_review': {'earnings': {'source_ids': ['news:1']}}},
              'previous': {'citations': [{'source_id': 'news:old-context'}]}}
