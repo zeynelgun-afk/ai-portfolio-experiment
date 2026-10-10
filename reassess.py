@@ -234,6 +234,14 @@ def _call_llm(model, system, user, api_key, audit_sources=None, audit_scope=None
         if text is None:
             if not retryable or attempt == MAX_ATTEMPTS:
                 return None, "unparseable"
+            messages += [
+                {"role": "assistant", "content": "[Previous inference returned no usable structured response.]"},
+                {"role": "user", "content":
+                 "The previous inference was rejected. Return only one complete JSON object "
+                 "matching the required schema. Escape quotes inside string values; do not "
+                 "add explanations, markdown, extra fields or an alternative schema. "
+                 "Keep the supplied evidence and all validation requirements unchanged."},
+            ]
             delay = BACKOFF_BASE * (2 ** (attempt - 1))
             print(f"  waiting {delay:.0f}s before retrying ({attempt}/{MAX_ATTEMPTS})")
             sleep(delay)

@@ -29,11 +29,13 @@ def test_transport_uses_isolated_subscription_and_validates_schema():
     ([None], 0),
     ([[]], 0),
     ([123], 0),
+    ([{'type': 'system', 'subtype': 'init', 'model': 'gpt-6-astra'},
+      {'type': 'result', 'exit_code': 0, 'session_id': 'x', 'text': None}], 0),
     ([{'type': 'result', 'exit_code': 1}], 0),
     ([{'type': 'tool_use', 'name': 'terminal'}], 0),
     ([], 1),
     ([{'type': 'system', 'subtype': 'init', 'model': 'gpt-6-astra'},
-      {'type': 'result', 'exit_code': 0, 'session_id': 'x', 'text': '```json\n{}\n```'}], 0),
+      {'type': 'result', 'exit_code': 0, 'session_id': 'x', 'text': 'Explanation\n```json\n{}\n```'}], 0),
 ])
 def test_no_fallback_on_failure(events, code):
     import llm_transport as llm
@@ -69,6 +71,20 @@ def test_schema_rejection_never_returns_unvalidated_text():
     with patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0, '\n'.join(map(json.dumps, events)), '')):
         with pytest.raises(llm.InferenceError):
             llm.complete([], {'name': 'x', 'schema': {'type': 'object', 'properties': {'status': {'const': 'valid'}}}})
+
+
+def test_single_code_fence_is_only_a_wrapper_and_still_schema_validated():
+    import llm_transport as llm
+    schema = {'name': 'claim', 'schema': {'type': 'object', 'properties': {'status': {'const': 'valid'}}, 'required': ['status'], 'additionalProperties': False}}
+    events = [{'type': 'system', 'subtype': 'init', 'model': llm.MODEL},
+              {'type': 'result', 'exit_code': 0, 'session_id': 'x',
+               'text': '```json\n{"status":"valid"}\n```'}]
+    with patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0, '\n'.join(map(json.dumps, events)), '')):
+        assert json.loads(llm.complete([], schema)) == {'status': 'valid'}
+    events[-1]['text'] = '```json\n{"status":"invented"}\n```'
+    with patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0, '\n'.join(map(json.dumps, events)), '')):
+        with pytest.raises(llm.InferenceError):
+            llm.complete([], schema)
 
 
 def test_retired_provider_environment_cannot_change_subscription_route(monkeypatch):

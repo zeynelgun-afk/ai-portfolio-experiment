@@ -20,6 +20,8 @@ def test_invalid_structured_response_retries_same_subscription_bounded():
     assert call.call_count == 2
     sleep.assert_called_once()
     assert all(c.kwargs['response_schema'] == reviewers.AUDITOR_RESPONSE_SCHEMA for c in call.call_args_list)
+    correction = call.call_args_list[-1].args[0][-1]['content']
+    assert 'Escape quotes' in correction and 'evidence' in correction
 
 
 def test_persistent_bad_output_stops_without_decision():

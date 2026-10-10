@@ -69,12 +69,27 @@ def complete(messages, response_schema=None):
         final = finals[0]
         if final.get('exit_code') != 0 or final.get('error') or not final.get('session_id'):
             raise InferenceError('Hermes inference failed')
+        if not isinstance(final.get('text'), str):
+            raise InferenceError('Invalid Hermes response text')
+        # Accept a single JSON code fence as a serialization wrapper, never prose
+        # around a response. Schema/evidence checks still see the same full object.
+        raw = final['text'].strip()
+        if (raw.startswith('```json\n') and raw.endswith('\n```')
+                and raw.count('```') == 2):
+            raw = raw[len('```json\n'):-len('\n```')].strip()
         try:
-            payload = json.loads(final['text'])
-            if response_schema:
+            payload = json.loads(raw)
+        except json.JSONDecodeError as error:
+            raise InferenceError(
+                f'Invalid JSON at line {error.lineno}, column {error.colno}', retryable=True) from None
+        if response_schema:
+            try:
                 validate(payload, response_schema['schema'])
-        except (ValueError, TypeError, ValidationError):
-            raise InferenceError('Invalid structured response', retryable=True) from None
+            except ValidationError as error:
+                # Validator names are code-owned; never log the raw output or
+                # provider diagnostics, which may contain private information.
+                raise InferenceError('Structured response failed ' + str(error.validator),
+                                     retryable=True) from None
         return json.dumps(payload, ensure_ascii=False)
     except subprocess.TimeoutExpired:
         raise InferenceError('Inference timeout', retryable=True) from None
