@@ -82,14 +82,11 @@ CLAIMS AND OFFICIAL FILINGS:\n{json.dumps(available,ensure_ascii=False)}'''
 
 
 def _theme_model_json(prompt, api_key, model):
-    content = llm_transport.complete([{'role': 'system', 'content': policy()},
-                                      {'role': 'user', 'content': prompt}])
-    if content.startswith('```json'):content=content[7:]
-    elif content.startswith('```'):content=content[3:]
-    if content.endswith('```'):content=content[:-3]
-    parsed=json.loads(content.strip())
-    if not isinstance(parsed,dict):
-        raise ValueError('Theme model response must be a JSON object')
+    from reassess import call_llm
+    parsed, status = call_llm(model, 'Return the requested theme-research JSON object.',
+                              prompt, api_key)
+    if not isinstance(parsed, dict):
+        raise ValueError('Theme model response rejected: ' + status)
     return parsed
 
 
@@ -321,15 +318,12 @@ def get_fmp(endpoint, api_key, limit=20):
     except Exception as e:
         raise RuntimeError(f"Scout could not fetch FMP endpoint {endpoint}") from None
 
-def run_scout():
-    or_key = llm_transport.credential()
-
-    if not or_key:
-        raise RuntimeError("Missing API keys for Scout")
-
-    from discovery import collect
-    from datetime import datetime, timezone
-    discovery = collect()
+def select_symbols(discovery, credential):
+    """Bounded structured selection from measured feeds; no watchlist writes."""
+    from reassess import call_llm
+    available = sorted(discovery['membership'])
+    if len(available) < 15:
+        raise ValueError('Discovery provides fewer than fifteen candidates; no invented symbols')
     prompt = f"""You are the Alpha Scout Agent. Select 15-20 US stock candidates for deep research.
 Stay within the charter's US large-cap technology, semiconductor and AI infrastructure
 universe. Sector membership alone does not establish eligibility.
@@ -340,18 +334,39 @@ A price decline does not prove overreaction. Sector membership does not prove an
 bottleneck. Insider purchase data does not prove investment quality. These are research
 hypotheses to verify. Compare opportunity with counterevidence and avoid choosing only
 the largest recent gainers. Preserve the aggressive fundamental research mandate.
-Return ONLY a JSON array of 15 to 20 unique ticker symbols from the supplied universe.
+Return ONLY one JSON object: {{"symbols": [15 to 20 unique supplied ticker symbols]}}.
 DISCOVERY INPUTS:
 {json.dumps(discovery)}"""
 
+    schema = {'name': 'scout_selection', 'schema': {
+        'type': 'object', 'properties': {'symbols': {
+            'type': 'array', 'minItems': 15, 'maxItems': 20, 'uniqueItems': True,
+            'items': {'type': 'string', 'enum': available}}},
+        'required': ['symbols'], 'additionalProperties': False}}
+    def validate_selection(payload):
+        if not isinstance(payload, dict) or set(payload) != {'symbols'}:
+            raise ValueError('Scout must return exactly the symbols field')
+        validate_symbols(payload['symbols'])
+        if any(symbol not in discovery['membership'] for symbol in payload['symbols']):
+            raise ValueError('Scout selected a company without discovery evidence')
+    result, status = call_llm(llm_transport.MODEL,
+        'Select research candidates from measured discovery feeds. You cannot trade.',
+        prompt, credential, response_schema=schema, response_validator=validate_selection)
+    if result is None:
+        raise RuntimeError('Scout selection rejected after bounded corrections: ' + status)
+    return list(result['symbols'])
+
+
+def run_scout():
+    or_key = llm_transport.credential()
+    if not or_key:
+        raise RuntimeError("Missing API keys for Scout")
+    from discovery import collect
+    discovery = collect()
+    write_json(os.path.join(BASE_DIR, 'output/scout_input.json'), discovery)
     print("Asking LLM to hunt for dynamic watchlist...")
     try:
-        answer = llm_transport.complete([{'role': 'system', 'content': policy()},
-                                         {'role': 'user', 'content': prompt}])
-        new_symbols = validate_symbols(json.loads(answer.strip()))
-
-        if any(symbol not in discovery['membership'] for symbol in new_symbols):
-            raise ValueError('Scout selected a company without discovery evidence')
+        new_symbols = select_symbols(discovery, or_key)
         selected = list(new_symbols)
         # Must always include current portfolio!
         port_path = os.path.join(BASE_DIR, "portfolio.json")
@@ -378,6 +393,7 @@ DISCOVERY INPUTS:
         print(f"Scout Agent successfully generated dynamic pool: {len(new_symbols)} symbols.")
         print(new_symbols)
     except Exception as e:
+        print('Scout failure category: ' + type(e).__name__ + '; measured inputs preserved in output/scout_input.json')
         raise RuntimeError("Scout Agent failed; watchlist generation did not complete") from None
 
 if __name__ == "__main__":

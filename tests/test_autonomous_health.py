@@ -96,3 +96,27 @@ def test_auditor_selects_code_owned_quote_without_transcribing_quotes():
     payload['findings'][0]['evidence_id']='invented'
     with patch('reviewers.reassess.call_llm',return_value=(payload,'ok')):
         assert reviewers.run_auditor('local',prompt,'local') is None
+
+
+def test_scout_corrects_out_of_universe_selection_before_writing_any_state():
+    import scout
+    symbols=['T'+chr(65+i) for i in range(15)]
+    discovery={'membership':{s:['structural_universe'] for s in symbols},'channels':{}}
+    answers=[json.dumps({'symbols':symbols[:-1]+['FAKE']}),json.dumps({'symbols':symbols})]
+    with patch('llm_transport.complete',side_effect=answers) as infer:
+        with patch('scout.write_json') as write:
+            assert scout.select_symbols(discovery,'local')==symbols
+    assert infer.call_count==2
+    assert 'company without discovery evidence' in infer.call_args_list[-1].args[0][-1]['content']
+    write.assert_not_called()
+
+
+def test_scout_persistent_invalid_selection_never_becomes_watchlist():
+    import scout
+    symbols=['T'+chr(65+i) for i in range(15)]
+    with patch('llm_transport.complete',return_value=json.dumps({'symbols':['FAKE']*15})) as infer:
+        with patch('scout.write_json') as write:
+            with pytest.raises(RuntimeError,match='rejected'):
+                scout.select_symbols({'membership':dict.fromkeys(symbols,[])},'local')
+    assert infer.call_count==reassess.MAX_ATTEMPTS
+    write.assert_not_called()

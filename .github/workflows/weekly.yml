@@ -152,6 +152,7 @@ jobs:
         with:
           name: weekly-source-evidence
           path: |
+            output/scout_input.json
             output/weekly_evidence.json
             weekly_data.json
             state/theme_research_inbox.json
