@@ -2,12 +2,16 @@
   "commentary_stale": {
     "count": 8,
     "first_seen": "2026-09-28T07:28Z",
-    "last_seen": "2026-10-10T19:02Z"
+    "last_seen": "2026-10-10T19:02Z",
+    "proposal_kind": "artifact",
+    "proposed_at": "2026-10-10T19:30Z"
   },
   "concentration_unexamined": {
     "count": 7,
     "first_seen": "2026-10-10T13:39Z",
-    "last_seen": "2026-10-10T19:02Z"
+    "last_seen": "2026-10-10T19:02Z",
+    "proposal_kind": "artifact",
+    "proposed_at": "2026-10-10T19:31Z"
   },
   "label_action_mismatch": {
     "count": 1,
@@ -17,7 +21,9 @@
   "outcome_fitted_rationale": {
     "count": 8,
     "first_seen": "2026-09-28T07:28Z",
-    "last_seen": "2026-10-10T19:02Z"
+    "last_seen": "2026-10-10T19:02Z",
+    "proposal_kind": "artifact",
+    "proposed_at": "2026-10-10T19:31Z"
   },
   "threshold_miscalibrated": {
     "count": 2,
@@ -27,6 +33,8 @@
   "unsourced_reasoning": {
     "count": 8,
     "first_seen": "2026-09-28T07:28Z",
-    "last_seen": "2026-10-10T19:02Z"
+    "last_seen": "2026-10-10T19:02Z",
+    "proposal_kind": "artifact",
+    "proposed_at": "2026-10-10T19:31Z"
   }
 }
