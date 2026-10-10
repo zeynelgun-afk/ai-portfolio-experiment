@@ -13,6 +13,8 @@ from jsonschema import validate, ValidationError
 
 MODEL = 'gpt-6-astra'
 TIMEOUT = 180
+LARGE_CONTEXT_TIMEOUT = 600
+LARGE_CONTEXT_BYTES = 100_000
 
 
 class InferenceError(RuntimeError):
@@ -35,11 +37,16 @@ def complete(messages, response_schema=None):
               + json.dumps(messages, ensure_ascii=False))
     if response_schema:
         prompt += '\nREQUIRED JSON SCHEMA:\n' + json.dumps(response_schema['schema'])
+    # Full weekly research includes every measured issuer and source ledger.
+    # Live rounds exhausted three short budgets before producing a response.
+    # Retain that evidence, but keep both CLI and process deadlines bounded.
+    timeout = (LARGE_CONTEXT_TIMEOUT if len(prompt.encode('utf-8')) >= LARGE_CONTEXT_BYTES
+               else TIMEOUT)
     command = [os.environ.get('HERMES_BIN', 'hermes'), 'chat', '--query-file', '-',
                '--oneshot', '--format', 'stream-json', '--safe-mode',
                '--provider', 'openai-codex', '--model', MODEL,
                '--toolsets', 'none', '--max-turns', '1',
-               '--run-budget', str(TIMEOUT), '--source', 'tool']
+               '--run-budget', str(timeout), '--source', 'tool']
     # Do not pass data/Telegram/GitHub keys to the inference subprocess. Hermes
     # resolves the existing local OAuth connection itself. Safe mode ignores
     # config, fallback chains, rules, memory, plugins and MCP.
@@ -49,7 +56,7 @@ def complete(messages, response_schema=None):
     try:
         with tempfile.TemporaryDirectory(prefix='portfolio-inference-') as cwd:
             result = subprocess.run(command, input=prompt, text=True, capture_output=True,
-                                    timeout=TIMEOUT + 15, cwd=cwd, env=child_env)
+                                    timeout=timeout + 15, cwd=cwd, env=child_env)
         if result.returncode:
             raise InferenceError('Hermes process failed')
         events = []

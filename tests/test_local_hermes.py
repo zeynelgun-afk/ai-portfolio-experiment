@@ -45,6 +45,20 @@ def test_no_fallback_on_failure(events, code):
     assert run.call_count == 1
 
 
+def test_large_research_has_bounded_matching_cli_and_process_deadlines():
+    import llm_transport as llm
+    with patch('subprocess.run', side_effect=subprocess.TimeoutExpired('hermes', 615)) as run:
+        with pytest.raises(llm.InferenceError, match='Inference timeout') as error:
+            llm.complete([{'role': 'user', 'content': 'measured source ' * 20_000}])
+    assert error.value.retryable
+    argv = run.call_args.args[0]
+    assert argv[argv.index('--run-budget') + 1] == '600'
+    assert run.call_args.kwargs['timeout'] == 615
+    assert run.call_count == 1
+    assert 'measured source ' * 20_000 in run.call_args.kwargs['input']
+    assert '--toolsets' in argv and 'none' in argv
+
+
 def test_reassess_routes_locally_without_http_or_secret():
     import reassess
     with patch('llm_transport.complete', return_value='{"status":"valid"}') as local, patch('urllib.request.urlopen', side_effect=AssertionError('paid network forbidden')):
