@@ -255,7 +255,7 @@
     "weekly.yml": {
       "since": "2026-10-03T06:00:00+00:00",
       "attempts": 0,
-      "alerted": "2026-10-11T01:24:45.924573+00:00",
+      "alerted": "2026-10-12T01:54:59.459573+00:00",
       "last_failure": {
         "id": 38078110671,
         "name": "Weekly Portfolio Round",
@@ -488,11 +488,11 @@
         "run_id": 38078110671,
         "run_attempt": 1,
         "since": "2026-10-03T06:00:00+00:00",
-        "due_since": "2026-10-10T06:00:00+00:00",
+        "due_since": null,
         "repair_eligible": false,
-        "reason": "historical_rerun_disabled",
+        "reason": "outside_due_window",
         "verification": "pending_production",
-        "observation_id": "865e8b92f6fb6293825acfea25f1010dabc846f9edf5f3794c8caf2a5533001a"
+        "observation_id": "789a4a6c78ea145aed3cbcd7bf8193cf8540b919d2230d29a937d1dd70b9eacc"
       },
       "acknowledgement": {
         "observation_id": "041b077c8d5d6dddc580862aaf1e7a569b81d4d49323552c2be0127c8c55dd91",
@@ -502,10 +502,10 @@
         "operator": "Hermes (user-authorized incident repair)",
         "acknowledged_at": "2026-10-05T06:28:39.390752+00:00"
       },
-      "alerted_observation_id": "865e8b92f6fb6293825acfea25f1010dabc846f9edf5f3794c8caf2a5533001a"
+      "alerted_observation_id": "789a4a6c78ea145aed3cbcd7bf8193cf8540b919d2230d29a937d1dd70b9eacc"
     }
   },
   "daily_repairs": {},
-  "last_check": "2026-10-11T01:24:45.924573+00:00",
+  "last_check": "2026-10-12T01:54:59.459573+00:00",
   "monitoring_started_at": "2026-09-28T11:55:48.640293+00:00"
 }
