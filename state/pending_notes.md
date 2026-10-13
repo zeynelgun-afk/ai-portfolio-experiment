@@ -532,3 +532,45 @@ The Saturday round reassesses this decision.
 **The model's reasoning:** The review deadline requires reassessment, not an automatic trade. The dated financial measurements support profitable growth and positive cash generation, and the last supplied price is above the retained downside review floor. These observations support retaining exposure, but neither establish current closing support nor justify adding without valuation and financial-trend verification. Contractor misconduct is a distribution-risk consideration, not demonstrated issuer loss. Apparent analyst target reductions have incomplete coverage and attribution concerns and do not independently establish a sell thesis. The unsupported sequential deterioration rationale is removed; the position and existing stop remain unchanged.
 
 The Saturday round reassesses this decision.
+
+## 2026-10-13T02:35Z · MU · THESIS LEVEL
+
+**Trigger:** N4.text reports customer agreements with binding commitments, cash deposits and contractual price floors, alongside results above guidance and expected sequential growth. If accurate, these arrangements would improve revenue visibility and limit pricing downside, directionally supporting MU-1's operating-strength inference and MU-2's earnings-resilience inference. This is secondary-source support, not independent verification of the underlying contracts, guidance or financial statements.; Decision review deadline reached: 2026-10-12T19:30:00+00:00
+
+**Thesis assessment:** The retention thesis remains supported but incompletely verified. DATED FUNDAMENTAL EVIDENCE.facts shows historical profitability, positive free cash flow and net cash; it does not measure current operating conditions. Seeking Alpha's 'Micron: More For Longer' adds secondary-source support for binding customer commitments, deposits and contractual price floors. I therefore replace the previous absence of contract evidence with qualified secondary-source support, not verified contract durability. Underlying cancellation terms, enforceability and current labor conditions remain unknown. The Motley Fool excerpt reports planned manufacturing investment, creating a potential future cash-flow burden whose timing and funding are unknown. The expired review deadline has been explicitly reassessed; neither news excerpt establishes a breach of the retained financial conditions.
+
+**Intraday decision:** HOLD · reasoning: Retain the existing exposure because DATED FUNDAMENTAL EVIDENCE.facts supports financial resilience and 'Micron: More For Longer' strengthens, rather than contradicts, the operating thesis. Do not add on the excerpt alone: contract enforceability remains unknown, the Motley Fool manufacturing-investment report raises an unresolved cash-demand risk, and supplied valuation evidence does not establish an attractive margin of safety. CURRENT DATA identifies the quote as stale, so it is not a current execution measurement. Missing primary evidence is not grounds by itself to declare the thesis invalid or sell.
+**Falsifier:** A freshly measured price below the retained downside review floor referenced by the monitoring falsifier would invalidate my tolerance for continuing this HOLD unchanged and require reassessment; it would not independently prove deterioration in the business.
+
+**Note for the Saturday round:** Seek primary documentation for the customer protections reported in 'Micron: More For Longer', including cancellation terms, enforceability and deposits. Reconcile the manufacturing-investment report with spending schedules, funding and updated cash-flow statements. DATED FUNDAMENTAL EVIDENCE lists management guidance as unavailable and filing footnotes as not ingested. Reconcile CURRENT DATA.earnings date with POSITION.next earnings before treating either as a verified catalyst calendar. Current labor conditions remain unknown.
+
+## 2026-10-13T02:35Z · NVDA · THESIS LEVEL
+
+**Trigger:** Decision review deadline reached: 2026-10-10T12:00:00+00:00
+
+**Thesis assessment:** The supplied review_deadline trigger requires reassessment rather than an automatic trade. Dated NVDA.revenue_yoy_pct, NVDA.gross_margin_pct, NVDA.operating_margin_pct and NVDA.quarter_free_cash_flow support profitable growth and positive cash generation, not proof of attractive valuation or future returns. CURRENT DATA identifies the price as stale, so fresh closing confirmation remains unavailable. The financial claim remains valid on this narrower dated basis and the technical claims remain weakened. I remove the rejected draft's assertion about a separate weekly-close stop from the falsifier; this decision relies only on the retained executable downside review condition and makes no claim about a separate stop's execution rules.
+
+**Intraday decision:** HOLD · reasoning: Retain the position without adding. NVDA.revenue_yoy_pct, NVDA.gross_margin_pct, NVDA.operating_margin_pct and NVDA.quarter_free_cash_flow exceed the retained fundamental review thresholds. NVDA.price exceeds the retained downside review floor, but CURRENT DATA labels that measurement stale. The deadline trigger supplies no new business contradiction. Apparent target reductions in the supplied analyst documents are counterevidence, but unknown reasons, missing intermediate observations and the Wells Fargo record's Morgan Stanley headline limit their reliability. Dated operating strength supports ownership; absent valuation evidence and fresh technical confirmation do not support adding.
+**Falsifier:** A freshly measured price below the retained downside review floor would contradict the technical resilience supporting this HOLD and require immediate whole-thesis reassessment. This is the thesis-severity price condition referenced in monitoring, not an assertion about any other execution rule.
+
+**Note for the Saturday round:** Obtain fresh closing measurements, independently verified earnings timing, original analyst reports and valuation evidence. Reconcile comparative financial statements before relying on sequential cash-flow or debt conclusions. Previous issuer-news commentary is not current corroboration. Explicitly reassess if these gaps persist at the next checkpoint.
+
+## 2026-10-13T02:45Z · MU · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Retain the existing exposure because DATED FUNDAMENTAL EVIDENCE.facts supports financial resilience and 'Micron: More For Longer' strengthens, rather than contradicts, the operating thesis. Do not add on the excerpt alone: contract enforceability remains unknown, the Motley Fool manufacturing-investment report raises an unresolved cash-demand risk, and supplied valuation evidence does not establish an attractive margin of safety. CURRENT DATA identifies the quote as stale, so it is not a current execution measurement. Missing primary evidence is not grounds by itself to declare the thesis invalid or sell.
+
+The Saturday round reassesses this decision.
+
+## 2026-10-13T02:45Z · NVDA · DECISION NOT EXECUTED
+
+**Proposed action:** HOLD
+
+**Why it was not executed:** the decision is HOLD — nothing to execute
+
+**The model's reasoning:** Retain the position without adding. NVDA.revenue_yoy_pct, NVDA.gross_margin_pct, NVDA.operating_margin_pct and NVDA.quarter_free_cash_flow exceed the retained fundamental review thresholds. NVDA.price exceeds the retained downside review floor, but CURRENT DATA labels that measurement stale. The deadline trigger supplies no new business contradiction. Apparent target reductions in the supplied analyst documents are counterevidence, but unknown reasons, missing intermediate observations and the Wells Fargo record's Morgan Stanley headline limit their reliability. Dated operating strength supports ownership; absent valuation evidence and fresh technical confirmation do not support adding.
+
+The Saturday round reassesses this decision.

@@ -4,8 +4,8 @@ Provider observations, not verified analyst reports. Targets are forecasts; revi
 
 | Symbol | Observed | Target revisions up/down firms (30d) | Target median | Revenue consensus revision (FY, 30d) | Revenue analyst count |
 |---|---|---:|---:|---:|---:|
-| AMD | 2026-10-10T00:49:40+00:00 | incomplete · 2 / 0 | 11.52% | unavailable | — |
-| ANET | 2026-10-10T00:49:40+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
+| AMD | 2026-10-13T02:34:12+00:00 | incomplete · 2 / 0 | 11.52% | unavailable | — |
+| ANET | 2026-10-13T02:34:12+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
 | AXON | 2026-10-10T19:07:53.536095+00:00 | ok · 0 / 0 | unavailable | unavailable | — |
 | AYI | 2026-10-10T19:07:55.047163+00:00 | ok · 0 / 2 | -10.76% | unavailable | — |
 | BAH | 2026-10-10T19:07:56.673632+00:00 | ok · 1 / 1 | 7.59% | unavailable | — |
@@ -18,8 +18,8 @@ Provider observations, not verified analyst reports. Targets are forecasts; revi
 | BRZE | 2026-10-10T19:08:07.944041+00:00 | incomplete · 0 / 0 | unavailable | unavailable | — |
 | CCI | 2026-10-10T19:08:10.761735+00:00 | ok · 0 / 1 | -19.05% | unavailable | — |
 | FSLY | 2026-10-10T19:08:19.923889+00:00 | incomplete · 3 / 0 | 38.89% | unavailable | — |
-| MU | 2026-10-10T00:49:40+00:00 | ok · 4 / 2 | 10.66% | unavailable | — |
-| NVDA | 2026-10-10T00:49:40+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
+| MU | 2026-10-13T02:34:12+00:00 | ok · 4 / 2 | 10.66% | unavailable | — |
+| NVDA | 2026-10-13T02:34:12+00:00 | incomplete · 0 / 2 | -28.33% | unavailable | — |
 | SO | 2026-10-10T19:08:28.017300+00:00 | ok · 0 / 0 | unavailable | unavailable | — |
 | SRE | 2026-10-10T19:08:29.652755+00:00 | ok · 0 / 0 | unavailable | unavailable | — |
 | TLN | 2026-10-10T19:08:31.144421+00:00 | incomplete · 1 / 0 | 2.19% | unavailable | — |
@@ -50,3 +50,9 @@ Revenue forecast changes compare the same fiscal-period FMP consensus between da
 Forward outcome records: [analyst_revision_performance.json](state/analyst_revision_performance.json).
 No baseline forecast history means unknown earnings support, not unchanged estimates.
 Earnings improvements are not required: reviews also examine company news, sector/theme attention and valuation. Attributed analyst reasons, contextual hypotheses and unknowns are stored separately.
+
+Prospective, selected-universe overlapping cohorts. Cost sensitivities subtract 0/25/50/100/250 bp round-trip from candidate returns; these are not measured execution costs. Net excess is compared with gross benchmark returns. Risk records path drawdown and annualized volatility. Consensus estimate events are not individual analyst votes, company guidance or causal proof. No predictive benefit is established. Baseline is next session close.
+
+Unique observed cohorts: 25
+Target-revision mature endpoints: 0
+Revenue-consensus revision events: 58; mature endpoints: 0

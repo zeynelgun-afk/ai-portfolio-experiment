@@ -8,13 +8,14 @@
       "at": "2026-10-10T19:02:36.892126+00:00",
       "baseline_rate": 0.1631578947368421,
       "recipe": "source_labels"
+    },
+    {
+      "action": "retain",
+      "at": "2026-10-13T02:45:25.419868+00:00",
+      "failure_rate": 0.10344827586206896,
+      "recipe": "source_labels"
     }
   ],
   "quarantined": [],
-  "trial": {
-    "baseline_rate": 0.1631578947368421,
-    "recipe": "source_labels",
-    "start_failures": 31,
-    "start_total": 190
-  }
+  "trial": null
 }

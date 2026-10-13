@@ -529,6 +529,801 @@
           "risk": null
         }
       ]
+    },
+    "3f2697bf0127484185a9ce9e": {
+      "symbol": "AXON",
+      "observed_at": "2026-10-10T19:07:53.536095+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:AXON:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "e3b108e227c59700874ae027": {
+      "symbol": "AYI",
+      "observed_at": "2026-10-10T19:07:55.047163+00:00",
+      "direction": "down",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:AYI:v2",
+      "window_30d": {
+        "breadth": -1.0,
+        "down_firms": 2,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 2,
+        "median_revision_pct": -10.761,
+        "target_dispersion_pct": 8.781127129750983,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "070acb009548f8dd6485cc85": {
+      "symbol": "BAH",
+      "observed_at": "2026-10-10T19:07:56.673632+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BAH:v2",
+      "window_30d": {
+        "breadth": 0.0,
+        "down_firms": 1,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 2,
+        "median_revision_pct": 7.5893,
+        "target_dispersion_pct": 6.25,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 1
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "9f7d77c9f4b39248e1e09ff2": {
+      "symbol": "BDC",
+      "observed_at": "2026-10-10T19:07:58.268341+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BDC:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 1,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "e76a8cbd6b28a28a65361b0d": {
+      "symbol": "BELFB",
+      "observed_at": "2026-10-10T19:07:59.851324+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BELFB:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "e3eea175c3fc17ee33ef08b9": {
+      "symbol": "BHE",
+      "observed_at": "2026-10-10T19:08:01.491109+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BHE:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "06de1a6cc9afeb3d7f619339": {
+      "symbol": "BILL",
+      "observed_at": "2026-10-10T19:08:03.028815+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BILL:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "dfbb1166f9df6037b0835690": {
+      "symbol": "BOX",
+      "observed_at": "2026-10-10T19:08:04.564659+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BOX:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "3204d8375decf433d6b34862": {
+      "symbol": "BR",
+      "observed_at": "2026-10-10T19:08:06.013045+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:BR:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "994beb8fd4fe14e434078d00": {
+      "symbol": "BRZE",
+      "observed_at": "2026-10-10T19:08:07.944041+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-10-10:BRZE:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "30e2732134dcdeedb2dc28c9": {
+      "symbol": "CCI",
+      "observed_at": "2026-10-10T19:08:10.761735+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:CCI:v2",
+      "window_30d": {
+        "breadth": -1.0,
+        "down_firms": 1,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 1,
+        "median_revision_pct": -19.0476,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "c51cad1540ab616fd64cfb5c": {
+      "symbol": "FSLY",
+      "observed_at": "2026-10-10T19:08:19.923889+00:00",
+      "direction": "up",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-10-10:FSLY:v2",
+      "window_30d": {
+        "breadth": 1.0,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 3,
+        "median_revision_pct": 38.8889,
+        "target_dispersion_pct": 16.934487281997416,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "up_firms": 3
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "1bb2d97c9a7bc9df717b3309": {
+      "symbol": "SO",
+      "observed_at": "2026-10-10T19:08:28.017300+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:SO:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "21ffc39ceba28b2f78280c1d": {
+      "symbol": "SRE",
+      "observed_at": "2026-10-10T19:08:29.652755+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "ok",
+      "observation_key": "2026-10-10:SRE:v2",
+      "window_30d": {
+        "breadth": null,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 0,
+        "median_revision_pct": null,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 1,
+        "up_firms": 0
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "86860788fba930b639548fc5": {
+      "symbol": "TLN",
+      "observed_at": "2026-10-10T19:08:31.144421+00:00",
+      "direction": "mixed_or_insufficient",
+      "coverage_status": "incomplete",
+      "observation_key": "2026-10-10:TLN:v2",
+      "window_30d": {
+        "breadth": 1.0,
+        "down_firms": 0,
+        "initiated_or_resumed_firms": 0,
+        "matched_firms": 1,
+        "median_revision_pct": 2.1869,
+        "target_dispersion_pct": null,
+        "unchanged_firms": 0,
+        "unpaired_firms": 0,
+        "up_firms": 1
+      },
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-12",
+          "end_date": "2026-11-09",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-01-07",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-12",
+          "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
     }
   },
   "revenue_consensus_revision_cohorts": {
@@ -2915,6 +3710,282 @@
           "horizon_sessions": 120,
           "baseline_date": "2026-10-12",
           "end_date": "2027-04-06",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "af143513200bfd8930b03819": {
+      "symbol": "ANET",
+      "fiscal_period": "2026-12-31",
+      "observed_at": "2026-10-13T02:34:12+00:00",
+      "previous_observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_consensus_revenue": 12669908357.0,
+      "current_consensus_revenue": 12684368905.0,
+      "revision_pct": 0.11413301179886348,
+      "analyst_count_previous": 21.0,
+      "analyst_count_current": 21.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-14",
+          "end_date": "2026-11-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-01-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-04-08",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "646bd929d7c25d93b405f924": {
+      "symbol": "ANET",
+      "fiscal_period": "2027-12-31",
+      "observed_at": "2026-10-13T02:34:12+00:00",
+      "previous_observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_consensus_revenue": 16515317280.0,
+      "current_consensus_revenue": 16570885959.0,
+      "revision_pct": 0.33646752319613926,
+      "analyst_count_previous": 22.0,
+      "analyst_count_current": 22.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-14",
+          "end_date": "2026-11-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-01-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-04-08",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "3392223cf5cc16c9a4e3839d": {
+      "symbol": "ANET",
+      "fiscal_period": "2028-12-31",
+      "observed_at": "2026-10-13T02:34:12+00:00",
+      "previous_observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_consensus_revenue": 20496208080.0,
+      "current_consensus_revenue": 20610754307.0,
+      "revision_pct": 0.5588654572246127,
+      "analyst_count_previous": 22.0,
+      "analyst_count_current": 22.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-14",
+          "end_date": "2026-11-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-01-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-04-08",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "0074d7b995af05e2e3fceaaa": {
+      "symbol": "MU",
+      "fiscal_period": "2027-09-03",
+      "observed_at": "2026-10-13T02:34:12+00:00",
+      "previous_observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_consensus_revenue": 276332299005.0,
+      "current_consensus_revenue": 277308458552.0,
+      "revision_pct": 0.3532556818420771,
+      "analyst_count_previous": 31.0,
+      "analyst_count_current": 31.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-14",
+          "end_date": "2026-11-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-01-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-04-08",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "7d069b9346e13dcddc89e494": {
+      "symbol": "MU",
+      "fiscal_period": "2028-09-03",
+      "observed_at": "2026-10-13T02:34:12+00:00",
+      "previous_observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_consensus_revenue": 325388531858.0,
+      "current_consensus_revenue": 326322918561.0,
+      "revision_pct": 0.2871603057626406,
+      "analyst_count_previous": 29.0,
+      "analyst_count_current": 29.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-14",
+          "end_date": "2026-11-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-01-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-04-08",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        }
+      ]
+    },
+    "c0ed34fba65fa9e327aad343": {
+      "symbol": "MU",
+      "fiscal_period": "2029-09-03",
+      "observed_at": "2026-10-13T02:34:12+00:00",
+      "previous_observed_at": "2026-10-10T00:49:40+00:00",
+      "previous_consensus_revenue": 330119077002.0,
+      "current_consensus_revenue": 332659064168.0,
+      "revision_pct": 0.7694154451984645,
+      "analyst_count_previous": 15.0,
+      "analyst_count_current": 16.0,
+      "results": [
+        {
+          "horizon_sessions": 20,
+          "baseline_date": "2026-10-14",
+          "end_date": "2026-11-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 60,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-01-11",
+          "status": "pending",
+          "return_pct": null,
+          "net_return_scenarios_pct": {},
+          "excess_spy_pp": null,
+          "net_excess_spy_vs_gross_benchmark_pp": {},
+          "risk": null
+        },
+        {
+          "horizon_sessions": 120,
+          "baseline_date": "2026-10-14",
+          "end_date": "2027-04-08",
           "status": "pending",
           "return_pct": null,
           "net_return_scenarios_pct": {},
