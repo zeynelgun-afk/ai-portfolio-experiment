@@ -3,27 +3,27 @@
     "detector.yml": {
       "since": "2026-09-28T21:15:00+00:00",
       "attempts": 0,
-      "alerted": "2026-10-13T03:16:11.568173+00:00",
+      "alerted": "2026-10-14T01:29:06.169742+00:00",
       "last_failure": {
-        "id": 38337476446,
+        "id": 38489272453,
         "name": "Intraday Detector",
-        "node_id": "WFR_kwLOTuXhHs8AAAAI7Rd3Xg",
+        "node_id": "WFR_kwLOTuXhHs8AAAAI9iOwhQ",
         "head_branch": "main",
-        "head_sha": "91f695f7fc70f5173e8a4be14bf7d8fa2f89bcfc",
+        "head_sha": "4d27b2d4daf2a3a3557ebc124286408b67b84718",
         "path": ".github/workflows/detector.yml",
         "display_title": "Intraday Detector",
-        "run_number": 63,
+        "run_number": 68,
         "event": "schedule",
         "status": "completed",
         "conclusion": "failure",
         "workflow_id": 368608046,
-        "check_suite_id": 103870611510,
-        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAYLyvANg",
-        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446",
-        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446",
+        "check_suite_id": 104293538362,
+        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAYSGEaOg",
+        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453",
+        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453",
         "pull_requests": [],
-        "created_at": "2026-10-13T02:33:54Z",
-        "updated_at": "2026-10-13T02:46:17Z",
+        "created_at": "2026-10-14T00:17:03Z",
+        "updated_at": "2026-10-14T00:17:15Z",
         "actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -47,7 +47,7 @@
         },
         "run_attempt": 1,
         "referenced_workflows": [],
-        "run_started_at": "2026-10-13T02:33:54Z",
+        "run_started_at": "2026-10-14T00:17:03Z",
         "triggering_actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -69,19 +69,19 @@
           "user_view_type": "public",
           "site_admin": false
         },
-        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446/jobs",
-        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446/logs",
-        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/103870611510",
-        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446/artifacts",
-        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446/cancel",
-        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38337476446/rerun",
+        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/jobs",
+        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/logs",
+        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/104293538362",
+        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/artifacts",
+        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/cancel",
+        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/rerun",
         "previous_attempt_url": null,
         "workflow_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/workflows/368608046",
         "head_commit": {
-          "id": "91f695f7fc70f5173e8a4be14bf7d8fa2f89bcfc",
-          "tree_id": "34251a7a715956a0a291fdc8dbb09827e956e3d1",
-          "message": "Preserve prompt proposal tracking from completed weekly research",
-          "timestamp": "2026-10-10T19:33:31Z",
+          "id": "4d27b2d4daf2a3a3557ebc124286408b67b84718",
+          "tree_id": "c820d51dc9cda6e823ff32d52fe8c8a0318bd399",
+          "message": "[bot/detector] intraday check (code 20)\n\nTrigger: MU news_shock: N4.text reports customer agreements with binding commitments, cash deposits and contractual price floors, alongside results above guidance and expected sequential growth. If accurate, these arrangements would improve revenue visibility and limit pricing downside, directionally supporting MU-1's operating-strength inference and MU-2's earnings-resilience inference. This is secondary-source support, not independent verification of the underlying contracts, guidance or financial statements.; MU decision_expired: Decision review deadline reached: 2026-10-12T19:30:00+00:00; NVDA decision_expired: Decision review deadline reached: 2026-10-10T12:00:00+00:00",
+          "timestamp": "2026-10-13T02:46:03Z",
           "author": {
             "name": "Finzora AI",
             "email": "finzora-bot@users.noreply.github.com"
@@ -232,15 +232,15 @@
         "workflow": "detector.yml",
         "status": "failed",
         "current_status": "failed",
-        "run_created_at": "2026-10-13T02:33:54Z",
-        "run_id": 38337476446,
+        "run_created_at": "2026-10-14T00:17:03Z",
+        "run_id": 38489272453,
         "run_attempt": 1,
         "since": "2026-09-28T21:15:00+00:00",
         "due_since": null,
         "repair_eligible": false,
         "reason": "outside_due_window",
         "verification": "pending_production",
-        "observation_id": "b259d8c4560b9d5ceb1cc5e441323406469157c853dc735e6a8417e26c8ae130"
+        "observation_id": "656869e8fb3f84e24afcbb29e56e94be481e1c58fd3da288e716366b12790988"
       },
       "acknowledgement": {
         "observation_id": "658b083c218de98982980e7b83e2e6d9690d37c5c168abfadc7fb3510e448c0a",
@@ -250,7 +250,7 @@
         "operator": "Hermes (user-authorized incident repair)",
         "acknowledged_at": "2026-10-05T06:28:39.390752+00:00"
       },
-      "alerted_observation_id": "b259d8c4560b9d5ceb1cc5e441323406469157c853dc735e6a8417e26c8ae130"
+      "alerted_observation_id": "656869e8fb3f84e24afcbb29e56e94be481e1c58fd3da288e716366b12790988"
     },
     "weekly.yml": {
       "since": "2026-10-03T06:00:00+00:00",
@@ -506,6 +506,6 @@
     }
   },
   "daily_repairs": {},
-  "last_check": "2026-10-13T03:16:11.568173+00:00",
+  "last_check": "2026-10-14T01:29:06.169742+00:00",
   "monitoring_started_at": "2026-09-28T11:55:48.640293+00:00"
 }
