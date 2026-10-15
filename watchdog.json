@@ -3,27 +3,27 @@
     "detector.yml": {
       "since": "2026-09-28T21:15:00+00:00",
       "attempts": 0,
-      "alerted": "2026-10-14T01:29:06.169742+00:00",
+      "alerted": "2026-10-15T01:05:31.828056+00:00",
       "last_failure": {
-        "id": 38489272453,
+        "id": 38656885344,
         "name": "Intraday Detector",
-        "node_id": "WFR_kwLOTuXhHs8AAAAI9iOwhQ",
+        "node_id": "WFR_kwLOTuXhHs8AAAAJACFCYA",
         "head_branch": "main",
         "head_sha": "4d27b2d4daf2a3a3557ebc124286408b67b84718",
         "path": ".github/workflows/detector.yml",
         "display_title": "Intraday Detector",
-        "run_number": 68,
+        "run_number": 74,
         "event": "schedule",
         "status": "completed",
         "conclusion": "failure",
         "workflow_id": 368608046,
-        "check_suite_id": 104293538362,
-        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAYSGEaOg",
-        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453",
-        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453",
+        "check_suite_id": 104754680300,
+        "check_suite_node_id": "CS_kwDOTuXhHs8AAAAYY92R7A",
+        "url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344",
+        "html_url": "https://github.com/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344",
         "pull_requests": [],
-        "created_at": "2026-10-14T00:17:03Z",
-        "updated_at": "2026-10-14T00:17:15Z",
+        "created_at": "2026-10-14T23:54:19Z",
+        "updated_at": "2026-10-14T23:54:31Z",
         "actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -47,7 +47,7 @@
         },
         "run_attempt": 1,
         "referenced_workflows": [],
-        "run_started_at": "2026-10-14T00:17:03Z",
+        "run_started_at": "2026-10-14T23:54:19Z",
         "triggering_actor": {
           "login": "zeynelgun-afk",
           "id": 252234746,
@@ -69,12 +69,12 @@
           "user_view_type": "public",
           "site_admin": false
         },
-        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/jobs",
-        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/logs",
-        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/104293538362",
-        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/artifacts",
-        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/cancel",
-        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38489272453/rerun",
+        "jobs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344/jobs",
+        "logs_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344/logs",
+        "check_suite_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/check-suites/104754680300",
+        "artifacts_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344/artifacts",
+        "cancel_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344/cancel",
+        "rerun_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/runs/38656885344/rerun",
         "previous_attempt_url": null,
         "workflow_url": "https://api.github.com/repos/zeynelgun-afk/ai-portfolio-experiment/actions/workflows/368608046",
         "head_commit": {
@@ -232,15 +232,15 @@
         "workflow": "detector.yml",
         "status": "failed",
         "current_status": "failed",
-        "run_created_at": "2026-10-14T00:17:03Z",
-        "run_id": 38489272453,
+        "run_created_at": "2026-10-14T23:54:19Z",
+        "run_id": 38656885344,
         "run_attempt": 1,
         "since": "2026-09-28T21:15:00+00:00",
         "due_since": null,
         "repair_eligible": false,
         "reason": "outside_due_window",
         "verification": "pending_production",
-        "observation_id": "656869e8fb3f84e24afcbb29e56e94be481e1c58fd3da288e716366b12790988"
+        "observation_id": "6bea5fa8708755cc2576292b72b615b6c5bea45fa4ca169a13747d6413829672"
       },
       "acknowledgement": {
         "observation_id": "658b083c218de98982980e7b83e2e6d9690d37c5c168abfadc7fb3510e448c0a",
@@ -250,7 +250,7 @@
         "operator": "Hermes (user-authorized incident repair)",
         "acknowledged_at": "2026-10-05T06:28:39.390752+00:00"
       },
-      "alerted_observation_id": "656869e8fb3f84e24afcbb29e56e94be481e1c58fd3da288e716366b12790988"
+      "alerted_observation_id": "6bea5fa8708755cc2576292b72b615b6c5bea45fa4ca169a13747d6413829672"
     },
     "weekly.yml": {
       "since": "2026-10-03T06:00:00+00:00",
@@ -506,6 +506,6 @@
     }
   },
   "daily_repairs": {},
-  "last_check": "2026-10-14T01:29:06.169742+00:00",
+  "last_check": "2026-10-15T01:05:31.828056+00:00",
   "monitoring_started_at": "2026-09-28T11:55:48.640293+00:00"
 }
